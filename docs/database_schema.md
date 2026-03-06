@@ -249,7 +249,7 @@ erDiagram
     TICKET ||--o{ TICKET_HISTORY : generates
     TICKET_PRIORITY ||--o| SLA_POLICY : defines
     TICKET_TEMPLATE ||--o{ TICKET : spawns
-
+```
 ### Detaillierte Entity Beschreibung (3NF & Enterprise Design)
 
 #### 1. Identity & Profile Context (Strikte 3NF)
