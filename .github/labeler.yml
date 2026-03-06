@@ -1,0 +1,35 @@
+# Area Labels
+"area:domain":
+  - changed-files:
+    - any-glob-to-any-file: 'src/TicketsPlease.Domain/**/*'
+
+"area:application":
+  - changed-files:
+    - any-glob-to-any-file: 'src/TicketsPlease.Application/**/*'
+
+"area:infrastructure":
+  - changed-files:
+    - any-glob-to-any-file: 'src/TicketsPlease.Infrastructure/**/*'
+
+"area:web":
+  - changed-files:
+    - any-glob-to-any-file: 'src/TicketsPlease.Web/**/*'
+
+"area:tests":
+  - changed-files:
+    - any-glob-to-any-file: 'tests/**/*'
+
+# Configuration Labels
+"area:github":
+  - changed-files:
+    - any-glob-to-any-file: '.github/**/*'
+
+"area:docs":
+  - changed-files:
+    - any-glob-to-any-file: 'docs/**/*'
+    - any-glob-to-any-file: '*.md'
+
+# Skill Labels
+"area:ai-skills":
+  - changed-files:
+    - any-glob-to-any-file: '.agent/**/*'
