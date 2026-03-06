@@ -159,8 +159,19 @@ Ein flüssiger Wechsel zwischen Dark-, Light- und System-Mode ist natives Projek
 
 Das System deckt den gesamten Lifecycle einer modernen, kollaborativen Enterprise-Ticketing-Lösung ab.
 
+### 🌐 Globalisierung & Lokalisierung (I18N)
+Die Applikation ist von Tag Eins an auf internationale Enterprise-Nutzung ausgelegt. Wir implementieren die nativen [ASP.NET Core Localization (I18N)](https://learn.microsoft.com/de-de/aspnet/core/fundamentals/localization) Features:
+*   **Ressourcen-Dateien (`.resx`):** Sämtliche UI-Texte, Fehlermeldungen und E-Mail-Templates werden nicht hardcodiert, sondern über zentralisierte Ressourcen verwaltet.
+*   **Request Localization Middleware:** Das System erkennt die bevorzugte Sprache des Nutzers (über den `Accept-Language` HTTP-Header oder ein explizites User-Profile Setting) und wechselt die UI-Sprache fließend (z.B. zwischen Deutsch und Englisch).
+*   **Zeitzonen & Währungen:** Alle `DateTimeOffset` Werte werden nutzerspezifisch gerendert, Währungen/Zahlenformate werden der Kultur des Betrachters angepasst.
+
 ### 🔐 Erweitertes Rollen & Rechte System (RBAC)
 Ein granulares, hierarchisches Berechtigungsobjekt-System steuert sämtliche Zugriffe:
+*   **Owner (Systemherr):** Voller Zugriff, darf Admins ernennen, globale Systemeinstellungen ändern, Rechnungsdaten einsehen.
+*   **Admin:** Globale Benutzerverwaltung, Projekt- und Team-Anlage, Konfiguration von Workflows.
+*   **Moderator (Mod):** Konfliktlösung, Ticket-Bereinigung, Spam-Prävention (falls öffentliche Tickets aktiv).
+*   **Teamlead:** Kann innerhalb *seines* Teams User hinzufügen/entfernen, Workloads einsehen und Rundmails an das Team versenden.
+*   **User:** Der Standard-Entwickler/Bearbeiter. Darf Tickets anlegen, bearbeiten, Subtickets erstellen und kommentieren.
 *   **Owner (Systemherr):** Voller Zugriff, darf Admins ernennen, globale Systemeinstellungen ändern, Rechnungsdaten einsehen.
 *   **Admin:** Globale Benutzerverwaltung, Projekt- und Team-Anlage, Konfiguration von Workflows.
 *   **Moderator (Mod):** Konfliktlösung, Ticket-Bereinigung, Spam-Prävention (falls öffentliche Tickets aktiv).
@@ -230,10 +241,19 @@ Wir verwenden **GitHub Actions**, um jegliche menschliche Fehler beim Deployment
     2.  Das Code-Formatting (Linting via `dotnet format`) von der `.editorconfig` abweicht.
     3.  Auch nur ein einziger Test fehlschlägt.
 
-### Extensive Dokumentation
+### 🔍 Statische Code-Analyse & Linter
+Wir verlassen uns nicht auf guten Willen, sondern auf harte Werkzeuge. Die in Rider und VS 2026 integrierten **Roslyn Analyzer** steuern die Code-Qualität in Echtzeit:
+*   Die Projektweite `.editorconfig` erzwingt Naming-Conventions (z.B. Interfaces *müssen* mit `I` beginnen, private Felder mit `_`).
+*   Regeln wie `IDE0005` (Unused Imports) sind auf `Error` oder `Warning` gestellt. Warnungen im Build werden im PR Review wie Fehler behandelt.
+*   Code-Smells werden von der IDE rot unterstrichen und in der CI-Pipeline geblockt.
+
+### Extensive Dokumentation & Architektur-Diagramme
 Dokumentation veraltet nicht, wenn sie automatisiert und systematischer Bestandteil des Workflows ist.
-*   **Self-Documenting Code:** Präzise, selbsterklärende Namensgebung (Variablen, Methoden) macht 80% aller Kommentare überflüssig. 
-*   **XML-Kommentare (JavaDoc Style):** Für alle öffentlichen Klassen, Interfaces (`IxyzService`) und komplexe Methoden nutzen wir zwingend die [C# XML-Dokumentationskommentare](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/documentation-comments). Dies generiert perfekten IntelliSense-Support.
+*   **Architektur-Graphen & Diagramme:** Wir nutzen Mermaid-Diagramme für alle komplexen Systeme. Diese finden sich gesammelt unter:
+    *   👉 **[System Architecture & Data-Flows (Big 5 UML)](docs/architecture_diagrams.md)**
+    *   👉 **[Datenbankschema & Entities (ERD 3NF)](docs/database_schema.md)**
+    *   👉 **[Projekt Gantt-Chart (IHK Roadmap)](docs/gantt_roadmap.md)**
+*   **Grafiken & Assets:** Wenn im Rahmen der Dokumentation oder des UI-Mockups echte Platzhalter-Bilder benötigt werden, nutzen wir vorerst [Placehold.co](https://placehold.co/) (Open Source SVG Platzhalter). Physisch benötigte Dokumentations-Grafiken werden im Ordner `/docs/assets/` versioniert abgelegt.
 *   **Architectural Decision Records (ADR):** Wir nutzen den Ordner `/docs/adr/`, um gravierende Architektur-Entscheidungen (Warum EF Core? Warum Tailwind?) historisch logisch festzuhalten.
 
 </details>
