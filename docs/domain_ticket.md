@@ -23,8 +23,12 @@ Eine vollständige Ausbaustufe eines Tickets umfasst:
     *   `EstimatedHours`: `decimal?` (Geschätzter Aufwand)
 *   **Time Tracking & Logs:** 
     *   Im Gegensatz zu einem simplen `LoggedHours` Feld, besitzt das Ticket eine Collection von `TimeLog` Objekten (`IReadOnlyList<TimeLog>`). Dies erfasst exakt, *welcher* User *wann* *wie lange* an dem Ticket gearbeitet hat.
+*   **Service Level Agreements (SLAs):**
+    *   Über die Priorität (`TicketPriority`) ist eine `SLA_POLICY` verknüpft, die feste `ResponseTimeHours` und `ResolutionTimeHours` vorschreibt. Die UI warnt den User optisch vor Ablauf dieser Deadlines.
 *   **Tags & Labels:**
     *   Eine Collection an Metadaten (`IReadOnlyList<Tag>`), um Tickets projektübergreifend zu filtern (z.B. `#frontend`, `#bug`).
+*   **Dateianhänge (Attachments):**
+    *   Eine Collection von `FileAsset` (`IReadOnlyList<FileAsset>`). Erlaubt den Upload von PDFs, Log-Files oder Screenshots (`DOMPurify` geprüft) direkt an das Ticket.
 *   **Assignees:**
     *   `AssignedUserId`: `Guid?` (Referenz zum bearbeitenden Nutzer)
     *   Fazit: Kann an eine Person oder ein ganzes `Team` delegiert werden (via Join-Table oder eigener Property).
