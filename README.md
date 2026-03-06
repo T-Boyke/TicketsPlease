@@ -181,6 +181,7 @@ Ein granulares, hierarchisches Berechtigungsobjekt-System steuert sämtliche Zug
 *   **User:** Der Standard-Entwickler/Bearbeiter. Darf Tickets anlegen, bearbeiten, Subtickets erstellen und kommentieren.
 
 ### 💬 Kollaboration & Kommunikation
+*   **Ticket-Kommentare:** Jedes Ticket besitzt einen dedizierten, chronologischen Kommentar-Thread. Teammitglieder können Lösungen diskutieren, Rückfragen stellen oder Assets anhängen.
 *   **Markdown & Mermaid Engine:** Überall, wo Text eingegeben wird (Ticket-Beschreibungen, Kommentare, Mails), wird vollständiges Markdown inklusive Mermaid.js (für Architekturdiagramme) gerendert.
 *   **Realtime Messaging System:** Nahtlose Integration von Direktnachrichten (1-to-1) und projektspezifischen Chat-Räumen für Teammitglieder (basierend auf SignalR/WebSockets).
 *   **Teamlead "Broadcast" Mails:** Teamleiter können offizielle Ankündigungen und Rundmails (formatiert in Markdown) direkt aus der Applikation an alle ihre Squad-Mitglieder senden.
@@ -198,6 +199,7 @@ Ein granulares, hierarchisches Berechtigungsobjekt-System steuert sämtliche Zug
 ### 🎫 Das Ticket-Core-Domain
 Das Herzstück der Applikation. Ein Ticket ist ein hochkomplexes Objekt mit folgenden Eigenschaften:
 *   **Stammdaten:** Eindeutige ID, Titel, ausführliche **Markdown-gestützte Beschreibung** (inkl. Mermaid-Graphen).
+*   **Community Voting (Upvotes):** Entwickler und Teams können über Tickets abstimmen (Upvoting). Dies hilft Produktmanagern automatisiert zu erkennen, welche Features oder Bugs der Community aktuell am wichtigsten sind.
 *   **Zeitmanagement:** Startdatum, Deadline, geschätzter Aufwand und geloggte Arbeitszeit.
 *   **Priorisierung:** Skala (z.B. Low, Medium, High, Blocker) mit entsprechenden farblichen Indikatoren.
 *   **Die "Chillischoten"-Metrik 🌶️:** Eine visuelle, einzigartige Aufwands- und Schwierigkeitsbewertung (1 bis 5 Chillischoten), die auf einen Blick die Komplexität verdeutlicht, ohne trockene Zahlen zu verwenden.

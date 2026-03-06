@@ -107,6 +107,12 @@ erDiagram
         Guid CreatorId FK
     }
 
+    TICKET_UPVOTE {
+        Guid TicketId PK, FK
+        Guid UserId PK, FK
+        datetime VotedAt
+    }
+
     %% --- Workflow / Kanban ---
     WORKFLOW_STATE {
         Guid Id PK
@@ -160,6 +166,10 @@ erDiagram
     USER |o--o{ TICKET_ASSIGNMENT : receives
     TEAM |o--o{ TICKET_ASSIGNMENT : receives
 
+    %% Upvoting
+    TICKET ||--o{ TICKET_UPVOTE : receives
+    USER ||--o{ TICKET_UPVOTE : casts
+
     %% Messaging
     USER ||--o{ MESSAGE : sends
     TICKET ||--o{ MESSAGE : contains_comments
@@ -187,6 +197,7 @@ Um die 3. Normalform (3NF) zu gewährleisten und das System maximal flexibel zu 
 *   **Ticket:** Das Kern-Aggregat. Unterstützt nun ausdrücklich `DescriptionMarkdown`.
 *   **TicketPriority:** Prioritäten wurden aus dem Enum-Status in eine eigene Entität ausgelagert (3NF), um Level und Farben dynamisch durch Admins definierbar zu machen.
 *   **TicketAssignment:** Eine eigene Tabelle (statt statischen FKs im Ticket-Table). Dies ermöglicht es, Historien zu pflegen ("Wer hatte das Ticket vorher?") und es simultan an User *und* Teams zu hängen.
+*   **TicketUpvote:** Community-Voting-System. Eine klassische n:m Tabelle, die regelt, dass ein User pro Ticket maximal einmal abstimmen (upvoten) darf.
 
 #### 5. Communication & Messaging Engine (Neu 🚀)
 Ein völlig neues Bounded Context für die interne Enterprise-Kommunikation.
