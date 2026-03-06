@@ -1,0 +1,34 @@
+name: "Manual System Tools"
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: 'Operation to perform'
+        required: true
+        default: 'verify'
+        type: choice
+        options:
+          - verify
+          - clean-cache
+          - rebuild-docs
+
+jobs:
+  tools:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Verification Build
+        if: ${{ github.event.inputs.operation == 'verify' }}
+        run: |
+          dotnet restore src/TicketsPlease.slnx
+          dotnet build src/TicketsPlease.slnx --configuration Release
+
+      - name: Clean Cache (Fake step for structure)
+        if: ${{ github.event.inputs.operation == 'clean-cache' }}
+        run: echo "Cleaning caches..."
+
+      - name: Rebuild Docs (Fake step for structure)
+        if: ${{ github.event.inputs.operation == 'rebuild-docs' }}
+        run: echo "Rebuilding documentation indexes..."

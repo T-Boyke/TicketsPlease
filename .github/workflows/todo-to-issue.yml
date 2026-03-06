@@ -1,0 +1,20 @@
+name: "TODO to Issue"
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  todo:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: "TODO to Issue"
+        uses: alstr/todo-to-issue-action@v5
+        with:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CLOSE_ISSUES: true
+          AUTO_P: true
