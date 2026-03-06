@@ -506,6 +506,19 @@ public class User : BaseEntity
 
 ### 3. Base Entity (Common)
 
-Alle Entitäten erben von `BaseEntity` (Domain Layer):
+Alle Entitäten erben von `BaseEntity` (Domain Layer). Zur Sicherstellung der Zukunftssicherheit (ADR-0021) enthält diese nun:
 *   `Guid Id` (Primary Key)
+*   `Guid TenantId` (Multi-Tenancy Discriminator)
+*   `bool IsDeleted` (Soft-Delete Flag)
+*   `DateTime? DeletedAt` (Soft-Delete Audit)
 *   `byte[] RowVersion` (Concurrency Token)
+
+---
+
+## Zukunftssicherheit & Erweiterbarkeit (Enterprise Hub)
+
+Zusätzlich zum relationalen Kern wurden folgende Konzepte für die Skalierung integriert:
+
+1.  **Mandantenfähigkeit (Multi-Tenancy):** Durch die `ORGANIZATION` Entität und die `TenantId` in jedem Datensatz können Daten physisch in einer DB bleiben, aber logisch strikt getrennt werden.
+2.  **Workflow Engine:** Die `WORKFLOW_TRANSITION` Tabelle erlaubt es, dynamische Business-Regeln zu hinterlegen, welche Status-Wechsel für welche Rollen zulässig sind.
+3.  **Custom Field Engine:** Über `CUSTOM_FIELD_DEFINITION` können pro Mandant unbegrenzt viele eigene Ticket-Felder definiert werden, ohne Code-Änderungen oder Migrationen.
