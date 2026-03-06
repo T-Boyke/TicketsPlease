@@ -6,6 +6,8 @@ Ein hochmodernes, kollaboratives und skalierbares Kanban-Ticketsystem, entwickel
 
 > 👉 **Projektphasen:** Da der Auftrag "Einfaches Ticketsystem" lautet, trennen wir strikt zwischen dem **[IHK MVP-Kern](docs/MVP_Roadmap.md)** und der späteren Enterprise-Ausbaustufe!
 
+> 🛠️ **Schnellstart:** Neu im Projekt? Folge der **[Einrichtungsanleitung für Dummies](docs/dev_setup_guide.md)**!
+
 ---
 
 <details>
