@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 Documentation
+    url: https://github.com/Tobia/TicketsPlease/tree/main/docs
+    about: Read the official documentation and ADRs.
+  - name: 💬 Discussions
+    url: https://github.com/Tobia/TicketsPlease/discussions
+    about: Ask questions and debate architecture.
