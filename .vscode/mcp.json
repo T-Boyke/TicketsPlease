@@ -1,0 +1,158 @@
+{
+    // 🤖 TicketsPlease MCP Server Konfiguration
+    // Docs: https://code.visualstudio.com/docs/copilot/chat/mcp-servers
+
+    "servers": {
+
+        // ═══════════════════════════════════════════════════════════
+        // 🎭 Playwright – E2E Browser Testing & Automation
+        // Für automatisierte User-Journeys (Kanban Drag&Drop, Login, etc.)
+        // Docs: https://playwright.dev/docs/mcp
+        // ═══════════════════════════════════════════════════════════
+        "playwright": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@playwright/mcp@latest"
+            ]
+        },
+
+        // ═══════════════════════════════════════════════════════════
+        // 🐙 GitHub – Issues, PRs, Repositories, Code Search
+        // Für Issue-Tracking, PR-Management und Code-Search
+        // Docs: https://github.com/github/github-mcp-server
+        // ═══════════════════════════════════════════════════════════
+        "github": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@anthropic-ai/github-mcp-server@latest"
+            ],
+            "env": {
+                "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_PERSONAL_ACCESS_TOKEN}"
+            }
+        },
+
+        // ═══════════════════════════════════════════════════════════
+        // 🌐 Fetch – URL Content Reader (Docs, APIs, NuGet)
+        // Für das Lesen von Microsoft Docs, NuGet-Paketen, etc.
+        // ═══════════════════════════════════════════════════════════
+        "fetch": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@anthropic-ai/fetch-mcp-server@latest"
+            ]
+        },
+
+        // ═══════════════════════════════════════════════════════════
+        // 📁 Filesystem – Erweiterter Dateizugriff
+        // Für Lesen/Schreiben von Dateien außerhalb des Workspaces
+        // ═══════════════════════════════════════════════════════════
+        "filesystem": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@anthropic-ai/filesystem-mcp-server@latest",
+                "d:/DEV/Tickets"
+            ]
+        },
+
+        // ═══════════════════════════════════════════════════════════
+        // 🧠 Memory – Persistent Knowledge Graph
+        // Für projektübergreifendes Wissen und Kontext-Speicherung
+        // ═══════════════════════════════════════════════════════════
+        "memory": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@anthropic-ai/memory-mcp-server@latest"
+            ]
+        },
+
+        // ═══════════════════════════════════════════════════════════
+        // 🔍 Sequential Thinking – Komplexe Problemlösung
+        // Für strukturiertes Denken bei Architektur-Entscheidungen
+        // ═══════════════════════════════════════════════════════════
+        "sequential-thinking": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@anthropic-ai/sequential-thinking-mcp-server@latest"
+            ]
+        },
+
+        // ═══════════════════════════════════════════════════════════
+        // 🗄️ MSSQL – SQL Server Datenbankzugriff
+        // Für direkte SQL-Abfragen, Schema-Inspektion, Migration-Tests
+        // Docs: https://github.com/microsoft/mssql-mcp-server
+        // ═══════════════════════════════════════════════════════════
+        "mssql": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@anthropic-ai/mssql-mcp-server@latest"
+            ],
+            "env": {
+                "MSSQL_CONNECTION_STRING": "Server=localhost;Database=TicketsPlease;Trusted_Connection=True;TrustServerCertificate=True;"
+            }
+        },
+
+        // ═══════════════════════════════════════════════════════════
+        // 🎨 TailwindCSS – Utility Classes, Docs & CSS Conversion
+        // Für Tailwind-Klassen-Lookup, CSS→Tailwind Konvertierung,
+        // Konfigurationshilfe und Docs-Suche
+        // Docs: https://www.npmjs.com/package/tailwindcss-mcp-server
+        // ═══════════════════════════════════════════════════════════
+        "tailwindcss": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "tailwindcss-mcp-server@latest"
+            ]
+        },
+
+        // ═══════════════════════════════════════════════════════════
+        // 🌸 Flowbite – Tailwind UI Component Library
+        // Für Zugriff auf Flowbite-Komponenten, Theme-Generator,
+        // und Design-to-Code (Tailwind-basierte UI-Bausteine)
+        // Docs: https://flowbite.com/docs/getting-started/mcp/
+        // ═══════════════════════════════════════════════════════════
+        "flowbite": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "flowbite-mcp@latest"
+            ]
+        },
+
+        // ═══════════════════════════════════════════════════════════
+        // 💻 PowerShell – Command Execution & System Automation
+        // Für PowerShell-Befehle, Skripte und Systemoperationen
+        // Behält Modul- und Variablen-State zwischen Aufrufen
+        // ═══════════════════════════════════════════════════════════
+        "powershell": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@anthropic-ai/powershell-mcp-server@latest"
+            ]
+        },
+
+        // ═══════════════════════════════════════════════════════════
+        // ⚡ .NET / C# – dotnet CLI Integration
+        // Für dotnet build, test, ef migrations, NuGet-Management
+        // Docs: https://devblogs.microsoft.com/dotnet/build-mcp-servers-with-dotnet/
+        // ═══════════════════════════════════════════════════════════
+        "dotnet": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@anthropic-ai/dotnet-mcp-server@latest"
+            ],
+            "env": {
+                "DOTNET_SOLUTION_PATH": "d:/DEV/Tickets/TicketsPlease.sln"
+            }
+        }
+    }
+}
