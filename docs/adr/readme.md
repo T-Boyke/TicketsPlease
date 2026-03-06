@@ -5,7 +5,7 @@ Dieses Verzeichnis enthält die Aufzeichnungen aller wesentlichen architektonisc
 ## Übersicht der Entscheidungen
 
 | ID | Titel | Status | Datum |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | [0001](0001-clean-architecture.md) | Clean Architecture (Onion) | Accepted | 2026-03-06 |
 | [0002](0002-technology-stack.md) | Technology Stack (C# 14 / .NET 10.3) | Accepted | 2026-03-06 |
 | [0003](0003-database-3nf.md) | Database Design (3rd Normal Form) | Accepted | 2026-03-06 |
@@ -27,6 +27,7 @@ Dieses Verzeichnis enthält die Aufzeichnungen aller wesentlichen architektonisc
 | [0019](0019-ef-core-resilience-concurrency.md) | EF Core Resilience & Concurrency | Accepted | 2026-03-06 |
 | [0020](0020-corporate-skinning-provider.md) | Corporate Skinning Architecture | Accepted | 2026-03-06 |
 | [0021](0021-database-future-proofing.md) | Database Future-Proofing (Enterprise Extensions) | Accepted | 2026-03-06 |
+| [0022](0022-github-custom-properties.md) | GitHub Custom Properties Governance | Accepted | 2026-03-07 |
 
 ---
 *Hinweis: Neue ADRs sollten basierend auf der [Template-Datei](template.md) erstellt werden.*
