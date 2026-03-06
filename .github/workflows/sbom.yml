@@ -1,0 +1,30 @@
+name: "Generate SBOM"
+
+on:
+  release:
+    types: [created]
+  workflow_dispatch:
+
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          artifact-name: sbom.spdx.json
+          output-format: spdx-json
+
+      - name: Upload SBOM to Release
+        if: github.event_name == 'release'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: sbom.spdx.json
+          asset_name: sbom.spdx.json
+          tag: ${{ github.ref }}
+          overwrite: true
