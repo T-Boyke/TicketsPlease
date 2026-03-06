@@ -11,11 +11,10 @@ Custom properties allow us to categorize and govern the `TicketsPlease` reposito
 
 | Property Name | Required | Type | Recommended Value | Description |
 | :--- | :---: | :--- | :--- | :--- |
-| `project_identifier` | Yes | Text | `BitLC-NE-2025-2026` | Unique ID for the exam/project context. |
-| `compliance_framework` | Yes | Multi-select | `IHK-Prüfung`, `Clean-Architecture` | Standards this project adheres to. |
-| `data_sensitivity` | Yes | Single-select | `Internal` | Classification of the ticket data handled. |
-| `environment_tier` | No | Single-select | `Production` | Deployment classification. |
-| `tech_stack` | No | Multi-select | `.NET 10.3`, `Tailwind 4.2` | Core technologies used. |
+| `repository_type` | Yes | Single-select | `backend` | Core architectural role. |
+| `production_state` | Yes | Single-select | `production` | Reliability/Maturity tier. |
+| `data_sensitivity` | Yes | Single-select | `internal` | Data protection classification. |
+| `ihk_compliance` | Yes | Boolean | `true` | Alignment with exam standards. |
 
 ## Automation Logic
 

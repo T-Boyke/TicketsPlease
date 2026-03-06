@@ -56,10 +56,10 @@ graph TD
 
 | Property | Type | Description | Values (Examples) |
 | :-- | :-- | :-- | :-- |
-| `compliance_framework` | Single Select | IHK or ISO standards. | `IHK-2025-26`, `None` |
-| `data_sensitivity` | Single Select | Sensitivity level of the data. | `Public`, `Internal`, `Confidential` |
-| `project_status` | Single Select | Lifecycle state. | `Discovery`, `MVP`, `Maintained` |
-| `owner_team` | Text | Primary responsible team. | `Core-Dev`, `Security-Ops` |
+| `repository_type` | Single Select | Architectural classification of the repo. | `frontend`, `backend`, `library`, `infrastructure` |
+| `production_state` | Single Select | Lifecycle and stability state. | `internal`, `beta`, `production`, `archived` |
+| `data_sensitivity` | Single Select | Data classification level. | `public`, `internal`, `confidential`, `restricted` |
+| `ihk_compliance` | Boolean | Whether IHK documentation standards apply. | `true`, `false` |
 
 ## Pros and Cons of the Options
 
