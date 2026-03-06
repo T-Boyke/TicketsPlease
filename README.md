@@ -65,17 +65,22 @@ Das System nutzt einen hochmodernen und perfekt aufeinander abgestimmten Stack:
     *   *(Exklusiver Support mit maßgeschneiderten `.editorconfig` und Plugin-Configs).*
 *   **Backend & Core (ASP.NET Core 10.3 / C# 14):** 
     *   [Offizielle C# Docs](https://learn.microsoft.com/en-us/dotnet/csharp/) | [ASP.NET Core Docs](https://learn.microsoft.com/en-us/aspnet/core/)
-    *   CQRS & Validation (MediatR, FluentValidation)
-    *   Resilience & Logging (Polly, Serilog)
+    *   **Resilience:** EF Core mit `EnableRetryOnFailure` und expliziten Transaktions-Strategien.
+    *   **Concurrency:** Optimistische Nebenläufigkeitskontrolle via `RowVersion` (Timestamp) in allen Entitäten.
+    *   **Validation:** CQRS & Validation (MediatR, FluentValidation).
+    *   **Async Policy:** Zwingende Nutzung von `CancellationToken` in allen asynchronen Calls.
     *   👉 **[Detaillierte Backend-Library & NuGet Strategie](docs/nuget_stack.md)**
 *   **Datenbank & ORM:** 
     *   [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/) (Code-First Approach)
+    *   **Performance:** Strikte `AsNoTracking()` Policy für reine Lesezugriffe.
     *   [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
     *   *Siehe detailliertes [Datenbankschema (ERD)](docs/database_schema.md)*
 *   **Frontend & User Interface (UI):**
-    *   Lokales **[TailwindCSS 4.2](https://tailwindcss.com/docs/installation)** für blitzschnelles Styling.
+    *   **No-Bootstrap Policy:** Das Projekt ist vollständig Bootstrap-frei für maximalen Control-Flow.
+    *   **TailwindCSS 4.2:** Integration via `TailwindCSS.MSBuild` (Zero-Node Dependency).
+    *   **Corporate Identity:** Dynamisches Theming über `ICorporateSkinProvider` und CSS-Variablen.
     *   Lokales **[FontAwesome 7.2](https://fontawesome.com/)** für skalierbare Vektor-Icons.
-    *   Paketverwaltung für alle statischen Client-Bibliotheken via **[LibMan](https://learn.microsoft.com/en-us/aspnet/core/client-side/libman/libman-vs)** (`libman.json`), komplett ohne externe CDNs für maximale Performance und DSGVO-Konformität.
+    *   Paketverwaltung via **[LibMan](https://learn.microsoft.com/en-us/aspnet/core/client-side/libman/libman-vs)** (`libman.json`), komplett ohne externe CDNs.
 *   **Architektur-Pattern:** 
     *   [Clean Architecture (Onion)](https://learn.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures#clean-architecture)
     *   [Domain-Driven Design (DDD)](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/)

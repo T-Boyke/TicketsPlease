@@ -22,6 +22,10 @@ Dieses Verzeichnis enthält die Aufzeichnungen aller wesentlichen architektonisc
 | [0014](0014-background-jobs-hangfire.md) | Background Scheduling (Hangfire) | Accepted | 2026-03-06 |
 | [0015](0015-api-documentation-scalar.md) | API Documentation (Scalar) | Accepted | 2026-03-06 |
 | [0016](0016-ticket-identification-audit.md) | Ticket Identification & Audit Trail | Accepted | 2026-03-06 |
+| [0017](0017-no-bootstrap-policy.md) | No-Bootstrap Policy | Accepted | 2026-03-06 |
+| [0018](0018-tailwind-msbuild-integration.md) | Tailwind CSS via MSBuild (Node-free) | Accepted | 2026-03-06 |
+| [0019](0019-ef-core-resilience-concurrency.md) | EF Core Resilience & Concurrency | Accepted | 2026-03-06 |
+| [0020](0020-corporate-skinning-provider.md) | Corporate Skinning Architecture | Accepted | 2026-03-06 |
 
 ---
 *Hinweis: Neue ADRs sollten basierend auf der [Template-Datei](template.md) erstellt werden.*

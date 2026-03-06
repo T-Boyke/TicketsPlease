@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    /* Default-Werte für Corporate Skinning */
+    --brand-primary: #3b82f6;
+    --brand-secondary: #1e40af;
+}
+
+@layer base {
+    body {
+        @apply bg-slate-50 text-slate-900 font-sans;
+    }
+}
+
+@layer components {
+    .btn-primary {
+        @apply bg-brand-primary text-white px-4 py-2 rounded-md hover:bg-brand-secondary transition-colors;
+    }
+}

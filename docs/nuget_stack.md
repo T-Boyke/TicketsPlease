@@ -31,6 +31,7 @@ Die Eintrittspforte des Nutzers.
 *   **`Scalar.AspNetCore`**: Die modernere Alternative zu Swagger/NSwag. Bietet eine wunderschöne, interaktive API-Dokumentation.
 *   **`Asp.Versioning.Mvc.ApiExplorer`**: Ermöglicht eine saubere Versionierung der REST-Endpunkte (`/v1/`, `/v2/`).
 *   **`Microsoft.EntityFrameworkCore.Design`**: Wird für Code-First EF Migrations (`dotnet ef migrations add`) benötigt.
+*   **`TailwindCSS.MSBuild`**: Integriert Tailwind CSS direkt in den C# Build-Prozess ohne lokale Node.js Installation (Node-free).
 
 ## 5. 🧪 Testing Projects
 Um die 100% Qualtity Gates in Github Actions zu erreichen:

@@ -1,2 +1,6 @@
 <Solution>
+  <Project Path="TicketsPlease.Domain/TicketsPlease.Domain.csproj" />
+  <Project Path="TicketsPlease.Application/TicketsPlease.Application.csproj" />
+  <Project Path="TicketsPlease.Infrastructure/TicketsPlease.Infrastructure.csproj" />
+  <Project Path="TicketsPlease.Web/TicketsPlease.Web.csproj" />
 </Solution>

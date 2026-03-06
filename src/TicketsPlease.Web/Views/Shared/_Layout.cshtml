@@ -1,49 +1,90 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using TicketsPlease.Application.Common.Interfaces
+@inject ICorporateSkinProvider SkinProvider
+
+<!DOCTYPE html>
+<html lang="de" class="h-full">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - TicketsPlease.Web</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <title>@ViewData["Title"] - TicketsPlease</title>
+
+    @* Tailwind CSS Output & Site Specific Styles *@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TicketsPlease.Web.styles.css" asp-append-version="true" />
+
+    @* FontAwesome 7.2 (Lokal via LibMan erwartet) *@
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+
+    @* Dynamisches Corporate Skinning via CSS-Variablen *@
+    <style>
+        :root {
+            --brand-primary: @SkinProvider.GetPrimaryColor();
+            --brand-secondary: @SkinProvider.GetSecondaryColor();
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TicketsPlease.Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+<body class="h-full bg-slate-50 text-slate-900 flex flex-col">
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    @* Logo Section *@
+                    <div class="flex-shrink-0 flex items-center">
+                        <a asp-controller="Home" asp-action="Index" class="text-2xl font-bold text-brand-primary">
+                            <i class="fa-solid fa-ticket-simple mr-2"></i>
+                            @SkinProvider.GetLogoName()
+                        </a>
+                    </div>
+
+                    @* Desktop Navigation *@
+                    <div class="hidden sm:ml-8 sm:flex sm:space-x-8">
+                        <a asp-controller="Home" asp-action="Index"
+                           class="inline-flex items-center px-1 pt-1 border-b-2 border-brand-primary text-sm font-medium text-slate-900">
+                            Dashboard
+                        </a>
+                        <a asp-controller="Tickets" asp-action="Index"
+                           class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700">
+                            Tickets
+                        </a>
+                        <a asp-controller="Teams" asp-action="Index"
+                           class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700">
+                            Teams
+                        </a>
+                    </div>
+                </div>
+
+                @* User Menu & Actions *@
+                <div class="flex items-center space-x-4">
+                    <button class="text-slate-500 hover:text-slate-700">
+                        <i class="fa-solid fa-bell text-xl"></i>
+                    </button>
+                    <div class="h-8 w-8 rounded-full bg-brand-primary flex items-center justify-center text-white font-bold">
+                        JD
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - TicketsPlease.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <main class="flex-grow">
+        <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center text-slate-500 text-sm">
+                <div>&copy; @DateTime.Now.Year - TicketsPlease - Modern Kanban</div>
+                <div class="space-x-4">
+                    <a asp-controller="Home" asp-action="Privacy" class="hover:underline">Datenschutz</a>
+                    <a href="#" class="hover:underline">Impressum</a>
+                </div>
+            </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

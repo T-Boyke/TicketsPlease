@@ -1,8 +1,111 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using TicketsPlease.Application.Common.Interfaces
+@inject ICorporateSkinProvider SkinProvider
+@{
+    ViewData["Title"] = "Willkommen";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="relative overflow-hidden bg-white">
+    @* Decorative background elements *@
+    <div class="hidden sm:absolute sm:inset-y-0 sm:h-full sm:w-full sm:block" aria-hidden="true">
+        <div class="relative h-full mx-auto max-w-7xl">
+            <svg class="absolute right-full translate-y-1/4 translate-x-1/4 lg:translate-x-1/2" width="404" height="784" fill="none" viewBox="0 0 404 784">
+                <defs>
+                    <pattern id="f210dbf6-a58d-4871-961e-36d5016a0f49" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <rect x="0" y="0" width="4" height="4" class="text-slate-200" fill="currentColor" />
+                    </pattern>
+                </defs>
+                <rect width="404" height="784" fill="url(#f210dbf6-a58d-4871-961e-36d5016a0f49)" />
+            </svg>
+        </div>
+    </div>
+
+    <div class="relative pt-6 pb-16 sm:pb-24">
+        <main class="px-4 mx-auto mt-16 max-w-7xl sm:mt-24">
+            <div class="text-center">
+                <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl md:text-6xl">
+                    <span class="block xl:inline">Kollaboratives Ticketsystem</span>
+                    <span class="block text-brand-primary xl:inline">für Enterprise Teams</span>
+                </h1>
+                <p class="max-w-md mx-auto mt-3 text-base text-slate-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+                    Verwalten Sie Ihre Projekte mit höchster Präzision. TicketsPlease kombiniert moderne Clean Architecture mit einer intuitiven Kanban-Erfahrung – sicher, skalierbar und mandantenfähig.
+                </p>
+                <div class="max-w-md mx-auto mt-5 sm:flex sm:justify-center md:mt-8">
+                    <div class="rounded-md shadow">
+                        <a href="#" class="flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white border border-transparent rounded-md bg-brand-primary hover:bg-brand-secondary md:py-4 md:text-lg md:px-10">
+                            Starten Sie jetzt
+                        </a>
+                    </div>
+                    <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
+                        <a href="#" class="flex items-center justify-center w-full px-8 py-3 text-base font-medium border border-transparent rounded-md text-brand-primary bg-white hover:bg-slate-50 md:py-4 md:text-lg md:px-10">
+                            Live Demo ansehen
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+@* Feature Section *@
+<div class="py-12 bg-slate-50">
+    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="lg:text-center">
+            <h2 class="text-base font-semibold tracking-wide uppercase text-brand-primary">Features</h2>
+            <p class="mt-2 text-3xl font-extrabold leading-8 tracking-tight text-slate-900 sm:text-4xl">
+                Alles was Sie für effizientes Projektmanagement benötigen
+            </p>
+        </div>
+
+        <div class="mt-10">
+            <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
+                <div class="relative">
+                    <dt>
+                        <div class="absolute flex items-center justify-center w-12 h-12 text-white rounded-md bg-brand-primary">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+                        <p class="ml-16 text-lg font-medium leading-6 text-slate-900">Clean Architecture</p>
+                    </dt>
+                    <dd class="mt-2 ml-16 text-base text-slate-500">
+                        Zukunftssicher durch strikte Trennung von Geschäftslogik und Infrastruktur.
+                    </dd>
+                </div>
+
+                <div class="relative">
+                    <dt>
+                        <div class="absolute flex items-center justify-center w-12 h-12 text-white rounded-md bg-brand-primary">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <p class="ml-16 text-lg font-medium leading-6 text-slate-900">Enterprise Security</p>
+                    </dt>
+                    <dd class="mt-2 ml-16 text-base text-slate-500">
+                        Datenintegrität durch Concurrency Checks und EF Core Resilience.
+                    </dd>
+                </div>
+
+                <div class="relative">
+                    <dt>
+                        <div class="absolute flex items-center justify-center w-12 h-12 text-white rounded-md bg-brand-primary">
+                            <i class="fa-solid fa-palette"></i>
+                        </div>
+                        <p class="ml-16 text-lg font-medium leading-6 text-slate-900">Custom Branding</p>
+                    </dt>
+                    <dd class="mt-2 ml-16 text-base text-slate-500">
+                        Individuelles Theming pro Mandant über den Corporate Skin Provider.
+                    </dd>
+                </div>
+
+                <div class="relative">
+                    <dt>
+                        <div class="absolute flex items-center justify-center w-12 h-12 text-white rounded-md bg-brand-primary">
+                            <i class="fa-solid fa-gauge-high"></i>
+                        </div>
+                        <p class="ml-16 text-lg font-medium leading-6 text-slate-900">Echtzeit Collaboration</p>
+                    </dt>
+                    <dd class="mt-2 ml-16 text-base text-slate-500">
+                        Sehen Sie Änderungen sofort – ohne die Seite neu laden zu müssen.
+                    </dd>
+                </div>
+            </dl>
+        </div>
+    </div>
 </div>

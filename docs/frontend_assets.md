@@ -35,3 +35,11 @@ Um unsere hochgesteckten Feature-Ziele (Markdown, Kanban, Realtime, A11y) vollum
 6.  **DOMPurify:** **ABSOLUT KRITISCH!** Sobald wir User-generiertes Markdown (via `marked.js`) in echten HTML-Code umwandeln und ins DOM injizieren, *müssen* wir ihn vorher mit DOMPurify reinigen, um Cross-Site-Scripting (XSS) Attacken abzuwehren.
 7.  **mermaid.js:** Für das Rendern von komplexen Diagrammen und Architektur-Skizzen direkt in den Ticket-Beschreibungen.
 8.  *(Optional aber Empfohlen)* **SortableJS:** Zwar ist HTML5 Drag&Drop nativ vorhanden, aber für komplexe Kanban-Boards (übergreifende Listen, Ghost-Elemente, smoothe Animationen) liefert SortableJS die perfekte UX-Abrundung, ohne so schwergewichtig wie komplette React/Vue Drag-Frameworks zu sein.
+
+## 🎨 Enterprise Theming (Multi-Tenancy)
+
+Um verschiedene Firmen-Identitäten (Corporate Identity) in einer mandantenfähigen Umgebung zu unterstützen, implementieren wir eine dynamische Theming-Architektur:
+
+- **ICorporateSkinProvider:** Ein Interface, welches basierend auf dem aktuellen Kontext (z.B. Tenant-ID oder Subdomain) die passenden Branding-Informationen liefert.
+- **CSS Variablen:** Anstelle von statischen Farbwerten in Tailwind nutzen wir CSS Custom Properties (z.B. `--brand-primary`). Diese werden dynamisch über ein `<style>`-Tag im Root-Layout (`_Layout.cshtml`) injiziert.
+- **Bootstrap-Free:** Um volle Kontrolle über das Box-Model und die Semantik zu behalten, verzichten wir vollständig auf Bootstrap. Jede UI-Komponente wird exklusiv mit Tailwind CSS gestaltet.

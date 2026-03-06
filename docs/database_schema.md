@@ -22,6 +22,7 @@ erDiagram
         datetime CreatedAt
         datetime LastLoginAt
         boolean IsOnline "Live Status"
+        byte RowVersion "Optimistic Concurrency (Timestamp)"
     }
 
     USER_PROFILE {
@@ -84,6 +85,7 @@ erDiagram
         Guid CreatorId FK
         datetime CreatedAt
         datetime UpdatedAt
+        byte RowVersion "Optimistic Concurrency (Timestamp)"
     }
 
     TICKET_ASSIGNMENT {
@@ -272,7 +274,7 @@ Um die 3. Normalform (3NF) zu gewährleisten und das System maximal flexibel zu 
 *   **TicketAssignment:** Eine eigene Tabelle (statt statischen FKs im Ticket-Table). Dies ermöglicht es, Historien zu pflegen ("Wer hatte das Ticket vorher?") und es simultan an User *und* Teams zu hängen.
 *   **TicketUpvote:** Community-Voting-System. Eine klassische n:m Tabelle, die regelt, dass ein User pro Ticket maximal einmal abstimmen (upvoten) darf.
 *   **TimeLog:** Extrem wichtig für B2B (Abrechnung/Controlling). Erfasst Start, Stop, und kalkulierte Stunden pro Benutzer auf ein Ticket.
-*   **Tag / TicketTag:** Globale Label-Verwaltung (`#bug`, `#frontend`). Beliebig viele Tags pro Ticket möglich (klassische n:m Beziehung).
+*   **RowVersion (Concurrency):** Alle Domain-Entities verfügen über ein `byte[] RowVersion` (Timestamp) Feld zur Vermeidung von Lost-Update-Szenarien via EF Core Optimistic Concurrency.
 
 #### 5. Communication & Messaging Engine (Neu 🚀)
 Ein völlig neues Bounded Context für die interne Enterprise-Kommunikation.
