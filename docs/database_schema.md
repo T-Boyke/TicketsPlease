@@ -1,67 +1,101 @@
 ## 🗄️ Datenbankschema & Entities (ERD)
 
-Die Datenbankstruktur (Entity Framework Core - Code First) ist streng relational und spiegelt die Bounded Contexts unseres Domain-Driven Designs (DDD) wider.
+Die Datenbankstruktur (Entity Framework Core - Code First) ist streng relational, befindet sich in der **3. Normalform (3NF)** und ist zukunftssicher (Enterprise-Grade) für hohe Datenmengen und schnelle Abfragen ausgelegt.
 
-### Entity Relationship Diagram (Erster Entwurf)
+### Entity Relationship Diagram (3NF Enterprise Schema)
 
 ```mermaid
 erDiagram
-    %% Identity & User Context
+    %% --- Identity & Access Management (IAM) ---
+    ROLE {
+        Guid Id PK
+        string Name "Owner, Admin, Mod, Teamlead, User"
+        string Description
+    }
+
     USER {
         Guid Id PK
+        Guid RoleId FK
         string Username
         string Email
         string PasswordHash
+        datetime CreatedAt
+        datetime LastLoginAt
+        boolean IsOnline "Live Status"
+    }
+
+    USER_PROFILE {
+        Guid UserId PK, FK
         string FirstName
         string LastName
         string PhoneNumber
+        Guid AvatarImageId FK "Nullable"
+        datetime UpdatedAt
+    }
+
+    USER_ADDRESS {
+        Guid UserId PK, FK
         string Street
         string City
         string ZipCode
         string Country
-        datetime CreatedAt
-    }
-    
-    ROLE {
-        Guid Id PK
-        string Name "e.g. Admin, User"
-    }
-    
-    USER_ROLE {
-        Guid UserId FK
-        Guid RoleId FK
     }
 
-    %% Team Context
+    %% --- Assets / Files ---
+    FILE_ASSET {
+        Guid Id PK
+        string FileName
+        string ContentType
+        string BlobPath "Azure/S3/Local Path"
+        long SizeBytes
+        datetime UploadedAt
+        Guid UploadedByUserId FK
+    }
+
+    %% --- Teams & Workspaces ---
     TEAM {
         Guid Id PK
         string Name
         string Description
+        string ColorCode
         datetime CreatedAt
         Guid CreatedByUserId FK
     }
 
     TEAM_MEMBER {
-        Guid TeamId FK
-        Guid UserId FK
+        Guid TeamId PK, FK
+        Guid UserId PK, FK
         datetime JoinedAt
+        boolean IsTeamLead
     }
 
-    %% Ticket Management Context
+    %% --- Ticket Core Domain ---
     TICKET {
         Guid Id PK
         string Title
-        string Description
-        enum Priority "Low, Medium, High, Critical"
-        int Difficulty "1-5 Chillies 🌶️"
+        string DescriptionMarkdown
+        Guid PriorityId FK
+        int ChilliesDifficulty "1-5 🌶️"
         datetime StartDate
         datetime Deadline
         Guid WorkflowStateId FK
-        Guid CreatorId FK "User"
-        Guid AssignedUserId FK "Nullable"
-        Guid AssignedTeamId FK "Nullable"
+        Guid CreatorId FK
         datetime CreatedAt
         datetime UpdatedAt
+    }
+
+    TICKET_ASSIGNMENT {
+        Guid TicketId PK, FK
+        Guid UserId FK "Nullable"
+        Guid TeamId FK "Nullable"
+        datetime AssignedAt
+    }
+
+    TICKET_PRIORITY {
+        Guid Id PK
+        string Name "Low, Medium, High, Blocker"
+        int LevelWeight
+        string ColorHex
     }
 
     SUBTICKET {
@@ -70,45 +104,94 @@ erDiagram
         string Title
         boolean IsCompleted
         datetime CreatedAt
+        Guid CreatorId FK
     }
 
-    %% Workflow / Kanban Context
+    %% --- Workflow / Kanban ---
     WORKFLOW_STATE {
         Guid Id PK
-        string Name "e.g. Backlog, Todo, InProgress, Review, Done"
+        string Name "Todo, InProgress, Review, Done"
         int OrderIndex
-        string ColorCode
+        string ColorHex
+        boolean IsTerminalState
     }
 
-    %% Relationships
-    USER ||--o{ USER_ROLE : has
-    ROLE ||--o{ USER_ROLE : assigned_to
+    %% --- Communication / Messaging ---
+    MESSAGE {
+        Guid Id PK
+        Guid SenderUserId FK
+        Guid TicketId FK "Nullable (If ticket comment)"
+        Guid TeamId FK "Nullable (If Team broadcast)"
+        Guid ReceiverUserId FK "Nullable (If 1-on-1 DM)"
+        string BodyMarkdown
+        datetime SentAt
+        boolean IsEdited
+    }
 
-    USER ||--o{ TEAM_MEMBER : is_in
+    MESSAGE_READ_RECEIPT {
+        Guid MessageId PK, FK
+        Guid UserId PK, FK
+        datetime ReadAt
+    }
+
+    %% --- Relationships ---
+    %% IAM
+    ROLE ||--o{ USER : has
+    USER ||--|| USER_PROFILE : owns
+    USER ||--|| USER_ADDRESS : owns
+    
+    %% Assets
+    FILE_ASSET |o--|| USER_PROFILE : avatar_for
+    USER ||--o{ FILE_ASSET : uploads
+
+    %% Teams
+    USER ||--o{ TEAM_MEMBER : joins
     TEAM ||--o{ TEAM_MEMBER : contains
     USER ||--o{ TEAM : creates
 
-    USER |o--o{ TICKET : assigned_to
-    TEAM |o--o{ TICKET : assigned_to
+    %% Tickets & Workflow
     USER ||--o{ TICKET : creates
-
-    TICKET ||--o{ SUBTICKET : contains
     WORKFLOW_STATE ||--o{ TICKET : groups
+    TICKET_PRIORITY ||--o{ TICKET : categorizes
+    TICKET ||--o{ SUBTICKET : contains
+    
+    %% Assignments (3NF resolution)
+    TICKET ||--o{ TICKET_ASSIGNMENT : has
+    USER |o--o{ TICKET_ASSIGNMENT : receives
+    TEAM |o--o{ TICKET_ASSIGNMENT : receives
+
+    %% Messaging
+    USER ||--o{ MESSAGE : sends
+    TICKET ||--o{ MESSAGE : contains_comments
+    TEAM ||--o{ MESSAGE : contains_broadcasts
+    MESSAGE ||--o{ MESSAGE_READ_RECEIPT : tracked_by
 ```
 
-### Detaillierte Entity Beschreibung
+### Detaillierte Entity Beschreibung (3NF & Enterprise Design)
 
-#### Identity & Access Context
-*   **User (Benutzer):** Erweitert das standardmäßige `IdentityUser<Guid>`. Enthält neben Authentifizierungsdaten auch ein vollständiges Profil (Anschrift, Kontakt).
-*   **Role (Rolle):** Basis-RBAC (Role-Based Access Control) zur Unterscheidung von System-Administratoren und regulären Nutzern.
+#### 1. Identity & Profile Context (Strikte 3NF)
+Um die 3. Normalform (3NF) zu gewährleisten und das System maximal flexibel zu halten (sowie DSGVO-Löschkonzepte zu vereinfachen), wurde die gigantische `USER`-Tabelle aufgespalten:
+*   **User:** Enthält *ausschließlich* Kern-Authentifizierungsdaten (Ids, Hashes, Logins) sowie einen `IsOnline` Indikator für systemweite Presence-Features.
+*   **UserProfile:** Eine 1:1 Erweiterung, welche die persönlichen (nicht-Login-relevanten) Daten hält. Inklusive Referenz auf einen `FILE_ASSET` Datensatz für Profilbilder.
+*   **UserAddress:** Eine eigene 1:1 Tabelle, um Kontaktdaten sauber zu trennen (hilft immens beim DSGVO-Export oder Löschen spezifischer Adressdaten).
+*   **Role:** Echte 1:n Rechteverwaltung für das erweiterte RBAC (Owner, Admin, Mod, Teamlead, User).
 
-#### Team Collaboration Context
-*   **Team:** Ein definierter Zusammenschluss von Benutzern. Besitzt einen Namen und eine Beschreibung.
-*   **TeamMember:** Die n:m Auflösungstabelle. Ein User kann in vielen Teams sein, ein Team hat viele User.
+#### 2. Media & Asset Management
+*   **FileAsset:** Eine zentrale Tabelle für alle unstrukturierten Dateien im System. Egal ob Profilbilder (Avatare), Ticket-Anhänge oder in Markdown-Chats eingebettete Bilder – alles verweist auf diesen Blob-Storage-Proxy.
 
-#### Ticket Management Context
-*   **Ticket:** Das Kern-Aggregat (Aggregate Root). Ein Ticket *muss* einen Workflow-State und einen Ersteller haben. Es *kann* einem User **oder** einem Team zugewiesen sein. Es beinhaltet Metadaten wie Zeitraum (Start/Ende), Priorität und Schwierigkeitsgrad (`Difficulty`).
-*   **Subticket:** Befindet sich innerhalb der Aggregat-Grenze des Tickets. Einfache Checklisten-Einträge ("Erledigt" / "Offen") für große Tickets.
+#### 3. Team Collaboration Context
+*   **Team:** Metadaten des Teams.
+*   **TeamMember:** Die n:m Auflösungstabelle. *Enterprise Feature:* Enthält nun das Flag `IsTeamLead`, um Teamleiter-Rechte direkt an die Knotenpunkte zu heften (wichtig für Broadcast-Nachrichten).
 
-#### Kanban & Workflow Context
-*   **WorkflowState (Spalten im Kanban Board):** Die einzelnen Phasen eines Tickets (z.B. "Todo", "In Progress", "Done"). Beinhaltet die Reihenfolge (`OrderIndex`) für das Board und eine Darstellungsfarbe (`ColorCode`).
+#### 4. Ticket Management Context
+*   **Ticket:** Das Kern-Aggregat. Unterstützt nun ausdrücklich `DescriptionMarkdown`.
+*   **TicketPriority:** Prioritäten wurden aus dem Enum-Status in eine eigene Entität ausgelagert (3NF), um Level und Farben dynamisch durch Admins definierbar zu machen.
+*   **TicketAssignment:** Eine eigene Tabelle (statt statischen FKs im Ticket-Table). Dies ermöglicht es, Historien zu pflegen ("Wer hatte das Ticket vorher?") und es simultan an User *und* Teams zu hängen.
+
+#### 5. Communication & Messaging Engine (Neu 🚀)
+Ein völlig neues Bounded Context für die interne Enterprise-Kommunikation.
+*   **Message:** Ein polymorphes Nachrichten-Objekt. Es versteht volles Markdown (und damit Mermaid-Diagramme). Je nachdem, welche Foreign-Keys gesetzt sind, agiert die Entität als:
+    1.  Ticket-Kommentar (`TicketId` != Null)
+    2.  Direct Message (DM) an Kollegen (`ReceiverUserId` != Null)
+    3.  Team-Broadcast durch Teamleads (`TeamId` != Null).
+*   **MessageReadReceipt:** Echte n:m "Gelesen"-Indikatoren, damit Absender (wie bei WhatsApp) sehen, wer die Nachricht bereits konsumiert hat.

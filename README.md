@@ -37,7 +37,7 @@ Ein hochmodernes, skalierbares Ticket- und Kanban-System. Entwickelt mit moderns
 <details>
 <summary>Mehr erfahren über die Vision...</summary>
 
-Dieses Projekt realisiert ein umfassendes Ticketverwaltungssystem mit dynamischen Kanban-Boards, welches explizit als Abschlussprojekt konzipiert wurde. 
+Dieses Projekt realisiert ein umfassendes Ticketverwaltungssystem mit dynamischen Kanban-Boards, welches explizit als Abschlussprojekt des c# .net 10 kurses vom dozenten Tom Seelig gefordert und Der Gruppe bestehend aus Tobias und x, y, Z  konzipiert wurde. 
 
 Der kompromisslose Fokus liegt dabei nicht nur auf reiner Funktionalität, sondern vor allem auf **exzellenter Softwarearchitektur**, **höchster Code-Qualität** und **strikter Testabdeckung**. Ziel ist es, eine Enterprise-grade Applikation zu schaffen, die als Referenz für moderne C# Web-Entwicklung dient. Jeder Aspekt der Anwendung, vom Datenbank-Design bis zur CI/CD-Pipeline, wird nach Best-Practices der Industrie umgesetzt und dokumentiert.
 
@@ -103,10 +103,11 @@ Unser Code unterliegt höchsten Qualitätsstandards:
 <details>
 <summary>Frontend Details aufklappen...</summary>
 
-Das Frontend muss blitzschnell laden, responsiv sein und eine herausragende Developer Experience (DX) bieten.
+Das Frontend muss blitzschnell laden, responsiv sein und eine herausragende Developer Experience (DX) bieten. Besonderer Wert liegt auf einer **aufgeräumten und extrem lesbaren CSHTML-Struktur**.
 
 ### Single File Components (SFC) im ASP.NET Core
 Wir nutzen eine streng modulare UI-Architektur. Mittels ASP.NET Core Razor CSS-Isolation und dedizierten `ViewComponents` bündeln wir Template (HTML), Logik (C#) und domänenspezifisches Styling (CSS) konsequent. Jede UI-Komponente (Button, Card, Modal) ist völlig autark und kann ohne Nebenwirkungen ausgetauscht oder verschoben werden.
+Ziel ist es, den CSHTML-Code frei von C#-Business-Logik und ausufernden CSS-Klassen zu halten (Trennung von Markup und Styling). Wir nutzen ein zentrales **Barrel-File**-Konzept für das Frontend-Routing und den Component-Export, um Import-Pfade sauber zu halten.
 
 ### Lokale Assets (No CDN Policy)
 Aus Gründen der Ausfallsicherheit, Performance und des Datenschutzes (DSGVO) verwenden wir **keine Content Delivery Networks (CDNs)**. Sämtliche Libraries (Tailwind, FontAwesome) werden vollständig lokal über den Microsoft Library Manager (`libman.json`) in das Projektverzeichnis (`wwwroot/lib`) integriert.
@@ -114,44 +115,64 @@ Aus Gründen der Ausfallsicherheit, Performance und des Datenschutzes (DSGVO) ve
 👉 **Mehr dazu in unserer [Asset Management Strategie](docs/frontend_assets.md).**
 
 ### Atomic CSS & Utility First
-Wir verfolgen strikt den Utility-First Ansatz:
-*   **TailwindCSS 4.2:** Wir nutzen den JIT (Just-in-Time) Compiler von Tailwind für pfeilschnelles, utility-basiertes Design direkt im HTML-Markup. Wir schreiben kaum noch eigene CSS-Regeln.
-*   **Komponenten-CSS (@apply):** Sollten sich UI-Muster stark wiederholen (z.B. der primäre Button), abstrahieren wir diese klassisch über `@apply`. Diese benutzerdefinierten, stark wiederverwendbaren CSS-Klassen liegen logisch getrennt im Frontend-Verzeichnis:
+Wir verfolgen strikt den Utility-First Ansatz, aber kapseln diesen sauber:
+*   **TailwindCSS 4.2:** Wir nutzen den JIT (Just-in-Time) Compiler von Tailwind für pfeilschnelles, utility-basiertes Design. [Offizielle Dokumentation](https://tailwindcss.com/docs).
+*   **FontAwesome 7.2:** Für Enterprise-Grade Vektor Icons. [Offizielle Icon-Suche](https://fontawesome.com/search).
+*   **Komponenten-CSS (@apply):** Um das CSHTML nicht mit hundert Tailwind-Klassen pro DIV zu verschmutzen, abstrahieren wir wiederkehrende UI-Muster klassisch über `@apply`. Diese benutzerdefinierten, stark wiederverwendbaren CSS-Klassen liegen logisch getrennt im Frontend-Verzeichnis:
     *   `/css/components/btn.css` (Alle Button-Variationen)
     *   `/css/components/theme.css` (Color-Tokens und Typografie)
     *   `/css/components/cards.css` (Struktur für Kanban-Cards)
     *   `/css/components/form.css` (Inputs, Selects, Validation States)
 
+### ♿ Barrierefreiheit (a11y) & DSGVO Compliance
+Die Applikation wird von Grund auf nach dem **Barrierefreiheitsstärkungsgesetz (BFSG)** sowie der **DSGVO** entwickelt:
+*   Vollständige Tastaturnavigation im Kanban-Board.
+*   Korrekte ARIA-Labels und semantisches HTML5 für Screenreader.
+*   Hohe Kontrastwerte im UI-Design (Theme-System).
+*   Datensparsamkeit und strikte "Privacy by Design" Architektur in der Datenbank.
+
 </details>
 
 ---
 
-## 5. 🧩 Features & Funktionalitäten
+## 5. 🧩 Enterprise Features & Funktionalitäten
 
 <details open>
 <summary>Detaillierte Features aufklappen...</summary>
 
-Das System deckt den gesamten Lifecycle einer modernen Ticketing-Lösung ab.
+Das System deckt den gesamten Lifecycle einer modernen, kollaborativen Enterprise-Ticketing-Lösung ab.
 
-### 🔐 Benutzer & Rollen (IAM - Identity & Access Management)
-*   **Sichere Authentifizierung:** Registrierung, Login und Passwort-Wiederherstellung unter Nutzung von ASP.NET Core Identity mit modernsten Hashing-Algorithmen (Identity V2).
-*   **Rollenbasiertes Rechtesystem (RBAC):** Strikte Trennung zwischen regulären Nutzern, Projektmanagern und System-Administratoren.
-*   **Admin-Dashboard:** Ein dedizierter, abgeschirmter Bereich zur System-, Rollen- und globalen Benutzerverwaltung.
-*   **Erweiterte Benutzerprofile:** Ausführliche Profile inklusive Profilbild-Upload, Kontaktdaten, Arbeitszeiten und abteilungsspezifischen Eigenschaften.
+### 🔐 Erweitertes Rollen & Rechte System (RBAC)
+Ein granulares, hierarchisches Berechtigungsobjekt-System steuert sämtliche Zugriffe:
+*   **Owner (Systemherr):** Voller Zugriff, darf Admins ernennen, globale Systemeinstellungen ändern, Rechnungsdaten einsehen.
+*   **Admin:** Globale Benutzerverwaltung, Projekt- und Team-Anlage, Konfiguration von Workflows.
+*   **Moderator (Mod):** Konfliktlösung, Ticket-Bereinigung, Spam-Prävention (falls öffentliche Tickets aktiv).
+*   **Teamlead:** Kann innerhalb *seines* Teams User hinzufügen/entfernen, Workloads einsehen und Rundmails an das Team versenden.
+*   **User:** Der Standard-Entwickler/Bearbeiter. Darf Tickets anlegen, bearbeiten, Subtickets erstellen und kommentieren.
+
+### 💬 Kollaboration & Kommunikation
+*   **Markdown & Mermaid Engine:** Überall, wo Text eingegeben wird (Ticket-Beschreibungen, Kommentare, Mails), wird vollständiges Markdown inklusive Mermaid.js (für Architekturdiagramme) gerendert.
+*   **Realtime Messaging System:** Nahtlose Integration von Direktnachrichten (1-to-1) und projektspezifischen Chat-Räumen für Teammitglieder (basierend auf SignalR/WebSockets).
+*   **Teamlead "Broadcast" Mails:** Teamleiter können offizielle Ankündigungen und Rundmails (formatiert in Markdown) direkt aus der Applikation an alle ihre Squad-Mitglieder senden.
+*   **Live Online-Status (Presence):** Grüne Indikatoren neben Profilbildern signalisieren in Echtzeit, ob ein Entwickler oder Ticket-Besitzer gerade in der Applikation aktiv ist.
+
+### 👤 Erweiterte Benutzerprofile
+*   Ausführliche Profile inklusive **Profilbild-Upload** (Avatar-Crop-Funktion), Kontaktdaten, Arbeitszeiten und abteilungsspezifischen Eigenschaften.
+*   Personalisierte Dashboards pro User (Was sind *meine* assigned Tickets?).
 
 ### 👥 Teams & Workspaces
 *   **Team-Erstellung:** Nutzer können eigene Teams/Squads formieren und mit Metadaten (Team-Kürzel, Farbe, Beschreibung) versehen.
 *   **Team-Management:** Einladungs- und Freigabeprozesse für den Beitritt zu bestehenden Teams.
-*   **Kollaboration:** Tickets können ganzen Teams (statt nur Einzelpersonen) zugewiesen werden, was in agilen Workspaces die Zusammenarbeit drastisch vereinfacht.
+*   **Kollaboration:** Tickets können ganzen Teams (statt nur Einzelpersonen) zugewiesen werden.
 
 ### 🎫 Das Ticket-Core-Domain
-Das Herzstück der Applikation. Ein Ticket ist ein hochkomplexes Objekt mit folgenden Pflicht- und Optionaleigenschaften:
-*   **Stammdaten:** Eindeutige ID, Titel, ausführliche Markdown-gestützte Beschreibung.
-*   **Zeitmanagement:** Startdatum, Deadline, geschätzter Aufwand (Story Points) und geloggte Arbeitszeit.
+Das Herzstück der Applikation. Ein Ticket ist ein hochkomplexes Objekt mit folgenden Eigenschaften:
+*   **Stammdaten:** Eindeutige ID, Titel, ausführliche **Markdown-gestützte Beschreibung** (inkl. Mermaid-Graphen).
+*   **Zeitmanagement:** Startdatum, Deadline, geschätzter Aufwand und geloggte Arbeitszeit.
 *   **Priorisierung:** Skala (z.B. Low, Medium, High, Blocker) mit entsprechenden farblichen Indikatoren.
 *   **Die "Chillischoten"-Metrik 🌶️:** Eine visuelle, einzigartige Aufwands- und Schwierigkeitsbewertung (1 bis 5 Chillischoten), die auf einen Blick die Komplexität verdeutlicht, ohne trockene Zahlen zu verwenden.
 *   **Zuweisung (Assignees):** Flexibles Routing an Einzelpersonen, mehrere Nutzer oder komplette Teams.
-*   **Subtickets:** Unbegrenzte Schachtelung. Große Epics oder komplexe Tickets können granular in kleinere, abarbeitbare Subtickets (Tasks) unterteilt werden, die einen eigenen Status besitzen.
+*   **Subtickets:** Unbegrenzte Schachtelung. Große Epics oder komplexe Tickets können granular in kleinere, abarbeitbare Subtickets (Tasks) unterteilt werden.
 
 👉 **Exakte Definitionen der Ticket-Entität finden sich in der [Domain Model Dokumentation](docs/domain_ticket.md).**
 
@@ -159,7 +180,7 @@ Das Herzstück der Applikation. Ein Ticket ist ein hochkomplexes Objekt mit folg
 Das visuelle Zentrum der Produktivität.
 *   **Echtzeit-Board:** Interaktives Board, welches den Status (To Do, In Progress, Review, Done) visuell darstellt.
 *   **Custom Workflows:** Administratoren können die Spalten (Status-Stadien) des Boards pro Projekt anpassen.
-*   **Drag & Drop Matrix:** Native Drag & Drop-Funktionalität im Browser (ohne schwere JavaScript Frameworks, rein mit Vanilla/HTML5 Drag API), mit der Tickets reibungslos durch die Workflow-Stadien gezogen werden können.
+*   **Drag & Drop Matrix:** Native Drag & Drop-Funktionalität im Browser, mit der Tickets reibungslos durch die Workflow-Stadien gezogen werden können.
 
 </details>
 
