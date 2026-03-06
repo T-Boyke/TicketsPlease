@@ -262,7 +262,7 @@ Dokumentation veraltet nicht, wenn sie automatisiert und systematischer Bestandt
     *   👉 **[Datenbankschema & Entities (ERD 3NF)](docs/database_schema.md)**
     *   👉 **[Projekt Gantt-Chart (IHK Roadmap)](docs/gantt_roadmap.md)**
 *   **Mockups & Screenshots:** Initiale Planungs-Mockups, UI-Entwürfe und finale Screenshots (z.B. für die IHK Präsentation) werden versioniert im Ordner **`/docs/mockups/`** abgelegt.
-*   **Grafiken & Assets:** Wenn im Rahmen der Dokumentation temporäre Platzhalter-Bilder benötigt werden, nutzen wir vorerst [Placehold.co](https://placehold.co/) (Open Source SVG Platzhalter). Echte, physisch benötigte Dokumentations-Grafiken kommen in den Ordner **`/docs/assets/`**.
+*   **Grafiken & Assets:** Wenn im Rahmen des UI-Designs (Frontend) oder der Dokumentation temporäre Platzhalter-Bilder benötigt werden, nutzen wir vorerst [Placehold.co](https://placehold.co/) (Open Source SVG Platzhalter). Echte, physisch benötigte Grafiken (Logos, Icons) kommen in den Ordner **`/docs/assets/`** bzw. später nach `wwwroot/images/`.
 *   **Architectural Decision Records (ADR):** Wir nutzen den Ordner `/docs/adr/`, um gravierende Architektur-Entscheidungen (Warum EF Core? Warum Tailwind?) historisch logisch festzuhalten.
 
 </details>
