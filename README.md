@@ -289,7 +289,7 @@ Dokumentation veraltet nicht, wenn sie automatisiert und systematischer Bestandt
     *   👉 **[Projekt Gantt-Chart (IHK Roadmap)](docs/gantt_roadmap.md)**
 *   **Mockups & Screenshots:** Initiale Planungs-Mockups, UI-Entwürfe und finale Screenshots (z.B. für die IHK Präsentation) werden versioniert im Ordner **`/docs/mockups/`** abgelegt.
 *   **Grafiken & Assets:** Wenn im Rahmen des UI-Designs (Frontend) oder der Dokumentation temporäre Platzhalter-Bilder benötigt werden, nutzen wir vorerst [Placehold.co](https://placehold.co/) (Open Source SVG Platzhalter). Echte, physisch benötigte Grafiken (Logos, Icons) kommen in den Ordner **`/docs/assets/`** bzw. später nach `wwwroot/images/`.
-*   **Architectural Decision Records (ADR):** Wir nutzen den Ordner `/docs/adr/`, um gravierende Architektur-Entscheidungen (Warum EF Core? Warum Tailwind?) historisch logisch festzuhalten.
+*   **Architectural Decision Records (ADR):** Alle wesentlichen Design-Entscheidungen (Architektur, Stack, Security) sind revisionssicher im **[ADR-Index](docs/adr/readme.md)** dokumentiert.
 
 </details>
 
