@@ -1,0 +1,18 @@
+{
+  "version": "0.2",
+  "language": "en,de",
+  "words": [
+    "TicketsPlease",
+    "Gitleaks",
+    "slnx",
+    "CodeQL",
+    "Dependabot",
+    "SBOM"
+  ],
+  "ignorePaths": [
+    "node_modules",
+    "obj",
+    "bin",
+    "*.slnx"
+  ]
+}
