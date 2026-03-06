@@ -46,3 +46,6 @@ packages/
 # libman.json is tracked, but restored assets are ignored
 lib/
 wwwroot/lib/
+
+# Tailwind build output
+wwwroot/css/build.css
