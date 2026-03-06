@@ -134,6 +134,24 @@ erDiagram
         datetime VotedAt
     }
 
+    TICKET_HISTORY {
+        Guid Id PK
+        Guid TicketId FK
+        Guid ActorUserId FK
+        string FieldName "e.g. Status, Assignment"
+        string OldValue
+        string NewValue
+        datetime ChangedAt
+    }
+
+    TICKET_TEMPLATE {
+        Guid Id PK
+        string Name "e.g. Bug Report"
+        string DescriptionMarkdownTemplate
+        Guid DefaultPriorityId FK "Nullable"
+        Guid CreatorId FK
+    }
+
     %% --- Workflow / Kanban ---
     WORKFLOW_STATE {
         Guid Id PK
@@ -141,6 +159,13 @@ erDiagram
         int OrderIndex
         string ColorHex
         boolean IsTerminalState
+    }
+
+    SLA_POLICY {
+        Guid Id PK
+        Guid PriorityId FK
+        int ResponseTimeHours
+        int ResolutionTimeHours
     }
 
     %% --- Communication / Messaging ---
@@ -161,6 +186,16 @@ erDiagram
         datetime ReadAt
     }
 
+    NOTIFICATION {
+        Guid Id PK
+        Guid UserId FK
+        string Title
+        string Message
+        string TargetUrl "Link to Ticket/Message"
+        boolean IsRead
+        datetime CreatedAt
+    }
+
     %% --- Relationships ---
     %% IAM
     ROLE ||--o{ USER : has
@@ -169,6 +204,8 @@ erDiagram
     
     %% Assets
     FILE_ASSET |o--|| USER_PROFILE : avatar_for
+    TICKET ||--o{ FILE_ASSET : attachments
+    MESSAGE ||--o{ FILE_ASSET : attachments
     USER ||--o{ FILE_ASSET : uploads
 
     %% Teams
@@ -204,7 +241,12 @@ erDiagram
     TICKET ||--o{ MESSAGE : contains_comments
     TEAM ||--o{ MESSAGE : contains_broadcasts
     MESSAGE ||--o{ MESSAGE_READ_RECEIPT : tracked_by
-```
+    USER ||--o{ NOTIFICATION : receives
+
+    %% Audit & SLAs
+    TICKET ||--o{ TICKET_HISTORY : generates
+    TICKET_PRIORITY ||--o| SLA_POLICY : defines
+    TICKET_TEMPLATE ||--o{ TICKET : spawns
 
 ### Detaillierte Entity Beschreibung (3NF & Enterprise Design)
 

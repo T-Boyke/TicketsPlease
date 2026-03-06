@@ -54,4 +54,30 @@ Sobald das MVP steht, der Build (CI/CD) dauerhaft grün ist und die IHK-Doku wä
 *   **Broadcast Mails:** Teamleads können via MailKit Newsletter/Notices an ihre Teams senden.
 *   **Erweiterte Profile:** Profilbild Uploader mit Avatar-Cropping (FileAsset Management).
 
-> **Fazit:** Wir bauen das Datenbankschema und die Ordnerstruktur heute schon für **Phase 2**, aber die initialen C# Feature-Sprints fokussieren sich eisern auf **Phase 1**!
+---
+
+## 🏆 Phase 3: Advanced Enterprise Modules
+
+Diese Module katapultieren das System auf das Level von Branchenriesen wie Jira oder Linear. Sie erfordern tiefe architektonische Planung.
+
+**1. Audit & Compliance:**
+*   **Ticket History (Audit-Log):** Lückenlose Historisierung. Jeder Statuswechsel, jede Prioritätsänderung und Neuzuweisung wird mit Timestamp und Actor (User) in einer Append-Only-Tabelle (`TICKET_HISTORY`) mitgeschrieben.
+
+**2. Benachrichtigungen & Alerts:**
+*   **In-App Notification Center:** Eine "Glocke" in der UI. Benachrichtigt User bei Zuweisungen, Erwähnungen (@User) oder SLA-Verletzungen.
+*   **Notification Sounds:** Einstellbare akustische Signale bei eingehenden Notifications oder neuen Chat-Nachrichten im Dashboard (im Benutzerprofil auswählbar & probehörbar).
+
+**3. Dokumentenmanagement:**
+*   **Ticket Attachments:** Upload von PDFs, Log-Dateien oder Screenshots direkt an das Ticket (via `FILE_ASSET` Entity) mit integriertem Reader/Preview in der UI.
+
+**4. Service Level Agreements (SLAs):**
+*   **Automatisierte Countdowns:** SLAs für Response- und Resolution-Times basierend auf Ticket-Priorität (z.B. "Blocker" muss in 4h gelöst sein). Eskalation bei Verletzung.
+
+**5. Faceted Search & Filtering (EF Core):**
+*   **High-Performance Search:** Komplexes Filtern von Tickets (z.B. "Alle Tickets mit Tag #frontend, Status = In Progress, Assigned = Me").
+*   *Architektur:* Umsetzung über dynamische LINQ-Queries in EF Core, idealerweise optimiert durch definierte Datenbank-Indizes auf den Suchspalten.
+
+**6. Ticket Templates:**
+*   **Vorlagen-System:** Admins können Templates (z.B. "Bug Report", "Feature Request") definieren. Beim Anlegen eines Tickets wird die Markdown-Description automatisch strukturiert vorausgefüllt.
+
+> **Fazit:** Wir bauen das Datenbankschema und die Ordnerstruktur heute schon für **Phase 2 und 3**, aber die initialen C# Feature-Sprints fokussieren sich eisern auf **Phase 1**!
