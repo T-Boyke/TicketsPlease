@@ -29,4 +29,24 @@ jobs:
     - name: Build
       run: dotnet build src/TicketsPlease.slnx --no-restore --configuration Release
     - name: Test
-      run: dotnet test src/TicketsPlease.slnx --no-build --configuration Release --verbosity normal
+      run: dotnet test src/TicketsPlease.slnx --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+
+    - name: Code Coverage Report
+      uses: irongut/CodeCoverageSummary@v1.3.0
+      with:
+        filename: coverage/**/coverage.cobertura.xml
+        badge: true
+        fail_below_min: false
+        format: markdown
+        hide_branch_rate: false
+        hide_complexity: false
+        indicators: true
+        output: both
+        thresholds: '60 80'
+
+    - name: Add Coverage PR Comment
+      uses: marooned-mariner/comment-on-pr@v1.0.1
+      if: github.event_name == 'pull_request'
+      with:
+        msg: ./code-coverage-results.md
+        check_for_duplicate_msg: true

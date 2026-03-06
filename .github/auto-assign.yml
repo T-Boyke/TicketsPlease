@@ -1,0 +1,16 @@
+# Set to true to add reviewers to pull requests
+addReviewers: true
+
+# Set to true to add assignees to pull requests
+addAssignees: false
+
+# Reviewers to add to pull requests
+# reviewers:
+#   - Tobia
+
+# Number of reviewers to add
+numberOfReviewers: 0
+
+# A list of keywords that will skip the process
+# skipKeywords:
+#   - wip
