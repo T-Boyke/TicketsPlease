@@ -52,16 +52,29 @@ Der kompromisslose Fokus liegt dabei nicht nur auf reiner Funktionalität, sonde
 
 Das System nutzt einen hochmodernen und perfekt aufeinander abgestimmten Stack:
 
-*   **Entwicklungsumgebungen (IDEs):** Visual Studio 2026 & JetBrains Rider 3.2026 (Exklusiver Support mit maßgeschneiderten `editorconfig` und Plugin-Configs).
-*   **Backend & Core:** C# 14, ASP.NET Core 10.3
-*   **Datenbank & ORM:** Entity Framework Core (Code-First Approach), Microsoft SQL Server
+*   **Entwicklungsumgebungen (IDEs):** 
+    *   [Visual Studio 2026](https://visualstudio.microsoft.com/) 
+    *   [JetBrains Rider 3.2026](https://www.jetbrains.com/rider/) 
+    *   *(Exklusiver Support mit maßgeschneiderten `.editorconfig` und Plugin-Configs).*
+*   **Backend & Core:** 
+    *   [C# 14](https://learn.microsoft.com/en-us/dotnet/csharp/)
+    *   [ASP.NET Core 10.3](https://learn.microsoft.com/en-us/aspnet/core/)
+*   **Datenbank & ORM:** 
+    *   [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/) (Code-First Approach)
+    *   [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
     *   *Siehe detailliertes [Datenbankschema (ERD)](docs/database_schema.md)*
 *   **Frontend & User Interface (UI):**
-    *   Lokales **TailwindCSS 4.2** für blitzschnelles Styling.
-    *   Lokales **FontAwesome 7.2** für skalierbare Vektor-Icons.
-    *   Paketverwaltung für alle statischen Client-Bibliotheken via **libman** (`libman.json`), komplett ohne externe CDNs für maximale Performance und DSGVO-Konformität.
-*   **Architektur-Pattern:** Clean Architecture (Onion), Domain-Driven Design (DDD), CQRS (Command Query Responsibility Segregation).
-*   **Testing-Frameworks:** xUnit (Unit/Integration), Playwright, Vitest (E2E).
+    *   Lokales **[TailwindCSS 4.2](https://tailwindcss.com/docs/installation)** für blitzschnelles Styling.
+    *   Lokales **[FontAwesome 7.2](https://fontawesome.com/)** für skalierbare Vektor-Icons.
+    *   Paketverwaltung für alle statischen Client-Bibliotheken via **[LibMan](https://learn.microsoft.com/en-us/aspnet/core/client-side/libman/libman-vs)** (`libman.json`), komplett ohne externe CDNs für maximale Performance und DSGVO-Konformität.
+*   **Architektur-Pattern:** 
+    *   [Clean Architecture (Onion)](https://learn.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures#clean-architecture)
+    *   [Domain-Driven Design (DDD)](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/)
+    *   [CQRS (Command Query Responsibility Segregation)](https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs)
+*   **Testing-Frameworks:** 
+    *   [xUnit](https://xunit.net/) (Unit/Integration)
+    *   [Playwright](https://playwright.dev/dotnet/) (E2E)
+    *   [Vitest](https://vitest.dev/) (JS-Frontend Tests)
 
 </details>
 
