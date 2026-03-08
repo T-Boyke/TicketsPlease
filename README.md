@@ -46,6 +46,7 @@ Ein hochmodernes, kollaboratives und skalierbares Kanban-Ticketsystem, entwickel
     - [Continuous Integration / Continuous Deployment (CI/CD)](#continuous-integration--continuous-deployment-cicd)
     - [🔍 Statische Code-Analyse \& Linter](#-statische-code-analyse--linter)
     - [🛡️ Enterprise Security \& Trust (Defense in Depth)](#️-enterprise-security--trust-defense-in-depth)
+    - [Datenbank-Seeding](#datenbank-seeding)
     - [Extensive Dokumentation \& Architektur-Diagramme](#extensive-dokumentation--architektur-diagramme)
   - [7. 🤝 GitHub Etikette \& Branching Strategy](#7--github-etikette--branching-strategy)
   - [8. 🗺️ Implementierungs Roadmap (IHK)](#8-️-implementierungs-roadmap-ihk)
@@ -121,6 +122,7 @@ Das System nutzt einen hochmodernen und perfekt aufeinander abgestimmten Stack:
     *   [xUnit](https://xunit.net/) (Unit/Integration)
     *   **Architecture:** `NetArchTest.eXtend` für statische Regelprüfung.
     *   **Integration:** `Microsoft.AspNetCore.Mvc.Testing` für API- & DB-Tests.
+    *   **Data Seeding:** [Bogus](https://github.com/bchavez/Bogus) für synthetische Testdaten (Locale: `de`).
     *   [Playwright](https://playwright.dev/dotnet/) (E2E)
     *   [Vitest](https://vitest.dev/) (JS-Frontend Tests)
 
@@ -159,7 +161,7 @@ Unser Code unterliegt höchsten Qualitätsstandards:
 Das System ist zukunftssicher darauf ausgelegt, Features aus verschiedenen (auch externen) Quellen nachzuladen, ohne den Core-Code anfassen zu müssen (Offen-Geschlossen-Prinzip).
 *   **Abstrakte Plugin-Schnittstellen:** Im Core-Domain definieren wir Interfaces (z.B. `ITicketActionPlugin`, `INotificationProvider`), die von externen Modulen implementiert werden können.
 *   **Dynamisches Nachladen:** Geplant ist ein Architektur-Design, welches via Reflection (`Assembly.Load`) oder das C# `ManagedLoadContext` zur Laufzeit kompilierte `.dll`-Dateien (Plugins) aus einem definierten Verzeichnis lädt und über Dependency Injection in die Applikation einklinkt.
-*   *Beispiele für spätere Plugins:* Externe Time-Tracking-Tools (Toggl Integration), Custom-Auth-Provider (SAML/SSO), oder KI-gestützte Ticket-Zusammenfassungen.
+*   *Beispiele für spätere Plugins:* Externe Time-tracking-Tools (Toggl Integration), Custom-Auth-Provider (SAML/SSO), oder KI-gestützte Ticket-Zusammenfassungen.
 
 </details>
 
@@ -192,7 +194,7 @@ Aus Gründen der Ausfallsicherheit, Performance und des Datenschutzes (DSGVO) ve
 Wir verfolgen strikt den Utility-First Ansatz, aber kapseln diesen sauber:
 *   **TailwindCSS 4.2:** Wir nutzen den JIT (Just-in-Time) Compiler von Tailwind für pfeilschnelles, utility-basiertes Design. [Offizielle Dokumentation](https://tailwindcss.com/docs).
 *   **FontAwesome 7.2:** Für Enterprise-Grade Vektor Icons. [Offizielle Icon-Suche](https://fontawesome.com/search).
-*   **Komponenten-CSS (@apply):** Um das CSHTML nicht mit hundert Tailwind-Klassen pro DIV zu verschmutzen, abstrahieren wir wiederkehrende UI-Muster klassisch über `@apply`. Diese benutzerdefinierten, stark wiederverwendbaren CSS-Klassen liegen logisch getrennt im Frontend-Verzeichnis:
+*   **Komponenten-CSS (@apply)::** Um das CSHTML nicht mit hundert Tailwind-Klassen pro DIV zu verschmutzen, abstrahieren wir wiederkehrende UI-Muster klassisch über `@apply`. Diese benutzerdefinierten, stark wiederverwendbaren CSS-Klassen liegen logisch getrennt im Frontend-Verzeichnis:
     *   `/css/components/btn.css` (Alle Button-Variationen)
     *   `/css/components/theme.css` (Color-Tokens und Typografie)
     *   `/css/components/cards.css` (Struktur für Kanban-Cards)
@@ -329,6 +331,16 @@ Wir sichern die Applikation nach dem "Defense in Depth" (Zwiebelschalen) Prinzip
     *   *Produktion:* Integration von Systemen wie Azure Key Vault oder AWS Secrets Manager.
 *   **Data Protection & Hashing:** Passwörter werden mittels ASP.NET Core Identity (Pbkdf2/Argon2Id) gehasht. Cookies zwingend mit `HttpOnly` und `Secure` Flag versehen.
 *   **Input-Validation:** Kein User-Input erreicht die Business-Logik ungeprüft. FluentValidation und Anti-Forgery Tokens (XSRF/CSRF) sind in jedem Post-Request aktiv (und DOMPurify im Frontend, siehe Assets).
+
+### Datenbank-Seeding
+
+Im Entwicklungsmodus (`Development`) wird die Datenbank automatisch mit realistischen, synthetischen deutschen Daten gefüllt, falls sie leer ist. Dies wird durch die `Bogus` Bibliothek realisiert.
+
+*   **Lokalisierung:** `de` (Deutsch)
+*   **Datenschutz:** 100% synthetische Daten gemäß [ADR 0120](docs/adr/0120-synthetic-data-privacy.md).
+*   **Trigger:** Erfolgt beim Anwendungsstart in der `DbInitialiser.cs`.
+
+---
 
 ### Extensive Dokumentation & Architektur-Diagramme
 Dokumentation veraltet nicht, wenn sie automatisiert und systematischer Bestandteil des Workflows ist.

@@ -18,8 +18,10 @@ Dieses Projekt nutzt [Conventional Commits](https://www.conventionalcommits.org/
 - **Client-side Libraries:** Integration von Markdig, SortableJS, FontAwesome 7.2 und DOMPurify (#160)
 - **Tailwind CSS v4:** Vollständige Migration auf die node-freie `tailwindcss-dotnet` Integration (#051)
 - **ADR Renumbering & Restructuring:** Re-indexed all Architecture Decision Records to a 10-step MVP-centric sequence (0000, 0010, 0020, etc.) and added/updated 22+ foundational records to ensure 100% project alignment. (#65)
-- **Database Verification Infrastructure:** Added `TicketsPlease.ArchitectureTests` and `TicketsPlease.IntegrationTests` for automated integrity checks of Code-First relationships. (#66)
-- **ADR 0062:** Implemented Database Verification Strategy documenting tiered testing approach. (#67)
+- **Database Verification Infrastructure:** Added `TicketsPlease.ArchitectureTests` and `TicketsPlease.IntegrationTests` for autom- Datenbank-Verifizierungs-Infrastruktur (Architektur- & Integrations-Tests).
+- ADR 0062: Database Verification Strategy.
+- Datenbank-Seeding mit `Bogus` (de Locale) für realistische Testdaten.
+- ADR 0120: Synthetic Data Generation and Privacy Compliance.
 - **Agent Governance v3.1:** Erweiterte Konfiguration für konsistente Clean Architecture Entwicklung (#aa3)
 
 ### Changed

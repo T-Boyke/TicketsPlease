@@ -238,7 +238,7 @@ erDiagram
     ROLE ||--o{ USER : has
     USER ||--|| USER_PROFILE : owns
     USER ||--|| USER_ADDRESS : owns
-    
+
     %% Assets
     FILE_ASSET |o--|| USER_PROFILE : avatar_for
     TICKET ||--o{ FILE_ASSET : attachments
@@ -255,7 +255,7 @@ erDiagram
     WORKFLOW_STATE ||--o{ TICKET : groups
     TICKET_PRIORITY ||--o{ TICKET : categorizes
     TICKET ||--o{ SUBTICKET : contains
-    
+
     %% Assignments (3NF resolution)
     TICKET ||--o{ TICKET_ASSIGNMENT : has
     USER |o--o{ TICKET_ASSIGNMENT : receives
@@ -284,7 +284,7 @@ erDiagram
     TICKET_HISTORY ||--o{ TICKET : generates
     TICKET_PRIORITY ||--o| SLA_POLICY : defines
     TICKET_TEMPLATE ||--o{ TICKET : spawns
-    
+
     %% Future-Proofing
     ORGANIZATION ||--o{ USER : contains
     ORGANIZATION ||--o{ TICKET : owns
@@ -522,3 +522,30 @@ Zusätzlich zum relationalen Kern wurden folgende Konzepte für die Skalierung i
 1.  **Mandantenfähigkeit (Multi-Tenancy):** Durch die `ORGANIZATION` Entität und die `TenantId` in jedem Datensatz können Daten physisch in einer DB bleiben, aber logisch strikt getrennt werden.
 2.  **Workflow Engine:** Die `WORKFLOW_TRANSITION` Tabelle erlaubt es, dynamische Business-Regeln zu hinterlegen, welche Status-Wechsel für welche Rollen zulässig sind.
 3.  **Custom Field Engine:** Über `CUSTOM_FIELD_DEFINITION` können pro Mandant unbegrenzt viele eigene Ticket-Felder definiert werden, ohne Code-Änderungen oder Migrationen.
+4.  **Data Seeding & Synthetic Strategy (Bogus):** Um die Entwicklung zu beschleunigen und gleichzeitig die **DSGVO-Konformität (Privacy by Design)** zu gewährleisten, setzen wir auf das automatische Seeding mit der **Bogus** Bibliothek. Details siehe unten.
+
+---
+
+## 🧪 Data Seeding & Synthetic Strategy (Bogus)
+
+Um die Entwicklung zu beschleunigen und gleichzeitig die **DSGVO-Konformität (Privacy by Design)** zu gewährleisten, setzen wir auf das automatische Seeding mit der **Bogus** Bibliothek.
+
+### Seeding Prinzipien
+1.  **Strictly Development:** Das Seeding wird nur im `Development` Environment ausgeführt (siehe `Program.cs`).
+2.  **Synthetic Only:** Es werden niemals echte Kundendaten für Tests verwendet.
+3.  **German Locale:** Wir nutzen das `de` Locale für realistische deutsche Namen, Adressen und Texte.
+
+### Implementierte Faker-Sets
+Aktuell werden folgende Daten automatisch generiert:
+
+*   **Tickets:**
+    *   `Title`: Zufällige Produktnamen/Betreffs.
+    *   `Description`: Mehrere Paragraphen Lorem Ipsum (DE).
+    *   `Status`: Zufällig verteilt auf `Todo`, `Doing`, `Done`.
+    *   `Priority`: Gewichteter Zufallswert (0-5).
+
+### Erweiterungsplan (Phase 2)
+Geplant ist die Erweiterung des Seeders auf den vollständigen `Organization` und `User` Kontext, um komplexere Beziehungen und Berechtigungen im ERD (oben) direkt nach dem Start testen zu können.
+
+> [!TIP]
+> Die Seeding-Logik befindet sich zentral in der `TicketsPlease.Infrastructure.Persistence.DbInitialiser.cs`.

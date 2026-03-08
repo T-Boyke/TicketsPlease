@@ -33,6 +33,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 var app = builder.Build();
 
+// Database Seeding in Development
+if (app.Environment.IsDevelopment())
+{
+    await DbInitialiser.SeedAsync(app.Services);
+}
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
