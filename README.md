@@ -63,6 +63,7 @@ Ein hochmodernes, kollaboratives und skalierbares Kanban-Ticketsystem, entwickel
 | **IAM** | 🏗️ In Arbeit | Basis Identity & Access Management | MVP |
 | **Kanban Board** | 🗓️ Geplant | Interaktives Board mit Drag & Drop | MVP |
 | **Tailwind CSS v4** | ✅ Aktiv | Modernes Styling via `tailwindcss-dotnet` | MVP |
+| **Testing Infra** | ✅ Aktiv | Architektur & Integrations-Tests für Datenintegrität | MVP |
 | **AI Skills** | ✅ Aktiv | Automatisierung via Antigravity (ADR, Scaffold) | MVP |
 | **Team Support** | 🗺️ Roadmap | Enterprise Kollaborations-Module | Enterprise |
 | **SLA Policies** | 🗺️ Roadmap | Revisionssichere Reaktionszeiten | Enterprise |
@@ -75,7 +76,7 @@ Ein hochmodernes, kollaboratives und skalierbares Kanban-Ticketsystem, entwickel
 <details>
 <summary>Mehr erfahren über die Vision...</summary>
 
-Dieses Projekt realisiert ein umfassendes Ticketverwaltungssystem mit dynamischen Kanban-Boards, welches explizit als Abschlussprojekt des c# .net 10 kurses vom dozenten Tom Seelig gefordert und Der Gruppe bestehend aus Tobias und x, y, Z  konzipiert wurde. 
+Dieses Projekt realisiert ein umfassendes Ticketverwaltungssystem mit dynamischen Kanban-Boards, welches explizit als Abschlussprojekt des c# .net 10 kurses vom dozenten Tom Seelig gefordert und Der Gruppe bestehend aus Tobias und x, y, Z  konzipiert wurde.
 
 Der kompromisslose Fokus liegt dabei nicht nur auf reiner Funktionalität, sondern vor allem auf **exzellenter Softwarearchitektur**, **höchster Code-Qualität** und **strikter Testabdeckung**. Ziel ist es, eine Enterprise-grade Applikation zu schaffen, die als Referenz für moderne C# Web-Entwicklung dient. Jeder Aspekt der Anwendung, vom Datenbank-Design bis zur CI/CD-Pipeline, wird nach Best-Practices der Industrie umgesetzt und dokumentiert.
 
@@ -90,18 +91,18 @@ Der kompromisslose Fokus liegt dabei nicht nur auf reiner Funktionalität, sonde
 
 Das System nutzt einen hochmodernen und perfekt aufeinander abgestimmten Stack:
 
-*   **Entwicklungsumgebungen (IDEs):** 
-    *   [Visual Studio 2026](https://visualstudio.microsoft.com/) 
-    *   [JetBrains Rider 3.2026](https://www.jetbrains.com/rider/) 
+*   **Entwicklungsumgebungen (IDEs):**
+    *   [Visual Studio 2026](https://visualstudio.microsoft.com/)
+    *   [JetBrains Rider 3.2026](https://www.jetbrains.com/rider/)
     *   *(Exklusiver Support mit maßgeschneiderten `.editorconfig` und Plugin-Configs).*
-*   **Backend & Core (ASP.NET Core 10.3 / C# 14):** 
+*   **Backend & Core (ASP.NET Core 10.3 / C# 14):**
     *   [Offizielle C# Docs](https://learn.microsoft.com/en-us/dotnet/csharp/) | [ASP.NET Core Docs](https://learn.microsoft.com/en-us/aspnet/core/)
     *   **Resilience:** EF Core mit `EnableRetryOnFailure` und expliziten Transaktions-Strategien.
     *   **Concurrency:** Optimistische Nebenläufigkeitskontrolle via `RowVersion` (Timestamp) in allen Entitäten.
     *   **Validation:** CQRS & Validation (MediatR, FluentValidation).
     *   **Async Policy:** Zwingende Nutzung von `CancellationToken` in allen asynchronen Calls.
     *   👉 **[Detaillierte Backend-Library & NuGet Strategie](docs/nuget_stack.md)**
-*   **Datenbank & ORM:** 
+*   **Datenbank & ORM:**
     *   [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/) (Code-First Approach)
     *   **Performance:** Strikte `AsNoTracking()` Policy für reine Lesezugriffe.
     *   [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
@@ -112,12 +113,14 @@ Das System nutzt einen hochmodernen und perfekt aufeinander abgestimmten Stack:
     *   **Client-Side Libs:** Markdig (Markdown), SortableJS (Drag & Drop), FontAwesome 7.2.
     *   **Corporate Identity:** Dynamisches Theming über `ICorporateSkinProvider` und CSS-Variablen.
     *   Paketverwaltung via **[LibMan](https://learn.microsoft.com/en-us/aspnet/core/client-side/libman/libman-vs)** (`libman.json`).
-*   **Architektur-Pattern:** 
+*   **Architektur-Pattern:**
     *   [Clean Architecture (Onion)](https://learn.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures#clean-architecture)
     *   [Domain-Driven Design (DDD)](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/)
     *   [CQRS (Command Query Responsibility Segregation)](https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs)
-*   **Testing-Frameworks:** 
+*   **Testing-Frameworks:**
     *   [xUnit](https://xunit.net/) (Unit/Integration)
+    *   **Architecture:** `NetArchTest.eXtend` für statische Regelprüfung.
+    *   **Integration:** `Microsoft.AspNetCore.Mvc.Testing` für API- & DB-Tests.
     *   [Playwright](https://playwright.dev/dotnet/) (E2E)
     *   [Vitest](https://vitest.dev/) (JS-Frontend Tests)
 
@@ -141,14 +144,14 @@ Das System nutzt striktes Domain-Driven Design (DDD) zur physischen und logische
 
 ### Clean Architecture (Onion / Hexagonal)
 Wir erzwingen eine strikte Trennung von Zuständigkeiten (Separation of Concerns). Abhängigkeiten zeigen *immer* nur nach innen in Richtung der Domain-Schicht.
-*   **Domain Layer (Kern):** Beinhaltet ausschließlich Core-Geschäftsregeln, Entities (Ticket, User, Team) und Value Objects. Diese Schicht hat *null* Abhängigkeiten nach außen – weder zur Datenbank, noch zu Web-Technologien oder anderen Frameworks. 
+*   **Domain Layer (Kern):** Beinhaltet ausschließlich Core-Geschäftsregeln, Entities (Ticket, User, Team) und Value Objects. Diese Schicht hat *null* Abhängigkeiten nach außen – weder zur Datenbank, noch zu Web-Technologien oder anderen Frameworks.
 *   **Application Layer:** Orchestriert die Use Cases der Anwendung. Nutzt Commands und Queries (CQRS-Pattern), um Lese- und Schreiboperationen strikt zu trennen. Definiert DTOs (Data Transfer Objects) und Interfaces für die Domäne.
 *   **Infrastructure Layer:** Implementiert die Interfaces aus der Application Layer. Hier leben die EF Core Repositories, Datenbank-Kontexte und die Anbindung an externe Dienste (z.B. Mail-Provider).
-*   **Web/Presentation Layer:** Die ASP.NET Core MVC/Razor-Komponenten, Controller, API-Endpoints und die darstellende Benutzeroberfläche. 
+*   **Web/Presentation Layer:** Die ASP.NET Core MVC/Razor-Komponenten, Controller, API-Endpoints und die darstellende Benutzeroberfläche.
 
 ### SOLID, DRY, KISS & YAGNI
 Unser Code unterliegt höchsten Qualitätsstandards:
-*   **1 Class pro File:** Eine unverrückbare Regel. Jede C#-Klasse, jedes Interface und jedes Enum bekommt exakt eine Datei. 
+*   **1 Class pro File:** Eine unverrückbare Regel. Jede C#-Klasse, jedes Interface und jedes Enum bekommt exakt eine Datei.
 *   **DRY (Don't Repeat Yourself):** Logik wird abstrahiert und wiederverwendet. Code-Duplikate werden im Code-Review rigoros abgelehnt.
 *   **KISS (Keep It Simple, Stupid) & YAGNI (You Aren't Gonna Need It):** Wir bauen keine komplexen Abstraktionen "für die Zukunft". Wir lösen das aktuelle Problem mit dem einfachsten, lesbarsten und verständlichsten Code.
 
@@ -294,7 +297,7 @@ Unser System ist für den skalierten Betrieb konzipiert. Folgende Säulen stütz
 Wir betrachten Code nicht als bloßen Text, sondern als beständiges Handwerk.
 
 ### Test-Driven Development (TDD) & Quality Assurance
-Tests sind in diesem Projekt kein Nachgedanke, sondern treiben das Design. Wir verfolgen den konsequenten **Red-Green-Refactor**-Zyklus. 
+Tests sind in diesem Projekt kein Nachgedanke, sondern treiben das Design. Wir verfolgen den konsequenten **Red-Green-Refactor**-Zyklus.
 *   **100% Test Coverage-Ziel für die Domain:** Die Domain-Logik (Kern) duldet Zero Compromise. Jede Regel muss getestet sein.
 *   **Unit Tests:** Fokussiert auf Systemdienste, Helferklassen und die reinen Domain-Entities (geschrieben mit xUnit und Moq).
 *   **Integration Tests:** Validieren das Zusammenspiel mit der Datenbank (EF Core In-Memory oder Testcontainers) und testen komplette API-Routen/Controller.
@@ -321,7 +324,7 @@ Wir verlassen uns nicht auf guten Willen, sondern auf harte Werkzeuge. Die in Ri
 
 ### 🛡️ Enterprise Security & Trust (Defense in Depth)
 Wir sichern die Applikation nach dem "Defense in Depth" (Zwiebelschalen) Prinzip ab. Wenn eine Schicht kompromittiert wird, hält die Nächste dem Angriff stand.
-*   **Secret Management:** Sensible Daten (Connection Strings, JWT-Keys, API-Tokens) werden **niemals** im Git-Repository via `appsettings.json` committet. 
+*   **Secret Management:** Sensible Daten (Connection Strings, JWT-Keys, API-Tokens) werden **niemals** im Git-Repository via `appsettings.json` committet.
     *   *Lokale Entwicklung:* Wir nutzen strikt den [ASP.NET Core Secret Manager `dotnet user-secrets`](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets).
     *   *Produktion:* Integration von Systemen wie Azure Key Vault oder AWS Secrets Manager.
 *   **Data Protection & Hashing:** Passwörter werden mittels ASP.NET Core Identity (Pbkdf2/Argon2Id) gehasht. Cookies zwingend mit `HttpOnly` und `Secure` Flag versehen.
@@ -348,7 +351,7 @@ Dokumentation veraltet nicht, wenn sie automatisiert und systematischer Bestandt
 
 Um bei mehreren Entwicklern Chaos zu vermeiden, herrschen strikte Git-Regeln:
 
-1.  **Der `master` / `main` Branch ist HEILIG.** 
+1.  **Der `master` / `main` Branch ist HEILIG.**
     *   Der Master-Branch muss zu **jeder Zeit lauffähig** sein (Compilable & Green Tests).
     *   Niemals wird direkt in den Master-Branch gepusht (Pushes sind per Branch-Protection gesperrt!).
 2.  **Feature Branching:**

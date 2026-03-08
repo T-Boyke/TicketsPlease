@@ -42,7 +42,11 @@ public class AppDbContext : DbContext
             entity.HasKey(e => e.Id);
             entity.Property(e => e.DisplayName).IsRequired().HasMaxLength(100);
             entity.Property(e => e.Email).IsRequired().HasMaxLength(255);
-            entity.Property(e => e.RowVersion).IsRowVersion(); // Explizite RowVersion für Sicherheit
+
+            if (Database.IsSqlServer())
+            {
+                entity.Property(e => e.RowVersion).IsRowVersion(); // Explizite RowVersion für Sicherheit
+            }
         });
 
         // Konfiguration für Ticket
@@ -50,7 +54,11 @@ public class AppDbContext : DbContext
         {
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
-            entity.Property(e => e.RowVersion).IsRowVersion();
+
+            if (Database.IsSqlServer())
+            {
+                entity.Property(e => e.RowVersion).IsRowVersion();
+            }
 
             // Beziehung: Ein Ticket gehört zu einem User
             entity.HasOne(t => t.AssignedUser)

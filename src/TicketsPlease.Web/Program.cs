@@ -55,3 +55,9 @@ app.MapControllerRoute(
 
 
 app.Run();
+
+/// <summary>
+/// Ermöglicht den Zugriff auf die Program-Klasse für Integrations-Tests.
+/// </summary>
+public partial class Program { }
+
