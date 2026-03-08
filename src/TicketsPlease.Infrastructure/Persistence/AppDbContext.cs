@@ -65,7 +65,13 @@ public class AppDbContext : DbContext
                   .WithMany()
                   .HasForeignKey(t => t.AssignedUserId)
                   .OnDelete(DeleteBehavior.Restrict);
+
+            // Globaler Query Filter für Soft-Delete
+            entity.HasQueryFilter(t => !t.IsDeleted);
         });
+
+        // Globaler Query Filter für User (Soft-Delete)
+        modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDeleted);
     }
 
     /// <summary>
