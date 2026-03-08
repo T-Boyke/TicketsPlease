@@ -358,14 +358,16 @@ Ein granulares, hierarchisches Berechtigungsobjekt-System steuert sämtliche Zug
 - **Live Online-Status (Presence):** Grüne Indikatoren neben Profilbildern signalisieren in Echtzeit, ob ein Entwickler oder Ticket-Besitzer gerade in der Applikation aktiv ist.
 
 ### 👤 Erweiterte Benutzerprofile (IAM & Registrierung)
-*   **Zwingende Registrierungsdaten:** Bei der Kontoerstellung ist die Angabe von `Username`, `Vorname` (`FirstName`) und einer gültigen `Email` zwingend erforderlich (Hard Constraints in der Domain).
-*   Ausführliche Profile inklusive **Profilbild-Upload** (Avatar-Crop-Funktion), Kontaktdaten, Arbeitszeiten und abteilungsspezifischen Eigenschaften.
-*   Personalisierte Dashboards pro User (Was sind *meine* assigned Tickets?).
+
+- **Zwingende Registrierungsdaten:** Bei der Kontoerstellung ist die Angabe von `Username`, `Vorname` (`FirstName`) und einer gültigen `Email` zwingend erforderlich (Hard Constraints in der Domain).
+- Ausführliche Profile inklusive **Profilbild-Upload** (Avatar-Crop-Funktion), Kontaktdaten, Arbeitszeiten und abteilungsspezifischen Eigenschaften.
+- Personalisierte Dashboards pro User (Was sind *meine* assigned Tickets?).
 
 ### 👥 Teams & Workspaces
-*   **Team-Erstellung:** Nutzer können eigene Teams/Squads formieren und mit Metadaten (Team-Kürzel, Farbe, Beschreibung) versehen.
-*   **Team-Management:** Einladungs- und Freigabeprozesse für den Beitritt zu bestehenden Teams.
-*   **Kollaboration:** Tickets können ganzen Teams (statt nur Einzelpersonen) zugewiesen werden.
+
+- **Team-Erstellung:** Nutzer können eigene Teams/Squads formieren und mit Metadaten (Team-Kürzel, Farbe, Beschreibung) versehen.
+- **Team-Management:** Einladungs- und Freigabeprozesse für den Beitritt zu bestehenden Teams.
+- **Kollaboration:** Tickets können ganzen Teams (statt nur Einzelpersonen) zugewiesen werden.
 
 ### 🎫 Das Ticket-Core-Domain
 Das Herzstück der Applikation. Ein Ticket ist ein hochkomplexes Objekt mit folgenden Eigenschaften:
@@ -388,13 +390,13 @@ Das visuelle Zentrum der Produktivität.
 
 ### Enterprise Add-Ons (Phase 2-5) 🚀
 Unser System ist für den skalierten Betrieb konzipiert. Folgende Säulen stützen die stabilen Phasen:
-*   **Observability & Monitoring:** Integrierte Endpunkte (`/health`) zur Echtzeit-Überwachung von DB, File-Storage und Mail-Server.
-*   **Infrastructure Excellence:**
-    *   **Hangfire / Quartz:** Persistentes Background-Processing für SLAs und Auto-Close.
-    *   **Redis Caching:** Distributed In-Memory Cache zur Minimierung von DB-Latenzen.
-*   **API Mastery:**
-    *   **Scalar Interactive Docs:** Eine interaktive API-Dokumentation für Drittanbieter.
-    *   **Semantic Versioning:** Versionierte API-Endpunkte für langfristige Stabilität.
+- **Observability & Monitoring:** Integrierte Endpunkte (`/health`) zur Echtzeit-Überwachung von DB, File-Storage und Mail-Server.
+- **Infrastructure Excellence:**
+  - **Hangfire / Quartz:** Persistentes Background-Processing für SLAs und Auto-Close.
+  - **Redis Caching:** Distributed In-Memory Cache zur Minimierung von DB-Latenzen.
+- **API Mastery:**
+  - **Scalar Interactive Docs:** Eine interaktive API-Dokumentation für Drittanbieter.
+  - **Semantic Versioning:** Versionierte API-Endpunkte für langfristige Stabilität.
 
 </details>
 
