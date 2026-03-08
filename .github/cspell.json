@@ -1,6 +1,16 @@
 {
   "version": "0.2",
   "language": "en,de",
+  "dictionaryDefinitions": [
+    {
+      "name": "german-local",
+      "path": "./dict-de.txt",
+      "addWords": true
+    }
+  ],
+  "dictionaries": [
+    "german-local"
+  ],
   "words": [
     "TicketsPlease",
     "Gitleaks",
