@@ -1,4 +1,4 @@
-# ADR 0003: Database Design (3rd Normal Form)
+# ADR 0030: Database Design (3rd Normal Form)
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-06

@@ -1,4 +1,4 @@
-# ADR-0020: Corporate Skinning Architecture
+# ADR 0044: Corporate Skinning Architecture
 
 ## Status
 Akzeptiert ✅

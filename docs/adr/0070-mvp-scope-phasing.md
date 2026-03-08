@@ -1,4 +1,4 @@
-# ADR 0007: MVP Scope & Phasing
+# ADR 0070: MVP Scope & Phasing
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-06

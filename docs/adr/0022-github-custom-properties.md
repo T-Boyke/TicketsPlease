@@ -1,4 +1,4 @@
-# ADR-0022: GitHub Custom Properties Governance
+# ADR 0022: GitHub Custom Properties Governance
 
 * Status: accepted
 * Deciders: Antigravity, USER
@@ -38,17 +38,17 @@ graph TD
     C -->|Metadata| D[Compliance: IHK-2025]
     C -->|Metadata| E[Sensitivity: Internal]
     C -->|Metadata| F[Status: Active]
-    
+
     D -.-> G[Repository Rulesets]
     E -.-> G
     F -.-> G
-    
+
     G -->|Enforce| H[Signed Commits]
     G -->|Enforce| I[Branch Protection]
-    
+
     subgraph Documentation
         J[REPOSITORY_PROPERTIES.md] -.->|Source of Truth| B
-        K[ADR-0022] -.->|Rationale| J
+        K[ADR 0022] -.->|Rationale| J
     end
 ```
 

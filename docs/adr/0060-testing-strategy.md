@@ -1,4 +1,4 @@
-# ADR 0006: Testing Strategy
+# ADR 0060: Testing Strategy
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-06

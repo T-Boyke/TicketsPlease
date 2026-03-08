@@ -1,4 +1,4 @@
-# ADR 0009: CQRS with MediatR
+# ADR 0050: CQRS with MediatR
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-06

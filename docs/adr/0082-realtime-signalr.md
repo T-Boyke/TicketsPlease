@@ -1,4 +1,4 @@
-# ADR 0013: Real-Time Communication (SignalR)
+# ADR 0082: Real-Time Communication (SignalR)
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-06

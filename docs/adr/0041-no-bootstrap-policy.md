@@ -1,4 +1,4 @@
-# ADR-0017: No-Bootstrap Policy
+# ADR 0041: No-Bootstrap Policy
 
 ## Status
 Akzeptiert ✅

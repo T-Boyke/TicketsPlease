@@ -1,4 +1,4 @@
-# ADR 0016: Ticket Identification & Audit Trail (SHA1 & GeoIP)
+# ADR 0080: Ticket Identification & Audit Trail (SHA1 & GeoIP)
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-06

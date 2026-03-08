@@ -1,4 +1,4 @@
-# ADR 0008: Plugin Architecture (Extensibility)
+# ADR 0011: Plugin Architecture (Extensibility)
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-06

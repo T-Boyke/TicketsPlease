@@ -17,6 +17,7 @@ Dieses Projekt nutzt [Conventional Commits](https://www.conventionalcommits.org/
 - **Antigravity AI Skills:** 6 automatisierte Skills für Scaffolding, Code-Review, EF-Debugging und ADR-Erstellung (#64)
 - **Client-side Libraries:** Integration von Markdig, SortableJS, FontAwesome 7.2 und DOMPurify (#160)
 - **Tailwind CSS v4:** Vollständige Migration auf die node-freie `tailwindcss-dotnet` Integration (#051)
+- **ADR Renumbering & Restructuring:** Re-indexed all Architecture Decision Records to a 10-step MVP-centric sequence (0000, 0010, 0020, etc.) and added/updated 22+ foundational records to ensure 100% project alignment. (#65)
 - **Agent Governance v3.1:** Erweiterte Konfiguration für konsistente Clean Architecture Entwicklung (#aa3)
 
 ### Changed

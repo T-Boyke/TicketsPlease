@@ -1,4 +1,4 @@
-# 0021. Database Future-Proofing (Enterprise Extensions)
+# ADR 0032: Database Future-Proofing (Enterprise Extensions)
 
 **Datum:** 2026-03-06
 
@@ -41,4 +41,4 @@ Wir führen vier fundamentale Erweiterungen in das Kern-Design ein:
 
 ## Referenzen
 - [Database Schema (Target)](../database_schema.md)
-- [ADR-0003: Database 3NF](./0003-database-3nf.md)
+- [ADR 0030: Database 3NF](./0030-database-3nf.md)

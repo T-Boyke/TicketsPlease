@@ -1,4 +1,4 @@
-# ADR 0010: Validation Strategy (FluentValidation)
+# ADR 0051: Validation Strategy (FluentValidation)
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-06

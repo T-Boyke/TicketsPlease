@@ -1,4 +1,4 @@
-# ADR-0019: EF Core Resilience & Concurrency
+# ADR 0031: EF Core Resilience & Concurrency
 
 ## Status
 Akzeptiert ✅

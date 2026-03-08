@@ -1,4 +1,4 @@
-# ADR 0001: Clean Architecture (Onion)
+# ADR 0010: Clean Architecture (Onion)
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-06

@@ -1,4 +1,4 @@
-# ADR 0012: Resilience & Fault Handling (Polly)
+# ADR 0081: Resilience & Fault Handling (Polly)
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-06

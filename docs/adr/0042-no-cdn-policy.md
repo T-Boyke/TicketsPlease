@@ -1,4 +1,4 @@
-# ADR 0004: No-CDN Policy
+# ADR 0042: No-CDN Policy
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-06

@@ -1,4 +1,4 @@
-# ADR 0011: Structured Logging (Serilog)
+# ADR 0061: Structured Logging (Serilog)
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-06

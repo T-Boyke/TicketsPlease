@@ -1,4 +1,4 @@
-# ADR 0005: UI Architecture (SFC & Tailwind 4.2)
+# ADR 0040: UI Architecture (SFC & Tailwind 4.2)
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-06

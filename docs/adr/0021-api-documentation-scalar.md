@@ -1,4 +1,4 @@
-# ADR 0015: API Documentation & Visualization (Scalar)
+# ADR 0021: API Documentation & Visualization (Scalar)
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-06
