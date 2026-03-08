@@ -17,7 +17,15 @@
     "slnx",
     "CodeQL",
     "Dependabot",
-    "SBOM"
+    "SBOM",
+    "MediatR",
+    "Mediat",
+    "nameof",
+    "cref",
+    "xunit",
+    "Xunit",
+    "FluentValidation",
+    "Testcontainers"
   ],
   "ignorePaths": [
     "node_modules",

@@ -1,17 +1,18 @@
 name: "Spell Check"
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    push:
+        branches: ["main"]
+    pull_request:
+        branches: ["main"]
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - name: Spell Check
-        uses: streetsidesoftware/cspell-action@v6
-        with:
-          config: '.github/cspell.json'
+    check:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v6
+            - name: Spell Check
+              uses: streetsidesoftware/cspell-action@v6
+              with:
+                  config: ".github/cspell.json"
+                  extra_dictionaries: "de-de"
