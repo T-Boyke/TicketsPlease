@@ -1,6 +1,9 @@
 ---
 name: tailwind-component-patterns
-description: Provides TailwindCSS 4.2 component patterns with @apply abstractions, CSS Custom Properties, Dark/Light mode, Glassmorphism, and BFSG/a11y compliance. Use when creating UI components, styling pages, or implementing theme-aware designs in the TicketsPlease project.
+description: Provides TailwindCSS 4.2 component patterns with @apply
+  abstractions, CSS Custom Properties, Dark/Light mode, Glassmorphism, and
+  BFSG/a11y compliance. Use when creating UI components, styling pages, or
+  implementing theme-aware designs in the TicketsPlease project.
 ---
 
 # 🎨 TailwindCSS Component Patterns
@@ -684,4 +687,4 @@ document.documentElement.dataset.theme =
 
 ---
 
-*Skill: tailwind-component-patterns v2.0 – Premium Design System*
+### Skill: tailwind-component-patterns v2.0 – Premium Design System

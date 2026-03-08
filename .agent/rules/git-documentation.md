@@ -7,7 +7,8 @@ Regeln für Git-Workflows, Commits, PRs und Dokumentation.
 ## Branching
 
 - **`main` ist HEILIG** – Muss jederzeit lauffähig sein. Direct Push ist per Branch-Protection gesperrt.
-- Branch-Naming: `feature/xyz`, `bugfix/xyz`, `hotfix/xyz`, `docs/xyz`, `refactor/xyz`, `test/xyz`.
+- Branch-Naming: `feature/xyz`, `bugfix/xyz`, `hotfix/xyz`, `docs/xyz`,
+  `refactor/xyz`, `test/xyz`.
 - Jeder Branch startet vom aktuellen `main`.
 
 ## Commits (Conventional Commits – Englisch!)
@@ -28,7 +29,8 @@ Format: `<type>(<scope>): <subject>`
 
 ## Pre-Commit Checks
 
-1. `CHANGELOG.md` aktualisieren → **Pflicht** bei `feat`, `fix`, `security`, Breaking Changes
+1. `CHANGELOG.md` aktualisieren → **Pflicht** bei `feat`, `fix`, `security`,
+   Breaking Changes
 2. `dotnet build` → Muss kompilieren
 3. `dotnet test` → Alle Tests grün
 4. `dotnet format --verify-no-changes` → Formatting korrekt
@@ -37,14 +39,17 @@ Format: `<type>(<scope>): <subject>`
 ## Dokumentation
 
 ### XML-Docs (C# – Deutsch)
+
 - Pflicht für alle `public` Members.
 - Tags: `<summary>`, `<param>`, `<returns>`, `<exception>`, `<remarks>`, `<inheritdoc />`.
 
 ### ADRs
+
 - Jede wesentliche Design-Entscheidung → neuer ADR in `docs/adr/[NNNN]-[name].md`.
 - ADR-Index aktualisieren (`docs/adr/README.md`).
 
 ### CHANGELOG ([CHANGELOG.md](file:///d:/DEV/Tickets/CHANGELOG.md))
+
 - **Pflicht-Update vor jedem Commit** bei: `feat`, `fix`, `security`, Breaking Changes.
 - Reine `docs`, `style`, `chore`, `refactor` Commits brauchen keinen CHANGELOG-Eintrag.
 - Format: [Keep a Changelog](https://keepachangelog.com/).
@@ -52,9 +57,10 @@ Format: `<type>(<scope>): <subject>`
 - Kategorien: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`.
 
 ### Mermaid-Diagramme
+
 - Für Architektur, Flows, ERD, State Machines.
 - In `docs/` oder inline in ADRs ablegen.
 
 ---
 
-*TicketsPlease Git & Docs Rules v1.0 | 2026-03-06*
+### TicketsPlease Git & Docs Rules v1.0 | 2026-03-06

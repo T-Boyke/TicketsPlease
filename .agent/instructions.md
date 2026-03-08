@@ -2,7 +2,8 @@
 
 Dieses Dokument ist der zentrale Einstiegspunkt für den KI-Agenten im **TicketsPlease** Projekt.
 
-> 📖 **Vollständige Governance:** Alle technischen Regeln in [instructions.md](file:///d:/DEV/Tickets/instructions.md) (16 Sektionen).
+> 📖 **Vollständige Governance:**
+> Alle technischen Regeln in [instructions.md](file:///d:/DEV/Tickets/instructions.md) (16 Sektionen).
 
 ---
 
@@ -11,7 +12,7 @@ Dieses Dokument ist der zentrale Einstiegspunkt für den KI-Agenten im **Tickets
 Die folgenden Regeln in `.agent/rules/` sind **verbindlich** für jede Interaktion:
 
 | Regel-Datei | Beschreibung |
-|---|---|
+| --- | --- |
 | [agent-behavior.md](file:///d:/DEV/Tickets/.agent/rules/agent-behavior.md) | 🤖 Grundhaltung, Plan-First, Kommunikation, No-Gos |
 | [architecture.md](file:///d:/DEV/Tickets/.agent/rules/architecture.md) | 🏛️ Clean Architecture, DDD, CQRS, EF Core, Naming |
 | [security.md](file:///d:/DEV/Tickets/.agent/rules/security.md) | 🛡️ Defense in Depth, Secrets, DSGVO, XSS |
@@ -24,7 +25,7 @@ Die folgenden Regeln in `.agent/rules/` sind **verbindlich** für jede Interakti
 ## 🔧 Workflows
 
 | Workflow | Beschreibung |
-|---|---|
+| --- | --- |
 | [/add-cqrs-feature](file:///d:/DEV/Tickets/.agent/workflows/add-cqrs-feature.md) | Neues CQRS Feature (Command/Query) hinzufügen |
 | [/ef-core-migration](file:///d:/DEV/Tickets/.agent/workflows/ef-core-migration.md) | EF Core Migrations erstellen & anwenden |
 | [/testing-standards](file:///d:/DEV/Tickets/.agent/workflows/testing-standards.md) | Unit- & Integration-Tests schreiben |
@@ -39,7 +40,7 @@ Die folgenden Regeln in `.agent/rules/` sind **verbindlich** für jede Interakti
 ## 🧠 Skills
 
 | Skill | Beschreibung |
-|---|---|
+| --- | --- |
 | [clean-architecture-scaffold](file:///d:/DEV/Tickets/.agent/skills/clean-architecture-scaffold/SKILL.md) | 🏗️ Feature über alle Layer scaffolden |
 | [code-review](file:///d:/DEV/Tickets/.agent/skills/code-review/SKILL.md) | 🔍 Code nach allen Projekt-Standards reviewen |
 | [ef-core-debugging](file:///d:/DEV/Tickets/.agent/skills/ef-core-debugging/SKILL.md) | 🔬 EF Core Performance & Debugging |
@@ -52,7 +53,7 @@ Die folgenden Regeln in `.agent/rules/` sind **verbindlich** für jede Interakti
 ## 📚 Projekt-Dokumentation
 
 | Dokument | Beschreibung |
-|---|---|
+| --- | --- |
 | [README.md](file:///d:/DEV/Tickets/README.md) | Projekt-Vision, Features, Tech-Stack |
 | [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md) | Phase-Abgrenzung (MVP vs. Enterprise) |
 | [ADR-Index](file:///d:/DEV/Tickets/docs/adr/README.md) | Alle Architektur-Entscheidungen |
@@ -65,4 +66,4 @@ Die folgenden Regeln in `.agent/rules/` sind **verbindlich** für jede Interakti
 
 ---
 
-*TicketsPlease Agent Config v3.1 | 2026-03-06*
+### TicketsPlease Agent Config v3.1 | 2026-03-06

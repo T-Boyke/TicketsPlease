@@ -1,23 +1,26 @@
 name: "Architecture Guard"
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    push:
+        branches: ["main"]
+    pull_request:
+        branches: ["main"]
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '10.0.x'
+    check:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v6
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v4
+              with:
+                  dotnet-version: "10.0.x"
 
-      - name: Build Architecture Tests
-        run: dotnet build src/TicketsPlease.slnx
+            - name: Restore tools
+              run: dotnet tool restore
 
-      - name: Run Architecture Checks
-        run: dotnet test src/TicketsPlease.slnx --filter FullyQualifiedName~ArchitectureTests
+            - name: Build Architecture Tests
+              run: dotnet build src/TicketsPlease.slnx
+
+            - name: Run Architecture Checks
+              run: dotnet test src/TicketsPlease.slnx --filter FullyQualifiedName~ArchitectureTests

@@ -1,6 +1,5 @@
----
-description: Workflow for creating DDD Domain Entities, Value Objects, and Domain Events in the TicketsPlease project.
----
+description: Workflow for creating DDD Domain Entities, Value Objects, and
+  Domain Events in the TicketsPlease project.
 
 # 🧬 Domain Entity Workflow (DDD Rich Models)
 
@@ -13,7 +12,7 @@ Dieser Workflow beschreibt den vollständigen Ablauf zur Erstellung einer neuen 
 ## Fundamentale Regeln
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **Zero Dependencies** | `TicketsPlease.Domain` hat **keine** NuGet-Referenzen (Ausnahme: `MediatR.Contracts` für `INotification`). |
 | **Rich Model** | Entities sind keine reinen Datencontainer. Sie enthalten Business-Logik. |
 | **Private Setter** | Alle Properties: `{ get; private set; }`. Kein externes Setzen! |
@@ -126,6 +125,7 @@ public sealed record EmailAddress
 ```
 
 **Verwendung in Entities:**
+
 - `EmailAddress` statt `string Email`
 - `PriorityLevel` statt `int Priority`
 - `Sha1Hash` statt `string Hash`
@@ -145,6 +145,7 @@ public sealed record TicketCreatedEvent(Guid TicketId, string Title) : INotifica
 ```
 
 **Event im Entity auslösen:**
+
 ```csharp
 /// <summary>
 /// Löst ein Domain Event aus, das von MediatR-Handlern verarbeitet wird.
@@ -158,7 +159,7 @@ public void RaiseDomainEvent(INotification domainEvent)
 ### 4. Bounded Context einordnen
 
 | Context | Entities |
-|---|---|
+| --- | --- |
 | **Identity & Access** | User, UserProfile, UserAddress, Role |
 | **Ticket Management** | Ticket, SubTicket, Tag, TicketPriority, TimeLog, TicketUpvote |
 | **Workflow** | WorkflowState, SlaPolicy |
@@ -187,19 +188,25 @@ ticket.Status = TicketStatus.Closed;
 ```
 
 ### 6. RowVersion / Concurrency (Pflicht!)
+
 - Jede Entity bekommt `byte[] RowVersion` als `[Timestamp]`.
 - EF Core nutzt dies automatisch für Optimistic Concurrency.
 - Handler fangen `DbUpdateConcurrencyException` (siehe [EF Core Workflow](file:///d:/DEV/Tickets/.agent/workflows/ef-core-migration.md)).
 
 ### 7. XML-Dokumentation (Pflicht!)
+
 - **Alle** `public` Members der Entity müssen XML-Kommentare haben.
 - `<summary>`, `<param>`, `<returns>`, `<exception>` wo zutreffend.
 
 ### 8. Unit Tests (TDD!)
+
 - Erstelle Unit-Tests für alle Domain-Methoden **vor** der Implementierung.
 - Teste Business-Regeln, Validierungen und Edge Cases.
 - Coverage-Ziel für Domain: **100%**.
 
 ---
 
-*Checkliste: Entity ✓ → Value Objects ✓ → Domain Events ✓ → Context ✓ → Business Methods ✓ → RowVersion ✓ → XML-Docs ✓ → Tests ✓*
+### Zusammenfassung
+
+Checkliste: Entity ✓ → Value Objects ✓ → Domain Events ✓ → Context ✓ →
+Business Methods ✓ → RowVersion ✓ → XML-Docs ✓ → Tests ✓

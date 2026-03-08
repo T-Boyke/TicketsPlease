@@ -1,6 +1,9 @@
 ---
 name: code-review
-description: Reviews code changes against all TicketsPlease project standards including Clean Architecture, DDD, Security, Testing, UI/a11y, and documentation. Use when reviewing PRs, checking code quality, or validating changes before commit.
+description: Reviews code changes against all TicketsPlease project standards
+  including Clean Architecture, DDD, Security, Testing, UI/a11y, and
+  documentation. Use when reviewing PRs, checking code quality, or validating
+  changes before commit.
 ---
 
 # 🔍 Code Review Skill
@@ -21,7 +24,7 @@ Konsolidierte Code-Review Checkliste basierend auf allen Projekt-Standards.
 
 ## Review-Ablauf
 
-```
+```text
 1. 🏛️ Architecture Check (Dependency Direction)
 2. 🧬 DDD Check (Rich Model, Encapsulation)
 3. 🛡️ Security Check (Input Validation, XSS, DSGVO)
@@ -38,7 +41,7 @@ Konsolidierte Code-Review Checkliste basierend auf allen Projekt-Standards.
 ### 🔴 Blocker (Merge-Verhindernd)
 
 | # | Check | Beschreibung |
-|---|---|---|
+| --- | --- | --- |
 | B1 | **Dependency Direction** | Domain darf NIE von Infrastructure/Web abhängen |
 | B2 | **Secrets** | Keine Secrets in appsettings.json oder Code |
 | B3 | **SQL Injection** | Keine String-Concatenation für Queries |
@@ -49,7 +52,7 @@ Konsolidierte Code-Review Checkliste basierend auf allen Projekt-Standards.
 ### 🟡 Major (Muss vor Merge gefixt werden)
 
 | # | Check | Beschreibung |
-|---|---|---|
+| --- | --- | --- |
 | M1 | **Private Setter** | Entity-Properties: `{ get; private set; }` |
 | M2 | **CancellationToken** | Bis zum letzten Async-Call durchreichen |
 | M3 | **AsNoTracking** | Alle Lese-Queries |
@@ -64,7 +67,7 @@ Konsolidierte Code-Review Checkliste basierend auf allen Projekt-Standards.
 ### 🟢 Minor (Sollte gefixt werden)
 
 | # | Check | Beschreibung |
-|---|---|---|
+| --- | --- | --- |
 | N1 | **Naming Convention** | Projekt-Naming beachten (siehe Architecture Rules) |
 | N2 | **Hardcoded Farben** | CSS Custom Properties verwenden |
 | N3 | **ARIA-Attribute** | `aria-label`, `aria-expanded` wo nötig |
@@ -99,4 +102,4 @@ Strukturiere Feedback so:
 
 ---
 
-*Skill: code-review v1.0*
+### Skill: code-review v1.0

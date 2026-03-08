@@ -1,5 +1,6 @@
 ---
-description: Standards and workflow for documentation, XML-comments, ADRs, Mermaid diagrams, and changelogs in the TicketsPlease project.
+description: Standards and workflow for documentation, XML-comments, ADRs,
+  Mermaid diagrams, and changelogs in the TicketsPlease project.
 ---
 
 # 📝 Documentation Standards Workflow
@@ -12,12 +13,12 @@ Dieser Workflow definiert die vollständigen Dokumentations-Standards für das T
 
 ## 1. XML-Documentation Comments (C#)
 
-### Pflicht für ALLE `public` Members!
+### Pflicht für alle public Members
 
 Nutze die offiziellen [Microsoft XML Documentation Tags](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags):
 
 | Tag | Verwendung |
-|---|---|
+| --- | --- |
 | `<summary>` | Kurze Beschreibung (Pflicht für alles) |
 | `<param name="x">` | Parameter-Beschreibung (Pflicht für Methoden) |
 | `<returns>` | Rückgabewert-Beschreibung |
@@ -77,6 +78,7 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
 ## 2. Architectural Decision Records (ADR)
 
 ### Wann einen ADR erstellen?
+
 - **Jede wesentliche Design-Entscheidung** (Architektur, Stack, Security, Pattern-Wahl).
 - Beispiele: Wahl eines Caching-Frameworks, Einführung eines neuen Bounded Context, Änderung der Auth-Strategie.
 
@@ -89,10 +91,10 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
 4. Aktualisiere den ADR-Index (`docs/adr/README.md`).
 5. Commit: `docs(adr): add ADR-NNNN for [Thema]`
 
-### ADR-Index aktuell halten!
+### ADR-Index aktuell halten
 
 | Feld | Beschreibung |
-|---|---|
+| --- | --- |
 | **Nummer** | Fortlaufend (0001, 0002, ...) |
 | **Titel** | Kurz, beschreibend (kebab-case im Dateinamen) |
 | **Status** | `Accepted`, `Superseded`, `Deprecated` |
@@ -103,12 +105,14 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
 ## 3. Mermaid-Diagramme
 
 ### Wann Mermaid verwenden?
+
 - Architektur-Überblicke (Flowcharts, Dependency Graphs)
 - Sequenzdiagramme (CQRS Flows, Auth Flows)
 - ERD-Diagramme (Datenbank-Schema)
 - State-Diagramme (Ticket-Status-Übergänge)
 
 ### Ablageort
+
 - **Systemarchitektur:** [architecture_diagrams.md](file:///d:/DEV/Tickets/docs/architecture_diagrams.md)
 - **Datenbank-ERD:** [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md)
 - **Ticket-Domain:** [domain_ticket.md](file:///d:/DEV/Tickets/docs/domain_ticket.md)
@@ -132,6 +136,7 @@ stateDiagram-v2
 ## 4. CHANGELOG
 
 ### Wann aktualisieren?
+
 - Bei **jedem Feature**, **Bugfix** oder **Breaking Change**.
 - Der CHANGELOG dokumentiert die **nutzerrelevanten** Änderungen (nicht jeden einzelnen Refactoring-Commit).
 
@@ -159,7 +164,7 @@ stateDiagram-v2
 ## 5. Mockups & Screenshots
 
 | Typ | Ablageort |
-|---|---|
+| --- | --- |
 | UI-Wireframes & Mockups | `/docs/mockups/` |
 | Finale Screenshots (IHK) | `/docs/mockups/` |
 | Grafiken & Logos | `/docs/assets/` → später `wwwroot/images/` |
@@ -170,7 +175,7 @@ stateDiagram-v2
 ## 6. Inline-Code-Dokumentation
 
 | Situation | Regel |
-|---|---|
+| --- | --- |
 | **Komplexe Logik** | Erkläre das **"Warum"**, nicht das "Was" (das sieht man im Code). |
 | **TODO/FIXME** | `// TODO(username): Beschreibung` mit GitHub Issue Referenz. |
 | **Workarounds** | Dokumentiere den Grund und die geplante Lösung. |
@@ -178,4 +183,7 @@ stateDiagram-v2
 
 ---
 
-*Checkliste: XML-Docs ✓ → ADR ✓ → Mermaid ✓ → CHANGELOG ✓ → Mockups ✓ → Inline-Docs ✓*
+### Zusammenfassung
+
+Checkliste: XML-Docs ✓ → ADR ✓ → Mermaid ✓ → CHANGELOG ✓ → Mockups ✓ →
+Inline-Docs ✓

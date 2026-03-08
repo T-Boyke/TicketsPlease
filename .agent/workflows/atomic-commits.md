@@ -1,5 +1,6 @@
 ---
-description: Workflow for ensuring small, logical, and atomic commits in the TicketsPlease project.
+description: Workflow for ensuring small, logical, and atomic commits in the
+  TicketsPlease project.
 ---
 
 # ⚛️ Atomic Commit & Git Workflow
@@ -15,7 +16,7 @@ Um eine saubere, nachvollziehbare Git-Historie zu gewährleisten, müssen Commit
 ### Branch-Naming Conventions
 
 | Prefix | Verwendung | Beispiel |
-|---|---|---|
+| --- | --- | --- |
 | `feature/` | Neues Feature | `feature/ticket-drag-and-drop` |
 | `bugfix/` | Bugfix | `bugfix/fix-login-redirect` |
 | `hotfix/` | Urgent Production Fix | `hotfix/patch-sql-injection` |
@@ -25,7 +26,7 @@ Um eine saubere, nachvollziehbare Git-Historie zu gewährleisten, müssen Commit
 
 ### Workflow
 
-```
+```bash
 1. git checkout main
 2. git pull origin main
 3. git checkout -b feature/mein-neues-feature
@@ -40,8 +41,10 @@ Um eine saubere, nachvollziehbare Git-Historie zu gewährleisten, müssen Commit
 ## Atomare Commits
 
 ### 1. Vorbereitung
+
 Prüfe vor dem Commit den Status:
-```cmd
+
+```bash
 // turbo
 git status
 ```
@@ -52,7 +55,7 @@ git status
   - ❌ `feat: add RowVersion AND fix login layout` (zwei Tasks = zwei Commits!)
 - Falls nein: Nutze `git add <file>` oder `git add -p` zum selektiven Stagen.
 
-### 3. Conventional Commits (Pflicht!)
+### 3. Conventional Commits (Pflicht)
 
 Format: `<type>(<scope>): <subject>`
 
@@ -67,7 +70,7 @@ chore(deps): update MediatR to v13
 ```
 
 | Feld | Regel |
-|---|---|
+| --- | --- |
 | **Type** | `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore` |
 | **Scope** | Optional. Betroffener Layer/Bereich (z.B. `ticket`, `auth`, `domain`, `web`) |
 | **Subject** | Kurz, prägnant, **Imperativ** ("add", nicht "added" oder "adding") |
@@ -97,7 +100,7 @@ chore(deps): update MediatR to v13
 ### 6. Verifizierung vor Commit
 
 | Prüfpunkt | Befehl | Pflicht? |
-|---|---|---|
+| --- | --- | --- |
 | **CHANGELOG.md** | `[Unreleased]` Sektion aktualisieren | ✅ Bei `feat`, `fix`, `security` |
 | **Kompiliert** | `dotnet build` | ✅ Ja |
 | **Tests grün** | `dotnet test` | ✅ Ja |

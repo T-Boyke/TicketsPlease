@@ -1,5 +1,6 @@
 ---
-description: Workflow for adding a new CQRS feature (Command/Query) to the TicketsPlease project.
+description: Workflow for adding a new CQRS feature (Command/Query) to the
+  TicketsPlease project.
 ---
 
 # ⚡ Add CQRS Feature Workflow
@@ -14,7 +15,7 @@ Dieser Workflow beschreibt den vollständigen Ablauf, um ein neues Command oder 
 
 Jeder Request durchläuft automatisch die MediatR Pipeline in dieser Reihenfolge:
 
-```
+```text
 📨 Request → 📋 LoggingBehavior → ✅ ValidationBehavior → 🔄 TransactionBehavior → ⚙️ Handler → 📤 Response
 ```
 
@@ -23,24 +24,28 @@ Jeder Request durchläuft automatisch die MediatR Pipeline in dieser Reihenfolge
 ## Schritte
 
 ### 1. Domain Entity prüfen
+
 - Prüfe, ob die benötigte Entity in `src/TicketsPlease.Domain/Entities/` existiert.
 - Die Entity **muss** von `BaseEntity` erben und `byte[] RowVersion` besitzen.
 - Properties haben **`private set`** (Rich Model). Zustandsänderungen nur über Verhaltensmethoden.
 - Falls eine neue Entity nötig ist → nutze den `/domain-entity` Workflow.
 
 ### 2. DTO / Contract definieren
+
 - Erstelle bei Bedarf ein DTO in `src/TicketsPlease.Application/Features/[FeatureName]/`.
   - **Queries:** DTOs in einem `Queries/` Unterordner.
   - **Commands:** DTOs in einem `Commands/` Unterordner.
 - Naming: `[Entity][Purpose]Dto` (z.B. `TicketDetailDto`, `TicketListItemDto`).
 
 ### 3. Request erstellen (Command oder Query)
+
 - Erstelle eine `IRequest<T>` Klasse:
   - **Command:** `src/TicketsPlease.Application/Features/[FeatureName]/Commands/[Verb][Entity]Command.cs`
   - **Query:** `src/TicketsPlease.Application/Features/[FeatureName]/Queries/Get[Entity]Query.cs`
 - Der Request sollte **alle** nötigen Daten als Properties enthalten (keine komplexen Objekte, nur primitive Typen oder IDs).
 
 ### 4. Validator erstellen (Pflicht für Commands!)
+
 - Erstelle einen `AbstractValidator<T>` im selben Ordner wie den Command.
 - Naming: `[CommandName]Validator` (z.B. `CreateTicketCommandValidator`).
 - **Regeln:**
@@ -70,6 +75,7 @@ public class CreateTicketCommandValidator : AbstractValidator<CreateTicketComman
 ```
 
 ### 5. Handler implementieren
+
 - Erstelle einen `IRequestHandler<TRequest, TResponse>` im selben Feature-Ordner.
 - Naming: `[CommandName]Handler` (z.B. `CreateTicketCommandHandler`).
 - **Pflicht-Regeln:**
@@ -102,26 +108,31 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
 ```
 
 ### 6. Repository erweitern (falls nötig)
+
 - **Interface:** In `src/TicketsPlease.Application/Contracts/Persistence/I[Entity]Repository.cs`.
 - **Implementierung:** In `src/TicketsPlease.Infrastructure/Persistence/Repositories/[Entity]Repository.cs`.
 - **Queries:** Immer `AsNoTracking()` nutzen!
 - **Projections:** `.Select(t => new Dto { ... })` bevorzugen statt `.Include()`.
 
 ### 7. Mapping registrieren (Mapster)
+
 - Falls DTOs verwendet werden: Registriere Mappings in der Mapster-Konfiguration.
 - Bevorzuge **explizite** Mapping-Konfigurationen über implizites Auto-Mapping.
 
 ### 8. Controller / API-Endpoint erstellen
+
 - Erstelle oder erweitere einen Controller in `src/TicketsPlease.Web/Controllers/`.
 - Der Controller sendet den Request **ausschließlich** via `IMediator.Send()`.
 - **Keine** Business-Logik im Controller!
 - Anti-Forgery Token für POST-Requests: `[ValidateAntiForgeryToken]`.
 
 ### 9. XML-Dokumentation
+
 - **Alle** neuen `public` Members müssen vollständige XML-Kommentare haben:
   - `<summary>`, `<param>`, `<returns>`, `<exception>` wo zutreffend.
 
 ### 10. Unit-Test schreiben (TDD!)
+
 - Erstelle einen Unit-Test im `tests/` Projekt.
 - Naming: `[HandlerName]Tests` → `Handle_[Scenario]_[ExpectedResult]`.
 - Mocke Repositories via `Moq` oder `NSubstitute`.
@@ -130,4 +141,7 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
 
 ---
 
-*Checkliste: Entity ✓ → DTO ✓ → Request ✓ → Validator ✓ → Handler ✓ → Repository ✓ → Mapping ✓ → Controller ✓ → XML-Docs ✓ → Test ✓*
+### Zusammenfassung
+
+Checkliste: Entity ✓ → DTO ✓ → Request ✓ → Validator ✓ → Handler ✓ →
+Repository ✓ → Mapping ✓ → Controller ✓ → XML-Docs ✓ → Test ✓

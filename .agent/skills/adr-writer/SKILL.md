@@ -107,7 +107,7 @@ ls d:/DEV/Tickets/docs/adr/*.md
 
 ## Status-Lifecycle
 
-```
+```text
 Proposed → Accepted → [Deprecated | Superseded by XXXX]
 ```
 
@@ -121,7 +121,7 @@ Proposed → Accepted → [Deprecated | Superseded by XXXX]
 ## Qualitäts-Kriterien
 
 | # | Kriterium | Beschreibung |
-|---|---|---|
+| --- | --- | --- |
 | 1 | **Klar** | Entscheidung ist eindeutig formuliert |
 | 2 | **Begründet** | Kontext erklärt das "Warum" |
 | 3 | **Abgewogen** | Alternativen wurden betrachtet |
@@ -130,4 +130,4 @@ Proposed → Accepted → [Deprecated | Superseded by XXXX]
 
 ---
 
-*Skill: adr-writer v1.0*
+### Skill: adr-writer v1.0

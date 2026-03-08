@@ -1,6 +1,9 @@
 ---
 name: ef-core-debugging
-description: Debugs and optimizes EF Core queries, detects N+1 problems, analyzes query plans, and troubleshoots migrations. Use when facing slow queries, unexpected database behavior, concurrency issues, or migration errors in the TicketsPlease project.
+description: Debugs and optimizes EF Core queries, detects N+1 problems,
+  analyzes query plans, and troubleshoots migrations. Use when facing slow
+  queries, unexpected database behavior, concurrency issues, or migration
+  errors in the TicketsPlease project.
 ---
 
 # 🔬 EF Core Debugging & Performance
@@ -23,7 +26,7 @@ Dieses Skill hilft bei der Diagnose und Optimierung von EF Core Problemen.
 
 ## Diagnose-Entscheidungsbaum
 
-```
+```text
 Problem?
 ├── Langsame Queries
 │   ├── N+1 → Projection mit .Select() verwenden
@@ -125,7 +128,7 @@ builder.HasIndex(t => new { t.Status, t.Priority }); // Composite
 ## Performance-Checkliste
 
 | # | Check | Status |
-|---|---|---|
+| --- | --- | --- |
 | 1 | `AsNoTracking()` auf allen Lese-Queries | ☐ |
 | 2 | `.Select()` Projection statt `.Include()` | ☐ |
 | 3 | Keine N+1 Queries (Logging prüfen) | ☐ |
@@ -163,4 +166,4 @@ dotnet ef migrations remove \
 
 ---
 
-*Skill: ef-core-debugging v1.0*
+### Skill: ef-core-debugging v1.0

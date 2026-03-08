@@ -1,13 +1,15 @@
 # 🤖 TicketsPlease – Agent Behavior Rules
 
-Diese Regeln definieren das **Verhalten** des KI-Agenten bei jeder Interaktion mit dem TicketsPlease-Projekt.
+Diese Regeln definieren das **Verhalten** des KI-Agenten bei jeder
+Interaktion mit dem TicketsPlease-Projekt.
 Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DEV/Tickets/instructions.md).
 
 ---
 
 ## 🧠 Grundhaltung
 
-- Du arbeitest an einem **IHK-Abschlussprojekt** (C# .NET 10, ASP.NET Core 10.3, Clean Architecture).
+- Du arbeitest an einem **IHK-Abschlussprojekt** (C# .NET 10, ASP.NET Core 10.3,
+  Clean Architecture).
 - Die Projekt-Dokumentation ist **Deutsch**. Code-Kommentare (XML-Docs) sind **Deutsch**.
 - Commit-Messages sind **Englisch** (Conventional Commits).
 - Antworte immer in der Sprache, in der der User schreibt.
@@ -16,11 +18,17 @@ Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DE
 
 ## 🎯 Plan-First (Denken vor Handeln)
 
-1. **Workflow-Check:** Prüfe vor jeder Aufgabe, ob ein passender `/workflow` existiert. Wenn ja: folge ihm **Schritt für Schritt**.
-2. **MVP-Awareness:** Prüfe die [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md). Phase 1 hat absoluten Vorrang. Implementiere **keine** Enterprise-Features (Phase 2-5), solange Phase 1 nicht komplett abgeschlossen und grün ist.
-3. **ADR-Check:** Prüfe vor architektonischen Entscheidungen die bestehenden [ADRs](file:///d:/DEV/Tickets/docs/adr/). Widerspreche keinem bestehenden ADR ohne explizite User-Genehmigung.
+1. **Workflow-Check:** Prüfe vor jeder Aufgabe, ob ein passender `/workflow`
+   existiert. Wenn ja: folge ihm **Schritt für Schritt**.
+2. **MVP-Awareness:** Prüfe die [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md).
+   Phase 1 hat absoluten Vorrang. Implementiere **keine** Enterprise-Features
+   (Phase 2-5), solange Phase 1 nicht komplett abgeschlossen und grün ist.
+3. **ADR-Check:** Prüfe vor architektonischen Entscheidungen die bestehenden
+   [ADRs](file:///d:/DEV/Tickets/docs/adr/). Widerspreche keinem bestehenden ADR
+   ohne explizite User-Genehmigung.
 4. **Scope begrenzen:** Ändere nur, was der User angefordert hat. Keine ungewollten "Bonus-Refactorings".
-5. **Layer identifizieren:** Vor jeder Code-Änderung die betroffenen Layer, Dateien und Abhängigkeiten benennen.
+5. **Layer identifizieren:** Vor jeder Code-Änderung die betroffenen Layer,
+   Dateien und Abhängigkeiten benennen.
 
 ---
 
@@ -41,7 +49,7 @@ Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DE
 ## ✅ Qualitäts-Pflichten (Bei jeder Code-Änderung)
 
 | Was | Wann | Pflicht |
-|---|---|---|
+| --- | --- | --- |
 | XML-Dokumentation (`<summary>`, `<param>`, `<returns>`, `<exception>`) | Alle neuen `public` Members | ✅ Immer |
 | `AbstractValidator<T>` (FluentValidation) | Jeder neue Command | ✅ Immer |
 | Unit-Test (TDD: Test zuerst!) | Jede neue Logik | ✅ Immer |
@@ -55,7 +63,8 @@ Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DE
 
 ## 🗣️ Kommunikation
 
-- **Bei Zweifel: Fragen** – Wenn unklar ist, ob etwas MVP oder Enterprise ist → frage den User. Nicht raten.
+- **Bei Zweifel: Fragen** – Wenn unklar ist, ob etwas MVP oder Enterprise ist →
+  frage den User. Nicht raten.
 - **Breaking Changes ankündigen** – Jede Änderung, die bestehende Interfaces, DTOs oder API-Contracts bricht → vorher mitteilen.
 - **Keine stillen NuGet-Pakete** – Kein neues NuGet-Paket ohne explizite Nennung und Begründung.
 - **Keine stillen Architektur-Entscheidungen** – Architektur-Änderungen erfordern einen ADR oder User-Absprache.
@@ -64,7 +73,7 @@ Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DE
 
 ## 🔄 Typischer Ablauf
 
-```
+```markdown
 1. User-Request verstehen
 2. Workflow-Check: Passender /workflow vorhanden?
    → Ja: Schritt für Schritt folgen
@@ -106,7 +115,7 @@ Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DE
 Halte dich **immer** an diese Projekt-Dokumente:
 
 | Dokument | Beschreibung |
-|---|---|
+| --- | --- |
 | [instructions.md](file:///d:/DEV/Tickets/instructions.md) | Vollständige technische Governance (16 Sektionen) |
 | [README.md](file:///d:/DEV/Tickets/README.md) | Projekt-Vision, Features, Tech-Stack |
 | [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md) | Phase-Abgrenzung (MVP vs. Enterprise) |
@@ -118,4 +127,4 @@ Halte dich **immer** an diese Projekt-Dokumente:
 
 ---
 
-*TicketsPlease Agent Rules v1.0 | 2026-03-06*
+### TicketsPlease Agent Rules v1.0 | 2026-03-06
