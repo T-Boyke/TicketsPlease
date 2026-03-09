@@ -5,9 +5,13 @@ description: Standards and workflow for documentation, XML-comments, ADRs,
 
 # 📝 Documentation Standards Workflow
 
-Dieser Workflow definiert die vollständigen Dokumentations-Standards für das TicketsPlease Projekt. Dokumentation veraltet nicht, wenn sie automatisiert und systematischer Bestandteil des Workflows ist.
+Dieser Workflow definiert die vollständigen Dokumentations-Standards für das
+TicketsPlease Projekt. Dokumentation veraltet nicht, wenn sie automatisiert
+und systematischer Bestandteil des Workflows ist.
 
-> **Referenz:** [README §6 – Extensive Dokumentation](file:///d:/DEV/Tickets/README.md) | [ADR-Index](file:///d:/DEV/Tickets/docs/adr/README.md) | [instructions.md §13](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:** [README §6 – Extensive Dokumentation](file:///d:/DEV/Tickets/README.md) |
+> [ADR-Index](file:///d:/DEV/Tickets/docs/adr/README.md) |
+> [instructions.md §13](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 
@@ -138,7 +142,8 @@ stateDiagram-v2
 ### Wann aktualisieren?
 
 - Bei **jedem Feature**, **Bugfix** oder **Breaking Change**.
-- Der CHANGELOG dokumentiert die **nutzerrelevanten** Änderungen (nicht jeden einzelnen Refactoring-Commit).
+- Der CHANGELOG dokumentiert die **nutzerrelevanten** Änderungen (nicht jeden
+  einzelnen Refactoring-Commit).
 
 ### Format ([Keep a Changelog](https://keepachangelog.com/))
 
@@ -183,7 +188,4 @@ stateDiagram-v2
 
 ---
 
-### Zusammenfassung
-
-Checkliste: XML-Docs ✓ → ADR ✓ → Mermaid ✓ → CHANGELOG ✓ → Mockups ✓ →
-Inline-Docs ✓
+### Zusammenfassung: XML-Docs ✓, ADR ✓, Mermaid ✓, CHANGELOG ✓, Mockups ✓, Inline-Docs ✓

@@ -2,7 +2,7 @@
 name: tailwind-component-patterns
 description: Provides TailwindCSS 4.2 component patterns with @apply
   abstractions, CSS Custom Properties, Dark/Light mode, Glassmorphism, and
-  BFSG/a11y compliance. Use when creating UI components, styling pages, or
+  BFSG/a11y compliance. Use when UI components, styling pages, or
   implementing theme-aware designs in the TicketsPlease project.
 ---
 
@@ -10,7 +10,8 @@ description: Provides TailwindCSS 4.2 component patterns with @apply
 
 UI-Patterns mit TailwindCSS 4.2, Theme-Support und BFSG-konformer Accessibility.
 
-> **Referenz:** [UI Rules](file:///d:/DEV/Tickets/.agent/rules/ui-frontend.md) | [/ui-component-tailwind](file:///d:/DEV/Tickets/.agent/workflows/ui-component-tailwind.md)
+> **Referenz:** [UI Rules](file:///d:/DEV/Tickets/.agent/rules/ui-frontend.md) |
+> [/ui-component-tailwind](file:///d:/DEV/Tickets/.agent/workflows/ui-component-tailwind.md)
 
 ---
 
@@ -51,7 +52,8 @@ UI-Patterns mit TailwindCSS 4.2, Theme-Support und BFSG-konformer Accessibility.
 
 ### Motion & Animation
 
-- **Ein orchestrierter Page-Load** mit gestaffelten Reveals (`animation-delay`) erzeugt mehr Wirkung als verstreute Micro-Interactions
+- **Ein orchestrierter Page-Load** mit gestaffelten Reveals (`animation-delay`)
+  erzeugt mehr Wirkung als verstreute Micro-Interactions
 - **CSS-only Lösungen** bevorzugen (Transitions, Keyframes, `@starting-style`)
 - **Scroll-triggered Animationen** und **überraschende Hover-States**
 - High-Impact Momente priorisieren, nicht streuen

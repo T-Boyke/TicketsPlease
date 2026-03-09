@@ -1,9 +1,11 @@
 # 🤖 TicketsPlease – Agent Configuration
 
-Dieses Dokument ist der zentrale Einstiegspunkt für den KI-Agenten im **TicketsPlease** Projekt.
+Dieses Dokument ist der zentrale Einstiegspunkt für den KI-Agenten im
+**TicketsPlease** Projekt.
 
 > 📖 **Vollständige Governance:**
-> Alle technischen Regeln in [instructions.md](file:///d:/DEV/Tickets/instructions.md) (16 Sektionen).
+> Alle technischen Regeln in [instructions.md](file:///d:/DEV/Tickets/instructions.md)
+> (16 Sektionen).
 
 ---
 

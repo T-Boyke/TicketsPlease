@@ -1,6 +1,9 @@
 ---
 name: refactoring-patterns
-description: Guides safe refactoring in Clean Architecture projects. Covers Extract Method, Replace Primitive with Value Object, Introduce Repository, and Extract Feature patterns. Use when restructuring code, improving design, or reducing technical debt while maintaining test coverage.
+description: Guides safe refactoring in Clean Architecture projects. Covers
+  Extract Method, Replace Primitive with Value Object, Introduce Repository,
+  and Extract Feature patterns. Use when restructuring code, improving design,
+  or reducing technical debt while maintaining test coverage.
 ---
 
 # 🔄 Refactoring Patterns
@@ -35,7 +38,7 @@ Sichere Refactoring-Strategien für Clean Architecture Projekte.
 
 **Symptom:** Primitive Obsession – `string email`, `int priority` ohne Validierung.
 
-```
+```text
 VORHER                          NACHHER
 ────────────────────           ────────────────────
 Entity:                        Entity:
@@ -48,6 +51,7 @@ Entity:                        Entity:
 ```
 
 **Schritte:**
+
 1. Unit-Test für Value Object schreiben (Validierung, Equality)
 2. Value Object als `sealed record` erstellen
 3. Entity-Property Typ ändern
@@ -59,7 +63,7 @@ Entity:                        Entity:
 
 **Symptom:** Handler greift direkt auf `AppDbContext` zu.
 
-```
+```text
 VORHER                          NACHHER
 ────────────────────           ────────────────────
 Handler:                       Handler:
@@ -74,6 +78,7 @@ Handler:                       Handler:
 ```
 
 **Schritte:**
+
 1. Interface in Application/Contracts definieren
 2. Repository in Infrastructure implementieren
 3. DI-Registrierung hinzufügen
@@ -85,7 +90,7 @@ Handler:                       Handler:
 
 **Symptom:** Business-Logik im Controller oder zu großer Handler.
 
-```
+```text
 VORHER                          NACHHER
 ────────────────────           ────────────────────
 Controller:                    Controller:
@@ -101,6 +106,7 @@ Controller:                    Controller:
 ```
 
 **Schritte:**
+
 1. Command/Query Klasse erstellen
 2. Validator erstellen (bei Command)
 3. Handler erstellen (Logik aus Controller)
@@ -113,6 +119,7 @@ Controller:                    Controller:
 **Symptom:** Handler mit >50 Zeilen, mehrere Verantwortlichkeiten.
 
 **Schritte:**
+
 1. Verantwortlichkeiten identifizieren
 2. Domain-Logik → Entity-Methoden verschieben
 3. Infrastruktur-Logik → Services/Repositories
@@ -141,4 +148,4 @@ Controller:                    Controller:
 
 ---
 
-*Skill: refactoring-patterns v1.0*
+### Skill: refactoring-patterns v1.0

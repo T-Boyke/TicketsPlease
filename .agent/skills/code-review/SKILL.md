@@ -10,7 +10,10 @@ description: Reviews code changes against all TicketsPlease project standards
 
 Konsolidierte Code-Review Checkliste basierend auf allen Projekt-Standards.
 
-> **Referenz:** [Architecture Rules](file:///d:/DEV/Tickets/.agent/rules/architecture.md) | [Security Rules](file:///d:/DEV/Tickets/.agent/rules/security.md) | [Testing Rules](file:///d:/DEV/Tickets/.agent/rules/testing.md) | [UI Rules](file:///d:/DEV/Tickets/.agent/rules/ui-frontend.md)
+> **Referenz:** [Architecture Rules](file:///d:/DEV/Tickets/.agent/rules/architecture.md) |
+> [Security Rules](file:///d:/DEV/Tickets/.agent/rules/security.md) |
+> [Testing Rules](file:///d:/DEV/Tickets/.agent/rules/testing.md) |
+> [UI Rules](file:///d:/DEV/Tickets/.agent/rules/ui-frontend.md)
 
 ---
 

@@ -5,15 +5,19 @@ description: Workflow for adding a new CQRS feature (Command/Query) to the
 
 # ⚡ Add CQRS Feature Workflow
 
-Dieser Workflow beschreibt den vollständigen Ablauf, um ein neues Command oder Query in der TicketsPlease Clean Architecture zu implementieren.
+Dieser Workflow beschreibt den vollständigen Ablauf, um ein neues Command
+oder Query in der TicketsPlease Clean Architecture zu implementieren.
 
-> **Referenz:** [ADR-0009 (CQRS)](file:///d:/DEV/Tickets/docs/adr/0009-cqrs-mediatr.md) | [ADR-0010 (FluentValidation)](file:///d:/DEV/Tickets/docs/adr/0010-validation-fluentvalidation.md) | [instructions.md §4](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:** [ADR-0009 (CQRS)](file:///d:/DEV/Tickets/docs/adr/0009-cqrs-mediatr.md) |
+> [ADR-0010 (FluentValidation)](file:///d:/DEV/Tickets/docs/adr/0010-validation-fluentvalidation.md) |
+> [instructions.md §4](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 
 ## Pipeline-Kontext
 
 Jeder Request durchläuft automatisch die MediatR Pipeline in dieser Reihenfolge:
+
 
 ```text
 📨 Request → 📋 LoggingBehavior → ✅ ValidationBehavior → 🔄 TransactionBehavior → ⚙️ Handler → 📤 Response
@@ -27,7 +31,8 @@ Jeder Request durchläuft automatisch die MediatR Pipeline in dieser Reihenfolge
 
 - Prüfe, ob die benötigte Entity in `src/TicketsPlease.Domain/Entities/` existiert.
 - Die Entity **muss** von `BaseEntity` erben und `byte[] RowVersion` besitzen.
-- Properties haben **`private set`** (Rich Model). Zustandsänderungen nur über Verhaltensmethoden.
+- Properties haben **`private set`** (Rich Model). Zustandsänderungen nur über
+  Verhaltensmethoden.
 - Falls eine neue Entity nötig ist → nutze den `/domain-entity` Workflow.
 
 ### 2. DTO / Contract definieren
@@ -42,7 +47,8 @@ Jeder Request durchläuft automatisch die MediatR Pipeline in dieser Reihenfolge
 - Erstelle eine `IRequest<T>` Klasse:
   - **Command:** `src/TicketsPlease.Application/Features/[FeatureName]/Commands/[Verb][Entity]Command.cs`
   - **Query:** `src/TicketsPlease.Application/Features/[FeatureName]/Queries/Get[Entity]Query.cs`
-- Der Request sollte **alle** nötigen Daten als Properties enthalten (keine komplexen Objekte, nur primitive Typen oder IDs).
+- Der Request sollte **alle** nötigen Daten als Properties enthalten (keine
+  komplexen Objekte, nur primitive Typen oder IDs).
 
 ### 4. Validator erstellen (Pflicht für Commands!)
 
@@ -141,7 +147,4 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
 
 ---
 
-### Zusammenfassung
-
-Checkliste: Entity ✓ → DTO ✓ → Request ✓ → Validator ✓ → Handler ✓ →
-Repository ✓ → Mapping ✓ → Controller ✓ → XML-Docs ✓ → Test ✓
+### Zusammenfassung: Entity ✓, DTO ✓, Request ✓, Validator ✓, Handler ✓, Repository ✓, Mapping ✓, Controller ✓, XML-Docs ✓, Test ✓

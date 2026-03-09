@@ -1,18 +1,22 @@
 ---
-description: Standards and workflow for writing tests (Unit & Integration) in the TicketsPlease project.
+description: Standards and workflow for writing tests (Unit & Integration) in
+  the TicketsPlease project.
 ---
 
 # 🧪 Testing & QA Standards
 
-Dieser Workflow definiert die vollständigen Test-Standards für das TicketsPlease Projekt. Tests sind **kein Nachgedanke**, sondern treiben das Design (TDD).
+Dieser Workflow definiert die vollständigen Test-Standards für das TicketsPlease
+Projekt. Tests sind **kein Nachgedanke**, sondern treiben das Design (TDD).
 
-> **Referenz:** [ADR-0006 (Testing Strategy)](file:///d:/DEV/Tickets/docs/adr/0006-testing-strategy.md) | [nuget_stack.md §5](file:///d:/DEV/Tickets/docs/nuget_stack.md) | [instructions.md §10](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:** [ADR-0006 (Testing Strategy)](file:///d:/DEV/Tickets/docs/adr/0006-testing-strategy.md) |
+> [nuget_stack.md §5](file:///d:/DEV/Tickets/docs/nuget_stack.md) |
+> [instructions.md §10](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 
 ## TDD-Zyklus (Red-Green-Refactor)
 
-```
+```text
 🔴 RED: Test schreiben, der fehlschlägt
        ↓
 🟢 GREEN: Minimalen Code schreiben, damit der Test besteht
@@ -29,29 +33,35 @@ Dieser Workflow definiert die vollständigen Test-Standards für das TicketsPlea
 ## Coverage-Ziele
 
 | Layer | Ziel | Beschreibung |
-|---|---|---|
+| :--- | :--- | :--- |
 | **Domain** | **100%** | Zero Compromise. Jede Business-Regel muss getestet sein. |
 | **Application (Handlers)** | **90%+** | Alle Commands/Queries inkl. Fehlerfälle. |
-| **Infrastructure** | **Integration** | Testcontainers für echte SQL-Abfragen. |
-| **Web** | **E2E** | Playwright + Vitest für User-Journeys. |
+| Layer | Ziel | Beschreibung |
+| :--- | :--- | :--- |
+| **Domain** | **100%** | Zero Compromise. Business-Regeln. |
+| **Application** | **90%+** | Alle Commands/Queries. |
+| **Infrastructure** | **Integration** | Testcontainers für SQL. |
+| **Web** | **E2E** | Playwright + Vitest. |
 
 ---
 
 ## Schritte
 
 ### 1. Test-Projekt auswählen
+
 - Wähle das passende Projekt im `tests/` Ordner.
 - Erstelle ggf. einen neuen Testordner parallel zur Feature-Struktur in `Application`.
 
 ### 2. Naming Conventions (Unverletzlich!)
 
 | Element | Convention | Beispiel |
-|---|---|---|
+| :--- | :--- | :--- |
 | **Test-Klasse** | `[ClassName]Tests` | `CreateTicketCommandHandlerTests` |
 | **Test-Methode** | `[Method]_[Scenario]_[ExpectedResult]` | `Handle_ValidCommand_ReturnsNewTicketId` |
 | **Test-Methode (Fehler)** | `[Method]_[InvalidScenario]_Throws[Exception]` | `Handle_TicketNotFound_ThrowsNotFoundException` |
 
 ### 3. AAA-Pattern (Pflicht!)
+
 Jeder Test folgt strikt dem **Arrange-Act-Assert** Muster:
 
 ```csharp
@@ -81,23 +91,23 @@ public async Task Handle_ValidCommand_ReturnsNewTicketId()
 ### 4. Unit Tests (MediatR Handler Tests)
 
 | Regel | Beschreibung |
-|---|---|
-| **Mocking** | Repositories und Interfaces via `Moq` oder `NSubstitute` mocken. |
-| **Isolierung** | Jeder Test ist unabhängig. Kein geteilter State zwischen Tests. |
-| **Happy Path** | Teste den erfolgreichen Durchlauf mit gültigen Daten. |
-| **Fehlerszenarien** | Teste `NotFoundException`, `ValidationException`, `ConcurrencyException`. |
-| **CancellationToken** | Stelle sicher, dass der Token korrekt weitergereicht wird. |
-| **Domain-Logik** | Teste die Rich-Model-Methoden separat (z.B. `ticket.MoveToReview()`). |
+| :--- | :--- |
+| **Mocking** | Repositories/Interfaces via `Moq`/`NSubstitute`. |
+| **Isolierung** | Jeder Test ist unabhängig. Kein State-Sharing. |
+| **Happy Path** | Teste den erfolgreichen Durchlauf. |
+| **Fehler** | Teste `ValidationException`, `NotFoundException`. |
+| **CancellationToken** | Stelle sicher, dass der Token weitergereicht wird. |
+| **Domain-Logik** | Teste die Rich-Model-Methoden separat. |
 
 ### 5. Integration Tests (Repository & DB)
 
-| Regel | Beschreibung |
-|---|---|
+| Regel              | Beschreibung                                                                                            |
+| :----------------- | :------------------------------------------------------------------------------------------------------ |
 | **Testcontainers** | Nutze `Testcontainers.MsSql` für einen echten SQL Server Docker-Container. **Kein `InMemoryDatabase`!** |
-| **Isolation** | Jeder Test bekommt eine frische Datenbank (Container wird pro Testlauf hochgefahren). |
-| **RowVersion** | Teste optimistische Nebenläufigkeit (zwei gleichzeitige Updates). |
-| **AsNoTracking** | Verifiziere, dass Queries kein Tracking aktivieren. |
-| **Seed Data** | Nutze Test-spezifische Seed-Daten, keine Produktions-Seeds. |
+| **Isolation**      | Jeder Test bekommt eine frische Datenbank (Container wird pro Testlauf hochgefahren).                   |
+| **RowVersion**     | Teste optimistische Nebenläufigkeit (zwei gleichzeitige Updates).                                       |
+| **AsNoTracking**   | Verifiziere, dass Queries kein Tracking aktivieren.                                                     |
+| **Seed Data**      | Nutze Test-spezifische Seed-Daten, keine Produktions-Seeds.                                             |
 
 ```csharp
 /// <summary>
@@ -124,6 +134,7 @@ public async Task AddAsync_ValidTicket_PersistsToDatabase()
 ```
 
 ### 6. Architektur-Tests (NetArchTest)
+
 - Nutze `NetArchTest.Rules` um Layer-Dependency-Verletzungen automatisch zu erkennen.
 - Diese Tests verhindern, dass z.B. die Domain-Schicht eine Infrastructure-Referenz bekommt.
 
@@ -147,7 +158,7 @@ public void Domain_ShouldNot_DependOn_Infrastructure()
 ### 7. Assertions (FluentAssertions Pflicht!)
 
 | Statt | Nutze |
-|---|---|
+| :--- | :--- |
 | `Assert.Equal(expected, actual)` | `actual.Should().Be(expected)` |
 | `Assert.NotNull(result)` | `result.Should().NotBeNull()` |
 | `Assert.Throws<T>(...)` | `act.Should().ThrowAsync<T>()` |
@@ -155,6 +166,7 @@ public void Domain_ShouldNot_DependOn_Infrastructure()
 | Collection-Checks | `list.Should().HaveCount(3).And.Contain(x => x.Title == "Test")` |
 
 ### 8. Pre-Commit Verifikation
+
 Bevor ein Commit erfolgt, **müssen** alle Tests lokal grün sein:
 
 ```cmd
@@ -163,10 +175,10 @@ dotnet test --verbosity minimal
 ```
 
 ### 9. CI/CD Integration
+
 - GitHub Actions führt `dotnet test` bei jedem Commit/PR aus.
 - Der Build bricht ab, wenn **ein einziger** Test fehlschlägt.
-- Google Lighthouse Score muss **100/100** in allen Kategorien erreichen (Performance, Accessibility, Best Practices, SEO).
+- Google Lighthouse Score muss **100/100** in allen Kategorien erreichen
+  (Performance, Accessibility, Best Practices, SEO).
 
----
-
-*Checkliste: TDD Red ✓ → Green ✓ → Refactor ✓ → Unit Tests ✓ → Integration Tests ✓ → Arch Tests ✓ → FluentAssertions ✓ → CI Green ✓*
+### Zusammenfassung: TDD Red ✓, Green ✓, Refactor ✓, Unit Tests ✓, Integration Tests ✓, Arch Tests ✓, FluentAssertions ✓, CI Green ✓

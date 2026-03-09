@@ -1,12 +1,16 @@
 ---
-description: Security review checklist based on Defense in Depth for the TicketsPlease project.
+description: Security review checklist based on Defense in Depth for the
+  TicketsPlease project.
 ---
 
 # 🛡️ Security Review Workflow (Defense in Depth)
 
-Dieser Workflow stellt sicher, dass jede Code-Änderung die Security-Standards des Projekts erfüllt. Unser System wird nach dem **"Defense in Depth"** (Zwiebelschalen) Prinzip abgesichert.
+Dieser Workflow stellt sicher, dass jede Code-Änderung die Security-Standards
+des Projekts erfüllt. Unser System wird nach dem **"Defense in Depth"**
+(Zwiebelschalen) Prinzip abgesichert.
 
-> **Referenz:** [README §6 – Enterprise Security](file:///d:/DEV/Tickets/README.md) | [instructions.md §6](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:** [README §6 – Enterprise Security](file:///d:/DEV/Tickets/README.md) |
+> [instructions.md §6](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 
@@ -126,6 +130,4 @@ document.getElementById('output').innerHTML = marked.parse(userMarkdown);
 3. **Mittel (P2):** GitHub Issue erstellen, im nächsten Sprint adressieren.
 4. **Low (P3):** Als Tech-Debt dokumentieren, bei Gelegenheit fixen.
 
----
-
-*Regel: Wenn eine Schicht kompromittiert wird, hält die Nächste dem Angriff stand.*
+### Zusammenfassung: Wenn eine Schicht kompromittiert wird, hält die Nächste dem Angriff stand.

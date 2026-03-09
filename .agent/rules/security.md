@@ -51,4 +51,4 @@ Jede Code-Änderung muss die Defense-in-Depth Security-Standards einhalten.
 
 ---
 
-*TicketsPlease Security Rules v1.0 | 2026-03-06*
+## TicketsPlease Security Rules v1.0 | 2026-03-06

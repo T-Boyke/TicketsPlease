@@ -6,7 +6,7 @@ Diese Regeln erzwingen die Clean Architecture, DDD und CQRS Standards bei jeder 
 
 ## Clean Architecture – Dependency Rule
 
-```
+```text
 Abhängigkeiten zeigen IMMER NUR NACH INNEN (→ Domain):
 
   🔵 Web → 🟡 Application → 🟢 Domain ← 🔴 Infrastructure
@@ -21,7 +21,7 @@ Abhängigkeiten zeigen IMMER NUR NACH INNEN (→ Domain):
 
 ## Projekt-Struktur
 
-```
+```text
 src/
 ├── TicketsPlease.Domain/          # 🟢 Entities, Value Objects, Events, Enums
 ├── TicketsPlease.Application/     # 🟡 Features/{Name}/Commands|Queries, Contracts, Behaviors, Exceptions
@@ -35,7 +35,8 @@ src/
 
 - **Rich Models** – Entities sind keine Datencontainer. Sie enthalten Business-Logik.
 - **Private Setter** – Alle Properties: `{ get; private set; }`.
-- **Fabrikmethoden** – Kein leerer Konstruktor. Pflichtfelder über `static Create(...)` erzwingen.
+- **Fabrikmethoden** – Kein leerer Konstruktor. Pflichtfelder über
+  `static Create(...)` erzwingen.
 - **Value Objects** – Komplexe Typen kapseln: `EmailAddress`, `Sha1Hash`, `PriorityLevel`.
 - **Domain Events** – Seiteneffekte über `INotification` entkoppeln.
 - **Immutable Collections** – Extern `IReadOnlyList<T>`, intern `List<T>`.
@@ -67,7 +68,7 @@ src/
 ## Naming Conventions
 
 | Element | Pattern | Beispiel |
-|---|---|---|
+| --- | --- | --- |
 | Interface | `I[Name]` | `ITicketRepository` |
 | Private Field | `_[name]` | `_ticketRepository` |
 | Command | `[Verb][Entity]Command` | `CreateTicketCommand` |
@@ -76,7 +77,8 @@ src/
 | DTO | `[Entity][Purpose]Dto` | `TicketDetailDto` |
 | Validator | `[Request]Validator` | `CreateTicketCommandValidator` |
 | Test-Klasse | `[Class]Tests` | `CreateTicketCommandHandlerTests` |
-| Test-Methode | `[Method]_[Scenario]_[Expected]` | `Handle_ValidCommand_ReturnsId` |
+| Test-Methode | `[Method]_[Scenario]_[Expected]` |
+  `Handle_ValidCommand_ReturnsId` |
 
 ---
 
@@ -86,4 +88,4 @@ Jede C#-Klasse, jedes Interface, jedes Enum → eigene Datei. Immer.
 
 ---
 
-*TicketsPlease Architecture Rules v1.0 | 2026-03-06*
+## TicketsPlease Architecture Rules v1.0 | 2026-03-06

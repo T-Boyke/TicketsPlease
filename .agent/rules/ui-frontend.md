@@ -50,4 +50,4 @@ Regeln für Frontend-Entwicklung, Barrierefreiheit und Styling.
 
 ---
 
-*TicketsPlease UI Rules v1.0 | 2026-03-06*
+## TicketsPlease UI Rules v1.0 | 2026-03-06

@@ -1,13 +1,17 @@
 ---
 name: adr-writer
-description: Creates Architecture Decision Records (ADRs) in the Lightweight ADR format by Michael Nygard. Use when making significant architectural decisions, introducing new technologies, or changing established patterns. Ensures proper documentation with context, decision, and consequences.
+description: Creates Architecture Decision Records (ADRs) in the Lightweight ADR
+  format by Michael Nygard. Use when making significant architectural decisions,
+  introducing new technologies, or changing established patterns. Ensures proper
+  documentation with context, decision, and consequences.
 ---
 
 # 📋 ADR Writer
 
 Erstellt Architecture Decision Records im Lightweight ADR Format (Michael Nygard).
 
-> **Referenz:** [ADR-Index](file:///d:/DEV/Tickets/docs/adr/README.md) | [Documentation Standards](file:///d:/DEV/Tickets/.agent/workflows/documentation-standards.md)
+> **Referenz:** [ADR-Index](file:///d:/DEV/Tickets/docs/adr/README.md) |
+> [Documentation Standards](file:///d:/DEV/Tickets/.agent/workflows/documentation-standards.md)
 
 ---
 

@@ -6,10 +6,10 @@ Regeln für Tests und Quality Assurance. Tests treiben das Design (TDD).
 
 ## TDD-Zyklus (Pflicht!)
 
-```
+```text
 🔴 RED → Test schreiben (schlägt fehl)
 🟢 GREEN → Minimalen Code schreiben (Test besteht)
-🔵 REFACTOR → Code verbessern (Tests bleiben grün)
+🔵 REFACTOR → Code verbinden (Tests bleiben grün)
 🔁 Repeat
 ```
 
@@ -66,4 +66,4 @@ Jeder Test: **Arrange** → **Act** → **Assert**.
 
 ---
 
-*TicketsPlease Testing Rules v1.0 | 2026-03-06*
+## TicketsPlease Testing Rules v1.0 | 2026-03-06

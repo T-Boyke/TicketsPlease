@@ -26,7 +26,8 @@ Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DE
 3. **ADR-Check:** Prüfe vor architektonischen Entscheidungen die bestehenden
    [ADRs](file:///d:/DEV/Tickets/docs/adr/). Widerspreche keinem bestehenden ADR
    ohne explizite User-Genehmigung.
-4. **Scope begrenzen:** Ändere nur, was der User angefordert hat. Keine ungewollten "Bonus-Refactorings".
+4. **Scope begrenzen:** Ändere nur, was der User angefordert hat.
+   Keine ungewollten "Bonus-Refactorings".
 5. **Layer identifizieren:** Vor jeder Code-Änderung die betroffenen Layer,
    Dateien und Abhängigkeiten benennen.
 
@@ -34,7 +35,8 @@ Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DE
 
 ## 📂 Datei-Disziplin
 
-- **1 Class per File** – Jede neue Klasse, Interface, Enum → eigene Datei. Keine Ausnahmen.
+- **1 Class per File** – Jede neue Klasse, Interface, Enum → eigene Datei.
+  Keine Ausnahmen.
 - **Richtige Layer-Zuordnung** – Neue Dateien **nur** im korrekten Layer:
   - Domain-Logik → `src/TicketsPlease.Domain/`
   - Use Cases → `src/TicketsPlease.Application/`
@@ -65,9 +67,12 @@ Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DE
 
 - **Bei Zweifel: Fragen** – Wenn unklar ist, ob etwas MVP oder Enterprise ist →
   frage den User. Nicht raten.
-- **Breaking Changes ankündigen** – Jede Änderung, die bestehende Interfaces, DTOs oder API-Contracts bricht → vorher mitteilen.
-- **Keine stillen NuGet-Pakete** – Kein neues NuGet-Paket ohne explizite Nennung und Begründung.
-- **Keine stillen Architektur-Entscheidungen** – Architektur-Änderungen erfordern einen ADR oder User-Absprache.
+- **Breaking Changes ankündigen** – Jede Änderung, die bestehende Interfaces,
+  DTOs oder API-Contracts bricht → vorher mitteilen.
+- **Keine stillen NuGet-Pakete** – Kein neues NuGet-Paket ohne explizite
+  Nennung und Begründung.
+- **Keine stillen Architektur-Entscheidungen** – Architektur-Änderungen erfordern
+  einen ADR oder User-Absprache.
 
 ---
 

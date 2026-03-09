@@ -3,9 +3,12 @@ description: Workflow for creating DDD Domain Entities, Value Objects, and
 
 # 🧬 Domain Entity Workflow (DDD Rich Models)
 
-Dieser Workflow beschreibt den vollständigen Ablauf zur Erstellung einer neuen Domain-Entität nach den Prinzipien des Domain-Driven Design (DDD).
+Dieser Workflow beschreibt den vollständigen Ablauf zur Erstellung einer neuen
+Domain-Entität nach den Prinzipien des Domain-Driven Design (DDD).
 
-> **Referenz:** [domain_ticket.md](file:///d:/DEV/Tickets/docs/domain_ticket.md) | [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md) | [instructions.md §3](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:** [domain_ticket.md](file:///d:/DEV/Tickets/docs/domain_ticket.md) |
+> [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md) |
+> [instructions.md §3](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 
@@ -13,7 +16,8 @@ Dieser Workflow beschreibt den vollständigen Ablauf zur Erstellung einer neuen 
 
 | Regel | Beschreibung |
 | --- | --- |
-| **Zero Dependencies** | `TicketsPlease.Domain` hat **keine** NuGet-Referenzen (Ausnahme: `MediatR.Contracts` für `INotification`). |
+| **Zero Dependencies** | `TicketsPlease.Domain` hat **keine** NuGet-Referenzen
+  (Ausnahme: `MediatR.Contracts` für `INotification`). |
 | **Rich Model** | Entities sind keine reinen Datencontainer. Sie enthalten Business-Logik. |
 | **Private Setter** | Alle Properties: `{ get; private set; }`. Kein externes Setzen! |
 | **Kein leerer Konstruktor** | Pflichtfelder über parametrisierten Konstruktor/Fabrikmethode erzwingen. |
@@ -206,7 +210,4 @@ ticket.Status = TicketStatus.Closed;
 
 ---
 
-### Zusammenfassung
-
-Checkliste: Entity ✓ → Value Objects ✓ → Domain Events ✓ → Context ✓ →
-Business Methods ✓ → RowVersion ✓ → XML-Docs ✓ → Tests ✓
+### Zusammenfassung: Entity ✓, Value Objects ✓, Domain Events ✓, Context ✓, Business Methods ✓, RowVersion ✓, XML-Docs ✓, Tests ✓
