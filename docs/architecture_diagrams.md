@@ -1,10 +1,12 @@
 # System Architecture & Infrastructure
 
-Dieses Dokument visualisiert unsere High-Level Architektur (Clean Architecture), das Deployment-Modell und den grundlegenden Datenfluss der Applikation.
+Dieses Dokument visualisiert unsere High-Level Architektur (Clean Architecture), das
+Deployment-Modell und den grundlegenden Datenfluss der Applikation.
 
 ## 1. Clean Architecture (Onion) Diagramm
 
-Das folgende Diagramm zeigt die strikte Abhängigkeitsrichtung (Dependency Rule) unserer ASP.NET Core Solution. Abhängigkeiten dürfen **immer nur nach innen** (in Richtung der Domain) zeigen.
+Das folgende Diagramm zeigt die strikte Abhängigkeitsrichtung (Dependency Rule) unserer ASP.NET Core
+Solution. Abhängigkeiten dürfen **immer nur nach innen** (in Richtung der Domain) zeigen.
 
 ```mermaid
 flowchart TD
@@ -35,13 +37,14 @@ flowchart TD
 
 ## 2. Infrastructure & Deployment Architektur
 
-Dieses UML Deployment-Diagramm veranschaulicht, wie die fertige Applikation in einer Produktionsumgebung (z.B. Azure oder ein lokaler IIS/Docker Swarm) verteilt wird.
+Dieses UML Deployment-Diagramm veranschaulicht, wie die fertige Applikation in einer
+Produktionsumgebung (z.B. Azure oder ein lokaler IIS/Docker Swarm) verteilt wird.
 
 ```mermaid
 flowchart TD
     %% Users
     Client[Web Browser Chrome/Edge/Safari]
-    
+
     %% Load Balancer / Proxy
     subgraph DMZ [Reverse Proxy / WAF]
         Nginx[Nginx / YARP Load Balancer]
@@ -59,25 +62,26 @@ flowchart TD
         BlobStorage{{Blob Storage / S3 Für FileAssets}}
         Redis[(Redis Cache für SignalR Backplane)]
     end
-    
+
     %% Connections
     Client == HTTPS / WebSockets ==> Nginx
     Nginx --> App1
     Nginx --> App2
-    
+
     App1 -- EF Core (TCP) --> SQL
     App2 -- EF Core (TCP) --> SQL
-    
+
     App1 -- Uploads --> BlobStorage
     App2 -- Uploads --> BlobStorage
-    
+
     App1 -. Pub/Sub .-> Redis
     App2 -. Pub/Sub .-> Redis
 ```
 
 ## 3. CQRS & Event Flow (Ticket Creation)
 
-Ein Sequenzdiagramm, das den typischen Fluss eines Commands (z.B. "Erstelle ein neues Ticket") durch unsere Clean Architecture Routen zeigt.
+Ein Sequenzdiagramm, das den typischen Fluss eines Commands (z.B. "Erstelle ein neues Ticket") durch
+unsere Clean Architecture Routen zeigt.
 
 ```mermaid
 sequenceDiagram
@@ -93,17 +97,17 @@ sequenceDiagram
     User->>Controller: POST /Tickets/Create (Title, Desc)
     Controller->>Mediator: Send(CreateTicketCommand)
     Mediator->>Handler: Handle(CreateTicketCommand)
-    
+
     note over Handler,Domain: Business Logic Execution
     Handler->>Domain: new Ticket(Title, Desc)
     Domain-->>Handler: Ticket Instance
-    
+
     note over Handler,Repo: Persistence
     Handler->>Repo: AddAsync(ticket)
     Repo->>DB: INSERT INTO Tickets ...
     DB-->>Repo: 1 Row affected
     Repo-->>Handler: Task Completed
-    
+
     Handler->>Mediator: Result (TicketId)
     Mediator->>Controller: Result (TicketId)
     Controller-->>User: HTTP 201 Created (Redirect to Board)
@@ -111,7 +115,8 @@ sequenceDiagram
 
 ## 4. Enterprise Plugin Loader Flow (Runtime Extensibility)
 
-Dieses Diagramm zeigt, wie das System zur Laufzeit externe Module (.dll) lädt, ohne dass der Kern-Code neu kompiliert werden muss.
+Dieses Diagramm zeigt, wie das System zur Laufzeit externe Module (.dll) lädt, ohne dass der
+Kern-Code neu kompiliert werden muss.
 
 ```mermaid
 sequenceDiagram
@@ -124,7 +129,7 @@ sequenceDiagram
 
     Host->>Folder: Scanne Verzeichnis nach *.dll
     Folder-->>Host: Liste der Plugin-Assemblies
-    
+
     loop Pro Plugin
         Host->>Loader: Lade Assembly in isolierten Kontext
         Loader-->>Host: Assembly geladen

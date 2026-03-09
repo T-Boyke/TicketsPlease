@@ -535,7 +535,8 @@ public class User : BaseEntity
 
 ### 3. Base Entity (Common)
 
-Alle Entitäten erben von `BaseEntity` (Domain Layer). Zur Sicherstellung der Zukunftssicherheit (ADR-0021) enthält diese nun:
+Alle Entitäten erben von `BaseEntity` (Domain Layer). Zur Sicherstellung der
+Zukunftssicherheit (ADR-0021) enthält diese nun:
 
 - `Guid Id` (Primary Key)
 - `Guid TenantId` (Multi-Tenancy Discriminator)
