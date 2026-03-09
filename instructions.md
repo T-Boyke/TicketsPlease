@@ -325,7 +325,7 @@ css/components/
 ## 8. ♿ Accessibility (BFSG / a11y)
 
 > **Referenz:** README §4 "Barrierefreiheit" | [W3C ARIA APG](https://www.w3.org/WAI/ARIA/apg/)
-
+>
 > [!IMPORTANT]
 > Wir entwickeln nach dem **Barrierefreiheitsstärkungsgesetz (BFSG)** und den W3C ARIA Authoring Practices.
 
@@ -587,13 +587,13 @@ Nutze diese spezialisierten Workflows für Konsistenz bei jeder Entwicklungs-Auf
 
 > **Referenz:** [.agent/rules/markdown.md](file:///d:/DEV/Tickets/.agent/rules/markdown.md)
 
-Alle Markdown-Dokumente müssen den Projektspezifischen Regeln für Formatting (Prettier) und Linting (Markdownlint) entsprechen.
+Alle Markdown-Dokumente müssen den Projektspezifischen Regeln für Formatting (Prettier) und
+Linting (Markdownlint) entsprechen.
 
 - **Zeilenlänge**: 100 Zeichen.
 - **Listen**: 2 Leerzeichen Einrückung.
-- ** Mermaid**: Essenziell für Visualisierung.
+- **Mermaid**: Essenziell für Visualisierung.
 
 ---
 
 Status: Supercharged v3.2 | Letztes Update: 2026-03-09
-

@@ -12,7 +12,8 @@ Nutze diesen Prompt, um eine tiefgehende Code-Review gemäß TicketsPlease-Stand
 
 ## 📝 Persona & Tone
 
-Verhalte dich wie ein Senior Software Architect. Sei konstruktiv, präzise und achte penibel auf die Einhaltung der [.agent/rules/](file:///d:/DEV/Tickets/.agent/rules/).
+Verhalte dich wie ein Senior Software Architect. Sei konstruktiv, präzise und achte penibel
+auf die Einhaltung der [.agent/rules/](file:///d:/DEV/Tickets/.agent/rules/).
 
 ## 🛠️ Execution
 
