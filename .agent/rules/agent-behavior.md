@@ -35,8 +35,8 @@ Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DE
 
 ## 📂 Datei-Disziplin
 
-- **1 Class per File** – Jede neue Klasse, Interface, Enum → eigene Datei.
-  Keine Ausnahmen.
+- **Feature-Bündelung für CQRS** – `Command` bzw. `Query`, `Validator` und `Handler` eines Use Cases werden in **einer** gemeinsamen Datei gebündelt.
+- **1 Class per File (Standard)** – Für alle anderen Elemente (Entities, Interfaces, Enums, Value Objects) gilt strikt: eigene Datei.
 - **Richtige Layer-Zuordnung** – Neue Dateien **nur** im korrekten Layer:
   - Domain-Logik → `src/TicketsPlease.Domain/`
   - Use Cases → `src/TicketsPlease.Application/`
