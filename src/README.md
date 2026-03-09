@@ -72,39 +72,33 @@ wo du dich als Neuling am besten zuerst einarbeitest.
 | **Infrastructure** |   ⭐⭐⭐⭐    | Mittel    | Mittel      | EF Migrations, Concurrency, SQL-Performance |
 | **Web**            |    ⭐⭐⭐     | Sehr Hoch | Hoch        | Tailwind-Ketten, JS-Security, View-Logik    |
 
-> **Info:** Schwierigkeit 1 (Leicht) bis 5 (Experte). Zeitaufwand bezieht sich auf die
-> gründliche Umsetzung inkl. Tests.
-
 ---
 
 ## 🏗️ Layer & Zuständigkeiten
 
-Hier siehst du auf einen Blick, welcher Layer für welche Aufgabe zuständig ist.
+Hier siehst du auf einen Blick, welcher Layer für welche Aufgabe zuständig ist. Klicke auf den
+Namen für die detaillierte Anleitung.
 
-| Layer              | Farbe | Kurzbeschreibung                           | Dokumentation                                    |
-| :----------------- | :---- | :----------------------------------------- | :----------------------------------------------- |
-| **Domain**         | 🟢    | Enterprise Logic (Entities, Value Objects) | [README](TicketsPlease.Domain/README.md)         |
-| **Application**    | 🟡    | Use Case Logic (CQRS, DTOs, Handlers)      | [README](TicketsPlease.Application/README.md)    |
-| **Infrastructure** | 🔴    | Technical Logic (DB, Email, Storage)       | [README](TicketsPlease.Infrastructure/README.md) |
-| **Web**            | �     | Presentation Logic (UI, Controller, API)   | [README](TicketsPlease.Web/README.md)            |
+| Layer                                                        | Farbe | Kurzbeschreibung                           |                     Dokumentation                      |
+| :----------------------------------------------------------- | :---: | :----------------------------------------- | :----------------------------------------------------: |
+| [**Domain**](TicketsPlease.Domain/README.md)                 |  🟢   | Enterprise Logic (Entities, Value Objects) |     [Anleitung 📖](TicketsPlease.Domain/README.md)     |
+| [**Application**](TicketsPlease.Application/README.md)       |  🟡   | Use Case Logic (CQRS, DTOs, Handlers)      |  [Anleitung 📖](TicketsPlease.Application/README.md)   |
+| [**Infrastructure**](TicketsPlease.Infrastructure/README.md) |  🔴   | Technical Logic (DB, Email, Storage)       | [Anleitung 📖](TicketsPlease.Infrastructure/README.md) |
+| [**Web**](TicketsPlease.Web/README.md)                       |  🔵   | Presentation Logic (UI, Controller, API)   |      [Anleitung 📖](TicketsPlease.Web/README.md)       |
 
 ---
 
-## �📍 Startpunkte: "Ich möchte..."
+## 📍 Startpunkte: "Ich möchte..."
 
 Finde hier den direkten Einstiegspunkt für deine aktuelle Aufgabe:
 
-| ...eine neue Eigenschaft hinzufügen   | ...eine neue Geschäftsregel              | ...etwas Speichern / Laden       |
-| :------------------------------------ | :--------------------------------------- | :------------------------------- |
-| Gehe zu `Domain/Entities/`            | Gehe zu `Domain/Entities/`               | Gehe zu `Application/Features/`  |
-| Füge Property mit `private set` hinzu | Implementiere eine Methode in der Entity | Erstelle Command/Query & Handler |
-| **Nächster Schritt:** EF Migration    | **Nächster Schritt:** Unit Test          | **Nächster Schritt:** Repository |
+| ...eine neue Eigenschaft hinzufügen                        | ...eine neue Geschäftsregel                                | ...etwas Speichern / Laden                                           |
+| :--------------------------------------------------------- | :--------------------------------------------------------- | :------------------------------------------------------------------- |
+| Gehe zu [Domain/Entities/](TicketsPlease.Domain/README.md) | Gehe zu [Domain/Entities/](TicketsPlease.Domain/README.md) | Gehe zu [Application/Features/](TicketsPlease.Application/README.md) |
+| Füge Property mit `private set` hinzu                      | Implementiere eine Methode in der Entity                   | Erstelle Command/Query & Handler                                     |
+| **Nächster Schritt:** EF Migration                         | **Nächster Schritt:** Unit Test                            | **Nächster Schritt:** Repository                                     |
 
 ---
 
-## 🏗️ Architektur-Garantie
-
-Abhängigkeiten zeigen **immer nur nach innen** (Richtung Domain). Ein "Outer Layer" darf niemals
-direkt wissen, was in einem anderen Layer passiert (z.B. Web -> Infrastructure).
-
-👉 **Detaillierte Arbeitsanweisungen findest du in den jeweiligen READMEs (siehe Tabelle oben).**
+👉 **Quick Links:** [Domain 🟢](TicketsPlease.Domain/README.md) | [Application 🟡](TicketsPlease.Application/README.md)
+[Infrastructure 🔴](TicketsPlease.Infrastructure/README.md) | [Web 🔵](TicketsPlease.Web/README.md)
