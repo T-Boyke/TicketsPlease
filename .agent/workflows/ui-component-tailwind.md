@@ -18,12 +18,12 @@ hochwertiger, barrierefreier UI-Komponenten im TicketsPlease Frontend.
 
 ## Fundamentale Regeln
 
-| Regel | Status |
-| :--- | :--- |
-| **No Bootstrap** | ❌ Verboten. Nur TailwindCSS 4.2. |
-| **No CDN** | ❌ Verboten. Alle Assets lokal via LibMan (`libman.json`). |
-| **No Inline-Styles** | ❌ Verboten. Alles über Tailwind oder CSS-Variablen. |
-| **No hardcoded Farben** | ❌ Verboten. Nutze `--brand-*` CSS Custom Properties. |
+| Regel                   | Status                                                     |
+| :---------------------- | :--------------------------------------------------------- |
+| **No Bootstrap**        | ❌ Verboten. Nur TailwindCSS 4.2.                          |
+| **No CDN**              | ❌ Verboten. Alle Assets lokal via LibMan (`libman.json`). |
+| **No Inline-Styles**    | ❌ Verboten. Alles über Tailwind oder CSS-Variablen.       |
+| **No hardcoded Farben** | ❌ Verboten. Nutze `--brand-*` CSS Custom Properties.      |
 
 ---
 
@@ -50,29 +50,35 @@ hochwertiger, barrierefreier UI-Komponenten im TicketsPlease Frontend.
 ### 3. Tailwind-Klassen anwenden
 
 #### CSS-Variablen für Farben (Pflicht!)
+
 ```css
 /* ✅ RICHTIG: CSS Custom Properties */
 .btn-primary {
-    @apply bg-[var(--brand-primary)] text-[var(--color-on-primary)];
+  @apply bg-[var(--brand-primary)] text-[var(--color-on-primary)];
 }
 
 /* ❌ FALSCH: Hardcoded Tailwind-Farben */
 .btn-primary {
-    @apply bg-blue-600 text-white;
+  @apply bg-blue-600 text-white;
 }
 ```
 
 #### Klassen-Reihenfolge (Konvention)
-```
+
+```text
 Layout → Box Model → Typography → Effects → Interactive
 ```
 
 Beispiel:
+
 ```html
-<button class="flex items-center px-4 py-2 text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200">
+<button
+  class="flex items-center px-4 py-2 text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
+></button>
 ```
 
 #### Komplexe Interaktionen ohne JS
+
 - Nutze `peer-*` und `group-*` für CSS-only Interaktionen.
 - Beispiel: Dropdown ohne JavaScript via `peer-checked`.
 
@@ -80,8 +86,8 @@ Beispiel:
 
 Abstrahiere wiederkehrende UI-Muster in dedizierte CSS-Dateien:
 
-| Datei                     | Inhalt                                                               |
-| :------------------------ | :------------------------------------------------------------------- |
+| Datei                      | Inhalt                                                               |
+| :------------------------- | :------------------------------------------------------------------- |
 | `css/components/btn.css`   | Alle Button-Variationen (`btn-primary`, `btn-outline`, `btn-danger`) |
 | `css/components/cards.css` | Kanban-Card Struktur, Ticket-Card                                    |
 | `css/components/form.css`  | Inputs, Selects, Textareas, Validation States                        |
@@ -90,20 +96,21 @@ Abstrahiere wiederkehrende UI-Muster in dedizierte CSS-Dateien:
 ```css
 /* css/components/btn.css */
 .btn {
-    @apply inline-flex items-center justify-center px-4 py-2
+  @apply inline-flex items-center justify-center px-4 py-2
            font-medium rounded-lg
            transition-all duration-200 ease-in-out
            focus:outline-none focus:ring-2 focus:ring-offset-2;
 }
 
 .btn-primary {
-    @apply btn bg-[var(--brand-primary)] text-[var(--color-on-primary)]
+  @apply btn bg-[var(--brand-primary)] text-[var(--color-on-primary)]
            hover:brightness-110 active:brightness-90
            focus:ring-[var(--brand-primary)];
 }
 ```
 
 ### 5. Responsive Design (Mobile-First)
+
 - Baue Komponenten **Mobile-First** und erweitere mit Tailwind-Breakpoints:
   - `sm:` → `md:` → `lg:` → `xl:`
 - Das Kanban-Board muss auf Mobile als **vertikale Listen/Karten** funktionieren.
@@ -111,47 +118,35 @@ Abstrahiere wiederkehrende UI-Muster in dedizierte CSS-Dateien:
 
 ### 6. Accessibility (BFSG/a11y) – Checkliste
 
-| Prüfpunkt | Beschreibung |
-| :--- | :--- |
-| **`aria-label`** | Jedes interaktive Element ohne sichtbaren Text braucht ein `aria-label`. |
-| **`aria-expanded`** | Für Dropdowns und Accordions (zeigt offenen/geschlossenen State). |
-| **`aria-describedby`** | Für Formulare: Verknüpft Fehlermeldungen mit dem Input. |
-| **Unique `id`** | Jedes interaktive Element braucht eine eindeutige `id` für automatisierte Tests. |
-| **Keyboard Navigation** | `Tab`-Reihenfolge muss logisch sein. Kein Element darf übersprungen werden. |
-| **Focus-Trap** | In Modals: Fokus darf das Modal nicht per Tab verlassen. |
-| **Semantisches HTML** | `<button>` statt `<div onclick>`. `<dialog>` statt custom Modal. `<nav>` für Navigation. |
-| **Kontrast** | Mindestens WCAG AA Kontrastverhältnis (4.5:1 für Text). |
+| Prüfpunkt               | Beschreibung                                                                             |
+| :---------------------- | :--------------------------------------------------------------------------------------- |
+| **`aria-label`**        | Jedes interaktive Element ohne sichtbaren Text braucht ein `aria-label`.                 |
+| **`aria-expanded`**     | Für Dropdowns und Accordions (zeigt offenen/geschlossenen State).                        |
+| **`aria-describedby`**  | Für Formulare: Verknüpft Fehlermeldungen mit dem Input.                                  |
+| **Unique `id`**         | Jedes interaktive Element braucht eine eindeutige `id` für automatisierte Tests.         |
+| **Keyboard Navigation** | `Tab`-Reihenfolge muss logisch sein. Kein Element darf übersprungen werden.              |
+| **Focus-Trap**          | In Modals: Fokus darf das Modal nicht per Tab verlassen.                                 |
+| **Semantisches HTML**   | `<button>` statt `<div onclick>`. `<dialog>` statt custom Modal. `<nav>` für Navigation. |
+| **Kontrast**            | Mindestens WCAG AA Kontrastverhältnis (4.5:1 für Text).                                  |
 
-```html
+````html
 <!-- ✅ RICHTIG: Barrierefrei -->
-<button id="create-ticket-btn"
-        aria-label="Neues Ticket erstellen"
-        class="btn btn-primary">
-    <i class="fa-solid fa-plus" aria-hidden="true"></i>
-    Neues Ticket
+<button id="create-ticket-btn" aria-label="Neues Ticket erstellen" class="btn btn-primary">
+  <i class="fa-solid fa-plus" aria-hidden="true"></i>
+  Neues Ticket
 </button>
 
 <!-- ❌ FALSCH: Nicht barrierefrei -->
 <div onclick="createTicket()" class="bg-blue-500 p-2">
-    <i class="fa-solid fa-plus"></i>
+  <i class="fa-solid fa-plus"></i>
 </div>
 
-### 7. Theme-Switching (Dark/Light Mode)
+### 7. Theme-Switching (Dark/Light Mode) - Farben **ausschließlich** über CSS Custom Properties in
+`theme.css`: ```css :root, [data-theme="light"] { --color-surface: #ffffff; --color-on-surface:
+#1a1a2e; --brand-primary: #6366f1; } [data-theme="dark"] { --color-surface: #1a1a2e;
+--color-on-surface: #e2e8f0; --brand-primary: #818cf8; }
+````
 
-- Farben **ausschließlich** über CSS Custom Properties in `theme.css`:
-  ```css
-  :root, [data-theme="light"] {
-      --color-surface: #ffffff;
-      --color-on-surface: #1a1a2e;
-      --brand-primary: #6366f1;
-  }
-
-  [data-theme="dark"] {
-      --color-surface: #1a1a2e;
-      --color-on-surface: #e2e8f0;
-      --brand-primary: #818cf8;
-  }
-  ```
 - Theme-Wechsel via `data-theme` Attribut auf `<html>`-Tag. **Kein Page-Reload!**
 
 ### 8. Corporate Branding (Multi-Tenancy)
@@ -169,13 +164,16 @@ Abstrahiere wiederkehrende UI-Muster in dedizierte CSS-Dateien:
 
 ### 10. Micro-Animations & Premium Feeling
 
-| Element             | Tailwind-Klassen                                                     |
-| :------------------ | :------------------------------------------------------------------- |
+| Element              | Tailwind-Klassen                                                     |
+| :------------------- | :------------------------------------------------------------------- |
 | **Hover-Transition** | `transition-all duration-200 ease-in-out`                            |
 | **Hover-Effekt**     | `hover:brightness-110 hover:shadow-lg`                               |
-| **Active-State**    | `active:brightness-90 active:scale-95`                               |
-| **Focus-Ring**      | `focus:ring-2 focus:ring-offset-2 focus:ring-[var(--brand-primary)]` |
-| **Glassmorphism**   | `backdrop-blur-md bg-white/10 border border-white/20`                |
-|                     | (Modals, Dropdowns)                                                   |
+| **Active-State**     | `active:brightness-90 active:scale-95`                               |
+| **Focus-Ring**       | `focus:ring-2 focus:ring-offset-2 focus:ring-[var(--brand-primary)]` |
+| **Glassmorphism**    | `backdrop-blur-md bg-white/10 border border-white/20`                |
+|                      | (Modals, Dropdowns)                                                  |
 
-### Zusammenfassung: DRY-Check ✓, Komponente ✓, Tailwind ✓, @apply ✓, Responsive ✓, a11y ✓, Theme ✓, Branding ✓, Icons ✓, Animations ✓
+### Zusammenfassung
+
+DRY-Check ✓, Komponente ✓, Tailwind ✓, @apply ✓, Responsive ✓, a11y ✓, Theme ✓, Branding ✓, Icons ✓,
+Animations ✓

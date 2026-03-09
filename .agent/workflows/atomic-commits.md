@@ -18,14 +18,14 @@ Git-Etikette des Projekts.
 
 ### Branch-Naming Conventions
 
-| Prefix      | Verwendung                | Beispiel                             |
-| :---------- | :------------------------ | :----------------------------------- |
-| `feature/`  | Neues Feature             | `feature/ticket-drag-and-drop`       |
-| `bugfix/`   | Bugfix                    | `bugfix/fix-login-redirect`          |
-| `hotfix/`   | Urgent Production Fix     | `hotfix/patch-sql-injection`         |
-| `docs/`     | Dokumentation             | `docs/update-database-schema`        |
-| `refactor/` | Code-Refactoring          | `refactor/extract-ticket-validator`  |
-| `test/`     | Test-Erweiterungen        | `test/add-handler-integration-tests` |
+| Prefix      | Verwendung            | Beispiel                             |
+| :---------- | :-------------------- | :----------------------------------- |
+| `feature/`  | Neues Feature         | `feature/ticket-drag-and-drop`       |
+| `bugfix/`   | Bugfix                | `bugfix/fix-login-redirect`          |
+| `hotfix/`   | Urgent Production Fix | `hotfix/patch-sql-injection`         |
+| `docs/`     | Dokumentation         | `docs/update-database-schema`        |
+| `refactor/` | Code-Refactoring      | `refactor/extract-ticket-validator`  |
+| `test/`     | Test-Erweiterungen    | `test/add-handler-integration-tests` |
 
 ### Workflow
 
@@ -73,20 +73,20 @@ test(domain): add ticket close-rule unit tests
 chore(deps): update MediatR to v13
 ```
 
-| Feld | Regel |
-| :--- | :--- |
-| **Type** | `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore` |
-| **Scope** | Optional. Layer/Bereich (z.B. `ticket`, `auth`, `domain`, `web`) |
-| **Subject** | Kurz, prägnant, **Imperativ** ("add", nicht "added") |
-| **Body** | Optional. Erkläre das **"Warum"** (bei komplexen Änderungen) |
-| **Footer** | Optional. `Closes #42` oder `BREAKING CHANGE: ...` |
+| Feld        | Regel                                                            |
+| :---------- | :--------------------------------------------------------------- |
+| **Type**    | `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`      |
+| **Scope**   | Optional. Layer/Bereich (z.B. `ticket`, `auth`, `domain`, `web`) |
+| **Subject** | Kurz, prägnant, **Imperativ** ("add", nicht "added")             |
+| **Body**    | Optional. Erkläre das **"Warum"** (bei komplexen Änderungen)     |
+| **Footer**  | Optional. `Closes #42` oder `BREAKING CHANGE: ...`               |
 
 ### 4. Keine Misch-Commits
 
-| Verboten                    | Stattdessen                                  |
-| :-------------------------- | :------------------------------------------- |
-| Refactoring + neue Features | Erst Refactoring committen, dann Feature     |
-| Bugfix + Dokumentation      | Erst Bugfix committen, dann Docs             |
+| Verboten                    | Stattdessen                                   |
+| :-------------------------- | :-------------------------------------------- |
+| Refactoring + neue Features | Erst Refactoring committen, dann Feature      |
+| Bugfix + Dokumentation      | Erst Bugfix committen, dann Docs              |
 | Formatting + Code-Änderung  | Erst `style:` Formatting, dann `feat:`/`fix:` |
 
 ### 5. Commit-Frequenz
@@ -105,13 +105,13 @@ chore(deps): update MediatR to v13
 
 ### 6. Verifizierung vor Commit
 
-| Prüfpunkt | Befehl | Pflicht? |
-| :--- | :--- | :--- |
-| **CHANGELOG.md** | `[Unreleased]` Sektion aktualisieren | ✅ Bei `feat`, `fix` |
-| **Kompiliert** | `dotnet build` | ✅ Ja |
-| **Tests grün** | `dotnet test` | ✅ Ja |
-| **Formatting** | `dotnet format --verify-no-changes` | ✅ Ja |
-| **Keine Secrets** | Manuell prüfen | ✅ Ja |
+| Prüfpunkt         | Befehl                               | Pflicht?             |
+| :---------------- | :----------------------------------- | :------------------- |
+| **CHANGELOG.md**  | `[Unreleased]` Sektion aktualisieren | ✅ Bei `feat`, `fix` |
+| **Kompiliert**    | `dotnet build`                       | ✅ Ja                |
+| **Tests grün**    | `dotnet test`                        | ✅ Ja                |
+| **Formatting**    | `dotnet format --verify-no-changes`  | ✅ Ja                |
+| **Keine Secrets** | Manuell prüfen                       | ✅ Ja                |
 
 > **Regel:** Die Solution **muss** nach jedem Commit kompilierbar sein.
 > "Broken Commits" sind **untersagt**.
@@ -120,19 +120,20 @@ chore(deps): update MediatR to v13
 
 ## Pull Request (PR) Regeln
 
-| Regel              | Beschreibung                                            |
-| :----------------- | :------------------------------------------------------ |
-| **Pflicht**        | Features werden **ausschließlich** über PRs gemerged.  |
-| **CI/CD grün**     | Der PR benötigt zwingend das grüne Licht der Pipeline.  |
-| **Code Review**    | Mindestens **ein Approve** durch anderen Entwickler.    |
+| Regel              | Beschreibung                                             |
+| :----------------- | :------------------------------------------------------- |
+| **Pflicht**        | Features werden **ausschließlich** über PRs gemerged.    |
+| **CI/CD grün**     | Der PR benötigt zwingend das grüne Licht der Pipeline.   |
+| **Code Review**    | Mindestens **ein Approve** durch anderen Entwickler.     |
 | **Issue-Referenz** | PR verweist auf zugehöriges GitHub Issue (`Closes #42`). |
-| **Beschreibung**   | PR enthält aussagekräftige Beschreibung der Änderungen. |
+| **Beschreibung**   | PR enthält aussagekräftige Beschreibung der Änderungen.  |
 
 ---
 
 ## Der `main` Branch ist HEILIG
 
 > [!CAUTION]
+>
 > - `main` muss **jederzeit** lauffähig sein (Compilable & Green Tests).
 > - Direct Pushes auf `main` sind per **Branch-Protection** gesperrt.
 > - Kein Code-Change ohne zugehöriges **GitHub Issue**.

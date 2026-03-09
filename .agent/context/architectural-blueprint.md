@@ -1,16 +1,16 @@
-# 🏛️ TicketsPlease – Architectural Blueprint
+# TicketsPlease – Architectural Blueprint
 
 Strikte architektonische Leitplanken und Patterns.
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [📐 Clean Architecture Layers](#-clean-architecture-layers)
-- [⚡ CQRS \& MediatR Pipeline](#-cqrs--mediatr-pipeline)
-- [🗄️ EF Core Resilience Strategy](#-ef-core-resilience-strategy)
+- [Clean Architecture Layers](#clean-architecture-layers)
+- [CQRS & MediatR Pipeline](#cqrs--mediatr-pipeline)
+- [EF Core Resilience Strategy](#ef-core-resilience-strategy)
 
 ---
 
-## 📐 Clean Architecture Layers
+## Clean Architecture Layers
 
 Abhängigkeiten fließen **immer** in Richtung Domain.
 
@@ -28,7 +28,7 @@ graph TD
 
 ---
 
-## ⚡ CQRS & MediatR Pipeline
+## CQRS & MediatR Pipeline
 
 Jeder Command durchläuft eine vordefinierte Pipeline:
 
@@ -38,7 +38,7 @@ Jeder Command durchläuft eine vordefinierte Pipeline:
 
 ---
 
-## 🗄️ EF Core Resilience Strategy
+## EF Core Resilience Strategy
 
 - **Lesezugriffe:** Immer `.AsNoTracking()`.
 - **Schreibzugriffe:** Explizite `RowVersion` (Optimistic Concurrency).

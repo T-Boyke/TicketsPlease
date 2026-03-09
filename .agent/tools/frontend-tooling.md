@@ -4,13 +4,13 @@ Werkzeuge und Prozesse für das TicketsPlease Frontend.
 
 ## 📋 Table of Contents
 
-- [📦 LibMan (Library Manager)](#-libman-library-manager)
-- [⚡ Tailwind CSS 4.2](#-tailwind-css-42)
-- [🖼️ Asset Management](#-asset-management)
+- [LibMan (Library Manager)](#libman-library-manager)
+- [Tailwind CSS 4.2](#tailwind-css-42)
+- [Asset Management](#asset-management)
 
 ---
 
-## 📦 LibMan (Library Manager)
+## LibMan (Library Manager)
 
 Verwaltet clientseitige Bibliotheken in `wwwroot/lib`.
 
@@ -20,7 +20,7 @@ Verwaltet clientseitige Bibliotheken in `wwwroot/lib`.
 
 ---
 
-## ⚡ Tailwind CSS 4.2
+## Tailwind CSS 4.2
 
 Modernes Styling ohne Node.js Abhängigkeit.
 
@@ -30,7 +30,7 @@ Modernes Styling ohne Node.js Abhängigkeit.
 
 ---
 
-## 🖼️ Asset Management
+## Asset Management
 
 - **Icons:** FontAwesome 7.2 (lokal eingebunden).
 - **Bilder:** Optimierte SVGs oder WebP in `wwwroot/images/`.

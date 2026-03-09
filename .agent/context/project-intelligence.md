@@ -5,13 +5,13 @@ Fortschritt des TicketsPlease-Projekts.
 
 ## 📋 Table of Contents
 
-- [🎯 Vision \& Mission](#-vision--mission)
-- [🗺️ MVP Roadmap Status](#-mvp-roadmap-status)
-- [🧩 Bounded Contexts](#-bounded-contexts)
+- [Vision & Mission](#vision--mission)
+- [MVP Roadmap Status](#mvp-roadmap-status)
+- [Bounded Contexts](#bounded-contexts)
 
 ---
 
-## 🎯 Vision & Mission
+## Vision & Mission
 
 TicketsPlease ist ein hochmodernes Kanban-Ticketsystem, das als Referenz für modernste
 C#-Entwicklung dient. Der Fokus liegt auf kompromissloser Softwarearchitektur
@@ -23,7 +23,7 @@ C#-Entwicklung dient. Der Fokus liegt auf kompromissloser Softwarearchitektur
 
 ---
 
-## 🗺️ MVP Roadmap Status
+## MVP Roadmap Status
 
 Das Projekt ist phasenweise nach der [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md) aufgebaut.
 
@@ -35,7 +35,7 @@ Das Projekt ist phasenweise nach der [MVP-Roadmap](file:///d:/DEV/Tickets/docs/M
 
 ---
 
-## 🧩 Bounded Contexts
+## Bounded Contexts
 
 Die Domäne ist in klare, abgegrenzte Kontexte unterteilt:
 

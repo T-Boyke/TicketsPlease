@@ -30,7 +30,8 @@ Regeln für die Erstellung von Markdown-Dokumenten durch die Antigravity AI.
 
 - Pro Datei genau **ein H1**-Header.
 - Logische Hierarchie wahren (H1 -> H2 -> H3).
-- Mehrfache Header mit gleichem Inhalt sind nur erlaubt, wenn sie in unterschiedlichen Sektionen (Siblings Only) stehen (MD024).
+- Mehrfache Header mit gleichem Inhalt sind nur erlaubt, wenn sie in unterschiedlichen Sektionen
+  (Siblings Only) stehen (MD024).
 
 ---
 

@@ -15,17 +15,17 @@ Regeln für Tests und Quality Assurance. Tests treiben das Design (TDD).
 
 ## Coverage-Ziele
 
-| Layer | Ziel |
-|---|---|
-| **Domain** | 100% – Zero Compromise |
-| **Application (Handlers)** | 90%+ |
-| **Infrastructure** | Integration Tests (Testcontainers) |
-| **Web** | E2E (Playwright/Vitest) |
+| Layer                      | Ziel                               |
+| -------------------------- | ---------------------------------- |
+| **Domain**                 | 100% – Zero Compromise             |
+| **Application (Handlers)** | 90%+                               |
+| **Infrastructure**         | Integration Tests (Testcontainers) |
+| **Web**                    | E2E (Playwright/Vitest)            |
 
 ## Naming
 
 - Klasse: `[ClassName]Tests`
-- Methode: `[Method]_[Scenario]_[ExpectedResult]`
+- Methode: `[Method]_[Scenario]_[Result]`
 - Beispiel: `Handle_TicketNotFound_ThrowsNotFoundException`
 
 ## AAA-Pattern (Pflicht!)

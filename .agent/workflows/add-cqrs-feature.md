@@ -153,4 +153,7 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
 
 ---
 
-### Zusammenfassung: Entity ✓, DTO ✓, Request ✓, Validator ✓, Handler ✓, Repository ✓, Mapping ✓, Controller ✓, XML-Docs ✓, Test ✓
+### Zusammenfassung
+
+Entity ✓, DTO ✓, Request ✓, Validator ✓, Handler ✓, Repository ✓, Mapping ✓, Controller ✓,
+XML-Docs ✓, Test ✓

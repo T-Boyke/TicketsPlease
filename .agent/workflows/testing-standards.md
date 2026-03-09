@@ -32,16 +32,16 @@ Projekt. Tests sind **kein Nachgedanke**, sondern treiben das Design (TDD).
 
 ## Coverage-Ziele
 
-| Layer | Ziel | Beschreibung |
-| :--- | :--- | :--- |
-| **Domain** | **100%** | Zero Compromise. Jede Business-Regel muss getestet sein. |
-| **Application (Handlers)** | **90%+** | Alle Commands/Queries inkl. Fehlerfälle. |
-| Layer | Ziel | Beschreibung |
-| :--- | :--- | :--- |
-| **Domain** | **100%** | Zero Compromise. Business-Regeln. |
-| **Application** | **90%+** | Alle Commands/Queries. |
-| **Infrastructure** | **Integration** | Testcontainers für SQL. |
-| **Web** | **E2E** | Playwright + Vitest. |
+| Layer                      | Ziel            | Beschreibung                                             |
+| :------------------------- | :-------------- | :------------------------------------------------------- |
+| **Domain**                 | **100%**        | Zero Compromise. Jede Business-Regel muss getestet sein. |
+| **Application (Handlers)** | **90%+**        | Alle Commands/Queries inkl. Fehlerfälle.                 |
+| Layer                      | Ziel            | Beschreibung                                             |
+| :---                       | :---            | :---                                                     |
+| **Domain**                 | **100%**        | Zero Compromise. Business-Regeln.                        |
+| **Application**            | **90%+**        | Alle Commands/Queries.                                   |
+| **Infrastructure**         | **Integration** | Testcontainers für SQL.                                  |
+| **Web**                    | **E2E**         | Playwright + Vitest.                                     |
 
 ---
 
@@ -54,10 +54,10 @@ Projekt. Tests sind **kein Nachgedanke**, sondern treiben das Design (TDD).
 
 ### 2. Naming Conventions (Unverletzlich!)
 
-| Element | Convention | Beispiel |
-| :--- | :--- | :--- |
-| **Test-Klasse** | `[ClassName]Tests` | `CreateTicketCommandHandlerTests` |
-| **Test-Methode** | `[Method]_[Scenario]_[ExpectedResult]` | `Handle_ValidCommand_ReturnsNewTicketId` |
+| Element                   | Convention                                     | Beispiel                                        |
+| :------------------------ | :--------------------------------------------- | :---------------------------------------------- |
+| **Test-Klasse**           | `[ClassName]Tests`                             | `CreateTicketCommandHandlerTests`               |
+| **Test-Methode**          | `[Method]_[Scenario]_[ExpectedResult]`         | `Handle_ValidCommand_ReturnsNewTicketId`        |
 | **Test-Methode (Fehler)** | `[Method]_[InvalidScenario]_Throws[Exception]` | `Handle_TicketNotFound_ThrowsNotFoundException` |
 
 ### 3. AAA-Pattern (Pflicht!)
@@ -90,14 +90,14 @@ public async Task Handle_ValidCommand_ReturnsNewTicketId()
 
 ### 4. Unit Tests (MediatR Handler Tests)
 
-| Regel | Beschreibung |
-| :--- | :--- |
-| **Mocking** | Repositories/Interfaces via `Moq`/`NSubstitute`. |
-| **Isolierung** | Jeder Test ist unabhängig. Kein State-Sharing. |
-| **Happy Path** | Teste den erfolgreichen Durchlauf. |
-| **Fehler** | Teste `ValidationException`, `NotFoundException`. |
+| Regel                 | Beschreibung                                       |
+| :-------------------- | :------------------------------------------------- |
+| **Mocking**           | Repositories/Interfaces via `Moq`/`NSubstitute`.   |
+| **Isolierung**        | Jeder Test ist unabhängig. Kein State-Sharing.     |
+| **Happy Path**        | Teste den erfolgreichen Durchlauf.                 |
+| **Fehler**            | Teste `ValidationException`, `NotFoundException`.  |
 | **CancellationToken** | Stelle sicher, dass der Token weitergereicht wird. |
-| **Domain-Logik** | Teste die Rich-Model-Methoden separat. |
+| **Domain-Logik**      | Teste die Rich-Model-Methoden separat.             |
 
 ### 5. Integration Tests (Repository & DB)
 
@@ -157,13 +157,13 @@ public void Domain_ShouldNot_DependOn_Infrastructure()
 
 ### 7. Assertions (FluentAssertions Pflicht!)
 
-| Statt | Nutze |
-| :--- | :--- |
-| `Assert.Equal(expected, actual)` | `actual.Should().Be(expected)` |
-| `Assert.NotNull(result)` | `result.Should().NotBeNull()` |
-| `Assert.Throws<T>(...)` | `act.Should().ThrowAsync<T>()` |
-| `Assert.True(condition)` | `condition.Should().BeTrue()` |
-| Collection-Checks | `list.Should().HaveCount(3).And.Contain(x => x.Title == "Test")` |
+| Statt                            | Nutze                                                            |
+| :------------------------------- | :--------------------------------------------------------------- |
+| `Assert.Equal(expected, actual)` | `actual.Should().Be(expected)`                                   |
+| `Assert.NotNull(result)`         | `result.Should().NotBeNull()`                                    |
+| `Assert.Throws<T>(...)`          | `act.Should().ThrowAsync<T>()`                                   |
+| `Assert.True(condition)`         | `condition.Should().BeTrue()`                                    |
+| Collection-Checks                | `list.Should().HaveCount(3).And.Contain(x => x.Title == "Test")` |
 
 ### 8. Pre-Commit Verifikation
 
@@ -181,4 +181,7 @@ dotnet test --verbosity minimal
 - Google Lighthouse Score muss **100/100** in allen Kategorien erreichen
   (Performance, Accessibility, Best Practices, SEO).
 
-### Zusammenfassung: TDD Red ✓, Green ✓, Refactor ✓, Unit Tests ✓, Integration Tests ✓, Arch Tests ✓, FluentAssertions ✓, CI Green ✓
+### Zusammenfassung
+
+TDD Red ✓, Green ✓, Refactor ✓, Unit Tests ✓, Integration Tests ✓, Arch Tests ✓,
+FluentAssertions ✓, CI Green ✓

@@ -4,13 +4,13 @@ Vorgaben für das visuelle Frontend und die CSS-Architektur.
 
 ## 📋 Table of Contents
 
-- [🖌️ CSS-Architektur](#-css-architektur)
-- [🧩 Razor Philosophy](#-razor-philosophy)
-- [♿ Accessibility (BFSG)](#-accessibility-bfsg)
+- [CSS-Architektur](#css-architektur)
+- [Razor Philosophy](#razor-philosophy)
+- [Accessibility (BFSG)](#accessibility-bfsg)
 
 ---
 
-## 🖌️ CSS-Architektur
+## CSS-Architektur
 
 Wir nutzen TailwindCSS 4.2 mit einer strukturierten Abstraktion:
 
@@ -20,7 +20,7 @@ Wir nutzen TailwindCSS 4.2 mit einer strukturierten Abstraktion:
 
 ---
 
-## 🧩 Razor Philosophy
+## Razor Philosophy
 
 - **SFC / ViewComponents:** Jede Komponente bündelt Template & Logik.
 - **DRY:** Wiederkehrende Muster immer in `Partials` (`_Avatar.cshtml`).
@@ -28,7 +28,7 @@ Wir nutzen TailwindCSS 4.2 mit einer strukturierten Abstraktion:
 
 ---
 
-## ♿ Accessibility (BFSG)
+## Accessibility (BFSG)
 
 - **Keyboard-First:** Alle Komponenten sind per Tab bedienbar.
 - **Semantic HTML:** Korrekte Nutzung von `<main>`, `<nav>`, `<dialog>`.

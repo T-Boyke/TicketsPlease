@@ -4,13 +4,13 @@ Geschäftsregeln und fachliche Tiefe der Kern-Domäne.
 
 ## 📋 Table of Contents
 
-- [🎫 Ticket Domain Entity](#-ticket-domain-entity)
-- [🌶️ Chillischoten-Metrik](#-chillischoten-metrik)
-- [🔒 Geschäftsregeln (Business Rules)](#-geschäftsregeln-business-rules)
+- [Ticket Domain Entity](#ticket-domain-entity)
+- [Chillischoten-Metrik](#chillischoten-metrik)
+- [Geschäftsregeln (Business Rules)](#geschäftsregeln-business-rules)
 
 ---
 
-## 🎫 Ticket Domain Entity
+## Ticket Domain Entity
 
 Das zentrale Domain-Aggregat.
 
@@ -20,7 +20,7 @@ Das zentrale Domain-Aggregat.
 
 ---
 
-## 🌶️ Chillischoten-Metrik
+## Chillischoten-Metrik
 
 Ein visuelles System zur Bewertung von Ticket-Komplexität:
 
@@ -30,7 +30,7 @@ Ein visuelles System zur Bewertung von Ticket-Komplexität:
 
 ---
 
-## 🔒 Geschäftsregeln (Business Rules)
+## Geschäftsregeln (Business Rules)
 
 - **Close Logic:** Tickets können nur vom Ersteller, Admin oder Teamlead Final geschlossen
   > (`Closed`) werden.

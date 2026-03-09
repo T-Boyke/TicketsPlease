@@ -4,13 +4,13 @@ Zentrale CLI-Befehle und Werkzeuge für die TicketsPlease Entwicklung.
 
 ## 📋 Table of Contents
 
-- [🚀 .NET CLI](#-net-cli)
-- [🗄️ EF Core CLI](#-ef-core-cli)
-- [🎨 Tailwind CLI](#-tailwind-cli)
+- [.NET CLI](#net-cli)
+- [EF Core CLI](#ef-core-cli)
+- [Tailwind CLI](#tailwind-cli)
 
 ---
 
-## 🚀 .NET CLI
+## .NET CLI
 
 Standard-Operationen für die Solution:
 
@@ -21,7 +21,7 @@ Standard-Operationen für die Solution:
 
 ---
 
-## 🗄️ EF Core CLI
+## EF Core CLI
 
 Verwaltung der Datenbank-Migrationen:
 
@@ -30,7 +30,7 @@ Verwaltung der Datenbank-Migrationen:
 
 ---
 
-## 🎨 Tailwind CLI
+## Tailwind CLI
 
 Das Projekt nutzt `tailwindcss-dotnet` (v2.0.0-beta.3) als lokales Tool:
 

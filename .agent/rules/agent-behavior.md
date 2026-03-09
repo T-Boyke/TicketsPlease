@@ -24,8 +24,8 @@ Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DE
    Phase 1 hat absoluten Vorrang. Implementiere **keine** Enterprise-Features
    (Phase 2-5), solange Phase 1 nicht komplett abgeschlossen und grün ist.
 3. **ADR-Check:** Prüfe vor architektonischen Entscheidungen die bestehenden
-   [ADRs](file:///d:/DEV/Tickets/docs/adr/). Widerspreche keinem bestehenden ADR
-   ohne explizite User-Genehmigung.
+   [ADRs](file:///d:/DEV/Tickets/docs/adr/). Widerspreche keinem ADR ohne explizite
+   User-Genehmigung.
 4. **Scope begrenzen:** Ändere nur, was der User angefordert hat.
    Keine ungewollten "Bonus-Refactorings".
 5. **Layer identifizieren:** Vor jeder Code-Änderung die betroffenen Layer,
@@ -54,16 +54,16 @@ Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DE
 
 ## ✅ Qualitäts-Pflichten (Bei jeder Code-Änderung)
 
-| Was | Wann | Pflicht |
-| --- | --- | --- |
-| XML-Dokumentation (`<summary>`, `<param>`, `<returns>`, `<exception>`) | Alle neuen `public` Members | ✅ Immer |
-| `AbstractValidator<T>` (FluentValidation) | Jeder neue Command | ✅ Immer |
-| Unit-Test (TDD: Test zuerst!) | Jede neue Logik | ✅ Immer |
-| `CancellationToken` durchreichen | Alle Async-Methoden | ✅ Immer |
-| `AsNoTracking()` | Alle Lese-Queries | ✅ Immer |
-| `DbUpdateConcurrencyException` fangen | Alle Write-Handler | ✅ Immer |
-| Anti-Forgery / Validation / DOMPurify | Bei User-Input | ✅ Kontextabhängig |
-| `aria-label`, Keyboard-Nav, semantisches HTML | Bei UI-Änderungen | ✅ Immer |
+| Was                                                                    | Wann                        | Pflicht            |
+| ---------------------------------------------------------------------- | --------------------------- | ------------------ |
+| XML-Dokumentation (`<summary>`, `<param>`, `<returns>`, `<exception>`) | Alle neuen `public` Members | ✅ Immer           |
+| `AbstractValidator<T>` (FluentValidation)                              | Jeder neue Command          | ✅ Immer           |
+| Unit-Test (TDD: Test zuerst!)                                          | Jede neue Logik             | ✅ Immer           |
+| `CancellationToken` durchreichen                                       | Alle Async-Methoden         | ✅ Immer           |
+| `AsNoTracking()`                                                       | Alle Lese-Queries           | ✅ Immer           |
+| `DbUpdateConcurrencyException` fangen                                  | Alle Write-Handler          | ✅ Immer           |
+| Anti-Forgery / Validation / DOMPurify                                  | Bei User-Input              | ✅ Kontextabhängig |
+| `aria-label`, Keyboard-Nav, semantisches HTML                          | Bei UI-Änderungen           | ✅ Immer           |
 
 ---
 
@@ -123,16 +123,16 @@ Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DE
 
 Halte dich **immer** an diese Projekt-Dokumente:
 
-| Dokument | Beschreibung |
-| --- | --- |
-| [instructions.md](file:///d:/DEV/Tickets/instructions.md) | Vollständige technische Governance (16 Sektionen) |
-| [README.md](file:///d:/DEV/Tickets/README.md) | Projekt-Vision, Features, Tech-Stack |
-| [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md) | Phase-Abgrenzung (MVP vs. Enterprise) |
-| [ADR-Index](file:///d:/DEV/Tickets/docs/adr/README.md) | Alle Architektur-Entscheidungen |
-| [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md) | ERD & Entity-Beschreibungen |
-| [domain_ticket.md](file:///d:/DEV/Tickets/docs/domain_ticket.md) | Ticket-Entity DDD Spezifikation |
-| [nuget_stack.md](file:///d:/DEV/Tickets/docs/nuget_stack.md) | Erlaubte NuGet-Pakete pro Layer |
-| [frontend_assets.md](file:///d:/DEV/Tickets/docs/frontend_assets.md) | Asset-Management & No-CDN Policy |
+| Dokument                                                             | Beschreibung                          |
+| -------------------------------------------------------------------- | ------------------------------------- |
+| [instructions.md](file:///d:/DEV/Tickets/instructions.md)            | Technische Governance (16 Sektionen)  |
+| [README.md](file:///d:/DEV/Tickets/README.md)                        | Projekt-Vision, Features, Tech-Stack  |
+| [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md)            | Phase-Abgrenzung (MVP vs. Enterprise) |
+| [ADR-Index](file:///d:/DEV/Tickets/docs/adr/README.md)               | Alle Architektur-Entscheidungen       |
+| [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md) | ERD & Entity-Beschreibungen           |
+| [domain_ticket.md](file:///d:/DEV/Tickets/docs/domain_ticket.md)     | Ticket-Entity DDD Spezifikation       |
+| [nuget_stack.md](file:///d:/DEV/Tickets/docs/nuget_stack.md)         | Erlaubte NuGet-Pakete pro Layer       |
+| [frontend_assets.md](file:///d:/DEV/Tickets/docs/frontend_assets.md) | Asset-Management & No-CDN Policy      |
 
 ---
 

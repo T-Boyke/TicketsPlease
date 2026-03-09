@@ -9,7 +9,8 @@ Regeln für Frontend-Entwicklung, Barrierefreiheit und Styling.
 - **No Bootstrap** – Komplett verboten. Nur TailwindCSS 4.2.
 - **No CDN** – Alle Assets lokal via LibMan (`libman.json` → `wwwroot/lib/`).
 - **No Inline-Styles** – Alles über Tailwind oder CSS-Variablen.
-- **No Hardcoded Farben** – Nutze CSS Custom Properties (`--brand-primary`, `--color-surface`).
+- **No Hardcoded Farben** – Nutze CSS Custom Properties (`--brand-primary`,
+  `--color-surface`).
 - **`@apply`** – Wiederkehrende Patterns in `css/components/` abstrahieren:
   - `btn.css` – Button-Variationen
   - `cards.css` – Kanban-Card Struktur

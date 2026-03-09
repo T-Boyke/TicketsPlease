@@ -4,13 +4,13 @@ Konfigurationen für eine konsistente Developer Experience in Rider und VS Code.
 
 ## 📋 Table of Contents
 
-- [🏇 JetBrains Rider](#-jetbrains-rider)
-- [💙 Visual Studio Code](#-visual-studio-code)
-- [📏 .editorconfig](#-editorconfig)
+- [JetBrains Rider](#jetbrains-rider)
+- [Visual Studio Code](#visual-studio-code)
+- [Editorconfig](#editorconfig)
 
 ---
 
-## 🏇 JetBrains Rider
+## JetBrains Rider
 
 Die bevorzugte IDE für dieses Projekt.
 
@@ -21,7 +21,7 @@ Die bevorzugte IDE für dieses Projekt.
 
 ---
 
-## 💙 Visual Studio Code
+## Visual Studio Code
 
 Support für leichtgewichtiges Editing und Dokumentation.
 
@@ -31,7 +31,7 @@ Support für leichtgewichtiges Editing und Dokumentation.
 
 ---
 
-## 📏 .editorconfig
+## Editorconfig
 
 Das "Gesetz" für Code-Style und Naming:
 

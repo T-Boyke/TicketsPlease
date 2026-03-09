@@ -4,13 +4,13 @@ Regeln und Tools zur Sicherstellung der Code-Qualität.
 
 ## 📋 Table of Contents
 
-- [🔷 C# Formatting](#-c-formatting)
-- [📝 Markdown Linting](#-markdown-linting)
-- [✨ Prettier](#-prettier)
+- [C# Formatting](#c-formatting)
+- [Markdown Linting](#markdown-linting)
+- [Prettier](#prettier)
 
 ---
 
-## 🔷 C# Formatting
+## C# Formatting
 
 - **Tool:** `dotnet format`.
 - **Regeln:** Definiert in `.editorconfig`.
@@ -18,7 +18,7 @@ Regeln und Tools zur Sicherstellung der Code-Qualität.
 
 ---
 
-## 📝 Markdown Linting
+## Markdown Linting
 
 - **Tool:** `markdownlint`.
 - **Config:** `.markdownlint.json`.
@@ -26,7 +26,7 @@ Regeln und Tools zur Sicherstellung der Code-Qualität.
 
 ---
 
-## ✨ Prettier
+## Prettier
 
 - **Tool:** Prettier CLI.
 - **Config:** `.prettierrc`.
