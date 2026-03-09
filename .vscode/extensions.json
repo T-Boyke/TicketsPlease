@@ -1,23 +1,23 @@
 {
-    "recommendations": [
-        "ms-dotnettools.csharp",
-        "ms-dotnettools.csdevkit",
-        "bradlc.vscode-tailwindcss",
-        "eamodio.gitlens",
-        "yzhang.markdown-all-in-one",
-        "formulahendry.auto-rename-tag",
-        "formulahendry.auto-close-tag",
-        "mtxr.sqltools",
-        "gitkraken.gitkraken-vsc",
-        "bierner.markdown-mermaid",
-        "ms-vscode.sublime-keybindings",
-        "rooveterinaryinc.roo-cline",
-        "kavod-io.vscode-adr-manager",
-        "gimenete.github-copilot-chat",
-        "mintlify.document",
-        "davidanson.vscode-markdownlint",
-        "esbenp.prettier-vscode",
-        "ms-playwright.playwright",
-        "streetsidesoftware.code-spell-checker-german"
-    ]
+  "recommendations": [
+    "ms-dotnettools.csharp",
+    "ms-dotnettools.csdevkit",
+    "bradlc.vscode-tailwindcss",
+    "eamodio.gitlens",
+    "yzhang.markdown-all-in-one",
+    "formulahendry.auto-rename-tag",
+    "formulahendry.auto-close-tag",
+    "mtxr.sqltools",
+    "gitkraken.gitkraken-vsc",
+    "bierner.markdown-mermaid",
+    "ms-vscode.sublime-keybindings",
+    "rooveterinaryinc.roo-cline",
+    "kavod-io.vscode-adr-manager",
+    "gimenete.github-copilot-chat",
+    "mintlify.document",
+    "davidanson.vscode-markdownlint",
+    "esbenp.prettier-vscode",
+    "ms-playwright.playwright"
+  ]
 }
+
