@@ -67,6 +67,15 @@ Damit unsere UI "premium" bleibt, folgen wir diesen Styling-Regeln:
 
 ---
 
+## 🎨 UI Styleguide (Living Documentation)
+
+Wir pflegen einen interaktiven Styleguide, der alle verfügbaren Komponenten und Design-Tokens
+live zeigt. Nutze diesen als Referenz für neue Views.
+
+👉 **Zum Styleguide:** Öffne `/Styleguide` im Browser oder nutze den Link im Footer.
+
+---
+
 ## 📁 Struktur
 
 - `Controllers/`: Dünne Brücken zur Application Layer.
