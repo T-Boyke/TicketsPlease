@@ -24,6 +24,7 @@
         "ticketsplease",
         "zockerbot"
     ],
+    "cSpell.language": "en,de",
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true
 }

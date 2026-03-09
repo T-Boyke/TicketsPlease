@@ -17,6 +17,7 @@
         "mintlify.document",
         "davidanson.vscode-markdownlint",
         "esbenp.prettier-vscode",
-        "ms-playwright.playwright"
+        "ms-playwright.playwright",
+        "streetsidesoftware.code-spell-checker-german"
     ]
 }
