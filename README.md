@@ -646,9 +646,9 @@ Dieser Fahrplan strukturiert die Entwicklung chronologisch bis zur finalen Abgab
 1. **Phase 1: Planung & Setup (Aktuell)**
    - UI/UX Planung und Erstellung grundlegender Sketche / Wireframes.
    - Team Onboarding in GitHub (Rechtevergabe, Branch Protections einrichten).
-   - Erstellung des **GitHub Projects Kanban-Boards** (Zentrale Verwaltung für dieses Projekt).
+   - Erstellung des **GitHub Projects Boards** (Zentrale Projektverwaltung).
    - Anlage der initialen Epics, Tickets und Subtickets im GitHub Board.
-   - Initiale Solution & Clean Architecture Strukturierung (.NET Projektmappen anlegen).
+   - Initiale Solution & Clean Architecture (.NET Projektmappen anlegen).
 2. **Phase 2: CI/CD & Groundwork**
    - Aufsetzen der **GitHub Actions Pipeline** (Build, Test, Lint).
    - Setup Environment: EF Core konfigurieren, MSSQL Anbindung herstellen.
@@ -668,8 +668,8 @@ Dieser Fahrplan strukturiert die Entwicklung chronologisch bis zur finalen Abgab
    - Die visuelle "Chillischoten"-Anzeige rendern.
    - Workflow-Logik (Status-Übergänge der Tickets) festigen.
 7. **Phase 7: Finale & Dokumentation (IHK Abgabe)**
-   - **FINALE IHK-Dokumentation:** Ausarbeitung der Projektarbeit im Google Docs Markdown / Google Sheet Format.
-   - Erstellung der finalen Präsentation für das Fachgespräch im Google Workspace (Slides).
+   - **FINALE IHK-DOKU:** Ausarbeitung der Projektarbeit im Google Docs Form.
+   - Erstellung der finalen Präsentation für das Fachgespräch (Google Slides).
    - Letzter Review-Zyklus: Test Coverage Check und Code Cleanup.
 
 </details>

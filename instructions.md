@@ -1,9 +1,14 @@
 # 🤖 TicketsPlease – Ultimate Agent Governance (v3.0)
 
-Dieses Dokument ist das **oberste Gesetz** für alle KI-gesteuerten Code-Modifikationen in der **TicketsPlease** Solution. Jede Regel ist aus der [README.md](file:///d:/DEV/Tickets/README.md), den [Docs](file:///d:/DEV/Tickets/docs/) und den [ADRs](file:///d:/DEV/Tickets/docs/adr/) extrahiert.
+Dieses Dokument ist das **oberste Gesetz** für alle KI-gesteuerten
+Code-Modifikationen in der **TicketsPlease** Solution. Jede Regel ist aus der
+[README.md](file:///d:/DEV/Tickets/README.md), den
+[Docs](file:///d:/DEV/Tickets/docs/) und den
+[ADRs](file:///d:/DEV/Tickets/docs/adr/) extrahiert.
 
 > [!CAUTION]
-> Verstöße gegen diese Regeln führen zu **sofortigem Reject** im Code-Review und blockieren die CI/CD-Pipeline.
+> Verstöße gegen diese Regeln führen zu **sofortigem Reject** im Code-Review
+> und blockieren die CI/CD-Pipeline.
 
 ---
 
@@ -47,19 +52,19 @@ Dieses Dokument ist das **oberste Gesetz** für alle KI-gesteuerten Code-Modifik
   - [14. 🚨 Absolute No-Go Liste](#14--absolute-no-go-liste)
   - [15. 🤖 Agent Behavior Rules](#15--agent-behavior-rules)
     - [🧠 Denken vor Handeln (Plan-First)](#-denken-vor-handeln-plan-first)
-    - [� Datei-Disziplin](#-datei-disziplin)
+    - [📄 Datei-Disziplin](#-datei-disziplin)
     - [✅ Qualitäts-Pflichten (Bei jeder Code-Änderung)](#-qualitäts-pflichten-bei-jeder-code-änderung)
     - [🗣️ Kommunikation \& Entscheidungen](#️-kommunikation--entscheidungen)
     - [🔄 Ablauf bei typischen Aufgaben](#-ablauf-bei-typischen-aufgaben)
     - [🚫 Agent No-Gos](#-agent-no-gos)
-  - [16. �🔧 Workflows](#16--workflows)
+  - [16. 🛠️ Workflows](#16-️-workflows)
 
 ---
 
 ## 1. 🚀 Projekt-Kontext & Tech-Stack
 
 | Eigenschaft | Wert |
-|---|---|
+| --- | --- |
 | **Solution** | `TicketsPlease.slnx` |
 | **Runtime** | ASP.NET Core 10.3 / C# 14 / .NET 10 |
 | **Datenbank** | Microsoft SQL Server (EF Core Code-First) |
@@ -71,7 +76,7 @@ Dieses Dokument ist das **oberste Gesetz** für alle KI-gesteuerten Code-Modifik
 
 ### Projekt-Struktur (Strikte Layer-Zuordnung)
 
-```
+```text
 src/
 ├── TicketsPlease.Domain/          # 🟢 Core (Zero Dependencies!)
 │   ├── Entities/                  #     Rich Models, Value Objects
@@ -96,13 +101,17 @@ src/
 ### Phase-Awareness (MVP vs. Enterprise)
 
 > [!IMPORTANT]
-> Der Agent **muss** die [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md) beachten. Phase 1 (IHK MVP) hat absoluten Vorrang. Enterprise-Features (Phase 2-5) dürfen das Schema vorbereiten, aber **nicht** implementiert werden, bis Phase 1 komplett abgeschlossen und der Build grün ist.
+> Der Agent **muss** die [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md)
+> beachten. Phase 1 (IHK MVP) hat absoluten Vorrang. Enterprise-Features
+> (Phase 2-5) dürfen das Schema vorbereiten, aber **nicht** implementiert
+> werden, bis Phase 1 komplett abgeschlossen und der Build grün ist.
 
 ---
 
 ## 2. 🏛️ Clean Architecture Governance
 
-> **Referenz:** [ADR-0001](file:///d:/DEV/Tickets/docs/adr/0001-clean-architecture.md) | README §3
+> **Referenz:** [ADR-0001](file:///d:/DEV/Tickets/docs/adr/0001-clean-architecture.md)
+> | README §3
 
 ### Dependency Rule (Unverletzlich)
 
@@ -116,7 +125,7 @@ flowchart LR
 ```
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **Dependency Direction** | Abhängigkeiten zeigen **immer nur nach innen** (→ Domain). Niemals umgekehrt. |
 | **1 Class per File** | Jede C#-Klasse, jedes Interface, jedes Enum bekommt **exakt eine Datei**. |
 | **Interface-First** | Contracts/Interfaces leben in `Application`. Implementierungen in `Infrastructure`. |
@@ -126,7 +135,7 @@ flowchart LR
 ### Naming Conventions (.editorconfig enforced)
 
 | Element | Convention | Beispiel |
-|---|---|---|
+| --- | --- | --- |
 | Interfaces | `I` Prefix | `ITicketRepository` |
 | Private Fields | `_` Prefix | `_ticketRepository` |
 | Commands | `[Verb][Entity]Command` | `CreateTicketCommand` |
@@ -139,7 +148,8 @@ flowchart LR
 
 ## 3. 🧬 Domain-Driven Design (DDD)
 
-> **Referenz:** [domain_ticket.md](file:///d:/DEV/Tickets/docs/domain_ticket.md) | README §3 | README §5
+> **Referenz:** [domain_ticket.md](file:///d:/DEV/Tickets/docs/domain_ticket.md)
+> | README §3 | README §5
 
 ### Rich Domain Models (Keine anämischen Modelle!)
 
@@ -152,7 +162,7 @@ ticket.Status = TicketStatus.InReview;
 ```
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **Private Setter** | Alle Entity-Properties haben `private set`. Externe Manipulation ist verboten. |
 | **Fabrikmethoden** | Konstruktoren erzwingen Pflichtfelder (Title, GeoIpTimestamp). Kein leerer Konstruktor. |
 | **Value Objects** | Komplexe Typen als Value Objects kapseln (`EmailAddress`, `PriorityLevel`, `Sha1Hash`). |
@@ -162,15 +172,18 @@ ticket.Status = TicketStatus.InReview;
 ### Ticket Close-Rules (Geschäftsregel!)
 
 > [!WARNING]
-> Ein Ticket darf **nur** manuell über `ticket.Close(User actor)` geschlossen werden. Die Methode prüft zwingend:
+> Ein Ticket darf **nur** manuell über `ticket.Close(User actor)` geschlossen
+> werden. Die Methode prüft zwingend:
+>
 > - `actor` ist der **Ersteller** (`CreatorId`), ein **Admin** oder ein **Teamlead**.
 > - Normale User dürfen nur auf "Done" verschieben, **nicht** schließen.
-> - **Auto-Close:** Background-Task verschiebt "Done"-Tickets nach X Tagen automatisch ins Archiv.
+> - **Auto-Close:** Background-Task verschiebt "Done"-Tickets nach X Tagen
+> automatisch ins Archiv.
 
 ### Bounded Contexts
 
 | Context | Entities | Beschreibung |
-|---|---|---|
+| --- | --- | --- |
 | **Identity & Access** | User, UserProfile, UserAddress, Role | Auth, RBAC, Profile-Management |
 | **Ticket Management** | Ticket, SubTicket, Tag, TicketPriority, TimeLog, TicketUpvote | Core Business Domain |
 | **Workflow** | WorkflowState, SlaPolicy | Kanban-Status, SLA-Enforcement |
@@ -195,7 +208,7 @@ flowchart LR
 ```
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **Jeder Request = IRequest\<T\>** | Commands und Queries implementieren `IRequest<TResponse>`. |
 | **Jeder Command hat einen Validator** | `AbstractValidator<T>` mit FluentValidation. Kein Command ohne Validierung! |
 | **Handler = Single Responsibility** | Ein Handler pro Command/Query. Keine Mega-Handler. |
@@ -210,7 +223,7 @@ flowchart LR
 > **Referenz:** [ADR-0019](file:///d:/DEV/Tickets/docs/adr/0019-ef-core-resilience-concurrency.md) | [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md)
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **`AsNoTracking()`** | **Pflicht** für alle Lesezugriffe (Queries). Tracking nur für Write-Operationen. |
 | **Projections** | Nutze `.Select(t => new Dto { ... })` statt `.Include()` wo möglich. Nur benötigte Spalten laden! |
 | **`RowVersion` Pflicht** | Alle Domain-Entities brauchen `byte[] RowVersion` für Optimistic Concurrency (`[Timestamp]`). |
@@ -240,7 +253,7 @@ flowchart TD
 ```
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **Secret Management** | Sensible Daten **niemals** in `appsettings.json` committen! Lokal: `dotnet user-secrets`. Prod: Azure Key Vault. |
 | **Password Hashing** | ASP.NET Core Identity (Pbkdf2/Argon2Id). Keine eigenen Hash-Algorithmen! |
 | **Cookie Flags** | Immer `HttpOnly` **und** `Secure` setzen. |
@@ -258,7 +271,7 @@ flowchart TD
 ### Fundamentale Regeln
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **No-Bootstrap Policy** | Bootstrap ist **verboten**. Ausschließlich TailwindCSS 4.2. |
 | **No-CDN Policy** | Sämtliche Libraries lokal über LibMan (`libman.json`) → `wwwroot/lib/`. Keine externen CDN-Links im HTML! |
 | **TailwindCSS via MSBuild** | Integration über `TailwindCSS.MSBuild` (Zero-Node). Kein `npm` / `node_modules`. |
@@ -269,7 +282,7 @@ flowchart TD
 
 ### CSS-Architektur
 
-```
+```text
 css/components/
 ├── btn.css       # Alle Button-Variationen
 ├── cards.css     # Kanban-Card Struktur
@@ -280,7 +293,7 @@ css/components/
 ### SFC & Razor Partials (DRY)
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **ViewComponents** | Eigenständige UI-Komponenten in `Views/Shared/Components/`. Bündeln Template (HTML), Logik (C#), Styling (CSS). |
 | **Partials für DRY** | Sobald sich ein HTML-Konstrukt wiederholt → `<partial name="_Avatar" />` oder Custom TagHelper (`<icon />`). |
 | **Kein C# im CSHTML** | CSHTML-Dateien sind frei von Business-Logik. Nur ViewModels und Tag Helpers. |
@@ -288,7 +301,7 @@ css/components/
 ### Theme-Switching (Dark/Light Mode)
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **CSS Custom Properties** | In `theme.css` definiert: `--color-surface`, `--color-primary`, etc. |
 | **Data-Attribut** | Theme-Wechsel via `data-theme="dark"` auf `<html>`-Tag. Kein Page-Reload. |
 | **`ICorporateSkinProvider`** | Für Multi-Tenancy: Dynamisches Branding über DI-injiziertes Interface. |
@@ -296,7 +309,7 @@ css/components/
 ### Micro-Animations & Premium Feeling
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **Transitions** | Tailwind `transition` und `duration` für Hover-Effekte. |
 | **Glassmorphism** | `backdrop-blur` für Modals und Dropdowns. |
 | **States** | Hover-, Fokus- und Active-States für jedes interaktive Element. |
@@ -311,7 +324,7 @@ css/components/
 > Wir entwickeln nach dem **Barrierefreiheitsstärkungsgesetz (BFSG)** und den W3C ARIA Authoring Practices.
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **Keyboard-First** | Gesamtes Kanban-Board, Modals, Dropdowns vollständig per `Tab` bedienbar. |
 | **Focus-Traps** | In Modals Pflicht. Fokus darf das Modal nicht verlassen. |
 | **Semantisches HTML5** | `<dialog>`, `<nav>`, `<main>`, `<article>`, `<aside>` wo immer möglich. |
@@ -326,7 +339,7 @@ css/components/
 > **Referenz:** README §5 "Globalisierung & Lokalisierung"
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **Keine Hardcoded Strings** | Sämtliche UI-Texte, Fehlermeldungen, E-Mail-Templates über `.resx`-Dateien verwalten. |
 | **Request Localization** | `Accept-Language` Header oder User-Setting bestimmt die Sprache. Middleware aktiv. |
 | **`DateTimeOffset`** | Alle Zeitstempel als `DateTimeOffset` (nicht `DateTime`!). Nutzerspezifisch rendern. |
@@ -336,7 +349,8 @@ css/components/
 
 ## 10. 🧪 Testing Excellence (TDD)
 
-> **Referenz:** README §6 | [ADR-0006](file:///d:/DEV/Tickets/docs/adr/0006-testing-strategy.md) | [nuget_stack.md](file:///d:/DEV/Tickets/docs/nuget_stack.md)
+> **Referenz:** README §6 | [ADR-0006](file:///d:/DEV/Tickets/docs/adr/0006-testing-strategy.md)
+> | [nuget_stack.md](file:///d:/DEV/Tickets/docs/nuget_stack.md)
 
 ### TDD-Zyklus (Pflicht!)
 
@@ -348,7 +362,7 @@ flowchart LR
 ```
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **100% Domain Coverage** | Die Domain-Logik duldet **Zero Compromise**. Jede Regel muss getestet sein. |
 | **Unit Tests** | MediatR Handler Tests. Mocks via `Moq` oder `NSubstitute`. |
 | **Integration Tests** | Testcontainers (echter SQL Server Docker-Container). Kein `InMemoryDatabase`! |
@@ -366,7 +380,7 @@ flowchart LR
 ### Asynchronität & Performance
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **CancellationToken** | Token bis zum letzten `Async`-Call durchreichen. **Niemals** ignorieren! |
 | **`Span<T>` / `ReadOnlySpan<T>`** | Für intensive Text-/Array-Operationen in heißen Pfaden. |
 | **Memory Management** | Unnötige Allokationen in heißen Pfaden vermeiden. DTOs zielgerichtet einsetzen. |
@@ -375,7 +389,7 @@ flowchart LR
 ### Clean Code Prinzipien
 
 | Prinzip | Beschreibung |
-|---|---|
+| --- | --- |
 | **SOLID** | Single Responsibility, Open-Closed, Liskov, Interface Segregation, Dependency Inversion. |
 | **DRY** | Code-Duplikate werden sofort abgelehnt. |
 | **KISS** | Einfachster, lesbarster Code. Keine Over-Engineering. |
@@ -390,7 +404,7 @@ flowchart LR
 ### Branching Strategy
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **`main` / `master` ist HEILIG** | Muss **jederzeit** lauffähig sein (Compilable & Green Tests). |
 | **Kein Direct Push** | Pushes auf `main` sind per Branch-Protection gesperrt. |
 | **Feature Branching** | Jedes Feature/Bugfix: `git checkout -b feature/mein-feature`. |
@@ -402,7 +416,7 @@ flowchart LR
 ### Conventional Commits
 
 | Type | Verwendung | Beispiel |
-|---|---|---|
+| --- | --- | --- |
 | `feat` | Neues Feature | `feat: add RowVersion to Ticket entity` |
 | `fix` | Bugfix | `fix: resolve null reference in TicketHandler` |
 | `docs` | Dokumentation | `docs: update database_schema.md` |
@@ -422,14 +436,15 @@ flowchart LR
     Lighthouse --> Deploy["🚀 Deploy"]
 ```
 
-> Der Build bricht ab → wenn Code nicht kompiliert → wenn Formatting abweicht → wenn ein Test fehlschlägt → wenn Lighthouse < 100.
+> Der Build bricht ab → wenn Code nicht kompiliert → wenn Formatting abweicht
+> → wenn ein Test fehlschlägt → wenn Lighthouse < 100.
 
 ---
 
 ## 13. 📝 Enterprise Dokumentation
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **XML-Documentation** | **Vollständig** und korrekt für alle `public` Members. Nutze `<summary>`, `<param>`, `<returns>`, `<exception>`, `<remarks>`. |
 | **ADR-Pflicht** | Jede wesentliche Design-Entscheidung wird als [ADR](file:///d:/DEV/Tickets/docs/adr/) dokumentiert (Template: [template.md](file:///d:/DEV/Tickets/docs/adr/template.md)). |
 | **Mermaid-Diagramme** | Für alle komplexen Systeme, Flows und Architekturen. |
@@ -442,7 +457,7 @@ flowchart LR
 ## 14. 🚨 Absolute No-Go Liste
 
 | ❌ | Regel |
-|---|---|
+| --- | --- |
 | ❌ | **Hardcodierte Farben** → Nutze `--brand-*` CSS-Variablen. |
 | ❌ | **Direktes `DbContext` im Controller** → Nutze MediatR. |
 | ❌ | **Command ohne Validator** → Jeder Input braucht FluentValidation. |
@@ -467,22 +482,23 @@ flowchart LR
 
 ## 15. 🤖 Agent Behavior Rules
 
-Diese Regeln definieren, **wie** der KI-Agent bei der Arbeit am TicketsPlease-Projekt vorgehen muss.
+Diese Regeln definieren, **wie** der KI-Agent bei der Arbeit am
+TicketsPlease-Projekt vorgehen muss.
 
 ### 🧠 Denken vor Handeln (Plan-First)
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **Immer planen** | Vor jeder Code-Änderung die betroffenen Layer, Dateien und Abhängigkeiten identifizieren. Niemals "blind" drauflos coden. |
 | **Workflow-First** | Prüfe, ob ein passender Workflow existiert (§16). Wenn ja: Folge ihm **Schritt für Schritt**. |
 | **MVP-Awareness** | Prüfe die [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md). Implementiere **keine** Enterprise-Features (Phase 2-5), solange Phase 1 nicht abgeschlossen ist. |
 | **ADR-Check** | Prüfe vor architektonischen Entscheidungen die bestehenden [ADRs](file:///d:/DEV/Tickets/docs/adr/). Widerspreche keinem bestehenden ADR ohne explizite User-Genehmigung. |
 | **Scope begrenzen** | Ändere nur, was der User angefordert hat. Keine ungewollten "Bonus-Refactorings" oder Feature-Erweiterungen. |
 
-### � Datei-Disziplin
+### 📄 Datei-Disziplin
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **1 Class per File** | Jede neue Klasse, Interface, Enum → eigene Datei. Immer. |
 | **Richtige Layer-Zuordnung** | Neue Dateien **nur** im korrekten Layer ablegen (siehe §1 Projekt-Struktur). Domain-Code gehört nicht in Infrastructure! |
 | **Keine Dateien löschen** | Ohne explizite User-Anweisung werden keine bestehenden Dateien gelöscht. |
@@ -492,7 +508,7 @@ Diese Regeln definieren, **wie** der KI-Agent bei der Arbeit am TicketsPlease-Pr
 ### ✅ Qualitäts-Pflichten (Bei jeder Code-Änderung)
 
 | Schritt | Pflicht? | Beschreibung |
-|---|---|---|
+| --- | --- | --- |
 | **XML-Dokumentation** | ✅ Immer | Alle neuen `public` Members vollständig dokumentieren (`<summary>`, `<param>`, `<returns>`, `<exception>`). |
 | **FluentValidation** | ✅ Bei Commands | Jeder neue Command bekommt einen `AbstractValidator<T>`. |
 | **Unit-Test** | ✅ Immer | Neue Logik → neuer Test. TDD bevorzugt (Test zuerst). |
@@ -505,7 +521,7 @@ Diese Regeln definieren, **wie** der KI-Agent bei der Arbeit am TicketsPlease-Pr
 ### 🗣️ Kommunikation & Entscheidungen
 
 | Regel | Beschreibung |
-|---|---|
+| --- | --- |
 | **Bei Zweifel: Fragen** | Wenn unklar ist, ob etwas MVP oder Enterprise ist → **frage den User**. Nicht raten. |
 | **Breaking Changes ankündigen** | Jede Änderung, die bestehende Interfaces, DTOs oder API-Contracts bricht → vorher dem User mitteilen. |
 | **Keine stillen Abhängigkeiten** | Kein neues NuGet-Paket hinzufügen ohne explizite Nennung und Begründung an den User. |
@@ -530,7 +546,7 @@ flowchart TD
 ### 🚫 Agent No-Gos
 
 | ❌ | Regel |
-|---|---|
+| --- | --- |
 | ❌ | **Code ohne Test committen** – Jede Logik braucht einen Test. |
 | ❌ | **Bestehende Tests löschen oder auskommentieren** – Tests sind heilig. |
 | ❌ | **Enterprise-Features implementieren wenn MVP nicht fertig** – Phase-Disziplin! |
@@ -544,12 +560,12 @@ flowchart TD
 
 ---
 
-## 16. �🔧 Workflows
+## 16. 🛠️ Workflows
 
 Nutze diese spezialisierten Workflows für Konsistenz bei jeder Entwicklungs-Aufgabe:
 
 | Workflow | Beschreibung | Link |
-|---|---|---|
+| --- | --- | --- |
 | `/add-cqrs-feature` | Neues CQRS Feature (Command/Query) hinzufügen | [add-cqrs-feature.md](file:///d:/DEV/Tickets/.agent/workflows/add-cqrs-feature.md) |
 | `/ef-core-migration` | EF Core Migrations erstellen & anwenden | [ef-core-migration.md](file:///d:/DEV/Tickets/.agent/workflows/ef-core-migration.md) |
 | `/testing-standards` | Unit- & Integration-Tests schreiben | [testing-standards.md](file:///d:/DEV/Tickets/.agent/workflows/testing-standards.md) |
@@ -561,4 +577,4 @@ Nutze diese spezialisierten Workflows für Konsistenz bei jeder Entwicklungs-Auf
 
 ---
 
-*Status: Supercharged v3.1 | Letztes Update: 2026-03-06*
+Status: Supercharged v3.1 | Letztes Update: 2026-03-06
