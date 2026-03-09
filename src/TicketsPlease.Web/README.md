@@ -3,70 +3,81 @@
 Dieser Layer ist für die Interaktion mit dem Benutzer zuständig. Er umfasst das Web-Frontend,
 die API-Endpunkte und das UI/UX-Design.
 
-## 🍴 Git Branch
+## 🎨 Frontend Komponenten-Komposition
 
-- **Branch:** `layer/web`
-- Alle Änderungen am Web-Layer müssen auf diesem Branch erfolgen.
+Wir bauen unsere UI modular auf. Jedes Element ist eine Single File Component (SFC) oder eine
+klar definierte Razor View.
 
----
+```mermaid
+graph TD
+    subgraph "Global"
+        LAY["_Layout.cshtml (Shell)"]
+        NAV[Navigation Bar]
+        FOOT[Footer]
+    end
 
-## 📋 Arbeitsanweisungen: Wie erstelle ich ein Feature im Web?
+    subgraph "Feature View"
+        PAGE["TicketDetails.cshtml"]
+        STAT[Status Badge]
+        ACT[Action Buttons]
+    end
 
-### 1. Thin Controllers (Standard)
+    subgraph "State"
+        VM[ViewModel]
+    end
 
-Controller dürfen **keine** Logik enthalten. Sie nehmen Daten an und senden sie an MediatR.
-
-```csharp
-public class TicketsController : Controller {
-    private readonly ISender _sender;
-    public TicketsController(ISender sender) => _sender = sender;
-
-    [HttpPost]
-    public async Task<IActionResult> Create(CreateTicketCommand command, CancellationToken ct) {
-        var id = await _sender.Send(command, ct);
-        return RedirectToAction(nameof(Details), new { id });
-    }
-}
+    LAY --> NAV
+    LAY --> FOOT
+    LAY --> PAGE
+    PAGE --> STAT
+    PAGE --> ACT
+    PAGE --> VM
 ```
 
-### 2. Frontend Workflow (Tailwind CSS 4.2)
+---
 
-Wir nutzen ein node-freies Build-System. Alles wird über die `TailwindCSS.MSBuild` gesteuert.
+## 💅 Styling SOP (Tailwind CSS 4.2)
 
-- **CSS Abstraktion**: Schreib keine langen Utility-Ketten in HTML. Nutze `@apply` in `css/components/`.
-- **Naming**: Klassen-Ketten in Razor-Dateien sollten lesbar bleiben.
+Damit unsere UI "premium" bleibt, folgen wir diesen Styling-Regeln:
 
-### 3. Sicherheit (Pflicht)
+1.  **Keine Utility-Wüsten**: Wenn eine Klasse mehr als 5 Utilities hat, abstrahiere sie in
+    `css/components/` via `@apply`.
+2.  **Farben**: Nutze ausschließlich die vordefinierten CSS-Variablen aus dem Design System
+    (z.B. `var(--brand-primary)`).
+3.  **Responsive**: Designe immer "Mobile First" (`sm:`, `md:`, `lg:`).
+4.  **Dark Mode**: Nutze das `dark:` Präfix für alle Oberflächen.
 
-- **XSS**: Alle User-generierten Inhalte (z.B. Markdown) **müssen** mit `DOMPurify` im
-  JavaScript gesäubert werden.
-- **CSRF**: Nutze `[ValidateAntiForgeryToken]` für alle POST/PUT/DELETE Aktionen.
+**Beispiel Komponente:**
+
+```html
+<div class="card-glass p-4 sm:p-6 transition-all hover:scale-[1.02]">
+  <h3 class="text-brand-primary font-bold">Ticket #123</h3>
+</div>
+```
 
 ---
 
-## 🛠️ Dependency Injection (DI) Connector
+## 📋 Arbeitsanweisung: Neuer Controller / View
 
-Die Registrierung der Web-Dienste erfolgt in:
-
-- **Ort**: `Program.cs` / `DependencyInjection.cs`
-- **Wichtig**: Hier werden Controller, ViewComponents und der `ICorporateSkinProvider` konfiguriert.
+1.  **Dünner Controller**: In `Controllers/`. Er darf nur `_sender.Send()` aufrufen.
+2.  **ViewModel**: Erstelle ein spezifisches ViewModel für die View. Mappe das DTO aus der
+    Application Layer darauf.
+3.  **Razor View**: Erstelle die `.cshtml` Datei. Achte auf semantisches HTML.
+4.  **Security**: Aktiviere Antiforgery-Tokens und nutze `DOMPurify` für dynamische Inhalte.
 
 ---
 
 ## 📁 Struktur
 
 - `Controllers/`: Dünne Brücken zur Application Layer.
-- `Views/`: Razor-Templates (SFC - Single File Component Style angestrebt).
+- `Views/`: Razor-Templates (SFC-Style angestrebt).
 - `css/components/`: Abstrahierte UI-Styles (Cards, Buttons, Layout).
-- `wwwroot/`: Alle statischen Assets (lokal via LibMan verwaltet).
+- `wwwroot/`: Statische Assets (CSS, JS, Images).
 
 ---
 
 ## 🔗 Connectors
 
-- **Application Layer:** Konsumiert Use Cases via MediatR.
-- **Infrastructure Layer:** Konsumiert Konfigurationen für Auth & Identity.
-
-> [!IMPORTANT]
-> Keine Logik in Views! Wenn eine View ein `if` oder eine Schleife braucht, die über UI-Zustand
-> hinausgeht, gehört das in die Application Layer.
+- **MediatR**: Zentrale Schnittstelle zur Application Layer.
+- **Tailwind MSBuild**: Automatische Kompilerung beim Speichern.
+- **LibMan**: Paketmanager für Client-Side Libraries.

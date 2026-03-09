@@ -1,79 +1,99 @@
 # 📂 TicketsPlease Source Directory
 
 Willkommen im Herzstück der **TicketsPlease** Solution. Dieses Verzeichnis folgt strikt den
-Prinzipien der **Clean Architecture** (Onion Architecture) und des
-**Domain-Driven Design (DDD)**.
+Prinzipien der **Clean Architecture** (Onion Architecture) und des **Domain-Driven Design (DDD)**.
 
-## 🏗️ Clean Architecture 101
+## 🏗️ Finale Vision: Das integrierte System
 
-Das Ziel dieser Architektur ist die **Trennung von Zuständigkeiten**. Die Geschäftslogik steht im
-Zentrum und ist völlig unabhängig von Infrastruktur (Datenbanken) und UI (Web).
-
-### Der Request-Response Lifecycle
-
-Jeder Request an das System folgt diesem standardisierten Pfad:
+Dieser Graph zeigt, wie alle Teile der Solution ineinandergreifen, um einen Request zu
+verarbeiten. Von der ersten Interaktion bis zur dauerhaften Speicherung.
 
 ```mermaid
-sequenceDiagram
-    participant U as User (Frontend)
-    participant W as Web (Controller)
-    participant A as Application (Handler)
-    participant D as Domain (Entity)
-    participant I as Infrastructure (DB)
+graph TD
+    %% Frontend/Entry
+    subgraph "Presentation Layer (Web)"
+        VC["Views / Components"]
+        CTRL["MVC Controllers"]
+    end
 
-    U->>W: HTTP Request
-    W->>A: Send Command/Query (MediatR)
-    Note over A: Validation (FluentValidation)
-    A->>I: Get Entity / Data
-    I-->>A: Return Result
-    A->>D: Execute Business Logic
-    D-->>A: State Change / Event
-    A->>I: Save Changes
-    I-->>A: Success
-    A-->>W: Return DTO
-    W-->>U: HTTP Response
+    %% Application/Process
+    subgraph "Application Layer"
+        CMD["Commands / Queries"]
+        VAL["Validators"]
+        HAND["Handlers"]
+        DTO["DTOs / Mappings"]
+    end
+
+    %% Business/Core
+    subgraph "Domain Layer"
+        ENT["Entities (Rich Models)"]
+        VO["Value Objects"]
+        EVT["Domain Events"]
+    end
+
+    %% Infrastructure/External
+    subgraph "Infrastructure Layer"
+        DBA["AppDbContext"]
+        REPO["Repositories"]
+        EXT["External Services"]
+    end
+
+    %% Logic Flow
+    VC -->|User Action| CTRL
+    CTRL -->|Dispatch| CMD
+    CMD -->|Validate| VAL
+    VAL -->|Execute| HAND
+    HAND -->|Query/Update| REPO
+    REPO -->|EF Core Mapping| DBA
+    DBA <-->|SQL Server| SQL[(Database)]
+    HAND -->|State Change| ENT
+    ENT -->|Trigger| EVT
+    HAND -->|Return| DTO
+    DTO -->|Render| VC
+
+    %% Styling
+    style ENT fill:#2ecc71,stroke:#27ae60,color:#fff
+    style CMD fill:#f1c40f,stroke:#f39c12,color:#fff
+    style REPO fill:#e74c3c,stroke:#c0392b,color:#fff
+    style VC fill:#3498db,stroke:#2980b9,color:#fff
 ```
 
 ---
 
-## 🛠️ Globale Code-Standards
+## 📊 Layer Metrics (Einstiegshilfe)
 
-Damit das Projekt auch für Anfänger wartbar bleibt, gelten folgende Regeln:
+Hier siehst du, welcher Layer welche Herausforderungen birgt. Nutze dies als Orientierung,
+wo du dich als Neuling am besten zuerst einarbeitest.
 
-1. **Keine Fragen offen**: Dokumentiere das "Warum", nicht das "Was".
-2. **`var` Keyword**: Nutze `var` nur, wenn der Typ auf der rechten Seite absolut
-   offensichtlich ist (z.B. `var list = new List<string>()`).
-3. **Dependency Injection**: Wir nutzen ausschließlich **Constructor Injection**. Keine
-   `new`-Instanziierung von Klassen mit Geschäftslogik.
-4. **Naming**: Interfaces starten immer mit `I`. Klassen sind Substantive. Methoden sind Verben.
+| Layer              | Schwierigkeit | Umfang    | Zeitaufwand | Typische Probleme                           |
+| :----------------- | :-----------: | :-------- | :---------- | :------------------------------------------ |
+| **Domain**         |     ⭐⭐      | Gering    | Hoch        | Zirkuläre Abhängigkeiten, Logik-Platzierung |
+| **Application**    |    ⭐⭐⭐     | Hoch      | Mittel      | Validator-Logik vs. Handlers vs. Entities   |
+| **Infrastructure** |   ⭐⭐⭐⭐    | Mittel    | Mittel      | EF Migrations, Concurrency, SQL-Performance |
+| **Web**            |    ⭐⭐⭐     | Sehr Hoch | Hoch        | Tailwind-Ketten, JS-Security, View-Logik    |
 
----
-
-## 🏗️ Layer & Zuständigkeiten
-
-| Layer              | Farbe | Kurzbeschreibung                           | Dokumentation                                    |
-| :----------------- | :---- | :----------------------------------------- | :----------------------------------------------- |
-| **Domain**         | 🟢    | Enterprise Logic (Entities, Value Objects) | [README](TicketsPlease.Domain/README.md)         |
-| **Application**    | 🟡    | Use Case Logic (CQRS, DTOs, Handlers)      | [README](TicketsPlease.Application/README.md)    |
-| **Infrastructure** | 🔴    | Technical Logic (DB, Email, Storage)       | [README](TicketsPlease.Infrastructure/README.md) |
-| **Web**            | 🔵    | Presentation Logic (UI, Controller, API)   | [README](TicketsPlease.Web/README.md)            |
+> **Info:** Schwierigkeit 1 (Leicht) bis 5 (Experte). Zeitaufwand bezieht sich auf die
+> gründliche Umsetzung inkl. Tests.
 
 ---
 
-## 🍴 Git Branching Strategy
+## 📍 Startpunkte: "Ich möchte..."
 
-| Layer              | Branch Name            | Fokus                           |
-| :----------------- | :--------------------- | :------------------------------ |
-| **Domain**         | `layer/domain`         | Core Logic, Entities, Events    |
-| **Application**    | `layer/application`    | Use Cases, CQRS, DTOs           |
-| **Infrastructure** | `layer/infrastructure` | Persistence, Identity, Services |
-| **Web**            | `layer/web`            | UI/UX, Controllers, Assets      |
+Finde hier den direkten Einstiegspunkt für deine aktuelle Aufgabe:
+
+| ...eine neue Eigenschaft hinzufügen   | ...eine neue Geschäftsregel              | ...etwas Speichern / Laden       |
+| :------------------------------------ | :--------------------------------------- | :------------------------------- |
+| Gehe zu `Domain/Entities/`            | Gehe zu `Domain/Entities/`               | Gehe zu `Application/Features/`  |
+| Füge Property mit `private set` hinzu | Implementiere eine Methode in der Entity | Erstelle Command/Query & Handler |
+| **Nächster Schritt:** EF Migration    | **Nächster Schritt:** Unit Test          | **Nächster Schritt:** Repository |
 
 ---
 
-## 🛡️ Die unumstößliche Dependency Rule
+## 🏗️ Architektur-Garantie
 
-Abhängigkeiten zeigen **immer nur nach innen** (Richtung Domain). Ein "Outer Layer" darf niemals
-direkt wissen, was in einem anderen Layer passiert (z.B. Web -> Infrastructure).
+Abhängigkeiten zeigen **immer nur nach innen**. Ein "Outer Layer" darf niemals direkt wissen,
+was in einem anderen "Outer Layer" passiert.
 
-👉 **Weitere Informationen findest du in den jeweiligen READMEs der Sub-Verzeichnisse.**
+👉 **Klicke auf die Layer für detaillierte Arbeitsanweisungen:**
+[Domain](TicketsPlease.Domain/README.md) | [Application](TicketsPlease.Application/README.md) |
+[Infrastructure](TicketsPlease.Infrastructure/README.md) | [Web](TicketsPlease.Web/README.md)

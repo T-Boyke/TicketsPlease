@@ -1,79 +1,84 @@
 # 🟡 TicketsPlease.Application – Die Use Cases
 
-Dieser Layer orchestriert die Geschäftsprozesse. Hier wird definiert, **was** die Anwendung tut,
-ohne sich um das **Wie** (Datenbank, UI) zu kümmern.
+Dieser Layer orchestriert die Geschäftsprozesse. Hier wird definiert, **was** die Anwendung tut.
 
-## 🍴 Git Branch
+## 🔄 Der CQS Flow (Command-Query-Segregation)
 
-- **Branch:** `layer/application`
-- Alle Änderungen am Application-Layer müssen auf diesem Branch erfolgen.
+Wir trennen strikt zwischen Aktionen, die Daten ändern (Commands), und Aktionen, die Daten lesen
+(Queries).
+
+```mermaid
+graph LR
+    subgraph "Request Type"
+        REQ[MediatR Request]
+    end
+
+    REQ --> IS_CMD{Ist Command?}
+
+    %% Command Path
+    IS_CMD -->|Ja| CMD[Command Handle]
+    CMD --> VAL[FluentValidation]
+    VAL --> AUTH[Permission Check]
+    AUTH --> BUS[Logic Execution]
+    BUS --> SAVE[Unit of Work / Save]
+
+    %% Query Path
+    IS_CMD -->|Nein| QRY[Query Handle]
+    QRY --> MAP[Mapping to DTO]
+    MAP --> CACHE[Fast Read]
+
+    %% Final Return
+    SAVE --> RET[Return Result/ID]
+    CACHE --> RET
+```
 
 ---
 
-## 📋 Arbeitsanweisung: Wie füge ich einen Use Case hinzu?
+## 🏗️ Arbeitsanweisung: Wie finde ich meine Abhängigkeiten?
 
-Wir nutzen das **Vertical Slice Pattern** innerhalb der Features. Ein Use Case besteht meist aus
-einer einzigen Datei, die Command/Query, Validator und Handler bündelt.
+In diesem Layer darfst du **keine** `new`-Instanzen von Services erstellen. Nutze Dependency
+Injection (DI) im Konstruktor.
 
-### 1. Feature-Ordner finden
+### Woher kommen die Services?
 
-Navigiere zu `Features/[Kategorie]/`. Erstelle bei Bedarf einen neuen Ordner.
+1.  **Repositories**: Importiere `ITicketRepository` etc. aus `Contracts/`.
+2.  **Infrastructure**: Wenn du Emails senden willst, nutze `IEmailService`.
+3.  **Domain**: Die Entities werden direkt genutzt (sie haben keine DI).
 
-### 2. Die Command/Query Datei erstellen
-
-Erstelle eine Datei (z.B. `CreateTicket.cs`) mit folgendem Aufbau:
+**Handler-Vorlage:**
 
 ```csharp
-public record CreateTicketCommand(string Title, string Description) : IRequest<Guid>;
+public class MyHandler : IRequestHandler<MyRequest, MyResult> {
+    private readonly IRepository _repo; // Bleib bei Interfaces!
 
-public class CreateTicketValidator : AbstractValidator<CreateTicketCommand> {
-    public CreateTicketValidator() {
-        RuleFor(x => x.Title).NotEmpty().MaximumLength(200);
-    }
-}
-
-public class CreateTicketHandler : IRequestHandler<CreateTicketCommand, Guid> {
-    private readonly ITicketRepository _repo;
-    public CreateTicketHandler(ITicketRepository repo) => _repo = repo;
-
-    public async Task<Guid> Handle(CreateTicketCommand request, CancellationToken ct) {
-        // Logik hier...
+    public MyHandler(IRepository repo) {
+        _repo = repo;
     }
 }
 ```
 
-### 3. Pipeline-Behaviors
-
-MediatR führt automatisch Validierungen, Logging und Transaktions-Management durch. Du musst dich
-im Handler nicht darum kümmern!
-
 ---
 
-## 🛠️ Dependency Injection (DI) Connector
+## 📋 Arbeitsanweisung: Use Case Blueprint
 
-Alle Services und Handler dieses Layers werden automatisch registriert:
-
-- **Ort**: `DependencyInjection.cs`
-- **Methode**: `AddApplicationServices`
-- **Wichtig**: Wenn du einen neuen Handler schreibst, wird er per Reflection gefunden. Es ist kein
-  manuelles Registrieren nötig!
+1.  **Slice erstellen**: Eine Datei in `Features/` (z.B. `AssignTicket.cs`).
+2.  **Request Type**: Nutze `record` für Commands/Queries.
+3.  **Validation**: Erstelle eine Klasse, die von `AbstractValidator<T>` erbt.
+4.  **Handler**: Implementiere `IRequestHandler`. Halte ihn kurz (Logik in die Domain!).
 
 ---
 
 ## 📁 Struktur
 
-- `Behaviors/`: Pipeline-Logik (Cross-Cutting Concerns).
-- `Contracts/`: Interfaces (z.B. `ITicketRepository`), die von der Infrastructure implementiert werden.
-- `Features/`: Alle Geschäftsprozesse (Commands & Queries).
-- `Mappings/`: Konfiguration für Mapster.
+- `Behaviors/`: Automatisches Logging, Validierung und Transaktionen.
+- `Contracts/`: Schnittstellen für die Infrastructure.
+- `Features/`: Die eigentliche Arbeit (nach Features sortiert).
+- `Mappings/`: Konfiguration für Mapster (DTO-Konvertierung).
 
 ---
 
 ## 🔗 Connectors
 
-- **Domain Layer:** Wird genutzt, um Geschäftslogik auszuführen.
-- **Web Layer:** Triggert diesen Layer via `ISender.Send()`.
-- **Infrastructure Layer:** Implementiert die hier definierten Contracts.
-
-> [!TIP]
-> Halte Handler "dumm". Die echte Logik gehört in die Domain-Entities!
+- **Dependency Injection**: Alles wird in `DependencyInjection.cs` via Reflection registriert.
+- **Web**: Sendet Commands via `ISender`.
+- **Infrastructure**: Implementiert die hier definierten Interfaces.

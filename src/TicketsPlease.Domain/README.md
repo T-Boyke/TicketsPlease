@@ -1,36 +1,36 @@
 # 🟢 TicketsPlease.Domain – Der Core
 
-Dies ist der wichtigste Layer der Anwendung. Hier leben die **Geschäftsregeln** und die
-**Fachlichkeit**. Dieser Layer ist völlig isoliert von technischen Details (Datenbanken, UI).
+Dies ist der wichtigste Layer der Anwendung. Hier leben die **Geschäftsregeln** und die **Fachlichkeit**.
 
-## 🍴 Git Branch
+## 🧬 Lebenszyklus einer Entity (Beispiel Ticket)
 
-- **Branch:** `layer/domain`
-- Alle Änderungen am Domain-Layer müssen auf diesem Branch erfolgen.
+Hier siehst du, wie sich der Zustand einer Entity verändern darf. Diese Regeln müssen in den
+Methoden der Entity (nicht im Controller!) abgebildet werden.
+
+```mermaid
+stateDiagram-v2
+    [*] --> New: Constructor
+    New --> Assigned: AssignUser()
+    Assigned --> InProgress: StartWork()
+    InProgress --> Review: SubmitForReview()
+    Review --> Assigned: Reject(reason)
+    Review --> Closed: Approve()
+    Closed --> [*]: Archiving
+```
 
 ---
 
-## 🧠 Domain-Driven Design (DDD) Grundlagen
+## 🏗️ Domain-Driven Design (DDD) Grundlagen
 
 ### 1. Rich Domain Model vs. Anemic Domain Model
 
-Wir nutzen **Rich Domain Models**. Das bedeutet: Die Entity ist kein bloßer Datencontainer,
-sondern verwaltet ihren eigenen Zustand.
-
-**❌ FALSCH (Anemic):**
-
-```csharp
-public class Ticket {
-    public string Status { get; set; } // Von außen manipulierbar
-}
-// Im Services: ticket.Status = "Closed";
-```
+Wir nutzen **Rich Domain Models**. Die Entity verwaltet ihren eigenen Zustand.
 
 **✅ RICHTIG (Rich):**
 
 ```csharp
 public class Ticket {
-    public string Status { get; private set; } // Nur von innen änderbar
+    public string Status { get; private set; }
 
     public void Close(string reason) {
         if (string.IsNullOrEmpty(reason)) throw new DomainException("Reason required");
@@ -40,38 +40,39 @@ public class Ticket {
 }
 ```
 
-### 2. Value Objects
-
-Value Objects sind kleine Objekte ohne Identität. Sie machen den Code sicherer. Statt eines
-einfachen `string` für eine E-Mail nutzen wir `EmailAddress`.
-
 ---
 
 ## 📋 Arbeitsanweisungen: Wie erstelle ich eine Entity?
 
-1. **Erstelle die Klasse** im Ordner `Entities/`.
-2. **Properties**: Nutze `private set`, um unkontrollierte Änderungen zu verhindern.
-3. **Konstruktor**: Erstelle einen internen parameterlosen Konstruktor für EF Core und einen
-   öffentlichen Konstruktor, der alle Pflichtfelder validiert.
-4. **Verhalten**: Implementiere Methoden für Zustandsänderungen (z.B. `AssignToUser`).
-5. **Dokumentation**: Nutze XML-Tags für **jede** Methode und Property.
+1.  **Klasse erstellen**: In `Entities/`.
+2.  **Abstraktion**: Erbe von `BaseEntity` (für ID, Auditing).
+3.  **Encapsulation**: Alle Properties haben `private set`.
+4.  **Validierung**: Prüfe Regeln direkt in den Methoden (Guard Clauses).
+5.  **Audit**: Denke an die Geo/IP Timestamps bei jeder Änderung!
+
+---
+
+## ⚠️ Noob-Falle: Zirkuläre Abhängigkeiten vermeiden
+
+Ein häufiger Fehler ist der Versuch, Services aus anderen Layern (z.B. Repository) in die Domain zu
+bringen.
+
+- **Falle**: `ticket.SaveToDatabase()` -> **Verboten!**
+- **Lösung**: Die Entity ändert nur ihren Zustand im Speicher. Das Speichern übernimmt der
+  `Handler` in der Application Layer via Repository.
 
 ---
 
 ## 📁 Struktur
 
 - `Entities/`: Kern-Objekte (z.B. `Ticket`, `Member`).
-- `ValueObjects/`: Komplexe Typen (z.B. `Priority`, `GeoLocation`).
-- `Events/`: Benachrichtigungen über fachliche Änderungen.
-- `Exceptions/`: Fehler, die rein fachlicher Natur sind.
+- `ValueObjects/`: Komplexe Typen ohne ID (z.B. `Priority`).
+- `Events/`: Notifications (z.B. `TicketCreatedEvent`).
+- `Exceptions/`: Fachliche Fehler (z.B. `OverdueTicketException`).
 
 ---
 
 ## 🔗 Connectors
 
-- **DI Connection**: Dieser Layer benötigt **keine** DI Registrierung, da er keine Services
-  implementiert, sondern nur Daten und Regeln definiert.
-
-> [!IMPORTANT]
-> Keine Abhängigkeiten zu anderen Projekten! Wenn du etwas aus der Application Layer brauchst, ist
-> das ein Architekturfehler.
+- **Dependency Injection**: Nicht nötig. Entities werden mit `new` oder via EF Core erstellt.
+- **Application**: Nutzt diese Entities für Use Cases.

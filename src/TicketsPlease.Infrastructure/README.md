@@ -3,70 +3,73 @@
 Hier werden die technischen Details implementiert. Dieser Layer kümmert sich um die Persistenz,
 externe APIs und systemnahe Dienste.
 
-## 🍴 Git Branch
+## 🗄️ Der Data Access Pattern
 
-- **Branch:** `layer/infrastructure`
-- Alle Änderungen am Infrastructure-Layer müssen auf diesem Branch erfolgen.
+Wir nutzen das Repository Pattern in Kombination mit Entity Framework Core. Dies erlaubt uns,
+den Datenzugriff testbar zu machen.
+
+```mermaid
+graph TD
+    subgraph "Application"
+        HAND[Handler]
+        INT["ITicketRepository (Interface)"]
+    end
+
+    subgraph "Infrastructure"
+        REPO["TicketRepository (Implementation)"]
+        CTX[AppDbContext]
+        MAP[EF Configurations]
+    end
+
+    HAND -->|Calls| INT
+    INT -.->|Implemented by| REPO
+    REPO -->|Uses| CTX
+    CTX -->|Mappings| MAP
+    CTX <-->|SQL Queries| SQL[(SQL Server)]
+```
 
 ---
 
-## 📋 Arbeitsanweisung: Persistenz & Repositories
+## 🛠️ Arbeitsanweisung: EF Core & Migrationen
 
-### 1. Repositories implementieren
-
-Repositories implementieren die Interfaces aus dem Application-Layer. Sie nutzen den `AppDbContext`.
-
-```csharp
-public class TicketRepository : ITicketRepository {
-    private readonly AppDbContext _context;
-    public TicketRepository(AppDbContext context) => _context = context;
-
-    public async Task<Ticket?> GetByIdAsync(Guid id, CancellationToken ct) {
-        return await _context.Tickets
-            .AsNoTracking() // Pflicht bei Lesezugriffen!
-            .FirstOrDefaultAsync(t => t.Id == id, ct);
-    }
-}
-```
-
-### 2. Datenbank-Migrationen
-
-Migrationen werden über die CLI im Infrastructure-Projekt verwaltet.
-
-- **Befehl**: `dotnet ef migrations add [Name] --project src/TicketsPlease.Infrastructure`
-  `--startup-project src/TicketsPlease.Web`
+1.  **Entity erstellen**: In der `Domain` Layer.
+2.  **Configuration**: Erstelle eine Config-Klasse in `Persistence/Configurations/`
+    (z.B. `TicketConfiguration.cs`), um Tabellennamen und Constraints zu definieren.
+3.  **Migration erstellen**:
+    ```bash
+    dotnet ef migrations add [Name] --project src/TicketsPlease.Infrastructure --startup-project src/TicketsPlease.Web
+    ```
+4.  **Datenbank updaten**: Erfolgt automatisch beim Start der App (siehe `DbInitialiser`).
 
 ---
 
-## 🛠️ Dependency Injection (DI) Connector
+## 🚑 Troubleshooting: EF Core Fallen
 
-Die Registrierung erfolgt explizit, da wir oft unterschiedliche Implementierungen (z.B. Mocking)
-haben.
+### 1. N+1 Problem
 
-- **Ort**: `DependencyInjection.cs`
-- **Methode**: `AddInfrastructureServices`
+Wenn du in einer Liste von Tickets auch die zugewiesenen User laden willst, nutze immer `.Include()`:
 
-**Wichtig**: Wenn du einen neuen Service/Repository hinzufügst, musst du ihn hier registrieren:
+- **❌ FALSCH**: `var tickets = _context.Tickets.ToList();` (Lädt User erst beim Zugriff -> 100 Abfragen für 100 Tickets).
+- **✅ RICHTIG**: `var tickets = _context.Tickets.Include(t => t.AssignedUser).ToList();`
 
-```csharp
-services.AddScoped<ITicketRepository, TicketRepository>();
-```
+### 2. Tracked vs. No-Tracking
+
+- Nutze `.AsNoTracking()` für reine Lese-Operationen (Queries) -> **Viel schneller!**
+- Verzichte darauf bei Commands, wenn du die Entity danach speichern willst.
 
 ---
 
 ## 📁 Struktur
 
-- `Persistence/`: `AppDbContext`, EF-Konfigurationen und Migrations.
-- `Services/`: Implementierung externer Dienste (Mail, FileStorage).
-- `Identity/`: User-Management und Auth-Provider.
+- `Persistence/`: Der gesamte Datenbank-Code (Context, Migrations, Configs).
+- `Repositories/`: Implementierung der Contracts aus der Application Layer.
+- `Identity/`: Anbindung an ASP.NET Core Identity.
+- `Logging/`: Spezifische Logger-Implementierungen.
 
 ---
 
 ## 🔗 Connectors
 
-- **Application Layer:** Wir implementieren deren Contracts.
-- **Datenbank:** SQL Server (Produktion) / SQLite (Tests).
-- **DI Container:** Wir stellen die Implementierungen für das gesamte System bereit.
-
-> [!IMPORTANT]
-> Nutze für Datenbank-Operationen immer die `ExecutionStrategy` (Polly), um transiente Fehler abzufangen!
+- **Dependency Injection**: Hier musst du Services oft **manuell** in `DependencyInjection.cs`
+  registrieren.
+- **Application**: Erhält Implementierungen für ihre Interfaces.
