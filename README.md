@@ -619,13 +619,17 @@ Um bei mehreren Entwicklern Chaos zu vermeiden, herrschen strikte Git-Regeln:
     Green Tests).
   - Niemals wird direkt in den Master-Branch gepusht (Pushes sind per
     Branch-Protection gesperrt!).
+- **Layer-Branching (Team Collaboration):**
+  - Jeder Architektur-Layer hat einen eigenen Basis-Branch: `layer/domain`,
+    `layer/application`, `layer/infrastructure`, `layer/web`.
 - **Feature Branching:**
-  - Jedes neue Feature, jeder Bugfix beginnt mit dem Auschecken des aktuellen
-    Masters: `git checkout -b feature/meine-coole-funktion`
+  - Neue Features starten immer vom jeweiligen Layer-Branch:
+    `git checkout -b feature/xyz layer/xxx`.
   - Wir nutzen sprechende Präfixe: `feature/xyz`, `bugfix/xyz`, `hotfix/xyz`,
     `docs/xyz`.
 - **Pull Requests (PRs):**
-  - Features werden ausschließlich über Pull Requests in den Master gemerged.
+  - Features werden über Pull Requests in den Layer-Branch und von dort in den
+    Master gemerged.
   - Ein PR benötigt zwingend das grüne Licht der **CI/CD Pipeline**
     (Tests bestanden).
   - Ein PR benötigt zwingend ein **Code Review** (Approve) durch mindestens

@@ -14,6 +14,8 @@ Dieses Projekt nutzt [Conventional Commits](https://www.conventionalcommits.org/
 
 ### Added
 
+- **Layer-Specific READMEs:** 5 neue README-Dateien im `src`-Verzeichnis mit spezifischen Arbeitsanweisungen für Domain, Application, Infrastructure und Web.
+- **Git Layer-Branching:** Einführung einer Schicht-basierten Branching-Strategie (`layer/domain`, etc.) inkl. Dokumentation in allen READMEs und `instructions.md`.
 - **Antigravity AI Skills:** 6 automatisierte Skills für Scaffolding, Code-Review, EF-Debugging und ADR-Erstellung (#64)
 - **Client-side Libraries:** Integration von Markdig, SortableJS, FontAwesome 7.2 und DOMPurify (#160)
 - **Tailwind CSS v4:** Vollständige Migration auf die node-freie `tailwindcss-dotnet` Integration (#051)

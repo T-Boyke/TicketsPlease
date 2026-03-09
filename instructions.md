@@ -407,9 +407,9 @@ flowchart LR
 | --- | --- |
 | **`main` / `master` ist HEILIG** | Muss **jederzeit** lauffähig sein (Compilable & Green Tests). |
 | **Kein Direct Push** | Pushes auf `main` sind per Branch-Protection gesperrt. |
-| **Feature Branching** | Jedes Feature/Bugfix: `git checkout -b feature/mein-feature`. |
-| **Branch-Naming** | Sprechende Präfixe: `feature/xyz`, `bugfix/xyz`, `hotfix/xyz`, `docs/xyz`. |
-| **PR-Pflicht** | Features werden **ausschließlich** über Pull Requests gemerged. |
+| **Layer-Branching** | Jeder Layer hat einen Basis-Branch: `layer/domain`, `layer/application`, `layer/infrastructure`, `layer/web`. |
+| **Feature Branching** | Features für einen Layer starten vom jeweiligen Layer-Branch: `git checkout -b feature/xyz layer/xxx`. |
+| **PR-Pflicht** | Features werden **ausschließlich** über Pull Requests gemerged (Feature → Layer → Main). |
 | **Code Review** | Mindestens **ein Approve** durch einen anderen Entwickler. |
 | **Issue-Tracking** | Keine Code-Änderung ohne zugehöriges GitHub Issue. |
 
