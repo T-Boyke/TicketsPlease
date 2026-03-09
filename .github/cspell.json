@@ -39,6 +39,7 @@
     "obj",
     "bin",
     "*.slnx",
-    ".gitignore"
+    ".gitignore",
+    ".github/dict-de.txt"
   ]
 }
