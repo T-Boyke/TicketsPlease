@@ -34,7 +34,13 @@
     "xunit",
     "Xunit",
     "FluentValidation",
-    "Testcontainers"
+    "Testcontainers",
+    "wwwroot",
+    "libman",
+    "Newtonsoft",
+    "Serilog",
+    "contentfiles",
+    "buildtransitive"
   ],
   "ignorePaths": [
     "node_modules",
