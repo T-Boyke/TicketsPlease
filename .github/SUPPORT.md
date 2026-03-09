@@ -5,7 +5,8 @@ We want you to have the best experience with **TicketsPlease**. Here is how you 
 ## 🔍 Before you ask
 
 - Check our [Documentation](../docs/) for architecture and setup details.
-- Search [Existing Issues](https://github.com/Tobia/TicketsPlease/issues) to see if your question has already been answered.
+- Search [Existing Issues](https://github.com/Tobia/TicketsPlease/issues) to see if your question
+  has already been answered.
 
 ## 📢 Where to get help
 
@@ -15,6 +16,5 @@ We want you to have the best experience with **TicketsPlease**. Here is how you 
 
 ## 🚀 Enterprise Support
 
-If you are using the **Enterprise Edition** of TicketsPlease, please contact
-your dedicated account manager or use the internal support portal for
-prioritized assistance.
+If you are using the **Enterprise Edition** of TicketsPlease, please contact your dedicated account
+manager or use the internal support portal for prioritized assistance.
