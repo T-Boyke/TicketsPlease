@@ -1,16 +1,15 @@
 {
-  "version": "0.2",
-  "language": "en,de",
-  "dictionaryDefinitions": [
-    {
-      "name": "german-local",
-      "path": "./dict-de.txt",
-      "addWords": true
-    }
-  ],
-  "dictionaries": [
-    "german-local"
-  ],
+    "version": "0.2",
+    "language": "en,de",
+    "dictionaries": [
+        "en_US",
+        "de-de",
+        "software-terms",
+        "dotnet",
+        "csharp",
+        "html",
+        "css"
+    ],
   "words": [
     "TicketsPlease",
     "Gitleaks",
