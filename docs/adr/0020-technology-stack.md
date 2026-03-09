@@ -1,12 +1,16 @@
 # ADR 0020: Technology Stack
+
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-06
 
 ## Context and Problem Statement
-Wir müssen einen modernen, stabilen und zukunftssicheren Stack wählen, der sowohl die IHK-Anforderungen erfüllt als auch die geplante Enterprise-Skalierung unterstützt.
+Wir müssen einen modernen, stabilen und zukunftssicheren Stack wählen, der
+sowohl die IHK-Anforderungen erfüllt als auch die geplante Enterprise-Skalierung
+unterstützt.
 
 ## Decision Drivers
+
 * Modernität (C# 14 / .NET 10.3)
 * Starke Community-Unterstützung
 * Performance & Skalierbarkeit
@@ -18,7 +22,9 @@ Wir müssen einen modernen, stabilen und zukunftssicheren Stack wählen, der sow
 * Node.js / React (Alternative Stack)
 
 ## Decision Outcome
-Chosen option: "ASP.NET Core 10.3", because es die native Plattform für C# ist, höchste Performance bietet und nahtlos mit EF Core und dem gewählten Architektur-Muster (Clean Architecture) harmoniert.
+Chosen option: "ASP.NET Core 10.3", because es die native Plattform für C# ist,
+höchste Performance bietet und nahtlos mit EF Core und dem gewählten
+Architektur-Muster (Clean Architecture) harmoniert.
 
 ### Positive Consequences
 * Zugriff auf modernste Sprachfeatures von C# 14.

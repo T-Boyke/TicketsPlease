@@ -1,12 +1,16 @@
 # ADR 0010: Clean Architecture (Onion)
+
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-06
 
 ## Context and Problem Statement
-Wir benötigen eine Struktur, die das System testbar, unabhängig von Frameworks und leicht erweiterbar macht. Eine eng gekoppelte Architektur führt bei wachsenden Anforderungen (Phase 2-5) zu Wartungsproblemen.
+Wir benötigen eine Struktur, die das System testbar, unabhängig von Frameworks
+und leicht erweiterbar macht. Eine eng gekoppelte Architektur führt bei
+wachsenden Anforderungen (Phase 2-5) zu Wartungsproblemen.
 
 ## Decision Drivers
+
 * Testbarkeit der Geschäftslogik
 * Unabhängigkeit von externen Frameworks (UI, DB)
 * Klare Trennung von Zuständigkeiten
@@ -18,7 +22,10 @@ Wir benötigen eine Struktur, die das System testbar, unabhängig von Frameworks
 * Microservices
 
 ## Decision Outcome
-Chosen option: "Clean Architecture", because sie die Domain (Geschäftsregeln) in das Zentrum stellt und Abhängigkeiten strikt nach innen (Richtung Core) definiert. Dies ermöglicht es, die Infrastructure (DB) oder Presentation (MVC) auszutauschen, ohne die Kern-Logik zu verändern.
+Chosen option: "Clean Architecture", because sie die Domain (Geschäftsregeln) in
+das Zentrum stellt und Abhängigkeiten strikt nach innen (Richtung Core)
+definiert. Dies ermöglicht es, die Infrastructure (DB) oder Presentation (MVC)
+auszutauschen, ohne die Kern-Logik zu verändern.
 
 ### Positive Consequences
 * Domain-Code ist 100% testbar ohne Datenbank-Mocking-Hölle.

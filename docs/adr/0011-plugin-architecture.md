@@ -1,12 +1,15 @@
 # ADR 0011: Plugin Architecture (Extensibility)
+
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-06
 
 ## Context and Problem Statement
-Das System soll für Drittanbieter und kundenspezifische Erweiterungen offen sein, ohne dass der Kern des Ticket-Systems modifiziert werden muss.
+Das System soll für Drittanbieter und kundenspezifische Erweiterungen offen
+sein, ohne dass der Kern des Ticket-Systems modifiziert werden muss.
 
 ## Decision Drivers
+
 * Offen-Geschlossen-Prinzip (Open-Closed)
 * Keine Build-Abhängigkeit zu externen Modulen
 * Dynamische Konfiguration zur Laufzeit
@@ -18,7 +21,9 @@ Das System soll für Drittanbieter und kundenspezifische Erweiterungen offen sei
 * Webhooks & External APIs Only
 
 ## Decision Outcome
-Chosen option: "Dynamische DLL-Loading (Plugins)", because es eine nahtlose Integration von Logik und UI direkt im Host-Prozess ermöglicht, was für Performance und UX (Notification-Channels etc.) vorteilhaft ist.
+Chosen option: "Dynamische DLL-Loading (Plugins)", because es eine nahtlose
+Integration von Logik und UI direkt im Host-Prozess ermöglicht, was für
+Performance und UX (Notification-Channels etc.) vorteilhaft ist.
 
 ### Positive Consequences
 * Marktplatz-Feeling möglich.

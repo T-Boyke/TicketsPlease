@@ -1,19 +1,25 @@
 ---
-description: Workflow for creating consistent UI components using Tailwind CSS and the Corporate Skin Provider.
+description: Workflow for creating consistent UI components using Tailwind CSS
+  and the Corporate Skin Provider.
 ---
 
 # 🎨 UI Component Development Workflow
 
-Dieser Workflow beschreibt den vollständigen Ablauf zur Erstellung hochwertiger, barrierefreier UI-Komponenten im TicketsPlease Frontend.
+Dieser Workflow beschreibt den vollständigen Ablauf zur Erstellung
+hochwertiger, barrierefreier UI-Komponenten im TicketsPlease Frontend.
 
-> **Referenz:** [ADR-0005 (SFC/Tailwind)](file:///d:/DEV/Tickets/docs/adr/0005-ui-sfc-tailwind.md) | [ADR-0017 (No Bootstrap)](file:///d:/DEV/Tickets/docs/adr/0017-no-bootstrap-policy.md) | [ADR-0020 (Corporate Skinning)](file:///d:/DEV/Tickets/docs/adr/0020-corporate-skinning-provider.md) | [frontend_assets.md](file:///d:/DEV/Tickets/docs/frontend_assets.md) | [instructions.md §7-§8](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:** [ADR-0005 (SFC/Tailwind)](file:///d:/DEV/Tickets/docs/adr/0005-ui-sfc-tailwind.md) |
+> [ADR-0017 (No Bootstrap)](file:///d:/DEV/Tickets/docs/adr/0017-no-bootstrap-policy.md) |
+> [ADR-0020 (Corporate Skinning)](file:///d:/DEV/Tickets/docs/adr/0020-corporate-skinning-provider.md) |
+> [frontend_assets.md](file:///d:/DEV/Tickets/docs/frontend_assets.md) |
+> [instructions.md §7-§8](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 
 ## Fundamentale Regeln
 
 | Regel | Status |
-|---|---|
+| :--- | :--- |
 | **No Bootstrap** | ❌ Verboten. Nur TailwindCSS 4.2. |
 | **No CDN** | ❌ Verboten. Alle Assets lokal via LibMan (`libman.json`). |
 | **No Inline-Styles** | ❌ Verboten. Alles über Tailwind oder CSS-Variablen. |
@@ -24,6 +30,7 @@ Dieser Workflow beschreibt den vollständigen Ablauf zur Erstellung hochwertiger
 ## Schritte
 
 ### 1. Analyse (DRY-Check)
+
 - Prüfe, ob die Komponente bereits in ähnlicher Form existiert:
   - `src/TicketsPlease.Web/Views/Shared/Components/`
   - `src/TicketsPlease.Web/Views/Shared/` (Partials)
@@ -33,6 +40,7 @@ Dieser Workflow beschreibt den vollständigen Ablauf zur Erstellung hochwertiger
   - Custom TagHelper: `<icon name="check" />`
 
 ### 2. Komponente erstellen
+
 - **ViewComponent:** `src/TicketsPlease.Web/Views/Shared/Components/[Name]/`
   - `Default.cshtml` (Template)
   - `[Name]ViewComponent.cs` (Logik)
@@ -69,14 +77,15 @@ Beispiel:
 - Beispiel: Dropdown ohne JavaScript via `peer-checked`.
 
 ### 4. `@apply` Abstraktion (Wiederkehrende Patterns)
+
 Abstrahiere wiederkehrende UI-Muster in dedizierte CSS-Dateien:
 
-| Datei | Inhalt |
-|---|---|
-| `css/components/btn.css` | Alle Button-Variationen (`btn-primary`, `btn-outline`, `btn-danger`) |
-| `css/components/cards.css` | Kanban-Card Struktur, Ticket-Card |
-| `css/components/form.css` | Inputs, Selects, Textareas, Validation States |
-| `css/components/theme.css` | Color-Tokens, Typografie, Dark/Light Mode Variables |
+| Datei                     | Inhalt                                                               |
+| :------------------------ | :------------------------------------------------------------------- |
+| `css/components/btn.css`   | Alle Button-Variationen (`btn-primary`, `btn-outline`, `btn-danger`) |
+| `css/components/cards.css` | Kanban-Card Struktur, Ticket-Card                                    |
+| `css/components/form.css`  | Inputs, Selects, Textareas, Validation States                        |
+| `css/components/theme.css` | Color-Tokens, Typografie, Dark/Light Mode Variables                  |
 
 ```css
 /* css/components/btn.css */
@@ -103,7 +112,7 @@ Abstrahiere wiederkehrende UI-Muster in dedizierte CSS-Dateien:
 ### 6. Accessibility (BFSG/a11y) – Checkliste
 
 | Prüfpunkt | Beschreibung |
-|---|---|
+| :--- | :--- |
 | **`aria-label`** | Jedes interaktive Element ohne sichtbaren Text braucht ein `aria-label`. |
 | **`aria-expanded`** | Für Dropdowns und Accordions (zeigt offenen/geschlossenen State). |
 | **`aria-describedby`** | Für Formulare: Verknüpft Fehlermeldungen mit dem Input. |
@@ -126,9 +135,9 @@ Abstrahiere wiederkehrende UI-Muster in dedizierte CSS-Dateien:
 <div onclick="createTicket()" class="bg-blue-500 p-2">
     <i class="fa-solid fa-plus"></i>
 </div>
-```
 
 ### 7. Theme-Switching (Dark/Light Mode)
+
 - Farben **ausschließlich** über CSS Custom Properties in `theme.css`:
   ```css
   :root, [data-theme="light"] {
@@ -146,11 +155,13 @@ Abstrahiere wiederkehrende UI-Muster in dedizierte CSS-Dateien:
 - Theme-Wechsel via `data-theme` Attribut auf `<html>`-Tag. **Kein Page-Reload!**
 
 ### 8. Corporate Branding (Multi-Tenancy)
+
 - Falls die Komponente dynamische Brand-Assets benötigt (Logos, Farben):
   - Injiziere `ICorporateSkinProvider` via DI.
   - Nutze die vom Provider gelieferten Werte für CSS-Variablen.
 
 ### 9. Icons (FontAwesome 7.2)
+
 - Nutze ausschließlich lokale FontAwesome-Klassen:
   - `fa-solid fa-check` (Solid Icons)
   - `fa-regular fa-bell` (Regular Icons)
@@ -158,14 +169,13 @@ Abstrahiere wiederkehrende UI-Muster in dedizierte CSS-Dateien:
 
 ### 10. Micro-Animations & Premium Feeling
 
-| Element | Tailwind-Klassen |
-|---|---|
-| **Hover-Transition** | `transition-all duration-200 ease-in-out` |
-| **Hover-Effekt** | `hover:brightness-110 hover:shadow-lg` |
-| **Active-State** | `active:brightness-90 active:scale-95` |
-| **Focus-Ring** | `focus:ring-2 focus:ring-offset-2 focus:ring-[var(--brand-primary)]` |
-| **Glassmorphism** | `backdrop-blur-md bg-white/10 border border-white/20` (Modals, Dropdowns) |
+| Element             | Tailwind-Klassen                                                     |
+| :------------------ | :------------------------------------------------------------------- |
+| **Hover-Transition** | `transition-all duration-200 ease-in-out`                            |
+| **Hover-Effekt**     | `hover:brightness-110 hover:shadow-lg`                               |
+| **Active-State**    | `active:brightness-90 active:scale-95`                               |
+| **Focus-Ring**      | `focus:ring-2 focus:ring-offset-2 focus:ring-[var(--brand-primary)]` |
+| **Glassmorphism**   | `backdrop-blur-md bg-white/10 border border-white/20`                |
+|                     | (Modals, Dropdowns)                                                   |
 
----
-
-*Checkliste: DRY-Check ✓ → Komponente ✓ → Tailwind ✓ → @apply ✓ → Responsive ✓ → a11y ✓ → Theme ✓ → Branding ✓ → Icons ✓ → Animations ✓*
+### Zusammenfassung: DRY-Check ✓, Komponente ✓, Tailwind ✓, @apply ✓, Responsive ✓, a11y ✓, Theme ✓, Branding ✓, Icons ✓, Animations ✓

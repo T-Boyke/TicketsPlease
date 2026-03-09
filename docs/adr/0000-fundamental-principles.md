@@ -1,12 +1,17 @@
 # ADR 0000: Fundamental Development Principles (SOLID, DRY, KISS, YAGNI)
+
 * Status: accepted
 * Deciders: Tobias
 * Date: 2026-03-08
 
 ## Context and Problem Statement
-In professional software development, especially for complex systems like TicketsPlease, a lack of clear coding standards leads to technical debt, "Spaghetti-Code," and high maintenance costs. We need a shared understanding of the bedrock principles that guide every line of code.
+In professional software development, especially for complex systems like
+TicketsPlease, a lack of clear coding standards leads to technical debt,
+"Spaghetti-Code," and high maintenance costs. We need a shared understanding of
+the bedrock principles that guide every line of code.
 
 ## Decision Drivers
+
 * Maximum maintainability and readability.
 * Scalability for enterprise features (Phase 2-5).
 * Ease of onboarding for new developers.
@@ -18,15 +23,19 @@ In professional software development, especially for complex systems like Ticket
 * Minimalist approach focusing only on functionality.
 
 ## Decision Outcome
-Chosen option: "Strict adherence to SOLID, DRY, KISS, and YAGNI", because these principles are the industry gold standard for creating robust and clean software architecture.
+Chosen option: "Strict adherence to SOLID, DRY, KISS, and YAGNI", because these
+principles are the industry gold standard for creating robust and clean software
+architecture.
 
 ### Positive Consequences
+
 * **SOLID**: Ensures classes are focused, extensible, and easily swappable.
 * **DRY**: Reduces bugs caused by logic duplication (Single Source of Truth).
 * **KISS**: Keeps the implementation simple and understandable for auditors/reviewers.
 * **YAGNI**: Prevents over-engineering and keeps the focus on the MVP roadmap.
 
 ### Negative Consequences
+
 * Might require more initial thinking and refactoring during development.
 * Reviews might be stricter regarding these principles.
 
