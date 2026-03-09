@@ -49,3 +49,4 @@ packages/
 
 # Tailwind build output
 #wwwroot/css/build.css
+src/TicketsPlease.Web/tailwindcss.exe

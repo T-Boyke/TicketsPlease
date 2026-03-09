@@ -23,8 +23,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <Target Name="DownloadTailwind" BeforeTargets="TailwindBuild" Condition="!Exists('tailwindcss.exe')">
+    <Message Importance="high" Text="Downloading Tailwind CLI..." />
+    <Exec Command="powershell -Command &quot;Invoke-WebRequest -Uri 'https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-windows-x64.exe' -OutFile 'tailwindcss.exe'&quot;" />
+  </Target>
+
   <Target Name="TailwindBuild" BeforeTargets="Build">
-    <Exec Command="dotnet tailwind build" />
+    <Exec Command="tailwindcss.exe -i styles\app.tailwind.css -o wwwroot\css\app.css" />
   </Target>
 
 </Project>

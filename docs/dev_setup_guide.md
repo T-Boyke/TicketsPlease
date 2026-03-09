@@ -30,7 +30,7 @@ cd TicketsPlease
 ## 3. 🛠️ Einrichtung in deiner IDE
 
 ### Option A: Visual Studio 2026
-1.  Öffne die Datei `TicketsPlease.sln`.
+1.  Öffne die Datei `TicketsPlease.slnx`.
 2.  **Extensions:** VS wird dich fragen, ob du die "empfohlenen Erweiterungen" installieren möchtest (siehe `.vscode/extensions.json`). Klicke auf **Ja**.
 3.  **NuGet Restore:** Normalerweise passiert das automatisch. Wenn nicht: Rechtsklick auf die *Solution* -> *Restore NuGet Packages*.
 4.  **LibMan (Frontend Assets):**
@@ -59,7 +59,7 @@ Das System braucht eine SQL-Datenbank und die CSS-Dateien.
     dotnet ef database update
     ```
 4.  **Tailwind CSS Build:**
-    Damit die Styles korrekt angezeigt werden, muss Tailwind einmal generiert werden (falls nicht automatisch via Build-Step):
+    Damit die Styles korrekt angezeigt werden, muss Tailwind generiert werden. Dies geschieht nun **automatisch** beim `dotnet build`, da wir ein lokales `tailwindcss.exe` integriert haben:
     ```bash
     dotnet build
     ```

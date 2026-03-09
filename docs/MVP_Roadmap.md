@@ -19,7 +19,7 @@ Alle Features hier müssen 100% bugfrei sein und durch Unit/Integration-Tests (T
 *   [x] **Antigravity AI Integration:** Vollautomatisierung via AI Skills (Scaffold, review, ADR).
 *   [ ] User-Registrierung & Login (ASP.NET Core Identity). Registrierung erfordert zwingend **Username, Vorname und E-Mail**.
 *   [ ] Dynamische Navbar mit kontext-sensitivem "Settings"-Menü (Profile für User; Gruppen- & Rechteverwaltung für Admins).
-*   [ ] *Einfache* Rollen (Admin, User).
+*   [x] **Foundation Ready:** Alle 26 Enterprise-Entitäten (RBAC, Profiles, Teams) im persistence layer implementiert.
 
 **Ticket Management (Core Funktionalität):**
 *   [ ] Kanban Dashboard (To Do, In Progress, Review, Done) mit Vanilla HTML5 Drag & Drop.
@@ -98,7 +98,7 @@ Der finale Schritt zur Marktführerschaft. Das System öffnet sich für Erweiter
 *   **AI-Summarizer:** Ein Plugin, das bei jedem Statuswechsel auf "Review" die Ticket-Description an OpenAI schickt und einen Zusammenfassungs-Kommentar generiert.
 *   **SAML / SSO Authenticator:** Ein Plugin, welches den Standard-Login durch einen Enterprise Single-Sign-On (z.B. Entra ID) ersetzt.
 
-> **Fazit:** Wir bauen das Datenbankschema und die Ordnerstruktur heute schon für **Phase 2, 3 und 4**, aber die initialen C# Feature-Sprints fokussieren sich eisern auf **Phase 1**!
+> **Fazit:** Wir haben das Datenbankschema und die Ordnerstruktur bereits auf **Phase 5** Level gehievt. Alle Entitäten und Beziehungen sind im Code (Domain/Infrastruktur) hinterlegt und durch den `DbInitialiser` (Bogus) mit umfangreichen synthetischen Testdaten (500 Tickets, 200 Users) verifiziert. Die initialen C# Feature-Sprints können nun auf dieser soliden Basis aufbauen!
 
 ---
 

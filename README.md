@@ -68,14 +68,14 @@ Ein hochmodernes, kollaboratives und skalierbares Kanban-Ticketsystem, entwickel
 
 | Feature | Status | Beschreibung | Scope |
 | :--- | :--- | :--- | :--- |
-| **Core Entities** | ✅ Aktiv | `Ticket` & `User` Domain-Modelle implementiert | MVP |
-| **IAM** | 🏗️ In Arbeit | Basis Identity & Access Management | MVP |
-| **Kanban Board** | 🗓️ Geplant | Interaktives Board mit Drag & Drop | MVP |
-| **Tailwind CSS v4** | ✅ Aktiv | Modernes Styling via `tailwindcss-dotnet` | MVP |
+| **Core Entities** | ✅ Aktiv | Alle 26 Enterprise-Entitäten (3NF) implementiert | MVP Context |
+| **IAM** | ✅ Aktiv | Full Organization, User & Profile Mapping | MVP |
+| **Kanban Board** | 🏗️ In Arbeit | Interaktives Board mit Drag & Drop | MVP |
+| **Tailwind CSS v4** | ✅ Aktiv | Modernes Styling via nativem CLI (Integrated Build) | MVP |
 | **Testing Infra** | ✅ Aktiv | Architektur & Integrations-Tests für Datenintegrität | MVP |
 | **AI Skills** | ✅ Aktiv | Automatisierung via Antigravity (ADR, Scaffold) | MVP |
-| **Team Support** | 🗺️ Roadmap | Enterprise Kollaborations-Module | Enterprise |
-| **SLA Policies** | 🗺️ Roadmap | Revisionssichere Reaktionszeiten | Enterprise |
+| **Team Support** | ✅ Aktiv | Persistent Teams & Member Management | Enterprise |
+| **SLA Policies** | ✅ Aktiv | Persistence Layer & Policies hinterlegt | Enterprise |
 | **Plugin System** | 🗺️ Roadmap | Externe Module via Dynamic Loading | Enterprise |
 
 ---
@@ -125,8 +125,8 @@ Das System nutzt einen hochmodernen und perfekt aufeinander abgestimmten Stack:
 - **Frontend & User Interface (UI):**
   - **No-Bootstrap Policy:** Das Projekt ist vollständig Bootstrap-frei für
     maximalen Control-Flow.
-  - **TailwindCSS v4:** Neueste Evolution via `tailwindcss-dotnet` (Kein
-    Node.js nötig!).
+  - **TailwindCSS v4:** Neueste Evolution via nativem `tailwindcss.exe` (Kein
+    Node.js / .NET 9 Runtime nötig!).
   - **Client-Side Libs:** Markdig (Markdown), SortableJS (Drag & Drop),
     FontAwesome 7.2.
   - **Corporate Identity:** Dynamisches Theming über `ICorporateSkinProvider`
@@ -449,6 +449,7 @@ Im Entwicklungsmodus (`Development`) wird die Datenbank automatisch mit realisti
 
 *   **Lokalisierung:** `de` (Deutsch)
 *   **Datenschutz:** 100% synthetische Daten gemäß [ADR 0120](docs/adr/0120-synthetic-data-privacy.md).
+*   **Umfang:** Generiert automatisch Organizations, Roles, Users (200), Profiles, Addresses, Teams (15), Tickets (500), SubTickets (100) & Messages (300).
 *   **Trigger:** Erfolgt beim Anwendungsstart in der `DbInitialiser.cs`.
 
 ---
