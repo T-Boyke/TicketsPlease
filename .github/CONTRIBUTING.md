@@ -1,14 +1,17 @@
 # Contributing to TicketsPlease 🚀
 
-First off, thank you for considering contributing to **TicketsPlease**! It's people like you that make it an enterprise-grade tool.
+First off, thank you for considering contributing to **TicketsPlease**!
+It's people like you that make it an enterprise-grade tool.
 
 ## 🏗️ Technical Standards
 
 We follow strict architectural and coding standards. Please review our documentation before starting:
 
-- **Architecture:** [Clean Architecture (Onion)](../docs/adr/0001-clean-architecture.md)
+- **Architecture:** [Clean Architecture (Onion)]
+  (../docs/adr/0001-clean-architecture.md)
 - **Database:** [3rd Normal Form & Enterprise Extensions](../docs/database_schema.md)
-- **UI:** [Tailwind CSS 4.x & Corporate Skinning](../docs/adr/0020-corporate-skinning-provider.md)
+- **UI:** [Tailwind CSS 4.x & Corporate Skinning]
+  (../docs/adr/0020-corporate-skinning-provider.md)
 
 ## 🛠️ Local Development Setup
 
@@ -20,6 +23,7 @@ We follow strict architectural and coding standards. Please review our documenta
 ## 📜 Commit Message Guidelines
 
 We use [Conventional Commits](https://www.conventionalcommits.org/):
+
 - `feat:` for new features
 - `fix:` for bug fixes
 - `docs:` for documentation changes
@@ -34,4 +38,5 @@ We use [Conventional Commits](https://www.conventionalcommits.org/):
 
 ## 🤖 AI Collaboration
 
-This project is optimized for AI-assisted development. If you use AI tools (like Antigravity), please use the `🤖 AI-Generated` flag in your Pull Request.
+This project is optimized for AI-assisted development. If you use AI tools
+(like Antigravity), please use the `🤖 AI-Generated` flag in your Pull Request.

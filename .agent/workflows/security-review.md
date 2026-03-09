@@ -32,12 +32,12 @@ des Projekts erfüllt. Unser System wird nach dem **"Defense in Depth"**
 
 ### 1. Secret Management
 
-| Prüfpunkt | Status |
-| :--- | :--- |
-| Keine Secrets in `appsettings.json` committet? | ☐ |
-| Connection Strings über `dotnet user-secrets` (lokal)? | ☐ |
-| JWT-Keys, API-Tokens über Secrets Manager (Prod: Key Vault)? | ☐ |
-| `.gitignore` enthält `appsettings.*.json` (overrides)? | ☐ |
+| Prüfpunkt                                            | Status |
+| :--------------------------------------------------- | :----- |
+| Keine Secrets in `appsettings.json` committet?        | ☐      |
+| Connection Strings über `dotnet user-secrets` (lokal)? | ☐      |
+| JWT-Keys, API-Tokens über Secrets Manager (Prod)?    | ☐      |
+| `.gitignore` enthält `appsettings.*.json` (overrides)? | ☐      |
 
 ```cmd
 # Lokal: Secret setzen
@@ -49,40 +49,40 @@ dotnet user-secrets list
 
 ### 2. Authentication & Authorization
 
-| Prüfpunkt | Status |
-| :--- | :--- |
-| Passwort-Hashing via ASP.NET Core Identity? | ☐ |
-| Keine eigenen Hash-Algorithmen / Crypto? | ☐ |
-| Cookies mit `HttpOnly` **und** `Secure` Flag? | ☐ |
-| Session-Timeout konfiguriert? | ☐ |
-| RBAC (Role-Based Access Control) korrekt angewendet? | ☐ |
-| `[Authorize]` auf schützenswerten Endpunkten? | ☐ |
+| Prüfpunkt                                            | Status |
+| :--------------------------------------------------- | :----- |
+| Passwort-Hashing via ASP.NET Core Identity?          | ☐      |
+| Keine eigenen Hash-Algorithmen / Crypto?              | ☐      |
+| Cookies mit `HttpOnly` **und** `Secure` Flag?        | ☐      |
+| Session-Timeout konfiguriert?                        | ☐      |
+| RBAC (Role-Based Access Control) korrekt angewendet? | ☐      |
+| `[Authorize]` auf schützenswerten Endpunkten?        | ☐      |
 
 ### 3. Input Validation (Kein User-Input ungeprüft!)
 
-| Prüfpunkt | Status |
-| :--- | :--- |
-| Jeder Command hat einen `AbstractValidator<T>`? | ☐ |
-| Validation wird über MediatR Pipeline Behavior ausgeführt? | ☐ |
-| Kein `ModelState`-Bypass (z.B. `ModelState.Clear()`)? | ☐ |
-| String-Inputs auf Max-Length beschränkt? | ☐ |
+| Prüfpunkt                                            | Status |
+| :--------------------------------------------------- | :----- |
+| Jeder Command hat einen `AbstractValidator<T>`?      | ☐      |
+| Validation wird über MediatR Pipeline Behavior?      | ☐      |
+| Kein `ModelState`-Bypass (z.B. `ModelState.Clear()`)? | ☐      |
+| String-Inputs auf Max-Length beschränkt?             | ☐      |
 
 ### 4. CSRF / XSRF Protection
 
-| Prüfpunkt | Status |
-| :--- | :--- |
-| `[ValidateAntiForgeryToken]` auf allen POST-Actions? | ☐ |
-| Oder globaler Anti-Forgery Filter aktiv? | ☐ |
-| `@Html.AntiForgeryToken()` im Razor-Form? | ☐ |
+| Prüfpunkt                                            | Status |
+| :--------------------------------------------------- | :----- |
+| `[ValidateAntiForgeryToken]` auf allen POST-Actions? | ☐      |
+| Oder globaler Anti-Forgery Filter aktiv?             | ☐      |
+| `@Html.AntiForgeryToken()` im Razor-Form?            | ☐      |
 
 ### 5. XSS (Cross-Site Scripting) Prevention
 
-| Prüfpunkt | Status |
-| :--- | :--- |
-| Markdown-Output im Frontend durch **DOMPurify** sanitized? | ☐ |
-| DOMPurify lokal via LibMan installiert (kein CDN)? | ☐ |
-| Kein `@Html.Raw()` ohne vorherige Sanitization? | ☐ |
-| User-Input wird nicht direkt in JavaScript/HTML injiziert? | ☐ |
+| Prüfpunkt                                            | Status |
+| :--------------------------------------------------- | :----- |
+| Markdown-Output im Frontend durch **DOMPurify**?     | ☐      |
+| DOMPurify lokal via LibMan installiert (kein CDN)?   | ☐      |
+| Kein `@Html.Raw()` ohne vorherige Sanitization?      | ☐      |
+| User-Input wird nicht direkt in JS/HTML injiziert?   | ☐      |
 
 ```javascript
 // ✅ RICHTIG: DOMPurify vor DOM-Insertion
@@ -95,31 +95,31 @@ document.getElementById('output').innerHTML = marked.parse(userMarkdown);
 
 ### 6. SQL Injection Prevention
 
-| Prüfpunkt | Status |
-| :--- | :--- |
-| Alle DB-Queries über EF Core (parameterisiert)? | ☐ |
-| Keine Raw-SQL Queries ohne Parameter (`FromSqlRaw`)? | ☐ |
-| Kein String-Concatenation für SQL-Queries? | ☐ |
+| Prüfpunkt                                            | Status |
+| :--------------------------------------------------- | :----- |
+| Alle DB-Queries über EF Core (parameterisiert)?      | ☐      |
+| Keine Raw-SQL Queries ohne Parameter (`FromSqlRaw`)? | ☐      |
+| Kein String-Concatenation für SQL-Queries?           | ☐      |
 
 ### 7. DSGVO / Privacy by Design
 
-| Prüfpunkt | Status |
-| :--- | :--- |
-| Personenbezogene Daten in separaten Tabellen? | ☐ |
-| Löschkonzept: Können User-Daten gezielt gelöscht werden? | ☐ |
-| Datensparsamkeit: Werden nur minimal nötige Daten erhoben? | ☐ |
-| Keine IP-Tracking ohne Rechtsgrundlage? | ☐ |
-| Keine externen CDNs (IP-Leak an Drittanbieter)? | ☐ |
-| Cookie-Banner nur wenn nötig? | ☐ |
+| Prüfpunkt                                            | Status |
+| :--------------------------------------------------- | :----- |
+| Personenbezogene Daten in separaten Tabellen?        | ☐      |
+| Löschkonzept: Können User-Daten gezielt gelöscht?    | ☐      |
+| Datensparsamkeit: Nur minimal nötige Daten erheben?  | ☐      |
+| Keine IP-Tracking ohne Rechtsgrundlage?              | ☐      |
+| Keine externen CDNs (IP-Leak an Drittanbieter)?      | ☐      |
+| Cookie-Banner nur wenn nötig?                        | ☐      |
 
 ### 8. File Upload Security
 
-| Prüfpunkt | Status |
-| :--- | :--- |
-| Datei-Typ-Validierung (Whitelist, nicht Blacklist)? | ☐ |
-| Dateigröße limitiert? | ☐ |
-| Dateien in Blob-Storage (oder außerhalb von `wwwroot`)? | ☐ |
-| Dateiname sanitized (keine Path-Traversal-Angriffe)? | ☐ |
+| Prüfpunkt                                            | Status |
+| :--------------------------------------------------- | :----- |
+| Datei-Typ-Validierung (Whitelist, nicht Blacklist)?  | ☐      |
+| Dateigröße limitiert?                                | ☐      |
+| Dateien in Blob-Storage (oder außerhalb `wwwroot`)?  | ☐      |
+| Dateiname sanitized (keine Path-Traversal)?           | ☐      |
 
 ---
 

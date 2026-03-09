@@ -18,8 +18,8 @@ Git-Etikette des Projekts.
 
 ### Branch-Naming Conventions
 
-| Prefix     | Verwendung                | Beispiel                             |
-| :--------- | :------------------------ | :----------------------------------- |
+| Prefix      | Verwendung                | Beispiel                             |
+| :---------- | :------------------------ | :----------------------------------- |
 | `feature/`  | Neues Feature             | `feature/ticket-drag-and-drop`       |
 | `bugfix/`   | Bugfix                    | `bugfix/fix-login-redirect`          |
 | `hotfix/`   | Urgent Production Fix     | `hotfix/patch-sql-injection`         |

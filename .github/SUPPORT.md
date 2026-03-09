@@ -15,4 +15,6 @@ We want you to have the best experience with **TicketsPlease**. Here is how you 
 
 ## 🚀 Enterprise Support
 
-If you are using the **Enterprise Edition** of TicketsPlease, please contact your dedicated account manager or use the internal support portal for prioritized assistance.
+If you are using the **Enterprise Edition** of TicketsPlease, please contact
+your dedicated account manager or use the internal support portal for
+prioritized assistance.
