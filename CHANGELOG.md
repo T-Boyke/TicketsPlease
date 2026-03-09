@@ -6,7 +6,8 @@ Das Format basiert auf [Keep a Changelog](https://keepachangelog.com/de/1.1.0/).
 Dieses Projekt nutzt [Conventional Commits](https://www.conventionalcommits.org/) und [Semantic Versioning](https://semver.org/lang/de/).
 
 > [!IMPORTANT]
-> Diese Datei **muss** vor jedem Commit aktualisiert werden, wenn die Änderung nutzerrelevant ist (Features, Bugfixes, Breaking Changes, Security).
+> Diese Datei **muss** vor jedem Commit aktualisiert werden, wenn die Änderung nutzerrelevant ist
+> (Features, Bugfixes, Breaking Changes, Security).
 
 ---
 
@@ -37,26 +38,33 @@ Dieses Projekt nutzt [Conventional Commits](https://www.conventionalcommits.org/
 
 ### Changed
 
-- **README Hub:** Umgestaltung der README zur zentralen Dokumentations-Drehscheibe mit Fokus auf MVP vs. Enterprise Fortschritt.
+- **README Hub:** Umgestaltung der README zur zentralen Dokumentations-Drehscheibe mit Fokus auf
+  MVP vs. Enterprise Fortschritt.
 - **Gitignore:** Optimierung für Tailwind v4 build artifacts und libman assets.
-- **Agent Hub Configuration:** `.agent/instructions.md` auf Hub-Format umgestellt (verweist auf Rules, Workflows, Projekt-Docs).
-- **Workflow Expansion:** Alle 5 bestehenden Workflows massiv erweitert (CQRS, EF Core, Testing, UI, Commits).
-- **AppDbContext:** Made provider-aware to support SQLite for integration tests while maintaining SQL Server specific features (RowVersion).
+- **Agent Hub Configuration:** `.agent/instructions.md` auf Hub-Format umgestellt (verweist auf Rules,
+  Workflows, Projekt-Docs).
+- **Workflow Expansion:** Alle 5 bestehenden Workflows massiv erweitert (CQRS, EF Core, Testing,
+  UI, Commits).
+- **AppDbContext:** Made provider-aware to support SQLite for integration tests while maintaining
+  SQL Server specific features (RowVersion).
 
 ### Security
 
-- **Vulnerability Patching:** Updated `MimeKit` to 4.11.0 and `Newtonsoft.Json` to 13.0.3 to address high/moderate severity vulnerabilities.
+- **Vulnerability Patching:** Updated `MimeKit` to 4.11.0 and `Newtonsoft.Json` to 13.0.3 to address
+  high/moderate severity vulnerabilities.
 
 ---
 
 ## [0.1.0] - 2026-03-06
 
 ### Added
-- 🏛️ Clean Architecture Solution Struktur (`TicketsPlease.Domain`, `.Application`, `.Infrastructure`, `.Web`)
-- 🗄️ EF Core Database Resilience (`EnableRetryOnFailure`,
-  `DefaultExecutionStrategy`) und Optimistic Concurrency (`RowVersion`)
-- 🎨 TailwindCSS 4.2 Integration via `TailwindCSS.MSBuild` (Zero-Node)
-  und `ICorporateSkinProvider` für Corporate Theming
+
+- 🏛️ Clean Architecture Solution Struktur (`TicketsPlease.Domain`, `.Application`,
+  `.Infrastructure`, `.Web`)
+- 🗄️ EF Core Database Resilience (`EnableRetryOnFailure`, `DefaultExecutionStrategy`) und
+  Optimistic Concurrency (`RowVersion`)
+- 🎨 TailwindCSS 4.2 Integration via `TailwindCSS.MSBuild` (Zero-Node) und
+  `ICorporateSkinProvider` für Corporate Theming
 - 📐 20 Architecture Decision Records (ADR-0001 bis ADR-0020)
 - 📝 Umfassende Projektdokumentation:
   - [README.md](README.md) – Vision, Tech-Stack, Features, Roadmap
@@ -64,7 +72,8 @@ Dieses Projekt nutzt [Conventional Commits](https://www.conventionalcommits.org/
   - [domain_ticket.md](docs/domain_ticket.md) – DDD Ticket-Entity Spezifikation
   - [nuget_stack.md](docs/nuget_stack.md) – NuGet-Pakete pro Layer
   - [frontend_assets.md](docs/frontend_assets.md) – Asset-Management & No-CDN Policy
-  - [architecture_diagrams.md](docs/architecture_diagrams.md) – Mermaid-Diagramme (Clean Architecture, Deployment, CQRS Flow)
+  - [architecture_diagrams.md](docs/architecture_diagrams.md) – Mermaid-Diagramme (Clean Architecture,
+    Deployment, CQRS Flow)
   - [MVP_Roadmap.md](docs/MVP_Roadmap.md) – Phase-Abgrenzung (MVP vs. Enterprise)
   - [dev_setup_guide.md](docs/dev_setup_guide.md) – Einrichtungsanleitung
 - 🔧 IDE-Konfiguration: `.editorconfig`, `.vsconfig`, JetBrains Rider Settings
@@ -74,11 +83,11 @@ Dieses Projekt nutzt [Conventional Commits](https://www.conventionalcommits.org/
 
 ## Legende
 
-| Kategorie      | Beschreibung                                     |
-| :------------- | :----------------------------------------------- |
-| **Added**      | Neue Features oder Dateien                       |
-| **Changed**    | Änderungen an bestehender Funktionalität         |
-| **Deprecated** | Features die bald entfernt werden                |
-| **Removed**    | Entfernte Features oder Dateien                  |
-| **Fixed**      | Bugfixes                                         |
-| **Security**   | Sicherheitsrelevante Änderungen                  |
+| Kategorie      | Beschreibung                             |
+| :------------- | :--------------------------------------- |
+| **Added**      | Neue Features oder Dateien               |
+| **Changed**    | Änderungen an bestehender Funktionalität |
+| **Deprecated** | Features die bald entfernt werden        |
+| **Removed**    | Entfernte Features oder Dateien          |
+| **Fixed**      | Bugfixes                                 |
+| **Security**   | Sicherheitsrelevante Änderungen          |
