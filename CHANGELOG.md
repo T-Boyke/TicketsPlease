@@ -14,17 +14,26 @@ Dieses Projekt nutzt [Conventional Commits](https://www.conventionalcommits.org/
 
 ### Added
 
-- **Layer-Specific READMEs:** 5 neue README-Dateien im `src`-Verzeichnis mit spezifischen Arbeitsanweisungen für Domain, Application, Infrastructure und Web.
-- **Git Layer-Branching:** Einführung einer Schicht-basierten Branching-Strategie (`layer/domain`, etc.) inkl. Dokumentation in allen READMEs und `instructions.md`.
-- **Antigravity AI Skills:** 6 automatisierte Skills für Scaffolding, Code-Review, EF-Debugging und ADR-Erstellung (#64)
-- **Client-side Libraries:** Integration von Markdig, SortableJS, FontAwesome 7.2 und DOMPurify (#160)
-- **Tailwind CSS v4:** Vollständige Migration auf die node-freie `tailwindcss-dotnet` Integration (#051)
-- **ADR Renumbering & Restructuring:** Re-indexed all Architecture Decision Records to a 10-step MVP-centric sequence (0000, 0010, 0020, etc.) and added/updated 22+ foundational records to ensure 100% project alignment. (#65)
-- **Database Verification Infrastructure:** Added `TicketsPlease.ArchitectureTests` and `TicketsPlease.IntegrationTests` for autom- Datenbank-Verifizierungs-Infrastruktur (Architektur- & Integrations-Tests).
+- **Layer-Specific READMEs:** 5 neue README-Dateien im `src`-Verzeichnis mit
+  spezifischen Arbeitsanweisungen für Domain, Application, Infrastructure etc.
+- **Git Layer-Branching:** Einführung einer Schicht-basierten Branching-Strategie
+  (`layer/domain`, etc.) inkl. Dokumentation in allen READMEs.
+- **Antigravity AI Skills:** 6 automatisierte Skills für Scaffolding,
+  Code-Review, EF-Debugging und ADR-Erstellung (#64)
+- **Client-side Libraries:** Integration von Markdig, SortableJS,
+  FontAwesome 7.2 und DOMPurify (#160)
+- **Tailwind CSS v4:** Vollständige Migration auf die node-freie
+  `tailwindcss-dotnet` Integration (#051)
+- **ADR Renumbering & Restructuring:** Re-indexed all Architecture Decision
+  Records to a 10-step MVP-centric sequence (0000, 0010, 0020, etc.) and
+  added/updated 22+ foundational records for project alignment. (#65)
+- **Database Verification Infrastructure:** Added arquitectura and integration
+  tests for automated database verification.
 - ADR 0062: Database Verification Strategy.
 - Datenbank-Seeding mit `Bogus` (de Locale) für realistische Testdaten.
 - ADR 0120: Synthetic Data Generation and Privacy Compliance.
-- **Agent Governance v3.1:** Erweiterte Konfiguration für konsistente Clean Architecture Entwicklung (#aa3)
+- **Agent Governance v3.1:** Erweiterte Konfiguration für konsistente
+  Clean Architecture Entwicklung (#aa3)
 
 ### Changed
 
@@ -44,8 +53,10 @@ Dieses Projekt nutzt [Conventional Commits](https://www.conventionalcommits.org/
 
 ### Added
 - 🏛️ Clean Architecture Solution Struktur (`TicketsPlease.Domain`, `.Application`, `.Infrastructure`, `.Web`)
-- 🗄️ EF Core Database Resilience (`EnableRetryOnFailure`, `DefaultExecutionStrategy`) und Optimistic Concurrency (`RowVersion`)
-- 🎨 TailwindCSS 4.2 Integration via `TailwindCSS.MSBuild` (Zero-Node) und `ICorporateSkinProvider` für Corporate Theming
+- 🗄️ EF Core Database Resilience (`EnableRetryOnFailure`,
+  `DefaultExecutionStrategy`) und Optimistic Concurrency (`RowVersion`)
+- 🎨 TailwindCSS 4.2 Integration via `TailwindCSS.MSBuild` (Zero-Node)
+  und `ICorporateSkinProvider` für Corporate Theming
 - 📐 20 Architecture Decision Records (ADR-0001 bis ADR-0020)
 - 📝 Umfassende Projektdokumentation:
   - [README.md](README.md) – Vision, Tech-Stack, Features, Roadmap
@@ -63,11 +74,11 @@ Dieses Projekt nutzt [Conventional Commits](https://www.conventionalcommits.org/
 
 ## Legende
 
-| Kategorie | Beschreibung |
-|---|---|
-| **Added** | Neue Features oder Dateien |
-| **Changed** | Änderungen an bestehender Funktionalität |
-| **Deprecated** | Features die bald entfernt werden |
-| **Removed** | Entfernte Features oder Dateien |
-| **Fixed** | Bugfixes |
-| **Security** | Sicherheitsrelevante Änderungen |
+| Kategorie      | Beschreibung                                     |
+| :------------- | :----------------------------------------------- |
+| **Added**      | Neue Features oder Dateien                       |
+| **Changed**    | Änderungen an bestehender Funktionalität         |
+| **Deprecated** | Features die bald entfernt werden                |
+| **Removed**    | Entfernte Features oder Dateien                  |
+| **Fixed**      | Bugfixes                                         |
+| **Security**   | Sicherheitsrelevante Änderungen                  |

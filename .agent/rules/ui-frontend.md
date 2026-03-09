@@ -20,7 +20,8 @@ Regeln für Frontend-Entwicklung, Barrierefreiheit und Styling.
 
 - **Keyboard-First** – Alles per `Tab` bedienbar.
 - **Focus-Traps** – In Modals Pflicht.
-- **Semantisches HTML5** – `<dialog>`, `<nav>`, `<main>`, `<button>` (nicht `<div onclick>`).
+- **Semantisches HTML5** – `<dialog>`, `<nav>`, `<main>`, `<button>` (nicht
+  `<div onclick>`).
 - **ARIA-Attribute** – `aria-label`, `aria-expanded`, `aria-describedby` wo nötig.
 - **Unique `id`** – Jedes interaktive Element hat eine eindeutige `id`.
 - **Kontrast** – WCAG AA Minimum (4.5:1).

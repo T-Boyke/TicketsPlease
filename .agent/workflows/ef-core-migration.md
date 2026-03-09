@@ -8,9 +8,9 @@ description: Workflow for adding and applying EF Core migrations in the
 Dieser Workflow beschreibt den vollständigen Ablauf für Datenbankänderungen
 über Entity Framework Core Code-First Migrations.
 
-> **Referenz:** [ADR-0019 (EF Core Resilience)](file:///d:/DEV/Tickets/docs/adr/0019-ef-core-resilience-concurrency.md) |
-> [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md) |
-> [instructions.md §5](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:** [ADR-0019 (EF Core Resilience)](file:///d:/DEV/Tickets/docs/adr/0019-ef-core-resilience-concurrency.md)
+> | [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md)
+> | [instructions.md §5](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 
@@ -71,7 +71,9 @@ modelBuilder.Entity<Ticket>(entity =>
 Führe den Befehl im **Root-Verzeichnis** der Solution aus:
 
 ```cmd
-dotnet ef migrations add [MigrationName] --project src/TicketsPlease.Infrastructure --startup-project src/TicketsPlease.Web
+dotnet ef migrations add [MigrationName] \
+  --project src/TicketsPlease.Infrastructure \
+  --startup-project src/TicketsPlease.Web
 ```
 
 **Naming-Convention:** Beschreibender Name im PascalCase
@@ -95,7 +97,9 @@ Kontrolliere die generierte Datei in `src/TicketsPlease.Infrastructure/Migration
 ### 5. Datenbank aktualisieren
 
 ```cmd
-dotnet ef database update --project src/TicketsPlease.Infrastructure --startup-project src/TicketsPlease.Web
+dotnet ef database update \
+  --project src/TicketsPlease.Infrastructure \
+  --startup-project src/TicketsPlease.Web
 ```
 
 ### 6. Seed Data (falls benötigt)
@@ -106,10 +110,14 @@ dotnet ef database update --project src/TicketsPlease.Infrastructure --startup-p
 
 ```csharp
 modelBuilder.Entity<TicketPriority>().HasData(
-    new TicketPriority { Id = Guid.Parse("..."), Name = "Low", LevelWeight = 1, ColorHex = "#22c55e" },
-    new TicketPriority { Id = Guid.Parse("..."), Name = "Medium", LevelWeight = 2, ColorHex = "#f59e0b" },
-    new TicketPriority { Id = Guid.Parse("..."), Name = "High", LevelWeight = 3, ColorHex = "#ef4444" },
-    new TicketPriority { Id = Guid.Parse("..."), Name = "Blocker", LevelWeight = 4, ColorHex = "#dc2626" }
+    new TicketPriority { Id = Guid.Parse("..."), Name = "Low",
+        LevelWeight = 1, ColorHex = "#22c55e" },
+    new TicketPriority { Id = Guid.Parse("..."), Name = "Medium",
+        LevelWeight = 2, ColorHex = "#f59e0b" },
+    new TicketPriority { Id = Guid.Parse("..."), Name = "High",
+        LevelWeight = 3, ColorHex = "#ef4444" },
+    new TicketPriority { Id = Guid.Parse("..."), Name = "Blocker",
+        LevelWeight = 4, ColorHex = "#dc2626" }
 );
 ```
 
@@ -124,7 +132,8 @@ try
 }
 catch (DbUpdateConcurrencyException)
 {
-    throw new ConcurrencyException("Die Daten wurden zwischenzeitlich von einem anderen Benutzer geändert.");
+    throw new ConcurrencyException("Die Daten wurden zwischenzeitlich " +
+        "von einem anderen Benutzer geändert.");
 }
 ```
 
@@ -154,4 +163,4 @@ await strategy.ExecuteAsync(async () =>
 - Aktualisiere bestehende Integration-Tests (Testcontainers) für neue Spalten/Tabellen.
 - Teste `RowVersion`-Handling und `AsNoTracking()`-Effekte.
 
-### Zusammenfassung: Entity ✓, Mapping ✓, Migration ✓, Review ✓, Update ✓, Seed ✓, Concurrency ✓, Docs ✓, Tests ✓
+### Zusammenfassung

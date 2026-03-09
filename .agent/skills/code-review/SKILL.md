@@ -10,10 +10,10 @@ description: Reviews code changes against all TicketsPlease project standards
 
 Konsolidierte Code-Review Checkliste basierend auf allen Projekt-Standards.
 
-> **Referenz:** [Architecture Rules](file:///d:/DEV/Tickets/.agent/rules/architecture.md) |
-> [Security Rules](file:///d:/DEV/Tickets/.agent/rules/security.md) |
-> [Testing Rules](file:///d:/DEV/Tickets/.agent/rules/testing.md) |
-> [UI Rules](file:///d:/DEV/Tickets/.agent/rules/ui-frontend.md)
+> **Referenz:** [Architecture Rules](file:///d:/DEV/Tickets/.agent/rules/architecture.md)
+> | [Security Rules](file:///d:/DEV/Tickets/.agent/rules/security.md)
+> | [Testing Rules](file:///d:/DEV/Tickets/.agent/rules/testing.md)
+> | [UI Rules](file:///d:/DEV/Tickets/.agent/rules/ui-frontend.md)
 
 ---
 
@@ -87,16 +87,16 @@ Strukturiere Feedback so:
 ```markdown
 ## 🔍 Code Review: [Feature/PR Name]
 
-### 🔴 Blocker
-- **B1 – Dependency Direction:** `Domain.Entity` referenziert `Infrastructure.DbContext` direkt.
+- **B1 – Dependency Direction:** `Domain.Entity` referenziert
+  `Infrastructure.DbContext` direkt.
   → Entity darf keine Infrastructure-Abhängigkeit haben.
 
-### 🟡 Major
-- **M2 – CancellationToken:** In `GetTicketQueryHandler.Handle()` fehlt `ct` bei `ToListAsync()`.
+- **M2 – CancellationToken:** In `GetTicketQueryHandler.Handle()` fehlt `ct`
+  bei `ToListAsync()`.
   → `await _repo.GetAllAsync(cancellationToken)` verwenden.
 
-### 🟢 Minor
-- **N5 – DateTimeOffset:** `DateTime.Now` in `Ticket.Create()` → `DateTimeOffset.UtcNow` verwenden.
+- **N5 – DateTimeOffset:** `DateTime.Now` in `Ticket.Create()` →
+  `DateTimeOffset.UtcNow` verwenden.
 
 ### ✅ Positiv
 - Saubere Trennung von Command und Query ✓

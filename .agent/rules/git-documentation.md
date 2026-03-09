@@ -8,7 +8,8 @@ Regeln für Git-Workflows, Commits, PRs und Dokumentation.
 
 - **`main` ist HEILIG** – Muss jederzeit lauffähig sein.
   Direct Push ist per Branch-Protection gesperrt.
-- Branch-Naming: `feature/xyz`, `bugfix/xyz`, `hotfix/xyz`, `docs/xyz`, `refactor/xyz`, `test/xyz`.
+- Branch-Naming: `feature/xyz`, `bugfix/xyz`, `hotfix/xyz`, `docs/xyz`,
+  `refactor/xyz`, `test/xyz`.
 - Jeder Branch startet vom aktuellen `main`.
 
 ## Commits (Conventional Commits – Englisch!)

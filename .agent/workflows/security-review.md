@@ -9,14 +9,14 @@ Dieser Workflow stellt sicher, dass jede Code-Änderung die Security-Standards
 des Projekts erfüllt. Unser System wird nach dem **"Defense in Depth"**
 (Zwiebelschalen) Prinzip abgesichert.
 
-> **Referenz:** [README §6 – Enterprise Security](file:///d:/DEV/Tickets/README.md) |
-> [instructions.md §6](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:** [README §6 – Enterprise Security](file:///d:/DEV/Tickets/README.md)
+> | [instructions.md §6](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 
 ## Schichten-Modell
 
-```
+```text
 🌐 Browser
   └── 🔒 Anti-Forgery Token (CSRF-Schutz)
        └── 🧹 DOMPurify (XSS-Sanitizing)
@@ -33,11 +33,11 @@ des Projekts erfüllt. Unser System wird nach dem **"Defense in Depth"**
 ### 1. Secret Management
 
 | Prüfpunkt | Status |
-|---|---|
+| :--- | :--- |
 | Keine Secrets in `appsettings.json` committet? | ☐ |
 | Connection Strings über `dotnet user-secrets` (lokal)? | ☐ |
-| JWT-Keys, API-Tokens über Secrets Manager (Prod: Azure Key Vault)? | ☐ |
-| `.gitignore` enthält `appsettings.*.json` (sensitive overrides)? | ☐ |
+| JWT-Keys, API-Tokens über Secrets Manager (Prod: Key Vault)? | ☐ |
+| `.gitignore` enthält `appsettings.*.json` (overrides)? | ☐ |
 
 ```cmd
 # Lokal: Secret setzen
@@ -50,27 +50,27 @@ dotnet user-secrets list
 ### 2. Authentication & Authorization
 
 | Prüfpunkt | Status |
-|---|---|
-| Passwort-Hashing via ASP.NET Core Identity (Pbkdf2/Argon2Id)? | ☐ |
-| Keine eigenen Hash-Algorithmen / Crypto-Implementierungen? | ☐ |
+| :--- | :--- |
+| Passwort-Hashing via ASP.NET Core Identity? | ☐ |
+| Keine eigenen Hash-Algorithmen / Crypto? | ☐ |
 | Cookies mit `HttpOnly` **und** `Secure` Flag? | ☐ |
 | Session-Timeout konfiguriert? | ☐ |
 | RBAC (Role-Based Access Control) korrekt angewendet? | ☐ |
-| `[Authorize]` / `[Authorize(Roles = "Admin")]` auf schützenswerten Endpunkten? | ☐ |
+| `[Authorize]` auf schützenswerten Endpunkten? | ☐ |
 
 ### 3. Input Validation (Kein User-Input ungeprüft!)
 
 | Prüfpunkt | Status |
-|---|---|
-| Jeder Command hat einen `AbstractValidator<T>` (FluentValidation)? | ☐ |
-| Validation wird über MediatR Pipeline Behavior automatisch ausgeführt? | ☐ |
+| :--- | :--- |
+| Jeder Command hat einen `AbstractValidator<T>`? | ☐ |
+| Validation wird über MediatR Pipeline Behavior ausgeführt? | ☐ |
 | Kein `ModelState`-Bypass (z.B. `ModelState.Clear()`)? | ☐ |
 | String-Inputs auf Max-Length beschränkt? | ☐ |
 
 ### 4. CSRF / XSRF Protection
 
 | Prüfpunkt | Status |
-|---|---|
+| :--- | :--- |
 | `[ValidateAntiForgeryToken]` auf allen POST-Actions? | ☐ |
 | Oder globaler Anti-Forgery Filter aktiv? | ☐ |
 | `@Html.AntiForgeryToken()` im Razor-Form? | ☐ |
@@ -78,7 +78,7 @@ dotnet user-secrets list
 ### 5. XSS (Cross-Site Scripting) Prevention
 
 | Prüfpunkt | Status |
-|---|---|
+| :--- | :--- |
 | Markdown-Output im Frontend durch **DOMPurify** sanitized? | ☐ |
 | DOMPurify lokal via LibMan installiert (kein CDN)? | ☐ |
 | Kein `@Html.Raw()` ohne vorherige Sanitization? | ☐ |
@@ -96,38 +96,38 @@ document.getElementById('output').innerHTML = marked.parse(userMarkdown);
 ### 6. SQL Injection Prevention
 
 | Prüfpunkt | Status |
-|---|---|
+| :--- | :--- |
 | Alle DB-Queries über EF Core (parameterisiert)? | ☐ |
-| Keine Raw-SQL Queries ohne Parameter (`FromSqlRaw` mit Parametern)? | ☐ |
+| Keine Raw-SQL Queries ohne Parameter (`FromSqlRaw`)? | ☐ |
 | Kein String-Concatenation für SQL-Queries? | ☐ |
 
 ### 7. DSGVO / Privacy by Design
 
 | Prüfpunkt | Status |
-|---|---|
-| Personenbezogene Daten in separaten Tabellen (UserProfile, UserAddress)? | ☐ |
+| :--- | :--- |
+| Personenbezogene Daten in separaten Tabellen? | ☐ |
 | Löschkonzept: Können User-Daten gezielt gelöscht werden? | ☐ |
-| Datensparsamkeit: Werden nur die minimal nötigen Daten erhoben? | ☐ |
-| Keine IP-Tracking ohne Rechtsgrundlage (außer GeoIpTimestamp bei Ticket-Erstellung)? | ☐ |
+| Datensparsamkeit: Werden nur minimal nötige Daten erhoben? | ☐ |
+| Keine IP-Tracking ohne Rechtsgrundlage? | ☐ |
 | Keine externen CDNs (IP-Leak an Drittanbieter)? | ☐ |
-| Cookie-Banner nur wenn nötig (kein Google Analytics = kein Banner nötig)? | ☐ |
+| Cookie-Banner nur wenn nötig? | ☐ |
 
 ### 8. File Upload Security
 
 | Prüfpunkt | Status |
-|---|---|
+| :--- | :--- |
 | Datei-Typ-Validierung (Whitelist, nicht Blacklist)? | ☐ |
 | Dateigröße limitiert? | ☐ |
-| Dateien in Blob-Storage, nicht im `wwwroot`? | ☐ |
+| Dateien in Blob-Storage (oder außerhalb von `wwwroot`)? | ☐ |
 | Dateiname sanitized (keine Path-Traversal-Angriffe)? | ☐ |
 
 ---
 
 ## Bei Security-Findings
 
-1. **Kritisch (P0):** Sofortiger Hotfix via `hotfix/` Branch. Kein Deployment bis gefixt.
+1. **Kritisch (P0):** Sofort via `hotfix/` Branch. Kein Deployment bis gefixt.
 2. **Hoch (P1):** Fix im aktuellen Sprint. Blockiert den PR-Merge.
 3. **Mittel (P2):** GitHub Issue erstellen, im nächsten Sprint adressieren.
 4. **Low (P3):** Als Tech-Debt dokumentieren, bei Gelegenheit fixen.
 
-### Zusammenfassung: Wenn eine Schicht kompromittiert wird, hält die Nächste dem Angriff stand.
+### Zusammenfassung

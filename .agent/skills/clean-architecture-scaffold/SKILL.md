@@ -10,8 +10,8 @@ description: Scaffolds a complete feature across all Clean Architecture layers
 
 Dieses Skill scaffoldet ein komplettes Feature über alle Layer der Clean Architecture.
 
-> **Referenz:** [Architecture Rules](file:///d:/DEV/Tickets/.agent/rules/architecture.md) |
-> [/add-cqrs-feature](file:///d:/DEV/Tickets/.agent/workflows/add-cqrs-feature.md)
+> **Referenz:** [Architecture Rules](file:///d:/DEV/Tickets/.agent/rules/architecture.md)
+> | [/add-cqrs-feature](file:///d:/DEV/Tickets/.agent/workflows/add-cqrs-feature.md)
 
 ---
 

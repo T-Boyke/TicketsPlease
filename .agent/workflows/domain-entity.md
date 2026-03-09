@@ -6,22 +6,23 @@ description: Workflow for creating DDD Domain Entities, Value Objects, and
 Dieser Workflow beschreibt den vollständigen Ablauf zur Erstellung einer neuen
 Domain-Entität nach den Prinzipien des Domain-Driven Design (DDD).
 
-> **Referenz:** [domain_ticket.md](file:///d:/DEV/Tickets/docs/domain_ticket.md) |
-> [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md) |
-> [instructions.md §3](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:** [domain_ticket.md]
+> (file:///d:/DEV/Tickets/docs/domain_ticket.md)
+> | [database_schema.md]
+> (file:///d:/DEV/Tickets/docs/database_schema.md)
+> | [instructions.md §3](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 
 ## Fundamentale Regeln
 
 | Regel | Beschreibung |
-| --- | --- |
-| **Zero Dependencies** | `TicketsPlease.Domain` hat **keine** NuGet-Referenzen
-  (Ausnahme: `MediatR.Contracts` für `INotification`). |
-| **Rich Model** | Entities sind keine reinen Datencontainer. Sie enthalten Business-Logik. |
-| **Private Setter** | Alle Properties: `{ get; private set; }`. Kein externes Setzen! |
-| **Kein leerer Konstruktor** | Pflichtfelder über parametrisierten Konstruktor/Fabrikmethode erzwingen. |
-| **Immutable nach außen** | Collections extern als `IReadOnlyList<T>`, intern als `List<T>`. |
+| :--- | :----------- |
+| **Zero Dependencies** | `Domain` hat keine NuGet-Referenzen (außer `MediatR`). |
+| **Rich Model** | Entities sind keine Datencontainer. Sie enthalten Logik. |
+| **Private Setter** | Alle Properties: `{ get; private set; }`. |
+| **Kein leerer Ctor** | Pflichtfelder über Fabrikmethode erzwingen. |
+| **Immutable** | Collections extern als `IReadOnlyList<T>`. |
 
 ---
 
@@ -163,9 +164,9 @@ public void RaiseDomainEvent(INotification domainEvent)
 ### 4. Bounded Context einordnen
 
 | Context | Entities |
-| --- | --- |
+| :--- | :--- |
 | **Identity & Access** | User, UserProfile, UserAddress, Role |
-| **Ticket Management** | Ticket, SubTicket, Tag, TicketPriority, TimeLog, TicketUpvote |
+| **Ticket Management** | Ticket, SubTicket, Tag, Priority, TimeLog, Upvote |
 | **Workflow** | WorkflowState, SlaPolicy |
 | **Communication** | Message, MessageReadReceipt, Notification |
 | **Asset Management** | FileAsset |
@@ -195,7 +196,8 @@ ticket.Status = TicketStatus.Closed;
 
 - Jede Entity bekommt `byte[] RowVersion` als `[Timestamp]`.
 - EF Core nutzt dies automatisch für Optimistic Concurrency.
-- Handler fangen `DbUpdateConcurrencyException` (siehe [EF Core Workflow](file:///d:/DEV/Tickets/.agent/workflows/ef-core-migration.md)).
+- Handler fangen `DbUpdateConcurrencyException` (siehe [EF Core Workflow]
+  (file:///d:/DEV/Tickets/.agent/workflows/ef-core-migration.md)).
 
 ### 7. XML-Dokumentation (Pflicht!)
 
@@ -210,4 +212,4 @@ ticket.Status = TicketStatus.Closed;
 
 ---
 
-### Zusammenfassung: Entity ✓, Value Objects ✓, Domain Events ✓, Context ✓, Business Methods ✓, RowVersion ✓, XML-Docs ✓, Tests ✓
+### Zusammenfassung

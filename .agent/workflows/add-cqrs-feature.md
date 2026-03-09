@@ -8,9 +8,9 @@ description: Workflow for adding a new CQRS feature (Command/Query) to the
 Dieser Workflow beschreibt den vollständigen Ablauf, um ein neues Command
 oder Query in der TicketsPlease Clean Architecture zu implementieren.
 
-> **Referenz:** [ADR-0009 (CQRS)](file:///d:/DEV/Tickets/docs/adr/0009-cqrs-mediatr.md) |
-> [ADR-0010 (FluentValidation)](file:///d:/DEV/Tickets/docs/adr/0010-validation-fluentvalidation.md) |
-> [instructions.md §4](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:** [ADR-0009 (CQRS)](file:///d:/DEV/Tickets/docs/adr/0009-cqrs-mediatr.md)
+> | [ADR-0010 (FluentValidation)](file:///d:/DEV/Tickets/docs/adr/0010-validation-fluentvalidation.md)
+> | [instructions.md §4](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 
@@ -18,9 +18,9 @@ oder Query in der TicketsPlease Clean Architecture zu implementieren.
 
 Jeder Request durchläuft automatisch die MediatR Pipeline in dieser Reihenfolge:
 
-
 ```text
-📨 Request → 📋 LoggingBehavior → ✅ ValidationBehavior → 🔄 TransactionBehavior → ⚙️ Handler → 📤 Response
+📨 Request → 📋 LoggingBehavior → ✅ ValidationBehavior →
+TransactionBehavior → ⚙️ Handler → 📤 Response
 ```
 
 ---
@@ -61,7 +61,8 @@ Jeder Request durchläuft automatisch die MediatR Pipeline in dieser Reihenfolge
 
 ```csharp
 /// <summary>
-/// Validiert den <see cref="CreateTicketCommand"/> vor der Handler-Ausführung.
+/// Validiert den <see cref="CreateTicketCommand"/> vor der
+/// Handler-Ausführung.
 /// </summary>
 public class CreateTicketCommandValidator : AbstractValidator<CreateTicketCommand>
 {
@@ -72,7 +73,7 @@ public class CreateTicketCommandValidator : AbstractValidator<CreateTicketComman
     {
         RuleFor(c => c.Title)
             .NotEmpty().WithMessage("Titel ist ein Pflichtfeld.")
-            .MaximumLength(150).WithMessage("Titel darf maximal 150 Zeichen lang sein.");
+            .MaximumLength(150).WithMessage("Maximal 150 Zeichen.");
 
         RuleFor(c => c.Priority)
             .IsInEnum().WithMessage("Ungültige Priorität.");
@@ -82,13 +83,16 @@ public class CreateTicketCommandValidator : AbstractValidator<CreateTicketComman
 
 ### 5. Handler implementieren
 
-- Erstelle einen `IRequestHandler<TRequest, TResponse>` im selben Feature-Ordner.
+- Erstelle einen `IRequestHandler<TRequest, TResponse>` im selben
+  Feature-Ordner.
 - Naming: `[CommandName]Handler` (z.B. `CreateTicketCommandHandler`).
 - **Pflicht-Regeln:**
   - Injiziere Repository-Interfaces (niemals `AppDbContext` direkt!).
-  - **`CancellationToken` durchreichen** bis `ToListAsync(ct)` / `SaveChangesAsync(ct)`.
+  - **`CancellationToken` durchreichen** bis `ToListAsync(ct)` /
+    `SaveChangesAsync(ct)`.
   - **Write-Ops:** `DbUpdateConcurrencyException` explizit fangen und User-Feedback geben.
-  - Nutze Application-Exceptions (`NotFoundException`, `ValidationException`) statt generischer Exceptions.
+  - Nutze Application-Exceptions (`NotFoundException`,
+    `ValidationException`) statt generischer Exceptions.
 
 ```csharp
 /// <summary>
@@ -104,7 +108,8 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
     }
 
     /// <inheritdoc />
-    public async Task<Guid> Handle(CreateTicketCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateTicketCommand request,
+        CancellationToken cancellationToken)
     {
         var ticket = Ticket.Create(request.Title, request.Description, request.GeoIpTimestamp);
         await _ticketRepository.AddAsync(ticket, cancellationToken);
@@ -143,7 +148,8 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
 - Naming: `[HandlerName]Tests` → `Handle_[Scenario]_[ExpectedResult]`.
 - Mocke Repositories via `Moq` oder `NSubstitute`.
 - Nutze `FluentAssertions` für lesbare Asserts.
-- Teste **sowohl** den Happy-Path als auch Fehlerfälle (Validation, NotFound, Concurrency).
+- Teste **sowohl** den Happy-Path als auch Fehlerfälle
+  (Validation, NotFound, Concurrency).
 
 ---
 

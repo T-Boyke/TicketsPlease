@@ -1,6 +1,7 @@
 # 🏛️ TicketsPlease – Architecture Rules
 
-Diese Regeln erzwingen die Clean Architecture, DDD und CQRS Standards bei jeder Code-Änderung.
+Diese Regeln erzwingen die Clean Architecture, DDD und CQRS Standards bei
+jeder Code-Änderung.
 
 ---
 
@@ -24,8 +25,10 @@ Abhängigkeiten zeigen IMMER NUR NACH INNEN (→ Domain):
 ```text
 src/
 ├── TicketsPlease.Domain/          # 🟢 Entities, Value Objects, Events, Enums
-├── TicketsPlease.Application/     # 🟡 Features/{Name}/Commands|Queries, Contracts, Behaviors, Exceptions
-├── TicketsPlease.Infrastructure/  # 🔴 Persistence (DbContext, Repos, Migrations), Services, Identity
+├── TicketsPlease.Application/     # 🟡 Features/{Name}/Commands|Queries,
+│                                  # Contracts, Behaviors, Exceptions
+├── TicketsPlease.Infrastructure/  # 🔴 Persistence (DbContext, Repos, Migrations),
+│                                  # Services, Identity
 └── TicketsPlease.Web/             # 🔵 Controllers, Views, wwwroot, css/components/
 ```
 
@@ -46,7 +49,8 @@ src/
 
 ## CQRS & MediatR
 
-- Pipeline: `Request → LoggingBehavior → ValidationBehavior → TransactionBehavior → Handler`
+- Pipeline: `Request → LoggingBehavior → ValidationBehavior →
+  TransactionBehavior → Handler`
 - Jeder Command hat einen `AbstractValidator<T>` (FluentValidation).
 - Mapping über **Mapster** (kein AutoMapper).
 - `CancellationToken` bis zum letzten Async-Call durchreichen.
@@ -60,7 +64,8 @@ src/
 - **Projections:** `.Select(t => new Dto { ... })` statt `.Include()`.
 - **Concurrency:** `DbUpdateConcurrencyException` in jedem Write-Handler fangen.
 - **Transaktionen:** `CreateExecutionStrategy()` für manuelle Transaktionen.
-- **Migrations:** `dotnet ef migrations add [Name] --project src/TicketsPlease.Infrastructure --startup-project src/TicketsPlease.Web`
+- **Migrations:** `dotnet ef migrations add [Name] --project
+  src/TicketsPlease.Infrastructure --startup-project src/TicketsPlease.Web`
 - **Schema:** 3. Normalform (3NF). Keine Denormalisierung ohne ADR.
 
 ---
@@ -77,15 +82,17 @@ src/
 | DTO | `[Entity][Purpose]Dto` | `TicketDetailDto` |
 | Validator | `[Request]Validator` | `CreateTicketCommandValidator` |
 | Test-Klasse | `[Class]Tests` | `CreateTicketCommandHandlerTests` |
-| Test-Methode | `[Method]_[Scenario]_[Expected]` |
-  `Handle_ValidCommand_ReturnsId` |
+| Test-Methode | `[Method]_[Scenario]_[Expected]` | `Handle_ValidCommand_ReturnsId` |
 
 ---
 
 ## Datei-Disziplin & CQRS-Bündelung
 
-- **CQRS-Bündelung:** Um die Token-Effizienz zu steigern und Fragmentierung zu vermeiden, werden `Command`/`Query`, `Validator` und `Handler` eines spezifischen Use Cases **zwingend** in einer einzigen Datei zusammengefasst.
-- **Sonstige Elemente:** Für alle anderen Konstrukte (Entities, Value Objects, generische Interfaces, Enums) gilt weiterhin strikt: **1 Klasse pro Datei**.
+- **CQRS-Bündelung:** Um die Token-Effizienz zu steigern und Fragmentierung zu
+  vermeiden, werden `Command`/`Query`, `Validator` und `Handler` eines
+  spezifischen Use Cases **zwingend** in einer einzigen Datei zusammengefasst.
+- **Sonstige Elemente:** Für alle anderen Konstrukte (Entities, Value Objects,
+  generische Interfaces, Enums) gilt weiterhin strikt: **1 Klasse pro Datei**.
 
 ---
 

@@ -8,11 +8,11 @@ description: Workflow for creating consistent UI components using Tailwind CSS
 Dieser Workflow beschreibt den vollständigen Ablauf zur Erstellung
 hochwertiger, barrierefreier UI-Komponenten im TicketsPlease Frontend.
 
-> **Referenz:** [ADR-0005 (SFC/Tailwind)](file:///d:/DEV/Tickets/docs/adr/0005-ui-sfc-tailwind.md) |
-> [ADR-0017 (No Bootstrap)](file:///d:/DEV/Tickets/docs/adr/0017-no-bootstrap-policy.md) |
-> [ADR-0020 (Corporate Skinning)](file:///d:/DEV/Tickets/docs/adr/0020-corporate-skinning-provider.md) |
-> [frontend_assets.md](file:///d:/DEV/Tickets/docs/frontend_assets.md) |
-> [instructions.md §7-§8](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:** [ADR-0005 (SFC/Tailwind)](file:///d:/DEV/Tickets/docs/adr/0005-ui-sfc-tailwind.md)
+> | [ADR-0017 (No Bootstrap)](file:///d:/DEV/Tickets/docs/adr/0017-no-bootstrap-policy.md)
+> | [ADR-0020 (Corporate Skinning)](file:///d:/DEV/Tickets/docs/adr/0020-corporate-skinning-provider.md)
+> | [frontend_assets.md](file:///d:/DEV/Tickets/docs/frontend_assets.md)
+> | [instructions.md §7-§8](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 

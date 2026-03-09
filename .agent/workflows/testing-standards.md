@@ -8,9 +8,9 @@ description: Standards and workflow for writing tests (Unit & Integration) in
 Dieser Workflow definiert die vollständigen Test-Standards für das TicketsPlease
 Projekt. Tests sind **kein Nachgedanke**, sondern treiben das Design (TDD).
 
-> **Referenz:** [ADR-0006 (Testing Strategy)](file:///d:/DEV/Tickets/docs/adr/0006-testing-strategy.md) |
-> [nuget_stack.md §5](file:///d:/DEV/Tickets/docs/nuget_stack.md) |
-> [instructions.md §10](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:** [ADR-0006 (Testing Strategy)](file:///d:/DEV/Tickets/docs/adr/0006-testing-strategy.md)
+> | [nuget_stack.md §5](file:///d:/DEV/Tickets/docs/nuget_stack.md)
+> | [instructions.md §10](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 

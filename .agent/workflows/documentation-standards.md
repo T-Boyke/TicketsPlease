@@ -9,9 +9,9 @@ Dieser Workflow definiert die vollständigen Dokumentations-Standards für das
 TicketsPlease Projekt. Dokumentation veraltet nicht, wenn sie automatisiert
 und systematischer Bestandteil des Workflows ist.
 
-> **Referenz:** [README §6 – Extensive Dokumentation](file:///d:/DEV/Tickets/README.md) |
-> [ADR-Index](file:///d:/DEV/Tickets/docs/adr/README.md) |
-> [instructions.md §13](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:** [README §6 – Extensive Dokumentation](file:///d:/DEV/Tickets/README.md)
+> | [ADR-Index](file:///d:/DEV/Tickets/docs/adr/README.md)
+> | [instructions.md §13](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 
@@ -35,8 +35,8 @@ Nutze die offiziellen [Microsoft XML Documentation Tags](https://learn.microsoft
 
 ```csharp
 /// <summary>
-/// Verarbeitet den <see cref="CreateTicketCommand"/> und persistiert ein neues Ticket
-/// in der Datenbank.
+/// Verarbeitet den <see cref="CreateTicketCommand"/> und persistiert ein
+/// neues Ticket in der Datenbank.
 /// </summary>
 /// <remarks>
 /// Dieser Handler wird automatisch über die MediatR Pipeline aufgerufen.
@@ -68,7 +68,8 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
     /// <exception cref="DbUpdateConcurrencyException">
     /// Wird geworfen, wenn ein Concurrency-Konflikt auftritt.
     /// </exception>
-    public async Task<Guid> Handle(CreateTicketCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateTicketCommand req,
+        CancellationToken ct)
     {
         var ticket = Ticket.Create(request.Title, request.Description, request.GeoIpTimestamp);
         await _ticketRepository.AddAsync(ticket, cancellationToken);
@@ -142,8 +143,8 @@ stateDiagram-v2
 ### Wann aktualisieren?
 
 - Bei **jedem Feature**, **Bugfix** oder **Breaking Change**.
-- Der CHANGELOG dokumentiert die **nutzerrelevanten** Änderungen (nicht jeden
-  einzelnen Refactoring-Commit).
+- Der CHANGELOG dokumentiert die **nutzerrelevanten** Änderungen (nicht
+  jeden einzelnen Refactoring-Commit).
 
 ### Format ([Keep a Changelog](https://keepachangelog.com/))
 
@@ -173,7 +174,7 @@ stateDiagram-v2
 | UI-Wireframes & Mockups | `/docs/mockups/` |
 | Finale Screenshots (IHK) | `/docs/mockups/` |
 | Grafiken & Logos | `/docs/assets/` → später `wwwroot/images/` |
-| Platzhalter-Bilder | [Placehold.co](https://placehold.co/) (Open Source SVG) |
+| Platzhalter     | [Placehold.co](https://placehold.co/) (Open Source SVG) |
 
 ---
 
@@ -181,11 +182,11 @@ stateDiagram-v2
 
 | Situation | Regel |
 | --- | --- |
-| **Komplexe Logik** | Erkläre das **"Warum"**, nicht das "Was" (das sieht man im Code). |
+| **Logik** | Erkläre das **"Warum"**, nicht das "Was". |
 | **TODO/FIXME** | `// TODO(username): Beschreibung` mit GitHub Issue Referenz. |
 | **Workarounds** | Dokumentiere den Grund und die geplante Lösung. |
 | **Magic Numbers** | Extrahiere in benannte Konstanten mit XML-Kommentar. |
 
 ---
 
-### Zusammenfassung: XML-Docs ✓, ADR ✓, Mermaid ✓, CHANGELOG ✓, Mockups ✓, Inline-Docs ✓
+### Zusammenfassung

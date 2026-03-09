@@ -10,8 +10,8 @@ description: Debugs and optimizes EF Core queries, detects N+1 problems,
 
 Dieses Skill hilft bei der Diagnose und Optimierung von EF Core Problemen.
 
-> **Referenz:** [Architecture Rules §EF Core](file:///d:/DEV/Tickets/.agent/rules/architecture.md) |
-> [/ef-core-migration](file:///d:/DEV/Tickets/.agent/workflows/ef-core-migration.md)
+> **Referenz:** [Architecture Rules §EF Core](file:///d:/DEV/Tickets/.agent/rules/architecture.md)
+| [/ef-core-migration](file:///d:/DEV/Tickets/.agent/workflows/ef-core-migration.md)
 
 ---
 

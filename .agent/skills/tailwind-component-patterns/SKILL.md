@@ -47,7 +47,8 @@ UI-Patterns mit TailwindCSS 4.2, Theme-Support und BFSG-konformer Accessibility.
 ### Farbe & Theme
 
 - **CSS Custom Properties** für Konsistenz über das gesamte System
-- **Dominante Farben mit scharfen Akzenten** – Keine zaghaften, gleichmäßig verteilten Paletten
+- **Dominante Farben mit scharfen Akzenten** – Keine zaghaften, gleichmäßig
+  verteilten Paletten
 - Jede Farbentscheidung muss **bewusst und mutig** sein
 
 ### Motion & Animation
