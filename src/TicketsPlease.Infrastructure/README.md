@@ -1,49 +1,69 @@
 # 🔴 TicketsPlease.Infrastructure – Die Technik
 
-Hier werden die technischen Details implementiert. Dieser Layer kümmert sich um
-die Persistenz, externe APIs und systemnahe Dienste.
+Hier werden die technischen Details implementiert. Dieser Layer kümmert sich um die Persistenz, externe APIs und systemnahe Dienste.
 
 ## 🍴 Git Branch
 
 - **Branch:** `layer/infrastructure`
 - Alle Änderungen am Infrastructure-Layer müssen auf diesem Branch erfolgen.
 
-## 📋 Arbeitsanweisungen für Infrastructure-Entwickler
+---
 
-### 1. Persistence (EF Core)
+## 📋 Arbeitsanweisung: Persistenz & Repositories
 
-- **Repositories:** Implementiere die Interfaces aus dem Application-Layer.
-- **AppDbContext:** Konfiguriere hier das Datenmapping (Fluent API).
-- **Strikte Policy:** Lesezugriffe immer mit `.AsNoTracking()`.
-- **Migrations:** Erstelle Datenbank-Migrationen immer in diesem Projekt.
+### 1. Repositories implementieren
 
-### 2. Identity & Security
+Repositories implementieren die Interfaces aus dem Application-Layer. Sie nutzen den `AppDbContext`.
 
-- Konfiguration von ASP.NET Core Identity.
-- Implementierung von Token-Services oder Auth-Providern.
+```csharp
+public class TicketRepository : ITicketRepository {
+    private readonly AppDbContext _context;
+    public TicketRepository(AppDbContext context) => _context = context;
 
-### 3. External Services
+    public async Task<Ticket?> GetByIdAsync(Guid id, CancellationToken ct) {
+        return await _context.Tickets
+            .AsNoTracking() // Pflicht bei Lesezugriffen!
+            .FirstOrDefaultAsync(t => t.Id == id, ct);
+    }
+}
+```
 
-- Anbindung von Mail-Servern (Smtp), Caching (Redis) oder Cloud-Storage.
-- Nutze die Dependency Injection, um diese Dienste verfügbar zu machen.
+### 2. Datenbank-Migrationen
 
-### 4. Concurrency Management
+Migrationen werden über die CLI im Infrastructure-Projekt verwaltet.
 
-- Behandle `DbUpdateConcurrencyException` explizit in den Write-Operationen.
-- Nutze die `RowVersion` (Timestamp) für optimistische Nebenläufigkeit.
+- **Befehl**: `dotnet ef migrations add [Name] --project src/TicketsPlease.Infrastructure --startup-project src/TicketsPlease.Web`
+
+---
+
+## 🛠️ Dependency Injection (DI) Connector
+
+Die Registrierung erfolgt explizit, da wir oft unterschiedliche Implementierungen (z.B. MailMock vs. Smtp) haben.
+
+- **Ort**: `DependencyInjection.cs`
+- **Methode**: `AddInfrastructureServices`
+
+**Wichtig**: Wenn du einen neuen Service/Repository hinzufügst, musst du ihn hier registrieren:
+
+```csharp
+services.AddScoped<ITicketRepository, TicketRepository>();
+```
+
+---
 
 ## 📁 Struktur
 
-- `Persistence/`: DB-Kontext, Repositories, Konfigurationen und Migrations.
-- `Services/`: Implementierung von Infrastruktur-Diensten (z.B. `MailKitService`).
-- `Identity/`: User-Management und Auth-Logik.
+- `Persistence/`: `AppDbContext`, EF-Konfigurationen und Migrations.
+- `Services/`: Implementierung externer Dienste (Mail, FileStorage).
+- `Identity/`: User-Management und Auth-Provider.
 
 ---
 
 ## 🔗 Connectors
 
-- **Application Layer:** Implementiert die dort definierten Interfaces.
-- **SQL Server:** Direkte Anbindung über EF Core.
+- **Application Layer:** Wir implementieren deren Contracts.
+- **Datenbank:** SQL Server (Produktion) / SQLite (Tests).
+- **DI Container:** Wir stellen die Implementierungen für das gesamte System bereit.
 
 > [!IMPORTANT]
-> Nutze für manuelle Transaktionen immer die `ExecutionStrategy` (RetryPolicy)!
+> Nutze für Datenbank-Operationen immer die `ExecutionStrategy` (Polly), um transiente Fehler abzufangen!

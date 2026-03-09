@@ -1,53 +1,69 @@
 # 🔵 TicketsPlease.Web – Die Präsentation
 
-Dieser Layer ist für die Interaktion mit dem Benutzer zuständig. Er umfasst das
-Web-Frontend, die API-Endpunkte und das gesamte UI/UX-Design.
+Dieser Layer ist für die Interaktion mit dem Benutzer zuständig. Er umfasst das Web-Frontend, die API-Endpunkte und das gesamte UI/UX-Design.
 
 ## 🍴 Git Branch
 
 - **Branch:** `layer/web`
 - Alle Änderungen am Web-Layer müssen auf diesem Branch erfolgen.
 
-## 📋 Arbeitsanweisungen für Web-Entwickler
+---
 
-### 1. Thin Controllers
+## 📋 Arbeitsanweisungen: Wie erstelle ich ein Feature im Web?
 
-- Controller dienen nur als Einstiegspunkt.
-- Delegiere jegliche Logik sofort an den Application-Layer via **MediatR**.
-- Rückgabewerte sind in der Regel `View()` oder `IActionResult`.
+### 1. Thin Controllers (Standard)
 
-### 2. Frontend Excellence (Tailwind CSS 4.2)
+Controller dürfen **keine** Logik enthalten. Sie nehmen Daten an und senden sie an MediatR.
 
-- Nutze das **lokale Tailwind-CLI** (kein Bootstrap!).
-- Abstrahiere wiederkehrende Styles mit `@apply` in den entsprechenden
-  Komponenten-CSS-Dateien (`btn.css`, `cards.css`, etc.).
-- Halte CSHTML-Dateien sauber von Business-Logik.
+```csharp
+public class TicketsController : Controller {
+    private readonly ISender _sender;
+    public TicketsController(ISender sender) => _sender = sender;
 
-### 3. UI/UX & Barrierefreiheit (a11y)
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateTicketCommand command, CancellationToken ct) {
+        var id = await _sender.Send(command, ct);
+        return RedirectToAction(nameof(Details), new { id });
+    }
+}
+```
 
-- Entwickle nach dem **BFSG**-Standard.
-- Nutze semantisches HTML5 und korrekte `aria-`-Attribute.
-- Gewährleiste vollständige Keyboard-Navigation.
+### 2. Frontend Workflow (Tailwind CSS 4.2)
 
-### 4. Theme-Switching
+Wir nutzen ein node-freies Build-System. Alles wird über die `TailwindCSS.MSBuild` gesteuert.
 
-- Das System unterstützt Dark- und Light-Mode nativ über CSS-Variablen in `theme.css`.
-- Nutze den `ICorporateSkinProvider` für dynamische Branding-Anpassungen.
+- **CSS Abstraktion**: Schreib keine langen Utility-Ketten in HTML. Nutze `@apply` in `css/components/`.
+- **Naming**: Klassen-Ketten in Razor-Dateien sollten lesbar bleiben.
+
+### 3. Sicherheit (Pflicht)
+
+- **XSS**: Alle User-generierten Inhalte (besonders Markdown) **müssen** mit `DOMPurify` im JavaScript gesäubert werden.
+- **CSRF**: Nutze `[ValidateAntiForgeryToken]` für alle POST/PUT/DELETE Aktionen.
+
+---
+
+## 🛠️ Dependency Injection (DI) Connector
+
+Die Registrierung der Web-Dienste erfolgt in:
+
+- **Ort**: `Program.cs` / `DependencyInjection.cs`
+- **Wichtig**: Hier werden Controller, ViewComponents und der `ICorporateSkinProvider` konfiguriert.
+
+---
 
 ## 📁 Struktur
 
-- `Controllers/`: MVC & API Controller.
-- `Views/`: Razor Views und Partials.
-- `Views/Shared/Components/`: Wiederverwendbare ViewComponents.
-- `wwwroot/`: Statische Dateien (JS-Libs, Bilder).
-- `css/components/`: Komponenten-spezifische CSS-Styles.
+- `Controllers/`: Dünne Brücken zur Application Layer.
+- `Views/`: Razor-Templates (SFC - Single File Component Style angestrebt).
+- `css/components/`: Abstrahierte UI-Styles (Cards, Buttons, Layout).
+- `wwwroot/`: Alle statischen Assets (lokal via LibMan verwaltet).
 
 ---
 
 ## 🔗 Connectors
 
-- **Application Layer:** Wird über MediatR Commands/Queries konsumiert.
-- **Frontend Assets:** Lokale Verwaltung via `libman.json`.
+- **Application Layer:** Konsumiert Use Cases via MediatR.
+- **Infrastructure Layer:** Konsumiert Konfigurationen für Auth & Identity.
 
 > [!IMPORTANT]
-> Nutze DOMPurify für alle Markdown-Outputs, um XSS-Angriffe zu verhindern!
+> Keine Logik in Views! Wenn eine View ein `if` oder eine Schleife braucht, die über UI-Zustand hinausgeht, gehört das in die Application Layer.

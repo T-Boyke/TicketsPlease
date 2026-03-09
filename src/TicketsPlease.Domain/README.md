@@ -1,51 +1,71 @@
 # 🟢 TicketsPlease.Domain – Der Core
 
-Dies ist der wichtigste Layer der Anwendung. Hier leben die **Geschäftsregeln**
-und die **Fachlichkeit**. Dieser Layer ist völlig isoliert von technischen
-Details (Datenbanken, UI, Frameworks).
+Dies ist der wichtigste Layer der Anwendung. Hier leben die **Geschäftsregeln** und die **Fachlichkeit**. Dieser Layer ist völlig isoliert von technischen Details (Datenbanken, UI, Frameworks).
 
 ## 🍴 Git Branch
 
 - **Branch:** `layer/domain`
 - Alle Änderungen am Domain-Layer müssen auf diesem Branch erfolgen.
 
-## 📋 Arbeitsanweisungen für Domain-Entwickler
+---
 
-### 1. Zero Dependencies
+## 🧠 Domain-Driven Design (DDD) Grundlagen
 
-- Dieses Projekt darf **keine** NuGet-Pakete referenzieren (Ausnahme: `MediatR.Contracts`).
-- Wir nutzen reines C#. Absolute Isolation ist Pflicht.
+### 1. Rich Domain Model vs. Anemic Domain Model
 
-### 2. Rich Domain Models
+Wir nutzen **Rich Domain Models**. Das bedeutet: Die Entity ist kein bloßer Datencontainer, sondern verwaltet ihren eigenen Zustand.
 
-- **Keine anämischen Modelle:** Entities haben Logik!
-- **Private Setter:** Properties dürfen nicht von außen manipuliert werden (`private set`).
-- **Verhaltensmethoden:** Zustandsänderungen erfolgen über explizite Methoden
-  (z.B. `ticket.MoveToReview()`).
+**❌ FALSCH (Anemic):**
 
-### 3. Value Objects
+```csharp
+public class Ticket {
+    public string Status { get; set; } // Von außen manipulierbar
+}
+// Im Services: ticket.Status = "Closed";
+```
 
-- Nutze Value Objects für komplexe Typen (`EmailAddress`, `PriorityLevel`, `Sha1Hash`).
-- Gleichheit wird über den Wert definiert, nicht über die Identität.
+**✅ RICHTIG (Rich):**
 
-### 4. Domain Events
+```csharp
+public class Ticket {
+    public string Status { get; private set; } // Nur von innen änderbar
 
-- Löse fachliche Seiteneffekte über Domain Events (`INotification`) aus.
-- Handler reagieren entkoppelt in der Application oder Infrastructure Layer.
+    public void Close(string reason) {
+        if (string.IsNullOrEmpty(reason)) throw new DomainException("Reason required");
+        Status = "Closed";
+        AddDomainEvent(new TicketClosedEvent(this, reason));
+    }
+}
+```
+
+### 2. Value Objects
+
+Value Objects sind kleine Objekte ohne Identität. Sie machen den Code sicherer. Statt eines einfachen `string` für eine E-Mail nutzen wir `EmailAddress`.
+
+---
+
+## 📋 Arbeitsanweisungen: Wie erstelle ich eine Entity?
+
+1.  **Erstelle die Klasse** im Ordner `Entities/`.
+2.  **Properties**: Nutze `private set`, um unkontrollierte Änderungen zu verhindern.
+3.  **Konstruktor**: Erstelle einen internen/privaten parameterlosen Konstruktor für EF Core und einen öffentlichen Konstruktor, der alle Pflichtfelder validiert.
+4.  **Verhalten**: Implementiere Methoden für Zustandsänderungen (z.B. `AssignToUser`).
+5.  **Dokumentation**: Nutze XML-Tags für **jede** Methode und Property.
+
+---
 
 ## 📁 Struktur
 
-- `Entities/`: Rich Models (Ticket, User, Team).
-- `ValueObjects/`: Unveränderliche Typen.
-- `Events/`: Domain-spezifische Notifications.
-- `Enums/`: Status- und Prioritäts-Definitionen.
+- `Entities/`: Kern-Objekte (z.B. `Ticket`, `Member`).
+- `ValueObjects/`: Komplexe Typen (z.B. `Priority`, `GeoLocation`).
+- `Events/`: Benachrichtigungen über fachliche Änderungen.
+- `Exceptions/`: Fehler, die rein fachlicher Natur sind.
 
 ---
 
 ## 🔗 Connectors
 
-- **Application Layer:** Nutzt die Entities und Events, um Use Cases abzubilden.
-- **Infrastructure Layer:** Mappt diese Entities auf das Datenbankschema.
+- **DI Connection**: Dieser Layer benötigt **keine** Dependency Injection Registrierung, da er keine Services implementiert, sondern nur Daten und Regeln definiert.
 
 > [!IMPORTANT]
-> Denke an die **Geo/IP Timestamps** bei jeder Erstellung/Änderung einer Entity!
+> Keine Abhängigkeiten zu anderen Projekten! Wenn du etwas aus der Application Layer brauchst, ist das ein Architekturfehler.
