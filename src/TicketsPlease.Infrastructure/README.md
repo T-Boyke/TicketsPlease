@@ -32,14 +32,16 @@ graph TD
 
 ## 🛠️ Arbeitsanweisung: EF Core & Migrationen
 
-1.  **Entity erstellen**: In der `Domain` Layer.
-2.  **Configuration**: Erstelle eine Config-Klasse in `Persistence/Configurations/`
-    (z.B. `TicketConfiguration.cs`), um Tabellennamen und Constraints zu definieren.
-3.  **Migration erstellen**:
-    ```bash
-    dotnet ef migrations add [Name] --project src/TicketsPlease.Infrastructure --startup-project src/TicketsPlease.Web
-    ```
-4.  **Datenbank updaten**: Erfolgt automatisch beim Start der App (siehe `DbInitialiser`).
+1. **Entity erstellen**: In der `Domain` Layer.
+2. **Configuration**: Erstelle eine Config-Klasse in `Persistence/Configurations/`
+   (z.B. `TicketConfiguration.cs`), um Tabellennamen und Constraints zu definieren.
+3. **Migration erstellen**:
+
+   ```bash
+   dotnet ef migrations add [Name] --project src/TicketsPlease.Infrastructure --startup-project src/TicketsPlease.Web
+   ```
+
+4. **Datenbank updaten**: Erfolgt automatisch beim Start der App (siehe `DbInitialiser`).
 
 ---
 
@@ -49,7 +51,8 @@ graph TD
 
 Wenn du in einer Liste von Tickets auch die zugewiesenen User laden willst, nutze immer `.Include()`:
 
-- **❌ FALSCH**: `var tickets = _context.Tickets.ToList();` (Lädt User erst beim Zugriff -> 100 Abfragen für 100 Tickets).
+- **❌ FALSCH**: `var tickets = _context.Tickets.ToList();` (Lädt User erst beim Zugriff -> 100
+  Abfragen für 100 Tickets).
 - **✅ RICHTIG**: `var tickets = _context.Tickets.Include(t => t.AssignedUser).ToList();`
 
 ### 2. Tracked vs. No-Tracking

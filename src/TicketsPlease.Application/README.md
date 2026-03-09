@@ -41,9 +41,9 @@ Injection (DI) im Konstruktor.
 
 ### Woher kommen die Services?
 
-1.  **Repositories**: Importiere `ITicketRepository` etc. aus `Contracts/`.
-2.  **Infrastructure**: Wenn du Emails senden willst, nutze `IEmailService`.
-3.  **Domain**: Die Entities werden direkt genutzt (sie haben keine DI).
+1. **Repositories**: Importiere `ITicketRepository` etc. aus `Contracts/`.
+2. **Infrastructure**: Wenn du Emails senden willst, nutze `IEmailService`.
+3. **Domain**: Die Entities werden direkt genutzt (sie haben keine DI).
 
 **Handler-Vorlage:**
 
@@ -61,10 +61,10 @@ public class MyHandler : IRequestHandler<MyRequest, MyResult> {
 
 ## 📋 Arbeitsanweisung: Use Case Blueprint
 
-1.  **Slice erstellen**: Eine Datei in `Features/` (z.B. `AssignTicket.cs`).
-2.  **Request Type**: Nutze `record` für Commands/Queries.
-3.  **Validation**: Erstelle eine Klasse, die von `AbstractValidator<T>` erbt.
-4.  **Handler**: Implementiere `IRequestHandler`. Halte ihn kurz (Logik in die Domain!).
+1. **Slice erstellen**: Eine Datei in `Features/` (z.B. `AssignTicket.cs`).
+2. **Request Type**: Nutze `record` für Commands/Queries.
+3. **Validation**: Erstelle eine Klasse, die von `AbstractValidator<T>` erbt.
+4. **Handler**: Implementiere `IRequestHandler`. Halte ihn kurz (Logik in die Domain!).
 
 ---
 

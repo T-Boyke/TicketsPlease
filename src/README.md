@@ -77,7 +77,20 @@ wo du dich als Neuling am besten zuerst einarbeitest.
 
 ---
 
-## 📍 Startpunkte: "Ich möchte..."
+## 🏗️ Layer & Zuständigkeiten
+
+Hier siehst du auf einen Blick, welcher Layer für welche Aufgabe zuständig ist.
+
+| Layer              | Farbe | Kurzbeschreibung                           | Dokumentation                                    |
+| :----------------- | :---- | :----------------------------------------- | :----------------------------------------------- |
+| **Domain**         | 🟢    | Enterprise Logic (Entities, Value Objects) | [README](TicketsPlease.Domain/README.md)         |
+| **Application**    | 🟡    | Use Case Logic (CQRS, DTOs, Handlers)      | [README](TicketsPlease.Application/README.md)    |
+| **Infrastructure** | 🔴    | Technical Logic (DB, Email, Storage)       | [README](TicketsPlease.Infrastructure/README.md) |
+| **Web**            | �     | Presentation Logic (UI, Controller, API)   | [README](TicketsPlease.Web/README.md)            |
+
+---
+
+## �📍 Startpunkte: "Ich möchte..."
 
 Finde hier den direkten Einstiegspunkt für deine aktuelle Aufgabe:
 
@@ -91,9 +104,7 @@ Finde hier den direkten Einstiegspunkt für deine aktuelle Aufgabe:
 
 ## 🏗️ Architektur-Garantie
 
-Abhängigkeiten zeigen **immer nur nach innen**. Ein "Outer Layer" darf niemals direkt wissen,
-was in einem anderen "Outer Layer" passiert.
+Abhängigkeiten zeigen **immer nur nach innen** (Richtung Domain). Ein "Outer Layer" darf niemals
+direkt wissen, was in einem anderen Layer passiert (z.B. Web -> Infrastructure).
 
-👉 **Klicke auf die Layer für detaillierte Arbeitsanweisungen:**
-[Domain](TicketsPlease.Domain/README.md) | [Application](TicketsPlease.Application/README.md) |
-[Infrastructure](TicketsPlease.Infrastructure/README.md) | [Web](TicketsPlease.Web/README.md)
+👉 **Detaillierte Arbeitsanweisungen findest du in den jeweiligen READMEs (siehe Tabelle oben).**

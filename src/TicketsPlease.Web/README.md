@@ -40,12 +40,12 @@ graph TD
 
 Damit unsere UI "premium" bleibt, folgen wir diesen Styling-Regeln:
 
-1.  **Keine Utility-Wüsten**: Wenn eine Klasse mehr als 5 Utilities hat, abstrahiere sie in
-    `css/components/` via `@apply`.
-2.  **Farben**: Nutze ausschließlich die vordefinierten CSS-Variablen aus dem Design System
-    (z.B. `var(--brand-primary)`).
-3.  **Responsive**: Designe immer "Mobile First" (`sm:`, `md:`, `lg:`).
-4.  **Dark Mode**: Nutze das `dark:` Präfix für alle Oberflächen.
+1. **Keine Utility-Wüsten**: Wenn eine Klasse mehr als 5 Utilities hat, abstrahiere
+   sie in `css/components/` via `@apply`.
+2. **Farben**: Nutze ausschließlich die vordefinierten CSS-Variablen aus dem Design System
+   (z.B. `var(--brand-primary)`).
+3. **Responsive**: Designe immer "Mobile First" (`sm:`, `md:`, `lg:`).
+4. **Dark Mode**: Nutze das `dark:` Präfix für alle Oberflächen.
 
 **Beispiel Komponente:**
 
@@ -59,11 +59,11 @@ Damit unsere UI "premium" bleibt, folgen wir diesen Styling-Regeln:
 
 ## 📋 Arbeitsanweisung: Neuer Controller / View
 
-1.  **Dünner Controller**: In `Controllers/`. Er darf nur `_sender.Send()` aufrufen.
-2.  **ViewModel**: Erstelle ein spezifisches ViewModel für die View. Mappe das DTO aus der
-    Application Layer darauf.
-3.  **Razor View**: Erstelle die `.cshtml` Datei. Achte auf semantisches HTML.
-4.  **Security**: Aktiviere Antiforgery-Tokens und nutze `DOMPurify` für dynamische Inhalte.
+1. **Dünner Controller**: In `Controllers/`. Er darf nur `_sender.Send()` aufrufen.
+2. **ViewModel**: Erstelle ein spezifisches ViewModel für die View. Mappe das DTO aus der
+   Application Layer darauf.
+3. **Razor View**: Erstelle die `.cshtml` Datei. Achte auf semantisches HTML.
+4. **Security**: Aktiviere Antiforgery-Tokens und nutze `DOMPurify` für dynamische Inhalte.
 
 ---
 

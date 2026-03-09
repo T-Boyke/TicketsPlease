@@ -44,11 +44,11 @@ public class Ticket {
 
 ## 📋 Arbeitsanweisungen: Wie erstelle ich eine Entity?
 
-1.  **Klasse erstellen**: In `Entities/`.
-2.  **Abstraktion**: Erbe von `BaseEntity` (für ID, Auditing).
-3.  **Encapsulation**: Alle Properties haben `private set`.
-4.  **Validierung**: Prüfe Regeln direkt in den Methoden (Guard Clauses).
-5.  **Audit**: Denke an die Geo/IP Timestamps bei jeder Änderung!
+1. **Klasse erstellen**: In `Entities/`.
+2. **Abstraktion**: Erbe von `BaseEntity` (für ID, Auditing).
+3. **Encapsulation**: Alle Properties haben `private set`.
+4. **Validierung**: Prüfe Regeln direkt in den Methoden (Guard Clauses).
+5. **Audit**: Denke an die Geo/IP Timestamps bei jeder Änderung!
 
 ---
 
