@@ -1,0 +1,52 @@
+{
+    "id": "de-de",
+    "version": "0.2",
+    "name": "German Dictionary",
+    "description": "German (de-DE) Dictionary.",
+    "readonly": true,
+    "dictionaryDefinitions": [
+        {
+            "name": "de-de",
+            "path": "./de_DE.trie.gz",
+            "description": "German (de-DE) Dictionary.",
+            "ignoreForbiddenWords": true,
+            "repMap": [
+                ["ae", "ä"],
+                ["oe", "ö"],
+                ["ue", "ü"],
+                ["Ae|AE", "Ä"],
+                ["Oe|OE", "Ö"],
+                ["Ue|UE", "Ü"],
+                ["ss", "ß"]
+            ],
+            "dictionaryInformation": {
+                "locale": "de-DE",
+                "alphabet": "a-zA-ZäüößáéêàâñÄÜÖÉ",
+                "suggestionEditCosts": [
+                    {
+                        "map": "(ae)ä|(oe)ö|(ue)ü(Ae)Ä|(Oe)Ö|(Ue)Ü|(ss)ß",
+                        "replace": 0
+                    },
+                    {
+                        "map": "eéèëê|aáà|iíìïî|oóòöô|uüúùû|(ij)(ĳ)(IJ)(Ĳ)",
+                        "replace": 1
+                    },
+                    {
+                        "map": "(ah)a|(ch)k|(ee)e|(eh)e|(ph)f|(th)t|dt|i(ie)|o(oh)|r(rh)|s(ss)|t(th)",
+                        "replace": 50
+                    }
+                ]
+            }
+        }
+    ],
+    "dictionaries": [],
+    "languageSettings": [
+        {
+            "languageId": "*",
+            "locale": "de,de_DE",
+            "caseSensitive": true,
+            "dictionaries": ["de-de"],
+            "dictionaryDefinitions": []
+        }
+    ]
+}
