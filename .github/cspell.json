@@ -47,6 +47,6 @@
     "obj",
     "bin",
     "*.slnx",
-    ".github/dict-de.txt"
+    "**/dict-de.txt"
   ]
 }
