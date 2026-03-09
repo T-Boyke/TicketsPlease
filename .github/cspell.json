@@ -3,7 +3,7 @@
   "language": "en,de",
   "dictionaryDefinitions": [
     {
-      "name": "projekt-deutsch",
+      "name": "project-german",
       "path": "dict-de.txt",
       "addWords": true
     }
@@ -16,7 +16,7 @@
     "csharp",
     "html",
     "css",
-    "projekt-deutsch"
+    "project-german"
   ],
   "words": [
     "TicketsPlease",
