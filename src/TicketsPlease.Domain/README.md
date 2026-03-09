@@ -1,8 +1,11 @@
 # 🟢 TicketsPlease.Domain – Der Core
 
-Dies ist der wichtigste Layer der Anwendung. Hier leben die **Geschäftsregeln** und die **Fachlichkeit**. Dieser Layer ist völlig isoliert von technischen Details (Datenbanken, UI, Frameworks).
+Dies ist der wichtigste Layer der Anwendung. Hier leben die **Geschäftsregeln**
+und die **Fachlichkeit**. Dieser Layer ist völlig isoliert von technischen
+Details (Datenbanken, UI, Frameworks).
 
 ## 🍴 Git Branch
+
 - **Branch:** `layer/domain`
 - Alle Änderungen am Domain-Layer müssen auf diesem Branch erfolgen.
 
@@ -17,7 +20,8 @@ Dies ist der wichtigste Layer der Anwendung. Hier leben die **Geschäftsregeln**
 
 - **Keine anämischen Modelle:** Entities haben Logik!
 - **Private Setter:** Properties dürfen nicht von außen manipuliert werden (`private set`).
-- **Verhaltensmethoden:** Zustandsänderungen erfolgen über explizite Methoden (z.B. `ticket.MoveToReview()`).
+- **Verhaltensmethoden:** Zustandsänderungen erfolgen über explizite Methoden
+  (z.B. `ticket.MoveToReview()`).
 
 ### 3. Value Objects
 
@@ -39,6 +43,7 @@ Dies ist der wichtigste Layer der Anwendung. Hier leben die **Geschäftsregeln**
 ---
 
 ## 🔗 Connectors
+
 - **Application Layer:** Nutzt die Entities und Events, um Use Cases abzubilden.
 - **Infrastructure Layer:** Mappt diese Entities auf das Datenbankschema.
 

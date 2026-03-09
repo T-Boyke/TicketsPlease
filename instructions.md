@@ -194,7 +194,8 @@ ticket.Status = TicketStatus.InReview;
 
 ## 4. ⚡ CQRS & MediatR Pipeline
 
-> **Referenz:** [ADR-0009](file:///d:/DEV/Tickets/docs/adr/0009-cqrs-mediatr.md) | [ADR-0010](file:///d:/DEV/Tickets/docs/adr/0010-validation-fluentvalidation.md)
+> **Referenz:** [ADR-0009](file:///d:/DEV/Tickets/docs/adr/0009-cqrs-mediatr.md) \|
+> [ADR-0010](file:///d:/DEV/Tickets/docs/adr/0010-validation-fluentvalidation.md)
 
 ### Pipeline Execution Order
 
@@ -220,7 +221,8 @@ flowchart LR
 
 ## 5. 🗄️ EF Core Strict Policy
 
-> **Referenz:** [ADR-0019](file:///d:/DEV/Tickets/docs/adr/0019-ef-core-resilience-concurrency.md) | [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md)
+> **Referenz:** [ADR-0019](file:///d:/DEV/Tickets/docs/adr/0019-ef-core-resilience-concurrency.md) \|
+> [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md)
 
 | Regel | Beschreibung |
 | --- | --- |
@@ -266,7 +268,10 @@ flowchart TD
 
 ## 7. 🎨 UI/UX Excellence (Tailwind Way)
 
-> **Referenz:** README §4 | [ADR-0005](file:///d:/DEV/Tickets/docs/adr/0005-ui-sfc-tailwind.md) | [ADR-0017](file:///d:/DEV/Tickets/docs/adr/0017-no-bootstrap-policy.md) | [frontend_assets.md](file:///d:/DEV/Tickets/docs/frontend_assets.md)
+> **Referenz:** README §4 \|
+> [ADR-0005](file:///d:/DEV/Tickets/docs/adr/0005-ui-sfc-tailwind.md) \|
+> [ADR-0017](file:///d:/DEV/Tickets/docs/adr/0017-no-bootstrap-policy.md) \|
+> [frontend_assets.md](file:///d:/DEV/Tickets/docs/frontend_assets.md)
 
 ### Fundamentale Regeln
 
@@ -349,8 +354,8 @@ css/components/
 
 ## 10. 🧪 Testing Excellence (TDD)
 
-> **Referenz:** README §6 | [ADR-0006](file:///d:/DEV/Tickets/docs/adr/0006-testing-strategy.md)
-> | [nuget_stack.md](file:///d:/DEV/Tickets/docs/nuget_stack.md)
+> **Referenz:** README §6 \| [ADR-0006](file:///d:/DEV/Tickets/docs/adr/0006-testing-strategy.md)
+> \| [nuget_stack.md](file:///d:/DEV/Tickets/docs/nuget_stack.md)
 
 ### TDD-Zyklus (Pflicht!)
 

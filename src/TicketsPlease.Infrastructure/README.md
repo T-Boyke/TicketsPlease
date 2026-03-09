@@ -1,8 +1,10 @@
 # 🔴 TicketsPlease.Infrastructure – Die Technik
 
-Hier werden die technischen Details implementiert. Dieser Layer kümmert sich um die Persistenz, externe APIs und systemnahe Dienste.
+Hier werden die technischen Details implementiert. Dieser Layer kümmert sich um
+die Persistenz, externe APIs und systemnahe Dienste.
 
 ## 🍴 Git Branch
+
 - **Branch:** `layer/infrastructure`
 - Alle Änderungen am Infrastructure-Layer müssen auf diesem Branch erfolgen.
 
@@ -39,6 +41,7 @@ Hier werden die technischen Details implementiert. Dieser Layer kümmert sich um
 ---
 
 ## 🔗 Connectors
+
 - **Application Layer:** Implementiert die dort definierten Interfaces.
 - **SQL Server:** Direkte Anbindung über EF Core.
 

@@ -1,8 +1,10 @@
 # 🟡 TicketsPlease.Application – Die Use Cases
 
-Dieser Layer orchestriert die Geschäftsprozesse. Hier wird definiert, **was** die Anwendung tut, ohne sich um das **Wie** (Datenbank, UI) zu kümmern.
+Dieser Layer orchestriert die Geschäftsprozesse. Hier wird definiert, **was** die
+Anwendung tut, ohne sich um das **Wie** (Datenbank, UI) zu kümmern.
 
 ## 🍴 Git Branch
+
 - **Branch:** `layer/application`
 - Alle Änderungen am Application-Layer müssen auf diesem Branch erfolgen.
 
@@ -40,6 +42,7 @@ Dieser Layer orchestriert die Geschäftsprozesse. Hier wird definiert, **was** d
 ---
 
 ## 🔗 Connectors
+
 - **Domain Layer:** Wird genutzt, um Geschäftslogik auszuführen.
 - **Web Layer:** Triggert diesen Layer über MediatR.
 - **Infrastructure Layer:** Implementiert die hier definierten Contracts.

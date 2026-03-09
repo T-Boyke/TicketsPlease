@@ -1,8 +1,10 @@
 # 🔵 TicketsPlease.Web – Die Präsentation
 
-Dieser Layer ist für die Interaktion mit dem Benutzer zuständig. Er umfasst das Web-Frontend, die API-Endpunkte und das gesamte UI/UX-Design.
+Dieser Layer ist für die Interaktion mit dem Benutzer zuständig. Er umfasst das
+Web-Frontend, die API-Endpunkte und das gesamte UI/UX-Design.
 
 ## 🍴 Git Branch
+
 - **Branch:** `layer/web`
 - Alle Änderungen am Web-Layer müssen auf diesem Branch erfolgen.
 
@@ -17,7 +19,8 @@ Dieser Layer ist für die Interaktion mit dem Benutzer zuständig. Er umfasst da
 ### 2. Frontend Excellence (Tailwind CSS 4.2)
 
 - Nutze das **lokale Tailwind-CLI** (kein Bootstrap!).
-- Abstrahiere wiederkehrende Styles mit `@apply` in den entsprechenden Komponenten-CSS-Dateien (`btn.css`, `cards.css`, etc.).
+- Abstrahiere wiederkehrende Styles mit `@apply` in den entsprechenden
+  Komponenten-CSS-Dateien (`btn.css`, `cards.css`, etc.).
 - Halte CSHTML-Dateien sauber von Business-Logik.
 
 ### 3. UI/UX & Barrierefreiheit (a11y)
@@ -42,6 +45,7 @@ Dieser Layer ist für die Interaktion mit dem Benutzer zuständig. Er umfasst da
 ---
 
 ## 🔗 Connectors
+
 - **Application Layer:** Wird über MediatR Commands/Queries konsumiert.
 - **Frontend Assets:** Lokale Verwaltung via `libman.json`.
 
