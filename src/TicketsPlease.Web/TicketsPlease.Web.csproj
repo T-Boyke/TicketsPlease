@@ -27,24 +27,19 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-<Target Name="DownloadTailwindWindows" BeforeTargets="TailwindBuild" Condition="$([MSBuild]::IsOSPlatform('Windows')) And !Exists('tailwindcss.exe')">
-    <Message Importance="high" Text="Downloading Tailwind CLI for Windows..." />
-    <Exec Command="powershell -Command &quot;Invoke-WebRequest -Uri 'https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-windows-x64.exe' -OutFile 'tailwindcss.exe'&quot;" />
+  <Target Name="DownloadTailwind" BeforeTargets="PreBuildEvent">
+    <PropertyGroup>
+      <TailwindUrl Condition="$([MSBuild]::IsOSPlatform('Linux'))">https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64</TailwindUrl>
+      <TailwindUrl Condition="$([MSBuild]::IsOSPlatform('Windows'))">https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-windows-x64.exe</TailwindUrl>
+      <TailwindUrl Condition="$([MSBuild]::IsOSPlatform('OSX'))">https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-macos-x64</TailwindUrl>
+      <TailwindExecutable Condition="$([MSBuild]::IsOSPlatform('Windows'))">tailwindcss.exe</TailwindExecutable>
+      <TailwindExecutable Condition="!$([MSBuild]::IsOSPlatform('Windows'))">tailwindcss</TailwindExecutable>
+    </PropertyGroup>
+    <DownloadFile SourceUrl="$(TailwindUrl)" DestinationFolder="$(MSBuildProjectDirectory)" DestinationFileName="$(TailwindExecutable)" Condition="!Exists('$(MSBuildProjectDirectory)\$(TailwindExecutable)')" />
+    <Exec Command="chmod +x $(TailwindExecutable)" Condition="!$([MSBuild]::IsOSPlatform('Windows'))" />
   </Target>
-
-  <Target Name="DownloadTailwindLinux" BeforeTargets="TailwindBuild" Condition="$([MSBuild]::IsOSPlatform('Linux')) And !Exists('tailwindcss')">
-    <Message Importance="high" Text="Downloading Tailwind CLI for Linux..." />
-    <Exec Command="curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64" />
-    <Exec Command="mv tailwindcss-linux-x64 tailwindcss" />
-    <Exec Command="chmod +x tailwindcss" />
+  <Target Name="RunTailwind" BeforeTargets="Build" DependsOnTargets="DownloadTailwind">
+    <Exec Command="./$(TailwindExecutable) -i styles/app.tailwind.css -o wwwroot/css/app.css" Condition="!$([MSBuild]::IsOSPlatform('Windows'))" />
+    <Exec Command="$(TailwindExecutable) -i styles/app.tailwind.css -o wwwroot/css/app.css" Condition="$([MSBuild]::IsOSPlatform('Windows'))" />
   </Target>
-
-  <Target Name="TailwindBuildWindows" BeforeTargets="Build" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
-    <Exec Command="tailwindcss.exe -i styles\app.tailwind.css -o wwwroot\css\app.css" />
-  </Target>
-
-  <Target Name="TailwindBuildLinux" BeforeTargets="Build" Condition="$([MSBuild]::IsOSPlatform('Linux'))">
-    <Exec Command="./tailwindcss -i styles/app.tailwind.css -o wwwroot/css/app.css" />
-  </Target>
-
 </Project>

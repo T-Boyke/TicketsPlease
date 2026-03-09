@@ -18,6 +18,13 @@
     "../../node_modules/@cspell/dict-software-terms/cspell-ext.json"
   ],
   "language": "en,de",
+  "dictionaryDefinitions": [
+    {
+      "name": "project-german",
+      "path": "dict-de.txt",
+      "addWords": true
+    }
+  ],
   "dictionaries": [
     "en-us",
     "de-de",
@@ -132,6 +139,6 @@
     "obj",
     "bin",
     "*.slnx",
-    ".gitignore"
+    "**/dict-de.txt"
   ]
 }

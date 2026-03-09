@@ -82,9 +82,10 @@ src/
 
 ---
 
-## 1 Class per File (Unverletzlich!)
+## Datei-Disziplin & CQRS-Bündelung
 
-Jede C#-Klasse, jedes Interface, jedes Enum → eigene Datei. Immer.
+- **CQRS-Bündelung:** Um die Token-Effizienz zu steigern und Fragmentierung zu vermeiden, werden `Command`/`Query`, `Validator` und `Handler` eines spezifischen Use Cases **zwingend** in einer einzigen Datei zusammengefasst.
+- **Sonstige Elemente:** Für alle anderen Konstrukte (Entities, Value Objects, generische Interfaces, Enums) gilt weiterhin strikt: **1 Klasse pro Datei**.
 
 ---
 

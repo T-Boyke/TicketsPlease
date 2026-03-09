@@ -37,6 +37,17 @@ jobs:
       with:
         dotnet-version: '10.0.x'
 
+steps:
+    # Vorherige Schritte laden den Quellcode und richten die Umgebung ein
+    
+    # Laedt die Tailwind CLI herunter und konfiguriert zwingend benoetigte Ausfuehrungsrechte
+    - name: Download and Configure Tailwind CLI
+      run: |
+        wget https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64
+        chmod +x tailwindcss-linux-x64
+        mv tailwindcss-linux-x64 tailwindcss
+
+    # Startet den eigentlichen Kompilierungsvorgang der Projektmappe
     - name: Build
       run: dotnet build src/TicketsPlease.slnx
 
