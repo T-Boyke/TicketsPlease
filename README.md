@@ -1,6 +1,7 @@
 # TicketsPlease 🎫
 
-Ein hochmodernes, kollaboratives und skalierbares Kanban-Ticketsystem, entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
+Ein hochmodernes, kollaboratives und skalierbares Kanban-Ticketsystem,
+entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 
 > 💡 **Hintergrund & Entstehung:** Dieses Abschlussprojekt
 > ("Einfaches Ticketsystem") basiert auf fundierten Vorarbeiten und
@@ -85,9 +86,18 @@ Ein hochmodernes, kollaboratives und skalierbares Kanban-Ticketsystem, entwickel
 <details>
 <summary>Mehr erfahren über die Vision...</summary>
 
-Dieses Projekt realisiert ein umfassendes Ticketverwaltungssystem mit dynamischen Kanban-Boards, welches explizit als Abschlussprojekt des c# .net 10 kurses vom dozenten Tom Seelig gefordert und Der Gruppe bestehend aus Tobias und x, y, Z  konzipiert wurde.
+Dieses Projekt realisiert ein umfassendes Ticketverwaltungssystem mit
+dynamischen Kanban-Boards, welches explizit als Abschlussprojekt des c# .net 10
+kurses vom dozenten Tom Seelig gefordert und Der Gruppe bestehend aus Tobias
+und x, y, Z konzipiert wurde.
 
-Der kompromisslose Fokus liegt dabei nicht nur auf reiner Funktionalität, sondern vor allem auf **exzellenter Softwarearchitektur**, **höchster Code-Qualität** und **strikter Testabdeckung**. Ziel ist es, eine Enterprise-grade Applikation zu schaffen, die als Referenz für moderne C# Web-Entwicklung dient. Jeder Aspekt der Anwendung, vom Datenbank-Design bis zur CI/CD-Pipeline, wird nach Best-Practices der Industrie umgesetzt und dokumentiert.
+Der kompromisslose Fokus liegt dabei nicht nur auf reiner Funktionalität,
+sondern vor allem auf **exzellenter Softwarearchitektur**, **höchster
+Code-Qualität** und **strikter Testabdeckung**. Ziel ist es, eine
+Enterprise-grade Applikation zu schaffen, die als Referenz für moderne C#
+Web-Entwicklung dient. Jeder Aspekt der Anwendung, vom Datenbank-Design bis zur
+CI/CD-Pipeline, wird nach Best-Practices der Industrie umgesetzt und
+dokumentiert.
 
 </details>
 
@@ -157,20 +167,20 @@ Das System nutzt einen hochmodernen und perfekt aufeinander abgestimmten Stack:
 <details open>
 <summary>Architektur aufklappen...</summary>
 
-Unsere Softwarearchitektur ist das Rückgrat des Systems. Sie sichert Skalierbarkeit, Wartbarkeit und Erweiterbarkeit für die kommenden Jahre.
+Unsere Softwarearchitektur ist das Rückgrat des Systems. Sie sichert
+Skalierbarkeit, Wartbarkeit und Erweiterbarkeit für die kommenden Jahre.
 
 👉 **Für tiefergehende Details lesen Sie unsere [Architecture Decision Records (ADRs)](docs/adr).**
 
 ### Domain-Driven Design (DDD)
 
-Das System nutzt striktes Domain-Driven Design (DDD) zur physischen und logischen
-Trennung der Fachlichkeit. Dies verhindert "Spaghetti-Code" und sorgt dafür,
-dass die Software exakt die Geschäftsrealität abbildet.
+Das System nutzt striktes Domain-Driven Design (DDD) zur physischen und
+logischen Trennung der Fachlichkeit. Dies verhindert "Spaghetti-Code" und sorgt
+dafür, dass die Software exakt die Geschäftsrealität abbildet.
 
-- **Bounded Contexts:** Wir definieren eindeutige Abgrenzungen der Domänen
-  (z.B. *Identity & Access Context*, *Ticket Management Context*,
-  *Team Collaboration Context*). Jeder Context hat sein eigenes,
-  unantastbares Modell.
+- **Bounded Contexts:** Wir definieren eindeutige Abgrenzungen der Domänen (z.B.
+  *Identity & Access Context*, *Ticket Management Context*, *Team Collaboration
+  Context*). Jeder Context hat sein eigenes, unantastbares Modell.
 - **Ubiquitous Language:** Wir etablieren ein klares, gemeinsames Vokabular für
   Entwickler und Fachexperten. Ein "Ticket" heißt immer "Ticket", ein "Nutzer"
   immer "Nutzer". Diese Sprache spiegelt sich 1:1 im C# Code, in der Datenbank
@@ -205,13 +215,13 @@ Unser Code unterliegt höchsten Qualitätsstandards:
 - **DRY (Don't Repeat Yourself):** Logik wird abstrahiert und wiederverwendet.
   Code-Duplikate werden im Code-Review rigoros abgelehnt.
 - **KISS (Keep It Simple, Stupid) & YAGNI (You Aren't Gonna Need It):** Wir
-  bauen keine komplexen Abstraktionen "für die Zukunft". Wir lösen das aktuelle
-  Problem mit dem einfachsten, lesbarsten und verständlichsten Code.
+  bauen keine komplexen Abstraktionen "für die Zukunft". Wir lösen das
+  aktuelle Problem mit dem einfachsten, lesbarsten und verständlichsten Code.
 
 ### 🧩 Enterprise Plugin Architektur (Extensibility)
 
-Das System ist zukunftssicher darauf ausgelegt, Features aus verschiedenen
-(auch externen) Quellen nachzuladen, ohne den Core-Code anfassen zu müssen
+Das System ist zukunftssicher darauf ausgelegt, Features aus verschiedenen (auch
+externen) Quellen nachzuladen, ohne den Core-Code anfassen zu müssen
 (Offen-Geschlossen-Prinzip).
 
 - **Abstrakte Plugin-Schnittstellen:** Im Core-Domain definieren wir Interfaces
@@ -221,8 +231,9 @@ Das System ist zukunftssicher darauf ausgelegt, Features aus verschiedenen
   Reflection (`Assembly.Load`) oder das C# `ManagedLoadContext` zur Laufzeit
   kompiliierte `.dll`-Dateien (Plugins) aus einem definierten Verzeichnis lädt
   und über Dependency Injection in die Applikation einklinkt.
-- *Beispiele für spätere Plugins:* Externe Time-tracking-Tools (Toggl Integration),
-  Custom-Auth-Provider (SAML/SSO), oder KI-gestützte Ticket-Zusammenfassungen.
+- *Beispiele für spätere Plugins:* Externe Time-tracking-Tools (Toggl
+  Integration), Custom-Auth-Provider (SAML/SSO), oder KI-gestützte
+  Ticket-Zusammenfassungen.
 
 </details>
 
@@ -233,15 +244,17 @@ Das System ist zukunftssicher darauf ausgelegt, Features aus verschiedenen
 <details>
 <summary>Frontend Details aufklappen...</summary>
 
-Das Frontend muss blitzschnell laden, responsiv sein und eine herausragende Developer Experience (DX) bieten. Besonderer Wert liegt auf einer **aufgeräumten und extrem lesbaren CSHTML-Struktur**.
+Das Frontend muss blitzschnell laden, responsiv sein und eine herausragende
+Developer Experience (DX) bieten. Besonderer Wert liegt auf einer **aufgeräumten
+und extrem lesbaren CSHTML-Struktur**.
 
 ### Razor Architecture & Partials (DRY)
 
 Wir nutzen eine streng modulare UI-Architektur. Mittels ASP.NET Core Razor
 CSS-Isolation und dedizierten `ViewComponents` bündeln wir Template (HTML),
-Logik (C#) und domänenspezifisches Styling (CSS) konsequent. Jede UI-Komponente
-(Button, Card, Modal) ist völlig autark und kann ohne Nebenwirkungen
-ausgetauscht oder verschoben werden.
+Logik (C#) und domänenspezifisches Styling (CSS) konsequent. Jede
+UI-Komponente (Button, Card, Modal) ist völlig autark und kann ohne
+Nebenwirkungen ausgetauscht oder verschoben werden.
 
 Ziel ist es, den CSHTML-Code frei von C#-Business-Logik und ausufernden
 CSS-Klassen zu halten (Trennung von Markup und Styling). Wir nutzen ein
@@ -254,14 +267,18 @@ wiederverwendbare `<partial name="_Avatar" />` Views oder TagHelpers (wie einen
 Custom `<icon />` Tag) aus!
 
 ### Lokale Assets (No CDN Policy)
-Aus Gründen der Ausfallsicherheit, Performance und des Datenschutzes (DSGVO) verwenden wir **keine Content Delivery Networks (CDNs)**. Sämtliche Libraries (Tailwind, FontAwesome) werden vollständig lokal über den Microsoft Library Manager (`libman.json`) in das Projektverzeichnis (`wwwroot/lib`) integriert.
+
+Aus Gründen der Ausfallsicherheit, Performance und des Datenschutzes (DSGVO)
+verwenden wir **keine Content Delivery Networks (CDNs)**. Sämtliche Libraries
+(Tailwind, FontAwesome) werden vollständig lokal über den Microsoft Library
+Manager (`libman.json`) in das Projektverzeichnis (`wwwroot/lib`) integriert.
 
 👉 **Mehr dazu in unserer [Asset Management Strategie](docs/frontend_assets.md).**
 
 ### 🧭 Navigation & Settings-Menü
 
-- **Dynamische Navbar:** Nach erfolgreichem Login wird in der Haupt-Navigation
-  ein dediziertes "Settings" (Einstellungen) Menü sichtbar.
+- **Dynamische Navbar:** Nach erfolgreichem Login wird in der
+  Haupt-Navigation ein dediziertes "Settings" (Einstellungen) Menü sichtbar.
 - **Rollenbasierte Ansichten:** Die Unterpunkte dieses Settings-Menüs filtern
   sich streng nach den Claims/Rollen des Nutzers.
   - **Benutzer (User / Teamlead):** Zugriff auf **"Mein Profil"**
@@ -272,10 +289,10 @@ Aus Gründen der Ausfallsicherheit, Performance und des Datenschutzes (DSGVO) ve
   - **Administratoren (Admin / Owner):** Sehen zusätzlich zu den User-Settings
     die globale **"Benutzerverwaltung"** (Passwörter zurücksetzen), die
     **"Gruppen- & Rechteverwaltung"** (Rollen und Berechtigungen vergeben),
-    **"Workflow-Konfiguration"** (Kanban-Spalten anpassen),
-    **"SLA-Richtlinien"**, zentrales **"Tag-Management"**, globale
-    **"System-Einstellungen"** (z.B. SMTP, Plugin-Verwaltung) und das
-    systemweite **"Audit Log"** (Historie & Security Events).
+    **"Workflow-Konfiguration"** (Kanban-Spalten anpassen), **"SLA-Richtlinien"**,
+    zentrales **"Tag-Management"**, globale **"System-Einstellungen"** (z.B.
+    SMTP, Plugin-Verwaltung) und das systemweite **"Audit Log"** (Historie &
+    Security Events).
 
 ### Atomic CSS & Utility First
 
@@ -298,17 +315,17 @@ Wir verfolgen strikt den Utility-First Ansatz, aber kapseln diesen sauber:
 
 ### ♿ Barrierefreiheit (a11y) & UX Standards
 
-Wir entwickeln kompromisslos nach dem **Barrierefreiheitsstärkungsgesetz (BFSG)**
-und den strengen Richtlinien der
-[W3C ARIA Authoring Practices Guide (APG)](https://www.w3.org/WAI/ARIA/apg/).
+Wir entwickeln kompromisslos nach dem **Barrierefreiheitsstärkungsgesetz
+(BFSG)** und den strengen Richtlinien der [W3C ARIA Authoring Practices Guide
+(APG)](https://www.w3.org/WAI/ARIA/apg/).
 
 - **Keyboard-First Navigation:** Das gesamte Kanban-Board, alle Modals und
   Dropdowns müssen vollständig (und logisch) per `Tab`-Taste bedienbar sein.
   Focus-Traps in Modals sind Pflicht.
 - **Semantik & ARIA:** Wir nutzen primär natives HTML5 (z.B. `<dialog>`,
-  `<nav>`, `<main>`). Wo dies nicht ausreicht, setzen wir exakte `aria-`-Attribute
-  ein (z.B. `aria-expanded`, `aria-describedby`), um Screenreadern den
-  visuellen Kontext zu übersetzen.
+  `<nav>`, `<main>`). Wo dies nicht ausreicht, setzen wir exakte
+  `aria-`-Attribute ein (z.B. `aria-expanded`, `aria-describedby`), um
+  Screenreadern den visuellen Kontext zu übersetzen.
 - **Datensparsamkeit (DSGVO):** Strikte "Privacy by Design" Architektur in der
   Datenbank und im Session-Handling.
 
@@ -337,66 +354,131 @@ Projekt-Feature.
 Das System deckt den gesamten Lifecycle einer modernen, kollaborativen Enterprise-Ticketing-Lösung ab.
 
 ### 🌐 Globalisierung & Lokalisierung (I18N)
-Die Applikation ist von Tag Eins an auf internationale Enterprise-Nutzung ausgelegt. Wir implementieren die nativen [ASP.NET Core Localization (I18N)](https://learn.microsoft.com/de-de/aspnet/core/fundamentals/localization) Features:
-- **Ressourcen-Dateien (`.resx`):** Sämtliche UI-Texte, Fehlermeldungen und E-Mail-Templates werden nicht hardcodiert, sondern über zentralisierte Ressourcen verwaltet.
-- **Request Localization Middleware:** Das System erkennt die bevorzugte Sprache des Nutzers (über den `Accept-Language` HTTP-Header oder ein explizites User-Profile Setting) und wechselt die UI-Sprache fließend (z.B. zwischen Deutsch und Englisch).
-- **Zeitzonen & Währungen:** Alle `DateTimeOffset` Werte werden nutzerspezifisch gerendert, Währungen/Zahlenformate werden der Kultur des Betrachters angepasst.
+Die Applikation ist von Tag Eins an auf internationale Enterprise-Nutzung
+ausgelegt. Wir implementieren die nativen [ASP.NET Core Localization
+(I18N)](https://learn.microsoft.com/de-de/aspnet/core/fundamentals/localization)
+Features:
+
+- **Ressourcen-Dateien (`.resx`):** Sämtliche UI-Texte, Fehlermeldungen und
+  E-Mail-Templates werden nicht hardcodiert, sondern über zentralisierte
+  Ressourcen verwaltet.
+- **Request Localization Middleware:** Das System erkennt die bevorzugte Sprache
+  des Nutzers (über den `Accept-Language` HTTP-Header oder ein explizites
+  User-Profile Setting) und wechselt die UI-Sprache fließend (z.B. zwischen
+  Deutsch und Englisch).
+- **Zeitzonen & Währungen:** Alle `DateTimeOffset` Werte werden
+  nutzerspezifisch gerendert, Währungen/Zahlenformate werden der Kultur des
+  Betrachters angepasst.
 
 ### 🔐 Erweitertes Rollen & Rechte System (RBAC)
-Ein granulares, hierarchisches Berechtigungsobjekt-System steuert sämtliche Zugriffe:
-- **Owner (Systemherr):** Voller Zugriff, darf Admins ernennen, globale Systemeinstellungen ändern, Rechnungsdaten einsehen.
-- **Admin:** Globale Benutzerverwaltung, Projekt- und Team-Anlage, Konfiguration von Workflows.
-- **Moderator (Mod):** Konfliktlösung, Ticket-Bereinigung, Spam-Prävention (falls öffentliche Tickets aktiv).
-- **Teamlead:** Kann innerhalb *seines* Teams User hinzufügen/entfernen, Workloads einsehen und Rundmails an das Team versenden.
-- **User:** Der Standard-Entwickler/Bearbeiter. Darf Tickets anlegen, bearbeiten, Subtickets erstellen und kommentieren.
+
+Ein granulares, hierarchisches Berechtigungsobjekt-System steuert sämtliche
+Zugriffe:
+
+- **Owner (Systemherr):** Voller Zugriff, darf Admins ernennen, globale
+  Systemeinstellungen ändern, Rechnungsdaten einsehen.
+- **Admin:** Globale Benutzerverwaltung, Projekt- und Team-Anlage, Konfiguration
+  von Workflows.
+- **Moderator (Mod):** Konfliktlösung, Ticket-Bereinigung, Spam-Prävention
+  (falls öffentliche Tickets aktiv).
+- **Teamlead:** Kann innerhalb *seines* Teams User hinzufügen/entfernen,
+  Workloads einsehen und Rundmails an das Team versenden.
+- **User:** Der Standard-Entwickler/Bearbeiter. Darf Tickets anlegen,
+  bearbeiten, Subtickets erstellen und kommentieren.
 
 ### 💬 Kollaboration & Kommunikation
-- **Ticket-Kommentare:** Jedes Ticket besitzt einen dedizierten, chronologischen Kommentar-Thread. Teammitglieder können Lösungen diskutieren, Rückfragen stellen oder Assets anhängen.
-- **Markdown & Mermaid Engine:** Überall, wo Text eingegeben wird (Ticket-Beschreibungen, Kommentare, Mails), wird vollständiges Markdown inklusive Mermaid.js (für Architekturdiagramme) gerendert.
-- **Realtime Messaging System:** Nahtlose Integration von Direktnachrichten (1-to-1) und projektspezifischen Chat-Räumen für Teammitglieder (basierend auf SignalR/WebSockets).
-- **Teamlead "Broadcast" Mails:** Teamleiter können offizielle Ankündigungen und Rundmails (formatiert in Markdown) direkt aus der Applikation an alle ihre Squad-Mitglieder senden.
-- **Live Online-Status (Presence):** Grüne Indikatoren neben Profilbildern signalisieren in Echtzeit, ob ein Entwickler oder Ticket-Besitzer gerade in der Applikation aktiv ist.
+
+- **Ticket-Kommentare:** Jedes Ticket besitzt einen dedizierten, chronologischen
+  Kommentar-Thread. Teammitglieder können Lösungen diskutieren, Rückfragen
+  stellen oder Assets anhängen.
+- **Markdown & Mermaid Engine:** Überall, wo Text eingegeben wird
+  (Ticket-Beschreibungen, Kommentare, Mails), wird vollständiges Markdown
+  inklusive Mermaid.js (für Architekturdiagramme) gerendert.
+- **Realtime Messaging System:** Nahtlose Integration von Direktnachrichten
+  (1-to-1) und projektspezifischen Chat-Räumen für Teammitglieder (basierend auf
+  SignalR/WebSockets).
+- **Teamlead "Broadcast" Mails:** Teamleiter können offizielle Ankündigungen
+  und Rundmails (formatiert in Markdown) direkt aus der Applikation an alle
+  ihre Squad-Mitglieder senden.
+- **Live Online-Status (Presence):** Grüne Indikatoren neben Profilbildern
+  signalisieren in Echtzeit, ob ein Entwickler oder Ticket-Besitzer gerade in
+  der Applikation aktiv ist.
 
 ### 👤 Erweiterte Benutzerprofile (IAM & Registrierung)
 
-- **Zwingende Registrierungsdaten:** Bei der Kontoerstellung ist die Angabe von `Username`, `Vorname` (`FirstName`) und einer gültigen `Email` zwingend erforderlich (Hard Constraints in der Domain).
-- Ausführliche Profile inklusive **Profilbild-Upload** (Avatar-Crop-Funktion), Kontaktdaten, Arbeitszeiten und abteilungsspezifischen Eigenschaften.
+- **Zwingende Registrierungsdaten:** Bei der Kontoerstellung ist die Angabe von
+  `Username`, `Vorname` (`FirstName`) und einer gültigen `Email` zwingend
+  erforderlich (Hard Constraints in der Domain).
+- Ausführliche Profile inklusive **Profilbild-Upload** (Avatar-Crop-Funktion),
+  Kontaktdaten, Arbeitszeiten und abteilungsspezifischen Eigenschaften.
 - Personalisierte Dashboards pro User (Was sind *meine* assigned Tickets?).
 
 ### 👥 Teams & Workspaces
 
-- **Team-Erstellung:** Nutzer können eigene Teams/Squads formieren und mit Metadaten (Team-Kürzel, Farbe, Beschreibung) versehen.
-- **Team-Management:** Einladungs- und Freigabeprozesse für den Beitritt zu bestehenden Teams.
-- **Kollaboration:** Tickets können ganzen Teams (statt nur Einzelpersonen) zugewiesen werden.
+- **Team-Erstellung:** Nutzer können eigene Teams/Squads formieren und mit
+  Metadaten (Team-Kürzel, Farbe, Beschreibung) versehen.
+- **Team-Management:** Einladungs- und Freigabeprozesse für den Beitritt zu
+  bestehenden Teams.
+- **Kollaboration:** Tickets können ganzen Teams (statt nur Einzelpersonen)
+  zugewiesen werden.
 
 ### 🎫 Das Ticket-Core-Domain
-Das Herzstück der Applikation. Ein Ticket ist ein hochkomplexes Objekt mit folgenden Eigenschaften:
-*   **Stammdaten:** Eindeutige ID, referenzierbarer **SHA1-Hash** (zur systemweiten Identifizierung und Kopieren), Titel, ausführliche **Markdown-gestützte Beschreibung** (inkl. Mermaid-Graphen).
-*   **Audit & Tracking:** Jedes Ticket erfasst neben dem Zeitstempel auch zwingend einen **Geo/IP Timestamp** bei Erstellung und Bearbeitung aus Revisionsgründen.
-*   **Community Voting (Upvotes):** Entwickler und Teams können über Tickets abstimmen (Upvoting). Dies hilft Produktmanagern automatisiert zu erkennen, welche Features oder Bugs der Community aktuell am wichtigsten sind.
-*   **Zeitmanagement:** Startdatum, Deadline, geschätzter Aufwand und geloggte Arbeitszeit.
-*   **Priorisierung:** Skala (z.B. Low, Medium, High, Blocker) mit entsprechenden farblichen Indikatoren.
-*   **Die "Chillischoten"-Metrik 🌶️:** Eine visuelle, einzigartige Aufwands- und Schwierigkeitsbewertung (1 bis 5 Chillischoten), die auf einen Blick die Komplexität verdeutlicht, ohne trockene Zahlen zu verwenden.
-*   **Zuweisung (Assignees):** Flexibles Routing an Einzelpersonen, mehrere Nutzer oder komplette Teams.
-*   **Subtickets:** Unbegrenzte Schachtelung. Große Epics oder komplexe Tickets können granular in kleinere, abarbeitbare Subtickets (Tasks) unterteilt werden.
+
+Das Herzstück der Applikation. Ein Ticket ist ein hochkomplexes Objekt mit
+folgenden Eigenschaften:
+
+- **Stammdaten:** Eindeutige ID, referenzierbarer **SHA1-Hash** (zur
+  systemweiten Identifizierung und Kopieren), Titel, ausführliche
+  **Markdown-gestützte Beschreibung** (inkl. Mermaid-Graphen).
+- **Audit & Tracking:** Jedes Ticket erfasst neben dem Zeitstempel auch
+  zwingend einen **Geo/IP Timestamp** bei Erstellung und Bearbeitung aus
+  Revisionsgründen.
+- **Community Voting (Upvotes):** Entwickler und Teams können über Tickets
+  abstimmen (Upvoting). Dies hilft Produktmanagern automatisiert zu erkennen,
+  welche Features oder Bugs der Community aktuell am wichtigsten sind.
+- **Zeitmanagement:** Startdatum, Deadline, geschätzter Aufwand und geloggte
+  Arbeitszeit.
+- **Priorisierung:** Skala (z.B. Low, Medium, High, Blocker) mit
+  entsprechenden farblichen Indikatoren.
+- **Die "Chillischoten"-Metrik 🌶️:** Eine visuelle, einzigartige Aufwands- und
+  Schwierigkeitsbewertung (1 bis 5 Chillischoten), die auf einen Blick die
+  Komplexität verdeutlicht, ohne trockene Zahlen zu verwenden.
+- **Zuweisung (Assignees):** Flexibles Routing an Einzelpersonen, mehrere
+  Nutzer oder komplette Teams.
+- **Subtickets:** Unbegrenzte Schachtelung. Große Epics oder komplexe Tickets
+  können granular in kleinere, abarbeitbare Subtickets (Tasks) unterteilt
+  werden.
 
 👉 **Exakte Definitionen der Ticket-Entität finden sich in der [Domain Model Dokumentation](docs/domain_ticket.md).**
 
 ### 📋 Kanban Dashboard (Interaktiv)
+
 Das visuelle Zentrum der Produktivität.
-*   **Echtzeit-Board:** Interaktives Board, welches den Status (To Do, In Progress, Review, Done) visuell darstellt.
-*   **Custom Workflows:** Administratoren können die Spalten (Status-Stadien) des Boards pro Projekt anpassen.
-*   **Drag & Drop Matrix:** Native Drag & Drop-Funktionalität im Browser, mit der Tickets reibungslos durch die Workflow-Stadien gezogen werden können.
+
+- **Echtzeit-Board:** Interaktives Board, welches den Status (To Do, In
+  Progress, Review, Done) visuell darstellt.
+- **Custom Workflows:** Administratoren können die Spalten (Status-Stadien) des
+  Boards pro Projekt anpassen.
+- **Drag & Drop Matrix:** Native Drag & Drop-Funktionalität im Browser, mit der
+  Tickets reibungslos durch die Workflow-Stadien gezogen werden können.
 
 ### Enterprise Add-Ons (Phase 2-5) 🚀
-Unser System ist für den skalierten Betrieb konzipiert. Folgende Säulen stützen die stabilen Phasen:
-- **Observability & Monitoring:** Integrierte Endpunkte (`/health`) zur Echtzeit-Überwachung von DB, File-Storage und Mail-Server.
+
+Unser System ist für den skalierten Betrieb konzipiert. Folgende Säulen stützen
+die stabilen Phasen:
+
+- **Observability & Monitoring:** Integrierte Endpunkte (`/health`) zur
+  Echtzeit-Überwachung von DB, File-Storage und Mail-Server.
 - **Infrastructure Excellence:**
-  - **Hangfire / Quartz:** Persistentes Background-Processing für SLAs und Auto-Close.
-  - **Redis Caching:** Distributed In-Memory Cache zur Minimierung von DB-Latenzen.
+  - **Hangfire / Quartz:** Persistentes Background-Processing für SLAs und
+    Auto-Close.
+  - **Redis Caching:** Distributed In-Memory Cache zur Minimierung von
+    DB-Latenzen.
 - **API Mastery:**
-  - **Scalar Interactive Docs:** Eine interaktive API-Dokumentation für Drittanbieter.
-  - **Semantic Versioning:** Versionierte API-Endpunkte für langfristige Stabilität.
+  - **Scalar Interactive Docs:** Eine interaktive API-Dokumentation für
+    Drittanbieter.
+  - **Semantic Versioning:** Versionierte API-Endpunkte für langfristige
+    Stabilität.
 
 </details>
 
@@ -410,52 +492,98 @@ Unser System ist für den skalierten Betrieb konzipiert. Folgende Säulen stütz
 Wir betrachten Code nicht als bloßen Text, sondern als beständiges Handwerk.
 
 ### Test-Driven Development (TDD) & Quality Assurance
-Tests sind in diesem Projekt kein Nachgedanke, sondern treiben das Design. Wir verfolgen den konsequenten **Red-Green-Refactor**-Zyklus.
-*   **100% Test Coverage-Ziel für die Domain:** Die Domain-Logik (Kern) duldet Zero Compromise. Jede Regel muss getestet sein.
-*   **Unit Tests:** Fokussiert auf Systemdienste, Helferklassen und die reinen Domain-Entities (geschrieben mit xUnit und Moq).
-*   **Integration Tests:** Validieren das Zusammenspiel mit der Datenbank (EF Core In-Memory oder Testcontainers) und testen komplette API-Routen/Controller.
-*   **E2E (End-to-End) Tests:** Mittels Playwright und Vitest automatisieren wir Browser-Klicks, um kritische User-Journeys (z.B. "Neues Ticket anlegen und auf Done schieben") abzusichern.
+
+Tests sind in diesem Projekt kein Nachgedanke, sondern treiben das Design. Wir
+verfolgen den konsequenten **Red-Green-Refactor**-Zyklus.
+
+- **100% Test Coverage-Ziel für die Domain:** Die Domain-Logik (Kern) duldet
+  Zero Compromise. Jede Regel muss getestet sein.
+- **Unit Tests:** Fokussiert auf Systemdienste, Helferklassen und die reinen
+  Domain-Entities (geschrieben mit xUnit und Moq).
+- **Integration Tests:** Validieren das Zusammenspiel mit der Datenbank (EF
+  Core In-Memory oder Testcontainers) und testen komplette
+  API-Routen/Controller.
+- **E2E (End-to-End) Tests:** Mittels Playwright und Vitest automatisieren wir
+  Browser-Klicks, um kritische User-Journeys (z.B. "Neues Ticket anlegen und
+  auf Done schieben") abzusichern.
 
 ### 💯 Google Lighthouse Tests (Performance & SEO)
-Als echtes Enterprise-Produkt muss das Frontend kompromisslos performen und zugänglich sein.
-*   Die CI/CD-Pipeline (GitHub Actions) bricht ab, wenn der automatische **Google Lighthouse Score** in den Kategorien Performance, Accessibility, Best Practices und SEO unter **100/100** fällt.
-*   **Mobile & Desktop First:** Die Audits werden isoliert für *Desktop* (Breitbild Kanban) und stark optimiertem *Mobile* Viewport (Responsive Listen/Karten) durchlaufen.
+
+Als echtes Enterprise-Produkt muss das Frontend kompromisslos performen und
+zugänglich sein.
+
+- **Die CI/CD-Pipeline (GitHub Actions)** bricht ab, wenn der automatische
+  **Google Lighthouse Score** in den Kategorien Performance, Accessibility,
+  Best Practices und SEO unter **100/100** fällt.
+- **Mobile & Desktop First:** Die Audits werden isoliert für *Desktop*
+  (Breitbild Kanban) und stark optimiertem *Mobile* Viewport (Responsive
+  Listen/Karten) durchlaufen.
 
 ### Continuous Integration / Continuous Deployment (CI/CD)
-Wir verwenden **GitHub Actions**, um jegliche menschliche Fehler beim Deployment auszuschließen.
-- **The Pipeline:** Jeder Commit und jeder Pull Request triggert automatisch den Build-Prozess.
+
+Wir verwenden **GitHub Actions**, um jegliche menschliche Fehler beim
+Deployment auszuschließen.
+
+- **The Pipeline:** Jeder Commit und jeder Pull Request triggert automatisch
+  den Build-Prozess.
 - **Quality Gates:** Der Build bricht sofort ab (Red Build), wenn:
   1. Der Code nicht kompiliert.
-  2. Das Code-Formatting (Linting via `dotnet format`) von der `.editorconfig` abweicht.
+  2. Das Code-Formatting (Linting via `dotnet format`) von der `.editorconfig`
+     abweicht.
   3. Auch nur ein einziger Test fehlschlägt.
 
 ### 🔍 Statische Code-Analyse & Linter
-Wir verlassen uns nicht auf guten Willen, sondern auf harte Werkzeuge. Die in Rider und VS 2026 integrierten **Roslyn Analyzer** steuern die Code-Qualität in Echtzeit:
-*   Die Projektweite `.editorconfig` erzwingt Naming-Conventions (z.B. Interfaces *müssen* mit `I` beginnen, private Felder mit `_`).
-*   Regeln wie `IDE0005` (Unused Imports) sind auf `Error` oder `Warning` gestellt. Warnungen im Build werden im PR Review wie Fehler behandelt.
-*   Code-Smells werden von der IDE rot unterstrichen und in der CI-Pipeline geblockt.
+
+Wir verlassen uns nicht auf guten Willen, sondern auf harte Werkzeuge. Die in
+Rider und VS 2026 integrierten **Roslyn Analyzer** steuern die Code-Qualität in
+Echtzeit:
+
+- Die Projektweite `.editorconfig` erzwingt Naming-Conventions (z.B. Interfaces
+  *müssen* mit `I` beginnen, private Felder mit `_`).
+- Regeln wie `IDE0005` (Unused Imports) sind auf `Error` oder `Warning`
+  gestellt. Warnungen im Build werden im PR Review wie Fehler behandelt.
+- Code-Smells werden von der IDE rot unterstrichen und in der CI-Pipeline
+  geblockt.
 
 ### 🛡️ Enterprise Security & Trust (Defense in Depth)
-Wir sichern die Applikation nach dem "Defense in Depth" (Zwiebelschalen) Prinzip ab. Wenn eine Schicht kompromittiert wird, hält die Nächste dem Angriff stand.
-*   **Secret Management:** Sensible Daten (Connection Strings, JWT-Keys, API-Tokens) werden **niemals** im Git-Repository via `appsettings.json` committet.
-    *   *Lokale Entwicklung:* Wir nutzen strikt den [ASP.NET Core Secret Manager `dotnet user-secrets`](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets).
-    *   *Produktion:* Integration von Systemen wie Azure Key Vault oder AWS Secrets Manager.
-*   **Data Protection & Hashing:** Passwörter werden mittels ASP.NET Core Identity (Pbkdf2/Argon2Id) gehasht. Cookies zwingend mit `HttpOnly` und `Secure` Flag versehen.
-*   **Input-Validation:** Kein User-Input erreicht die Business-Logik ungeprüft. FluentValidation und Anti-Forgery Tokens (XSRF/CSRF) sind in jedem Post-Request aktiv (und DOMPurify im Frontend, siehe Assets).
+
+Wir sichern die Applikation nach dem "Defense in Depth" (Zwiebelschalen)
+Prinzip ab. Wenn eine Schicht kompromittiert wird, hält die Nächste dem
+Angriff stand.
+
+- **Secret Management:** Sensible Daten (Connection Strings, JWT-Keys,
+  API-Tokens) werden **niemals** im Git-Repository via `appsettings.json`
+  committet.
+  - *Lokale Entwicklung:* Wir nutzen strikt den [ASP.NET Core Secret Manager
+    `dotnet user-secrets`](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets).
+  - *Produktion:* Integration von Systemen wie Azure Key Vault oder AWS Secrets
+    Manager.
+- **Data Protection & Hashing:** Passwörter werden mittels ASP.NET Core
+  Identity (Pbkdf2/Argon2Id) gehasht. Cookies zwingend mit `HttpOnly` und
+  `Secure` Flag versehen.
+- **Input-Validation:** Kein User-Input erreicht die Business-Logik ungeprüft.
+  FluentValidation und Anti-Forgery Tokens (XSRF/CSRF) sind in jedem
+  Post-Request aktiv (und DOMPurify im Frontend, siehe Assets).
 
 ### Datenbank-Seeding
 
-Im Entwicklungsmodus (`Development`) wird die Datenbank automatisch mit realistischen, synthetischen deutschen Daten gefüllt, falls sie leer ist. Dies wird durch die `Bogus` Bibliothek realisiert.
+Im Entwicklungsmodus (`Development`) wird die Datenbank automatisch mit
+realistischen, synthetischen deutschen Daten gefüllt, falls sie leer ist. Dies
+wird durch die `Bogus` Bibliothek realisiert.
 
-*   **Lokalisierung:** `de` (Deutsch)
-*   **Datenschutz:** 100% synthetische Daten gemäß [ADR 0120](docs/adr/0120-synthetic-data-privacy.md).
-*   **Umfang:** Generiert automatisch Organizations, Roles, Users (200), Profiles, Addresses, Teams (15), Tickets (500), SubTickets (100) & Messages (300).
-*   **Trigger:** Erfolgt beim Anwendungsstart in der `DbInitialiser.cs`.
+- **Lokalisierung:** `de` (Deutsch)
+- **Datenschutz:** 100% synthetische Daten gemäß [ADR 0120](docs/adr/0120-synthetic-data-privacy.md).
+- **Umfang:** Generiert automatisch Organizations, Roles, Users (200),
+  Profiles, Addresses, Teams (15), Tickets (500), SubTickets (100) &
+  Messages (300).
 
 ---
 
 ### Extensive Dokumentation & Architektur-Diagramme
-Dokumentation veraltet nicht, wenn sie automatisiert und systematischer Bestandteil des Workflows ist.
+
+Dokumentation veraltet nicht, wenn sie automatisiert und systematischer
+Bestandteil des Workflows ist.
+
 - **Architektur-Graphen & Diagramme:** Wir nutzen Mermaid-Diagramme für alle
   komplexen Systeme. Diese finden sich gesammelt unter:
   - 👉 **[System Architecture & Data-Flows (Big 5 UML)](docs/architecture_diagrams.md)**
@@ -465,9 +593,9 @@ Dokumentation veraltet nicht, wenn sie automatisiert und systematischer Bestandt
   Screenshots (z.B. für die IHK Präsentation) werden versioniert im Ordner
   **`/docs/mockups/`** abgelegt.
 - **Grafiken & Assets:** Wenn im Rahmen des UI-Designs (Frontend) oder der
-  Dokumentation temporäre Platzhalter-Bilder benötigt werden, nutzen wir vorerst
-  [Placehold.co](https://placehold.co/) (Open Source SVG Platzhalter). Echte,
-  physisch benötigte Grafiken (Logos, Icons) kommen in den Ordner
+  Dokumentation temporäre Platzhalter-Bilder benötigt werden, nutzen wir
+  vorerst [Placehold.co](https://placehold.co/) (Open Source SVG Platzhalter).
+  Echte, physisch benötigte Grafiken (Logos, Icons) kommen in den Ordner
   **`/docs/assets/`** bzw. später nach `wwwroot/images/`.
 - **Architectural Decision Records (ADR):** Alle wesentlichen
   Design-Entscheidungen (Architektur, Stack, Security) sind revisionssicher im
@@ -514,41 +642,45 @@ Um bei mehreren Entwicklern Chaos zu vermeiden, herrschen strikte Git-Regeln:
 Dieser Fahrplan strukturiert die Entwicklung chronologisch bis zur finalen Abgabe.
 
 1. **Phase 1: Planung & Setup (Aktuell)**
-   - UI/UX Planung und Erstellung grundlegender Sketche / Wireframes.
-   - Team Onboarding in GitHub (Rechtevergabe, Branch Protections einrichten).
-   - Erstellung des **GitHub Projects Kanban-Boards** (Zentrale Verwaltung für dieses Projekt).
-   - Anlage der initialen Epics, Tickets und Subtickets im GitHub Board.
-   - Initiale Solution & Clean Architecture Strukturierung (.NET Projektmappen anlegen).
+  - UI/UX Planung und Erstellung grundlegender Sketche / Wireframes.
+  - Team Onboarding in GitHub (Rechtevergabe, Branch Protections einrichten).
+  - Erstellung des **GitHub Projects Kanban-Boards** (Zentrale Verwaltung für
+    dieses Projekt).
+  - Anlage der initialen Epics, Tickets und Subtickets im GitHub Board.
+  - Initiale Solution & Clean Architecture Strukturierung (.NET Projektmappen
+    anlegen).
 
-2. **Phase 2: CI/CD & Groundwork**
-   - Aufsetzen der **GitHub Actions Pipeline** (Build, Test, Lint).
-   - Setup Environment: EF Core konfigurieren, MSSQL Anbindung herstellen.
-   - Libman & Tailwind-CLI für Frontend Assets einrichten.
+1. **Phase 2: CI/CD & Groundwork**
+  - Aufsetzen der **GitHub Actions Pipeline** (Build, Test, Lint).
+  - Setup Environment: EF Core konfigurieren, MSSQL Anbindung herstellen.
+  - Libman & Tailwind-CLI für Frontend Assets einrichten.
 
-3. **Phase 3: Domain Modeling & IAM**
-   - User, Profil und Team Models (Entities) präzise ausarbeiten.
-   - ASP.NET Core Identity & Auth implementieren.
-   - Datenbank-Migrationen (Code-First) ausführen.
+1. **Phase 3: Domain Modeling & IAM**
+  - User, Profil und Team Models (Entities) präzise ausarbeiten.
+  - ASP.NET Core Identity & Auth implementieren.
+  - Datenbank-Migrationen (Code-First) ausführen.
 
-4. **Phase 4: UI Foundation & Theming**
-   - Erstellung der globalen CSS-Architektur (`btn.css`, `cards.css`, `theme.css`).
-   - Entwicklung der SFC (Single File Components) Layout-Frames und Navigation.
+1. **Phase 4: UI Foundation & Theming**
+  - Erstellung der globalen CSS-Architektur (`btn.css`, `cards.css`,
+    `theme.css`).
+  - Entwicklung der SFC (Single File Components) Layout-Frames und Navigation.
 
-5. **Phase 5: Ticket Engine & Business Logic**
-   - Ticket & Subticket Domains mitsamt Validierungslogik integrieren.
-   - Repositories und CQRS-Commands implementieren (TDD First!).
+1. **Phase 5: Ticket Engine & Business Logic**
+  - Ticket & Subticket Domains mitsamt Validierungslogik integrieren.
+  - Repositories und CQRS-Commands implementieren (TDD First!).
 
-6. **Phase 6: Kanban & Interaktivität**
-   - Drag & Drop Dashboard entwickeln.
-   - Die visuelle "Chillischoten"-Anzeige rendern.
-   - Workflow-Logik (Status-Übergänge der Tickets) festigen.
+1. **Phase 6: Kanban & Interaktivität**
+  - Drag & Drop Dashboard entwickeln.
+  - Die visuelle "Chillischoten"-Anzeige rendern.
+  - Workflow-Logik (Status-Übergänge der Tickets) festigen.
 
-7. **Phase 7: Finale & Dokumentation (IHK Abgabe)**
-- **FINALE IHK-Dokumentation:** Ausarbeitung der Projektarbeit im Google Docs
-  Markdown / Google Sheet Format.
-- Erstellung der finalen Präsentation für das Fachgespräch im Google
-  Workspace (Slides).
-   - Letzter Review-Zyklus: Test Coverage Check und Code Cleanup.
+1. **Phase 7: Finale & Dokumentation (IHK Abgabe)**
+
+  - **FINALE IHK-Dokumentation:** Ausarbeitung der Projektarbeit im Google
+    Docs Markdown / Google Sheet Format.
+  - Erstellung der finalen Präsentation für das Fachgespräch im Google
+    Workspace (Slides).
+  - Letzter Review-Zyklus: Test Coverage Check und Code Cleanup.
 
 </details>
 
