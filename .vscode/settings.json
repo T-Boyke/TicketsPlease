@@ -1,108 +1,108 @@
 {
-    "dotnet.server.useOmnisharp": false,
-    "csharp.format.enable": true,
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-        "source.organizeImports": "explicit"
-    },
-    "prettier.configPath": ".prettierrc",
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[jsonc]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[css]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[html]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[markdown]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "tailwindCSS.experimental.classRegex": [
-        "class: \"([^\"]*)\""
-    ],
-    "cSpell.words": [
-        "abarbeitbare",
-        "abteilungsspezifischen",
-        "antigravity",
-        "appsettings",
-        "Auschecken",
-        "Avatare",
-        "Barrierefreiheitsstärkungsgesetz",
-        "BFSG",
-        "buildtransitive",
-        "Chillischoten",
-        "committet",
-        "contentfiles",
-        "cshtml",
-        "dotnet",
-        "dozenten",
-        "DSGVO",
-        "Fachlichkeit",
-        "fluentvalidation",
-        "Gantt",
-        "gehasht",
-        "geloggte",
-        "gemerged",
-        "granulares",
-        "hangfire",
-        "hardcodiert",
-        "Helferklassen",
-        "ideolog",
-        "ihk",
-        "Implementierungs",
-        "instantanen",
-        "kompiliierte",
-        "kurses",
-        "lesbarsten",
-        "libman",
-        "Markdig",
-        "mediatr",
-        "Nachgedanke",
-        "Nebenläufigkeitskontrolle",
-        "Newtonsoft",
-        "nutzerspezifisch",
-        "performen",
-        "Placehold",
-        "Registrierungsdaten",
-        "responsiv",
-        "resx",
-        "Revisionsgründen",
-        "revisionssicher",
-        "Rollenbasierte",
-        "sarif",
-        "Screenreadern",
-        "Seelig",
-        "serilog",
-        "signalr",
-        "slnx",
-        "tailwindcss",
-        "Teamlead",
-        "Teamleads",
-        "testcontainers",
-        "ticketsplease",
-        "tiefergehende",
-        "Toggl",
-        "Upvotes",
-        "Upvoting",
-        "Validierungslogik",
-        "versioniert",
-        "Versionierte",
-        "Wireframes",
-        "wwwroot",
-        "zockerbot"
-    ],
-    "cSpell.language": "en,de",
-    "files.trimTrailingWhitespace": true,
-    "files.insertFinalNewline": true
+  "dotnet.server.useOmnisharp": false,
+  "csharp.format.enable": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "prettier.configPath": ".prettierrc",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "markdownlint.config": { "extends": ".markdownlint.json" },
+  "markdownlint.run": "onSave",
+  "tailwindCSS.experimental.classRegex": ["class: \"([^\"]*)\""],
+  "cSpell.words": [
+    "abarbeitbare",
+    "abteilungsspezifischen",
+    "antigravity",
+    "appsettings",
+    "Auschecken",
+    "Avatare",
+    "Barrierefreiheitsstärkungsgesetz",
+    "BFSG",
+    "buildtransitive",
+    "Chillischoten",
+    "committet",
+    "contentfiles",
+    "cshtml",
+    "dotnet",
+    "dozenten",
+    "DSGVO",
+    "Fachlichkeit",
+    "fluentvalidation",
+    "Gantt",
+    "gehasht",
+    "geloggte",
+    "gemerged",
+    "granulares",
+    "hangfire",
+    "hardcodiert",
+    "Helferklassen",
+    "ideolog",
+    "ihk",
+    "Implementierungs",
+    "instantanen",
+    "kompiliierte",
+    "kurses",
+    "lesbarsten",
+    "libman",
+    "Markdig",
+    "mediatr",
+    "Nachgedanke",
+    "Nebenläufigkeitskontrolle",
+    "Newtonsoft",
+    "nutzerspezifisch",
+    "performen",
+    "Placehold",
+    "Registrierungsdaten",
+    "responsiv",
+    "resx",
+    "Revisionsgründen",
+    "revisionssicher",
+    "Rollenbasierte",
+    "sarif",
+    "Screenreadern",
+    "Seelig",
+    "serilog",
+    "signalr",
+    "slnx",
+    "tailwindcss",
+    "Teamlead",
+    "Teamleads",
+    "testcontainers",
+    "ticketsplease",
+    "tiefergehende",
+    "Toggl",
+    "Upvotes",
+    "Upvoting",
+    "Validierungslogik",
+    "versioniert",
+    "Versionierte",
+    "Wireframes",
+    "wwwroot",
+    "zockerbot"
+  ],
+  "cSpell.language": "en,de",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true
 }

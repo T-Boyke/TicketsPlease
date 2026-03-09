@@ -1,27 +1,28 @@
 name: "Markdown Lint"
 
 on:
-    push:
-        branches: ["main"]
-    pull_request:
-        branches: ["main"]
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
-    markdown-lint:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v6
+  markdown-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
 
-            - name: Lint Markdown
-              uses: DavidAnson/markdownlint-cli2-action@v19
-              with:
-                  globs: "**/*.md"
+      - name: Lint Markdown
+        uses: DavidAnson/markdownlint-cli2-action@v20
+        with:
+          globs: "**/*.md"
+          config: ".markdownlint.json"
 
-            - name: Check Links
-              uses: gaurav-nelson/github-action-markdown-link-check@v1
-              with:
-                  use-quiet-mode: "yes"
-                  use-verbose-mode: "no"
-                  check-modified-files-only: "yes"
-                  base-branch: "main"
-                  config-file: ".github/mlc_config.json"
+      - name: Check Links
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: "yes"
+          use-verbose-mode: "no"
+          check-modified-files-only: "yes"
+          base-branch: "main"
+          config-file: ".github/mlc_config.json"
