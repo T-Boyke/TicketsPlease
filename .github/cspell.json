@@ -1,6 +1,13 @@
 {
   "version": "0.2",
   "language": "en,de",
+  "dictionaryDefinitions": [
+    {
+      "name": "projekt-deutsch",
+      "path": "dict-de.txt",
+      "addWords": true
+    }
+  ],
   "dictionaries": [
     "en_US",
     "de-de",
@@ -8,7 +15,8 @@
     "dotnet",
     "csharp",
     "html",
-    "css"
+    "css",
+    "projekt-deutsch"
   ],
   "words": [
     "TicketsPlease",
@@ -26,20 +34,13 @@
     "xunit",
     "Xunit",
     "FluentValidation",
-    "Testcontainers",
-    "wwwroot",
-    "libman",
-    "Newtonsoft",
-    "Serilog",
-    "contentfiles",
-    "buildtransitive"
+    "Testcontainers"
   ],
   "ignorePaths": [
     "node_modules",
     "obj",
     "bin",
     "*.slnx",
-    ".gitignore",
     ".github/dict-de.txt"
   ]
 }
