@@ -69,15 +69,15 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 
 | Feature | Status | Beschreibung | Scope |
 | :--- | :--- | :--- | :--- |
-| **Core Entities** | ✅ Aktiv | Alle 26 Enterprise-Entitäten (3NF) implementiert | MVP Context |
+| **Core Entities** | ✅ Aktiv | 26 Enterprise-Entitäten (3NF) aktiv | MVP Context |
 | **IAM** | ✅ Aktiv | Full Organization, User & Profile Mapping | MVP |
 | **Kanban Board** | 🏗️ In Arbeit | Interaktives Board mit Drag & Drop | MVP |
-| **Tailwind CSS v4** | ✅ Aktiv | Modernes Styling via nativem CLI (Integrated Build) | MVP |
-| **Testing Infra** | ✅ Aktiv | Architektur & Integrations-Tests für Datenintegrität | MVP |
-| **AI Skills** | ✅ Aktiv | Automatisierung via Antigravity (ADR, Scaffold) | MVP |
-| **Team Support** | ✅ Aktiv | Persistent Teams & Member Management | Enterprise |
-| **SLA Policies** | ✅ Aktiv | Persistence Layer & Policies hinterlegt | Enterprise |
-| **Plugin System** | 🗺️ Roadmap | Externe Module via Dynamic Loading | Enterprise |
+| **Tailwind CSS v4** | ✅ Aktiv | Modernes Styling via nativem CLI | MVP |
+| **Testing Infra** | ✅ Aktiv | Architektur- & Integrations-Tests | MVP |
+| **AI Skills** | ✅ Aktiv | Automatisierung via Antigravity | MVP |
+| **Team Support** | ✅ Aktiv | Persistent Teams & Member Mgt. | Enterprise |
+| **SLA Policies** | ✅ Aktiv | Persistence Layer & Policies | Enterprise |
+| **Plugin System** | 🗺️ Roadmap | Externe Module (Dynamic Loading) | Enterprise |
 
 ---
 
@@ -351,9 +351,11 @@ Projekt-Feature.
 <details open>
 <summary>Detaillierte Features aufklappen...</summary>
 
-Das System deckt den gesamten Lifecycle einer modernen, kollaborativen Enterprise-Ticketing-Lösung ab.
+Das System deckt den gesamten Lifecycle einer modernen, kollaborativen
+Enterprise-Ticketing-Lösung ab.
 
 ### 🌐 Globalisierung & Lokalisierung (I18N)
+
 Die Applikation ist von Tag Eins an auf internationale Enterprise-Nutzung
 ausgelegt. Wir implementieren die nativen [ASP.NET Core Localization
 (I18N)](https://learn.microsoft.com/de-de/aspnet/core/fundamentals/localization)
@@ -642,45 +644,33 @@ Um bei mehreren Entwicklern Chaos zu vermeiden, herrschen strikte Git-Regeln:
 Dieser Fahrplan strukturiert die Entwicklung chronologisch bis zur finalen Abgabe.
 
 1. **Phase 1: Planung & Setup (Aktuell)**
-  - UI/UX Planung und Erstellung grundlegender Sketche / Wireframes.
-  - Team Onboarding in GitHub (Rechtevergabe, Branch Protections einrichten).
-  - Erstellung des **GitHub Projects Kanban-Boards** (Zentrale Verwaltung für
-    dieses Projekt).
-  - Anlage der initialen Epics, Tickets und Subtickets im GitHub Board.
-  - Initiale Solution & Clean Architecture Strukturierung (.NET Projektmappen
-    anlegen).
-
-1. **Phase 2: CI/CD & Groundwork**
-  - Aufsetzen der **GitHub Actions Pipeline** (Build, Test, Lint).
-  - Setup Environment: EF Core konfigurieren, MSSQL Anbindung herstellen.
-  - Libman & Tailwind-CLI für Frontend Assets einrichten.
-
-1. **Phase 3: Domain Modeling & IAM**
-  - User, Profil und Team Models (Entities) präzise ausarbeiten.
-  - ASP.NET Core Identity & Auth implementieren.
-  - Datenbank-Migrationen (Code-First) ausführen.
-
-1. **Phase 4: UI Foundation & Theming**
-  - Erstellung der globalen CSS-Architektur (`btn.css`, `cards.css`,
-    `theme.css`).
-  - Entwicklung der SFC (Single File Components) Layout-Frames und Navigation.
-
-1. **Phase 5: Ticket Engine & Business Logic**
-  - Ticket & Subticket Domains mitsamt Validierungslogik integrieren.
-  - Repositories und CQRS-Commands implementieren (TDD First!).
-
-1. **Phase 6: Kanban & Interaktivität**
-  - Drag & Drop Dashboard entwickeln.
-  - Die visuelle "Chillischoten"-Anzeige rendern.
-  - Workflow-Logik (Status-Übergänge der Tickets) festigen.
-
-1. **Phase 7: Finale & Dokumentation (IHK Abgabe)**
-
-  - **FINALE IHK-Dokumentation:** Ausarbeitung der Projektarbeit im Google
-    Docs Markdown / Google Sheet Format.
-  - Erstellung der finalen Präsentation für das Fachgespräch im Google
-    Workspace (Slides).
-  - Letzter Review-Zyklus: Test Coverage Check und Code Cleanup.
+   - UI/UX Planung und Erstellung grundlegender Sketche / Wireframes.
+   - Team Onboarding in GitHub (Rechtevergabe, Branch Protections einrichten).
+   - Erstellung des **GitHub Projects Kanban-Boards** (Zentrale Verwaltung für dieses Projekt).
+   - Anlage der initialen Epics, Tickets und Subtickets im GitHub Board.
+   - Initiale Solution & Clean Architecture Strukturierung (.NET Projektmappen anlegen).
+2. **Phase 2: CI/CD & Groundwork**
+   - Aufsetzen der **GitHub Actions Pipeline** (Build, Test, Lint).
+   - Setup Environment: EF Core konfigurieren, MSSQL Anbindung herstellen.
+   - Libman & Tailwind-CLI für Frontend Assets einrichten.
+3. **Phase 3: Domain Modeling & IAM**
+   - User, Profil und Team Models (Entities) präzise ausarbeiten.
+   - ASP.NET Core Identity & Auth implementieren.
+   - Datenbank-Migrationen (Code-First) ausführen.
+4. **Phase 4: UI Foundation & Theming**
+   - Erstellung der globalen CSS-Architektur (`btn.css`, `cards.css`, `theme.css`).
+   - Entwicklung der SFC (Single File Components) Layout-Frames und Navigation.
+5. **Phase 5: Ticket Engine & Business Logic**
+   - Ticket & Subticket Domains mitsamt Validierungslogik integrieren.
+   - Repositories und CQRS-Commands implementieren (TDD First!).
+6. **Phase 6: Kanban & Interaktivität**
+   - Drag & Drop Dashboard entwickeln.
+   - Die visuelle "Chillischoten"-Anzeige rendern.
+   - Workflow-Logik (Status-Übergänge der Tickets) festigen.
+7. **Phase 7: Finale & Dokumentation (IHK Abgabe)**
+   - **FINALE IHK-Dokumentation:** Ausarbeitung der Projektarbeit im Google Docs Markdown / Google Sheet Format.
+   - Erstellung der finalen Präsentation für das Fachgespräch im Google Workspace (Slides).
+   - Letzter Review-Zyklus: Test Coverage Check und Code Cleanup.
 
 </details>
 
