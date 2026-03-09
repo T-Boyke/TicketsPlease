@@ -1,15 +1,15 @@
 {
-    "version": "0.2",
-    "language": "en,de",
-    "dictionaries": [
-        "en_US",
-        "de-de",
-        "software-terms",
-        "dotnet",
-        "csharp",
-        "html",
-        "css"
-    ],
+  "version": "0.2",
+  "language": "en,de",
+  "dictionaries": [
+    "en_US",
+    "de-de",
+    "software-terms",
+    "dotnet",
+    "csharp",
+    "html",
+    "css"
+  ],
   "words": [
     "TicketsPlease",
     "Gitleaks",
@@ -26,12 +26,19 @@
     "xunit",
     "Xunit",
     "FluentValidation",
-    "Testcontainers"
+    "Testcontainers",
+    "wwwroot",
+    "libman",
+    "Newtonsoft",
+    "Serilog",
+    "contentfiles",
+    "buildtransitive"
   ],
   "ignorePaths": [
     "node_modules",
     "obj",
     "bin",
-    "*.slnx"
+    "*.slnx",
+    ".gitignore"
   ]
 }
