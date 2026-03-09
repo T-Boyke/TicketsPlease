@@ -1,10 +1,13 @@
 # 📂 TicketsPlease Source Directory
 
-Willkommen im Herzstück der **TicketsPlease** Solution. Dieses Verzeichnis folgt strikt den Prinzipien der **Clean Architecture** (Onion Architecture) und des **Domain-Driven Design (DDD)**.
+Willkommen im Herzstück der **TicketsPlease** Solution. Dieses Verzeichnis folgt strikt den
+Prinzipien der **Clean Architecture** (Onion Architecture) und des
+**Domain-Driven Design (DDD)**.
 
 ## 🏗️ Clean Architecture 101
 
-Das Ziel dieser Architektur ist die **Trennung von Zuständigkeiten**. Die Geschäftslogik steht im Zentrum und ist völlig unabhängig von Infrastruktur (Datenbanken) und UI (Web).
+Das Ziel dieser Architektur ist die **Trennung von Zuständigkeiten**. Die Geschäftslogik steht im
+Zentrum und ist völlig unabhängig von Infrastruktur (Datenbanken) und UI (Web).
 
 ### Der Request-Response Lifecycle
 
@@ -37,10 +40,12 @@ sequenceDiagram
 
 Damit das Projekt auch für Anfänger wartbar bleibt, gelten folgende Regeln:
 
-1.  **Keine Fragen offen**: Dokumentiere das "Warum", nicht das "Was".
-2.  **`var` Keyword**: Nutze `var` nur, wenn der Typ auf der rechten Seite absolut offensichtlich ist (z.B. `var list = new List<string>()`). Bei komplexen Rückgabewerten schreibe den Typ explizit aus.
-3.  **Dependency Injection**: Wir nutzen ausschließlich **Constructor Injection**. Keine `new`-Instanziierung von Klassen, die Geschäftslogik oder Infrastruktur enthalten.
-4.  **Naming**: Interfaces starten immer mit `I`. Klassen sind Substantive. Methoden sind Verben im Imperativ.
+1. **Keine Fragen offen**: Dokumentiere das "Warum", nicht das "Was".
+2. **`var` Keyword**: Nutze `var` nur, wenn der Typ auf der rechten Seite absolut
+   offensichtlich ist (z.B. `var list = new List<string>()`).
+3. **Dependency Injection**: Wir nutzen ausschließlich **Constructor Injection**. Keine
+   `new`-Instanziierung von Klassen mit Geschäftslogik.
+4. **Naming**: Interfaces starten immer mit `I`. Klassen sind Substantive. Methoden sind Verben.
 
 ---
 
@@ -68,6 +73,7 @@ Damit das Projekt auch für Anfänger wartbar bleibt, gelten folgende Regeln:
 
 ## 🛡️ Die unumstößliche Dependency Rule
 
-Abhängigkeiten zeigen **immer nur nach innen** (Richtung Domain). Ein "Outer Layer" darf niemals direkt wissen, was in einem anderen "Outer Layer" passiert (z.B. Web darf nicht direkt auf Infrastructure zugreifen).
+Abhängigkeiten zeigen **immer nur nach innen** (Richtung Domain). Ein "Outer Layer" darf niemals
+direkt wissen, was in einem anderen Layer passiert (z.B. Web -> Infrastructure).
 
 👉 **Weitere Informationen findest du in den jeweiligen READMEs der Sub-Verzeichnisse.**

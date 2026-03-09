@@ -1,6 +1,7 @@
 # 🔵 TicketsPlease.Web – Die Präsentation
 
-Dieser Layer ist für die Interaktion mit dem Benutzer zuständig. Er umfasst das Web-Frontend, die API-Endpunkte und das gesamte UI/UX-Design.
+Dieser Layer ist für die Interaktion mit dem Benutzer zuständig. Er umfasst das Web-Frontend,
+die API-Endpunkte und das UI/UX-Design.
 
 ## 🍴 Git Branch
 
@@ -37,7 +38,8 @@ Wir nutzen ein node-freies Build-System. Alles wird über die `TailwindCSS.MSBui
 
 ### 3. Sicherheit (Pflicht)
 
-- **XSS**: Alle User-generierten Inhalte (besonders Markdown) **müssen** mit `DOMPurify` im JavaScript gesäubert werden.
+- **XSS**: Alle User-generierten Inhalte (z.B. Markdown) **müssen** mit `DOMPurify` im
+  JavaScript gesäubert werden.
 - **CSRF**: Nutze `[ValidateAntiForgeryToken]` für alle POST/PUT/DELETE Aktionen.
 
 ---
@@ -66,4 +68,5 @@ Die Registrierung der Web-Dienste erfolgt in:
 - **Infrastructure Layer:** Konsumiert Konfigurationen für Auth & Identity.
 
 > [!IMPORTANT]
-> Keine Logik in Views! Wenn eine View ein `if` oder eine Schleife braucht, die über UI-Zustand hinausgeht, gehört das in die Application Layer.
+> Keine Logik in Views! Wenn eine View ein `if` oder eine Schleife braucht, die über UI-Zustand
+> hinausgeht, gehört das in die Application Layer.

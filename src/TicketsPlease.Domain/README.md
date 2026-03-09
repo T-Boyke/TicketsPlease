@@ -1,6 +1,7 @@
 # 🟢 TicketsPlease.Domain – Der Core
 
-Dies ist der wichtigste Layer der Anwendung. Hier leben die **Geschäftsregeln** und die **Fachlichkeit**. Dieser Layer ist völlig isoliert von technischen Details (Datenbanken, UI, Frameworks).
+Dies ist der wichtigste Layer der Anwendung. Hier leben die **Geschäftsregeln** und die
+**Fachlichkeit**. Dieser Layer ist völlig isoliert von technischen Details (Datenbanken, UI).
 
 ## 🍴 Git Branch
 
@@ -13,7 +14,8 @@ Dies ist der wichtigste Layer der Anwendung. Hier leben die **Geschäftsregeln**
 
 ### 1. Rich Domain Model vs. Anemic Domain Model
 
-Wir nutzen **Rich Domain Models**. Das bedeutet: Die Entity ist kein bloßer Datencontainer, sondern verwaltet ihren eigenen Zustand.
+Wir nutzen **Rich Domain Models**. Das bedeutet: Die Entity ist kein bloßer Datencontainer,
+sondern verwaltet ihren eigenen Zustand.
 
 **❌ FALSCH (Anemic):**
 
@@ -40,17 +42,19 @@ public class Ticket {
 
 ### 2. Value Objects
 
-Value Objects sind kleine Objekte ohne Identität. Sie machen den Code sicherer. Statt eines einfachen `string` für eine E-Mail nutzen wir `EmailAddress`.
+Value Objects sind kleine Objekte ohne Identität. Sie machen den Code sicherer. Statt eines
+einfachen `string` für eine E-Mail nutzen wir `EmailAddress`.
 
 ---
 
 ## 📋 Arbeitsanweisungen: Wie erstelle ich eine Entity?
 
-1.  **Erstelle die Klasse** im Ordner `Entities/`.
-2.  **Properties**: Nutze `private set`, um unkontrollierte Änderungen zu verhindern.
-3.  **Konstruktor**: Erstelle einen internen/privaten parameterlosen Konstruktor für EF Core und einen öffentlichen Konstruktor, der alle Pflichtfelder validiert.
-4.  **Verhalten**: Implementiere Methoden für Zustandsänderungen (z.B. `AssignToUser`).
-5.  **Dokumentation**: Nutze XML-Tags für **jede** Methode und Property.
+1. **Erstelle die Klasse** im Ordner `Entities/`.
+2. **Properties**: Nutze `private set`, um unkontrollierte Änderungen zu verhindern.
+3. **Konstruktor**: Erstelle einen internen parameterlosen Konstruktor für EF Core und einen
+   öffentlichen Konstruktor, der alle Pflichtfelder validiert.
+4. **Verhalten**: Implementiere Methoden für Zustandsänderungen (z.B. `AssignToUser`).
+5. **Dokumentation**: Nutze XML-Tags für **jede** Methode und Property.
 
 ---
 
@@ -65,7 +69,9 @@ Value Objects sind kleine Objekte ohne Identität. Sie machen den Code sicherer.
 
 ## 🔗 Connectors
 
-- **DI Connection**: Dieser Layer benötigt **keine** Dependency Injection Registrierung, da er keine Services implementiert, sondern nur Daten und Regeln definiert.
+- **DI Connection**: Dieser Layer benötigt **keine** DI Registrierung, da er keine Services
+  implementiert, sondern nur Daten und Regeln definiert.
 
 > [!IMPORTANT]
-> Keine Abhängigkeiten zu anderen Projekten! Wenn du etwas aus der Application Layer brauchst, ist das ein Architekturfehler.
+> Keine Abhängigkeiten zu anderen Projekten! Wenn du etwas aus der Application Layer brauchst, ist
+> das ein Architekturfehler.

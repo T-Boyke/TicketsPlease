@@ -1,6 +1,7 @@
 # 🟡 TicketsPlease.Application – Die Use Cases
 
-Dieser Layer orchestriert die Geschäftsprozesse. Hier wird definiert, **was** die Anwendung tut, ohne sich um das **Wie** (Datenbank, UI) zu kümmern.
+Dieser Layer orchestriert die Geschäftsprozesse. Hier wird definiert, **was** die Anwendung tut,
+ohne sich um das **Wie** (Datenbank, UI) zu kümmern.
 
 ## 🍴 Git Branch
 
@@ -11,7 +12,8 @@ Dieser Layer orchestriert die Geschäftsprozesse. Hier wird definiert, **was** d
 
 ## 📋 Arbeitsanweisung: Wie füge ich einen Use Case hinzu?
 
-Wir nutzen das **Vertical Slice Pattern** innerhalb der Features. Ein Use Case besteht meist aus einer einzigen Datei, die Command/Query, Validator und Handler bündelt.
+Wir nutzen das **Vertical Slice Pattern** innerhalb der Features. Ein Use Case besteht meist aus
+einer einzigen Datei, die Command/Query, Validator und Handler bündelt.
 
 ### 1. Feature-Ordner finden
 
@@ -42,7 +44,8 @@ public class CreateTicketHandler : IRequestHandler<CreateTicketCommand, Guid> {
 
 ### 3. Pipeline-Behaviors
 
-MediatR führt automatisch Validierungen, Logging und Transaktions-Management durch. Du musst dich im Handler nicht darum kümmern!
+MediatR führt automatisch Validierungen, Logging und Transaktions-Management durch. Du musst dich
+im Handler nicht darum kümmern!
 
 ---
 
@@ -52,7 +55,8 @@ Alle Services und Handler dieses Layers werden automatisch registriert:
 
 - **Ort**: `DependencyInjection.cs`
 - **Methode**: `AddApplicationServices`
-- **Wichtig**: Wenn du einen neuen Handler schreibst, wird er per Reflection gefunden. Es ist kein manuelles Registrieren nötig!
+- **Wichtig**: Wenn du einen neuen Handler schreibst, wird er per Reflection gefunden. Es ist kein
+  manuelles Registrieren nötig!
 
 ---
 

@@ -1,6 +1,7 @@
 # 🔴 TicketsPlease.Infrastructure – Die Technik
 
-Hier werden die technischen Details implementiert. Dieser Layer kümmert sich um die Persistenz, externe APIs und systemnahe Dienste.
+Hier werden die technischen Details implementiert. Dieser Layer kümmert sich um die Persistenz,
+externe APIs und systemnahe Dienste.
 
 ## 🍴 Git Branch
 
@@ -32,13 +33,15 @@ public class TicketRepository : ITicketRepository {
 
 Migrationen werden über die CLI im Infrastructure-Projekt verwaltet.
 
-- **Befehl**: `dotnet ef migrations add [Name] --project src/TicketsPlease.Infrastructure --startup-project src/TicketsPlease.Web`
+- **Befehl**: `dotnet ef migrations add [Name] --project src/TicketsPlease.Infrastructure`
+  `--startup-project src/TicketsPlease.Web`
 
 ---
 
 ## 🛠️ Dependency Injection (DI) Connector
 
-Die Registrierung erfolgt explizit, da wir oft unterschiedliche Implementierungen (z.B. MailMock vs. Smtp) haben.
+Die Registrierung erfolgt explizit, da wir oft unterschiedliche Implementierungen (z.B. Mocking)
+haben.
 
 - **Ort**: `DependencyInjection.cs`
 - **Methode**: `AddInfrastructureServices`
