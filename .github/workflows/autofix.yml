@@ -23,7 +23,7 @@ jobs:
         run: dotnet format src/TicketsPlease.slnx
 
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "style: auto-fix dotnet format issues"
           branch: ${{ github.head_ref }}
