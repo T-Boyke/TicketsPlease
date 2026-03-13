@@ -6,18 +6,18 @@ namespace TicketsPlease.Application.Common.Interfaces;
 /// </summary>
 public interface ICorporateSkinProvider
 {
-    /// <summary>
-    /// Ruft die Primärfarbe für das Branding ab (hexadezimal oder CSS-Variable).
-    /// </summary>
-    string GetPrimaryColor();
+  /// <summary>
+  /// Ruft die Primärfarbe für das Branding ab (hexadezimal oder CSS-Variable).
+  /// </summary>
+  string GetPrimaryColor();
 
-    /// <summary>
-    /// Ruft die Sekundärfarbe für das Branding ab.
-    /// </summary>
-    string GetSecondaryColor();
+  /// <summary>
+  /// Ruft die Sekundärfarbe für das Branding ab.
+  /// </summary>
+  string GetSecondaryColor();
 
-    /// <summary>
-    /// Ruft den Namen oder Pfad des Firmenlogos ab.
-    /// </summary>
-    string GetLogoName();
+  /// <summary>
+  /// Ruft den Namen oder Pfad des Firmenlogos ab.
+  /// </summary>
+  string GetLogoName();
 }
