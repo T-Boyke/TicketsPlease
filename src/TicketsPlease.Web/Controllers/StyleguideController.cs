@@ -8,12 +8,12 @@ namespace TicketsPlease.Web.Controllers;
 /// </summary>
 public class StyleguideController : Controller
 {
-    /// <summary>
-    /// Zeigt die Übersicht aller UI-Komponenten und Design-Tokens an.
-    /// </summary>
-    /// <returns>Die Styleguide-View.</returns>
-    public IActionResult Index()
-    {
-        return View();
-    }
+  /// <summary>
+  /// Zeigt die Übersicht aller UI-Komponenten und Design-Tokens an.
+  /// </summary>
+  /// <returns>Die Styleguide-View.</returns>
+  public IActionResult Index()
+  {
+    return View();
+  }
 }
