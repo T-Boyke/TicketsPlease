@@ -24,11 +24,11 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString, sqlOptions =>
     {
-        // Enterprise Resilience: Enable automatic retries for transient failures
-        sqlOptions.EnableRetryOnFailure(
-            maxRetryCount: 5,
-            maxRetryDelay: TimeSpan.FromSeconds(30),
-            errorNumbersToAdd: null);
+      // Enterprise Resilience: Enable automatic retries for transient failures
+      sqlOptions.EnableRetryOnFailure(
+          maxRetryCount: 5,
+          maxRetryDelay: TimeSpan.FromSeconds(30),
+          errorNumbersToAdd: null);
     }));
 
 var app = builder.Build();
@@ -36,15 +36,15 @@ var app = builder.Build();
 // Database Seeding in Development
 if (app.Environment.IsDevelopment())
 {
-    await DbInitialiser.SeedAsync(app.Services);
+  await DbInitialiser.SeedAsync(app.Services);
 }
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+  app.UseExceptionHandler("/Home/Error");
+  // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+  app.UseHsts();
 }
 
 app.UseHttpsRedirection();
