@@ -1,0 +1,23 @@
+@import "./brand-color.css";
+
+@theme {
+  --font-sans: "Noto Sans Variable", ui-sans-serif, system-ui;
+}
+
+@variant dark (&:where(.dark, .dark *));
+
+/* Base Body Styles for Light / Dark Mode Handling */
+@layer base {
+  body {
+    @apply bg-brand-bg text-text-main font-sans antialiased transition-colors duration-300;
+  }
+  
+  .dark body {
+    @apply bg-dark-surface text-dark-text-main;
+  }
+
+  /* Standardized focus styles for links and other interactive elements */
+  a, button {
+    @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary rounded;
+  }
+}

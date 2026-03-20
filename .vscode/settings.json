@@ -1,12 +1,73 @@
 {
   "dotnet.server.useOmnisharp": false,
   "csharp.format.enable": true,
+  "csharp.analysis.showFullSolutionAnalysis": true,
+  "csharp.documentation.showXmlDocumentation": true,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
     "source.organizeImports": "explicit"
   },
-  "prettier.configPath": ".prettierrc",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.stickyScroll.enabled": true,
+  "editor.renderWhitespace": "selection",
+  "editor.suggestSelection": "first",
+  "editor.rulers": [80, 100, 120],
+  "prettier.configPath": ".config/.prettierrc",
+  "markdownlint.config": {
+    "extends": ".config/.markdownlint.json"
+  },
+  "markdownlint.run": "onSave",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.associations": {
+    "*.cshtml": "razor",
+    "*.css": "tailwindcss"
+  },
+  "files.autoSave": "onFocusChange",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "tailwindCSS.experimental.classRegex": [
+    ["class\\s*=\\s*\"([^\"]*)\"", "([^\\s\"']+)"],
+    ["class\\s*=\\s*'([^']*)'", "([^\\s\"']+)"],
+    ["@utility\\s+([^\\s{]+)", "([^\\s{]+)"],
+    ["classNames\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]"],
+    ["(?<=\\b(?:class|className)\\s*:\\s*['\"])([^'\"]*)"],
+    "class: \"([^\"]*)\""
+  ],
+  "tailwindCSS.includeLanguages": {
+    "aspnetcorerazor": "html",
+    "razor": "html",
+    "cshtml": "html",
+    "csharp": "html"
+  },
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "asp-class",
+    "active-class"
+  ],
+  "tailwindCSS.classFunctions": [
+    "clsx",
+    "twMerge",
+    "classNames",
+    "cn",
+    "twJoin"
+  ],
+  "tailwindCSS.lint.invalidApply": "error",
+  "tailwindCSS.lint.invalidScreen": "error",
+  "tailwindCSS.lint.invalidVariant": "error",
+  "tailwindCSS.lint.invalidTailwindDirective": "error",
+  "tailwindCSS.validate": true,
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.showPixelEquivalents": true,
+  "tailwindCSS.colorDecorators": true,
+  "[csharp]": {
+    "editor.defaultFormatter": "ms-dotnettools.csdevkit"
+  },
+  "[razor]": {
+    "editor.defaultFormatter": "ms-dotnettools.csdevkit"
+  },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -28,9 +89,17 @@
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "markdownlint.config": { "extends": ".markdownlint.json" },
-  "markdownlint.run": "onSave",
-  "tailwindCSS.experimental.classRegex": ["class: \"([^\"]*)\""],
+  "efcore.defaultProject": "src/TicketsPlease.Infrastructure/TicketsPlease.Infrastructure.csproj",
+  "efcore.defaultStartupProject": "src/TicketsPlease.Web/TicketsPlease.Web.csproj",
+  "playwright.testDir": "tests/TicketsPlease.E2ETests",
+  "playwright.reuseBrowser": true,
+  "css.validate": false,
+  "dotnet.unitTestDebuggingOptions": {
+    "env": {
+      "PWDEBUG": "0",
+      "ASPNETCORE_ENVIRONMENT": "Development"
+    }
+  },
   "cSpell.words": [
     "abarbeitbare",
     "abteilungsspezifischen",
@@ -102,7 +171,5 @@
     "wwwroot",
     "zockerbot"
   ],
-  "cSpell.language": "en,de",
-  "files.trimTrailingWhitespace": true,
-  "files.insertFinalNewline": true
+  "cSpell.language": "en,de"
 }

@@ -1,0 +1,61 @@
+/* 
+ * Layout Components - Tailwind Plus Flair
+ * Includes Containers, Dividers, and Media Objects
+ */
+
+@layer components {
+    /* --- Containers --- */
+    .container-constrained {
+        @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+    }
+
+    .container-narrow {
+        @apply mx-auto max-w-3xl px-4 sm:px-6 lg:px-8;
+    }
+
+    /* --- Dividers --- */
+    .divider {
+        @apply relative py-5;
+    }
+
+    .divider-line {
+        @apply absolute inset-0 flex items-center;
+    }
+
+    .divider-border {
+        @apply w-full border-t border-border-default dark:border-dark-border;
+    }
+
+    .divider-content {
+        @apply relative flex justify-center;
+    }
+
+    .divider-text {
+        @apply bg-white px-2 text-sm text-text-muted dark:bg-dark-surface dark:text-dark-text-muted;
+    }
+
+    /* --- Media Objects --- */
+    .media-object {
+        @apply flex items-start space-x-5;
+    }
+
+    .media-object-figure {
+        @apply flex-shrink-0;
+    }
+
+    .media-object-body {
+        @apply pt-1.5;
+    }
+
+    .media-object-title {
+        @apply text-lg font-bold text-text-main dark:text-dark-text-main;
+    }
+
+    .media-object-text {
+        @apply mt-1 text-sm text-text-secondary dark:text-dark-text-secondary;
+    }
+}
+
+@utility list-container {
+    @apply overflow-hidden rounded-md border border-border-default bg-white dark:border-dark-border dark:bg-dark-surface;
+}

@@ -1,0 +1,88 @@
+/* 
+ * Animations & Transitions - Tailwind Plus Flair
+ * Curated micro-animations for premium UX
+ */
+
+@theme {
+  /* --- Keyframes --- */
+  
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fade-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  @keyframes slide-in-right {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+
+  @keyframes slide-in-left {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+  }
+
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* --- Animation Utilities --- */
+  
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-fade-in-up: fade-in-up 0.4s ease-out;
+  --animate-fade-out: fade-out 0.2s ease-in;
+  --animate-slide-in-right: slide-in-right 0.5s ease-in-out;
+  --animate-slide-in-left: slide-in-left 0.5s ease-in-out;
+  --animate-scale-in: scale-in 0.2s ease-out;
+  --animate-shimmer: shimmer 2s infinite linear;
+}
+
+@layer utilities {
+  /* --- Staggered Entry Transitions --- */
+  .stagger-1 { animation-delay: 100ms; }
+  .stagger-2 { animation-delay: 200ms; }
+  .stagger-3 { animation-delay: 300ms; }
+  .stagger-4 { animation-delay: 400ms; }
+
+  /* --- Pulse Soft (Less aggressive than default pulse) --- */
+  .animate-pulse-soft {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* --- Shimmer Effect (Loading States) --- */
+  .skeleton {
+    @apply bg-surface-soft dark:bg-dark-surface-soft relative overflow-hidden rounded-md;
+    background-image: linear-gradient(
+      90deg, 
+      rgba(255, 255, 255, 0) 0%, 
+      rgba(255, 255, 255, 0.4) 50%, 
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite linear;
+  }
+
+  .dark .skeleton {
+    background-image: linear-gradient(
+      90deg, 
+      rgba(255, 255, 255, 0) 0%, 
+      rgba(255, 255, 255, 0.05) 50%, 
+      rgba(255, 255, 255, 0) 100%
+    );
+  }
+}

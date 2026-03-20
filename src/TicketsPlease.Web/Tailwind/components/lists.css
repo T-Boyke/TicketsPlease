@@ -1,0 +1,78 @@
+/* 
+ * Lists Components - Tailwind Plus Flair
+ * Includes Stacked Lists, Grid Lists, Tables, and Feeds
+ */
+
+@layer components {
+    /* --- Stacked Lists --- */
+    .stacked-list {
+        @apply divide-y divide-border-default overflow-hidden bg-white shadow sm:rounded-md dark:divide-dark-border dark:bg-dark-surface dark:shadow-none dark:border dark:border-dark-border;
+    }
+
+    .stacked-list-item {
+        @apply block hover:bg-surface-muted dark:hover:bg-dark-surface-soft transition-colors;
+    }
+
+    .stacked-list-content {
+        @apply flex items-center px-4 py-4 sm:px-6;
+    }
+
+    /* --- Grid Lists --- */
+    .grid-list {
+        @apply grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3;
+    }
+
+    .grid-list-item {
+        @apply col-span-1 divide-y divide-border-default rounded-lg bg-white shadow dark:divide-dark-border dark:bg-dark-surface dark:border dark:border-dark-border;
+    }
+
+    /* --- Tables --- */
+    .table-container {
+        @apply flow-root;
+    }
+
+    .table-wrapper {
+        @apply -mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8;
+    }
+
+    .table-inner {
+        @apply inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8;
+    }
+
+    .table-custom {
+        @apply min-w-full divide-y divide-border-default dark:divide-dark-border;
+    }
+
+    .table-thead {
+        @apply bg-surface-muted dark:bg-dark-surface-soft;
+    }
+
+    .table-th {
+        @apply py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-text-main sm:pl-0 dark:text-dark-text-main;
+    }
+
+    .table-td {
+        @apply whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-text-main sm:pl-0 dark:text-dark-text-main;
+    }
+
+    /* --- Feeds --- */
+    .feed {
+        @apply flow-root;
+    }
+
+    .feed-list {
+        @apply -mb-8;
+    }
+
+    .feed-item {
+        @apply relative pb-8;
+    }
+
+    .feed-separator {
+        @apply absolute left-4 top-4 -ml-px h-full w-0.5 bg-border-default dark:bg-dark-border;
+    }
+
+    .feed-content {
+        @apply relative flex space-x-3;
+    }
+}

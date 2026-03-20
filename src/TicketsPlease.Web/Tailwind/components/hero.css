@@ -1,0 +1,11 @@
+@utility hero-container {
+  @apply relative isolate px-6 pt-14 lg:px-8 bg-brand-soft dark:bg-dark-surface-soft rounded-3xl mx-4 my-8 overflow-hidden shadow-sm border border-brand-border dark:border-dark-border;
+}
+
+@utility hero-glass {
+  @apply relative animate-fade-in py-16 px-6 sm:py-24 lg:px-8 bg-linear-to-b from-brand-soft to-surface-bright dark:from-dark-surface-soft dark:to-dark-surface border-b border-brand-border/30 dark:border-dark-border/50;
+}
+
+@utility hero-badge {
+  @apply rounded-full bg-brand-soft px-3 py-1 text-xs font-bold text-brand-primary ring-1 ring-inset ring-brand-border/30 mb-6 inline-block uppercase tracking-wider;
+}

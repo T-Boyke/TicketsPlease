@@ -1,0 +1,29 @@
+/* 
+ * Command Palettes - Tailwind Plus Flair
+ */
+
+@layer components {
+    .command-palette {
+        @apply mx-auto max-w-2xl transform divide-y divide-border-default overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black/5 transition-all dark:divide-dark-border dark:bg-dark-surface dark:ring-white/10;
+    }
+
+    .command-palette-input-wrapper {
+        @apply relative;
+    }
+
+    .command-palette-input {
+        @apply h-12 w-full border-0 bg-transparent pl-11 pr-4 text-text-main placeholder:text-text-muted focus:ring-0 sm:text-sm dark:text-dark-text-main dark:placeholder:text-dark-text-muted;
+    }
+
+    .command-palette-icon {
+        @apply pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-text-muted dark:text-dark-text-muted;
+    }
+
+    .command-palette-results {
+        @apply max-h-80 scroll-py-2 overflow-y-auto p-2 text-sm text-text-secondary dark:text-dark-text-secondary;
+    }
+
+    .command-palette-item {
+        @apply flex cursor-default select-none items-center rounded-md px-3 py-2 hover:bg-brand-primary hover:text-white dark:hover:bg-brand-primary transition-colors;
+    }
+}

@@ -1,7 +1,21 @@
+# Auto detect text files and perform LF normalization
 * text=auto
 
+# C# / .NET specific
 *.cs text eol=crlf
 *.cshtml text eol=crlf
+*.razor text eol=crlf
+*.sln text eol=crlf
+*.slnx text eol=crlf
+*.csproj text eol=crlf
+*.props text eol=crlf
+*.targets text eol=crlf
+*.config text eol=crlf
+*.settings text eol=crlf
+*.resx text eol=crlf
+*.pubxml text eol=crlf
+
+# Web / Frontend
 *.js text eol=lf
 *.ts text eol=lf
 *.css text eol=lf
@@ -12,8 +26,13 @@
 *.yaml text eol=lf
 *.sh text eol=lf
 
+# Graphics / Binary
 *.png binary
 *.jpg binary
 *.jpeg binary
 *.gif binary
 *.ico binary
+*.pdf binary
+*.dll binary
+*.exe binary
+*.pdb binary

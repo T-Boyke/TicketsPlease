@@ -1,0 +1,48 @@
+/* 
+ * Overlay Components - Tailwind Plus Flair
+ * Includes Modal Dialogs and Drawers (Slide-overs)
+ */
+
+@layer components {
+    /* --- Modal Dialogs --- */
+    .modal-overlay {
+        @apply fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300;
+    }
+
+    .modal-container {
+        @apply fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 md:p-20;
+    }
+
+    .modal-content {
+        @apply mx-auto max-w-lg transform divide-y divide-border-default overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black/5 transition-all dark:divide-dark-border dark:bg-dark-surface dark:ring-white/10;
+    }
+
+    .modal-header {
+        @apply px-4 py-3 sm:px-6;
+    }
+
+    .modal-body {
+        @apply px-4 py-5 sm:p-6;
+    }
+
+    .modal-footer {
+        @apply bg-surface-muted px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 dark:bg-dark-surface-soft/50;
+    }
+
+    /* --- Drawers / Slide-overs --- */
+    .drawer-overlay {
+        @apply fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-300;
+    }
+
+    .drawer-panel {
+        @apply pointer-events-auto w-screen max-w-md transform bg-white shadow-xl transition-transform duration-500 ease-in-out dark:bg-dark-surface;
+    }
+
+    .drawer-header {
+        @apply flex items-start justify-between px-4 py-6 sm:px-6;
+    }
+
+    .drawer-body {
+        @apply relative mt-6 flex-1 px-4 sm:px-6;
+    }
+}

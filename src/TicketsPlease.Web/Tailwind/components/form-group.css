@@ -1,0 +1,23 @@
+@utility form-group-card {
+  @apply bg-surface-bright/50 dark:bg-dark-surface-soft/50 p-6 rounded-2xl border border-border-muted dark:border-dark-border shadow-sm transition-all duration-300;
+}
+
+@utility form-group-row {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-6 items-start;
+}
+
+@utility form-group-stack {
+  @apply space-y-6;
+}
+
+@utility form-group-accent {
+  @apply border-l-4 border-brand-primary ml-1 pl-6 py-2 bg-brand-soft/30 dark:bg-brand-soft/10 rounded-r-2xl;
+}
+
+@utility form-group-header {
+  @apply flex items-center justify-between mb-6 pb-4 border-b border-border-muted dark:border-dark-border;
+}
+
+@utility form-group-footer {
+  @apply mt-8 pt-6 border-t border-border-muted dark:border-dark-border flex items-center justify-between gap-6;
+}

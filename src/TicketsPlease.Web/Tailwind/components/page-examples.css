@@ -1,0 +1,58 @@
+/* 
+ * Page Examples - Tailwind Plus Flair
+ * Includes Home, Detail, and Settings screen structures
+ */
+
+@layer components {
+    /* --- Home Screen --- */
+    .page-home {
+        @apply min-h-full;
+    }
+
+    .page-home-header {
+        @apply bg-white shadow dark:bg-dark-surface-soft/20;
+    }
+
+    /* --- Detail Screen --- */
+    .page-detail {
+        @apply lg:flex lg:items-center lg:justify-between;
+    }
+
+    .page-detail-main {
+        @apply mt-8 grid grid-cols-1 gap-6 lg:grid-flow-col-dense lg:grid-cols-3;
+    }
+
+    /* --- Settings Screen --- */
+    .page-settings {
+        @apply divide-y divide-border-default dark:divide-dark-border;
+    }
+
+    .page-settings-row {
+        @apply py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6;
+    }
+
+    /* --- Auth Screens (Sign-in / Registration) --- */
+    .page-auth {
+        @apply flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-brand-bg dark:bg-dark-surface;
+    }
+
+    .page-auth-container {
+        @apply sm:mx-auto sm:w-full sm:max-w-sm;
+    }
+
+    .page-auth-header {
+        @apply text-center;
+    }
+
+    .page-auth-title {
+        @apply mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-text-main dark:text-dark-text-main;
+    }
+
+    .page-auth-card {
+        @apply mt-10 sm:mx-auto sm:w-full sm:max-w-[480px];
+    }
+
+    .page-auth-card-inner {
+        @apply bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12 dark:bg-dark-surface-soft dark:border dark:border-dark-border;
+    }
+}

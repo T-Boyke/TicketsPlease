@@ -1,0 +1,55 @@
+@import "tailwindcss";
+@source "../Views/**/*.cshtml";
+@source "../wwwroot/js/**/*.js";
+
+
+/* Theme and Base */
+@import "./components/theme.css";
+@import "./components/animations.css";
+
+/* Core Elements */
+@import "./components/btn.css";
+@import "./components/badge.css";
+@import "./components/avatar.css";
+@import "./components/headings.css";
+
+/* Navigation */
+@import "./components/navbars.css";
+
+/* Data & Lists */
+@import "./components/lists.css";
+@import "./components/data-display.css";
+
+/* Forms */
+@import "./components/form.css";
+
+/* Feedback & Overlays */
+@import "./components/alerts.css";
+@import "./components/empty-states.css";
+@import "./components/modals.css";
+@import "./components/notifications.css";
+@import "./components/command-palettes.css";
+@import "./components/dropdowns.css";
+@import "./components/progress.css";
+@import "./components/comboboxes.css";
+
+/* Layout & Shells */
+@import "./components/layout.css";
+@import "./components/application-shells.css";
+@import "./components/page-examples.css";
+
+/* Legacy / Utilities */
+@import "./components/hero.css";
+@import "./components/grid.css";
+@import "./components/flex.css";
+@import "./components/card.css";
+@import "./components/btn-groups.css";
+
+/* Professional Utilities - No AI Slop */
+@utility accent-border {
+  @apply border-l-4 border-brand-primary;
+}
+
+@utility nav-link {
+  @apply text-sm font-semibold text-nav-link hover:text-nav-link-hover dark:hover:text-brand-primary transition-colors duration-200 flex items-center gap-2;
+}

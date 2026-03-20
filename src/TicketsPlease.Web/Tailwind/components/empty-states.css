@@ -1,0 +1,80 @@
+/* 
+ * Empty States Component - Based on Tailwind UI
+ * Implementation for _10_Filmdatenbank
+ */
+
+@layer components {
+    /* Base Empty State Wrapper */
+    .empty-state {
+        @apply text-center py-12 px-4;
+    }
+
+    .empty-state-icon {
+        @apply mx-auto h-12 w-12 text-text-muted/50 dark:text-dark-text-muted/50;
+    }
+
+    .empty-state-title {
+        @apply mt-2 text-sm font-black text-text-main dark:text-white uppercase tracking-tight;
+    }
+
+    .empty-state-description {
+        @apply mt-1 text-sm text-text-muted dark:text-dark-text-muted;
+    }
+
+    .empty-state-actions {
+        @apply mt-6 flex justify-center gap-3;
+    }
+
+    /* Dashed Border Variant */
+    .empty-state-dashed {
+        @apply relative block w-full rounded-xl border-2 border-dashed border-border-muted dark:border-dark-border p-12 
+               text-center hover:border-text-muted/40 dark:hover:border-dark-text-muted/40 transition-colors
+               focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 dark:focus:ring-offset-dark-surface;
+    }
+
+    .empty-state-dashed .empty-state-icon {
+        @apply text-text-muted dark:text-dark-text-muted;
+    }
+
+    /* Starting Points / Recommendations List */
+    .empty-state-list {
+        @apply mt-6 border-t border-b border-border-muted dark:border-dark-border divide-y divide-border-muted dark:divide-dark-border;
+    }
+
+    .empty-state-item {
+        @apply relative flex items-start space-x-3 py-4 hover:bg-surface-subtle/50 dark:hover:bg-dark-surface-soft/50 transition-colors px-2 rounded-lg;
+    }
+
+    .empty-state-item-icon-wrapper {
+        @apply shrink-0;
+    }
+
+    .empty-state-item-body {
+        @apply min-w-0 flex-1;
+    }
+
+    .empty-state-item-title {
+        @apply text-sm font-bold text-text-main dark:text-white;
+    }
+
+    .empty-state-item-description {
+        @apply text-sm text-text-muted dark:text-dark-text-muted;
+    }
+
+    .empty-state-item-chevron {
+        @apply shrink-0 self-center text-text-muted/40 dark:text-dark-text-muted/40;
+    }
+
+    /* Recommendations Grid */
+    .empty-state-grid {
+        @apply mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3;
+    }
+
+    .empty-state-card {
+        @apply flex flex-col items-center p-6 border border-border-muted dark:border-dark-border rounded-xl bg-surface-subtle/30 dark:bg-dark-surface-soft/30 hover:border-brand-primary/50 transition-all;
+    }
+
+    .empty-state-card-icon {
+        @apply h-10 w-10 text-brand-primary mb-4;
+    }
+}

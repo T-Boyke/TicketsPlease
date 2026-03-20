@@ -1,0 +1,73 @@
+/* 
+ * Headings Components - Tailwind Plus Flair
+ * Includes Page, Card, and Section headings with actions
+ */
+
+@layer components {
+    /* --- Page Headings --- */
+    
+    .page-heading {
+        @apply md:flex md:items-center md:justify-between mb-8;
+    }
+
+    .page-heading-content {
+        @apply min-w-0 flex-1;
+    }
+
+    .page-heading-title {
+        @apply text-2xl font-bold leading-7 text-text-main sm:truncate sm:text-3xl sm:tracking-tight dark:text-dark-text-main;
+    }
+
+    .page-heading-meta {
+        @apply mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6;
+    }
+
+    .page-heading-meta-item {
+        @apply mt-2 flex items-center text-sm text-text-muted dark:text-dark-text-muted;
+    }
+
+    .page-heading-actions {
+        @apply mt-4 flex md:ml-4 md:mt-0 space-x-3;
+    }
+
+    /* --- Card Headings --- */
+
+    .card-heading {
+        @apply border-b border-border-default px-4 py-5 sm:px-6 dark:border-dark-border;
+    }
+
+    .card-heading-title {
+        @apply text-base font-semibold leading-6 text-text-main dark:text-dark-text-main;
+    }
+
+    .card-heading-description {
+        @apply mt-1 text-sm text-text-muted dark:text-dark-text-muted;
+    }
+
+    /* --- Section Headings --- */
+
+    .section-heading {
+        @apply border-b border-border-default pb-5 dark:border-dark-border;
+    }
+
+    .section-heading-title {
+        @apply text-base font-semibold leading-6 text-text-main dark:text-dark-text-main;
+    }
+
+    .section-heading-tabs {
+        @apply mt-4;
+    }
+}
+
+/* Utilities for quick heading styling */
+@utility heading-xl {
+    @apply text-3xl font-bold tracking-tight text-text-main dark:text-dark-text-main sm:text-4xl;
+}
+
+@utility heading-lg {
+    @apply text-2xl font-bold leading-9 tracking-tight text-text-main dark:text-dark-text-main;
+}
+
+@utility heading-md {
+    @apply text-xl font-semibold leading-7 text-text-main dark:text-dark-text-main;
+}

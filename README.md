@@ -614,17 +614,16 @@ Bestandteil des Workflows ist.
 
 Um bei mehreren Entwicklern Chaos zu vermeiden, herrschen strikte Git-Regeln:
 
-- **Der `master` / `main` Branch ist HEILIG.**
-  - Der Master-Branch muss zu **jeder Zeit lauffähig** sein (Compilable &
-    Green Tests).
-  - Niemals wird direkt in den Master-Branch gepusht (Pushes sind per
-    Branch-Protection gesperrt!).
+- **Der `main` / `master` Branch ist HEILIG.**
+  - Der Master-Branch muss zu **jeder Zeit lauffähig** sein (Compilable & Green Tests).
+  - **Direkte Pushes in den Master-Branch sind STRENGSTENS untersagt.** Dies wird durch ein lokales **Git Hook** (`pre-push`) technisch verhindert.
 - **Layer-Branching (Team Collaboration):**
-  - Jeder Architektur-Layer hat einen eigenen Basis-Branch: `layer/domain`,
-    `layer/application`, `layer/infrastructure`, `layer/web`.
+  - Teammitglieder arbeiten **ausschließlich** in den Architektur-Layern entsprechenden Branches: `layer/domain`, `layer/application`, `layer/infrastructure`, `layer/web`, `layer/test`.
+  - Pushes sollten nur in den eigenen Layer-Branch (oder zugehörige Feature-Branches) erfolgen.
+- **Setup der Git-Regeln:**
+  - Führen Sie nach dem Klonen einmalig das Script `.\scripts\setup-hooks.ps1` aus (oder nutzen Sie den VS Code Task **"Setup Git Hooks"**), um die Schutz-Mechanismen zu aktivieren.
 - **Feature Branching:**
-  - Neue Features starten immer vom jeweiligen Layer-Branch:
-    `git checkout -b feature/xyz layer/xxx`.
+  - Neue Features starten immer vom jeweiligen Layer-Branch: `git checkout -b feature/xyz layer/xxx`.
   - Wir nutzen sprechende Präfixe: `feature/xyz`, `bugfix/xyz`, `hotfix/xyz`,
     `docs/xyz`.
 - **Pull Requests (PRs):**

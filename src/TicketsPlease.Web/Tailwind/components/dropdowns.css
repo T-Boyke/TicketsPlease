@@ -1,0 +1,40 @@
+/* 
+ * Dropdown Components - Tailwind Plus Flair
+ * Includes Action Menus and Flyout Panels
+ */
+
+@layer components {
+    /* --- Dropdown Menu --- */
+    .dropdown {
+        @apply relative inline-block text-left;
+    }
+
+    .dropdown-menu {
+        @apply absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-border-default rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none dark:divide-dark-border dark:bg-dark-surface dark:ring-white/10 transition-all;
+    }
+
+    .dropdown-item {
+        @apply block px-4 py-2 text-sm text-text-secondary hover:bg-surface-muted hover:text-text-main dark:text-dark-text-secondary dark:hover:bg-dark-surface-soft dark:hover:text-dark-text-main transition-colors;
+    }
+
+    .dropdown-item-active {
+        @apply bg-surface-muted text-text-main dark:bg-dark-surface-soft dark:text-dark-text-main;
+    }
+
+    /* --- Flyout Menu (Mega Menu style) --- */
+    .flyout-panel {
+        @apply absolute left-1/2 z-10 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4 transition-all;
+    }
+
+    .flyout-content {
+        @apply w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-border-default dark:bg-dark-surface dark:ring-dark-border;
+    }
+
+    .flyout-item {
+        @apply relative flex gap-x-6 rounded-lg p-4 hover:bg-surface-muted dark:hover:bg-dark-surface-soft;
+    }
+
+    .flyout-icon {
+        @apply mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-surface-muted dark:bg-dark-surface-soft;
+    }
+}

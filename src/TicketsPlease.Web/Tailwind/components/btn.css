@@ -1,0 +1,39 @@
+@utility btn-primary {
+  @apply inline-flex items-center justify-center px-4 py-2 bg-brand-primary text-white text-sm font-semibold rounded-md hover:bg-brand-hover transition-all duration-200 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary;
+}
+
+@utility btn-secondary {
+  @apply inline-flex items-center justify-center px-4 py-2 bg-white dark:bg-dark-surface-soft text-text-main dark:text-dark-text-main text-sm font-semibold rounded-md border border-border-default dark:border-dark-border hover:bg-surface-muted dark:hover:bg-dark-surface-muted transition-all duration-200 shadow-sm ring-1 ring-inset ring-border-default dark:ring-dark-border;
+}
+
+@utility btn-danger {
+  @apply inline-flex items-center justify-center px-4 py-2 bg-danger-primary text-white text-sm font-semibold rounded-md hover:bg-danger-hover transition-all duration-200 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-danger-primary;
+}
+
+@utility btn-soft {
+  @apply inline-flex items-center justify-center px-4 py-2 bg-brand-soft dark:bg-brand-primary/10 text-brand-primary dark:text-brand-soft text-sm font-semibold rounded-md hover:bg-brand-border dark:hover:bg-brand-primary/20 transition-all duration-200;
+}
+
+@utility btn-ghost {
+  @apply inline-flex items-center justify-center px-4 py-2 text-text-secondary dark:text-dark-text-secondary text-sm font-semibold rounded-md hover:bg-surface-muted dark:hover:bg-dark-surface-muted transition-all duration-200;
+}
+
+@utility btn-outline {
+  @apply inline-flex items-center justify-center px-4 py-2 bg-transparent text-text-main dark:text-dark-text-main text-sm font-semibold rounded-md border border-border-default dark:border-dark-border hover:bg-surface-muted dark:hover:bg-dark-surface-muted transition-all duration-200 shadow-sm;
+}
+
+/* Button Sizes */
+@utility btn-xs { @apply px-2 py-1 text-xs; }
+@utility btn-sm { @apply px-2.5 py-1.5 text-xs; }
+@utility btn-md { @apply px-3 py-2 text-sm; }
+@utility btn-lg { @apply px-3.5 py-2.5 text-sm; }
+@utility btn-xl { @apply px-4 py-3 text-sm; }
+
+/* Icon handling */
+@utility btn-with-icon {
+  @apply gap-x-1.5;
+}
+
+@utility btn-icon-only {
+  @apply p-2 rounded-full;
+}

@@ -1,0 +1,53 @@
+@utility form-input {
+  @apply block w-full rounded-md bg-white border-0 py-1.5 text-text-main shadow-sm ring-1 ring-inset ring-border-default placeholder:text-text-muted focus:ring-2 focus:ring-inset focus:ring-brand-primary sm:text-sm sm:leading-6 dark:bg-dark-surface-soft dark:text-dark-text-main dark:ring-dark-border dark:placeholder:text-dark-text-muted transition-all duration-200;
+}
+
+@utility form-label {
+  @apply block text-sm font-medium leading-6 text-text-main dark:text-dark-text-secondary mb-1;
+}
+
+@utility form-textarea {
+  @apply block w-full rounded-md bg-white border-0 py-1.5 text-text-main shadow-sm ring-1 ring-inset ring-border-default placeholder:text-text-muted focus:ring-2 focus:ring-inset focus:ring-brand-primary sm:text-sm sm:leading-6 dark:bg-dark-surface-soft dark:text-dark-text-main dark:ring-dark-border dark:placeholder:text-dark-text-muted transition-all duration-200;
+}
+
+@utility form-select {
+  @apply block w-full rounded-md bg-white border-0 py-1.5 text-text-main shadow-sm ring-1 ring-inset ring-border-default focus:ring-2 focus:ring-inset focus:ring-brand-primary sm:text-sm sm:leading-6 dark:bg-dark-surface-soft dark:text-dark-text-main dark:ring-dark-border transition-all duration-200;
+}
+
+@utility form-error {
+  @apply mt-1 text-sm text-danger-primary dark:text-danger-vibrant font-medium;
+}
+
+@utility form-checkbox {
+  @apply h-4 w-4 rounded border-border-default text-brand-primary focus:ring-brand-primary dark:bg-dark-surface-soft dark:border-dark-border transition-all;
+}
+
+@utility form-radio {
+  @apply h-4 w-4 border-border-default text-brand-primary focus:ring-brand-primary dark:bg-dark-surface-soft dark:border-dark-border transition-all;
+}
+
+@utility form-toggle {
+  @apply flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-border-default transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-brand-primary focus:ring-offset-2 dark:bg-dark-border;
+}
+
+@utility form-toggle-active {
+  @apply bg-brand-primary;
+}
+
+@utility form-toggle-dot {
+  @apply pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out;
+}
+
+@utility form-toggle-dot-active {
+  @apply translate-x-5;
+}
+
+/* Group Layouts */
+@utility form-group {
+    @apply grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6;
+}
+
+@utility form-field-full { @apply sm:col-span-4; }
+@utility form-field-wide { @apply sm:col-span-6; }
+@utility form-field-half { @apply sm:col-span-3; }
+@utility form-field-third { @apply sm:col-span-2; }

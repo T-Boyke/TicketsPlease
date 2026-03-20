@@ -1,0 +1,52 @@
+/* 
+ * Notifications Components - Tailwind Plus Flair
+ * Includes Toast Notifications and Action Panels
+ */
+
+@layer components {
+    /* --- Notifications --- */
+    .notification-container {
+        @apply pointer-events-none fixed inset-0 z-50 flex items-end px-4 py-6 sm:items-start sm:p-6;
+    }
+
+    .notification {
+        @apply pointer-events-auto flex w-full max-w-sm rounded-lg bg-white shadow-lg ring-1 ring-black/5 dark:bg-dark-surface dark:ring-white/10;
+    }
+
+    .notification-inner {
+        @apply p-4;
+    }
+
+    .notification-content {
+        @apply flex items-start;
+    }
+
+    .notification-icon {
+        @apply flex-shrink-0;
+    }
+
+    .notification-text {
+        @apply ml-3 w-0 flex-1 pt-0.5;
+    }
+
+    .notification-title {
+        @apply text-sm font-medium text-text-main dark:text-dark-text-main;
+    }
+
+    .notification-description {
+        @apply mt-1 text-sm text-text-muted dark:text-dark-text-muted;
+    }
+
+    /* --- Action Panels --- */
+    .action-panel {
+        @apply bg-white shadow sm:rounded-lg dark:bg-dark-surface dark:border dark:border-dark-border;
+    }
+
+    .action-panel-body {
+        @apply px-4 py-5 sm:p-6;
+    }
+
+    .action-panel-footer {
+        @apply mt-5;
+    }
+}
