@@ -6,7 +6,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.3">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -21,25 +21,20 @@
     </PackageReference>
   </ItemGroup>
 
+  <PropertyGroup Label="Tailwind Properties">
+    <TailwindVersion>latest</TailwindVersion>
+    <TailwindInstallPath>$(BaseIntermediateOutputPath)\tailwind-cli\</TailwindInstallPath>
+    <TailwindConfigDir>$(MSBuildProjectDirectory)\Tailwind\</TailwindConfigDir>
+    <TailwindInputFile>input.css</TailwindInputFile>
+    <TailwindOutputFile>wwwroot\css\app.css</TailwindOutputFile>
+    <!-- Standardized Build Flags -->
+    <TailwindMinify Condition="'$(Configuration)' == 'Release'">true</TailwindMinify>
+    <TailwindWatch Condition="'$(BuildingInsideVisualStudio)' == 'true' or '$(DotNetWatchBuild)' == 'true'">true</TailwindWatch>
+  </PropertyGroup>
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
-  <Target Name="DownloadTailwind" BeforeTargets="PreBuildEvent">
-    <PropertyGroup>
-      <TailwindUrl Condition="$([MSBuild]::IsOSPlatform('Linux'))">https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-linux-x64</TailwindUrl>
-      <TailwindUrl Condition="$([MSBuild]::IsOSPlatform('Windows'))">https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-windows-x64.exe</TailwindUrl>
-      <TailwindUrl Condition="$([MSBuild]::IsOSPlatform('OSX'))">https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-macos-x64</TailwindUrl>
-      <TailwindExecutable Condition="$([MSBuild]::IsOSPlatform('Windows'))">tailwindcss.exe</TailwindExecutable>
-      <TailwindExecutable Condition="!$([MSBuild]::IsOSPlatform('Windows'))">tailwindcss</TailwindExecutable>
-    </PropertyGroup>
-    <DownloadFile SourceUrl="$(TailwindUrl)" DestinationFolder="$(MSBuildProjectDirectory)" DestinationFileName="$(TailwindExecutable)" Condition="!Exists('$(MSBuildProjectDirectory)\$(TailwindExecutable)')" />
-    <Exec Command="chmod +x $(TailwindExecutable)" Condition="!$([MSBuild]::IsOSPlatform('Windows'))" />
-  </Target>
-  <Target Name="RunTailwind" BeforeTargets="Build" DependsOnTargets="DownloadTailwind">
-    <Exec Command="./$(TailwindExecutable) -i styles/app.tailwind.css -o wwwroot/css/app.css" Condition="!$([MSBuild]::IsOSPlatform('Windows'))" />
-    <Exec Command="$(TailwindExecutable) -i styles/app.tailwind.css -o wwwroot/css/app.css" Condition="$([MSBuild]::IsOSPlatform('Windows'))" />
-  </Target>
 </Project>

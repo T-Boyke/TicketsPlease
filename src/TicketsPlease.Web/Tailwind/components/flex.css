@@ -1,0 +1,19 @@
+@utility flex-center {
+  @apply flex items-center justify-center;
+}
+
+@utility flex-between {
+  @apply flex items-center justify-between;
+}
+
+@utility flex-stack {
+  @apply flex flex-col space-y-4;
+}
+
+@utility flex-col-center {
+  @apply flex flex-col items-center justify-center;
+}
+
+@utility flex-wrap-gap {
+  @apply flex flex-wrap gap-4 items-center;
+}

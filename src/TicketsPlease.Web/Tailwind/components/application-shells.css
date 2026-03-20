@@ -1,0 +1,62 @@
+/* 
+ * Application Shells - Tailwind Plus Flair
+ * Includes Stacked, Sidebar, and Multi-Column layouts
+ */
+
+@layer components {
+    /* --- Stacked Layout --- */
+    .app-shell-stacked {
+        @apply min-h-full;
+    }
+
+    .app-shell-stacked-nav {
+        @apply bg-brand-primary pb-32;
+    }
+
+    .app-shell-stacked-main {
+        @apply -mt-32;
+    }
+
+    /* --- Sidebar Layout --- */
+    .app-shell-sidebar {
+        @apply flex min-h-full;
+    }
+
+    .app-shell-sidebar-nav {
+        @apply hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col;
+    }
+
+    .app-shell-sidebar-main {
+        @apply lg:pl-72;
+    }
+
+    /* --- Sidebar Navigation --- */
+    .sidebar-nav {
+        @apply flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4 border-r border-border-default dark:bg-dark-surface dark:border-dark-border;
+    }
+
+    .sidebar-nav-item {
+        @apply flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-text-secondary hover:bg-surface-muted hover:text-brand-primary dark:text-dark-text-secondary dark:hover:bg-dark-surface-soft transition-all;
+    }
+
+    .sidebar-nav-item-active {
+        @apply bg-brand-soft text-brand-primary dark:bg-brand-primary/10 dark:text-brand-soft;
+    }
+
+    /* --- Multi-Column Layout --- */
+    .app-shell-multi-column {
+        @apply flex min-h-full flex-col;
+    }
+
+    .app-shell-columns-container {
+        @apply mx-auto w-full max-w-7xl grow lg:flex xl:px-2;
+    }
+
+    .app-shell-column-main {
+        @apply flex-1 xl:flex;
+    }
+
+    .app-shell-column-side {
+        @apply shrink-0 border-t border-border-default px-4 py-6 sm:px-6 lg:w-96 lg:border-l lg:border-t-0 lg:pr-8 xl:pr-6 dark:border-dark-border;
+    }
+}

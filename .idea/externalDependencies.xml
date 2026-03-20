@@ -3,16 +3,16 @@
   <component name="ExternalDependencies">
     <!-- Tailwind CSS Support -->
     <plugin id="com.intellij.tailwindcss" />
-    
+
     <!-- Better log viewing -->
     <plugin id="com.intellij.ideolog" />
-    
+
     <!-- GitIgnore support -->
     <plugin id="mobi.hsz.idea.gitignore" />
-    
+
     <!-- String Manipulation (useful for C# strings/naming conventions) -->
     <plugin id="String Manipulation" />
-    
+
     <!-- CSV Plugin (useful if you ever import ticket data) -->
     <plugin id="net.seesharpsoft.intellij.plugins.csv" />
 
@@ -21,22 +21,22 @@
 
     <!-- Mermaid Markdown Support -->
     <plugin id="org.intellij.plugins.markdown" />
-    
+
     <!-- Sublime Text Keymap -->
     <plugin id="com.intellij.plugins.sublimekeymap" />
 
     <!-- JetBrains AI Assistant (Excellent for code journaling and docs) -->
     <plugin id="com.intellij.ml.llm" />
-    
+
     <!-- WakaTime (for time tracking / journaling) -->
     <plugin id="WakaTime" />
 
     <!-- QoL Web/HTML Tools for SFC CSHTML -->
     <plugin id="com.intellij.plugins.html.instantActions" />
-    
+
     <!-- Rainbow Brackets for deep tag nesting readability -->
     <plugin id="izhangzhihao.rainbow.brackets" />
-    
+
     <!-- Key Promoter X to learn shortcuts -->
     <plugin id="Key Promoter X" />
   </component>

@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# Get the name of the branch being pushed
+remote="$1"
+url="$2"
+
+z40=0000000000000000000000000000000000000000
+
+while read local_ref local_sha remote_ref remote_sha
+do
+    if [ "$local_sha" = $z40 ]
+    then
+        # Handle delete
+        :
+    else
+        # Get branch name from ref
+        branch=$(git rev-parse --abbrev-ref $local_ref)
+
+        # 1. Prevent direct push to main/master
+        if [ "$branch" = "main" ] || [ "$branch" = "master" ]; then
+            echo "--------------------------------------------------------"
+            echo "🚨 Error: Pushing directly to '$branch' is NOT allowed."
+            echo "Please push to your respective 'layer/*' or 'feature/*' branch."
+            echo "--------------------------------------------------------"
+            exit 1
+        fi
+
+        # 2. Enforce Layer-Specific Branching (Optional but recommended)
+        # Uncomment if you want to strictly enforce layer/ prefixes
+        # if [[ ! "$branch" =~ ^(layer/|feature/|bugfix/|hotfix/|docs/) ]]; then
+        #    echo "🚨 Error: Invalid branch name '$branch'."
+        #    echo "Branch names must start with 'layer/', 'feature/', etc."
+        #    exit 1
+        # fi
+    fi
+done
+
+exit 0

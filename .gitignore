@@ -1,20 +1,59 @@
-# Default ignored files
-/bin/
-/obj/
+## [Standard .NET Ignore]
+[Bb]in/
+[Oo][Bb][Jj]/
+[Ll]og/
+[Ll]ogs/
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
+*.sln.iml
+*.nupkg
 
-# Visual Studio 2026
-#.vs/
-#*.vsix
+## [Visual Studio]
+.vs/
+# Keep shared VS settings
+!.vsconfig
 
-# Rider 3.2026
-#.idea/
-#*.sln.iml
+## [JetBrains Rider]
+.idea/**
+# Keep shared Rider settings
+!.idea/externalDependencies.xml
+!.idea/runConfigurations/
+!.idea/dictionaries/
+!.idea/inspectionProfiles/
+!.idea/icon.png
+!.idea/icon.svg
 
-# OS generated files
+## [VS Code]
+.vscode/*
+# Keep shared VS Code settings
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+## [Web / Frontend]
+node_modules/
+dist/
+build/
+.env
+.env.*
+!.env.example
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+## [TicketsPlease Specific]
+src/TicketsPlease.Web/wwwroot/css/app.css
+src/TicketsPlease.Web/Tailwind/tailwind-cli/
+tests/TicketsPlease.E2ETests/bin/
+tests/TicketsPlease.E2ETests/obj/
+tests/TicketsPlease.UnitTests/bin/
+tests/TicketsPlease.UnitTests/obj/
+
+## [OS Specific]
 .DS_Store
 .DS_Store?
 ._*
@@ -23,31 +62,13 @@
 ehthumbs.db
 Thumbs.db
 
-# Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-[Aa][Rr][Mm]/
-[Aa][Rr][Mm]64/
-bld/
-[Bb]in/
-[Oo]bj/
-[Ll]og/
-[Ll]ogs/
-
-# Nuget packages
-*.nupkg
-packages/
-
-# libman
-# libman.json is tracked, but restored assets are ignored
-#lib/
-#wwwroot/lib/
-
-# Tailwind build output
-#wwwroot/css/build.css
-src/TicketsPlease.Web/tailwindcss.exe
-/.vs/TicketsPlease.slnx/FileContentIndex
+## [Antigravity / AI]
+# Keep agent config and logs if needed
+#.agent/
+#.gemini/
+.cortex/
+brain/
+implementation_plan.md
+walkthrough.md
+task.md
+nuget_comparison.md

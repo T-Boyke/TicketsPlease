@@ -9,6 +9,13 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 end_of_line = crlf
 
+# Accessibility and Documentation preferences
+dotnet_style_require_accessibility_modifiers = always:warning
+dotnet_style_readonly_field = true:suggestion
+dotnet_style_predefined_type_for_locals_parameters_members = true:suggestion
+dotnet_style_predefined_type_for_member_access = true:suggestion
+csharp_style_xml_documentation_comments_ignore_externally_symbols = false
+
 # XML project files
 [*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj}]
 indent_size = 2
