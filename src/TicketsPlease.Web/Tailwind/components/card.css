@@ -1,15 +1,44 @@
-@utility card-premium {
-  @apply bg-surface-bright dark:bg-dark-surface-soft border border-border-default dark:border-dark-border rounded-xl shadow-sm hover:shadow-md transition-all duration-300;
+/* 
+   ==========================================================================
+   PREMIUM CARDS (Asymmetry & Overlap)
+   ==========================================================================
+*/
+
+@utility card {
+  @apply overflow-hidden rounded-2xl bg-surface-bright dark:bg-dark-surface-soft border border-border-default dark:border-dark-border shadow-sm transition-all;
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-duration: 400ms;
 }
 
-@utility card-interactive {
-  @apply card-premium hover:border-brand-primary/30 hover:-translate-y-1 cursor-pointer;
+@utility card:hover {
+  @apply -translate-y-1.5 shadow-xl border-border-default;
+  transform: translateY(-6px) rotate(0.5deg);
 }
 
-@utility card-glass {
-  @apply bg-surface-bright/70 dark:bg-dark-surface-soft/70 border border-white/20 dark:border-dark-border/50 backdrop-blur-md rounded-2xl shadow-xl transition-all;
+/* Feature Card with Asymmetric Accent */
+@utility card-feature {
+  @apply card relative;
 }
 
-@utility card-footer {
-  @apply p-6 border-t border-border-muted dark:border-dark-border bg-surface-muted/50 dark:bg-dark-surface-soft/30 rounded-b-xl;
+.card-feature::after {
+  content: "";
+  @apply absolute top-0 right-0 h-1 w-1/3 bg-gradient-to-l from-brand-accent to-transparent rounded-tr-2xl;
+}
+
+/* Kanban Card with Primary Accent */
+@utility kanban-card {
+  @apply card border-l-4 border-l-brand-primary cursor-grab active:cursor-grabbing;
+}
+
+@utility kanban-card:hover {
+  @apply border-l-brand-accent;
+}
+
+/* Header & Body */
+@utility card-header {
+  @apply px-6 py-5 border-b border-border-muted dark:border-dark-border;
+}
+
+@utility card-body {
+  @apply px-6 py-5;
 }

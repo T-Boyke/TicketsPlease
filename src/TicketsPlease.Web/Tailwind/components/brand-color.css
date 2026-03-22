@@ -1,180 +1,92 @@
 @theme {
   /* 
      ==========================================================================
-     BRAND CORE IDENTITY (Themable)
+     BRAND CORE IDENTITY (Premium OKLCH)
      ==========================================================================
   */
-  --color-brand-primary: var(--theme-primary, #0284c7); /* Sky 600 default (Premium Azure) */
-  --color-brand-hover: var(--theme-hover, #0369a1);   /* Sky 700 */
-  --color-brand-soft: var(--theme-soft, #f0f9ff);    /* Sky 50 */
-  --color-brand-border: var(--theme-border, #e0f2fe);  /* Sky 100 */
+  --color-brand-primary: var(--theme-primary, oklch(0.55 0.22 260)); /* Premium Azure */
+  --color-brand-hover: var(--theme-hover, oklch(0.48 0.24 260));
+  --color-brand-soft: var(--theme-soft, oklch(0.96 0.05 260));
+  --color-brand-border: var(--theme-border, oklch(0.92 0.08 260));
   
-  --color-brand-bg: #f8fafc; /* Slate 50 tint */
+  --color-brand-bg: oklch(0.985 0.002 260); /* Slate 50-equivalent */
   
-  /* Interactive Accents & Shadows */
-  --color-brand-shadow: color-mix(in srgb, var(--color-brand-primary), transparent 90%);
-  --color-brand-shadow-lg: color-mix(in srgb, var(--color-brand-primary), transparent 80%);
+  /* High-Contrast Sharp Accents (Gold/Amber contrast) */
+  --color-brand-accent: oklch(0.75 0.18 75); 
+  --color-brand-accent-glow: oklch(0.75 0.18 75 / 0.3);
   
-  /* Surface Overlays (e.g. Card contents, Modals) */
-  --color-surface-overlay: var(--color-white);
-  --color-dark-surface-overlay: var(--color-slate-950);
+  /* Interaktive Schatten & Tiefen */
+  --color-brand-shadow: oklch(0.55 0.22 260 / 0.1);
+  --color-brand-shadow-lg: oklch(0.55 0.22 260 / 0.2);
+  
+  /* Atmosphere & Grain (Fixed in theme.css or here) */
+  --grain-opacity: 0.03;
+  
+  /* Surface Overlays (Glassmorphism base) */
+  --color-surface-overlay: oklch(1 0 0);
+  --color-dark-surface-overlay: oklch(0.12 0.015 260);
 
-  /* New Neutral Surface Variables */
-  --color-surface-bright: var(--color-white);
-  --color-surface-soft: var(--color-slate-100);
-  --color-surface-muted: var(--color-slate-50);
-  --color-surface-subtle: var(--color-slate-50);
+  /* Semantic Transitions */
+  --color-surface-bright: oklch(1 0 0);
+  --color-surface-soft: oklch(0.96 0.005 260);
+  --color-surface-muted: oklch(0.94 0.005 260);
 
-  /* Star Highlight */
-  --color-star-primary: #fcd34d; /* Yellow 300 */
-  
-  /* Base Semantic Colors - LIGHT MODE */
-  --color-text-main: #020617;      /* Slate 950 for massive contrast */
-  --color-dark-text-main: #f8fafc; /* Slate 50 */
-  --color-text-secondary: #334155; /* Slate 700 */
-  --color-dark-text-secondary: #cbd5e1; /* Slate 300 - better contrast */
-  --color-text-muted: #64748b;    /* Slate 500 */
-  --color-dark-text-muted: #94a3b8; /* Slate 400 */
-  --color-text-subtle: #94a3b8; /* Slate 400 */
-  --color-dark-text-subtle: #475569; /* Slate 600 */
-  --color-text-description: #1e293b; /* Slate 800 */
+  /* Light Mode Semantic Text */
+  --color-text-main: oklch(0.15 0.01 260);      /* Deep Navy-Slate */
+  --color-text-secondary: oklch(0.35 0.015 260);
+  --color-text-muted: oklch(0.55 0.02 260);
   
   /* 
      ==========================================================================
-     NAVIGATION SYSTEM
+     NAVIGATION & BORDERS
      ==========================================================================
   */
-  --color-nav-bg: #020617; /* Slate 950 base */
-  --color-nav-border: #0f172a; /* Slate 900 */
-  --color-nav-link: #94a3b8; /* Slate 400 */
-  --color-nav-link-hover: var(--color-white);
-  --color-nav-surface: #0f172a;
-  --color-nav-accent: #1e293b; /* Dividers etc. */
+  --color-nav-bg: oklch(0.12 0.015 260);
+  --color-nav-link: oklch(0.65 0.02 260);
+  --color-nav-link-hover: oklch(0.98 0.005 260);
+
+  --color-border-default: oklch(0.9 0.01 260);
+  --color-border-muted: oklch(0.94 0.005 260);
+  
+  /* Dark Mode Surfaces */
+  --color-dark-surface: oklch(0.13 0.015 260);
+  --color-dark-surface-soft: oklch(0.17 0.02 260);
+  --color-dark-border: oklch(0.25 0.02 260);
 
   /* 
      ==========================================================================
-     NEUTRAL SURFACES & BORDERS
+     SEMANTIC STATUS (Premium OKLCH)
      ==========================================================================
   */
-  --color-border-muted: var(--color-slate-100);
-  --color-border-default: var(--color-slate-200);
   
-  /* Dark Mode Specific Extensions */
-  --color-dark-surface: #020617; /* Slate 950 base */
-  --color-dark-surface-soft: #0f172a; /* Slate 900 */
-  --color-dark-surface-muted: #1e293b; /* Slate 800 */
-  --color-dark-border: #1e293b;
-  --color-dark-border-muted: color-mix(in srgb, #334155, transparent 50%);
+  /* Success (Emerald) */
+  --color-success-primary: oklch(0.55 0.18 155);
+  --color-success-bg: oklch(0.96 0.04 155);
+
+  /* Danger (Rose) */
+  --color-danger-primary: oklch(0.55 0.22 25);
+  --color-danger-bg: oklch(0.96 0.04 25);
+
+  /* Warning (Amber) */
+  --color-warning-primary: oklch(0.65 0.16 75);
+  --color-warning-bg: oklch(0.96 0.04 75);
+
+  /* Info (Indigo/Blue) */
+  --color-info-primary: oklch(0.55 0.2 245);
+  --color-info-bg: oklch(0.96 0.04 245);
 
   /* 
      ==========================================================================
-     SEMANTIC STATUS COLORS
+     GLASSMORPHISM UTILITIES
      ==========================================================================
   */
-  
-  /* Success (Premium Emerald) */
-  --color-success-primary: #059669; /* Emerald 600 */
-  --color-success-content: #064e3b; /* Emerald 900 */
-  --color-success-bg: #ecfdf5; /* Emerald 50 */
-  --color-success-border: #d1fae5; /* Emerald 100 */
-  --color-success-dark-content: #34d399; /* Emerald 400 */
-  --color-success-dark-bg: color-mix(in srgb, #064e3b, transparent 80%);
-  --color-success-dark-border: color-mix(in srgb, #059669, transparent 60%);
-  --color-success-vibrant: #10b981;
-
-  /* Danger / Error (Premium Rose-Red) */
-  --color-danger-primary: #e11d48; /* Rose 600 */
-  --color-danger-content: #4c0519; /* Rose 950 */
-  --color-danger-bg: #fff1f2; /* Rose 50 */
-  --color-danger-border: #ffe4e6; /* Rose 100 */
-  --color-danger-dark-content: #fb7185; /* Rose 400 */
-  --color-danger-dark-bg: color-mix(in srgb, #4c0519, transparent 80%);
-  --color-danger-dark-border: color-mix(in srgb, #e11d48, transparent 60%);
-  --color-danger-vibrant: #f43f5e;
-  --color-danger-hover: #be123c;
-
-  /* Warning (Premium Amber) */
-  --color-warning-primary: #d97706; /* Amber 600 */
-  --color-warning-content: #451a03; /* Amber 950 */
-  --color-warning-bg: #fffbeb; /* Amber 50 */
-  --color-warning-border: #fef3c7; /* Amber 100 */
-  --color-warning-dark-content: #fbbf24; /* Amber 400 */
-  --color-warning-dark-bg: color-mix(in srgb, #451a03, transparent 80%);
-  --color-warning-dark-border: color-mix(in srgb, #d97706, transparent 60%);
-
-  /* Info (Premium Indigo) - Distinct from Azure primary */
-  --color-info-primary: #4f46e5; /* Indigo 600 */
-  --color-info-content: #1e1b4b; /* Indigo 950 */
-  --color-info-bg: #eef2ff; /* Indigo 50 */
-  --color-info-border: #e0e7ff; /* Indigo 100 */
-  --color-info-dark-content: #818cf8; /* Indigo 400 */
-  --color-info-dark-bg: color-mix(in srgb, #1e1b4b, transparent 80%);
-  --color-info-dark-border: color-mix(in srgb, #4f46e5, transparent 60%);
-
-  /* 
-     ==========================================================================
-     DECORATIVE & SPECIAL ACCENTS
-     ==========================================================================
-  */
-  --color-accent-heart: var(--color-red-500);
-  --color-rating-star: var(--color-yellow-300);
-  
-  /* Overlays */
-  --color-overlay-dark: color-mix(in srgb, black, transparent 20%);
-  
-  /* Decorative Gradients (Light) */
-  --color-grad-hero-from: var(--color-brand-soft);
-  --color-grad-hero-to: var(--color-white);
-  
-  /* Decorative Gradients (Dark) */
-  --color-grad-hero-dark-from: var(--color-dark-surface-soft);
-  --color-grad-hero-dark-to: var(--color-dark-surface);
-
-  --color-brand-primary-a10: color-mix(in srgb, var(--color-brand-primary), transparent 90%);
-
-  /* Social Platform Colors */
-  --color-accent-imdb: #f5c518;
-  --color-accent-facebook: #1877f2;
-  --color-accent-twitter: #1da1f2;
-  --color-accent-instagram-from: #f9ce34;
-  --color-accent-instagram-via: #ee2a7b;
-  --color-accent-instagram-to: #6228d7;
-  
-  /* Metacritic Scoring Palette */
-  --color-metascore-bg: #000000;
-  --color-metascore-high: #66cc33; 
-  --color-metascore-med: #ffcc33;
-  --color-metascore-low: #ff0000;
-
-  /* Glassmorphism & Alpha effects */
-  --color-white-a5: color-mix(in srgb, white, transparent 95%);
-  --color-white-a10: color-mix(in srgb, white, transparent 90%);
-  --color-white-a20: color-mix(in srgb, white, transparent 80%);
-  --color-white-a50: color-mix(in srgb, white, transparent 50%);
-  --color-white-a60: color-mix(in srgb, white, transparent 40%);
-  
-  --color-black-a10: color-mix(in srgb, black, transparent 90%);
-  --color-black-a20: color-mix(in srgb, black, transparent 80%);
-  --color-black-a40: color-mix(in srgb, black, transparent 60%);
-  
-  /* Usage specific aliases */
-  --color-glass-border: var(--color-white-a10);
-  --color-glass-border-muted: var(--color-white-a5);
-  --color-glass-bg: var(--color-white-a5);
-  --color-glass-bg-hover: var(--color-white-a10);
-  --color-text-white-muted: var(--color-white-a60);
-  --color-text-white-bright: color-mix(in srgb, white, transparent 10%);
-  --color-shadow-overlay: var(--color-black-a40);
-
-  /* --- Premium Enhancements --- */
-  --bg-glass-premium: rgba(255, 255, 255, 0.05);
-  --dark-bg-glass-premium: rgba(15, 23, 42, 0.3);
-  --border-glass-premium: rgba(255, 255, 255, 0.1);
-  --dark-border-glass-premium: rgba(255, 255, 255, 0.05);
+  --bg-glass-premium: oklch(1 0 0 / 0.05);
+  --dark-bg-glass-premium: oklch(0.15 0.02 260 / 0.3);
+  --border-glass-premium: oklch(1 0 0 / 0.1);
 }
 
 @utility glass-premium {
-  backdrop-filter: blur(var(--blur-md));
+  backdrop-filter: blur(16px) saturate(1.2);
   background: var(--bg-glass-premium);
   border: 1px solid var(--border-glass-premium);
 }
@@ -183,108 +95,11 @@
 
 .dark [class*="glass-premium"] {
   background: var(--dark-bg-glass-premium);
-  border: 1px solid var(--dark-border-glass-premium);
+  border-color: oklch(1 0 0 / 0.05);
 }
 
-/* Custom Toggle Switch for User Settings */
-@utility toggle-switch {
-  @apply relative inline-block;
-  width: 44px;
-  height: 24px;
-}
-
-@utility toggle-input {
-  @apply opacity-0 w-0 h-0;
-}
-
-@utility toggle-slider {
-  @apply absolute cursor-pointer inset-0 transition-all duration-300 rounded-full border border-black/10;
-  background-color: #f1f5f9; /* Slate 100 */
-}
-
-.dark [class*="toggle-slider"] {
-  background-color: #1e293b; /* Slate 800 for better contrast against deep background */
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.toggle-slider::before {
-  @apply absolute content-[''] transition-all duration-300 rounded-full bg-white shadow-sm;
-  height: 18px;
-  width: 18px;
-  left: 3px;
-  bottom: 3px;
-}
-
-input:checked + .toggle-slider {
-  background-color: var(--color-brand-primary);
-  border-color: var(--color-brand-primary);
-}
-
-.toggle-input:focus-visible + .toggle-slider {
-  @apply ring-2 ring-brand-primary ring-offset-2;
-}
-
-input:checked + .toggle-slider::before {
-  transform: translateX(20px);
-}
-
-/* Theme Presets - Premium Gallery */
-:root[data-theme="mint"] {
-  --theme-primary: #059669; /* Emerald 600 */
-  --theme-hover: #047857;
-  --theme-soft: #ecfdf5;
-  --theme-border: #d1fae5;
-}
-
-:root[data-theme="coral"] {
-  --theme-primary: #f43f5e; /* Rose 500 */
-  --theme-hover: #e11d48;
-  --theme-soft: #fff1f2;
-  --theme-border: #ffe4e6;
-}
-
-:root[data-theme="ocean"] {
-  --theme-primary: #0284c7; /* Sky 600 */
-  --theme-hover: #0369a1;
-  --theme-soft: #f0f9ff;
-  --theme-border: #e0f2fe;
-}
-
-:root[data-theme="gold"] {
-  --theme-primary: #b45309; /* Amber 700 */
-  --theme-hover: #92400e;
-  --theme-soft: #fffbeb;
-  --theme-border: #fef3c7;
-}
-
-/* Dark Mode Optimization for Themes */
-.dark {
-  /* Dynamic Primary Brilliance in Dark Mode */
-  --theme-primary: var(--color-brand-primary-dark, var(--theme-primary));
-  
-  /* Default Theme Dark Mode Refinement */
-  &:not([data-theme]) {
-    --color-brand-primary: var(--color-sky-400);
-    --color-brand-hover: var(--color-sky-300);
-  }
-}
-
-.dark[data-theme="mint"] {
-  --theme-primary: #10b981;
-  --theme-hover: #34d399;
-}
-
-.dark[data-theme="coral"] {
-  --theme-primary: #fb7185;
-  --theme-hover: #fda4af;
-}
-
-.dark[data-theme="ocean"] {
-  --theme-primary: #38bdf8;
-  --theme-hover: #7dd3fc;
-}
-
-.dark[data-theme="gold"] {
-  --theme-primary: #fbbf24;
-  --theme-hover: #fcd34d;
-}
+/* Theme Presets (Dynamic Primary Brilliance) */
+:root[data-theme="mint"] { --theme-primary: oklch(0.65 0.18 155); }
+:root[data-theme="coral"] { --theme-primary: oklch(0.65 0.22 25); }
+:root[data-theme="ocean"] { --theme-primary: oklch(0.6 0.22 260); }
+:root[data-theme="gold"] { --theme-primary: oklch(0.7 0.16 75); }
