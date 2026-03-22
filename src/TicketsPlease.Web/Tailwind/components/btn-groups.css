@@ -1,67 +1,28 @@
 /* 
- * Button Groups Component - Based on Tailwind UI
- * Implementation for _10_Filmdatenbank
- */
+   ==========================================================================
+   PREMIUM BUTTON GROUPS (Asymmetric Overlap & Precision)
+   ==========================================================================
+*/
 
-@layer components {
-    /* Main Wrapper */
-    .btn-group {
-        @apply isolate inline-flex -space-x-px rounded-md shadow-sm;
-    }
+@utility btn-group {
+  @apply inline-flex rounded-xl overflow-hidden shadow-sm border border-border-default dark:border-dark-border;
+}
 
-    /* Base Item (Button, Link, or Stat) */
-    .btn-group-item {
-        @apply relative inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 transition-colors focus:z-10 outline-hidden;
-        @apply dark:bg-dark-surface-soft dark:text-white dark:ring-dark-border;
-    }
+@utility btn-group-item {
+  @apply px-4 py-2 text-sm font-semibold bg-surface-bright dark:bg-dark-surface-soft text-text-secondary dark:text-dark-text-secondary transition-all;
+  @apply hover:bg-surface-muted dark:hover:bg-dark-surface-muted hover:text-brand-primary;
+  @apply border-l first:border-l-0 border-border-muted dark:border-dark-border;
+}
 
-    /* Hover States for interactable items */
-    a.btn-group-item:hover, 
-    button.btn-group-item:hover {
-        @apply bg-gray-50 dark:hover:bg-dark-surface-muted;
-    }
+@utility btn-group-item-active {
+  @apply bg-brand-primary/10 text-brand-primary font-bold;
+}
 
-    /* First and Last item rounding */
-    .btn-group-item:first-child,
-    .btn-group > *:first-child .btn-group-item {
-        @apply rounded-l-md;
-    }
+/* Vertical Variant */
+@utility btn-group-vertical {
+  @apply flex flex-col rounded-xl overflow-hidden border border-border-default dark:border-dark-border;
+}
 
-    .btn-group-item:last-child,
-    .btn-group > *:last-child .btn-group-item {
-        @apply rounded-r-md;
-    }
-
-    /* Icon-only variation */
-    .btn-group-item-icon {
-        @apply px-2 text-gray-400 hover:text-gray-500 dark:text-dark-text-muted dark:hover:text-white;
-    }
-
-    /* Stat / Label variation (non-interactable but same style) */
-    .btn-group-stat {
-        @apply relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300;
-        @apply dark:bg-dark-surface dark:text-dark-text-muted dark:ring-dark-border;
-    }
-
-    /* Variations for combined inputs (checkbox + labels) */
-    .btn-group-checkbox-wrapper {
-        @apply relative inline-flex items-center rounded-l-md bg-white px-3 py-2 ring-1 ring-inset ring-gray-300 focus-within:z-10;
-        @apply dark:bg-dark-surface-soft dark:ring-dark-border;
-    }
-
-    /* Select/Dropdown integrated into group */
-    .btn-group-select {
-        @apply relative -ml-px block w-full rounded-none rounded-r-md border-0 bg-transparent py-1.5 pl-3 pr-9 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-brand-primary sm:text-sm sm:leading-6;
-        @apply dark:text-white dark:ring-dark-border;
-    }
-
-    /* Focus rings - Brand Primary color */
-    .btn-group-item:focus-visible {
-        @apply outline-2 outline-offset-2 outline-brand-primary;
-    }
-
-    /* Active / Pressed state */
-    .btn-group-item-active {
-        @apply bg-gray-100 dark:bg-dark-surface-muted;
-    }
+@utility btn-group-vertical-item {
+  @apply px-4 py-2 border-t first:border-t-0 border-border-muted dark:border-dark-border;
 }

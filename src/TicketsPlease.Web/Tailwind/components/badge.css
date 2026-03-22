@@ -1,138 +1,40 @@
-@utility badge-premium {
-  @apply inline-flex items-center px-2 py-0.5 rounded bg-brand-soft text-[10px] font-bold text-brand-primary border border-brand-border dark:bg-brand-primary/20 dark:text-brand-soft dark:border-brand-primary/40;
+/* 
+   ==========================================================================
+   PREMIUM BADGES (OKLCH & Precision)
+   ==========================================================================
+*/
+
+@utility badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold tracking-tight uppercase transition-all;
+}
+
+@utility badge-primary {
+  @apply badge bg-brand-primary/10 text-brand-primary border border-brand-primary/20;
 }
 
 @utility badge-success {
-  @apply inline-flex items-center px-2 py-0.5 rounded bg-success-bg text-[10px] font-bold text-success-content border border-success-border dark:bg-success-dark-bg dark:text-success-dark-content dark:border-success-dark-border;
-}
-
-@utility badge-warning {
-  @apply inline-flex items-center px-2 py-0.5 rounded bg-warning-bg text-[10px] font-bold text-warning-content border border-warning-border dark:bg-warning-dark-bg dark:text-warning-dark-content dark:border-warning-dark-border;
+  @apply badge bg-success-primary/10 text-success-primary border border-success-primary/20;
 }
 
 @utility badge-danger {
-  @apply inline-flex items-center px-2 py-0.5 rounded bg-danger-bg text-[10px] font-bold text-danger-content border border-danger-border dark:bg-danger-dark-bg dark:text-danger-dark-content dark:border-danger-dark-border;
+  @apply badge bg-danger-primary/10 text-danger-primary border border-danger-primary/20;
 }
 
-@utility badge-info {
-  @apply inline-flex items-center px-2 py-0.5 rounded bg-info-bg text-[10px] font-bold text-info-content border border-info-border dark:bg-info-dark-bg dark:text-info-dark-content dark:border-info-dark-border;
+@utility badge-warning {
+  @apply badge bg-warning-primary/10 text-warning-primary border border-warning-primary/20;
 }
 
-@utility badge-outline {
-  @apply inline-flex items-center px-2 py-0.5 rounded bg-transparent text-[10px] font-bold text-text-muted border border-border-default dark:text-dark-text-muted dark:border-dark-border;
+/* Dot Indicator */
+@utility badge-dot {
+  @apply relative pl-4;
 }
 
-@utility badge-status-new {
-  @apply absolute top-4 right-4 bg-brand-primary text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-tighter shadow-sm dark:bg-brand-primary dark:text-dark-text-secondary;
+.badge-dot::before {
+  content: "";
+  @apply absolute left-1.5 top-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-current;
 }
 
-/* 
- * Tailwind UI Badge Components
- */
-
-@layer components {
-    /* Base Badge Component */
-    .badge {
-        @apply inline-flex items-center font-medium rounded-md transition-colors;
-        /* Standard Size */
-        @apply px-2 py-1 text-xs;
-    }
-
-    /* Size: Small */
-    .badge-small {
-        @apply px-1.5 py-0.5 text-[0.625rem];
-    }
-
-    /* Style: Pill */
-    .badge-pill {
-        @apply rounded-full;
-    }
-
-    /* Style: Bordered (Default in Tailwind UI) */
-    .badge-bordered {
-        @apply ring-1 ring-inset;
-    }
-
-    /* Style: Flat (Overrides ring) */
-    .badge-flat {
-        @apply ring-0;
-    }
-
-    /* Color Variants */
-    
-    /* Gray */
-    .badge-gray {
-        @apply bg-gray-50 text-gray-600 ring-gray-500/10;
-    }
-    .badge-gray .badge-dot { @apply fill-gray-500; }
-    .badge-gray .badge-remove { @apply hover:bg-gray-600/20; }
-    .badge-gray .badge-remove-icon { @apply stroke-gray-400 group-hover:stroke-gray-600; }
-
-    /* Red */
-    .badge-red {
-        @apply bg-red-50 text-red-700 ring-red-600/10;
-    }
-    .badge-red .badge-dot { @apply fill-red-500; }
-    .badge-red .badge-remove { @apply hover:bg-red-600/20; }
-    .badge-red .badge-remove-icon { @apply stroke-red-400 group-hover:stroke-red-600; }
-
-    /* Yellow */
-    .badge-yellow {
-        @apply bg-yellow-50 text-yellow-800 ring-yellow-600/20;
-    }
-    .badge-yellow .badge-dot { @apply fill-yellow-500; }
-    .badge-yellow .badge-remove { @apply hover:bg-yellow-600/20; }
-    .badge-yellow .badge-remove-icon { @apply stroke-yellow-400 group-hover:stroke-yellow-600; }
-
-    /* Green */
-    .badge-green {
-        @apply bg-green-50 text-green-700 ring-green-600/20;
-    }
-    .badge-green .badge-dot { @apply fill-green-500; }
-    .badge-green .badge-remove { @apply hover:bg-green-600/20; }
-    .badge-green .badge-remove-icon { @apply stroke-green-400 group-hover:stroke-green-600; }
-
-    /* Blue */
-    .badge-blue {
-        @apply bg-blue-50 text-blue-700 ring-blue-700/10;
-    }
-    .badge-blue .badge-dot { @apply fill-blue-500; }
-    .badge-blue .badge-remove { @apply hover:bg-blue-700/20; }
-    .badge-blue .badge-remove-icon { @apply stroke-blue-400 group-hover:stroke-blue-600; }
-
-    /* Indigo */
-    .badge-indigo {
-        @apply bg-indigo-50 text-indigo-700 ring-indigo-700/10;
-    }
-    .badge-indigo .badge-dot { @apply fill-indigo-500; }
-    .badge-indigo .badge-remove { @apply hover:bg-indigo-700/20; }
-    .badge-indigo .badge-remove-icon { @apply stroke-indigo-400 group-hover:stroke-indigo-600; }
-
-    /* Purple */
-    .badge-purple {
-        @apply bg-purple-50 text-purple-700 ring-purple-700/10;
-    }
-    .badge-purple .badge-dot { @apply fill-purple-500; }
-    .badge-purple .badge-remove { @apply hover:bg-purple-700/20; }
-    .badge-purple .badge-remove-icon { @apply stroke-purple-400 group-hover:stroke-purple-600; }
-
-    /* Pink */
-    .badge-pink {
-        @apply bg-pink-50 text-pink-700 ring-pink-700/10;
-    }
-    .badge-pink .badge-dot { @apply fill-pink-500; }
-    .badge-pink .badge-remove { @apply hover:bg-pink-700/20; }
-    .badge-pink .badge-remove-icon { @apply stroke-pink-400 group-hover:stroke-pink-600; }
-
-    /* Inner Elements */
-    .badge-dot {
-        @apply size-1.5 mr-1.5;
-    }
-
-    .badge-remove {
-        @apply relative -mr-1 ml-1 h-3.5 w-3.5 rounded-sm p-0.5 transition-colors;
-    }
-    .badge-remove-icon {
-        @apply h-full w-full transition-colors;
-    }
+/* Hover State for Interactive Badges */
+@utility badge-interactive:hover {
+  @apply -translate-y-0.5 cursor-pointer shadow-sm saturate-150;
 }

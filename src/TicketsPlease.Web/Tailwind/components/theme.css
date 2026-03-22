@@ -1,23 +1,37 @@
+/* 
+   ==========================================================================
+   PREMIUM THEME INFRASTRUCTURE
+   ==========================================================================
+*/
+
 @import "./brand-color.css";
 
 @theme {
-  --font-sans: "Noto Sans Variable", ui-sans-serif, system-ui;
+  --font-sans: "Inter", "Noto Sans Variable", ui-sans-serif, system-ui;
+  --font-display: "Outfit", "Inter", sans-serif;
 }
 
 @variant dark (&:where(.dark, .dark *));
 
-/* Base Body Styles for Light / Dark Mode Handling */
+/* Global Base Enhancement */
 @layer base {
   body {
-    @apply bg-brand-bg text-text-main font-sans antialiased transition-colors duration-300;
+    @apply bg-brand-bg text-text-main font-sans antialiased selection:bg-brand-primary/20 selection:text-brand-primary;
+    /* Smooth theme transitions */
+    transition: background-color 0.5s ease-out, color 0.3s ease-in;
   }
   
   .dark body {
     @apply bg-dark-surface text-dark-text-main;
   }
 
-  /* Standardized focus styles for links and other interactive elements */
+  /* Sharp Heading Styles */
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight font-bold text-text-main dark:text-dark-text-main;
+  }
+
+  /* Interactive Global Defaults */
   a, button {
-    @apply focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary rounded;
+    @apply focus-visible:ring-4 focus-visible:ring-brand-primary/20 focus-visible:outline-none rounded-lg;
   }
 }

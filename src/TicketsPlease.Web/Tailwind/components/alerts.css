@@ -1,92 +1,37 @@
 /* 
- * Alert Component - Based on Tailwind UI
- * Implementation for _10_Filmdatenbank
- */
+   ==========================================================================
+   PREMIUM ALERTS (OKLCH & Depth)
+   ==========================================================================
+*/
 
-@layer components {
-    /* Base Alert Wrapper */
-    .alert {
-        @apply rounded-md p-4 mb-4;
-    }
+@utility alert {
+  @apply relative flex p-4 rounded-2xl border transition-all;
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-duration: 300ms;
+}
 
-    .alert-content {
-        @apply flex;
-    }
+@utility alert-success {
+  @apply alert bg-success-bg border-success-primary/20 text-success-primary;
+}
 
-    .alert-icon {
-        @apply shrink-0;
-    }
+@utility alert-danger {
+  @apply alert bg-danger-bg border-danger-primary/20 text-danger-primary;
+}
 
-    .alert-body {
-        @apply ml-3 flex-1 md:flex md:justify-between;
-    }
+@utility alert-warning {
+  @apply alert bg-warning-bg border-warning-primary/20 text-warning-primary;
+}
 
-    .alert-message {
-        @apply text-sm;
-    }
+@utility alert-info {
+  @apply alert bg-info-bg border-info-primary/20 text-info-primary;
+}
 
-    .alert-description {
-        @apply mt-2 text-sm;
-    }
+/* Glassmorphism Variant */
+@utility alert-glass {
+  @apply alert glass-premium border-white/10 saturate-[1.1];
+}
 
-    .alert-list {
-        @apply list-disc space-y-1 pl-5 mt-2 text-sm;
-    }
-
-    .alert-actions {
-        @apply mt-4 md:mt-0 md:ml-6 shrink-0;
-    }
-
-    .alert-link {
-        @apply whitespace-nowrap font-medium hover:opacity-80;
-    }
-
-    /* Colors: Info (Blue) */
-    .alert-info {
-        @apply bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400;
-    }
-    .alert-info .alert-icon {
-        @apply text-blue-400;
-    }
-
-    /* Colors: Success (Green) */
-    .alert-success {
-        @apply bg-green-50 text-green-700 dark:bg-green-900/30 dark:text-green-400;
-    }
-    .alert-success .alert-icon {
-        @apply text-green-400;
-    }
-
-    /* Colors: Warning (Yellow) */
-    .alert-warning {
-        @apply bg-yellow-50 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400;
-    }
-    .alert-warning .alert-icon {
-        @apply text-yellow-400;
-    }
-
-    /* Colors: Danger (Red) */
-    .alert-danger {
-        @apply bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400;
-    }
-    .alert-danger .alert-icon {
-        @apply text-red-400;
-    }
-
-    /* Accent Border variant */
-    .alert-accent {
-        @apply border-l-4;
-    }
-    .alert-accent.alert-info { @apply border-blue-400; }
-    .alert-accent.alert-success { @apply border-green-400; }
-    .alert-accent.alert-warning { @apply border-yellow-400; }
-    .alert-accent.alert-danger { @apply border-red-400; }
-
-    /* Dismissible */
-    .alert-dismiss {
-        @apply ml-auto pl-3;
-    }
-    .alert-dismiss-btn {
-        @apply inline-flex rounded-md p-1.5 focus:ring-2 focus:ring-offset-2;
-    }
+/* Animations */
+@utility alert-reveal {
+  @apply animate-in fade-in slide-in-from-top-4 duration-500 ease-out;
 }
