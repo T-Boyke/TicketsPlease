@@ -11,7 +11,7 @@
 *.nupkg
 
 ## [Visual Studio]
-.vs/
+!.vs/
 # Keep shared VS settings
 !.vsconfig
 
@@ -27,7 +27,7 @@ src/.idea/**
 !**/.idea/icon.svg
 
 ## [VS Code]
-.vscode/*
+!.vscode/*
 # Keep shared VS Code settings
 !.vscode/settings.json
 !.vscode/extensions.json
