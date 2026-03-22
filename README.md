@@ -140,9 +140,9 @@ hochmodernen, perfekt aufeinander abgestimmten Stack für das Jahr 2026:
   - **TailwindCSS 4.2:** Neueste Evolution via nativer CSS-Engine und
     `@theme`-Direktiven (keine `tailwind.config.js` mehr!).
   - **Client-Side Libs:** Markdig (Markdown), SortableJS (Drag & Drop),
-    FontAwesome 7.2.
+    FontAwesome 7.2.0 (Lokal), Roboto Flex & Google Sans Flex (Lokal).
   - **Corporate Identity:** Dynamisches Theming über `ICorporateSkinProvider`
-    und CSS-Variablen (Azure/Sky Blue) mit Native Dark Mode und Glassmorphism.
+    und CSS-Variablen (Azure/Sky Blue) mit Native Dark Mode, Glassmorphism und High-End Typografie (Flex Fonts).
   - **No-Bootstrap Policy:** Das Projekt ist vollständig Bootstrap-frei für
     maximalen Control-Flow.
   - Paketverwaltung via

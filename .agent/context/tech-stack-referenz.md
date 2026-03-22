@@ -26,7 +26,7 @@
   <frontend_assets>
     - CSS: TailwindCSS 4.2 (Zero-Node integration via MSBuild `@theme`).
     - Icons: FontAwesome 7.2.0 (Local Free/Pro).
-    - Fonts: Noto Sans Variable (Local Flex Font) + Outfit (Display).
+    - Fonts: Roboto Flex & Noto Sans (Sans) + Google Sans Flex (Display).
     - LibMan: Client libraries in `wwwroot/lib` (ZERO CDN Policy).
     - Theming: `ICorporateSkinProvider` + OKLCH Color Space.
   </frontend_assets>
