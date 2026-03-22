@@ -1,0 +1,15 @@
+{
+  "version": "1.0",
+  "components": [
+    "Microsoft.VisualStudio.Workload.NetWeb",
+    "Microsoft.VisualStudio.Workload.Data",
+    "Microsoft.VisualStudio.Component.EntityFramework"
+  ],
+  "extensions": [
+    "EFCorePowerTools.64",
+    "MadsKristensen.TailwindCSS",
+    "MadsKristensen.AddNewFile",
+    "MadsKristensen.WebEssentials",
+    "WakaTime.WakaTime"
+  ]
+}

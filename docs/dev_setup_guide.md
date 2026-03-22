@@ -35,14 +35,13 @@ cd TicketsPlease
 ### Option A: Visual Studio 2026
 
 1. Öffne die Datei `TicketsPlease.slnx`.
-2. **Extensions:** VS wird dich fragen, ob du die "empfohlenen Erweiterungen" installieren möchtest
-   (siehe `.vscode/extensions.json`). Klicke auf **Ja**.
-3. **NuGet Restore:** Normalerweise passiert das automatisch. Wenn nicht: Rechtsklick auf die
-   _Solution_ -> _Restore NuGet Packages_.
+2. **Extensions:** VS wird dich beim Öffnen automatisch fragen, ob du die fehlenden Komponenten und Erweiterungen installieren möchtest (basiert auf der `.vsconfig` im Root). Klicke auf **Installieren**.
+3. **NuGet Restore:** Normalerweise passiert das automatisch. Wenn nicht: Rechtsklick auf die _Solution_ -> _Restore NuGet Packages_.
 4. **LibMan (Frontend Assets):**
    - Rechtsklick auf das Web-Projekt -> _Manage Client-Side Libraries_.
    - Klicke auf "Restore", falls die Bibliotheken (Tailwind/FontAwesome) nicht automatisch geladen
      werden.
+5. **Settings:** Die Einstellungen aus der `.editorconfig` werden automatisch beim Öffnen übernommen.
 
 ### Option B: JetBrains Rider 2026
 
