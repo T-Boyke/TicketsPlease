@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddOpenApi();
 
 // Enterprise Skinning / Theming
 builder.Services.AddScoped<ICorporateSkinProvider, DefaultCorporateSkinProvider>();
@@ -53,6 +54,15 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+app.MapOpenApi();
+app.MapScalarApiReference(options =>
+{
+  options
+    .WithTitle("TicketsPlease 🔵 Professional API")
+    .WithTheme(ScalarTheme.BluePlanet)
+    .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient)
+    .WithSidebar(true);
+});
 
 app.MapControllerRoute(
     name: "default",
