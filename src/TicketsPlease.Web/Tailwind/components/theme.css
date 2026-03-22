@@ -7,7 +7,7 @@
 @import "./brand-color.css";
 
 @theme {
-  --font-sans: "Inter", "Noto Sans Variable", ui-sans-serif, system-ui;
+  --font-sans: "Noto Sans Variable", "Inter", ui-sans-serif, system-ui;
   --font-display: "Outfit", "Inter", sans-serif;
 }
 

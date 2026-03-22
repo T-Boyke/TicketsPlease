@@ -47,6 +47,17 @@
       "files": [
         "Sortable.min.js"
       ]
+    },
+    {
+      "library": "@fontsource-variable/noto-sans@5.1.1",
+      "destination": "wwwroot/lib/noto-sans-variable",
+      "files": [
+        "index.css",
+        "standard.css",
+        "standard-italic.css",
+        "files/noto-sans-latin-wght-normal.woff2",
+        "files/noto-sans-latin-wght-italic.woff2"
+      ]
     }
   ]
 }
