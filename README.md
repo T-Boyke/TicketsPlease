@@ -50,7 +50,7 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
     - [📋 Kanban Dashboard (Interaktiv)](#-kanban-dashboard-interaktiv)
     - [Enterprise Add-Ons (Phase 2-5) 🚀](#enterprise-add-ons-phase-2-5-)
   - [6. 🛡️ Code-Qualität \& Workflows](#6-️-code-qualität--workflows)
-    - [Test-Driven Development (TDD) \& Quality Assurance](#test-driven-development-tdd--quality-assurance)
+    - [Test-Driven Development (TDD) & "Perfect" Quality Assurance](#test-driven-development-tdd--perfect-quality-assurance)
     - [💯 Google Lighthouse Tests (Performance \& SEO)](#-google-lighthouse-tests-performance--seo)
     - [Continuous Integration / Continuous Deployment (CI/CD)](#continuous-integration--continuous-deployment-cicd)
     - [🔍 Statische Code-Analyse \& Linter](#-statische-code-analyse--linter)
@@ -499,20 +499,34 @@ die stabilen Phasen:
 
 Wir betrachten Code nicht als bloßen Text, sondern als beständiges Handwerk.
 
-### Test-Driven Development (TDD) & Quality Assurance
+### Test-Driven Development (TDD) & "Perfect" Quality Assurance
 
 Tests sind in diesem Projekt kein Nachgedanke, sondern treiben das Design. Wir
-verfolgen den konsequenten **Red-Green-Refactor**-Zyklus.
+verfolgen den konsequenten **Red-Green-Refactor**-Zyklus unter Einhaltung des
+strikten **AAA-Patterns** (Arrange, Act, Assert).
 
-- **100% Test Coverage-Ziel für die Domain:** Die Domain-Logik (Kern) duldet
-  Zero Compromise. Jede Regel muss getestet sein.
-- **Unit Tests:** Fokussiert auf Systemdienste, Helferklassen und die reinen
-  Domain-Entities (geschrieben mit xUnit und Moq).
-- **Integration Tests:** Validieren das Zusammenspiel mit der Datenbank (EF Core
-  In-Memory oder Testcontainers) und testen komplette API-Routen/Controller.
+- **100% Test Coverage & Mutation Testing:** Die Domain-Logik (Kern) duldet
+  Zero Compromise. 100% Line-Coverage allein reicht nicht. Wir nutzen
+  **Stryker.NET** (Mutation Testing), um zu garantieren, dass fehlerhafter Code
+  die Tests zum Absturz bringt. Ziel: 100% Mutation Score!
+- **Data Builders & Determinismus:** Hardcodierte "TestUser1" existieren bei uns
+  nicht. Reale Testdaten werden via **Bogus** generiert. Zeitliche Aspekte
+  werden _niemals_ über `DateTime.UtcNow`, sondern isoliert über den .NET 8
+  `TimeProvider` (`FakeTimeProvider`) gesteuert.
+- **Unit & Architecture Tests:** Fokussiert auf Systemdienste, Helferklassen und
+  reine Domain-Entities (geschrieben mit xUnit, Moq/NSubstitute).
+  **NetArchTest** wacht gleichzeitig darüber, dass die Clean Architecture nicht verletzt
+  wird (z.B. "Domain darf Web nicht referenzieren"). Wir nutzen `[Fact]` für
+  Einzelszenarien und `[Theory]` für tiefgreifende Boundary-Tests.
+- **Integration & Snapshot Tests:** Validieren das Zusammenspiel mit der Datenbank.
+  **Kein** "In-Memory". Wir nutzen reale SQL Server Instanzen via
+  **Testcontainers**. Komplexe JSON/DTO-Rückgaben werden via **VerifyTests**
+  gegen Snapshots abgeglichen.
 - **E2E (End-to-End) Tests:** Mittels Playwright und Vitest automatisieren wir
-  Browser-Klicks, um kritische User-Journeys (z.B. "Neues Ticket anlegen und auf
-  Done schieben") abzusichern.
+  Browser-Klicks, um kritische User-Journeys abzusichern.
+
+👉 **Für tiefergehende Details lesen Sie unsere
+[Perfect Testing Dokumentation](tests/README.md).**
 
 ### 💯 Google Lighthouse Tests (Performance & SEO)
 

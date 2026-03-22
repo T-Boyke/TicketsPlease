@@ -1,140 +1,46 @@
-# 🤖 TicketsPlease – Agent Behavior Rules
+# 🤖 TicketsPlease - Agent Behavior Rules
 
-Diese Regeln definieren das **Verhalten** des KI-Agenten bei jeder Interaktion
-mit dem TicketsPlease-Projekt. Die technischen Projekt-Standards finden sich in
-[instructions.md](file:///d:/DEV/Tickets/instructions.md).
+<agent_behavior>
+<mindset>
 
----
+- Project: IHK Final Project (C# .NET 10, ASP.NET Core 10.3, Clean Architecture)
+- Language: Read/Write Docs & XML-Docs in German. Commits in English (Conventional). Converse in User's language.
+  </mindset>
 
-## 🧠 Grundhaltung
+<plan_first>
 
-- Du arbeitest an einem **IHK-Abschlussprojekt** (C# .NET 10, ASP.NET Core 10.3,
-  Clean Architecture).
-- Die Projekt-Dokumentation ist **Deutsch**. Code-Kommentare (XML-Docs) sind
-  **Deutsch**.
-- Commit-Messages sind **Englisch** (Conventional Commits).
-- Antworte immer in der Sprache, in der der User schreibt.
+1. Workflow-Check: Follow `/workflows` strictly if applicable.
+2. MVP-Awareness: Phase 1 (MVP) takes absolute priority. No Enterprise features without green MVP.
+3. ADR-Check: Respect `/docs/adr/`. Do not contradict ADRs without user permission.
+4. Scope: Modify ONLY requested items. No unsolicited refactorings.
+5. Layers: Identify affected layers/files before coding.
+   </plan_first>
 
----
+<file_discipline>
 
-## 🎯 Plan-First (Denken vor Handeln)
+- CQRS Bundle: `Command`/`Query`, `Validator`, `Handler` MUST exist in ONE file.
+- Standard: Entities, Interfaces, Enums, ValueObjects get 1 file each.
+- Layers: Domain (`.Domain`), UseCases (`.Application`), DB/Services (`.Infrastructure`), UI/Api (`.Web`).
+- Deletion: NEVER delete files without explicit permission.
+- Pattern: Follow existing `.editorconfig` & codebase patterns. Not negotiable.
+  </file_discipline>
 
-1. **Workflow-Check:** Prüfe vor jeder Aufgabe, ob ein passender `/workflow`
-   existiert. Wenn ja: folge ihm **Schritt für Schritt**.
-2. **MVP-Awareness:** Prüfe die
-   [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md). Phase 1 hat
-   absoluten Vorrang. Implementiere **keine** Enterprise-Features (Phase 2-5),
-   solange Phase 1 nicht komplett abgeschlossen und grün ist.
-3. **ADR-Check:** Prüfe vor architektonischen Entscheidungen die bestehenden
-   [ADRs](file:///d:/DEV/Tickets/docs/adr/). Widerspreche keinem ADR ohne
-   explizite User-Genehmigung.
-4. **Scope begrenzen:** Ändere nur, was der User angefordert hat. Keine
-   ungewollten "Bonus-Refactorings".
-5. **Layer identifizieren:** Vor jeder Code-Änderung die betroffenen Layer,
-   Dateien und Abhängigkeiten benennen.
+<quality_gates>
 
----
+- ALWAYS: XML-Docs on public members, `AbstractValidator<T>`, Unit Tests (TDD), `CancellationToken`, `AsNoTracking()` for read queries, catch `DbUpdateConcurrencyException` for writes, semantic HTML/a11y for UI.
+- CONDITIONAL: Anti-Forgery/Validation/DOMPurify on User Input.
+  </quality_gates>
 
-## 📂 Datei-Disziplin
+  <communication>
+  - Ask if unsure about MVP/Enterprise scoping.
+  - Announce breaking changes before applying.
+  - No silent NuGet packages or architectural shifts (requires ADR).
+  </communication>
 
-- **Feature-Bündelung für CQRS** – `Command` bzw. `Query`, `Validator` und
-  `Handler` eines Use Cases werden in **einer** gemeinsamen Datei gebündelt.
-- **1 Class per File (Standard)** – Für alle anderen Elemente (Entities,
-  Interfaces, Enums, Value Objects) gilt strikt: eigene Datei.
-- **Richtige Layer-Zuordnung** – Neue Dateien **nur** im korrekten Layer:
-  - Domain-Logik → `src/TicketsPlease.Domain/`
-  - Use Cases → `src/TicketsPlease.Application/`
-  - Persistence/Services → `src/TicketsPlease.Infrastructure/`
-  - UI/Controller → `src/TicketsPlease.Web/`
-- **Keine Dateien löschen** ohne explizite User-Anweisung.
-- **Bestehende Patterns respektieren** – Prüfe, wie ähnliche Probleme im Code
-  gelöst werden. Folge dem Stil.
-- **`.editorconfig` ist bindend** – Naming Conventions und Formatting sind nicht
-  verhandelbar.
+<workflow>1. Parse request. 2. Check workflow or plan. 3. Code in correct layer. 4. XML-Docs. 5. TDD. 6. Build & Test. 7. Atomic Commit.</workflow>
 
----
+<no_gos>
 
-## ✅ Qualitäts-Pflichten (Bei jeder Code-Änderung)
-
-| Was                                                                    | Wann                        | Pflicht            |
-| ---------------------------------------------------------------------- | --------------------------- | ------------------ |
-| XML-Dokumentation (`<summary>`, `<param>`, `<returns>`, `<exception>`) | Alle neuen `public` Members | ✅ Immer           |
-| `AbstractValidator<T>` (FluentValidation)                              | Jeder neue Command          | ✅ Immer           |
-| Unit-Test (TDD: Test zuerst!)                                          | Jede neue Logik             | ✅ Immer           |
-| `CancellationToken` durchreichen                                       | Alle Async-Methoden         | ✅ Immer           |
-| `AsNoTracking()`                                                       | Alle Lese-Queries           | ✅ Immer           |
-| `DbUpdateConcurrencyException` fangen                                  | Alle Write-Handler          | ✅ Immer           |
-| Anti-Forgery / Validation / DOMPurify                                  | Bei User-Input              | ✅ Kontextabhängig |
-| `aria-label`, Keyboard-Nav, semantisches HTML                          | Bei UI-Änderungen           | ✅ Immer           |
-
----
-
-## 🗣️ Kommunikation
-
-- **Bei Zweifel: Fragen** – Wenn unklar ist, ob etwas MVP oder Enterprise ist →
-  frage den User. Nicht raten.
-- **Breaking Changes ankündigen** – Jede Änderung, die bestehende Interfaces,
-  DTOs oder API-Contracts bricht → vorher mitteilen.
-- **Keine stillen NuGet-Pakete** – Kein neues NuGet-Paket ohne explizite Nennung
-  und Begründung.
-- **Keine stillen Architektur-Entscheidungen** – Architektur-Änderungen
-  erfordern einen ADR oder User-Absprache.
-
----
-
-## 🔄 Typischer Ablauf
-
-```markdown
-1. User-Request verstehen
-2. Workflow-Check: Passender /workflow vorhanden? → Ja: Schritt für Schritt
-   folgen → Nein: Plan erstellen (Layer, Dateien, Dependencies)
-3. Implementieren (im korrekten Layer)
-4. XML-Docs schreiben (alle public Members)
-5. Tests schreiben (TDD: idealerweise vor der Implementierung)
-6. Verifikation: dotnet build + dotnet test
-7. Atomic Commit (Conventional Commits, Englisch)
-```
-
----
-
-## 🚫 Agent No-Gos
-
-- ❌ Code ohne Test committen
-- ❌ Bestehende Tests löschen oder auskommentieren
-- ❌ Enterprise-Features implementieren wenn MVP nicht fertig
-- ❌ Stille Breaking Changes (immer vorher kommunizieren)
-- ❌ Mehrere logische Änderungen in einem Commit
-- ❌ Code in den falschen Layer legen
-- ❌ NuGet-Pakete ohne Absprache hinzufügen
-- ❌ Workarounds ohne `// TODO` + Issue-Referenz
-- ❌ `.editorconfig`-Regeln ignorieren
-- ❌ YAGNI verletzen (keine "prophylaktischen" Abstraktionen)
-- ❌ `Console.WriteLine` statt Serilog
-- ❌ Hardcoded Farben (nutze CSS-Variablen)
-- ❌ Bootstrap oder CDN-Links
-- ❌ `DateTime` statt `DateTimeOffset`
-- ❌ Secrets in `appsettings.json`
-- ❌ Unsanitized Markdown-Output (DOMPurify!)
-- ❌ Direct Push auf `main`
-- ❌ Code-Änderung ohne GitHub Issue
-
----
-
-## 📚 Referenzen
-
-Halte dich **immer** an diese Projekt-Dokumente:
-
-| Dokument                                                             | Beschreibung                          |
-| -------------------------------------------------------------------- | ------------------------------------- |
-| [instructions.md](file:///d:/DEV/Tickets/instructions.md)            | Technische Governance (16 Sektionen)  |
-| [README.md](file:///d:/DEV/Tickets/README.md)                        | Projekt-Vision, Features, Tech-Stack  |
-| [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md)            | Phase-Abgrenzung (MVP vs. Enterprise) |
-| [ADR-Index](file:///d:/DEV/Tickets/docs/adr/README.md)               | Alle Architektur-Entscheidungen       |
-| [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md) | ERD & Entity-Beschreibungen           |
-| [domain_ticket.md](file:///d:/DEV/Tickets/docs/domain_ticket.md)     | Ticket-Entity DDD Spezifikation       |
-| [nuget_stack.md](file:///d:/DEV/Tickets/docs/nuget_stack.md)         | Erlaubte NuGet-Pakete pro Layer       |
-| [frontend_assets.md](file:///d:/DEV/Tickets/docs/frontend_assets.md) | Asset-Management & No-CDN Policy      |
-
----
-
-### TicketsPlease Agent Rules v1.0 | 2026-03-06
+- NEVER: Commit without tests, delete tests, skip MVP, silent breaking changes, merge multiple logical changes into 1 commit, wrong layer logic, silent NuGet adds, TODO workarounds without Issue ref, ignore .editorconfig, violate YAGNI, use Console.WriteLine (use Serilog), hardcode colors, use CDN/Bootstrap, use DateTime (use DateTimeOffset), put Secrets in appsettings.json, output un-sanitized Markdown, direct push to main, code without GitHub Issue.
+  </no_gos>
+  </agent_behavior>

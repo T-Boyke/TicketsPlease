@@ -7,7 +7,24 @@
     "headings": false
   },
   "MD033": {
-    "allowed_elements": ["details", "summary", "br", "img", "kbd"]
+    "allowed_elements": [
+      "details", "summary", "br", "img", "kbd", 
+      "system_prompt", "agent_rules", "agent_workflows", "agent_skills", 
+      "project_context", "task_prompts", "prompt", "goal", 
+      "flow", "rules", "checks", "action", "targets", "safety",
+      "agent_behavior", "mindset", "plan_first", "file_discipline", "quality_gates", "communication", "workflow", "no_gos",
+      "architecture_rules", "dependency_rule", "ddd", "cqrs_mediatr", "ef_core", "naming_conventions", "cqrs_file_bundling",
+      "security_rules", "secrets", "auth", "input_validation", "xss_prevention", "sqli", "privacy", "file_uploads",
+      "ui_rules", "styling", "a11y", "theming", "sfc_dry", "icons", "animations",
+      "testing_rules", "tdd", "coverage", "naming_aaa", "unit_tests", "integration_tests", "architecture_tests", "assertions", "ci_cd",
+      "git_docs_rules", "branches", "commits", "pull_requests", "pre_commit", "documentation",
+      "architectural_blueprint", "layers", "cqrs_pipeline", "ef_core_resilience",
+      "domain_knowledge", "ticket_entity", "chili_metrics", "business_rules",
+      "project_intelligence", "vision", "roadmap", "bounded_contexts",
+      "quality_assurance", "tdd_cycle", "test_structure",
+      "tech_stack", "core", "nuget_layers", "frontend_assets",
+      "ui_ux", "css_architecture", "razor_philosophy"
+    ]
   },
   "MD024": {
     "siblings_only": true

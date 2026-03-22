@@ -1,55 +1,38 @@
-# 🛡️ TicketsPlease – Security Rules
+# 🛡️ TicketsPlease - Security Rules
 
-Jede Code-Änderung muss die Defense-in-Depth Security-Standards einhalten.
+<security_rules>
+<secrets>
 
----
-
-## Secrets
-
-- **Niemals** Secrets in `appsettings.json` committen.
-- Lokal: `dotnet user-secrets` verwenden.
-- Produktion: Azure Key Vault / AWS Secrets Manager.
-- Connection Strings, JWT-Keys, API-Tokens = Secrets.
-
-## Authentication & Authorization
-
-- Passwort-Hashing via ASP.NET Core Identity (Pbkdf2/Argon2Id).
-- Keine eigenen Crypto-Implementierungen.
-- Cookies: `HttpOnly` **und** `Secure` Flags. Immer.
-- `[Authorize]` auf allen schützenswerten Endpunkten.
-
-## Input Validation
-
-- Jeder Command hat einen `AbstractValidator<T>` (FluentValidation).
-- Kein User-Input erreicht die Business-Logik ungeprüft.
-- Anti-Forgery Token (`[ValidateAntiForgeryToken]`) auf allen POST-Actions.
-- String-Inputs auf MaxLength beschränken.
-
-## XSS Prevention
-
-- Markdown-Output **immer** durch DOMPurify sanitizen.
-- DOMPurify lokal via LibMan (kein CDN!).
-- Kein `@Html.Raw()` ohne vorherige Sanitization.
-
-## SQL Injection
-
-- Alle DB-Queries über EF Core (parameterisiert).
-- Kein String-Concatenation für SQL-Queries.
-
-## DSGVO / Privacy by Design
-
-- Personenbezogene Daten in separaten Tabellen erfassen (UserProfile,
-  UserAddress).
-- Datensparsamkeit: Nur minimal nötige Daten erheben.
-- Keine externen CDNs (IP-Leak an Drittanbieter).
-
-## File Uploads
-
-- Datei-Typ per Whitelist validieren.
-- Dateigröße limitieren.
-- Dateiname sanitizen (Path-Traversal verhindern).
-- Dateien in Blob-Storage, nicht in `wwwroot`.
-
----
-
-## TicketsPlease Security Rules v1.0 | 2026-03-06
+- Appsettings: NEVER commit secrets.
+- Local: Use `dotnet user-secrets`.
+- Prod: Use Azure Key Vault / AWS Secrets Manager.
+- Definition: Connection Strings, JWT-Keys, API-Tokens = Secrets.
+  </secrets>
+  <auth>
+- Password Hash: ASP.NET Core Identity (Pbkdf2/Argon2Id). NO custom crypto.
+- Cookies: `HttpOnly` AND `Secure` flags ALWAYS.
+- Endpoints: `[Authorize]` on all protected routes.
+  </auth>
+  <input_validation>
+- CQRS: EVERY Command requires `AbstractValidator<T>` (FluentValidation). Zero unvalidated input in business logic.
+- XSRF: `[ValidateAntiForgeryToken]` on ALL POST actions.
+- Strings: Limit MaxLength always.
+  </input_validation>
+  <xss_prevention>
+- Markdown: Sanitization via DOMPurify ALWAYS.
+- Libs: DOMPurify hosted locally via LibMan (NO CDN).
+- Razor: NO `@Html.Raw()` without explicit sanitization.
+  </xss_prevention>
+  <sqli>
+- Queries: EF Core parameterized ONLY. ZERO string concatenation for SQL.
+  </sqli>
+  <privacy>
+- DSGVO: Separate tables for PII (UserProfile, UserAddress).
+- Principle: Data minimization.
+- CDN: ZERO external CDNs (prevents IP leaks).
+  </privacy>
+  <file_uploads>
+- Rules: Extension Whitelist, Max Size Limit, Sanitize Filename (Path-Traversal).
+- Storage: Blob-Storage ONLY (NEVER in wwwroot).
+  </file_uploads>
+  </security_rules>

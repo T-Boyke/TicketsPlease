@@ -1,106 +1,52 @@
-# 🏛️ TicketsPlease – Architecture Rules
+# 🏛️ TicketsPlease - Architecture Rules
 
-Diese Regeln erzwingen die Clean Architecture, DDD und CQRS Standards bei jeder
-Code-Änderung.
+<architecture_rules>
+<dependency_rule>
 
----
+- Direction: Web 🔵 -> Application 🟡 -> Domain 🟢 <- Infrastructure 🔴
+- Domain: NO dependencies (except MediatR.Contracts).
+- Application: Defines interfaces. Infrastructure: Implements them.
+- Web: Delegates to MediatR. ZERO business logic in Controllers. Enforced by NetArchTest.
+  </dependency_rule>
 
-## Clean Architecture – Dependency Rule
+  <ddd>
+  - Models: Rich Models with logic. NO anemic entities.
+  - Properties: Private setters `{ get; private set; }`. Use `static Create(...)`. No empty constructors.
+  - ValueObjects: Encapsulate logic (e.g. EmailAddress, Sha1Hash).
+  - Events: Decouple side-effects via INotification.
+  - Collections: IReadOnlyList<T> exposed, List<T> internal.
+  - Concurrency: RowVersion (`byte[]`, `[Timestamp]`) is MANDATORY on Domain Entities.
+  </ddd>
 
-```text
-Abhängigkeiten zeigen IMMER NUR NACH INNEN (→ Domain):
+<cqrs_mediatr>
 
-  🔵 Web → 🟡 Application → 🟢 Domain ← 🔴 Infrastructure
-```
+- Pipeline: Request -> LoggingBehavior -> ValidationBehavior -> TransactionBehavior -> Handler.
+- Validators: AbstractValidator<T> (FluentValidation) per command.
+- Mapping: Mapster ONLY (No AutoMapper).
+- Async: Pass CancellationToken everywhere.
+- Exceptions: ValidationException, NotFoundException, BadRequestException.
+  </cqrs_mediatr>
 
-- **Domain** hat **KEINE** externen Abhängigkeiten (Ausnahme:
-  `MediatR.Contracts`).
-- **Application** definiert Interfaces. **Infrastructure** implementiert sie.
-- **Web/Controller** delegieren alles an MediatR. Keine Business-Logik im
-  Controller.
-- Verletze **niemals** die Dependency Direction. `NetArchTest` prüft
-  automatisch.
+<ef_core>
 
----
+- Queries: ALWAYS `AsNoTracking()`. Use `.Select()` projections, NOT `.Include()`.
+- Writes: Catch `DbUpdateConcurrencyException`.
+- Transactions: Use `CreateExecutionStrategy()` for manual tx.
+- Migrations: `dotnet ef migrations add [Name] --project src/TicketsPlease.Infrastructure --startup-project src/TicketsPlease.Web`.
+- DB Schema: Strict 3rd Normal Form (3NF). No denormalization without ADR.
+  </ef_core>
 
-## Projekt-Struktur
+<naming_conventions>
 
-```text
-src/
-├── TicketsPlease.Domain/          # 🟢 Entities, Value Objects, Events, Enums
-├── TicketsPlease.Application/     # 🟡 Features/{Name}/Commands|Queries,
-│                                  # Contracts, Behaviors, Exceptions
-├── TicketsPlease.Infrastructure/  # 🔴 Persistence (DbContext, Repos, Migrations),
-│                                  # Services, Identity
-└── TicketsPlease.Web/             # 🔵 Controllers, Views, wwwroot, css/components/
-```
+- Interfaces: `I[Name]`. Private Fields: `_[name]`.
+- CQRS: `[Verb][Entity]Command`, `Get[Entity]Query`, `[Request]Handler`, `[Request]Validator`.
+- DTO: `[Entity][Purpose]Dto`.
+- Tests: `[Class]Tests` -> `[Method]_[Scenario]_[Expected]`.
+  </naming_conventions>
 
----
+<cqrs_file_bundling>
 
-## Domain-Driven Design (DDD)
-
-- **Rich Models** – Entities sind keine Datencontainer. Sie enthalten
-  Business-Logik.
-- **Private Setter** – Alle Properties: `{ get; private set; }`.
-- **Fabrikmethoden** – Kein leerer Konstruktor. Pflichtfelder über
-  `static Create(...)` erzwingen.
-- **Value Objects** – Komplexe Typen kapseln: `EmailAddress`, `Sha1Hash`,
-  `PriorityLevel`.
-- **Domain Events** – Seiteneffekte über `INotification` entkoppeln.
-- **Immutable Collections** – Extern `IReadOnlyList<T>`, intern `List<T>`.
-- **RowVersion** – Pflicht auf allen Domain-Entities (`byte[] RowVersion`,
-  `[Timestamp]`).
-
----
-
-## CQRS & MediatR
-
-- Pipeline:
-  `Request → LoggingBehavior → ValidationBehavior → TransactionBehavior → Handler`
-- Jeder Command hat einen `AbstractValidator<T>` (FluentValidation).
-- Mapping über **Mapster** (kein AutoMapper).
-- `CancellationToken` bis zum letzten Async-Call durchreichen.
-- Application Exceptions: `ValidationException`, `NotFoundException`,
-  `BadRequestException`.
-
----
-
-## EF Core Strict Policy
-
-- **Queries:** Immer `AsNoTracking()`.
-- **Projections:** `.Select(t => new Dto { ... })` statt `.Include()`.
-- **Concurrency:** `DbUpdateConcurrencyException` in jedem Write-Handler fangen.
-- **Transaktionen:** `CreateExecutionStrategy()` für manuelle Transaktionen.
-- **Migrations:**
-  `dotnet ef migrations add [Name] --project src/TicketsPlease.Infrastructure --startup-project src/TicketsPlease.Web`
-- **Schema:** 3. Normalform (3NF). Keine Denormalisierung ohne ADR.
-
----
-
-## Naming Conventions
-
-| Element       | Pattern                          | Beispiel                          |
-| ------------- | -------------------------------- | --------------------------------- |
-| Interface     | `I[Name]`                        | `ITicketRepository`               |
-| Private Field | `_[name]`                        | `_ticketRepository`               |
-| Command       | `[Verb][Entity]Command`          | `CreateTicketCommand`             |
-| Query         | `Get[Entity]Query`               | `GetTicketDetailQuery`            |
-| Handler       | `[Request]Handler`               | `CreateTicketCommandHandler`      |
-| DTO           | `[Entity][Purpose]Dto`           | `TicketDetailDto`                 |
-| Validator     | `[Request]Validator`             | `CreateTicketCommandValidator`    |
-| Test-Klasse   | `[Class]Tests`                   | `CreateTicketCommandHandlerTests` |
-| Test-Methode  | `[Method]_[Scenario]_[Expected]` | `Handle_ValidCommand_ReturnsId`   |
-
----
-
-## Datei-Disziplin & CQRS-Bündelung
-
-- **CQRS-Bündelung:** Um die Token-Effizienz zu steigern und Fragmentierung zu
-  vermeiden, werden `Command`/`Query`, `Validator` und `Handler` eines
-  spezifischen Use Cases **zwingend** in einer einzigen Datei zusammengefasst.
-- **Sonstige Elemente:** Für alle anderen Konstrukte (Entities, Value Objects,
-  generische Interfaces, Enums) gilt weiterhin strikt: **1 Klasse pro Datei**.
-
----
-
-## TicketsPlease Architecture Rules v1.0 | 2026-03-06
+- Enforce bundling: Command/Query, Validator, and Handler for a specific Use Case MUST reside in ONE single file to maximize token efficiency.
+- Other elements: 1 Class per File strictly.
+  </cqrs_file_bundling>
+  </architecture_rules>

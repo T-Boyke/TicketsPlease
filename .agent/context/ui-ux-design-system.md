@@ -1,39 +1,21 @@
-# 🎨 TicketsPlease – UI/UX Design System
+# 🎨 TicketsPlease - UI/UX Design System
 
-Vorgaben für das visuelle Frontend und die CSS-Architektur.
+<ui_ux>
+<css_architecture>
 
-## 📋 Table of Contents
-
-- [CSS-Architektur](#css-architektur)
-- [Razor Philosophy](#razor-philosophy)
-- [Accessibility (BFSG)](#accessibility-bfsg)
-
----
-
-## CSS-Architektur
-
-Wir nutzen TailwindCSS 4.2 mit einer strukturierten Abstraktion:
-
-- **Tokens:** CSS Custom Properties in `theme.css` (`--brand-primary`).
-- **Komponenten:** `@apply` in dedizierten Dateien (`btn.css`, `cards.css`).
-- **Theming:** Dark/Light Switch via `data-theme` Attribut auf `<html>`.
-
----
-
-## Razor Philosophy
-
-- **SFC / ViewComponents:** Jede Komponente bündelt Template & Logik.
-- **DRY:** Wiederkehrende Muster immer in `Partials` (`_Avatar.cshtml`).
-- **Logic-Free:** CSHTML enthält keine Business-Logik.
-
----
-
-## Accessibility (BFSG)
-
-- **Keyboard-First:** Alle Komponenten sind per Tab bedienbar.
-- **Semantic HTML:** Korrekte Nutzung von `<main>`, `<nav>`, `<dialog>`.
-- **ARIA:** Strikte Nutzung von `aria-label` für Icons und Buttons.
-
----
-
-_UIDesign v1.0 | 2026-03-09_
+- Framework: TailwindCSS 4.2.
+- Tokens: CSS Custom Properties in `theme.css`.
+- Components: `@apply` in `btn.css`, `cards.css`.
+- Theming: `data-theme` on `<html>`.
+  </css_architecture>
+  <razor_philosophy>
+- SFC: ViewComponents bundle Template + UI Logic.
+- DRY: Use Partials (`_Avatar.cshtml`).
+- Logic-Free: ZERO C# business logic in CSHTML.
+  </razor_philosophy>
+  <a11y>
+- Usability: Keyboard-first (Tab).
+- HTML5: Semantic (`<nav>`, `<main>`, `<dialog>`).
+- ARIA: `aria-label` for icons/buttons.
+  </a11y>
+  </ui_ux>
