@@ -14,10 +14,12 @@ trigger: model_decision
 - Abstraction: Use `@apply` in `css/components/` (btn.css, cards.css, form.css, theme.css).
   </styling>
   <a11y>
-- Nav: Keyboard-First (Tab). Focus-Traps in Modals MUST exist.
-- HTML5: Semantic (`<dialog>`, `<nav>`, `<main>`, `<button>`). NO `<div onclick>`.
-- ARIA: `aria-label`, `aria-expanded`, `aria-describedby` when needed. Unique IDs on interactive elements.
-- Contrast: WCAG AA Minimum (4.5:1).
+    - Standard: BFSG / EN 301 549 (WCAG 2.1 AA+).
+    - Navigation: Keyboard-only MUST work. Focus-traps in modals mandatory.
+    - Semantics: Use `<main>`, `<nav>`, `<article>`, `<header>`, `<footer>`. 
+    - Buttons: Use `<button>` or `<a role="button">`. NO `div` with click handlers.
+    - Labels: `aria-label` for icons/empty buttons. `aria-describedby` for validation errors.
+    - Motion: `prefers-reduced-motion` MUST be respected.
   </a11y>
   <theming>
 - Variables: Extract to `theme.css`. Switch via `data-theme="dark"` on `<html>` (NO reload).

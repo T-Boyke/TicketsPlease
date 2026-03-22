@@ -27,9 +27,12 @@
 - Queries: EF Core parameterized ONLY. ZERO string concatenation for SQL.
   </sqli>
   <privacy>
-- DSGVO: Separate tables for PII (UserProfile, UserAddress).
-- Principle: Data minimization.
-- CDN: ZERO external CDNs (prevents IP leaks).
+    - Standard: DSGVO / GDPR.
+    - Minimization: Only store PII (Personally Identifiable Information) when absolutely necessary.
+    - Isolation: Separate tables for PII (UserProfile, UserAddress). Encryption at rest for PII.
+    - IP-Leaks: ZERO external CDNs. Proxied fonts/scripts only.
+    - Logging: NEVER log PII or Secrets (GDPR Breach risk).
+    - Compliance: provide "Right to be forgotten" implementation.
   </privacy>
   <file_uploads>
 - Rules: Extension Whitelist, Max Size Limit, Sanitize Filename (Path-Traversal).
