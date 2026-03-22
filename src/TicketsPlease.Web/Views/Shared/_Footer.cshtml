@@ -1,0 +1,15 @@
+<footer class="bg-white border-t border-slate-200 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center text-slate-500 text-sm">
+            <div>&copy; @DateTime.Now.Year - TicketsPlease - Modern Kanban</div>
+            <div class="space-x-4">
+                <a asp-controller="Home" asp-action="Privacy" class="hover:underline">@L["Privacy"]</a>
+                <a asp-controller="Styleguide" asp-action="Index" class="hover:underline text-brand-primary font-semibold">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-1"></i>
+                    Styleguide
+                </a>
+                <a href="#" class="hover:underline">@L["Impressum"]</a>
+            </div>
+        </div>
+    </div>
+</footer>
