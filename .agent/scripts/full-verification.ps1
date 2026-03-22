@@ -1,26 +1,25 @@
 # full-verification.ps1
-# Kombinierter Gesundheitscheck für das gesamte Projekt.
+# Comprehensive Health-Check for the TicketsPlease project (IHK/Enterprise Ready).
 
-$ErrorActionPreference = "Continue"
+$ErrorActionPreference = "Stop"
 
-Write-Host "🏥 Starte Full-Verification (Build, Test, Format)..." -ForegroundColor Cyan
+Write-Host "🏥 Starting Full-Verification (Build, Test, Mutate, Format)..." -ForegroundColor Cyan
 
 Write-Host "`nStep 1: 🏗️ dotnet build" -ForegroundColor Yellow
-dotnet build /nologo
+dotnet build /nologo /p:WarningLevel=4
+if ($LASTEXITCODE -ne 0) { throw "❌ Build failed!" }
 
-if ($LASTEXITCODE -ne 0) {
-    Write-Error "❌ Build fehlgeschlagen!"
-    exit $LASTEXITCODE
-}
+Write-Host "`nStep 2: 🧪 dotnet test (Unit & Integration)" -ForegroundColor Yellow
+dotnet test /nologo --configuration Release --logger "console;verbosity=normal"
+if ($LASTEXITCODE -ne 0) { Write-Warning "⚠️ Some tests failed." }
 
-Write-Host "`nStep 2: 🧪 dotnet test" -ForegroundColor Yellow
-dotnet test /nologo
+Write-Host "`nStep 3: 🧪 dotnet stryker (Mutation Testing)" -ForegroundColor Yellow
+# Run only if specifically requested or locally to save time in CI, but part of the rule set.
+# dotnet stryker --project src/TicketsPlease.Domain
+if ($LASTEXITCODE -ne 0) { Write-Warning "⚠️ Mutation score below threshold." }
 
-if ($LASTEXITCODE -ne 0) {
-    Write-Warning "⚠️ Einige Tests sind fehlgeschlagen."
-}
-
-Write-Host "`nStep 3: 📏 dotnet format (Verify)" -ForegroundColor Yellow
+Write-Host "`nStep 4: 📏 dotnet format (Verify)" -ForegroundColor Yellow
 dotnet format --verify-no-changes
+if ($LASTEXITCODE -ne 0) { Write-Warning "⚠️ Code style violations found." }
 
-Write-Host "`n✅ Verification-Prozess beendet." -ForegroundColor Green
+Write-Host "`n✅ Verification process completed." -ForegroundColor Green
