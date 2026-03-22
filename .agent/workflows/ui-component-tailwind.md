@@ -128,6 +128,8 @@ Abstrahiere wiederkehrende UI-Muster in dedizierte CSS-Dateien:
 | **Keyboard Navigation** | `Tab`-Reihenfolge muss logisch sein. Kein Element darf übersprungen werden.              |
 | **Focus-Trap**          | In Modals: Fokus darf das Modal nicht per Tab verlassen.                                 |
 | **Semantisches HTML**   | `<button>` statt `<div onclick>`. `<dialog>` statt custom Modal. `<nav>` für Navigation. |
+| **i18n (Resources)**    | KEINE harten Strings! Nutze `@L["Key"]` via `IViewLocalizer`.                            |
+| **BFSG (EN 301 549)**   | Einhaltung der gesetzlichen Barrierefreiheits-Standards für DE-Markt.                    |
 | **Kontrast**            | Mindestens WCAG AA Kontrastverhältnis (4.5:1 für Text).                                  |
 
 ````html
