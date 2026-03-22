@@ -23,7 +23,8 @@
       "project_intelligence", "vision", "roadmap", "bounded_contexts",
       "quality_assurance", "tdd_cycle", "test_structure",
       "tech_stack", "core", "nuget_layers", "frontend_assets",
-      "ui_ux", "css_architecture", "razor_philosophy"
+      "ui_ux", "css_architecture", "razor_philosophy", "design_language", 
+      "tailwind_patterns", "philosophy", "design_tokens", "components", "buttons", "cards", "forms", "modals", "animations", "accessibility"
     ]
   },
   "MD024": {
