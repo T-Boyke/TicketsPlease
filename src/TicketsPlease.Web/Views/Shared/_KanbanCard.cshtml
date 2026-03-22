@@ -1,0 +1,32 @@
+@model dynamic
+@{
+    // Placeholder for TicketSummaryViewModel structure
+    string title = Model.Title ?? "No Title";
+    string id = Model.Id ?? "TKT-000";
+    int priority = Model.Priority ?? 1;
+    string assigneeInitials = Model.AssigneeInitials ?? "??";
+}
+
+<div class="kanban-card group p-4 @(priority >= 4 ? "card-feature" : "")" 
+     draggable="true" 
+     aria-labelledby="ticket-title-@id">
+    <div class="flex justify-between items-start mb-3">
+        <span class="text-[10px] font-bold tracking-wider text-slate-400 uppercase font-mono">@id</span>
+        <partial name="_PriorityIcon" model="priority" />
+    </div>
+    
+    <h4 id="ticket-title-@id" class="text-sm font-semibold text-slate-800 mb-4 line-clamp-2 group-hover:text-brand-primary transition-colors">
+        @title
+    </h4>
+    
+    <div class="flex justify-between items-center">
+        <div class="flex -space-x-2">
+            <partial name="_Avatar" model="assigneeInitials" view-data='@new ViewDataDictionary(ViewData) { { "SizeClass", "h-6 w-6" } }' />
+        </div>
+        
+        <div class="flex items-center text-slate-400 text-[10px] space-x-2">
+            <span><i class="fa-solid fa-paperclip mr-1"></i>2</span>
+            <span><i class="fa-solid fa-comment mr-1"></i>5</span>
+        </div>
+    </div>
+</div>
