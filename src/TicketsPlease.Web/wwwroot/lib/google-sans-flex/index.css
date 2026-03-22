@@ -1,0 +1,11 @@
+/* 
+   Google Sans Flex - Manual Integration
+   Note: User must provide .woff2 files in this directory.
+*/
+@font-face {
+  font-family: 'Google Sans Flex';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 1000;
+  src: url('./google-sans-flex.woff2') format('woff2');
+}
