@@ -27,7 +27,9 @@
       "tailwind_patterns", "philosophy", "design_tokens", "components", "buttons", "cards", "forms", "modals", "animations", "accessibility",
       "i18n_rules", "priority", "implementation", "german_standards",
       "compliance_standards", "bfsg", "dsgvo",
-      "localization_bundle", "strategy", "german_priority"
+      "localization_bundle", "strategy", "german_priority",
+      "vision", "roadmap", "bounded_contexts",
+      "ticket_aggregate", "business_rules", "complexity_scoping"
     ]
   },
   "MD024": {

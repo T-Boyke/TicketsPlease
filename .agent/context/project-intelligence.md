@@ -1,22 +1,21 @@
 # 🧠 TicketsPlease - Project Intelligence
 
 <project_intelligence>
-<vision>
-
-  - Goal: State-of-the-art Kanban-Ticketsystem acting as reference for modern C#
-    development (Clean Arch + Code Quality).
-- PRIORITY #1: MVP (Phase 1). ZERO Enterprise features until MVP is complete.
+<project_intelligence>
+  <vision>
+    - Goal: Reference Kanban for .NET 10 / C# 14 (Clean Architecture + DDD).
+    - Policy: "Strict MVP" (Phase 1). No Enterprise Feature Leakage.
+    - Quality: 100% Mutation Score, BFSG-Ready, DSGVO-Native.
   </vision>
   <roadmap>
-- P1: IHK MVP Core (Identity, Kanban, Tickets) [WIP].
-- P2: CI/CD & Groundwork [Active].
-- P3: Domain Modeling & IAM [Active].
+    - P1: Core Identity (RBAC), Kanban Engine, Ticket Aggregate [WIP].
+    - P2: CI/CD, EF Core Resilience, ICorporateSkin [Active].
+    - P3: Domain Event Bus, Audit Engine, SLA Monitor [Pending].
   </roadmap>
   <bounded_contexts>
-- Identity & Access: Auth, RBAC, Profiles.
-- Ticket Management: Core business (Tickets, SubTickets).
-- Workflow: Kanban states, SLAs.
-- Communication: Chat, Comments, Notifications.
-- Asset Management: Blob-Storage, Attachments.
+    - Identity: AuthN/AuthZ, Profile, Claims.
+    - Ticket: Create, Assign, Transition (Rich Aggregate).
+    - Asset: Local Blob storage, Anti-Virus Sandbox.
+    - Messaging: Real-time Comments, I18n Notifications.
   </bounded_contexts>
-  </project_intelligence>
+</project_intelligence>

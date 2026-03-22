@@ -1,21 +1,19 @@
 # 🧬 TicketsPlease - Domain Knowledge
 
 <domain_knowledge>
-<ticket_entity>
-
-- Core Aggregate.
-- ID: SHA1-Hash universally.
-- Tracking: Geo-Timestamp on every state mutation.
-- Logic: Rich Model. Mutations inside Entity (`ticket.MoveToReview()`), NEVER in Application Services.
-  </ticket_entity>
-  <chili_metrics>
-- Complexity scale:
-- `1 Chili`: Trivial / Docs.
-- `3 Chilis`: Standard Feature / Refactoring.
-- `5 Chilis`: Critical Bug / Architecture Rewrite.
-  </chili_metrics>
+  <ticket_aggregate>
+    - Identity: SHA1-based UIDs for global consistency.
+    - Logic: Mutation ONLY inside Entity (`Move()`, `Assign()`). No setter leakage.
+    - Security: RowVersion (byte[]) required on all modifiable entities.
+  </ticket_aggregate>
   <business_rules>
-- Close Logic: Only Creator, Admin, or Teamlead can close (`Closed`) tickets.
-- State Flow: To Do -> In Progress -> Review -> Done -> (Auto-Archive after X days).
+    - Transitions: Valid state path (To Do -> In Progress -> Review -> Done).
+    - Ownership: Closed tickets only by Creator, Admin, or TeamLead.
+    - Archiving: Auto-Archive 30 days post-completion.
   </business_rules>
-  </domain_knowledge>
+  <complexity_scoping>
+    - 🌶️ (1): Documentation / Style / Text.
+    - 🌶️🌶️🌶️ (3): Standard Feature / UseCase / UnitTests.
+    - 🌶️🌶️🌶️🌶️🌶️ (5): Core Architecture / Security / External Integration.
+  </complexity_scoping>
+</domain_knowledge>
