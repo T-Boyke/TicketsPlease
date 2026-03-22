@@ -3,15 +3,15 @@
 Dieses Dokument ist der zentrale Einstiegspunkt für den KI-Agenten im
 **TicketsPlease** Projekt.
 
-> 📖 **Vollständige Governance:**
-> Alle technischen Regeln in [instructions.md](file:///d:/DEV/Tickets/instructions.md)
-> (16 Sektionen).
+> 📖 **Vollständige Governance:** Alle technischen Regeln in
+> [instructions.md](file:///d:/DEV/Tickets/instructions.md) (16 Sektionen).
 
 ---
 
 ## 📏 Agent Rules
 
-Die folgenden Regeln in `.agent/rules/` sind **verbindlich** für jede Interaktion:
+Die folgenden Regeln in `.agent/rules/` sind **verbindlich** für jede
+Interaktion:
 
 | Regel-Datei                                                                      | Beschreibung                                       |
 | -------------------------------------------------------------------------------- | -------------------------------------------------- |

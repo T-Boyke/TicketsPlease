@@ -1,7 +1,7 @@
 # Architecture Decision Records (ADR) - Index
 
-Dieses Verzeichnis enthält die Aufzeichnungen aller wesentlichen architektonischen
-Design-Entscheidungen für das Projekt **TicketsPlease**.
+Dieses Verzeichnis enthält die Aufzeichnungen aller wesentlichen
+architektonischen Design-Entscheidungen für das Projekt **TicketsPlease**.
 
 ## Übersicht der Entscheidungen
 
@@ -39,4 +39,5 @@ Design-Entscheidungen für das Projekt **TicketsPlease**.
 
 ---
 
-_Hinweis: Neue ADRs sollten basierend auf der [Template-Datei](template.md) erstellt werden._
+_Hinweis: Neue ADRs sollten basierend auf der [Template-Datei](template.md)
+erstellt werden._

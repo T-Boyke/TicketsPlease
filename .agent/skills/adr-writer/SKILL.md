@@ -1,14 +1,16 @@
 ---
 name: adr-writer
-description: Creates Architecture Decision Records (ADRs) in the Lightweight ADR
-  format by Michael Nygard. Use when making significant architectural decisions,
+description:
+  Creates Architecture Decision Records (ADRs) in the Lightweight ADR format by
+  Michael Nygard. Use when making significant architectural decisions,
   introducing new technologies, or changing established patterns. Ensures proper
   documentation with context, decision, and consequences.
 ---
 
 # 📋 ADR Writer
 
-Erstellt Architecture Decision Records im Lightweight ADR Format (Michael Nygard).
+Erstellt Architecture Decision Records im Lightweight ADR Format (Michael
+Nygard).
 
 > **Referenz:** [ADR-Index](file:///d:/DEV/Tickets/docs/adr/README.md) |
 > [Documentation Standards](file:///d:/DEV/Tickets/.agent/workflows/documentation-standards.md)
@@ -55,12 +57,13 @@ ls d:/DEV/Tickets/docs/adr/
 
 **Datum:** YYYY-MM-DD
 
-**Status:** Proposed | Accepted | Deprecated | Superseded by [XXXX](./XXXX-xxx.md)
+**Status:** Proposed | Accepted | Deprecated | Superseded by
+[XXXX](./XXXX-xxx.md)
 
 ## Kontext
 
-[Welches Problem lösen wir? Warum ist eine Entscheidung nötig?]
-[Technischer Hintergrund, Constraints, Anforderungen]
+[Welches Problem lösen wir? Warum ist eine Entscheidung nötig?] [Technischer
+Hintergrund, Constraints, Anforderungen]
 
 ## Entscheidung
 
@@ -69,23 +72,26 @@ ls d:/DEV/Tickets/docs/adr/
 ## Konsequenzen
 
 ### Positiv
+
 - [Vorteil 1]
 - [Vorteil 2]
 
 ### Negativ
+
 - [Nachteil / Trade-off 1]
 - [Nachteil / Trade-off 2]
 
 ### Neutral
+
 - [Neutrale Folge, z.B. "Team muss sich einarbeiten"]
 
 ## Alternativen
 
 | Alternative | Pro | Contra | Entscheidung |
-|---|---|---|---|
-| [Option A] | ... | ... | ❌ Abgelehnt |
-| [Option B] | ... | ... | ✅ Gewählt |
-| [Option C] | ... | ... | ❌ Abgelehnt |
+| ----------- | --- | ------ | ------------ |
+| [Option A]  | ... | ...    | ❌ Abgelehnt |
+| [Option B]  | ... | ...    | ✅ Gewählt   |
+| [Option C]  | ... | ...    | ❌ Abgelehnt |
 ```
 
 ### 4. ADR-Index aktualisieren
@@ -100,7 +106,8 @@ Trage den neuen ADR in `docs/adr/README.md` ein:
 
 ## Bestehende ADRs (Referenz)
 
-Prüfe VOR der Erstellung eines neuen ADR, ob der Sachverhalt bereits abgedeckt ist:
+Prüfe VOR der Erstellung eines neuen ADR, ob der Sachverhalt bereits abgedeckt
+ist:
 
 ```bash
 # Bestehende ADRs auflisten
@@ -124,13 +131,13 @@ Proposed → Accepted → [Deprecated | Superseded by XXXX]
 
 ## Qualitäts-Kriterien
 
-| # | Kriterium | Beschreibung |
-| --- | --- | --- |
-| 1 | **Klar** | Entscheidung ist eindeutig formuliert |
-| 2 | **Begründet** | Kontext erklärt das "Warum" |
-| 3 | **Abgewogen** | Alternativen wurden betrachtet |
-| 4 | **Konsequent** | Positive UND negative Folgen benannt |
-| 5 | **Verlinkt** | Superseded ADRs referenzieren den Nachfolger |
+| #   | Kriterium      | Beschreibung                                 |
+| --- | -------------- | -------------------------------------------- |
+| 1   | **Klar**       | Entscheidung ist eindeutig formuliert        |
+| 2   | **Begründet**  | Kontext erklärt das "Warum"                  |
+| 3   | **Abgewogen**  | Alternativen wurden betrachtet               |
+| 4   | **Konsequent** | Positive UND negative Folgen benannt         |
+| 5   | **Verlinkt**   | Superseded ADRs referenzieren den Nachfolger |
 
 ---
 

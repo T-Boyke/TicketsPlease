@@ -6,10 +6,11 @@
 
 ## Context and Problem Statement
 
-Einige Prozesse (Auto-Close von Tickets, SLA-Prüfungen, Teamlead-Broadcast-Mails) müssen
-zeitgesteuert oder im Hintergrund laufen, ohne den Web-Anfrageprozess (Request) zu blockieren. Wir
-benötigen eine Lösung, die Jobs persistiert, damit sie auch nach einem Server-Neustart nicht
-verloren gehen.
+Einige Prozesse (Auto-Close von Tickets, SLA-Prüfungen,
+Teamlead-Broadcast-Mails) müssen zeitgesteuert oder im Hintergrund laufen, ohne
+den Web-Anfrageprozess (Request) zu blockieren. Wir benötigen eine Lösung, die
+Jobs persistiert, damit sie auch nach einem Server-Neustart nicht verloren
+gehen.
 
 ## Decision Drivers
 
@@ -27,15 +28,17 @@ verloren gehen.
 
 ## Decision Outcome
 
-Chosen option: "Hangfire", because es eine integrierte SQL-Server-Persistenz bietet, fehlgeschlagene
-Jobs automatisch wiederholt und über ein hervorragendes Dashboard verfügt, um den Status aller
-Hintergrund-Prozesse in Echtzeit zu sehen.
+Chosen option: "Hangfire", because es eine integrierte SQL-Server-Persistenz
+bietet, fehlgeschlagene Jobs automatisch wiederholt und über ein hervorragendes
+Dashboard verfügt, um den Status aller Hintergrund-Prozesse in Echtzeit zu
+sehen.
 
 ### Positive Consequences
 
 - Jobs überleben Anwendungs-Neustarts (Crash-Resistence).
 - Transparentes Monitoring via `/hangfire` Web-UI.
-- Wir benötigen keinen separaten Windows-Dienst; Hangfire läuft direkt im Web-Host.
+- Wir benötigen keinen separaten Windows-Dienst; Hangfire läuft direkt im
+  Web-Host.
 
 ### Negative Consequences
 
@@ -48,8 +51,8 @@ Hintergrund-Prozesse in Echtzeit zu sehen.
 
 - Good, because extrem einfach zu bedienen und sehr robust.
 - Good, because native Dashboard-Unterstützung.
-- Bad, because SQL-Persistenz kann bei extrem hoher Last zum Flaschenhals werden (Redis-Option
-  existiert aber).
+- Bad, because SQL-Persistenz kann bei extrem hoher Last zum Flaschenhals werden
+  (Redis-Option existiert aber).
 
 ### IHostedService (Native)
 

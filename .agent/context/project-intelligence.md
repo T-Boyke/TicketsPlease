@@ -1,7 +1,7 @@
 # 🧠 TicketsPlease – Project Intelligence
 
-Dieses Dokument dient als zentrale Wissensbasis für die Mission, Vision und den aktuellen
-Fortschritt des TicketsPlease-Projekts.
+Dieses Dokument dient als zentrale Wissensbasis für die Mission, Vision und den
+aktuellen Fortschritt des TicketsPlease-Projekts.
 
 ## 📋 Table of Contents
 
@@ -13,19 +13,19 @@ Fortschritt des TicketsPlease-Projekts.
 
 ## Vision & Mission
 
-TicketsPlease ist ein hochmodernes Kanban-Ticketsystem, das als Referenz für modernste
-C#-Entwicklung dient. Der Fokus liegt auf kompromissloser Softwarearchitektur
-(Clean Architecture) und höchster Code-Qualität.
+TicketsPlease ist ein hochmodernes Kanban-Ticketsystem, das als Referenz für
+modernste C#-Entwicklung dient. Der Fokus liegt auf kompromissloser
+Softwarearchitektur (Clean Architecture) und höchster Code-Qualität.
 
-> [!IMPORTANT]
-> **MVP First:** Die Einhaltung der Phase 1 (IHK MVP) hat oberste Priorität vor allen
-> Enterprise-Features.
+> [!IMPORTANT] **MVP First:** Die Einhaltung der Phase 1 (IHK MVP) hat oberste
+> Priorität vor allen Enterprise-Features.
 
 ---
 
 ## MVP Roadmap Status
 
-Das Projekt ist phasenweise nach der [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md) aufgebaut.
+Das Projekt ist phasenweise nach der
+[MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md) aufgebaut.
 
 | Phase  | Fokus                                    | Status       |
 | ------ | ---------------------------------------- | ------------ |

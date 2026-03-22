@@ -34,7 +34,8 @@ architecture.
 
 - **SOLID**: Ensures classes are focused, extensible, and easily swappable.
 - **DRY**: Reduces bugs caused by logic duplication (Single Source of Truth).
-- **KISS**: Keeps the implementation simple and understandable for auditors/reviewers.
+- **KISS**: Keeps the implementation simple and understandable for
+  auditors/reviewers.
 - **YAGNI**: Prevents over-engineering and keeps the focus on the MVP roadmap.
 
 ### Negative Consequences
@@ -49,18 +50,21 @@ architecture.
 1. **Single Responsibility**: One class, one reason to change.
 2. **Open-Closed**: Open for extension, closed for modification.
 3. **Liskov Substitution**: Subtypes must be substitutable for their base types.
-4. **Interface Segregation**: Clients shouldn't depend on interfaces they don't use.
+4. **Interface Segregation**: Clients shouldn't depend on interfaces they don't
+   use.
 5. **Dependency Inversion**: Depend on abstractions, not concretions.
 
 ### DRY (Don't Repeat Yourself)
 
-Every piece of knowledge or logic must have a single, unambiguous, authoritative representation
-within the system.
+Every piece of knowledge or logic must have a single, unambiguous, authoritative
+representation within the system.
 
 ### KISS (Keep It Simple, Stupid)
 
-Design and implementation should be as simple as possible. Avoid unnecessary complexity.
+Design and implementation should be as simple as possible. Avoid unnecessary
+complexity.
 
 ### YAGNI (You Aren't Gonna Need It)
 
-Do not add functionality until it is actually needed. Focus on the current requirements (MVP).
+Do not add functionality until it is actually needed. Focus on the current
+requirements (MVP).

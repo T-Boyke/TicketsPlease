@@ -14,7 +14,8 @@ Regeln und Tools zur Sicherstellung der Code-Qualität.
 
 - **Tool:** `dotnet format`.
 - **Regeln:** Definiert in `.editorconfig`.
-- **CI-Gate:** Pushed Code wird auf Formatierung geprüft; Abweichungen führen zum Build-Failure.
+- **CI-Gate:** Pushed Code wird auf Formatierung geprüft; Abweichungen führen
+  zum Build-Failure.
 
 ---
 
@@ -22,7 +23,8 @@ Regeln und Tools zur Sicherstellung der Code-Qualität.
 
 - **Tool:** `markdownlint`.
 - **Config:** `.markdownlint.json`.
-- **Fokus:** Einhaltung von Header-Hierarchien, korrekten Listen-Styles und Zeilenlängen für Dokumentationen.
+- **Fokus:** Einhaltung von Header-Hierarchien, korrekten Listen-Styles und
+  Zeilenlängen für Dokumentationen.
 
 ---
 
@@ -30,7 +32,8 @@ Regeln und Tools zur Sicherstellung der Code-Qualität.
 
 - **Tool:** Prettier CLI.
 - **Config:** `.prettierrc`.
-- **Einsatz:** Formatiert JSON, CSS, JS und Markdown Dateien konsistent über alle IDEs hinweg.
+- **Einsatz:** Formatiert JSON, CSS, JS und Markdown Dateien konsistent über
+  alle IDEs hinweg.
 
 ---
 

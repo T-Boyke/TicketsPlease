@@ -62,7 +62,8 @@ Jeder Test: **Arrange** → **Act** → **Assert**.
 
 ## Lighthouse
 
-- Score muss 100/100 erreichen in: Performance, Accessibility, Best Practices, SEO.
+- Score muss 100/100 erreichen in: Performance, Accessibility, Best Practices,
+  SEO.
 
 ---
 

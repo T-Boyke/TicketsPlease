@@ -1,6 +1,7 @@
 # Projekt Gantt-Chart (IHK Roadmap)
 
-Dieses Gantt-Diagramm visualisiert die Zeitplanung (Roadmap) für das IHK Abschlussprojekt.
+Dieses Gantt-Diagramm visualisiert die Zeitplanung (Roadmap) für das IHK
+Abschlussprojekt.
 
 ```mermaid
 gantt

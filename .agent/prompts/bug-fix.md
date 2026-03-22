@@ -12,7 +12,8 @@ Nutze diesen Prompt für die systematische Behebung von Fehlern.
 ## 🛡️ Best Practices
 
 - Nutze Structured Logging (`ILogger`), um Kontext zu erfassen.
-- Dokumentiere den Fix im `CHANGELOG.md` oder via ADR, falls architektonisch relevant.
+- Dokumentiere den Fix im `CHANGELOG.md` oder via ADR, falls architektonisch
+  relevant.
 
 ---
 

@@ -1,18 +1,22 @@
 ---
-description: Workflow for creating consistent UI components using Tailwind CSS
-  and the Corporate Skin Provider.
+description:
+  Workflow for creating consistent UI components using Tailwind CSS and the
+  Corporate Skin Provider.
 ---
 
 # 🎨 UI Component Development Workflow
 
-Dieser Workflow beschreibt den vollständigen Ablauf zur Erstellung
-hochwertiger, barrierefreier UI-Komponenten im TicketsPlease Frontend.
+Dieser Workflow beschreibt den vollständigen Ablauf zur Erstellung hochwertiger,
+barrierefreier UI-Komponenten im TicketsPlease Frontend.
 
-> **Referenz:** [ADR-0005 (SFC/Tailwind)](file:///d:/DEV/Tickets/docs/adr/0005-ui-sfc-tailwind.md)
-> | [ADR-0017 (No Bootstrap)](file:///d:/DEV/Tickets/docs/adr/0017-no-bootstrap-policy.md)
-> | [ADR-0020 (Corporate Skinning)](file:///d:/DEV/Tickets/docs/adr/0020-corporate-skinning-provider.md)
-> | [frontend_assets.md](file:///d:/DEV/Tickets/docs/frontend_assets.md)
-> | [instructions.md §7-§8](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:**
+> [ADR-0005 (SFC/Tailwind)](file:///d:/DEV/Tickets/docs/adr/0005-ui-sfc-tailwind.md)
+> |
+> [ADR-0017 (No Bootstrap)](file:///d:/DEV/Tickets/docs/adr/0017-no-bootstrap-policy.md)
+> |
+> [ADR-0020 (Corporate Skinning)](file:///d:/DEV/Tickets/docs/adr/0020-corporate-skinning-provider.md)
+> | [frontend_assets.md](file:///d:/DEV/Tickets/docs/frontend_assets.md) |
+> [instructions.md §7-§8](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 
@@ -34,7 +38,8 @@ hochwertiger, barrierefreier UI-Komponenten im TicketsPlease Frontend.
 - Prüfe, ob die Komponente bereits in ähnlicher Form existiert:
   - `src/TicketsPlease.Web/Views/Shared/Components/`
   - `src/TicketsPlease.Web/Views/Shared/` (Partials)
-- **DRY-Regel:** Sobald sich ein HTML-Konstrukt mehr als einmal wiederholt → Partial oder TagHelper!
+- **DRY-Regel:** Sobald sich ein HTML-Konstrukt mehr als einmal wiederholt →
+  Partial oder TagHelper!
   - `<partial name="_Avatar" />`
   - `<partial name="_TicketTag" />`
   - Custom TagHelper: `<icon name="check" />`
@@ -73,7 +78,7 @@ Beispiel:
 
 ```html
 <button
-  class="flex items-center px-4 py-2 text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
+  class="flex items-center rounded-lg px-4 py-2 text-sm font-medium shadow-md transition-all duration-200 hover:shadow-lg"
 ></button>
 ```
 
@@ -96,16 +101,11 @@ Abstrahiere wiederkehrende UI-Muster in dedizierte CSS-Dateien:
 ```css
 /* css/components/btn.css */
 .btn {
-  @apply inline-flex items-center justify-center px-4 py-2
-           font-medium rounded-lg
-           transition-all duration-200 ease-in-out
-           focus:outline-none focus:ring-2 focus:ring-offset-2;
+  @apply inline-flex items-center justify-center rounded-lg px-4 py-2 font-medium transition-all duration-200 ease-in-out focus:ring-2 focus:ring-offset-2 focus:outline-none;
 }
 
 .btn-primary {
-  @apply btn bg-[var(--brand-primary)] text-[var(--color-on-primary)]
-           hover:brightness-110 active:brightness-90
-           focus:ring-[var(--brand-primary)];
+  @apply btn bg-[var(--brand-primary)] text-[var(--color-on-primary)] hover:brightness-110 focus:ring-[var(--brand-primary)] active:brightness-90;
 }
 ```
 
@@ -113,7 +113,8 @@ Abstrahiere wiederkehrende UI-Muster in dedizierte CSS-Dateien:
 
 - Baue Komponenten **Mobile-First** und erweitere mit Tailwind-Breakpoints:
   - `sm:` → `md:` → `lg:` → `xl:`
-- Das Kanban-Board muss auf Mobile als **vertikale Listen/Karten** funktionieren.
+- Das Kanban-Board muss auf Mobile als **vertikale Listen/Karten**
+  funktionieren.
 - Teste auf beiden Viewports (Desktop Breitbild + Mobile).
 
 ### 6. Accessibility (BFSG/a11y) – Checkliste
@@ -131,7 +132,11 @@ Abstrahiere wiederkehrende UI-Muster in dedizierte CSS-Dateien:
 
 ````html
 <!-- ✅ RICHTIG: Barrierefrei -->
-<button id="create-ticket-btn" aria-label="Neues Ticket erstellen" class="btn btn-primary">
+<button
+  id="create-ticket-btn"
+  aria-label="Neues Ticket erstellen"
+  class="btn btn-primary"
+>
   <i class="fa-solid fa-plus" aria-hidden="true"></i>
   Neues Ticket
 </button>
@@ -141,13 +146,15 @@ Abstrahiere wiederkehrende UI-Muster in dedizierte CSS-Dateien:
   <i class="fa-solid fa-plus"></i>
 </div>
 
-### 7. Theme-Switching (Dark/Light Mode) - Farben **ausschließlich** über CSS Custom Properties in
-`theme.css`: ```css :root, [data-theme="light"] { --color-surface: #ffffff; --color-on-surface:
-#1a1a2e; --brand-primary: #6366f1; } [data-theme="dark"] { --color-surface: #1a1a2e;
---color-on-surface: #e2e8f0; --brand-primary: #818cf8; }
+### 7. Theme-Switching (Dark/Light Mode) - Farben **ausschließlich** über CSS
+Custom Properties in `theme.css`: ```css :root, [data-theme="light"] {
+--color-surface: #ffffff; --color-on-surface: #1a1a2e; --brand-primary: #6366f1;
+} [data-theme="dark"] { --color-surface: #1a1a2e; --color-on-surface: #e2e8f0;
+--brand-primary: #818cf8; }
 ````
 
-- Theme-Wechsel via `data-theme` Attribut auf `<html>`-Tag. **Kein Page-Reload!**
+- Theme-Wechsel via `data-theme` Attribut auf `<html>`-Tag. **Kein
+  Page-Reload!**
 
 ### 8. Corporate Branding (Multi-Tenancy)
 
@@ -160,7 +167,8 @@ Abstrahiere wiederkehrende UI-Muster in dedizierte CSS-Dateien:
 - Nutze ausschließlich lokale FontAwesome-Klassen:
   - `fa-solid fa-check` (Solid Icons)
   - `fa-regular fa-bell` (Regular Icons)
-- **`aria-hidden="true"`** auf dekorativen Icons (die keinen eigenen Textinhalt kommunizieren).
+- **`aria-hidden="true"`** auf dekorativen Icons (die keinen eigenen Textinhalt
+  kommunizieren).
 
 ### 10. Micro-Animations & Premium Feeling
 
@@ -175,5 +183,5 @@ Abstrahiere wiederkehrende UI-Muster in dedizierte CSS-Dateien:
 
 ### Zusammenfassung
 
-DRY-Check ✓, Komponente ✓, Tailwind ✓, @apply ✓, Responsive ✓, a11y ✓, Theme ✓, Branding ✓, Icons ✓,
-Animations ✓
+DRY-Check ✓, Komponente ✓, Tailwind ✓, @apply ✓, Responsive ✓, a11y ✓, Theme ✓,
+Branding ✓, Icons ✓, Animations ✓

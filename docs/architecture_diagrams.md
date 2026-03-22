@@ -1,12 +1,13 @@
 # System Architecture & Infrastructure
 
-Dieses Dokument visualisiert unsere High-Level Architektur (Clean Architecture), das
-Deployment-Modell und den grundlegenden Datenfluss der Applikation.
+Dieses Dokument visualisiert unsere High-Level Architektur (Clean Architecture),
+das Deployment-Modell und den grundlegenden Datenfluss der Applikation.
 
 ## 1. Clean Architecture (Onion) Diagramm
 
-Das folgende Diagramm zeigt die strikte Abhängigkeitsrichtung (Dependency Rule) unserer ASP.NET Core
-Solution. Abhängigkeiten dürfen **immer nur nach innen** (in Richtung der Domain) zeigen.
+Das folgende Diagramm zeigt die strikte Abhängigkeitsrichtung (Dependency Rule)
+unserer ASP.NET Core Solution. Abhängigkeiten dürfen **immer nur nach innen**
+(in Richtung der Domain) zeigen.
 
 ```mermaid
 flowchart TD
@@ -37,8 +38,9 @@ flowchart TD
 
 ## 2. Infrastructure & Deployment Architektur
 
-Dieses UML Deployment-Diagramm veranschaulicht, wie die fertige Applikation in einer
-Produktionsumgebung (z.B. Azure oder ein lokaler IIS/Docker Swarm) verteilt wird.
+Dieses UML Deployment-Diagramm veranschaulicht, wie die fertige Applikation in
+einer Produktionsumgebung (z.B. Azure oder ein lokaler IIS/Docker Swarm)
+verteilt wird.
 
 ```mermaid
 flowchart TD
@@ -80,8 +82,8 @@ flowchart TD
 
 ## 3. CQRS & Event Flow (Ticket Creation)
 
-Ein Sequenzdiagramm, das den typischen Fluss eines Commands (z.B. "Erstelle ein neues Ticket") durch
-unsere Clean Architecture Routen zeigt.
+Ein Sequenzdiagramm, das den typischen Fluss eines Commands (z.B. "Erstelle ein
+neues Ticket") durch unsere Clean Architecture Routen zeigt.
 
 ```mermaid
 sequenceDiagram
@@ -115,8 +117,8 @@ sequenceDiagram
 
 ## 4. Enterprise Plugin Loader Flow (Runtime Extensibility)
 
-Dieses Diagramm zeigt, wie das System zur Laufzeit externe Module (.dll) lädt, ohne dass der
-Kern-Code neu kompiliert werden muss.
+Dieses Diagramm zeigt, wie das System zur Laufzeit externe Module (.dll) lädt,
+ohne dass der Kern-Code neu kompiliert werden muss.
 
 ```mermaid
 sequenceDiagram

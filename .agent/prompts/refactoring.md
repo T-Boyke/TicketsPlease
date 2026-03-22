@@ -5,7 +5,8 @@ Nutze diesen Prompt für sichere und strukturierte Refactorings.
 ## 📋 Refactoring Goals
 
 - **DRY:** Duplikate eliminieren (z.B. in Partials auslagern).
-- **Separation of Concerns:** Logik aus Controllern in MediatR Handler verschieben.
+- **Separation of Concerns:** Logik aus Controllern in MediatR Handler
+  verschieben.
 - **DDD Alignment:** Anämische Logik zurück in die Domain Entities schieben.
 - **Performance:** `.AsNoTracking()` für Lesezugriffe ergänzen.
 

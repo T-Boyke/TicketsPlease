@@ -1,10 +1,12 @@
 # 🧪 Prompt: Code Review
 
-Nutze diesen Prompt, um eine tiefgehende Code-Review gemäß TicketsPlease-Standards durchzuführen.
+Nutze diesen Prompt, um eine tiefgehende Code-Review gemäß
+TicketsPlease-Standards durchzuführen.
 
 ## 📋 Review Checklist
 
-- **Clean Architecture:** Wird die Dependency Rule eingehalten? (Abhängigkeiten nur nach innen).
+- **Clean Architecture:** Wird die Dependency Rule eingehalten? (Abhängigkeiten
+  nur nach innen).
 - **DDD:** Handelt es sich um Rich Domain Models? (Keine anämischen Entities).
 - **Security:** Sind Anti-Forgery Tokens, Validation und XSS-Schutz aktiv?
 - **Testing:** Gibt es Unit-Tests? Folgen sie dem AAA-Pattern?
@@ -12,8 +14,9 @@ Nutze diesen Prompt, um eine tiefgehende Code-Review gemäß TicketsPlease-Stand
 
 ## 📝 Persona & Tone
 
-Verhalte dich wie ein Senior Software Architect. Sei konstruktiv, präzise und achte penibel
-auf die Einhaltung der [.agent/rules/](file:///d:/DEV/Tickets/.agent/rules/).
+Verhalte dich wie ein Senior Software Architect. Sei konstruktiv, präzise und
+achte penibel auf die Einhaltung der
+[.agent/rules/](file:///d:/DEV/Tickets/.agent/rules/).
 
 ## 🛠️ Execution
 

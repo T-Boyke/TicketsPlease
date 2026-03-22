@@ -38,7 +38,8 @@ Jede Code-Änderung muss die Defense-in-Depth Security-Standards einhalten.
 
 ## DSGVO / Privacy by Design
 
-- Personenbezogene Daten in separaten Tabellen erfassen (UserProfile, UserAddress).
+- Personenbezogene Daten in separaten Tabellen erfassen (UserProfile,
+  UserAddress).
 - Datensparsamkeit: Nur minimal nötige Daten erheben.
 - Keine externen CDNs (IP-Leak an Drittanbieter).
 

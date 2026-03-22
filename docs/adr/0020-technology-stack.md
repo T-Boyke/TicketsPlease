@@ -32,7 +32,8 @@ Architektur-Muster (Clean Architecture) harmoniert.
 ### Positive Consequences
 
 - Zugriff auf modernste Sprachfeatures von C# 14.
-- Native Unterstützung für Dependency Injection und High-Performance Web-Features.
+- Native Unterstützung für Dependency Injection und High-Performance
+  Web-Features.
 - Einfache Deployment-Möglichkeiten auf Azure/Docker.
 
 ### Negative Consequences

@@ -1,23 +1,26 @@
 # 🌌 Antigravity AI Guide (Project Hub)
 
-Dieses Dokument beschreibt die Integration der **Antigravity AI Skills** und Workflows im
-TicketsPlease Projekt. Die KI agiert hier nicht nur als Chatbot, sondern als vollintegrierter
-Pair-Programming-Partner mit Zugriff auf spezialisierte Werkzeuge.
+Dieses Dokument beschreibt die Integration der **Antigravity AI Skills** und
+Workflows im TicketsPlease Projekt. Die KI agiert hier nicht nur als Chatbot,
+sondern als vollintegrierter Pair-Programming-Partner mit Zugriff auf
+spezialisierte Werkzeuge.
 
 ## 🧠 Core Intelligence: Agent Governance
 
-Die gesamte Agenten-Logik ist im Verzeichnis [`.agent/`](file:///d:/DEV/Tickets/.agent) gekapselt:
+Die gesamte Agenten-Logik ist im Verzeichnis
+[`.agent/`](file:///d:/DEV/Tickets/.agent) gekapselt:
 
 - **`instructions.md`**: Das zentrale Regelwerk ("Grundgesetz") für die KI.
 - **`rules/`**: Modulare Regeln für Clean Architecture, C#, DDD und Testing.
-- **`workflows/`**: Automatisierte Ablaufpläne für komplexe Aufgaben (z.B. `/add-cqrs-feature`).
+- **`workflows/`**: Automatisierte Ablaufpläne für komplexe Aufgaben (z.B.
+  `/add-cqrs-feature`).
 
 ---
 
 ## 🛠️ Antigravity Skills
 
-Wir nutzen 6 spezialisierte Skills, um die Entwicklungsgeschwindigkeit und Codequalität zu
-maximieren:
+Wir nutzen 6 spezialisierte Skills, um die Entwicklungsgeschwindigkeit und
+Codequalität zu maximieren:
 
 | Skill                           | Zweck                                                             | Trigger / Nutzung                |
 | :------------------------------ | :---------------------------------------------------------------- | :------------------------------- |
@@ -32,8 +35,8 @@ maximieren:
 
 ## 🔄 Standardisierte Workflows
 
-Über sogenannte "Slash-Commands" (Workflows im `.agent/workflows/` Ordner) kann der Agent komplexe
-Kettenreaktionen auslösen:
+Über sogenannte "Slash-Commands" (Workflows im `.agent/workflows/` Ordner) kann
+der Agent komplexe Kettenreaktionen auslösen:
 
 ### 1. New CQRS Feature (`/add-cqrs-feature`)
 
@@ -65,6 +68,6 @@ graph TD
 
 ---
 
-> [!TIP]
-> Um einen Skill zu nutzen, fordere den Agenten einfach auf: _"Nutze den Code-Review Skill für meine
-> letzten Änderungen"_ oder _"Starte den Workflow für ein neues CQRS Feature: CreateTicket"_.
+> [!TIP] Um einen Skill zu nutzen, fordere den Agenten einfach auf: _"Nutze den
+> Code-Review Skill für meine letzten Änderungen"_ oder _"Starte den Workflow
+> für ein neues CQRS Feature: CreateTicket"_.

@@ -1,17 +1,19 @@
-Die Datenbankstruktur (Entity Framework Core - Code First) ist streng relational, befindet sich in der
-**3. Normalform (3NF)** und folgt dem Enterprise-Grade Design.
+# 🗄️ Database Schema (ERD)
 
-> [!NOTE]
-> **Warum 3NF und nicht BCNF (Boyce-Codd)?**
-> Wir haben uns bewusst für die 3. Normalform entschieden, da sie in einem Ticketsystem die optimale
-> Balance zwischen Datenintegrität und Abfrage-Performance (weniger Joins als in BCNF) bietet. BCNF
-> würde bei überlappenden zusammengesetzten Schlüsseln (die hier kaum vorkommen) zu einer unnötigen
-> Fragmentierung der Tabellen führen, was das EF Core Mapping verkompliziert.
+Die Datenbankstruktur (Entity Framework Core - Code First) ist streng
+relational, befindet sich in der **3. Normalform (3NF)** und folgt dem
+Enterprise-Grade Design.> [!NOTE] **Warum 3NF und nicht BCNF (Boyce-Codd)?** Wir haben uns bewusst für
+
+> die 3. Normalform entschieden, da sie in einem Ticketsystem die optimale
+> Balance zwischen Datenintegrität und Abfrage-Performance (weniger Joins als in
+> BCNF) bietet. BCNF würde bei überlappenden zusammengesetzten Schlüsseln (die
+> hier kaum vorkommen) zu einer unnötigen Fragmentierung der Tabellen führen,
+> was das EF Core Mapping verkompliziert.
 >
-> Das untenstehende ERD repräsentiert die **Ziel-Architektur (Phase 5)**. Für den aktuellen
-> Fortschritt siehe [Aktueller Stand (MVP)](#aktueller-stand-mvp).
+> Das untenstehende ERD repräsentiert die **Ziel-Architektur (Phase 5)**. Für
+> den aktuellen Fortschritt siehe [Aktueller Stand (MVP)](#aktueller-stand-mvp).
 
-### Entity Relationship Diagram (3NF Enterprise Schema)
+## Entity Relationship Diagram (3NF Enterprise Schema)
 
 ```mermaid
 erDiagram
@@ -442,64 +444,72 @@ erDiagram
 
 #### 1. Identity & Profile Context (Strikte 3NF)
 
-Um die 3. Normalform (3NF) zu gewährleisten und das System maximal flexibel zu halten (sowie
-DSGVO-Löschkonzepte zu vereinfachen), wurde die gigantische `USER`-Tabelle aufgespalten:
+Um die 3. Normalform (3NF) zu gewährleisten und das System maximal flexibel zu
+halten (sowie DSGVO-Löschkonzepte zu vereinfachen), wurde die gigantische
+`USER`-Tabelle aufgespalten:
 
-- **User:** Enthält _ausschließlich_ Kern-Authentifizierungsdaten (Ids, Hashes, Logins) sowie einen
-  `IsOnline` Indikator für systemweite Presence-Features.
-- **UserProfile:** Eine 1:1 Erweiterung, welche die persönlichen (nicht-Login-relevanten) Daten hält.
-  Inklusive Referenz auf einen `FILE_ASSET` Datensatz für Profilbilder.
-- **UserAddress:** Eine eigene 1:1 Tabelle, um Kontaktdaten sauber zu trennen (hilft immens beim
-  DSGVO-Export oder Löschen spezifischer Adressdaten).
-- **Role:** Echte 1:n Rechteverwaltung für das erweiterte RBAC (Owner, Admin, Mod, Teamlead, User).
-  Wird über die "Gruppen- & Rechteverwaltung" im Admin-Settings-Menü konfiguriert.
+- **User:** Enthält _ausschließlich_ Kern-Authentifizierungsdaten (Ids, Hashes,
+  Logins) sowie einen `IsOnline` Indikator für systemweite Presence-Features.
+- **UserProfile:** Eine 1:1 Erweiterung, welche die persönlichen
+  (nicht-Login-relevanten) Daten hält. Inklusive Referenz auf einen `FILE_ASSET`
+  Datensatz für Profilbilder.
+- **UserAddress:** Eine eigene 1:1 Tabelle, um Kontaktdaten sauber zu trennen
+  (hilft immens beim DSGVO-Export oder Löschen spezifischer Adressdaten).
+- **Role:** Echte 1:n Rechteverwaltung für das erweiterte RBAC (Owner, Admin,
+  Mod, Teamlead, User). Wird über die "Gruppen- & Rechteverwaltung" im
+  Admin-Settings-Menü konfiguriert.
 
 #### 2. Media & Asset Management
 
-- **FileAsset:** Eine zentrale Tabelle für alle unstrukturierten Dateien im System. Egal ob
-  Profilbilder (Avatare), Ticket-Anhänge oder in Markdown-Chats eingebettete Bilder – alles verweist
-  auf diesen Blob-Storage-Proxy.
+- **FileAsset:** Eine zentrale Tabelle für alle unstrukturierten Dateien im
+  System. Egal ob Profilbilder (Avatare), Ticket-Anhänge oder in Markdown-Chats
+  eingebettete Bilder – alles verweist auf diesen Blob-Storage-Proxy.
 
 #### 3. Team Collaboration Context
 
 - **Team:** Metadaten des Teams.
-- **TeamMember:** Die n:m Auflösungstabelle. _Enterprise Feature:_ Enthält nun das Flag
-  `IsTeamLead`, um Teamleiter-Rechte direkt an die Knotenpunkte zu heften (wichtig für
-  Broadcast-Nachrichten).
+- **TeamMember:** Die n:m Auflösungstabelle. _Enterprise Feature:_ Enthält nun
+  das Flag `IsTeamLead`, um Teamleiter-Rechte direkt an die Knotenpunkte zu
+  heften (wichtig für Broadcast-Nachrichten).
 
 #### 4. Ticket Management Context
 
-- **Ticket:** Das Kern-Aggregat. Unterstützt nun ausdrücklich `DescriptionMarkdown`. Jedes Ticket
-  wird primär durch einen `Sha1Hash` referenziert, der ein einfaches Kopieren und systemweites
-  Tracking erlaubt. Außerdem ist für die Revisionssicherheit ein `GeoIpTimestamp` verankert.
-- **TicketPriority:** Prioritäten wurden aus dem Enum-Status in eine eigene Entität ausgelagert
-  (3NF), um Level und Farben dynamisch durch Admins definierbar zu machen.
-- **TicketAssignment:** Eine eigene Tabelle (statt statischen FKs im Ticket-Table). Dies ermöglicht
-  es, Historien zu pflegen ("Wer hatte das Ticket vorher?") und es simultan an User _und_ Teams zu
-  hängen.
-- **TicketUpvote:** Community-Voting-System. Eine klassische n:m Tabelle, die regelt, dass ein User
-  pro Ticket maximal einmal abstimmen (upvoten) darf.
-- **TimeLog:** Extrem wichtig für B2B (Abrechnung/Controlling). Erfasst Start, Stop, und kalkulierte
-  Stunden pro Benutzer auf ein Ticket.
-- **RowVersion (Concurrency):** Alle Domain-Entities verfügen über ein `byte[] RowVersion`
-  (Timestamp) Feld zur Vermeidung von Lost-Update-Szenarien via EF Core Optimistic Concurrency.
+- **Ticket:** Das Kern-Aggregat. Unterstützt nun ausdrücklich
+  `DescriptionMarkdown`. Jedes Ticket wird primär durch einen `Sha1Hash`
+  referenziert, der ein einfaches Kopieren und systemweites Tracking erlaubt.
+  Außerdem ist für die Revisionssicherheit ein `GeoIpTimestamp` verankert.
+- **TicketPriority:** Prioritäten wurden aus dem Enum-Status in eine eigene
+  Entität ausgelagert (3NF), um Level und Farben dynamisch durch Admins
+  definierbar zu machen.
+- **TicketAssignment:** Eine eigene Tabelle (statt statischen FKs im
+  Ticket-Table). Dies ermöglicht es, Historien zu pflegen ("Wer hatte das Ticket
+  vorher?") und es simultan an User _und_ Teams zu hängen.
+- **TicketUpvote:** Community-Voting-System. Eine klassische n:m Tabelle, die
+  regelt, dass ein User pro Ticket maximal einmal abstimmen (upvoten) darf.
+- **TimeLog:** Extrem wichtig für B2B (Abrechnung/Controlling). Erfasst Start,
+  Stop, und kalkulierte Stunden pro Benutzer auf ein Ticket.
+- **RowVersion (Concurrency):** Alle Domain-Entities verfügen über ein
+  `byte[] RowVersion` (Timestamp) Feld zur Vermeidung von Lost-Update-Szenarien
+  via EF Core Optimistic Concurrency.
 
 #### 5. Communication & Messaging Engine (Neu 🚀)
 
 Ein völlig neues Bounded Context für die interne Enterprise-Kommunikation.
 
-- **Message:** Ein polymorphes Nachrichten-Objekt. Es versteht volles Markdown (und damit
-  Mermaid-Diagramme). Je nachdem, welche Foreign-Keys gesetzt sind, agiert die Entität als:
+- **Message:** Ein polymorphes Nachrichten-Objekt. Es versteht volles Markdown
+  (und damit Mermaid-Diagramme). Je nachdem, welche Foreign-Keys gesetzt sind,
+  agiert die Entität als:
   1. Ticket-Kommentar (`TicketId` != Null)
   2. Direct Message (DM) an Kollegen (`ReceiverUserId` != Null)
   3. Team-Broadcast durch Teamleads (`TeamId` != Null).
-- **MessageReadReceipt:** Echte n:m "Gelesen"-Indikatoren, damit Absender (wie bei WhatsApp) sehen,
-  wer die Nachricht bereits konsumiert hat.
+- **MessageReadReceipt:** Echte n:m "Gelesen"-Indikatoren, damit Absender (wie
+  bei WhatsApp) sehen, wer die Nachricht bereits konsumiert hat.
 
 #### 6. Audit & Compliance Context
 
-- **TicketHistory:** Append-only Tabelle für den unmanipulierbaren Audit Trail (Wer hat wann was
-  geändert?). Dieses Log wird global im Admin-Bereich unter "Audit Log" visualisiert.
+- **TicketHistory:** Append-only Tabelle für den unmanipulierbaren Audit Trail
+  (Wer hat wann was geändert?). Dieses Log wird global im Admin-Bereich unter
+  "Audit Log" visualisiert.
 
 ---
 
@@ -548,32 +558,38 @@ Zukunftssicherheit (ADR-0021) enthält diese nun:
 
 ## Zukunftssicherheit & Erweiterbarkeit (Enterprise Hub)
 
-Zusätzlich zum relationalen Kern wurden folgende Konzepte für die Skalierung integriert:
+Zusätzlich zum relationalen Kern wurden folgende Konzepte für die Skalierung
+integriert:
 
-1. **Mandantenfähigkeit (Multi-Tenancy):** Durch die `ORGANIZATION` Entität und die `TenantId` in
-   jedem Datensatz können Daten physisch in einer DB bleiben, aber logisch strikt getrennt werden.
-2. **Workflow Engine:** Die `WORKFLOW_TRANSITION` Tabelle erlaubt es, dynamische Business-Regeln zu
-   hinterlegen, welche Status-Wechsel für welche Rollen zulässig sind.
-3. **Custom Field Engine:** Über `CUSTOM_FIELD_DEFINITION` können pro Mandant unbegrenzt viele eigene
-   Ticket-Felder definiert werden, ohne Code-Änderungen oder Migrationen.
-4. **Data Seeding & Synthetic Strategy (Bogus):** Um die Entwicklung zu beschleunigen und
-   gleichzeitig die **DSGVO-Konformität (Privacy by Design)** zu gewährleisten, setzen wir auf das
-   automatische Seeding mit der **Bogus** Bibliothek. Details siehe unten.
+1. **Mandantenfähigkeit (Multi-Tenancy):** Durch die `ORGANIZATION` Entität und
+   die `TenantId` in jedem Datensatz können Daten physisch in einer DB bleiben,
+   aber logisch strikt getrennt werden.
+2. **Workflow Engine:** Die `WORKFLOW_TRANSITION` Tabelle erlaubt es, dynamische
+   Business-Regeln zu hinterlegen, welche Status-Wechsel für welche Rollen
+   zulässig sind.
+3. **Custom Field Engine:** Über `CUSTOM_FIELD_DEFINITION` können pro Mandant
+   unbegrenzt viele eigene Ticket-Felder definiert werden, ohne Code-Änderungen
+   oder Migrationen.
+4. **Data Seeding & Synthetic Strategy (Bogus):** Um die Entwicklung zu
+   beschleunigen und gleichzeitig die **DSGVO-Konformität (Privacy by Design)**
+   zu gewährleisten, setzen wir auf das automatische Seeding mit der **Bogus**
+   Bibliothek. Details siehe unten.
 
 ---
 
 ## 🧪 Data Seeding & Synthetic Strategy (Bogus)
 
-Um die Entwicklung zu beschleunigen und gleichzeitig die **DSGVO-Konformität (Privacy by Design)**
-zu gewährleisten, setzen wir auf das automatische Seeding mit der **Bogus** Bibliothek.
+Um die Entwicklung zu beschleunigen und gleichzeitig die **DSGVO-Konformität
+(Privacy by Design)** zu gewährleisten, setzen wir auf das automatische Seeding
+mit der **Bogus** Bibliothek.
 
 ### Seeding Prinzipien
 
-1. **Strictly Development:** Das Seeding wird nur im `Development` Environment ausgeführt
-   (siehe `Program.cs`).
+1. **Strictly Development:** Das Seeding wird nur im `Development` Environment
+   ausgeführt (siehe `Program.cs`).
 2. **Synthetic Only:** Es werden niemals echte Kundendaten für Tests verwendet.
-3. **German Locale:** Wir nutzen das `de` Locale für realistische deutsche Namen, Adressen und
-   Texte.
+3. **German Locale:** Wir nutzen das `de` Locale für realistische deutsche
+   Namen, Adressen und Texte.
 
 ### Implementierte Faker-Sets
 
@@ -587,9 +603,9 @@ Aktuell werden folgende Daten automatisch generiert:
 
 ### Erweiterungsplan (Phase 2)
 
-Geplant ist die Erweiterung des Seeders auf den vollständigen `Organization` und `User` Kontext, um
-komplexere Beziehungen und Berechtigungen im ERD (oben) direkt nach dem Start testen zu können.
+Geplant ist die Erweiterung des Seeders auf den vollständigen `Organization` und
+`User` Kontext, um komplexere Beziehungen und Berechtigungen im ERD (oben)
+direkt nach dem Start testen zu können.
 
-> [!TIP]
-> Die Seeding-Logik befindet sich zentral in der
+> [!TIP] Die Seeding-Logik befindet sich zentral in der
 > `TicketsPlease.Infrastructure.Persistence.DbInitialiser.cs`.

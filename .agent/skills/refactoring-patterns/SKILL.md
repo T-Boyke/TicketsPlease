@@ -1,17 +1,19 @@
 ---
 name: refactoring-patterns
-description: Guides safe refactoring in Clean Architecture projects. Covers
-  Extract Method, Replace Primitive with Value Object, Introduce Repository,
-  and Extract Feature patterns. Use when restructuring code, improving design,
-  or reducing technical debt while maintaining test coverage.
+description:
+  Guides safe refactoring in Clean Architecture projects. Covers Extract Method,
+  Replace Primitive with Value Object, Introduce Repository, and Extract Feature
+  patterns. Use when restructuring code, improving design, or reducing technical
+  debt while maintaining test coverage.
 ---
 
 # 🔄 Refactoring Patterns
 
 Sichere Refactoring-Strategien für Clean Architecture Projekte.
 
-> **Referenz:** [Architecture Rules](file:///d:/DEV/Tickets/.agent/rules/architecture.md)
-| [Testing Rules](file:///d:/DEV/Tickets/.agent/rules/testing.md)
+> **Referenz:**
+> [Architecture Rules](file:///d:/DEV/Tickets/.agent/rules/architecture.md) |
+> [Testing Rules](file:///d:/DEV/Tickets/.agent/rules/testing.md)
 
 ---
 
@@ -37,7 +39,8 @@ Sichere Refactoring-Strategien für Clean Architecture Projekte.
 
 ### 1. Extract Value Object
 
-**Symptom:** Primitive Obsession – `string email`, `int priority` ohne Validierung.
+**Symptom:** Primitive Obsession – `string email`, `int priority` ohne
+Validierung.
 
 ```text
 VORHER                          NACHHER
@@ -132,20 +135,20 @@ Controller:                    Controller:
 
 ## Refactoring-Checkliste
 
-| # | Vor dem Refactoring                         | Status |
-| :- | :------------------------------------------ | :----- |
-| 1 | Bestehende Tests sind grün                  | ☐      |
-| 2 | Scope klar definiert (keine Feature-Änderung) | ☐      |
-| 3 | Betroffene Layer identifiziert              | ☐      |
+| #   | Vor dem Refactoring                           | Status |
+| :-- | :-------------------------------------------- | :----- |
+| 1   | Bestehende Tests sind grün                    | ☐      |
+| 2   | Scope klar definiert (keine Feature-Änderung) | ☐      |
+| 3   | Betroffene Layer identifiziert                | ☐      |
 
-| # | Nach dem Refactoring                 | Status |
-| :- | :----------------------------------- | :----- |
-| 4 | Alle bestehenden Tests grün          | ☐      |
-| 5 | Neue Tests für extrahierten Code     | ☐      |
-| 6 | `dotnet build` fehlerfrei            | ☐      |
-| 7 | NetArchTest: Layer-Dependencies korrekt | ☐      |
-| 8 | XML-Docs vollständig                 | ☐      |
-| 9 | Atomic Commit (Conventional Commits) | ☐      |
+| #   | Nach dem Refactoring                    | Status |
+| :-- | :-------------------------------------- | :----- |
+| 4   | Alle bestehenden Tests grün             | ☐      |
+| 5   | Neue Tests für extrahierten Code        | ☐      |
+| 6   | `dotnet build` fehlerfrei               | ☐      |
+| 7   | NetArchTest: Layer-Dependencies korrekt | ☐      |
+| 8   | XML-Docs vollständig                    | ☐      |
+| 9   | Atomic Commit (Conventional Commits)    | ☐      |
 
 ---
 

@@ -6,8 +6,8 @@ Regeln für Git-Workflows, Commits, PRs und Dokumentation.
 
 ## Branching
 
-- **`main` ist HEILIG** – Muss jederzeit lauffähig sein.
-  Direct Push ist per Branch-Protection gesperrt.
+- **`main` ist HEILIG** – Muss jederzeit lauffähig sein. Direct Push ist per
+  Branch-Protection gesperrt.
 - Branch-Naming: `feature/xyz`, `bugfix/xyz`, `hotfix/xyz`, `docs/xyz`,
   `refactor/xyz`, `test/xyz`.
 - Jeder Branch startet vom aktuellen `main`.
@@ -47,13 +47,16 @@ Format: `<type>(<scope>): <subject>`
 
 ### ADRs
 
-- Jede wesentliche Design-Entscheidung → neuer ADR in `docs/adr/[NNNN]-[name].md`.
+- Jede wesentliche Design-Entscheidung → neuer ADR in
+  `docs/adr/[NNNN]-[name].md`.
 - ADR-Index aktualisieren (`docs/adr/README.md`).
 
 ### CHANGELOG ([CHANGELOG.md](file:///d:/DEV/Tickets/CHANGELOG.md))
 
-- **Pflicht-Update vor jedem Commit** bei: `feat`, `fix`, `security`, Breaking Changes.
-- Reine `docs`, `style`, `chore`, `refactor` Commits brauchen keinen CHANGELOG-Eintrag.
+- **Pflicht-Update vor jedem Commit** bei: `feat`, `fix`, `security`, Breaking
+  Changes.
+- Reine `docs`, `style`, `chore`, `refactor` Commits brauchen keinen
+  CHANGELOG-Eintrag.
 - Format: [Keep a Changelog](https://keepachangelog.com/).
 - Neue Einträge immer unter `## [Unreleased]` eintragen.
 - Kategorien: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`.

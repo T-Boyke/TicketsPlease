@@ -1,11 +1,12 @@
 # 🟡 TicketsPlease.Application – Die Use Cases
 
-Dieser Layer orchestriert die Geschäftsprozesse. Hier wird definiert, **was** die Anwendung tut.
+Dieser Layer orchestriert die Geschäftsprozesse. Hier wird definiert, **was**
+die Anwendung tut.
 
 ## 🔄 Der CQS Flow (Command-Query-Segregation)
 
-Wir trennen strikt zwischen Aktionen, die Daten ändern (Commands), und Aktionen, die Daten lesen
-(Queries).
+Wir trennen strikt zwischen Aktionen, die Daten ändern (Commands), und Aktionen,
+die Daten lesen (Queries).
 
 ```mermaid
 graph LR
@@ -36,8 +37,8 @@ graph LR
 
 ## 🏗️ Arbeitsanweisung: Wie finde ich meine Abhängigkeiten?
 
-In diesem Layer darfst du **keine** `new`-Instanzen von Services erstellen. Nutze Dependency
-Injection (DI) im Konstruktor.
+In diesem Layer darfst du **keine** `new`-Instanzen von Services erstellen.
+Nutze Dependency Injection (DI) im Konstruktor.
 
 ### Woher kommen die Services?
 
@@ -64,7 +65,8 @@ public class MyHandler : IRequestHandler<MyRequest, MyResult> {
 1. **Slice erstellen**: Eine Datei in `Features/` (z.B. `AssignTicket.cs`).
 2. **Request Type**: Nutze `record` für Commands/Queries.
 3. **Validation**: Erstelle eine Klasse, die von `AbstractValidator<T>` erbt.
-4. **Handler**: Implementiere `IRequestHandler`. Halte ihn kurz (Logik in die Domain!).
+4. **Handler**: Implementiere `IRequestHandler`. Halte ihn kurz (Logik in die
+   Domain!).
 
 ---
 
@@ -79,6 +81,7 @@ public class MyHandler : IRequestHandler<MyRequest, MyResult> {
 
 ## 🔗 Connectors
 
-- **Dependency Injection**: Alles wird in `DependencyInjection.cs` via Reflection registriert.
+- **Dependency Injection**: Alles wird in `DependencyInjection.cs` via
+  Reflection registriert.
 - **Web**: Sendet Commands via `ISender`.
 - **Infrastructure**: Implementiert die hier definierten Interfaces.

@@ -35,7 +35,8 @@ Verwaltung der Datenbank-Migrationen:
 Das Projekt nutzt `tailwindcss-dotnet` (v2.0.0-beta.3) als lokales Tool:
 
 - `dotnet tailwind init`: Initialisiert Tailwind (falls nötig).
-- **Integration:** Läuft primär über MSBuild beim Build-Prozess der `TicketsPlease.Web`.
+- **Integration:** Läuft primär über MSBuild beim Build-Prozess der
+  `TicketsPlease.Web`.
 
 ---
 

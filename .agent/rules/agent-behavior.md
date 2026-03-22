@@ -1,8 +1,8 @@
 # 🤖 TicketsPlease – Agent Behavior Rules
 
-Diese Regeln definieren das **Verhalten** des KI-Agenten bei jeder
-Interaktion mit dem TicketsPlease-Projekt.
-Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DEV/Tickets/instructions.md).
+Diese Regeln definieren das **Verhalten** des KI-Agenten bei jeder Interaktion
+mit dem TicketsPlease-Projekt. Die technischen Projekt-Standards finden sich in
+[instructions.md](file:///d:/DEV/Tickets/instructions.md).
 
 ---
 
@@ -10,7 +10,8 @@ Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DE
 
 - Du arbeitest an einem **IHK-Abschlussprojekt** (C# .NET 10, ASP.NET Core 10.3,
   Clean Architecture).
-- Die Projekt-Dokumentation ist **Deutsch**. Code-Kommentare (XML-Docs) sind **Deutsch**.
+- Die Projekt-Dokumentation ist **Deutsch**. Code-Kommentare (XML-Docs) sind
+  **Deutsch**.
 - Commit-Messages sind **Englisch** (Conventional Commits).
 - Antworte immer in der Sprache, in der der User schreibt.
 
@@ -20,14 +21,15 @@ Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DE
 
 1. **Workflow-Check:** Prüfe vor jeder Aufgabe, ob ein passender `/workflow`
    existiert. Wenn ja: folge ihm **Schritt für Schritt**.
-2. **MVP-Awareness:** Prüfe die [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md).
-   Phase 1 hat absoluten Vorrang. Implementiere **keine** Enterprise-Features
-   (Phase 2-5), solange Phase 1 nicht komplett abgeschlossen und grün ist.
+2. **MVP-Awareness:** Prüfe die
+   [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md). Phase 1 hat
+   absoluten Vorrang. Implementiere **keine** Enterprise-Features (Phase 2-5),
+   solange Phase 1 nicht komplett abgeschlossen und grün ist.
 3. **ADR-Check:** Prüfe vor architektonischen Entscheidungen die bestehenden
-   [ADRs](file:///d:/DEV/Tickets/docs/adr/). Widerspreche keinem ADR ohne explizite
-   User-Genehmigung.
-4. **Scope begrenzen:** Ändere nur, was der User angefordert hat.
-   Keine ungewollten "Bonus-Refactorings".
+   [ADRs](file:///d:/DEV/Tickets/docs/adr/). Widerspreche keinem ADR ohne
+   explizite User-Genehmigung.
+4. **Scope begrenzen:** Ändere nur, was der User angefordert hat. Keine
+   ungewollten "Bonus-Refactorings".
 5. **Layer identifizieren:** Vor jeder Code-Änderung die betroffenen Layer,
    Dateien und Abhängigkeiten benennen.
 
@@ -73,10 +75,10 @@ Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DE
   frage den User. Nicht raten.
 - **Breaking Changes ankündigen** – Jede Änderung, die bestehende Interfaces,
   DTOs oder API-Contracts bricht → vorher mitteilen.
-- **Keine stillen NuGet-Pakete** – Kein neues NuGet-Paket ohne explizite
-  Nennung und Begründung.
-- **Keine stillen Architektur-Entscheidungen** – Architektur-Änderungen erfordern
-  einen ADR oder User-Absprache.
+- **Keine stillen NuGet-Pakete** – Kein neues NuGet-Paket ohne explizite Nennung
+  und Begründung.
+- **Keine stillen Architektur-Entscheidungen** – Architektur-Änderungen
+  erfordern einen ADR oder User-Absprache.
 
 ---
 
@@ -84,9 +86,8 @@ Die technischen Projekt-Standards finden sich in [instructions.md](file:///d:/DE
 
 ```markdown
 1. User-Request verstehen
-2. Workflow-Check: Passender /workflow vorhanden?
-   → Ja: Schritt für Schritt folgen
-   → Nein: Plan erstellen (Layer, Dateien, Dependencies)
+2. Workflow-Check: Passender /workflow vorhanden? → Ja: Schritt für Schritt
+   folgen → Nein: Plan erstellen (Layer, Dateien, Dependencies)
 3. Implementieren (im korrekten Layer)
 4. XML-Docs schreiben (alle public Members)
 5. Tests schreiben (TDD: idealerweise vor der Implementierung)

@@ -6,9 +6,9 @@
 
 ## Context and Problem Statement
 
-Ein modernes Kanban-System lebt von Interaktion. Wenn ein Kollege ein Ticket verschiebt oder einen
-Kommentar schreibt, sollen andere User dies sofort sehen, ohne die Seite manuell aktualisieren zu
-müssen.
+Ein modernes Kanban-System lebt von Interaktion. Wenn ein Kollege ein Ticket
+verschiebt oder einen Kommentar schreibt, sollen andere User dies sofort sehen,
+ohne die Seite manuell aktualisieren zu müssen.
 
 ## Decision Drivers
 
@@ -24,9 +24,10 @@ müssen.
 
 ## Decision Outcome
 
-Chosen option: "SignalR", because es die native Lösung für Echtzeit-Kommunikation in ASP.NET Core
-ist. Es wählt automatisch den besten Transportweg (WebSockets, SSE oder Long Polling) und bietet
-eine einfache Hub-Abstraktion.
+Chosen option: "SignalR", because es die native Lösung für
+Echtzeit-Kommunikation in ASP.NET Core ist. Es wählt automatisch den besten
+Transportweg (WebSockets, SSE oder Long Polling) und bietet eine einfache
+Hub-Abstraktion.
 
 ### Positive Consequences
 
@@ -37,7 +38,8 @@ eine einfache Hub-Abstraktion.
 ### Negative Consequences
 
 - Erfordert das Halten von offenen Verbindungen (Ressourcenlast am Server).
-- Höhere Komplexität bei der Skalierung (erfordert Redis Backplane für mehrere Server).
+- Höhere Komplexität bei der Skalierung (erfordert Redis Backplane für mehrere
+  Server).
 
 ## Pros and Cons of the Options
 
@@ -45,4 +47,5 @@ eine einfache Hub-Abstraktion.
 
 - Good, because nahtlose Integration in das .NET Ökosystem.
 - Good, because Fallback-Mechanismen für ältere Browser.
-- Bad, because State-Management (Verbindungsabbrüche) muss im Frontend sauber gelöst werden.
+- Bad, because State-Management (Verbindungsabbrüche) muss im Frontend sauber
+  gelöst werden.

@@ -6,9 +6,8 @@ Code-Modifikationen in der **TicketsPlease** Solution. Jede Regel ist aus der
 [Docs](file:///d:/DEV/Tickets/docs/) und den
 [ADRs](file:///d:/DEV/Tickets/docs/adr/) extrahiert.
 
-> [!CAUTION]
-> Verstöße gegen diese Regeln führen zu **sofortigem Reject** im Code-Review
-> und blockieren die CI/CD-Pipeline.
+> [!CAUTION] Verstöße gegen diese Regeln führen zu **sofortigem Reject** im
+> Code-Review und blockieren die CI/CD-Pipeline.
 
 ---
 
@@ -101,18 +100,19 @@ src/
 
 ### Phase-Awareness (MVP vs. Enterprise)
 
-> [!IMPORTANT]
-> Der Agent **muss** die [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md)
-> beachten. Phase 1 (IHK MVP) hat absoluten Vorrang. Enterprise-Features
-> (Phase 2-5) dürfen das Schema vorbereiten, aber **nicht** implementiert
-> werden, bis Phase 1 komplett abgeschlossen und der Build grün ist.
+> [!IMPORTANT] Der Agent **muss** die
+> [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md) beachten. Phase 1
+> (IHK MVP) hat absoluten Vorrang. Enterprise-Features (Phase 2-5) dürfen das
+> Schema vorbereiten, aber **nicht** implementiert werden, bis Phase 1 komplett
+> abgeschlossen und der Build grün ist.
 
 ---
 
 ## 2. 🏛️ Clean Architecture Governance
 
-> **Referenz:** [ADR-0001](file:///d:/DEV/Tickets/docs/adr/0001-clean-architecture.md)
-> | README §3
+> **Referenz:**
+> [ADR-0001](file:///d:/DEV/Tickets/docs/adr/0001-clean-architecture.md) |
+> README §3
 
 ### Dependency Rule (Unverletzlich)
 
@@ -172,11 +172,11 @@ ticket.Status = TicketStatus.InReview;
 
 ### Ticket Close-Rules (Geschäftsregel!)
 
-> [!WARNING]
-> Ein Ticket darf **nur** manuell über `ticket.Close(User actor)` geschlossen
-> werden. Die Methode prüft zwingend:
+> [!WARNING] Ein Ticket darf **nur** manuell über `ticket.Close(User actor)`
+> geschlossen werden. Die Methode prüft zwingend:
 >
-> - `actor` ist der **Ersteller** (`CreatorId`), ein **Admin** oder ein **Teamlead**.
+> - `actor` ist der **Ersteller** (`CreatorId`), ein **Admin** oder ein
+>   **Teamlead**.
 > - Normale User dürfen nur auf "Done" verschieben, **nicht** schließen.
 > - **Auto-Close:** Background-Task verschiebt "Done"-Tickets nach X Tagen
 >   automatisch ins Archiv.
@@ -195,7 +195,8 @@ ticket.Status = TicketStatus.InReview;
 
 ## 4. ⚡ CQRS & MediatR Pipeline
 
-> **Referenz:** [ADR-0009](file:///d:/DEV/Tickets/docs/adr/0009-cqrs-mediatr.md) \|
+> **Referenz:** [ADR-0009](file:///d:/DEV/Tickets/docs/adr/0009-cqrs-mediatr.md)
+> \|
 > [ADR-0010](file:///d:/DEV/Tickets/docs/adr/0010-validation-fluentvalidation.md)
 
 ### Pipeline Execution Order
@@ -222,8 +223,9 @@ flowchart LR
 
 ## 5. 🗄️ EF Core Strict Policy
 
-> **Referenz:** [ADR-0019](file:///d:/DEV/Tickets/docs/adr/0019-ef-core-resilience-concurrency.md) \|
-> [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md)
+> **Referenz:**
+> [ADR-0019](file:///d:/DEV/Tickets/docs/adr/0019-ef-core-resilience-concurrency.md)
+> \| [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md)
 
 | Regel                          | Beschreibung                                                                                                                                       |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -324,10 +326,11 @@ css/components/
 
 ## 8. ♿ Accessibility (BFSG / a11y)
 
-> **Referenz:** README §4 "Barrierefreiheit" | [W3C ARIA APG](https://www.w3.org/WAI/ARIA/apg/)
+> **Referenz:** README §4 "Barrierefreiheit" |
+> [W3C ARIA APG](https://www.w3.org/WAI/ARIA/apg/)
 >
-> [!IMPORTANT]
-> Wir entwickeln nach dem **Barrierefreiheitsstärkungsgesetz (BFSG)** und den W3C ARIA Authoring Practices.
+> [!IMPORTANT] Wir entwickeln nach dem **Barrierefreiheitsstärkungsgesetz
+> (BFSG)** und den W3C ARIA Authoring Practices.
 
 | Regel                    | Beschreibung                                                                       |
 | ------------------------ | ---------------------------------------------------------------------------------- |
@@ -355,8 +358,9 @@ css/components/
 
 ## 10. 🧪 Testing Excellence (TDD)
 
-> **Referenz:** README §6 \| [ADR-0006](file:///d:/DEV/Tickets/docs/adr/0006-testing-strategy.md)
-> \| [nuget_stack.md](file:///d:/DEV/Tickets/docs/nuget_stack.md)
+> **Referenz:** README §6 \|
+> [ADR-0006](file:///d:/DEV/Tickets/docs/adr/0006-testing-strategy.md) \|
+> [nuget_stack.md](file:///d:/DEV/Tickets/docs/nuget_stack.md)
 
 ### TDD-Zyklus (Pflicht!)
 
@@ -442,8 +446,8 @@ flowchart LR
     Lighthouse --> Deploy["🚀 Deploy"]
 ```
 
-> Der Build bricht ab → wenn Code nicht kompiliert → wenn Formatting abweicht
-> → wenn ein Test fehlschlägt → wenn Lighthouse < 100.
+> Der Build bricht ab → wenn Code nicht kompiliert → wenn Formatting abweicht →
+> wenn ein Test fehlschlägt → wenn Lighthouse < 100.
 
 ---
 
@@ -568,7 +572,8 @@ flowchart TD
 
 ## 16. 🛠️ Workflows
 
-Nutze diese spezialisierten Workflows für Konsistenz bei jeder Entwicklungs-Aufgabe:
+Nutze diese spezialisierten Workflows für Konsistenz bei jeder
+Entwicklungs-Aufgabe:
 
 | Workflow                   | Beschreibung                                  | Link                                                                                             |
 | -------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------ |
@@ -585,10 +590,11 @@ Nutze diese spezialisierten Workflows für Konsistenz bei jeder Entwicklungs-Auf
 
 ## 📝 Markdown & Documentation Rules
 
-> **Referenz:** [.agent/rules/markdown.md](file:///d:/DEV/Tickets/.agent/rules/markdown.md)
+> **Referenz:**
+> [.agent/rules/markdown.md](file:///d:/DEV/Tickets/.agent/rules/markdown.md)
 
-Alle Markdown-Dokumente müssen den Projektspezifischen Regeln für Formatting (Prettier) und
-Linting (Markdownlint) entsprechen.
+Alle Markdown-Dokumente müssen den Projektspezifischen Regeln für Formatting
+(Prettier) und Linting (Markdownlint) entsprechen.
 
 - **Zeilenlänge**: 100 Zeichen.
 - **Listen**: 2 Leerzeichen Einrückung.

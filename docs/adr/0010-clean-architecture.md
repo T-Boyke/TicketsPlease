@@ -34,7 +34,8 @@ auszutauschen, ohne die Kern-Logik zu verändern.
 
 - Domain-Code ist 100% testbar ohne Datenbank-Mocking-Hölle.
 - Wir können problemlos zwischen SQL Server und anderen Providern wechseln.
-- Die Projektstruktur ist für das IHK-Projekt professionell und State-of-the-Art.
+- Die Projektstruktur ist für das IHK-Projekt professionell und
+  State-of-the-Art.
 
 ### Negative Consequences
 
@@ -47,7 +48,8 @@ auszutauschen, ohne die Kern-Logik zu verändern.
 
 - Good, because Geschäftsregeln sind isoliert und geschützt.
 - Good, because Abhängigkeiten fließen nur nach innen.
-- Bad, because initiale Boilerplate-Kosten (4 Projekte) sind höher als bei N-Tier.
+- Bad, because initiale Boilerplate-Kosten (4 Projekte) sind höher als bei
+  N-Tier.
 
 ### N-Tier Architecture
 

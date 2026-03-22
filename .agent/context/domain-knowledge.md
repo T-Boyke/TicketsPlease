@@ -16,7 +16,8 @@ Das zentrale Domain-Aggregat.
 
 - **Identifikation:** Eindeutiger SHA1-Hash.
 - **Tracking:** Geo-Timestamp bei jeder Zustandsänderung.
-- **Rich Model:** Logik lebt in der Entity (`ticket.MoveToReview()`), nicht im Service.
+- **Rich Model:** Logik lebt in der Entity (`ticket.MoveToReview()`), nicht im
+  Service.
 
 ---
 
@@ -32,9 +33,11 @@ Ein visuelles System zur Bewertung von Ticket-Komplexität:
 
 ## Geschäftsregeln (Business Rules)
 
-- **Close Logic:** Tickets können nur vom Ersteller, Admin oder Teamlead Final geschlossen
+- **Close Logic:** Tickets können nur vom Ersteller, Admin oder Teamlead Final
+  geschlossen
   > (`Closed`) werden.
-- **State Flow:** To Do → In Progress → Review → Done → (Auto-Archiv nach X Tagen).
+- **State Flow:** To Do → In Progress → Review → Done → (Auto-Archiv nach X
+  Tagen).
 
 ---
 
