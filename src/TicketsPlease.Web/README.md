@@ -46,13 +46,16 @@ Damit unsere UI "premium" bleibt, folgen wir diesen Styling-Regeln:
    Design System (z.B. `var(--brand-primary)`).
 3. **Responsive**: Designe immer "Mobile First" (`sm:`, `md:`, `lg:`).
 4. **Dark Mode**: Nutze das `dark:` Präfix für alle Oberflächen.
+5. **i18n**: Nutze zwingend `@L["Key"]` via `IViewLocalizer`.
+6. **BFSG**: Achte auf semantisches HTML und ARIA-Labels.
 
 **Beispiel Komponente:**
 
 ```html
-<div class="card-glass p-4 transition-all hover:scale-[1.02] sm:p-6">
-  <h3 class="text-brand-primary font-bold">Ticket #123</h3>
-</div>
+<button class="btn btn-primary" aria-label="@L["CreateTicket"]">
+  <i class="fa-solid fa-plus" aria-hidden="true"></i>
+  @L["NewTicket"]
+</button>
 ```
 
 ---

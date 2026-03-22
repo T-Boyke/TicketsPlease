@@ -25,8 +25,9 @@
   </nuget_layers>
   <frontend_assets>
     - CSS: TailwindCSS 4.2 (Zero-Node integration via MSBuild `@theme`).
-    - Icons: FontAwesome 7.2 Pro (Local).
+    - Icons: FontAwesome 7.2.0 (Local Free/Pro).
+    - Fonts: Noto Sans Variable (Local Flex Font) + Outfit (Display).
     - LibMan: Client libraries in `wwwroot/lib` (ZERO CDN Policy).
-    - Theming: `ICorporateSkinProvider`.
+    - Theming: `ICorporateSkinProvider` + OKLCH Color Space.
   </frontend_assets>
 </tech_stack>
