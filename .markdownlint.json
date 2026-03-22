@@ -4,7 +4,8 @@
     "line_length": 100,
     "code_blocks": false,
     "tables": false,
-    "headings": false
+    "headings": false,
+    "ignore_code_blocks": true
   },
   "MD033": {
     "allowed_elements": [

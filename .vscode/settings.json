@@ -87,6 +87,18 @@
   "playwright.testDir": "tests/TicketsPlease.E2ETests",
   "playwright.reuseBrowser": true,
   "css.validate": false,
+  "sonarlint.rules": {
+    "csharpsquid:S1135": { "level": "off" },
+    "css:S4667": { "level": "off" },
+    "css:S4666": { "level": "off" }
+  },
+  "sonarlint.analyzerProperties": {
+    "sonar.cs.ignore.generated.code": "true"
+  },
+  "sonarlint.connectedMode.project": {
+    "projectKey": "TicketsPlease"
+  },
+  "css.lint.unknownAtRules": "ignore",
   "dotnet.unitTestDebuggingOptions": {
     "env": {
       "PWDEBUG": "0",
