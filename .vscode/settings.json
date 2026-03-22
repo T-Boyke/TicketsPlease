@@ -87,6 +87,7 @@
   "playwright.testDir": "tests/TicketsPlease.E2ETests",
   "playwright.reuseBrowser": true,
   "css.validate": false,
+  "sonarlint.pathToCompileCommands": "",
   "sonarlint.testFilePattern": "{**/tests/**,**/*Tests.cs,**/*Test.cs}",
   "sonarlint.rules": {
     "csharpsquid:S1135": { "level": "off" },
