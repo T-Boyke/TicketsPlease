@@ -87,6 +87,7 @@
   "playwright.testDir": "tests/TicketsPlease.E2ETests",
   "playwright.reuseBrowser": true,
   "css.validate": false,
+  "tailwindCSS.experimental.configFile": "src/TicketsPlease.Web/Tailwind/app.css",
   "tailwindCSS.classAttributes": ["class", "className", "ngClass", "SizeClass"],
   "tailwindCSS.experimental.classRegex": [
     ["(?:class(?:Name)?|SizeClass)\\s*[:=]\\s*['\"`]([^'\"`]*?)['\"`]", "([^\\s']+)"]
