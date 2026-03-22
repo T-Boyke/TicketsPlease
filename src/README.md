@@ -52,13 +52,40 @@ graph TD
     ENT -->|Trigger| EVT
     HAND -->|Return| DTO
     DTO -->|Render| VC
+    
+    %% Real-Time Flow
+    HAND -.->|Push Update| SIG["SignalR Hub"]
+    SIG -.->|Real-Time Toast| VC
 
     %% Styling
     style ENT fill:#2ecc71,stroke:#27ae60,color:#fff
     style CMD fill:#f1c40f,stroke:#f39c12,color:#fff
     style REPO fill:#e74c3c,stroke:#c0392b,color:#fff
     style VC fill:#3498db,stroke:#2980b9,color:#fff
+    style SIG fill:#9b59b6,stroke:#8e44ad,color:#fff
 ```
+
+---
+
+## 🏗️ UI Architecture (Razor Partials)
+
+Wir setzen massiv auf **Reusable Razor Partials**, um Design-Konsistenz und
+schnelle Iterationszyklen zu garantieren. Diese befinden sich in
+`src/TicketsPlease.Web/Views/Shared/`:
+
+- **`_Avatar.cshtml`**: Standardisiertes User-Avatar (inkl. Tooltip & Online-Status).
+- **`_StatusBadge.cshtml`**: Zugängliche Badges für Ticket-Zustände.
+- **`_PriorityIcon.cshtml`**: Die **"Chillischoten"-Metrik 🌶️** als SVG-Partial.
+- **`_KanbanCard.cshtml`**: Die zentrale Ticket-Repräsentation für das Board.
+- **`_Notification.cshtml`**: Globales Toast-System mit Spring-In Animationen.
+
+---
+
+## ⚡ Real-Time & Interaction
+
+- **SignalR integration**: Das System nutzt WebSockets, um Updates (neue Tickets,
+  Statusänderungen) sofort in die UI zu pushen, ohne einen Page-Refresh.
+- **Presence Tracking**: Echtzeit-Visualisierung der Nutzeraktivität via Hubs.
 
 ---
 
