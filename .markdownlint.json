@@ -29,7 +29,9 @@
       "compliance_standards", "bfsg", "dsgvo",
       "localization_bundle", "strategy", "german_priority",
       "vision", "roadmap", "bounded_contexts",
-      "ticket_aggregate", "business_rules", "complexity_scoping"
+      "ticket_aggregate", "business_rules", "complexity_scoping",
+      "cli_tools", "dotnet_cli", "ef_core_cli", "tailwind_cli", "frontend_tooling", "libman", "assets",
+      "ide_intelligence", "jetbrains_rider", "vscode_support", "editorconfig", "linting_formatting", "csharp", "markdown", "web_json"
     ]
   },
   "MD024": {
