@@ -14,7 +14,6 @@
   "editor.renderWhitespace": "selection",
   "editor.suggestSelection": "first",
   "editor.rulers": [80, 100, 120],
-  "prettier.configPath": ".config/.prettierrc",
   "markdownlint.config": {
     "extends": ".config/.markdownlint.json"
   },
@@ -62,12 +61,6 @@
   "tailwindCSS.emmetCompletions": true,
   "tailwindCSS.showPixelEquivalents": true,
   "tailwindCSS.colorDecorators": true,
-  "[csharp]": {
-    "editor.defaultFormatter": "ms-dotnettools.csdevkit"
-  },
-  "[razor]": {
-    "editor.defaultFormatter": "ms-dotnettools.csdevkit"
-  },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
