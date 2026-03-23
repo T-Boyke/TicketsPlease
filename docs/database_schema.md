@@ -49,6 +49,8 @@ erDiagram
         Guid UserId PK, FK
         string FirstName "NOT NULL (Mandatory)"
         string LastName
+        string Bio
+        Uri AvatarUrl
         string PhoneNumber
         Guid AvatarImageId FK "Nullable"
         datetime UpdatedAt
@@ -74,6 +76,16 @@ erDiagram
     }
 
     %% --- Teams & Workspaces ---
+    PROJECT {
+        Guid Id PK
+        string Title
+        string Description
+        datetime StartDate
+        datetime EndDate "Nullable"
+        boolean IsOpen
+        Guid WorkflowId FK "Nullable"
+    }
+
     TEAM {
         Guid Id PK
         string Name
@@ -93,13 +105,14 @@ erDiagram
     %% --- Ticket Core Domain ---
     TICKET {
         Guid Id PK
+        Guid ProjectId FK
         string Sha1Hash "Unique Identifier / Copy-Ref"
         string Title
         string DescriptionMarkdown
         TicketType Type "Task, Bug, Feature, Epic"
         TicketSize Size "XS, S, M, L, XL"
-        int? EstimatePoints
-        Guid? ParentTicketId FK "Hierarchical Parent"
+        int EstimatePoints
+        Guid ParentTicketId FK "Hierarchical Parent"
         Guid PriorityId FK
         int ChilliesDifficulty "1-5 🌶️"
         string GeoIpTimestamp "Audit Trail"
@@ -107,8 +120,11 @@ erDiagram
         datetime Deadline
         Guid WorkflowStateId FK
         Guid CreatorId FK
+        Guid AssignedUserId FK "Nullable"
         datetime CreatedAt
         datetime UpdatedAt
+        datetime ClosedAt "Nullable"
+        Guid ClosedByUserId FK "Nullable"
         byte RowVersion "Optimistic Concurrency (Timestamp)"
     }
 
@@ -245,7 +261,7 @@ erDiagram
         Guid Id PK
         Guid UserId FK
         string Title
-        string Message
+        string Content
         string TargetUrl "Link to Ticket/Message"
         boolean IsRead
         datetime CreatedAt
@@ -263,10 +279,12 @@ erDiagram
     MESSAGE ||--o{ FILE_ASSET : attachments
     USER ||--o{ FILE_ASSET : uploads
 
-    %% Teams
+    %% Teams & Projects
     USER ||--o{ TEAM_MEMBER : joins
     TEAM ||--o{ TEAM_MEMBER : contains
     USER ||--o{ TEAM : creates
+    ORGANIZATION ||--o{ PROJECT : owns
+    PROJECT ||--o{ TICKET : contains
 
     %% Tickets & Workflow
     USER ||--o{ TICKET : creates
@@ -334,6 +352,8 @@ erDiagram
 | **USER_PROFILE**  | UserId              | Guid     | PK, FK     | 1:1 zu USER.Id                    |
 |                   | FirstName           | string   | NOT NULL   | Vorname                           |
 |                   | LastName            | string   |            | Nachname                          |
+|                   | Bio                 | string   |            | Biographie                        |
+|                   | AvatarUrl           | Uri      |            | URL zum Avatar                    |
 |                   | PhoneNumber         | string   |            | Telefonnummer                     |
 |                   | AvatarImageId       | Guid     | FK         | Verweis auf FILE_ASSET.Id         |
 |                   | UpdatedAt           | datetime |            | Letzte Profilaktualisierung       |
@@ -344,7 +364,15 @@ erDiagram
 |                   | SizeBytes           | long     |            | Dateigröße in Byte                |
 |                   | UploadedAt          | datetime |            | Zeitstempel des Uploads           |
 |                   | UploadedByUserId    | Guid     | FK         | Verweis auf USER.Id               |
+| **PROJECT**       | Id                  | Guid     | PK         | Eindeutige Projekt ID             |
+|                   | Title               | string   |            | Projekttitel                      |
+|                   | Description         | string   |            | Projektbeschreibung               |
+|                   | StartDate           | datetime |            | Projektstart                      |
+|                   | EndDate             | datetime |            | Projektende                       |
+|                   | IsOpen              | boolean  |            | Projektstatus                     |
+|                   | WorkflowId          | Guid     | FK         | Zugeordneter Workflow             |
 | **TICKET**        | Id                  | Guid     | PK         | Eindeutige Ticket ID              |
+|                   | ProjectId           | Guid     | FK         | Verweis auf PROJECT.Id            |
 |                   | Sha1Hash            | string   | Unique     | Identifier für Referenzen         |
 |                   | Title               | string   |            | Kurzer Betreff                    |
 |                   | DescriptionMarkdown | string   |            | Ausführliche Beschreibung (MD)    |
@@ -359,8 +387,11 @@ erDiagram
 |                   | Deadline            | datetime |            | Abgabetermin                      |
 |                   | WorkflowStateId     | Guid     | FK         | Verweis auf WORKFLOW_STATE.Id     |
 |                   | CreatorId           | Guid     | FK         | Verweis auf USER.Id               |
+|                   | AssignedUserId      | Guid     | FK         | Zugewiesener Benutzer             |
 |                   | CreatedAt           | datetime |            | Erstellungszeitraum               |
 |                   | UpdatedAt           | datetime |            | Letzte Änderung                   |
+|                   | ClosedAt            | datetime |            | Abschluss-Zeitstempel             |
+|                   | ClosedByUserId      | Guid     | FK         | Wer hat das Ticket geschlossen?   |
 |                   | RowVersion          | byte[]   | Timestamp  | Optimistic Concurrency Token      |
 | **TICKET_LINK**   | Id                  | Guid     | PK         | Eindeutige Link ID                |
 |                   | SourceTicketId      | Guid     | FK         | Quell-Ticket                      |
@@ -389,21 +420,22 @@ erDiagram
 |                   | DescriptionTemplate | string   |            | Markdown Template                 |
 | **SLA_POLICY**    | Id                  | Guid     | PK         | Eindeutige Policy ID              |
 |                   | PriorityId          | Guid     | FK         | Verweis auf TICKET_PRIO.Id        |
-|                   | ResponseTime        | int      |            | Reaktionszeit in Std              |
-|                   | ResolutionTime      | int      |            | Lösungszeit in Std                |
+|                   | ResponseTimeHours   | int      |            | Reaktionszeit in Std              |
+|                   | ResolutionTimeHours | int      |            | Lösungszeit in Std                |
 | **MSG_RECEIPT**   | MessageId           | Guid     | PK, FK     | Verweis auf MESSAGE.Id            |
 |                   | UserId              | Guid     | PK, FK     | Verweis auf USER.Id               |
 |                   | ReadAt              | datetime |            | Gelesen am                        |
 | **NOTIFICATION**  | Id                  | Guid     | PK         | Eindeutige ID                     |
 |                   | UserId              | Guid     | FK         | Empfänger (USER.Id)               |
 |                   | Title               | string   |            | Betreff                           |
-|                   | Message             | string   |            | Inhalt der Benachrichtigung       |
+|                   | Content             | string   |            | Inhalt der Benachrichtigung       |
 |                   | TargetUrl           | string   |            | Deep-Link zum Ticket/Kommentar    |
 |                   | IsRead              | boolean  |            | Gelesen-Status                    |
 |                   | CreatedAt           | datetime |            | Zeitstempel                       |
 | **ORGANIZATION**  | Id                  | Guid     | PK         | Eindeutige Mandanten ID           |
 |                   | Name                | string   |            | Firmenname                        |
 |                   | SubscriptionLevel   | string   |            | z.B. Enterprise, Basic            |
+|                   | IsActive            | boolean  |            | Mandant aktiv?                    |
 | **WF_TRANSITION** | FromStateId         | Guid     | FK         | Von Status                        |
 |                   | ToStateId           | Guid     | FK         | Zu Status                         |
 |                   | AllowedRoleId       | Guid     | FK         | Berechtigte Rolle                 |
@@ -495,11 +527,17 @@ halten (sowie DSGVO-Löschkonzepte zu vereinfachen), wurde die gigantische
 
 #### 4. Ticket Management Context
 
+- **Project:** Repräsentiert die oberste Ebene der Organisation (IHK F2.2). Ein Projekt
+  bündelt Tickets und definiert einen spezifischen Zeitrahmen (`StartDate`, `EndDate`)
+  sowie einen Standard-Workflow (`WorkflowId`).
 - **Ticket:** Das Kern-Aggregat. Unterstützt nun ausdrücklich
-  `DescriptionMarkdown`, Hierarchien (Parent/Child) und verschiedene Ticket-Typen (Epics, Bugs, etc.). Jedes Ticket wird primär durch einen `Sha1Hash`
+  `DescriptionMarkdown`, Hierarchien (Parent/Child) und verschiedene Ticket-Typen
+  (Epics, Bugs, etc.). Jedes Ticket wird primär durch einen `Sha1Hash`
   referenziert, der ein einfaches Kopieren und systemweites Tracking erlaubt.
   Außerdem ist für die Revisionssicherheit ein `GeoIpTimestamp` verankert.
-- **TicketLink:** Ermöglicht die Modellierung von Abhängigkeiten (z.B. "Blocked by") zwischen Tickets, was für professionelle Kanban-Boards unerlässlich ist.
+  Tickets sind zwingend einem `Project` zugeordnet.
+- **TicketLink:** Ermöglicht die Modellierung von Abhängigkeiten (z.B. "Blocked by")
+  zwischen Tickets, was für professionelle Kanban-Boards unerlässlich ist.
 - **TicketPriority:** Prioritäten wurden aus dem Enum-Status in eine eigene
   Entität ausgelagert (3NF), um Level und Farben dynamisch durch Admins
   definierbar zu machen.
@@ -537,7 +575,7 @@ Ein völlig neues Bounded Context für die interne Enterprise-Kommunikation.
 
 ## Aktueller Stand (MVP)
 
-Vom oben geplanten Enterprise-Schema sind im Domain Layer **alle 26 Entitäten**
+Vom oben geplanten Enterprise-Schema sind im Domain Layer **alle 29 Entitäten**
 als C#-Klassen vorhanden. Die meisten besitzen jedoch nur minimale Properties
 und müssen für den jeweiligen Feature-Sprint ausgebaut werden.
 
@@ -545,17 +583,12 @@ und müssen für den jeweiligen Feature-Sprint ausgebaut werden.
 
 | Entity | Zweck | IHK-Feature | Status |
 |:---|:---|:---|:---|
-| **User** | Auth & Zuweisung | F1.3 | Basis vorhanden |
-| **Ticket** | Kern-Aggregat | F3 | Basis vorhanden |
-| **Project** | Projekt-Zuordnung | F2.2 | ⚠️ **Fehlt!** |
-| **WorkflowState** | Status-Verwaltung | F8 | Basis vorhanden |
-| **Message** | Nachrichten | F9 | Basis vorhanden |
-| **Notification** | Benachrichtigungen | — | Basis vorhanden |
-
-> [!WARNING] Das **Project-Entity** (Titel, Beschreibung, Startdatum,
-> Enddatum) muss als eigene Domain-Entity erstellt werden. Es ist
-> IHK-Pflicht (F2.2: „Projekte CRUD"). Tickets werden über einen FK
-> einem Projekt zugeordnet.
+| **User** | Auth & Zuweisung | F1.3 | ✅ Vorhanden |
+| **Ticket** | Kern-Aggregat | F3 | ✅ Vorhanden |
+| **Project** | Projekt-Zuordnung | F2.2 | ✅ Vorhanden |
+| **WorkflowState** | Status-Verwaltung | F8 | ✅ Vorhanden |
+| **Message** | Nachrichten | F9 | ✅ Vorhanden |
+| **Notification** | Benachrichtigungen | — | ✅ Vorhanden |
 
 ### Aktuelle Ticket Entity
 
