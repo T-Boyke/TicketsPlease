@@ -34,52 +34,76 @@ public class AppDbContext : DbContext
   /// </summary>
   public DbSet<Ticket> Tickets => this.Set<Ticket>();
 
+  /// <summary>Gets or sets die Organisationen.</summary>
   public DbSet<Organization> Organizations => this.Set<Organization>();
 
+  /// <summary>Gets or sets die Rollen.</summary>
   public DbSet<Role> Roles => this.Set<Role>();
 
+  /// <summary>Gets or sets die Benutzerprofile.</summary>
   public DbSet<UserProfile> UserProfiles => this.Set<UserProfile>();
 
+  /// <summary>Gets or sets die Benutzeradressen.</summary>
   public DbSet<UserAddress> UserAddresses => this.Set<UserAddress>();
 
+  /// <summary>Gets or sets die Dateianhänge.</summary>
   public DbSet<FileAsset> FileAssets => this.Set<FileAsset>();
 
+  /// <summary>Gets or sets die Teams.</summary>
   public DbSet<Team> Teams => this.Set<Team>();
 
+  /// <summary>Gets or sets die Teammitglieder.</summary>
   public DbSet<TeamMember> TeamMembers => this.Set<TeamMember>();
 
+  /// <summary>Gets or sets die Ticket-Prioritäten.</summary>
   public DbSet<TicketPriority> TicketPriorities => this.Set<TicketPriority>();
 
+  /// <summary>Gets or sets die Sub-Tickets.</summary>
   public DbSet<SubTicket> SubTickets => this.Set<SubTicket>();
 
+  /// <summary>Gets or sets die Tags.</summary>
   public DbSet<Tag> Tags => this.Set<Tag>();
 
+  /// <summary>Gets or sets die Ticket-Tags.</summary>
   public DbSet<TicketTag> TicketTags => this.Set<TicketTag>();
 
+  /// <summary>Gets or sets die Ticket-Zuweisungen.</summary>
   public DbSet<TicketAssignment> TicketAssignments => this.Set<TicketAssignment>();
 
+  /// <summary>Gets or sets die Workflow-Status.</summary>
   public DbSet<WorkflowState> WorkflowStates => this.Set<WorkflowState>();
 
+  /// <summary>Gets or sets die Workflow-Übergänge.</summary>
   public DbSet<WorkflowTransition> WorkflowTransitions => this.Set<WorkflowTransition>();
 
+  /// <summary>Gets or sets die Zeiterfassungseinträge.</summary>
   public DbSet<TimeLog> TimeLogs => this.Set<TimeLog>();
 
+  /// <summary>Gets or sets die Ticket-Upvotes.</summary>
   public DbSet<TicketUpvote> TicketUpvotes => this.Set<TicketUpvote>();
 
+  /// <summary>Gets or sets die Ticket-Historien.</summary>
   public DbSet<TicketHistory> TicketHistories => this.Set<TicketHistory>();
 
+  /// <summary>Gets or sets die Ticket-Vorlagen.</summary>
   public DbSet<TicketTemplate> TicketTemplates => this.Set<TicketTemplate>();
 
+  /// <summary>Gets or sets die SLA-Richtlinien.</summary>
   public DbSet<SlaPolicy> SlaPolicies => this.Set<SlaPolicy>();
 
+  /// <summary>Gets or sets die benutzerdefinierten Felddefinitionen.</summary>
   public DbSet<CustomFieldDefinition> CustomFieldDefinitions => this.Set<CustomFieldDefinition>();
 
+  /// <summary>Gets or sets die Werte der benutzerdefinierten Felder.</summary>
   public DbSet<TicketCustomValue> TicketCustomValues => this.Set<TicketCustomValue>();
 
+  /// <summary>Gets or sets die Nachrichten.</summary>
   public DbSet<Message> Messages => this.Set<Message>();
 
+  /// <summary>Gets or sets die Lesebestätigungen für Nachrichten.</summary>
   public DbSet<MessageReadReceipt> MessageReadReceipts => this.Set<MessageReadReceipt>();
 
+  /// <summary>Gets or sets die Benachrichtigungen.</summary>
   public DbSet<Notification> Notifications => this.Set<Notification>();
 
   /// <summary>
@@ -89,16 +113,14 @@ public class AppDbContext : DbContext
   /// <param name="modelBuilder">Der Builder für die Modellkonfiguration.</param>
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
+    ArgumentNullException.ThrowIfNull(modelBuilder);
     base.OnModelCreating(modelBuilder);
 
     // Global Configuration for RowVersion (Concurrency)
-    foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+    foreach (var entityType in modelBuilder.Model.GetEntityTypes().Where(e => typeof(BaseEntity).IsAssignableFrom(e.ClrType)))
     {
-      if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
-      {
-        modelBuilder.Entity(entityType.ClrType).Property("RowVersion").IsRowVersion();
-        modelBuilder.Entity(entityType.ClrType).HasQueryFilter(ConvertFilterExpression(entityType.ClrType));
-      }
+      modelBuilder.Entity(entityType.ClrType).Property("RowVersion").IsRowVersion();
+      modelBuilder.Entity(entityType.ClrType).HasQueryFilter(ConvertFilterExpression(entityType.ClrType));
     }
 
     // --- Identity & IAM ---
@@ -192,27 +214,27 @@ public class AppDbContext : DbContext
     });
   }
 
-  private static System.Linq.Expressions.LambdaExpression ConvertFilterExpression(Type type)
-  {
-    var parameter = System.Linq.Expressions.Expression.Parameter(type, "e");
-    var property = System.Linq.Expressions.Expression.Property(parameter, "IsDeleted");
-    var notDeleted = System.Linq.Expressions.Expression.Not(property);
-    return System.Linq.Expressions.Expression.Lambda(notDeleted, parameter);
-  }
-
   /// <summary>
   /// Konfiguriert zusätzliche Optionen wie die Resilience / Retry Strategie.
   /// </summary>
   /// <param name="optionsBuilder">Der Builder für die Kontext-Optionen.</param>
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
+    ArgumentNullException.ThrowIfNull(optionsBuilder);
+
     // Hinweis: Die eigentliche SQL Server Konfiguration erfolgt meist in Program.cs/Startup.cs.
     // Falls hier konfiguriert wird, stellen wir sicher, dass RetryOnFailure aktiviert ist.
     if (!optionsBuilder.IsConfigured)
     {
       // Placeholder für lokale Entwicklung oder Fallback
-      // optionsBuilder.UseSqlServer("fallback_connection_string",
-      //    sqlOptions => sqlOptions.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null));
     }
+  }
+
+  private static System.Linq.Expressions.LambdaExpression ConvertFilterExpression(Type type)
+  {
+    var parameter = System.Linq.Expressions.Expression.Parameter(type, "e");
+    var property = System.Linq.Expressions.Expression.Property(parameter, "IsDeleted");
+    var notDeleted = System.Linq.Expressions.Expression.Not(property);
+    return System.Linq.Expressions.Expression.Lambda(notDeleted, parameter);
   }
 }

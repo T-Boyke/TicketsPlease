@@ -13,6 +13,7 @@ using TicketsPlease.Domain.Entities;
 /// Enthält Architektur-Tests zur Sicherstellung der Datenintegrität und Einhaltung von Domain-Vorgaben.
 /// Nutzt NetArchTest zur statischen Analyse der Assembly-Struktur.
 /// </summary>
+#pragma warning disable CA1707 // Identifiers should not contain underscores
 public class DomainConstraintTests
 {
   /// <summary>
@@ -50,3 +51,4 @@ public class DomainConstraintTests
     result.IsSuccessful.Should().BeTrue("Entitäten sollten in einem spezifischen Namespace gruppiert sein.");
   }
 }
+#pragma warning restore CA1707 // Identifiers should not contain underscores

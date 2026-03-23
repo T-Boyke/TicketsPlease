@@ -13,18 +13,18 @@ public interface ICorporateSkinProvider
   /// <summary>
   /// Ruft die Primärfarbe für das Branding ab (hexadezimal oder CSS-Variable).
   /// </summary>
-  /// <returns></returns>
+  /// <returns>Die Primärfarbe als String.</returns>
   public string GetPrimaryColor();
 
   /// <summary>
   /// Ruft die Sekundärfarbe für das Branding ab.
   /// </summary>
-  /// <returns></returns>
+  /// <returns>Die Sekundärfarbe als String.</returns>
   public string GetSecondaryColor();
 
   /// <summary>
   /// Ruft den Namen oder Pfad des Firmenlogos ab.
   /// </summary>
-  /// <returns></returns>
+  /// <returns>Den Dateinamen des Firmenlogos.</returns>
   public string GetLogoName();
 }

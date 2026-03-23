@@ -35,7 +35,9 @@ public class Notification : BaseEntity
   /// <summary>
   /// Gets or sets die (optionale) Ziel-URL, zu der die Benachrichtigung führen soll.
   /// </summary>
+#pragma warning disable CA1056 // URI-like properties should not be strings
   public string? TargetUrl { get; set; }
+#pragma warning restore CA1056 // URI-like properties should not be strings
 
   /// <summary>
   /// Gets or sets a value indicating whether die Benachrichtigung vom Benutzer als gelesen markiert wurde.

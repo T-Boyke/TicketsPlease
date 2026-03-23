@@ -34,7 +34,7 @@ public class Ticket : BaseEntity
   public string DescriptionMarkdown { get; set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets den Status des Tickets (z.B. Todo, Doing, Done).
+  /// Gets or sets den Status des Tickets (z.B. To-Do, Doing, Done).
   /// </summary>
   public string Status { get; set; } = "Todo";
 

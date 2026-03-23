@@ -13,6 +13,7 @@ using TicketsPlease.Domain.Entities;
 /// <summary>
 /// Bietet Methoden zur Initialisierung und zum Seeding der Datenbank mit synthetischen Testdaten.
 /// </summary>
+#pragma warning disable CA1848 // Use the LoggerMessage delegates
 public static class DbInitialiser
 {
   /// <summary>
@@ -134,16 +135,14 @@ public static class DbInitialiser
       {
         var membersCount = faker.Random.Int(2, 5);
         var teamUsers = faker.PickRandom(users, membersCount).ToList();
-        foreach (var user in teamUsers)
+        var teamMembers = teamUsers.Select(user => new TeamMember
         {
-          await context.TeamMembers.AddAsync(new TeamMember
-          {
-            TeamId = team.Id,
-            UserId = user.Id,
-            IsTeamLead = user.Id == team.CreatedByUserId,
-            TenantId = team.TenantId,
-          }).ConfigureAwait(false);
-        }
+          TeamId = team.Id,
+          UserId = user.Id,
+          IsTeamLead = user.Id == team.CreatedByUserId,
+          TenantId = team.TenantId,
+        });
+        await context.TeamMembers.AddRangeAsync(teamMembers).ConfigureAwait(false);
       }
 
       await context.SaveChangesAsync().ConfigureAwait(false);
@@ -195,8 +194,8 @@ public static class DbInitialiser
     }
     catch (Exception ex)
     {
-      logger.LogError(ex, "Fehler beim Datenbank-Seeding.");
-      throw;
+      throw new InvalidOperationException("Fehler beim Datenbank-Seeding.", ex);
     }
   }
 }
+#pragma warning restore CA1848 // Use the LoggerMessage delegates

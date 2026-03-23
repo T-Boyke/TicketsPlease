@@ -38,6 +38,8 @@ public abstract class BaseEntity
   /// Gets or sets das Feld zur optimistischen Nebenläufigkeitskontrolle (Concurrency Control).
   /// Dieses Feld wird automatisch von SQL Server aktualisiert (Timestamp/RowVersion).
   /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
   [Timestamp]
   public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+#pragma warning restore CA1819 // Properties should not return arrays
 }
