@@ -93,11 +93,13 @@ public class RelationshipTests : IntegrationTestBase
     db.Tickets.Add(ticket);
     await db.SaveChangesAsync();
 
-    // Act
-    db.Users.Remove(user);
+    // Act & Assert
+    var act = async () =>
+    {
+      db.Users.Remove(user);
+      await db.SaveChangesAsync();
+    };
 
-    // Assert: Bei SQLite wird der Constraint-Verstoß oft erst beim SaveChanges ausgelöst
-    var act = async () => await db.SaveChangesAsync();
     await act.Should().ThrowAsync<Exception>(); // SQLite oder EF Core wirft hier eine DbUpdateException oder ähnliches
   }
 }
