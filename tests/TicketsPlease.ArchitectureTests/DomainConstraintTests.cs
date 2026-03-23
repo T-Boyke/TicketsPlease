@@ -5,6 +5,7 @@
 namespace TicketsPlease.ArchitectureTests;
 
 using FluentAssertions;
+using Microsoft.AspNetCore.Identity;
 using NetArchTest.Rules;
 using TicketsPlease.Domain.Common;
 using TicketsPlease.Domain.Entities;
@@ -28,11 +29,17 @@ public class DomainConstraintTests
         .ResideInNamespace("TicketsPlease.Domain.Entities")
         .And()
         .AreClasses()
+        .And()
+        .DoNotHaveName("User")
+        .And()
+        .DoNotHaveName("Role")
         .Should()
         .Inherit(typeof(BaseEntity))
         .GetResult();
 
-    result.IsSuccessful.Should().BeTrue("alle Entitäten müssen von BaseEntity erben, um Konsistenz zu gewährleisten.");
+    var failureMessage = "alle Entitäten müssen von BaseEntity erben. Fehlend: " +
+                         (result.FailingTypeNames != null ? string.Join(", ", result.FailingTypeNames) : "keine");
+    result.IsSuccessful.Should().BeTrue(failureMessage);
   }
 
   /// <summary>
