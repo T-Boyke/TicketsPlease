@@ -102,10 +102,10 @@ public abstract class IntegrationTestBase : IDisposable
 
       var role = new Role { Id = Guid.Parse("00000000-0000-0000-0000-000000000001"), Name = "Admin" };
       await db.Roles.AddAsync(role).ConfigureAwait(false);
-      
+
       await db.TicketPriorities.AddAsync(new TicketPriority { Id = Guid.Parse("00000000-0000-0000-0000-000000000002"), Name = "Medium", TenantId = tenantId }).ConfigureAwait(false);
       await db.WorkflowStates.AddAsync(new WorkflowState { Id = Guid.Parse("00000000-0000-0000-0000-000000000003"), Name = "Todo", WorkflowId = workflow.Id, TenantId = tenantId }).ConfigureAwait(false);
-      
+
       await db.SaveChangesAsync().ConfigureAwait(false);
     }
   }

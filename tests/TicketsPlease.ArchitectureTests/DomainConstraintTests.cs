@@ -5,7 +5,6 @@
 namespace TicketsPlease.ArchitectureTests;
 
 using FluentAssertions;
-using Microsoft.AspNetCore.Identity;
 using NetArchTest.Rules;
 using TicketsPlease.Domain.Common;
 using TicketsPlease.Domain.Entities;

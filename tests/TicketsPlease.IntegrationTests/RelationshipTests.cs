@@ -41,21 +41,21 @@ public class RelationshipTests : IntegrationTestBase
     var project = await db.Projects.FirstAsync();
 
     var userId = Guid.NewGuid();
-    var user = new User 
-    { 
-      Id = userId, 
-      UserName = "verify@example.com", 
+    var user = new User
+    {
+      Id = userId,
+      UserName = "verify@example.com",
       NormalizedUserName = "VERIFY@EXAMPLE.COM",
-      Email = "verify@example.com", 
+      Email = "verify@example.com",
       NormalizedEmail = "VERIFY@EXAMPLE.COM",
-      RoleId = roleId, 
-      TenantId = project.TenantId 
+      RoleId = roleId,
+      TenantId = project.TenantId,
     };
     user.Profile = new UserProfile { UserId = userId, FirstName = "Verifikations", LastName = "User", TenantId = project.TenantId };
-    
+
     db.Users.Add(user);
     await db.SaveChangesAsync();
-    
+
     var ticket = new Ticket("Beziehungs-Test", TicketType.Task, project.Id, user.Id, workflowStateId, "127.0.0.1");
     ticket.UpdateDescription("Testet die FK-Integrität", "Testet die FK-Integrität");
     ticket.SetPriority(priorityId);
@@ -99,15 +99,15 @@ public class RelationshipTests : IntegrationTestBase
     var project = await db.Projects.FirstAsync();
 
     var userId = Guid.NewGuid();
-    var user = new User 
-    { 
-      Id = userId, 
-      UserName = "restrict@example.com", 
+    var user = new User
+    {
+      Id = userId,
+      UserName = "restrict@example.com",
       NormalizedUserName = "RESTRICT@EXAMPLE.COM",
-      Email = "restrict@example.com", 
+      Email = "restrict@example.com",
       NormalizedEmail = "RESTRICT@EXAMPLE.COM",
-      RoleId = roleId, 
-      TenantId = project.TenantId 
+      RoleId = roleId,
+      TenantId = project.TenantId,
     };
     user.Profile = new UserProfile { UserId = userId, FirstName = "Restrict", LastName = "User", TenantId = project.TenantId };
 
