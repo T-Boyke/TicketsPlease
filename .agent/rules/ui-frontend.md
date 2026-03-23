@@ -8,7 +8,7 @@ trigger: model_decision
 <ui_rules>
 <styling>
 
-- Framework: TailwindCSS 4.2 ONLY. NO Bootstrap.
+- Framework: TailwindCSS 4.2.2 ONLY. NO Bootstrap.
 - Assets: LibMan ONLY (`wwwroot/lib/`). NO CDN.
 - Inline Styles: STRICTLY FORBIDDEN. Use Tailwind or CSS variables.
 - Colors: NO hardcoded colors. Use CSS Custom Properties (`--brand-primary`, `--color-surface`).

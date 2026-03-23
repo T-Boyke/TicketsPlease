@@ -49,7 +49,7 @@ durch Unit/Integration-Tests (TDD) abgedeckt werden.
 
 - [ ] Razor Views & ViewComponents (strikte Nutzung von Partials zur Vermeidung
       von Code-Duplikation `DRY`).
-- [x] **Tailwind CSS v4 Stack:** Vollständige Integration via
+- [x] **Tailwind CSS v4.2.2 Stack:** Vollständige Integration via
       `tailwindcss-dotnet` (Node-free).
 - [x] **Client-Side Asset Management:** `libman.json` für Markdig, SortableJS,
       FA7.

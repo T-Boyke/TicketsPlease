@@ -68,7 +68,7 @@ Code-Modifikationen in der **TicketsPlease** Solution. Jede Regel ist aus der
 | **Solution**    | `TicketsPlease.slnx`                                                      |
 | **Runtime**     | ASP.NET Core 10.3 / C# 14 / .NET 10                                       |
 | **Datenbank**   | Microsoft SQL Server (EF Core Code-First)                                 |
-| **Frontend**    | TailwindCSS 4.2 (via `TailwindCSS.MSBuild`), FontAwesome 7.2, Razor Views |
+| **Frontend**    | TailwindCSS 4.2.2 (via `TailwindCSS.MSBuild`), FontAwesome 7.2, Razor Views |
 | **Architektur** | Clean Architecture (Onion) + DDD + CQRS                                   |
 | **CQRS Stack**  | MediatR + FluentValidation + Mapster                                      |
 | **Testing**     | xUnit, FluentAssertions, Moq/NSubstitute, Testcontainers, NetArchTest     |
@@ -280,7 +280,7 @@ flowchart TD
 
 | Regel                        | Beschreibung                                                                                                         |
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| **No-Bootstrap Policy**      | Bootstrap ist **verboten**. Ausschließlich TailwindCSS 4.2.                                                          |
+| **No-Bootstrap Policy**      | Bootstrap ist **verboten**. Ausschließlich TailwindCSS 4.2.2.                                                          |
 | **No-CDN Policy**            | Sämtliche Libraries lokal über LibMan (`libman.json`) → `wwwroot/lib/`. Keine externen CDN-Links im HTML!            |
 | **TailwindCSS via MSBuild**  | Integration über `TailwindCSS.MSBuild` (Zero-Node). Kein `npm` / `node_modules`.                                     |
 | **CSS-Variablen für Farben** | Keine Hardcoded Tailwind-Farben (`bg-gray-800`). Nutze CSS Custom Properties (`--color-surface`, `--brand-primary`). |
@@ -472,7 +472,7 @@ flowchart LR
 | ❌  | **Direktes `DbContext` im Controller** → Nutze MediatR.                      |
 | ❌  | **Command ohne Validator** → Jeder Input braucht FluentValidation.           |
 | ❌  | **Fehlende XML-Kommentare** → "I'll do it later" zählt nicht.                |
-| ❌  | **Bootstrap-Import** → Ist komplett verboten. Nur TailwindCSS 4.2.           |
+| ❌  | **Bootstrap-Import** → Ist komplett verboten. Nur TailwindCSS 4.2.2.           |
 | ❌  | **CDN-Links im HTML** → Alle Assets lokal über LibMan.                       |
 | ❌  | **`DateTime` statt `DateTimeOffset`** → Für I18N/Zeitzonen verboten.         |
 | ❌  | **Secrets in `appsettings.json`** → Nutze `dotnet user-secrets`.             |
@@ -602,4 +602,4 @@ Alle Markdown-Dokumente müssen den Projektspezifischen Regeln für Formatting
 
 ---
 
-Status: Supercharged v3.2 | Letztes Update: 2026-03-09
+Status: Supercharged v3.5 | Letztes Update: 2026-03-23
