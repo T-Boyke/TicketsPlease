@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController]
 [Route("api/v1/tickets")]
 [Produces("application/json")]
-internal class TicketsApiController : ControllerBase
+internal sealed class TicketsApiController : ControllerBase
 {
   /// <summary>
   /// Ruft alle Tickets ab.

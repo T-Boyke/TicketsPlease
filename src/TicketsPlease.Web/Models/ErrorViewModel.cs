@@ -4,9 +4,18 @@
 
 namespace TicketsPlease.Web.Models;
 
-internal class ErrorViewModel
+/// <summary>
+/// Modell für die Anzeige von Fehlermeldungen.
+/// </summary>
+internal sealed class ErrorViewModel
 {
+  /// <summary>
+  /// Gets or sets die ID der Anforderung.
+  /// </summary>
   public string? RequestId { get; set; }
 
+  /// <summary>
+  /// Gets a value indicating whether die Anforderungs-ID angezeigt werden soll.
+  /// </summary>
   public bool ShowRequestId => !string.IsNullOrEmpty(this.RequestId);
 }
