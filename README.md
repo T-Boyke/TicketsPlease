@@ -76,8 +76,8 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 | **Tailwind CSS**    | ✅ Fertig    | v4.2.2 via MSBuild (Node-free)            | MVP         |
 | **CI/CD Pipeline**  | ✅ Fertig    | GitHub Actions (Build, Lint, Test)        | MVP         |
 | **Domain Entities** | ✅ Fertig    | 26 Enterprise-Entitäten im Domain Layer   | MVP + Ent.  |
-| **Identity/Auth**   | 🏗️ Ausstehend | Login, Logout, Rollen (Admin/Dev/Tester)  | MVP (F1.3)  |
-| **Projekte CRUD**   | ⚠️ Ausstehend | Project-Entity fehlt im Domain Layer!     | MVP (F2.2)  |
+| **Identity/Auth**   | 🚀 Ready     | Login, Logout, Rollen (See #31-#33, #49-#58) | MVP (F1.3)  |
+| **Projekte CRUD**   | 🚀 Ready     | Project-Entity & Base Service (See #34-#36)   | MVP (F2.2)  |
 | **Ticket-Bereich**  | 🏗️ Ausstehend | Anlegen, Liste, Detail, Bearbeiten, Close | MVP (F3)    |
 | **Startseite**      | 🏗️ Ausstehend | Statistiken, Links zu Bereichen           | MVP (F4)    |
 | **Kommentare**      | 🏗️ Ausstehend | Ticket-Kommentare                         | MVP (F5)    |
@@ -655,7 +655,7 @@ Um bei mehreren Entwicklern Chaos zu vermeiden, herrschen strikte Git-Regeln:
   - Pushes sollten nur in den eigenen Layer-Branch (oder zugehörige
     Feature-Branches) erfolgen.
 - **Setup der Git-Regeln:**
-  - Führen Sie nach dem Klonen einmalig das Script `.\scripts\setup-hooks.ps1`
+  - Führen Sie nach dem Klonen einmalig das Script `.\.agent\scripts\setup-hooks.ps1`
     aus (oder nutzen Sie den VS Code Task **"Setup Git Hooks"**), um die
     Schutz-Mechanismen zu aktivieren.
 - **Feature Branching:**

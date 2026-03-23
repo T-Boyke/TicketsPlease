@@ -65,7 +65,15 @@ Wir trennen unsere Test-Suites physisch und logisch.
 
 ---
 
-## 🔬 3. Best Practices & Enterprise Werkzeuge
+## 🛠️ 3. Continuous Quality (DevOps)
+
+Wir integrieren Testing tief in unsere CI/CD-Pipeline:
+- **Dockerized Dev:** MS SQL & Redis via Docker Compose (Siehe #96).
+- **Automated E2E:** Playwright Journeys in GitHub Actions (Siehe #97).
+- **Security Audit:** Statische Analyse via SonarQube Cloud (Siehe #98).
+- **Penetration:** Automatisierte API-Sicherheitstests (Siehe #103).
+
+## 🔬 4. Best Practices & Enterprise Werkzeuge
 
 Was unterscheidet einen guten Test von einem perfekten Test?
 

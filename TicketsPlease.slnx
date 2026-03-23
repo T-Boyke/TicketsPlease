@@ -11,7 +11,7 @@
     <File Path=".config/dotnet-tools.json" />
     <File Path=".config/.prettierrc" />
     <File Path=".config/.markdownlint.json" />
-    <File Path="scripts/setup-hooks.ps1" />
+    <File Path=".agent/scripts/setup-hooks.ps1" />
     <File Path="docs/aufgabe/.gitkeep" />
     <File Path="docs/userstories/.gitkeep" />
   </Folder>

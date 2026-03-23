@@ -14,6 +14,19 @@ description: each time we commit, we check if we completed an issue and commit o
 - **Repository:** `BitLC-NE-2025-2026/TicketsPlease`
 - **Project Board:** [TicketsPlease Kanban](https://github.com/orgs/BitLC-NE-2025-2026/projects/1/views/1)
 - **Assignee:** [T-Boyke](https://github.com/T-Boyke)
+- **Technische Dokumentation:**
+  - [Projekt-Fahrplan (Gantt)](file:///d:/DEV/Tickets/docs/gantt_roadmap.md)
+  - [MVP Feature-Katalog (F1-F9)](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md)
+  - [Architektur-Diagramme (C4/Layer)](file:///d:/DEV/Tickets/docs/architecture_diagrams.md)
+  - [Datenbank-Schema](file:///d:/DEV/Tickets/docs/database_schema.md)
+  - [Domain-Modell: Ticket (Deep Dive)](file:///d:/DEV/Tickets/docs/domain_ticket.md)
+  - [Technologie-Stack (NuGet/Libs)](file:///d:/DEV/Tickets/docs/nuget_stack.md)
+  - [Frontend Assets & UI](file:///d:/DEV/Tickets/docs/frontend_assets.md)
+  - [Entwickler-Setup Guide](file:///d:/DEV/Tickets/docs/dev_setup_guide.md)
+  - [Antigravity Agent Guide](file:///d:/DEV/Tickets/docs/antigravity-guide.md)
+- **Relationships:** Alle Issues müssen **nativ** verknüpft sein (Sidebar "Relationships"). (Siehe #31 für Beispiel).
+  - **Parent:** Epics/Features (z.B. F1) als Parent für Task-Issues.
+  - **Blocked by:** Layer-Abhängigkeiten (Domain -> App -> Infra -> Web).
 
 ## Issue Types
 
@@ -146,11 +159,11 @@ Closes #42
 
 Features werden **strikt per Layer** implementiert:
 
-1. **Domain:** Entity, Value Objects, Enums, Domain Events
+1. **Domain:** Entity, Value Objects, Enums, Domain Events (Ref: `docs/database_schema.md`, `docs/domain_ticket.md`)
 2. **Application:** Commands, Queries, Validators, Handlers
-3. **Infrastructure:** Repositories, EF Configurations, Services
-4. **Web:** Controllers, Views, ViewComponents, Partials
-5. **Tests:** Unit Tests (Domain + Application), Integration Tests
+3. **Infrastructure:** Repositories, EF Configurations, Services (Ref: `docs/nuget_stack.md`)
+4. **Web:** Controllers, Views, ViewComponents, Partials (Ref: `docs/frontend_assets.md`)
+5. **Tests:** Unit Tests (Domain + Application), Integration Tests (Ref: `tests/README.md`)
 
 Jeder Layer-Schritt ist ein **eigenes Sub-Issue** mit eigenem Commit.
 
