@@ -1,6 +1,10 @@
-using TicketsPlease.Application.Common.Interfaces;
+// <copyright file="DefaultCorporateSkinProvider.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace TicketsPlease.Infrastructure.Services;
+
+using TicketsPlease.Application.Common.Interfaces;
 
 /// <summary>
 /// Standard-Implementierung des <see cref="ICorporateSkinProvider"/>.

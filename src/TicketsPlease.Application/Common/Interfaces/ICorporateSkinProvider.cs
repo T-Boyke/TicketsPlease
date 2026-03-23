@@ -1,3 +1,7 @@
+// <copyright file="ICorporateSkinProvider.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 namespace TicketsPlease.Application.Common.Interfaces;
 
 /// <summary>
@@ -9,15 +13,18 @@ public interface ICorporateSkinProvider
   /// <summary>
   /// Ruft die Primärfarbe für das Branding ab (hexadezimal oder CSS-Variable).
   /// </summary>
-  string GetPrimaryColor();
+  /// <returns></returns>
+  public string GetPrimaryColor();
 
   /// <summary>
   /// Ruft die Sekundärfarbe für das Branding ab.
   /// </summary>
-  string GetSecondaryColor();
+  /// <returns></returns>
+  public string GetSecondaryColor();
 
   /// <summary>
   /// Ruft den Namen oder Pfad des Firmenlogos ab.
   /// </summary>
-  string GetLogoName();
+  /// <returns></returns>
+  public string GetLogoName();
 }

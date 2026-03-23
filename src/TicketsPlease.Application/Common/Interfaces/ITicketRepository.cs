@@ -1,6 +1,10 @@
-using TicketsPlease.Domain.Entities;
+// <copyright file="ITicketRepository.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace TicketsPlease.Application.Common.Interfaces;
+
+using TicketsPlease.Domain.Entities;
 
 /// <summary>
 /// Definiert die Datenzugriffsschicht für <see cref="Ticket"/> Entitäten.
@@ -13,26 +17,27 @@ public interface ITicketRepository
   /// <param name="id">Die ID des Tickets.</param>
   /// <param name="ct">Das Abbruchsignal (CancellationToken).</param>
   /// <returns>Das Ticket oder null, falls nicht gefunden.</returns>
-  Task<Ticket?> GetByIdAsync(Guid id, CancellationToken ct = default);
+  public Task<Ticket?> GetByIdAsync(Guid id, CancellationToken ct = default);
 
   /// <summary>
   /// Ruft alle aktiven Tickets ab (Read-only Optimierung).
   /// </summary>
   /// <param name="ct">Das Abbruchsignal.</param>
   /// <returns>Eine Liste von Tickets.</returns>
-  Task<List<Ticket>> GetAllActiveAsync(CancellationToken ct = default);
+  public Task<List<Ticket>> GetAllActiveAsync(CancellationToken ct = default);
 
   /// <summary>
   /// Fügt ein neues Ticket hinzu.
   /// </summary>
   /// <param name="ticket">Das zu speichernde Ticket.</param>
   /// <param name="ct">Das Abbruchsignal.</param>
-  Task AddAsync(Ticket ticket, CancellationToken ct = default);
+  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
+  public Task AddAsync(Ticket ticket, CancellationToken ct = default);
 
   /// <summary>
   /// Speichert sämtliche Änderungen im Kontext persistent ab.
   /// </summary>
   /// <param name="ct">Das Abbruchsignal.</param>
   /// <returns>Anzahl der betroffenen Datensätze.</returns>
-  Task<int> SaveChangesAsync(CancellationToken ct = default);
+  public Task<int> SaveChangesAsync(CancellationToken ct = default);
 }
