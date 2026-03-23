@@ -70,6 +70,9 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
   /// <summary>Gets die Ticket-Tags.</summary>
   public DbSet<TicketTag> TicketTags => this.Set<TicketTag>();
 
+  /// <summary>Gets die Ticket-Verknüpfungen.</summary>
+  public DbSet<TicketLink> TicketLinks => this.Set<TicketLink>();
+
   /// <summary>Gets die Ticket-Zuweisungen.</summary>
   public DbSet<TicketAssignment> TicketAssignments => this.Set<TicketAssignment>();
 
@@ -187,6 +190,30 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
       entity.HasOne(t => t.WorkflowState).WithMany().HasForeignKey(t => t.WorkflowStateId).OnDelete(DeleteBehavior.Restrict);
       entity.HasOne(t => t.Creator).WithMany().HasForeignKey(t => t.CreatorId).OnDelete(DeleteBehavior.Restrict);
       entity.HasOne(t => t.AssignedUser).WithMany().HasForeignKey(t => t.AssignedUserId).OnDelete(DeleteBehavior.Restrict);
+
+      entity.HasOne(t => t.ParentTicket)
+            .WithMany(t => t.SubTickets)
+            .HasForeignKey(t => t.ParentTicketId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+      entity.HasMany(t => t.Tags)
+            .WithOne(tt => tt.Ticket)
+            .HasForeignKey(tt => tt.TicketId);
+    });
+
+    builder.Entity<TicketLink>(entity =>
+    {
+      entity.HasKey(e => e.Id);
+
+      entity.HasOne(e => e.SourceTicket)
+            .WithMany(t => t.Blocking)
+            .HasForeignKey(e => e.SourceTicketId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+      entity.HasOne(e => e.TargetTicket)
+            .WithMany(t => t.BlockedBy)
+            .HasForeignKey(e => e.TargetTicketId)
+            .OnDelete(DeleteBehavior.Restrict);
     });
 
     builder.Entity<TicketTag>(entity =>
