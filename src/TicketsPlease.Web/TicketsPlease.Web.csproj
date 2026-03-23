@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <PropertyGroup Label="Tailwind Properties">
-    <TailwindVersion Condition="'$(GITHUB_ACTIONS)' != 'true'">4.2</TailwindVersion>
-    <TailwindVersion Condition="'$(GITHUB_ACTIONS)' == 'true'">v3.4.17</TailwindVersion>
+    <TailwindVersion Condition="'$(GITHUB_ACTIONS)' != 'true'">v4.2.2</TailwindVersion>
+    <TailwindVersion Condition="'$(GITHUB_ACTIONS)' == 'true'">v4.2.2</TailwindVersion>
     <TailwindInstallPath>$(BaseIntermediateOutputPath)\tailwind-cli\</TailwindInstallPath>
     <TailwindConfigDir>$(MSBuildProjectDirectory)\Tailwind\</TailwindConfigDir>
     <TailwindInputFile>input.css</TailwindInputFile>

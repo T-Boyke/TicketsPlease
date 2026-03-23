@@ -2,12 +2,15 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
+using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Infrastructure.Persistence;
 using TicketsPlease.Infrastructure.Repositories;
 using TicketsPlease.Infrastructure.Services;
-using Scalar.AspNetCore;
+
+[assembly: InternalsVisibleTo("TicketsPlease.IntegrationTests")]
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -80,6 +83,13 @@ await app.RunAsync().ConfigureAwait(false);
 /// <summary>
 /// Ermöglicht den Zugriff auf die Program-Klasse für Integrations-Tests.
 /// </summary>
-internal partial class Program
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1515:Consider making public types internal", Justification = "Required for WebApplicationFactory in IntegrationTests")]
+public partial class Program
 {
+  /// <summary>
+  /// Initializes a new instance of the <see cref="Program"/> class.
+  /// </summary>
+  protected Program()
+  {
+  }
 }

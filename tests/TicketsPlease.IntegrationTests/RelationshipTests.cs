@@ -2,75 +2,82 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace TicketsPlease.IntegrationTests;
-
-using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
-using TicketsPlease.Domain.Entities;
-using TicketsPlease.Infrastructure.Persistence;
-
-/// <summary>
-/// Verifiziert die Datenbank-Beziehungen und Constraints im integrierten System.
-/// Nutzt die SQLite-In-Memory-Datenbank der Basisklasse.
-/// </summary>
-internal class RelationshipTests : IntegrationTestBase
+namespace TicketsPlease.IntegrationTests
 {
-  /// <summary>
-  /// Prüft, ob ein Ticket einem Benutzer korrekt zugewiesen werden kann und die Beziehung persistiert wird.
-  /// </summary>
-  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous unit test.</placeholder></returns>
-  [Fact]
-  public async Task Ticket_Should_Be_Correctly_Assigned_To_User()
-  {
-    // Arrange
-    using var scope = this.Factory.Services.CreateScope();
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-    var user = new User { DisplayName = "Verifikations-User", Email = "verify@example.com" };
-    var ticket = new Ticket { Title = "Beziehungs-Test", Description = "Testet die FK-Integrität" };
-
-    ticket.AssignedUser = user;
-
-    // Act
-    db.Users.Add(user);
-    db.Tickets.Add(ticket);
-    await db.SaveChangesAsync().ConfigureAwait(false);
-
-    // Assert
-    var savedTicket = await db.Tickets
-        .Include(t => t.AssignedUser)
-        .FirstOrDefaultAsync(t => t.Id == ticket.Id).ConfigureAwait(false);
-
-    savedTicket.Should().NotBeNull();
-    savedTicket!.AssignedUserId.Should().Be(user.Id);
-    savedTicket.AssignedUser.Should().NotBeNull();
-    savedTicket.AssignedUser!.DisplayName.Should().Be("Verifikations-User");
-  }
+  using System;
+  using System.Threading.Tasks;
+  using FluentAssertions;
+  using Microsoft.EntityFrameworkCore;
+  using Microsoft.Extensions.DependencyInjection;
+  using TicketsPlease.Domain.Entities;
+  using TicketsPlease.Infrastructure.Persistence;
+  using Xunit;
 
   /// <summary>
-  /// Verifiziert, dass das Löschverhalten (DeleteBehavior.Restrict) eingehalten wird.
-  /// Ein Benutzer darf nicht gelöscht werden, wenn ihm noch Tickets zugewiesen sind.
+  /// Verifiziert die Datenbank-Beziehungen und Constraints im integrierten System.
+  /// Nutzt die SQLite-In-Memory-Datenbank der Basisklasse.
   /// </summary>
-  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous unit test.</placeholder></returns>
-  [Fact]
-  public async Task Deleting_User_With_Tickets_Should_Fail_Due_To_Restrict_Behavior()
+  [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test naming convention")]
+  [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2007:Consider calling ConfigureAwait", Justification = "xUnit tests should not use ConfigureAwait(false)")]
+  public class RelationshipTests : IntegrationTestBase
   {
-    // Arrange
-    using var scope = this.Factory.Services.CreateScope();
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    /// <summary>
+    /// Prüft, ob ein Ticket einem Benutzer korrekt zugewiesen werden kann und die Beziehung persistiert wird.
+    /// </summary>
+    /// <returns>Ein <see cref="Task"/>, der die asynchrone Testausführung repräsentiert.</returns>
+    [Fact]
+    public async Task Ticket_Should_Be_Correctly_Assigned_To_User()
+    {
+      // Arrange
+      using var scope = this.Factory.Services.CreateScope();
+      var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-    var user = new User { DisplayName = "Restrict-User", Email = "restrict@example.com" };
-    var ticket = new Ticket { Title = "Restrict-Test", AssignedUser = user };
+      var user = new User { DisplayName = "Verifikations-User", Email = "verify@example.com" };
+      var ticket = new Ticket { Title = "Beziehungs-Test", Description = "Testet die FK-Integrität" };
 
-    db.Users.Add(user);
-    db.Tickets.Add(ticket);
-    await db.SaveChangesAsync().ConfigureAwait(false);
+      ticket.AssignedUser = user;
 
-    // Act
-    db.Users.Remove(user);
+      // Act
+      db.Users.Add(user);
+      db.Tickets.Add(ticket);
+      await db.SaveChangesAsync();
 
-    // Assert: Bei SQLite wird der Constraint-Verstoß oft erst beim SaveChanges ausgelöst
-    var act = async () => await db.SaveChangesAsync().ConfigureAwait(false);
-    await act.Should().ThrowAsync<Exception>().ConfigureAwait(false); // SQLite oder EF Core wirft hier eine DbUpdateException oder ähnliches
+      // Assert
+      var savedTicket = await db.Tickets
+          .Include(t => t.AssignedUser)
+          .FirstOrDefaultAsync(t => t.Id == ticket.Id);
+
+      savedTicket.Should().NotBeNull();
+      savedTicket!.AssignedUserId.Should().Be(user.Id);
+      savedTicket.AssignedUser.Should().NotBeNull();
+      savedTicket.AssignedUser!.DisplayName.Should().Be("Verifikations-User");
+    }
+
+    /// <summary>
+    /// Verifiziert, dass das Löschverhalten (DeleteBehavior.Restrict) eingehalten wird.
+    /// Ein Benutzer darf nicht gelöscht werden, wenn ihm noch Tickets zugewiesen sind.
+    /// </summary>
+    /// <returns>Ein <see cref="Task"/>, der die asynchrone Testausführung repräsentiert.</returns>
+    [Fact]
+    public async Task Deleting_User_With_Tickets_Should_Fail_Due_To_Restrict_Behavior()
+    {
+      // Arrange
+      using var scope = this.Factory.Services.CreateScope();
+      var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+      var user = new User { DisplayName = "Restrict-User", Email = "restrict@example.com" };
+      var ticket = new Ticket { Title = "Restrict-Test", AssignedUser = user };
+
+      db.Users.Add(user);
+      db.Tickets.Add(ticket);
+      await db.SaveChangesAsync();
+
+      // Act
+      db.Users.Remove(user);
+
+      // Assert: Bei SQLite wird der Constraint-Verstoß oft erst beim SaveChanges ausgelöst
+      var act = async () => await db.SaveChangesAsync();
+      await act.Should().ThrowAsync<Exception>(); // SQLite oder EF Core wirft hier eine DbUpdateException oder ähnliches
+    }
   }
 }
