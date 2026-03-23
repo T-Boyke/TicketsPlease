@@ -10,7 +10,7 @@ using TicketsPlease.Domain.Common;
 /// <summary>
 /// Repräsentiert das detaillierte Profil eines Benutzers mit persönlichen Daten.
 /// </summary>
-public class UserProfile : BaseEntity
+public class UserProfile : BaseAuditableEntity
 {
   /// <summary>
   /// Gets or sets die ID des zugehörigen Benutzers.
@@ -62,18 +62,5 @@ public class UserProfile : BaseEntity
   /// </summary>
   public FileAsset? AvatarImage { get; set; }
 
-  /// <summary>
-  /// Gets or sets den Zeitpunkt (UTC) der letzten Profilaktualisierung.
-  /// </summary>
-  public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-  /// <summary>
-  /// Gets or sets den Fremdschlüssel zum Mandanten (TenantId).
-  /// </summary>
-  public Guid TenantId { get; set; }
-
-  /// <summary>
-  /// Gets or sets das zugehörige Mandanten-Objekt.
-  /// </summary>
-  public virtual Organization? Tenant { get; set; }
 }

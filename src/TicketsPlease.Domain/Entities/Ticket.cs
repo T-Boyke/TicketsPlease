@@ -11,7 +11,7 @@ using TicketsPlease.Domain.Common;
 /// Repräsentiert ein Ticket (Aufgabe) im Kanban-System.
 /// Erbt von <see cref="BaseEntity"/> für die ID und Nebenläufigkeitskontrolle.
 /// </summary>
-public class Ticket : BaseEntity
+public class Ticket : BaseAuditableEntity
 {
   /// <summary>
   /// Initializes a new instance of the <see cref="Ticket"/> class.
@@ -141,15 +141,6 @@ public class Ticket : BaseEntity
   /// </summary>
   public User? Creator { get; private set; }
 
-  /// <summary>
-  /// Gets den Erstellungszeitpunkt.
-  /// </summary>
-  public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
-
-  /// <summary>
-  /// Gets den Zeitpunkt der letzten Änderung.
-  /// </summary>
-  public DateTime? UpdatedAt { get; private set; }
 
   /// <summary>
   /// Gets die ID des Benutzers, dem das Ticket zugewiesen ist (Nullable).

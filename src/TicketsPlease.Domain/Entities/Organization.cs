@@ -10,7 +10,7 @@ using TicketsPlease.Domain.Common;
 /// <summary>
 /// Repräsentiert eine Kundenorganisation oder ein Mandantenunternehmen.
 /// </summary>
-public class Organization : BaseEntity
+public class Organization : BaseAuditableEntity
 {
   /// <summary>
   /// Gets or sets den Namen der Organisation.
@@ -21,11 +21,6 @@ public class Organization : BaseEntity
   /// Gets or sets das aktuelle Abonnement-Level der Organisation (z.B. Trial, Basic, Premium).
   /// </summary>
   public string SubscriptionLevel { get; set; } = "Trial";
-
-  /// <summary>
-  /// Gets or sets den Zeitpunkt (UTC), an dem die Organisation dem System beigetreten ist.
-  /// </summary>
-  public DateTime JoinedAt { get; set; } = DateTime.UtcNow;
 
   /// <summary>
   /// Gets or sets a value indicating whether die Organisation aktiv ist und Zugriff auf das System hat.

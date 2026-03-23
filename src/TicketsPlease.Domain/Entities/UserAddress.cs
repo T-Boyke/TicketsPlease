@@ -10,7 +10,7 @@ using TicketsPlease.Domain.Common;
 /// <summary>
 /// Repräsentiert die postalische Adresse eines Benutzers.
 /// </summary>
-public class UserAddress : BaseEntity
+public class UserAddress : BaseAuditableEntity
 {
   /// <summary>
   /// Gets or sets die ID des zugehörigen Benutzers.
@@ -42,13 +42,4 @@ public class UserAddress : BaseEntity
   /// </summary>
   public string Country { get; set; } = string.Empty;
 
-  /// <summary>
-  /// Gets or sets den Fremdschlüssel zum Mandanten (TenantId).
-  /// </summary>
-  public Guid TenantId { get; set; }
-
-  /// <summary>
-  /// Gets or sets das zugehörige Mandanten-Objekt.
-  /// </summary>
-  public virtual Organization? Tenant { get; set; }
 }

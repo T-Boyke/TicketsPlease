@@ -13,7 +13,7 @@ using TicketsPlease.Domain.Common;
 /// Repräsentiert einen Benutzer im Ticketsystem.
 /// Erbt von <see cref="IdentityUser{TKey}"/> für ASP.NET Core Identity Integration.
 /// </summary>
-public class User : IdentityUser<Guid>
+public class User : IdentityUser<Guid>, IBaseEntity
 {
   /// <summary>
   /// Gets or sets den Login-Namen (Alias for UserName).
@@ -47,6 +47,16 @@ public class User : IdentityUser<Guid>
   public Guid TenantId { get; set; }
 
   /// <summary>
+  /// Gets or sets a value indicating whether die Entität gelöscht wurde (Soft-Delete).
+  /// </summary>
+  public bool IsDeleted { get; set; }
+
+  /// <summary>
+  /// Gets or sets den Zeitpunkt des Soft-Deletes.
+  /// </summary>
+  public DateTime? DeletedAt { get; set; }
+
+  /// <summary>
   /// Gets or sets die Version für die Nebenläufigkeitskontrolle.
   /// </summary>
   public byte[] RowVersion { get; set; } = Array.Empty<byte>();
@@ -65,4 +75,31 @@ public class User : IdentityUser<Guid>
   /// Gets or sets das zugehörige Benutzerprofil (1:1).
   /// </summary>
   public virtual UserProfile? Profile { get; set; }
+
+  /// <summary>
+  /// Eine Liste von Domain-Events, die von dieser Entität ausgelöst wurden.
+  /// </summary>
+  private readonly List<IDomainEvent> domainEvents = new();
+
+  /// <summary>
+  /// Gets die Liste der Domain-Events (Read-Only).
+  /// </summary>
+  public IReadOnlyCollection<IDomainEvent> DomainEvents => this.domainEvents.AsReadOnly();
+
+  /// <summary>
+  /// Fügt ein Domain-Event hinzu.
+  /// </summary>
+  /// <param name="domainEvent">Das hinzuzufügende Event.</param>
+  public void AddDomainEvent(IDomainEvent domainEvent) => this.domainEvents.Add(domainEvent);
+
+  /// <summary>
+  /// Entfernt ein Domain-Event.
+  /// </summary>
+  /// <param name="domainEvent">Das zu entfernende Event.</param>
+  public void RemoveDomainEvent(IDomainEvent domainEvent) => this.domainEvents.Remove(domainEvent);
+
+  /// <summary>
+  /// Leert die Liste der Domain-Events.
+  /// </summary>
+  public void ClearDomainEvents() => this.domainEvents.Clear();
 }
