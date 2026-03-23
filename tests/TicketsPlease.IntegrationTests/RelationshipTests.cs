@@ -32,13 +32,23 @@ public class RelationshipTests : IntegrationTestBase
     using var scope = this.Factory.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-    var user = new User { DisplayName = "Verifikations-User", Email = "verify@example.com" };
-    var ticket = new Ticket { Title = "Beziehungs-Test", Description = "Testet die FK-Integrität" };
+    await SeedMinimalAsync(db);
+    var roleId = (await db.Roles.FirstAsync()).Id;
+    var priorityId = (await db.TicketPriorities.FirstAsync()).Id;
+    var workflowStateId = (await db.WorkflowStates.FirstAsync()).Id;
 
-    ticket.AssignedUser = user;
+    var user = new User { DisplayName = "Verifikations-User", Email = "verify@example.com", RoleId = roleId };
+    var ticket = new Ticket
+    {
+      Title = "Beziehungs-Test",
+      Description = "Testet die FK-Integrität",
+      PriorityId = priorityId,
+      WorkflowStateId = workflowStateId,
+      Creator = user,
+      AssignedUser = user
+    };
 
     // Act
-    db.Users.Add(user);
     db.Tickets.Add(ticket);
     await db.SaveChangesAsync();
 
@@ -65,10 +75,21 @@ public class RelationshipTests : IntegrationTestBase
     using var scope = this.Factory.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-    var user = new User { DisplayName = "Restrict-User", Email = "restrict@example.com" };
-    var ticket = new Ticket { Title = "Restrict-Test", AssignedUser = user };
+    await SeedMinimalAsync(db);
+    var roleId = (await db.Roles.FirstAsync()).Id;
+    var priorityId = (await db.TicketPriorities.FirstAsync()).Id;
+    var workflowStateId = (await db.WorkflowStates.FirstAsync()).Id;
 
-    db.Users.Add(user);
+    var user = new User { DisplayName = "Restrict-User", Email = "restrict@example.com", RoleId = roleId };
+    var ticket = new Ticket
+    {
+      Title = "Restrict-Test",
+      AssignedUser = user,
+      Creator = user,
+      PriorityId = priorityId,
+      WorkflowStateId = workflowStateId
+    };
+
     db.Tickets.Add(ticket);
     await db.SaveChangesAsync();
 
