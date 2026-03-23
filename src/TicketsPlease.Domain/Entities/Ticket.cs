@@ -14,117 +14,269 @@ using TicketsPlease.Domain.Common;
 public class Ticket : BaseEntity
 {
   /// <summary>
-  /// Gets or sets den Titel des Tickets.
+  /// Initializes a new instance of the <see cref="Ticket"/> class.
   /// </summary>
-  public string Title { get; set; } = string.Empty;
+  /// <param name="title">Der Titel des Tickets.</param>
+  /// <param name="projectId">Die ID des Projekts.</param>
+  /// <param name="creatorId">Die ID des Erstellers.</param>
+  /// <param name="workflowStateId">Die ID des initialen Status.</param>
+  /// <param name="geoIpTimestamp">Der GeoIP-Zeitstempel für Audits.</param>
+  public Ticket(string title, Guid projectId, Guid creatorId, Guid workflowStateId, string geoIpTimestamp)
+  {
+    if (string.IsNullOrWhiteSpace(title))
+    {
+      throw new ArgumentException("Titel darf nicht leer sein.", nameof(title));
+    }
+
+    this.Title = title;
+    this.ProjectId = projectId;
+    this.CreatorId = creatorId;
+    this.WorkflowStateId = workflowStateId;
+    this.GeoIpTimestamp = geoIpTimestamp ?? string.Empty;
+    this.CreatedAt = DateTime.UtcNow;
+    this.Status = "Todo";
+    this.Sha1Hash = this.GenerateSha1Hash();
+  }
 
   /// <summary>
-  /// Gets or sets den SHA1-Hash zur eindeutigen Identifizierung.
+  /// Initializes a new instance of the <see cref="Ticket"/> class.
+  /// Required for EF Core.
   /// </summary>
-  public string Sha1Hash { get; set; } = string.Empty;
+  private Ticket()
+  {
+  }
 
   /// <summary>
-  /// Gets or sets die detaillierte Beschreibung des Tickets.
+  /// Gets den Titel des Tickets.
   /// </summary>
-  public string Description { get; set; } = string.Empty;
+  public string Title { get; private set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets die Beschreibung im Markdown-Format.
+  /// Gets den SHA1-Hash zur eindeutigen Identifizierung.
   /// </summary>
-  public string DescriptionMarkdown { get; set; } = string.Empty;
+  public string Sha1Hash { get; private set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets den Status des Tickets (z.B. To-Do, Doing, Done).
+  /// Gets die detaillierte Beschreibung des Tickets.
   /// </summary>
-  public string Status { get; set; } = "Todo";
+  public string Description { get; private set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets die ID der Priorität.
+  /// Gets die Beschreibung im Markdown-Format.
   /// </summary>
-  public Guid PriorityId { get; set; }
+  public string DescriptionMarkdown { get; private set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets das Navigation-Property zur Priorität.
+  /// Gets den Status des Tickets (z.B. To-Do, Doing, Done).
   /// </summary>
-  public TicketPriority? Priority { get; set; }
+  public string Status { get; private set; } = "Todo";
 
   /// <summary>
-  /// Gets or sets die Schwierigkeit (1-5 Chilis).
+  /// Gets die ID der Priorität.
   /// </summary>
-  public int ChilliesDifficulty { get; set; }
+  public Guid PriorityId { get; private set; }
 
   /// <summary>
-  /// Gets or sets den GeoIP-Zeitstempel für Audits.
+  /// Gets das Navigation-Property zur Priorität.
   /// </summary>
-  public string GeoIpTimestamp { get; set; } = string.Empty;
+  public TicketPriority? Priority { get; private set; }
 
   /// <summary>
-  /// Gets or sets den geplanten Startzeitpunkt.
+  /// Gets die Schwierigkeit (1-5 Chilis).
   /// </summary>
-  public DateTime? StartDate { get; set; }
+  public int ChilliesDifficulty { get; private set; }
 
   /// <summary>
-  /// Gets or sets die Deadline.
+  /// Gets den GeoIP-Zeitstempel für Audits.
   /// </summary>
-  public DateTime? Deadline { get; set; }
+  public string GeoIpTimestamp { get; private set; } = string.Empty;
 
   /// <summary>
-  /// Gets or sets die ID des Projekts, dem das Ticket zugeordnet ist.
+  /// Gets den geplanten Startzeitpunkt.
   /// </summary>
-  public Guid ProjectId { get; set; }
+  public DateTime? StartDate { get; private set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property zum Projekt.
+  /// Gets die Deadline.
   /// </summary>
-  public Project? Project { get; set; }
+  public DateTime? Deadline { get; private set; }
 
   /// <summary>
-  /// Gets or sets die ID des zugeordneten Workflows.
+  /// Gets die ID des Projekts, dem das Ticket zugeordnet ist.
   /// </summary>
-  public Guid? WorkflowId { get; set; }
+  public Guid ProjectId { get; private set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property zum Workflow.
+  /// Gets das Navigation-Property zum Projekt.
   /// </summary>
-  public Workflow? Workflow { get; set; }
+  public Project? Project { get; private set; }
 
   /// <summary>
-  /// Gets or sets die ID des Workflow-Status.
+  /// Gets die ID des zugeordneten Workflows.
   /// </summary>
-  public Guid WorkflowStateId { get; set; }
+  public Guid? WorkflowId { get; private set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property zum Workflow-Status.
+  /// Gets das Navigation-Property zum Workflow.
   /// </summary>
-  public WorkflowState? WorkflowState { get; set; }
+  public Workflow? Workflow { get; private set; }
 
   /// <summary>
-  /// Gets or sets die ID des Erstellers.
+  /// Gets die ID des Workflow-Status.
   /// </summary>
-  public Guid CreatorId { get; set; }
+  public Guid WorkflowStateId { get; private set; }
 
   /// <summary>
-  /// Gets or sets das Navigation-Property zum Ersteller.
+  /// Gets das Navigation-Property zum Workflow-Status.
   /// </summary>
-  public User? Creator { get; set; }
+  public WorkflowState? WorkflowState { get; private set; }
 
   /// <summary>
-  /// Gets or sets den Erstellungszeitpunkt.
+  /// Gets die ID des Erstellers.
   /// </summary>
-  public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+  public Guid CreatorId { get; private set; }
 
   /// <summary>
-  /// Gets or sets den Zeitpunkt der letzten Änderung.
+  /// Gets das Navigation-Property zum Ersteller.
   /// </summary>
-  public DateTime? UpdatedAt { get; set; }
+  public User? Creator { get; private set; }
 
   /// <summary>
-  /// Gets or sets die ID des Benutzers, dem das Ticket zugewiesen ist (Nullable).
+  /// Gets den Erstellungszeitpunkt.
   /// </summary>
-  public Guid? AssignedUserId { get; set; }
+  public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
 
   /// <summary>
-  /// Gets or sets das Navigation-Property zum zugewiesenen Benutzer.
+  /// Gets den Zeitpunkt der letzten Änderung.
   /// </summary>
-  public User? AssignedUser { get; set; }
+  public DateTime? UpdatedAt { get; private set; }
+
+  /// <summary>
+  /// Gets die ID des Benutzers, dem das Ticket zugewiesen ist (Nullable).
+  /// </summary>
+  public Guid? AssignedUserId { get; private set; }
+
+  /// <summary>
+  /// Gets das Navigation-Property zum zugewiesenen Benutzer.
+  /// </summary>
+  public User? AssignedUser { get; private set; }
+
+  /// <summary>
+  /// Gets den Zeitpunkt (UTC), zu dem das Ticket geschlossen wurde.
+  /// </summary>
+  public DateTime? ClosedAt { get; private set; }
+
+  /// <summary>
+  /// Gets die ID des Benutzers, der das Ticket geschlossen hat.
+  /// </summary>
+  public Guid? ClosedByUserId { get; private set; }
+
+  /// <summary>
+  /// Aktualisiert den Titel des Tickets.
+  /// </summary>
+  /// <param name="title">Der neue Titel.</param>
+  public void UpdateTitle(string title)
+  {
+    if (string.IsNullOrWhiteSpace(title))
+    {
+      throw new ArgumentException("Titel darf nicht leer sein.", nameof(title));
+    }
+
+    this.Title = title;
+    this.UpdatedAt = DateTime.UtcNow;
+  }
+
+  /// <summary>
+  /// Aktualisiert die Beschreibung des Tickets.
+  /// </summary>
+  /// <param name="description">Die einfache Beschreibung.</param>
+  /// <param name="markdown">Die Markdown-Beschreibung.</param>
+  public void UpdateDescription(string description, string markdown)
+  {
+    this.Description = description;
+    this.DescriptionMarkdown = markdown;
+    this.UpdatedAt = DateTime.UtcNow;
+  }
+
+  /// <summary>
+  /// Verschiebt das Ticket in einen neuen Workflow-Status.
+  /// </summary>
+  /// <param name="workspaceStateId">Die ID des neuen Status.</param>
+  public void MoveToState(Guid workspaceStateId)
+  {
+    this.WorkflowStateId = workspaceStateId;
+    this.UpdatedAt = DateTime.UtcNow;
+  }
+
+  /// <summary>
+  /// Weist das Ticket einem Benutzer zu.
+  /// </summary>
+  /// <param name="userId">Die ID des Benutzers oder null.</param>
+  public void AssignUser(Guid? userId)
+  {
+    this.AssignedUserId = userId;
+    this.UpdatedAt = DateTime.UtcNow;
+  }
+
+  /// <summary>
+  /// Setzt die Priorität des Tickets.
+  /// </summary>
+  /// <param name="priorityId">Die ID der Priorität.</param>
+  public void SetPriority(Guid priorityId)
+  {
+    this.PriorityId = priorityId;
+    this.UpdatedAt = DateTime.UtcNow;
+  }
+
+  /// <summary>
+  /// Schließt das Ticket.
+  /// (Regel F3.4: Nur Admin, Ersteller oder Zugewiesener dürfen schließen).
+  /// </summary>
+  /// <param name="actorId">Die ID des handelnden Benutzers.</param>
+  /// <param name="isAdmin">Gibt an, ob der Benutzer Admin-Rechte hat.</param>
+  public void Close(Guid actorId, bool isAdmin)
+  {
+    if (!isAdmin && actorId != this.CreatorId && actorId != this.AssignedUserId)
+    {
+      throw new InvalidOperationException("Nur der Admin, der Ersteller oder der zugewiesene Benutzer dürfen das Ticket schließen.");
+    }
+
+    this.ClosedAt = DateTime.UtcNow;
+    this.ClosedByUserId = actorId;
+    this.Status = "Closed";
+    this.UpdatedAt = DateTime.UtcNow;
+  }
+
+  /// <summary>
+  /// Setzt die Schwierigkeit des Tickets.
+  /// </summary>
+  /// <param name="difficulty">Die Schwierigkeit (1-5).</param>
+  public void SetDifficulty(int difficulty)
+  {
+    if (difficulty < 1 || difficulty > 5)
+    {
+      throw new ArgumentOutOfRangeException(nameof(difficulty), "Schwierigkeit muss zwischen 1 und 5 liegen.");
+    }
+
+    this.ChilliesDifficulty = difficulty;
+    this.UpdatedAt = DateTime.UtcNow;
+  }
+
+  /// <summary>
+  /// Setzt den Mandanten des Tickets (Multi-Tenancy).
+  /// </summary>
+  /// <param name="tenantId">Die ID des Mandanten.</param>
+  public void SetTenantId(Guid tenantId)
+  {
+    this.TenantId = tenantId;
+    this.UpdatedAt = DateTime.UtcNow;
+  }
+
+  private string GenerateSha1Hash()
+  {
+    // Echter SHA1 Hash für den Domain Hash (40 Zeichen Hex)
+    var raw = $"{this.ProjectId}-{this.CreatorId}-{this.CreatedAt.Ticks}-{Guid.NewGuid()}";
+    var hashBytes = System.Security.Cryptography.SHA1.HashData(System.Text.Encoding.UTF8.GetBytes(raw));
+    return Convert.ToHexString(hashBytes).ToLowerInvariant();
+  }
 }

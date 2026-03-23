@@ -42,4 +42,31 @@ public abstract class BaseEntity
   [Timestamp]
   public byte[] RowVersion { get; set; } = Array.Empty<byte>();
 #pragma warning restore CA1819 // Properties should not return arrays
+
+  /// <summary>
+  /// Eine Liste von Domain-Events, die von dieser Entität ausgelöst wurden.
+  /// </summary>
+  private readonly List<object> domainEvents = new();
+
+  /// <summary>
+  /// Gets die Liste der Domain-Events (Read-Only).
+  /// </summary>
+  public IReadOnlyCollection<object> DomainEvents => this.domainEvents.AsReadOnly();
+
+  /// <summary>
+  /// Fügt ein Domain-Event hinzu.
+  /// </summary>
+  /// <param name="domainEvent">Das hinzuzufügende Event.</param>
+  public void AddDomainEvent(object domainEvent) => this.domainEvents.Add(domainEvent);
+
+  /// <summary>
+  /// Entfernt ein Domain-Event.
+  /// </summary>
+  /// <param name="domainEvent">Das zu entfernende Event.</param>
+  public void RemoveDomainEvent(object domainEvent) => this.domainEvents.Remove(domainEvent);
+
+  /// <summary>
+  /// Leert die Liste der Domain-Events.
+  /// </summary>
+  public void ClearDomainEvents() => this.domainEvents.Clear();
 }

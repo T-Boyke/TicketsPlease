@@ -41,4 +41,14 @@ public class UserAddress : BaseEntity
   /// Gets or sets das Land.
   /// </summary>
   public string Country { get; set; } = string.Empty;
+
+  /// <summary>
+  /// Gets or sets den Fremdschlüssel zum Mandanten (TenantId).
+  /// </summary>
+  public Guid TenantId { get; set; }
+
+  /// <summary>
+  /// Gets or sets das zugehörige Mandanten-Objekt.
+  /// </summary>
+  public virtual Organization? Tenant { get; set; }
 }

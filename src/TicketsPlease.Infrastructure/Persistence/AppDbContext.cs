@@ -4,6 +4,7 @@
 
 namespace TicketsPlease.Infrastructure.Persistence;
 
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Domain.Common;
 using TicketsPlease.Domain.Entities;
@@ -12,7 +13,7 @@ using TicketsPlease.Domain.Entities;
 /// Der zentrale Datenbankkontext der Anwendung.
 /// Verwaltet die Persistenz der User- und Ticket-Entitäten.
 /// </summary>
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityDbContext<User, Role, Guid>
 {
   /// <summary>
   /// Initializes a new instance of the <see cref="AppDbContext"/> class.
@@ -25,9 +26,14 @@ public class AppDbContext : DbContext
   }
 
   /// <summary>
-  /// Gets ruft die Menge der Benutzer ab oder legt diese fest.
+  /// Gets ruft die Menge der Projekte ab oder legt diese fest.
   /// </summary>
-  public DbSet<User> Users => this.Set<User>();
+  public DbSet<Project> Projects => this.Set<Project>();
+
+  /// <summary>
+  /// Gets ruft die Menge der Workflows ab oder legt diese fest.
+  /// </summary>
+  public DbSet<Workflow> Workflows => this.Set<Workflow>();
 
   /// <summary>
   /// Gets ruft die Menge der Tickets ab oder legt diese fest.
@@ -36,9 +42,6 @@ public class AppDbContext : DbContext
 
   /// <summary>Gets die Organisationen.</summary>
   public DbSet<Organization> Organizations => this.Set<Organization>();
-
-  /// <summary>Gets die Rollen.</summary>
-  public DbSet<Role> Roles => this.Set<Role>();
 
   /// <summary>Gets die Benutzerprofile.</summary>
   public DbSet<UserProfile> UserProfiles => this.Set<UserProfile>();
@@ -110,120 +113,117 @@ public class AppDbContext : DbContext
   /// Konfiguriert das Modell und die Datenbank-Mappings.
   /// Hier wird die explizite Konfiguration für Nebenläufigkeit und Tabellennamen vorgenommen.
   /// </summary>
-  /// <param name="modelBuilder">Der Builder für die Modellkonfiguration.</param>
-  protected override void OnModelCreating(ModelBuilder modelBuilder)
+  /// <param name="builder">Der Builder für die Modellkonfiguration.</param>
+  protected override void OnModelCreating(ModelBuilder builder)
   {
-    ArgumentNullException.ThrowIfNull(modelBuilder);
-    base.OnModelCreating(modelBuilder);
+    ArgumentNullException.ThrowIfNull(builder);
+    base.OnModelCreating(builder);
 
     // Global Configuration for RowVersion (Concurrency)
-    var entityTypes = modelBuilder.Model.GetEntityTypes()
-        .Where(e => typeof(BaseEntity).IsAssignableFrom(e.ClrType))
+    var entityTypes = builder.Model.GetEntityTypes()
+        .Where(e => typeof(BaseEntity).IsAssignableFrom(e.ClrType) || e.ClrType == typeof(User) || e.ClrType == typeof(Role))
         .Select(e => e.ClrType);
 
     foreach (var type in entityTypes)
     {
       if (this.Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
       {
-        // SQLite does not support IsRowVersion() / TIMESTAMP columns with automatic increment.
-        // We must override the [Timestamp] attribute from BaseEntity by explicitly setting ValueGeneratedNever()
-        // and disabling the concurrency token behavior for the test provider to avoid "NOT NULL" failures.
-        modelBuilder.Entity(type).Property("RowVersion").ValueGeneratedNever();
+        builder.Entity(type).Property("RowVersion").ValueGeneratedNever();
       }
       else
       {
-        modelBuilder.Entity(type).Property("RowVersion").IsRowVersion();
+        builder.Entity(type).Property("RowVersion").IsRowVersion();
       }
 
-      modelBuilder.Entity(type).HasQueryFilter(ConvertFilterExpression(type));
+      if (typeof(BaseEntity).IsAssignableFrom(type))
+      {
+          builder.Entity(type).HasQueryFilter(ConvertFilterExpression(type));
+      }
     }
 
     // --- Identity & IAM ---
-    modelBuilder.Entity<User>(entity =>
+    builder.Entity<User>(entity =>
     {
-      entity.HasKey(e => e.Id);
-      entity.Property(e => e.DisplayName).IsRequired().HasMaxLength(100);
-      entity.Property(e => e.Username).IsRequired().HasMaxLength(50);
-      entity.Property(e => e.Email).IsRequired().HasMaxLength(255);
-      entity.HasIndex(e => e.Username).IsUnique();
-      entity.HasIndex(e => e.Email).IsUnique();
-
       entity.HasOne(e => e.Role)
                 .WithMany()
                 .HasForeignKey(e => e.RoleId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+      entity.HasOne(e => e.Profile)
+                .WithOne(p => p.User)
+                .HasForeignKey<UserProfile>(p => p.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
     });
 
-    modelBuilder.Entity<UserProfile>(entity =>
+    // --- Projects & Workflows ---
+    builder.Entity<Project>(entity =>
     {
-      entity.HasKey(e => e.UserId);
-      entity.HasOne(e => e.User).WithOne().HasForeignKey<UserProfile>(e => e.UserId);
-      entity.Property(e => e.FirstName).IsRequired().HasMaxLength(100);
+        entity.HasKey(e => e.Id);
+        entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
+        entity.HasOne(e => e.Workflow).WithMany(w => w.Projects).HasForeignKey(e => e.WorkflowId).OnDelete(DeleteBehavior.Restrict);
     });
 
-    modelBuilder.Entity<UserAddress>(entity =>
+    builder.Entity<Workflow>(entity =>
     {
-      entity.HasKey(e => e.UserId);
-      entity.HasOne(e => e.User).WithOne().HasForeignKey<UserAddress>(e => e.UserId);
+        entity.HasKey(e => e.Id);
+        entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
     });
 
-    // --- Teams ---
-    modelBuilder.Entity<TeamMember>(entity =>
+    builder.Entity<WorkflowState>(entity =>
     {
-      entity.HasKey(e => new { e.TeamId, e.UserId });
-      entity.HasOne(e => e.Team).WithMany().HasForeignKey(e => e.TeamId);
-      entity.HasOne(e => e.User).WithMany().HasForeignKey(e => e.UserId);
+        entity.HasOne(e => e.Workflow).WithMany(w => w.States).HasForeignKey(e => e.WorkflowId).OnDelete(DeleteBehavior.Cascade);
     });
 
     // --- Ticket Core ---
-    modelBuilder.Entity<Ticket>(entity =>
+    builder.Entity<Ticket>(entity =>
     {
       entity.HasKey(e => e.Id);
       entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
       entity.Property(e => e.Sha1Hash).IsRequired().HasMaxLength(40);
       entity.HasIndex(e => e.Sha1Hash).IsUnique();
 
+      entity.HasOne(t => t.Project).WithMany(p => p.Tickets).HasForeignKey(t => t.ProjectId).OnDelete(DeleteBehavior.Restrict);
       entity.HasOne(t => t.Priority).WithMany().HasForeignKey(t => t.PriorityId).OnDelete(DeleteBehavior.Restrict);
       entity.HasOne(t => t.WorkflowState).WithMany().HasForeignKey(t => t.WorkflowStateId).OnDelete(DeleteBehavior.Restrict);
       entity.HasOne(t => t.Creator).WithMany().HasForeignKey(t => t.CreatorId).OnDelete(DeleteBehavior.Restrict);
       entity.HasOne(t => t.AssignedUser).WithMany().HasForeignKey(t => t.AssignedUserId).OnDelete(DeleteBehavior.Restrict);
     });
 
-    modelBuilder.Entity<TicketTag>(entity =>
+    builder.Entity<TicketTag>(entity =>
     {
       entity.HasKey(e => new { e.TicketId, e.TagId });
     });
 
-    modelBuilder.Entity<TicketAssignment>(entity =>
+    builder.Entity<TicketAssignment>(entity =>
     {
-      entity.HasOne(e => e.Ticket).WithMany().HasForeignKey(e => e.TicketId);
+      builder.Entity<TicketAssignment>().HasOne(e => e.Ticket).WithMany().HasForeignKey(e => e.TicketId);
     });
 
-    modelBuilder.Entity<TicketUpvote>(entity =>
+    builder.Entity<TicketUpvote>(entity =>
     {
       entity.HasKey(e => new { e.TicketId, e.UserId });
     });
 
-    // --- Workflow ---
-    modelBuilder.Entity<WorkflowTransition>(entity =>
+    // --- Workflow Transitions ---
+    builder.Entity<WorkflowTransition>(entity =>
     {
       entity.HasKey(e => new { e.FromStateId, e.ToStateId });
     });
 
     // --- Communication ---
-    modelBuilder.Entity<Message>(entity =>
+    builder.Entity<Message>(entity =>
     {
-      entity.HasOne(e => e.SenderUser).WithMany().HasForeignKey(e => e.SenderUserId).OnDelete(DeleteBehavior.Restrict);
-      entity.HasOne(e => e.ReceiverUser).WithMany().HasForeignKey(e => e.ReceiverUserId).OnDelete(DeleteBehavior.Restrict);
+      builder.Entity<Message>().HasOne(e => e.SenderUser).WithMany().HasForeignKey(e => e.SenderUserId).OnDelete(DeleteBehavior.Restrict);
+      builder.Entity<Message>().HasOne(e => e.ReceiverUser).WithMany().HasForeignKey(e => e.ReceiverUserId).OnDelete(DeleteBehavior.Restrict);
     });
 
-    modelBuilder.Entity<MessageReadReceipt>(entity =>
+    builder.Entity<MessageReadReceipt>(entity =>
     {
       entity.HasKey(e => new { e.MessageId, e.UserId });
     });
 
     // --- Custom Fields ---
-    modelBuilder.Entity<TicketCustomValue>(entity =>
+    builder.Entity<TicketCustomValue>(entity =>
     {
       entity.HasKey(e => new { e.TicketId, e.FieldDefinitionId });
     });

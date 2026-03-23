@@ -37,16 +37,29 @@ public class RelationshipTests : IntegrationTestBase
     var priorityId = (await db.TicketPriorities.FirstAsync()).Id;
     var workflowStateId = (await db.WorkflowStates.FirstAsync()).Id;
 
-    var user = new User { DisplayName = "Verifikations-User", Email = "verify@example.com", RoleId = roleId };
-    var ticket = new Ticket
-    {
-      Title = "Beziehungs-Test",
-      Description = "Testet die FK-Integrität",
-      PriorityId = priorityId,
-      WorkflowStateId = workflowStateId,
-      Creator = user,
-      AssignedUser = user,
+    var project = await db.Projects.FirstAsync();
+
+    var userId = Guid.NewGuid();
+    var user = new User 
+    { 
+      Id = userId, 
+      UserName = "verify@example.com", 
+      NormalizedUserName = "VERIFY@EXAMPLE.COM",
+      Email = "verify@example.com", 
+      NormalizedEmail = "VERIFY@EXAMPLE.COM",
+      RoleId = roleId, 
+      TenantId = project.TenantId 
     };
+    user.Profile = new UserProfile { UserId = userId, FirstName = "Verifikations", LastName = "User", TenantId = project.TenantId };
+    
+    db.Users.Add(user);
+    await db.SaveChangesAsync();
+    
+    var ticket = new Ticket("Beziehungs-Test", project.Id, user.Id, workflowStateId, "127.0.0.1");
+    ticket.UpdateDescription("Testet die FK-Integrität", "Testet die FK-Integrität");
+    ticket.SetPriority(priorityId);
+    ticket.AssignUser(user.Id);
+    ticket.SetTenantId(project.TenantId);
 
     // Act
     db.Tickets.Add(ticket);
@@ -55,12 +68,14 @@ public class RelationshipTests : IntegrationTestBase
     // Assert
     var savedTicket = await db.Tickets
         .Include(t => t.AssignedUser)
+            .ThenInclude(u => u!.Profile)
         .FirstOrDefaultAsync(t => t.Id == ticket.Id);
 
     savedTicket.Should().NotBeNull();
     savedTicket!.AssignedUserId.Should().Be(user.Id);
     savedTicket.AssignedUser.Should().NotBeNull();
-    savedTicket.AssignedUser!.DisplayName.Should().Be("Verifikations-User");
+    savedTicket.AssignedUser!.Profile.Should().NotBeNull();
+    savedTicket.AssignedUser!.Profile.FullName.Should().Be("Verifikations User");
   }
 
   /// <summary>
@@ -80,15 +95,28 @@ public class RelationshipTests : IntegrationTestBase
     var priorityId = (await db.TicketPriorities.FirstAsync()).Id;
     var workflowStateId = (await db.WorkflowStates.FirstAsync()).Id;
 
-    var user = new User { DisplayName = "Restrict-User", Email = "restrict@example.com", RoleId = roleId };
-    var ticket = new Ticket
-    {
-      Title = "Restrict-Test",
-      AssignedUser = user,
-      Creator = user,
-      PriorityId = priorityId,
-      WorkflowStateId = workflowStateId,
+    var project = await db.Projects.FirstAsync();
+
+    var userId = Guid.NewGuid();
+    var user = new User 
+    { 
+      Id = userId, 
+      UserName = "restrict@example.com", 
+      NormalizedUserName = "RESTRICT@EXAMPLE.COM",
+      Email = "restrict@example.com", 
+      NormalizedEmail = "RESTRICT@EXAMPLE.COM",
+      RoleId = roleId, 
+      TenantId = project.TenantId 
     };
+    user.Profile = new UserProfile { UserId = userId, FirstName = "Restrict", LastName = "User", TenantId = project.TenantId };
+
+    db.Users.Add(user);
+    await db.SaveChangesAsync();
+
+    var ticket = new Ticket("Restrict-Test", project.Id, user.Id, workflowStateId, "127.0.0.1");
+    ticket.AssignUser(user.Id);
+    ticket.SetPriority(priorityId);
+    ticket.SetTenantId(project.TenantId);
 
     db.Tickets.Add(ticket);
     await db.SaveChangesAsync();

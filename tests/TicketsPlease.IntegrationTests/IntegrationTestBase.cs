@@ -89,9 +89,23 @@ public abstract class IntegrationTestBase : IDisposable
 
     if (!await db.Roles.AnyAsync().ConfigureAwait(false))
     {
-      await db.Roles.AddAsync(new Role { Id = Guid.Parse("00000000-0000-0000-0000-000000000001"), Name = "Admin" }).ConfigureAwait(false);
-      await db.TicketPriorities.AddAsync(new TicketPriority { Id = Guid.Parse("00000000-0000-0000-0000-000000000002"), Name = "Medium" }).ConfigureAwait(false);
-      await db.WorkflowStates.AddAsync(new WorkflowState { Id = Guid.Parse("00000000-0000-0000-0000-000000000003"), Name = "Todo" }).ConfigureAwait(false);
+      var tenantId = Guid.NewGuid();
+      await db.Organizations.AddAsync(new Organization { Id = tenantId, Name = "Test Org", TenantId = tenantId }).ConfigureAwait(false);
+
+      var workflow = new Workflow { Id = Guid.NewGuid(), Name = "Standard Workflow", TenantId = tenantId };
+      await db.Workflows.AddAsync(workflow).ConfigureAwait(false);
+
+      var project = new Project("Test Projekt", DateTime.UtcNow);
+      project.AssignWorkflow(workflow.Id);
+      project.SetTenantId(tenantId);
+      await db.Projects.AddAsync(project).ConfigureAwait(false);
+
+      var role = new Role { Id = Guid.Parse("00000000-0000-0000-0000-000000000001"), Name = "Admin" };
+      await db.Roles.AddAsync(role).ConfigureAwait(false);
+      
+      await db.TicketPriorities.AddAsync(new TicketPriority { Id = Guid.Parse("00000000-0000-0000-0000-000000000002"), Name = "Medium", TenantId = tenantId }).ConfigureAwait(false);
+      await db.WorkflowStates.AddAsync(new WorkflowState { Id = Guid.Parse("00000000-0000-0000-0000-000000000003"), Name = "Todo", WorkflowId = workflow.Id, TenantId = tenantId }).ConfigureAwait(false);
+      
       await db.SaveChangesAsync().ConfigureAwait(false);
     }
   }

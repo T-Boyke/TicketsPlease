@@ -4,6 +4,10 @@
 
 namespace TicketsPlease.Infrastructure.Persistence;
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Bogus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,45 +46,89 @@ public static class DbInitialiser
       var faker = new Faker("de");
 
       // 1. Organizations
-      var orgs = new Faker<Organization>("de")
-          .RuleFor(o => o.Name, f => f.Company.CompanyName())
-          .RuleFor(o => o.SubscriptionLevel, f => f.PickRandom("Trial", "Basic", "Enterprise"))
-          .Generate(3);
+      var orgs = new List<Organization>();
+      for (int i = 0; i < 3; i++)
+      {
+        var org = new Organization
+        {
+          Name = faker.Company.CompanyName(),
+          SubscriptionLevel = faker.PickRandom("Trial", "Basic", "Enterprise"),
+        };
+        orgs.Add(org);
+      }
+
       await context.Organizations.AddRangeAsync(orgs).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
       // 2. Roles
       var roles = new List<Role>
-            {
-                new() { Name = "Admin", Description = "Full system access" },
-                new() { Name = "Owner", Description = "Organization owner" },
-                new() { Name = "Teamlead", Description = "Team lead permissions" },
-                new() { Name = "User", Description = "Standard user access" },
-            };
+      {
+        new() { Name = "Admin", Description = "Full system access" },
+        new() { Name = "Owner", Description = "Organization owner" },
+        new() { Name = "Teamlead", Description = "Team lead permissions" },
+        new() { Name = "User", Description = "Standard user access" },
+      };
       await context.Roles.AddRangeAsync(roles).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      // 3. Users & Profiles & Addresses
-      var userFaker = new Faker<User>("de")
-          .RuleFor(u => u.DisplayName, f => f.Person.FullName)
-          .RuleFor(u => u.Username, f => f.Internet.UserName())
-          .RuleFor(u => u.Email, f => f.Internet.Email())
-          .RuleFor(u => u.PasswordHash, f => Guid.NewGuid().ToString())
-          .RuleFor(u => u.RoleId, f => f.PickRandom(roles).Id)
-          .RuleFor(u => u.TenantId, f => f.PickRandom(orgs).Id);
+      // 3. Projects & Workflows
+      var workflow = new Workflow { Name = "Standard IHK Workflow" };
+      await context.Workflows.AddAsync(workflow).ConfigureAwait(false);
 
-      var users = userFaker.Generate(200);
+      var workflowStates = new List<WorkflowState>
+      {
+        new() { Name = "Todo", OrderIndex = 0, ColorHex = "#D3D3D3", Workflow = workflow },
+        new() { Name = "In Progress", OrderIndex = 1, ColorHex = "#ADD8E6", Workflow = workflow },
+        new() { Name = "In Review", OrderIndex = 2, ColorHex = "#FFFFE0", Workflow = workflow },
+        new() { Name = "Done", OrderIndex = 3, ColorHex = "#90EE90", IsTerminalState = true, Workflow = workflow },
+      };
+      await context.WorkflowStates.AddRangeAsync(workflowStates).ConfigureAwait(false);
+      await context.SaveChangesAsync().ConfigureAwait(false);
+
+      var projects = new List<Project>();
+
+      var project1 = new Project("IHK Abschlussprüfung 2026", DateTime.UtcNow);
+      project1.UpdateMetadata("IHK Abschlussprüfung 2026", "Das Hauptprojekt für die IHK.");
+      project1.AssignWorkflow(workflow.Id);
+      project1.SetTenantId(faker.PickRandom(orgs).Id);
+      projects.Add(project1);
+
+      var project2 = new Project("Interne Toolentwicklung", DateTime.UtcNow.AddMonths(-1));
+      project2.UpdateMetadata("Interne Toolentwicklung", "Entwicklung von internen Hilfsmitteln.");
+      project2.AssignWorkflow(workflow.Id);
+      project2.SetTenantId(faker.PickRandom(orgs).Id);
+      projects.Add(project2);
+      await context.Projects.AddRangeAsync(projects).ConfigureAwait(false);
+      await context.SaveChangesAsync().ConfigureAwait(false);
+
+      // 4. Users
+      var users = new List<User>();
+      for (int i = 0; i < 50; i++)
+      {
+        var user = new User
+        {
+          UserName = faker.Internet.UserName(),
+          Email = faker.Internet.Email(),
+          PasswordHash = Guid.NewGuid().ToString(),
+          RoleId = faker.PickRandom(roles).Id,
+          TenantId = faker.PickRandom(orgs).Id,
+        };
+        users.Add(user);
+      }
+
       await context.Users.AddRangeAsync(users).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
+      // 5. Profiles & Addresses
       foreach (var user in users)
       {
         var profile = new UserProfile
         {
           UserId = user.Id,
-          FirstName = user.DisplayName.Split(' ')[0],
-          LastName = user.DisplayName.Split(' ').Length > 1 ? user.DisplayName.Split(' ')[1] : string.Empty,
-          PhoneNumber = faker.Phone.PhoneNumber(),
+          FirstName = faker.Person.FirstName,
+          LastName = faker.Person.LastName,
+          Bio = faker.Lorem.Sentence(),
+          AvatarUrl = faker.Internet.Avatar(),
           TenantId = user.TenantId,
         };
         await context.UserProfiles.AddAsync(profile).ConfigureAwait(false);
@@ -99,35 +147,32 @@ public static class DbInitialiser
 
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      // 4. Priorities & Workflow States
+      // 6. Priorities
       var priorities = new List<TicketPriority>
-            {
-                new() { Name = "Low", LevelWeight = 1, ColorHex = "#808080" },
-                new() { Name = "Medium", LevelWeight = 2, ColorHex = "#0000FF" },
-                new() { Name = "High", LevelWeight = 3, ColorHex = "#FFA500" },
-                new() { Name = "Blocker", LevelWeight = 4, ColorHex = "#FF0000" },
-            };
+      {
+        new() { Name = "Low", LevelWeight = 1, ColorHex = "#808080" },
+        new() { Name = "Medium", LevelWeight = 2, ColorHex = "#0000FF" },
+        new() { Name = "High", LevelWeight = 3, ColorHex = "#FFA500" },
+        new() { Name = "Blocker", LevelWeight = 4, ColorHex = "#FF0000" },
+      };
       await context.TicketPriorities.AddRangeAsync(priorities).ConfigureAwait(false);
-
-      var workflowStates = new List<WorkflowState>
-            {
-                new() { Name = "Todo", OrderIndex = 0, ColorHex = "#D3D3D3" },
-                new() { Name = "In Progress", OrderIndex = 1, ColorHex = "#ADD8E6" },
-                new() { Name = "In Review", OrderIndex = 2, ColorHex = "#FFFFE0" },
-                new() { Name = "Done", OrderIndex = 3, ColorHex = "#90EE90", IsTerminalState = true },
-            };
-      await context.WorkflowStates.AddRangeAsync(workflowStates).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      // 5. Teams & TeamMembers
-      var teamFaker = new Faker<Team>("de")
-          .RuleFor(t => t.Name, f => f.Commerce.Department())
-          .RuleFor(t => t.Description, f => f.Lorem.Sentence())
-          .RuleFor(t => t.ColorCode, f => f.Internet.Color())
-          .RuleFor(t => t.CreatedByUserId, f => f.PickRandom(users).Id)
-          .RuleFor(t => t.TenantId, f => f.PickRandom(orgs).Id);
+      // 7. Teams & TeamMembers
+      var teams = new List<Team>();
+      for (int i = 0; i < 10; i++)
+      {
+        var team = new Team
+        {
+          Name = faker.Commerce.Department(),
+          Description = faker.Lorem.Sentence(),
+          ColorCode = faker.Internet.Color(),
+          CreatedByUserId = faker.PickRandom(users).Id,
+          TenantId = faker.PickRandom(orgs).Id,
+        };
+        teams.Add(team);
+      }
 
-      var teams = teamFaker.Generate(15);
       await context.Teams.AddRangeAsync(teams).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
@@ -135,58 +180,77 @@ public static class DbInitialiser
       {
         var membersCount = faker.Random.Int(2, 5);
         var teamUsers = faker.PickRandom(users, membersCount).ToList();
-        var teamMembers = teamUsers.Select(user => new TeamMember
+        foreach (var user in teamUsers)
         {
-          TeamId = team.Id,
-          UserId = user.Id,
-          IsTeamLead = user.Id == team.CreatedByUserId,
-          TenantId = team.TenantId,
-        });
-        await context.TeamMembers.AddRangeAsync(teamMembers).ConfigureAwait(false);
+          var member = new TeamMember
+          {
+            TeamId = team.Id,
+            UserId = user.Id,
+            IsTeamLead = user.Id == team.CreatedByUserId,
+            TenantId = team.TenantId,
+          };
+          await context.TeamMembers.AddAsync(member).ConfigureAwait(false);
+        }
       }
 
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      // 6. Tickets & Related
-      var ticketFaker = new Faker<Ticket>("de")
-          .RuleFor(t => t.Title, f => f.Commerce.ProductName())
-          .RuleFor(t => t.Sha1Hash, f => f.Random.Hash())
-          .RuleFor(t => t.Description, f => f.Lorem.Paragraphs(1))
-          .RuleFor(t => t.DescriptionMarkdown, f => $"# {f.Commerce.ProductName()}\n\n{f.Lorem.Paragraphs(2)}")
-          .RuleFor(t => t.PriorityId, f => f.PickRandom(priorities).Id)
-          .RuleFor(t => t.WorkflowStateId, f => f.PickRandom(workflowStates).Id)
-          .RuleFor(t => t.CreatorId, f => f.PickRandom(users).Id)
-          .RuleFor(t => t.AssignedUserId, f => f.Random.Bool() ? f.PickRandom(users).Id : null)
-          .RuleFor(t => t.ChilliesDifficulty, f => f.Random.Int(1, 5))
-          .RuleFor(t => t.CreatedAt, f => f.Date.Past())
-          .RuleFor(t => t.TenantId, (f, t) => context.Users.Find(t.CreatorId)?.TenantId ?? f.PickRandom(orgs).Id);
+      // 8. Tickets & Related
+      var tickets = new List<Ticket>();
+      for (int i = 0; i < 200; i++)
+      {
+        var projectId = faker.PickRandom(projects).Id;
+        var creatorId = faker.PickRandom(users).Id;
+        var workflowStateId = faker.PickRandom(workflowStates).Id;
+        var geoIp = faker.Internet.Ip();
 
-      var tickets = ticketFaker.Generate(500);
+        var ticket = new Ticket(faker.Commerce.ProductName(), projectId, creatorId, workflowStateId, geoIp);
+        ticket.UpdateDescription(faker.Lorem.Paragraphs(1), $"# {faker.Commerce.ProductName()}\n\n{faker.Lorem.Paragraphs(2)}");
+        ticket.AssignUser(faker.Random.Bool() ? faker.PickRandom(users).Id : null);
+        ticket.SetPriority(faker.PickRandom(priorities).Id);
+        ticket.SetDifficulty(faker.Random.Int(1, 5));
+        ticket.SetTenantId(faker.PickRandom(orgs).Id);
+        
+        tickets.Add(ticket);
+      }
+
       await context.Tickets.AddRangeAsync(tickets).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      // 7. Messages & Logs
-      var messageFaker = new Faker<Message>("de")
-          .RuleFor(m => m.SenderUserId, f => f.PickRandom(users).Id)
-          .RuleFor(m => m.BodyMarkdown, f => f.Lorem.Sentence())
-          .RuleFor(m => m.TicketId, f => f.PickRandom(tickets).Id)
-          .RuleFor(m => m.SentAt, f => f.Date.Recent())
-          .RuleFor(m => m.TenantId, (f, m) => context.Tickets.Find(m.TicketId)?.TenantId ?? f.PickRandom(orgs).Id);
+      // 9. Messages
+      var messages = new List<Message>();
+      for (int i = 0; i < 150; i++)
+      {
+        var message = new Message
+        {
+          SenderUserId = faker.PickRandom(users).Id,
+          BodyMarkdown = faker.Lorem.Sentence(),
+          TicketId = faker.PickRandom(tickets).Id,
+          SentAt = faker.Date.Recent(),
+          TenantId = faker.PickRandom(orgs).Id,
+        };
+        messages.Add(message);
+      }
 
-      var messages = messageFaker.Generate(300);
       await context.Messages.AddRangeAsync(messages).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      // 8. SubTickets
-      var subTicketFaker = new Faker<SubTicket>("de")
-          .RuleFor(st => st.Title, f => f.Lorem.Sentence(3))
-          .RuleFor(st => st.IsCompleted, f => f.Random.Bool())
-          .RuleFor(st => st.CreatedAt, f => f.Date.Past())
-          .RuleFor(st => st.CreatorId, f => f.PickRandom(users).Id)
-          .RuleFor(st => st.ParentTicketId, f => f.PickRandom(tickets).Id)
-          .RuleFor(st => st.TenantId, (f, st) => context.Tickets.Find(st.ParentTicketId)?.TenantId ?? f.PickRandom(orgs).Id);
+      // 10. SubTickets
+      var subTickets = new List<SubTicket>();
+      for (int i = 0; i < 50; i++)
+      {
+        var subTicket = new SubTicket
+        {
+          Title = faker.Lorem.Sentence(3),
+          IsCompleted = faker.Random.Bool(),
+          CreatedAt = faker.Date.Past(),
+          CreatorId = faker.PickRandom(users).Id,
+          ParentTicketId = faker.PickRandom(tickets).Id,
+          TenantId = faker.PickRandom(orgs).Id,
+        };
+        subTickets.Add(subTicket);
+      }
 
-      var subTickets = subTicketFaker.Generate(100);
       await context.SubTickets.AddRangeAsync(subTickets).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 

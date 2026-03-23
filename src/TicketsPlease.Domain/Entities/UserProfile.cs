@@ -33,6 +33,21 @@ public class UserProfile : BaseEntity
   public string LastName { get; set; } = string.Empty;
 
   /// <summary>
+  /// Gets den vollständigen Namen des Benutzers.
+  /// </summary>
+  public string FullName => $"{this.FirstName} {this.LastName}".Trim();
+
+  /// <summary>
+  /// Gets or sets die Biographie des Benutzers.
+  /// </summary>
+  public string? Bio { get; set; }
+
+  /// <summary>
+  /// Gets or sets die URL zum Avatar-Bild.
+  /// </summary>
+  public string? AvatarUrl { get; set; }
+
+  /// <summary>
   /// Gets or sets die (optionale) Telefonnummer des Benutzers.
   /// </summary>
   public string? PhoneNumber { get; set; }
@@ -51,4 +66,14 @@ public class UserProfile : BaseEntity
   /// Gets or sets den Zeitpunkt (UTC) der letzten Profilaktualisierung.
   /// </summary>
   public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+
+  /// <summary>
+  /// Gets or sets den Fremdschlüssel zum Mandanten (TenantId).
+  /// </summary>
+  public Guid TenantId { get; set; }
+
+  /// <summary>
+  /// Gets or sets das zugehörige Mandanten-Objekt.
+  /// </summary>
+  public virtual Organization? Tenant { get; set; }
 }

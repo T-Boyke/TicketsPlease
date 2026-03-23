@@ -4,20 +4,27 @@
 
 namespace TicketsPlease.Domain.Entities;
 
-using TicketsPlease.Domain.Common;
+using System;
+using Microsoft.AspNetCore.Identity;
 
 /// <summary>
 /// Repräsentiert eine Benutzerrolle im System zur Berechtigungssteuerung.
+/// Erbt von <see cref="IdentityRole{TKey}"/> für ASP.NET Core Identity Integration.
 /// </summary>
-public class Role : BaseEntity
+public class Role : IdentityRole<Guid>
 {
-  /// <summary>
-  /// Gets or sets den Namen der Rolle (z.B. Admin, Agent, User).
-  /// </summary>
-  public string Name { get; set; } = string.Empty;
-
   /// <summary>
   /// Gets or sets die detaillierte Beschreibung der Rolle und ihrer Berechtigungen.
   /// </summary>
   public string Description { get; set; } = string.Empty;
+
+  /// <summary>
+  /// Gets or sets a value indicating whether die Entität gelöscht wurde (Soft Delete).
+  /// </summary>
+  public bool IsDeleted { get; set; }
+
+  /// <summary>
+  /// Gets or sets die Version für die Nebenläufigkeitskontrolle.
+  /// </summary>
+  public byte[] RowVersion { get; set; } = Array.Empty<byte>();
 }

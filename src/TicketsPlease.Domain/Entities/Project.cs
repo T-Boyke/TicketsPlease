@@ -14,45 +14,131 @@ using TicketsPlease.Domain.Common;
 /// </summary>
 public class Project : BaseEntity
 {
-    /// <summary>
-    /// Gets or sets den Titel des Projekts.
-    /// </summary>
-    public string Title { get; set; } = string.Empty;
+  /// <summary>
+  /// Initializes a new instance of the <see cref="Project"/> class.
+  /// </summary>
+  /// <param name="title">Der Titel des Projekts.</param>
+  /// <param name="startDate">Das Startdatum.</param>
+  public Project(string title, DateTime startDate)
+  {
+    if (string.IsNullOrWhiteSpace(title))
+    {
+      throw new ArgumentException("Titel darf nicht leer sein.", nameof(title));
+    }
 
-    /// <summary>
-    /// Gets or sets die Beschreibung des Projekts.
-    /// </summary>
-    public string Description { get; set; } = string.Empty;
+    this.Title = title;
+    this.StartDate = startDate;
+    this.IsOpen = true;
+  }
 
-    /// <summary>
-    /// Gets or sets das Startdatum des Projekts (Pflicht).
-    /// </summary>
-    public DateTime StartDate { get; set; }
+  /// <summary>
+  /// Initializes a new instance of the <see cref="Project"/> class.
+  /// Required for EF Core.
+  /// </summary>
+  private Project()
+  {
+  }
 
-    /// <summary>
-    /// Gets or sets das Enddatum des Projekts (Optional).
-    /// </summary>
-    public DateTime? EndDate { get; set; }
+  /// <summary>
+  /// Gets den Titel des Projekts.
+  /// </summary>
+  public string Title { get; private set; } = string.Empty;
 
-    /// <summary>
-    /// Gets or sets a value indicating whether das Projekt offen ist.
-    /// Nur offene Projekte können Tickets zugeordnet werden.
-    /// </summary>
-    public bool IsOpen { get; set; } = true;
+  /// <summary>
+  /// Gets die Beschreibung des Projekts.
+  /// </summary>
+  public string Description { get; private set; } = string.Empty;
 
-    /// <summary>
-    /// Gets or sets die ID des zugeordneten Workflows.
-    /// </summary>
-    public Guid? WorkflowId { get; set; }
+  /// <summary>
+  /// Gets das Startdatum des Projekts (Pflicht).
+  /// </summary>
+  public DateTime StartDate { get; private set; }
 
-    /// <summary>
-    /// Gets or sets den zugeordneten Workflow.
-    /// Each project can have exactly one workflow (IHK F8.4).
-    /// </summary>
-    public Workflow? Workflow { get; set; }
+  /// <summary>
+  /// Gets das Enddatum des Projekts (Optional).
+  /// </summary>
+  public DateTime? EndDate { get; private set; }
 
-    /// <summary>
-    /// Gets or sets die Liste der zugeordneten Tickets.
-    /// </summary>
-    public ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
+  /// <summary>
+  /// Gets a value indicating whether das Projekt offen ist.
+  /// Nur offene Projekte können Tickets zugeordnet werden.
+  /// </summary>
+  public bool IsOpen { get; private set; } = true;
+
+  /// <summary>
+  /// Gets die ID des zugeordneten Workflows.
+  /// </summary>
+  public Guid? WorkflowId { get; private set; }
+
+  /// <summary>
+  /// Gets den zugeordneten Workflow.
+  /// Each project can have exactly one workflow (IHK F8.4).
+  /// </summary>
+  public Workflow? Workflow { get; private set; }
+
+  /// <summary>
+  /// Gets die Liste der zugeordneten Tickets.
+  /// </summary>
+  public ICollection<Ticket> Tickets { get; private set; } = new List<Ticket>();
+
+  /// <summary>
+  /// Aktualisiert die Metadaten des Projekts.
+  /// </summary>
+  /// <param name="title">Der neue Titel.</param>
+  /// <param name="description">Die neue Beschreibung.</param>
+  public void UpdateMetadata(string title, string description)
+  {
+    if (string.IsNullOrWhiteSpace(title))
+    {
+      throw new ArgumentException("Titel darf nicht leer sein.", nameof(title));
+    }
+
+    this.Title = title;
+    this.Description = description;
+  }
+
+  /// <summary>
+  /// Setzt das Enddatum des Projekts.
+  /// </summary>
+  /// <param name="endDate">Das Enddatum.</param>
+  public void SetEndDate(DateTime? endDate)
+  {
+    this.EndDate = endDate;
+  }
+
+  /// <summary>
+  /// Schließt das Projekt.
+  /// </summary>
+  public void Close()
+  {
+    this.IsOpen = false;
+    this.EndDate = DateTime.UtcNow;
+  }
+
+  /// <summary>
+  /// Öffnet das Projekt wieder.
+  /// </summary>
+  public void Open()
+  {
+    this.IsOpen = true;
+    this.EndDate = null;
+  }
+
+  /// <summary>
+  /// Weist dem Projekt einen Workflow zu.
+  /// </summary>
+  /// <param name="workflowId">Die ID des Workflows.</param>
+  public void AssignWorkflow(Guid workflowId)
+  {
+    this.WorkflowId = workflowId;
+  }
+
+  /// <summary>
+  /// Setzt den Mandanten des Projekts (Multi-Tenancy).
+  /// </summary>
+  /// <param name="tenantId">Die ID des Mandanten.</param>
+  public void SetTenantId(Guid tenantId)
+  {
+    this.TenantId = tenantId;
+  }
 }
