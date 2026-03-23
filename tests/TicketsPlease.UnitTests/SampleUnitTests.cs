@@ -2,23 +2,22 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace TicketsPlease.UnitTests
-{
-    using FluentAssertions;
-    using Xunit;
+namespace TicketsPlease.UnitTests;
 
+using FluentAssertions;
+using Xunit;
+
+/// <summary>
+/// Eine Beispiel-Testklasse zur Validierung der Testumgebung.
+/// </summary>
+public class SampleUnitTests
+{
     /// <summary>
-    /// Eine Beispiel-Testklasse zur Validierung der Testumgebung.
+    /// Ein einfacher Test, der sicherstellt, dass FluentAssertions funktioniert.
     /// </summary>
-    public class SampleUnitTests
+    [Fact]
+    public void ShoudWork()
     {
-        /// <summary>
-        /// Ein einfacher Test, der sicherstellt, dass FluentAssertions funktioniert.
-        /// </summary>
-        [Fact]
-        public void ShoudWork()
-        {
-            true.Should().BeTrue();
-        }
+        true.Should().BeTrue();
     }
 }

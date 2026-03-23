@@ -2,28 +2,26 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace TicketsPlease.E2ETests
-{
-    using FluentAssertions;
-    using Microsoft.Playwright;
-    using Microsoft.Playwright.Xunit;
-    using Xunit;
+namespace TicketsPlease.E2ETests;
 
+using FluentAssertions;
+using Microsoft.Playwright.Xunit;
+using Xunit;
+
+/// <summary>
+/// Basis-E2E-Tests zur Überprüfung der grundlegenden Frontend-Funktionalität.
+/// Nutzt Playwright für Browser-Automatisierung.
+/// </summary>
+public class BasicE2ETests : PageTest
+{
     /// <summary>
-    /// Basis-E2E-Tests zur Überprüfung der grundlegenden Frontend-Funktionalität.
-    /// Nutzt Playwright für Browser-Automatisierung.
+    /// Überprüft, ob die Startseite den korrekten Titel hat.
     /// </summary>
-    public class BasicE2ETests : PageTest
+    [Fact]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test naming convention")]
+    public void HomePage_ShouldHaveCorrectTitle()
     {
-        /// <summary>
-        /// Überprüft, ob die Startseite den korrekten Titel hat.
-        /// </summary>
-        [Fact]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test naming convention")]
-        public void HomePage_ShouldHaveCorrectTitle()
-        {
-            // Placeholder Test
-            true.Should().BeTrue();
-        }
+        // Placeholder Test
+        true.Should().BeTrue();
     }
 }
