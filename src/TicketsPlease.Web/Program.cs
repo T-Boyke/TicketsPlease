@@ -7,6 +7,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Infrastructure.Persistence;
 using TicketsPlease.Infrastructure.Repositories;
 using TicketsPlease.Infrastructure.Services;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,7 +75,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-app.Run();
+await app.RunAsync().ConfigureAwait(false);
 
 /// <summary>
 /// Ermöglicht den Zugriff auf die Program-Klasse für Integrations-Tests.

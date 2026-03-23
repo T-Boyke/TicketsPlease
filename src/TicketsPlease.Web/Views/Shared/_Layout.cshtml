@@ -1,5 +1,7 @@
+@using Microsoft.AspNetCore.Mvc.Localization
 @using TicketsPlease.Application.Common.Interfaces
 @inject ICorporateSkinProvider SkinProvider
+@inject IViewLocalizer L
 
 <!DOCTYPE html>
 <html lang="de" class="h-full">
@@ -32,7 +34,7 @@
     <partial name="_Navbar" />
 
     <main class="flex-grow">
-        <partial name="_Notification" model="TempData.Peek(\"Notification\")" />
+        <partial name="_Notification" model='TempData.Peek("Notification")' />
         <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
             @RenderBody()
         </div>
