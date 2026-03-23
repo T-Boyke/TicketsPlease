@@ -1,8 +1,16 @@
+// <copyright file="Program.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Infrastructure.Persistence;
 using TicketsPlease.Infrastructure.Repositories;
 using TicketsPlease.Infrastructure.Services;
+
+[assembly: InternalsVisibleTo("TicketsPlease.IntegrationTests")]
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,13 +45,14 @@ var app = builder.Build();
 // Database Seeding in Development
 if (app.Environment.IsDevelopment())
 {
-  await DbInitialiser.SeedAsync(app.Services);
+  await DbInitialiser.SeedAsync(app.Services).ConfigureAwait(false);
 }
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
   app.UseExceptionHandler("/Home/Error");
+
   // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
   app.UseHsts();
 }
@@ -69,11 +78,18 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-
-app.Run();
+await app.RunAsync().ConfigureAwait(false);
 
 /// <summary>
 /// Ermöglicht den Zugriff auf die Program-Klasse für Integrations-Tests.
 /// </summary>
-public partial class Program { }
-
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1515:Consider making public types internal", Justification = "Required for WebApplicationFactory in IntegrationTests")]
+public partial class Program
+{
+  /// <summary>
+  /// Initializes a new instance of the <see cref="Program"/> class.
+  /// </summary>
+  protected Program()
+  {
+  }
+}

@@ -30,6 +30,7 @@
     "humao.rest-client",
     "visualstudioexptteam.vscodeintellicode",
     "SonarSource.sonarlint-vscode",
-    "wakatime.vscode-wakatime"
+    "wakatime.vscode-wakatime",
+    "tomoki1207.pdf"
   ]
 }

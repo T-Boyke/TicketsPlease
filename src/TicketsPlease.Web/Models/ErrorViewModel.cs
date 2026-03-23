@@ -1,8 +1,21 @@
+// <copyright file="ErrorViewModel.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 namespace TicketsPlease.Web.Models;
 
-public class ErrorViewModel
+/// <summary>
+/// Modell für die Anzeige von Fehlermeldungen.
+/// </summary>
+internal sealed class ErrorViewModel
 {
+  /// <summary>
+  /// Gets or sets die ID der Anforderung.
+  /// </summary>
   public string? RequestId { get; set; }
 
-  public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+  /// <summary>
+  /// Gets a value indicating whether die Anforderungs-ID angezeigt werden soll.
+  /// </summary>
+  public bool ShowRequestId => !string.IsNullOrEmpty(this.RequestId);
 }

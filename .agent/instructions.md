@@ -13,7 +13,7 @@ Read rules from `.agent/rules/`:
 - `agent-behavior.md`: Core mindset, constraints, No-Gos.
 - `architecture.md`: Clean Architecture, DDD, CQRS, EF.
 - `security.md`: Defense in Depth, Secrets, XSS.
-- `ui-frontend.md`: Tailwind 4.2, a11y, SFC, Theme.
+- `ui-frontend.md`: Tailwind 4.2.2, a11y, SFC, Theme.
 - `testing.md`: TDD, Testcontainers, Lighthouse.
 - `git-documentation.md`: Branching, Commits, PRs, ADRs.
   </agent_rules>
@@ -24,7 +24,7 @@ Available workflows in `.agent/workflows/` (`/command`):
 - `add-cqrs-feature`: Scaffold new CQRS MediatR feature.
 - `ef-core-migration`: Manage DB migrations safely.
 - `testing-standards`: Follow Unit/Integration test rules.
-- `ui-component-tailwind`: Build Tailwind 4.2 components.
+- `ui-component-tailwind`: Build Tailwind 4.2.2 components.
 - `atomic-commits`: Enforce strict logical Git commits.
 - `security-review`: Run Defense in Depth checklist.
 - `domain-entity`: Create rich DDD entities.
@@ -46,7 +46,7 @@ Load specific behavior from `.agent/skills/`:
 Read context from `.agent/context/` and `docs/`:
 
 - `project-intelligence.md`: Mission, Vision.
-- `tech-stack-referenz.md`: .NET 10, Tailwind 4.2, Scalar.
+- `tech-stack-referenz.md`: .NET 10, Tailwind 4.2.2, Scalar.
 - `architectural-blueprint.md`: Layers, CQRS.
 - `domain-knowledge.md`: Core entities.
 - `ui-ux-design-system.md`: Styling tokens.
@@ -67,7 +67,7 @@ Read context from `.agent/context/` and `docs/`:
 <prompt id="feature-implementation">
 <goal>Structured feature delivery</goal>
 <flow>1. Domain (Entities) 2. Application (MediatR/FluentValidation)
-3. Infrastructure (Repo/EF) 4. Presentation (Razor/Tailwind4.2)</flow>
+3. Infrastructure (Repo/EF) 4. Presentation (Razor/Tailwind 4.2.2)</flow>
 <rules>Use CancellationToken. Enforce RowVersion. Validate all inputs.</rules>
 </prompt>
 <prompt id="refactoring">

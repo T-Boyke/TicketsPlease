@@ -36,7 +36,7 @@ graph TD
 
 ---
 
-## 💅 Styling SOP (Tailwind CSS 4.2)
+## 💅 Styling SOP (Tailwind CSS 4.2.2)
 
 Damit unsere UI "premium" bleibt, folgen wir diesen Styling-Regeln:
 

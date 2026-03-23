@@ -1,14 +1,19 @@
+// <copyright file="DbInitialiser.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TicketsPlease.Infrastructure.Persistence;
+
 using Bogus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using TicketsPlease.Domain.Entities;
 
-namespace TicketsPlease.Infrastructure.Persistence;
-
 /// <summary>
 /// Bietet Methoden zur Initialisierung und zum Seeding der Datenbank mit synthetischen Testdaten.
 /// </summary>
+#pragma warning disable CA1848 // Use the LoggerMessage delegates
 public static class DbInitialiser
 {
   /// <summary>
@@ -26,9 +31,9 @@ public static class DbInitialiser
     {
       logger.LogInformation("Starte vollständiges Datenbank-Seeding...");
 
-      await context.Database.EnsureCreatedAsync();
+      await context.Database.EnsureCreatedAsync().ConfigureAwait(false);
 
-      if (await context.Users.AnyAsync())
+      if (await context.Users.AnyAsync().ConfigureAwait(false))
       {
         logger.LogInformation("Datenbank enthält bereits Daten. Seeding wird übersprungen.");
         return;
@@ -41,8 +46,8 @@ public static class DbInitialiser
           .RuleFor(o => o.Name, f => f.Company.CompanyName())
           .RuleFor(o => o.SubscriptionLevel, f => f.PickRandom("Trial", "Basic", "Enterprise"))
           .Generate(3);
-      await context.Organizations.AddRangeAsync(orgs);
-      await context.SaveChangesAsync();
+      await context.Organizations.AddRangeAsync(orgs).ConfigureAwait(false);
+      await context.SaveChangesAsync().ConfigureAwait(false);
 
       // 2. Roles
       var roles = new List<Role>
@@ -50,10 +55,10 @@ public static class DbInitialiser
                 new() { Name = "Admin", Description = "Full system access" },
                 new() { Name = "Owner", Description = "Organization owner" },
                 new() { Name = "Teamlead", Description = "Team lead permissions" },
-                new() { Name = "User", Description = "Standard user access" }
+                new() { Name = "User", Description = "Standard user access" },
             };
-      await context.Roles.AddRangeAsync(roles);
-      await context.SaveChangesAsync();
+      await context.Roles.AddRangeAsync(roles).ConfigureAwait(false);
+      await context.SaveChangesAsync().ConfigureAwait(false);
 
       // 3. Users & Profiles & Addresses
       var userFaker = new Faker<User>("de")
@@ -65,8 +70,8 @@ public static class DbInitialiser
           .RuleFor(u => u.TenantId, f => f.PickRandom(orgs).Id);
 
       var users = userFaker.Generate(200);
-      await context.Users.AddRangeAsync(users);
-      await context.SaveChangesAsync();
+      await context.Users.AddRangeAsync(users).ConfigureAwait(false);
+      await context.SaveChangesAsync().ConfigureAwait(false);
 
       foreach (var user in users)
       {
@@ -74,11 +79,11 @@ public static class DbInitialiser
         {
           UserId = user.Id,
           FirstName = user.DisplayName.Split(' ')[0],
-          LastName = user.DisplayName.Split(' ').Length > 1 ? user.DisplayName.Split(' ')[1] : "",
+          LastName = user.DisplayName.Split(' ').Length > 1 ? user.DisplayName.Split(' ')[1] : string.Empty,
           PhoneNumber = faker.Phone.PhoneNumber(),
-          TenantId = user.TenantId
+          TenantId = user.TenantId,
         };
-        await context.UserProfiles.AddAsync(profile);
+        await context.UserProfiles.AddAsync(profile).ConfigureAwait(false);
 
         var address = new UserAddress
         {
@@ -87,11 +92,12 @@ public static class DbInitialiser
           City = faker.Address.City(),
           ZipCode = faker.Address.ZipCode(),
           Country = "Deutschland",
-          TenantId = user.TenantId
+          TenantId = user.TenantId,
         };
-        await context.UserAddresses.AddAsync(address);
+        await context.UserAddresses.AddAsync(address).ConfigureAwait(false);
       }
-      await context.SaveChangesAsync();
+
+      await context.SaveChangesAsync().ConfigureAwait(false);
 
       // 4. Priorities & Workflow States
       var priorities = new List<TicketPriority>
@@ -99,19 +105,19 @@ public static class DbInitialiser
                 new() { Name = "Low", LevelWeight = 1, ColorHex = "#808080" },
                 new() { Name = "Medium", LevelWeight = 2, ColorHex = "#0000FF" },
                 new() { Name = "High", LevelWeight = 3, ColorHex = "#FFA500" },
-                new() { Name = "Blocker", LevelWeight = 4, ColorHex = "#FF0000" }
+                new() { Name = "Blocker", LevelWeight = 4, ColorHex = "#FF0000" },
             };
-      await context.TicketPriorities.AddRangeAsync(priorities);
+      await context.TicketPriorities.AddRangeAsync(priorities).ConfigureAwait(false);
 
       var workflowStates = new List<WorkflowState>
             {
                 new() { Name = "Todo", OrderIndex = 0, ColorHex = "#D3D3D3" },
                 new() { Name = "In Progress", OrderIndex = 1, ColorHex = "#ADD8E6" },
                 new() { Name = "In Review", OrderIndex = 2, ColorHex = "#FFFFE0" },
-                new() { Name = "Done", OrderIndex = 3, ColorHex = "#90EE90", IsTerminalState = true }
+                new() { Name = "Done", OrderIndex = 3, ColorHex = "#90EE90", IsTerminalState = true },
             };
-      await context.WorkflowStates.AddRangeAsync(workflowStates);
-      await context.SaveChangesAsync();
+      await context.WorkflowStates.AddRangeAsync(workflowStates).ConfigureAwait(false);
+      await context.SaveChangesAsync().ConfigureAwait(false);
 
       // 5. Teams & TeamMembers
       var teamFaker = new Faker<Team>("de")
@@ -122,25 +128,24 @@ public static class DbInitialiser
           .RuleFor(t => t.TenantId, f => f.PickRandom(orgs).Id);
 
       var teams = teamFaker.Generate(15);
-      await context.Teams.AddRangeAsync(teams);
-      await context.SaveChangesAsync();
+      await context.Teams.AddRangeAsync(teams).ConfigureAwait(false);
+      await context.SaveChangesAsync().ConfigureAwait(false);
 
       foreach (var team in teams)
       {
         var membersCount = faker.Random.Int(2, 5);
         var teamUsers = faker.PickRandom(users, membersCount).ToList();
-        foreach (var user in teamUsers)
+        var teamMembers = teamUsers.Select(user => new TeamMember
         {
-          await context.TeamMembers.AddAsync(new TeamMember
-          {
-            TeamId = team.Id,
-            UserId = user.Id,
-            IsTeamLead = user.Id == team.CreatedByUserId,
-            TenantId = team.TenantId
-          });
-        }
+          TeamId = team.Id,
+          UserId = user.Id,
+          IsTeamLead = user.Id == team.CreatedByUserId,
+          TenantId = team.TenantId,
+        });
+        await context.TeamMembers.AddRangeAsync(teamMembers).ConfigureAwait(false);
       }
-      await context.SaveChangesAsync();
+
+      await context.SaveChangesAsync().ConfigureAwait(false);
 
       // 6. Tickets & Related
       var ticketFaker = new Faker<Ticket>("de")
@@ -157,8 +162,8 @@ public static class DbInitialiser
           .RuleFor(t => t.TenantId, (f, t) => context.Users.Find(t.CreatorId)?.TenantId ?? f.PickRandom(orgs).Id);
 
       var tickets = ticketFaker.Generate(500);
-      await context.Tickets.AddRangeAsync(tickets);
-      await context.SaveChangesAsync();
+      await context.Tickets.AddRangeAsync(tickets).ConfigureAwait(false);
+      await context.SaveChangesAsync().ConfigureAwait(false);
 
       // 7. Messages & Logs
       var messageFaker = new Faker<Message>("de")
@@ -169,8 +174,8 @@ public static class DbInitialiser
           .RuleFor(m => m.TenantId, (f, m) => context.Tickets.Find(m.TicketId)?.TenantId ?? f.PickRandom(orgs).Id);
 
       var messages = messageFaker.Generate(300);
-      await context.Messages.AddRangeAsync(messages);
-      await context.SaveChangesAsync();
+      await context.Messages.AddRangeAsync(messages).ConfigureAwait(false);
+      await context.SaveChangesAsync().ConfigureAwait(false);
 
       // 8. SubTickets
       var subTicketFaker = new Faker<SubTicket>("de")
@@ -182,15 +187,15 @@ public static class DbInitialiser
           .RuleFor(st => st.TenantId, (f, st) => context.Tickets.Find(st.ParentTicketId)?.TenantId ?? f.PickRandom(orgs).Id);
 
       var subTickets = subTicketFaker.Generate(100);
-      await context.SubTickets.AddRangeAsync(subTickets);
-      await context.SaveChangesAsync();
+      await context.SubTickets.AddRangeAsync(subTickets).ConfigureAwait(false);
+      await context.SaveChangesAsync().ConfigureAwait(false);
 
       logger.LogInformation("Datenbank-Seeding erfolgreich abgeschlossen.");
     }
     catch (Exception ex)
     {
-      logger.LogError(ex, "Fehler beim Datenbank-Seeding.");
-      throw;
+      throw new InvalidOperationException("Fehler beim Datenbank-Seeding.", ex);
     }
   }
 }
+#pragma warning restore CA1848 // Use the LoggerMessage delegates

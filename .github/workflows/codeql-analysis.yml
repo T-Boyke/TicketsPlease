@@ -37,7 +37,6 @@ jobs:
       with:
         dotnet-version: '10.0.x'
 
-steps:
     # Vorherige Schritte laden den Quellcode und richten die Umgebung ein
     
     # Laedt die Tailwind CLI herunter und konfiguriert zwingend benoetigte Ausfuehrungsrechte
@@ -49,7 +48,7 @@ steps:
 
     # Startet den eigentlichen Kompilierungsvorgang der Projektmappe
     - name: Build
-      run: dotnet build src/TicketsPlease.slnx
+      run: dotnet build TicketsPlease.slnx
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v4

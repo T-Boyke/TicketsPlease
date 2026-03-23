@@ -1,26 +1,24 @@
 # 🚀 Minimum Viable Product (MVP) vs. Enterprise Roadmap
 
-Unser Projektauftrag der IHK lautet: **"Ein einfaches Ticketsystem
-realisieren."**
+Unser Projektauftrag der IHK lautet: **„Ein einfaches Ticketsystem
+realisieren."** (Projektantrag: 70 Stunden, 23.03.–16.04.2026)
 
-Um sich in den 80 Projektstunden nicht in Architekturen zu verrennen, definieren
-wir hier eine strikte Abgrenzung zwischen dem **Kern-MVP (Minimum Viable
-Product)**, mit dem wir zwingend in die IHK Prüfung gehen, und den **Enterprise
-Add-Ons**, die wir erst anflanschen, wenn die Basis grundsolide steht.
+Wir definieren hier eine strikte Abgrenzung zwischen dem **Kern-MVP**, das
+exakt die **IHK-Aufgabe (Features F1–F9)** abdeckt, und den **Enterprise
+Add-Ons**, die wir erst nach bestandener Prüfung umsetzen.
 
-Die "Clean Architecture" und das "3NF Entity Schema" bilden das Fundament für
-beide Phasen. Das Schema ist von Tag 1 an auf "Enterprise" ausgelegt, wir
-implementieren in Phase 1 (MVP) jedoch noch nicht alle Endpunkte/Features davon!
+Die „Clean Architecture" und das „3NF Entity Schema" bilden das Fundament für
+beide Phasen. Das Schema ist von Tag 1 an auf „Enterprise" ausgelegt, wir
+implementieren in Phase 1 (MVP) jedoch nur die IHK-relevanten Endpunkte.
 
 ---
 
-## 🛠️ Phase 1: Das Kern-MVP (IHK Zielvorgabe)
+## 🛠️ Phase 1: Das Kern-MVP (IHK F1–F9)
 
-Dies ist das absolute Minimum, das laufen _muss_, um eine "1" in der
-Präsentation zu garantieren. Alle Features hier müssen 100% bugfrei sein und
-durch Unit/Integration-Tests (TDD) abgedeckt werden.
+Dies ist der **exakte IHK-Prüfungsumfang**. Alle Features hier müssen 100%
+funktionsfähig sein und durch Unit/Integration-Tests abgedeckt werden.
 
-**Identity & Setup:**
+### F1: Web-Anwendung (Basis-Setup)
 
 - [x] Clean Architecture .NET 10 Solution Struktur steht.
 - [x] Entity Framework Code-First DB mit MS SQL (Docker Testcontainers).
@@ -49,10 +47,99 @@ durch Unit/Integration-Tests (TDD) abgedeckt werden.
 
 - [ ] Razor Views & ViewComponents (strikte Nutzung von Partials zur Vermeidung
       von Code-Duplikation `DRY`).
-- [x] **Tailwind CSS v4 Stack:** Vollständige Integration via
+- [x] **Tailwind CSS v4.2.2 Stack:** Vollständige Integration via
       `tailwindcss-dotnet` (Node-free).
-- [x] **Client-Side Asset Management:** `libman.json` für Markdig, SortableJS,
-      FA7.
+- [x] **Client-Side Asset Management:** `libman.json` für SortableJS, FA7.
+- [x] CI/CD Pipeline (GitHub Actions) aktiv.
+- [ ] ASP.NET Core Identity: Login & Logout.
+- [ ] Eigener AccountController zur Steuerung der Authentifizierung.
+- [ ] Rollen: Admin, Developer, Tester (mind. je 1 User).
+- [ ] Nicht angemeldete Benutzer sehen nur die Startseite.
+
+### F2: Admin-Bereich
+
+- [ ] Eigener Admin-Bereich, nur für Admins erreichbar.
+- [ ] Admin-Startseite mit Links zu Unterbereichen.
+- [ ] Button/Link zum Admin-Bereich auf Startseite (nur für Admins sichtbar).
+- [ ] **Projekte CRUD** (Titel, Beschreibung, Startdatum [Pflicht],
+      Enddatum [optional]).
+- [ ] (Optional) Benutzerverwaltung im Admin-Bereich.
+
+### F3: Ticket-Management
+
+- [ ] Tickets anlegen: Titel, Beschreibung, Projekt, Ersteller (automatisch),
+      Erstellungsdatum (automatisch), Zugewiesener, Zuweisungsdatum.
+- [ ] Nur offene Projekte können zugeordnet werden.
+- [ ] Ticket-Liste (sortiert nach Projekt + Erstellungsdatum absteigend).
+- [ ] Ticket-Detailseite mit allen Informationen + Zurück-Button.
+- [ ] Tickets bearbeiten (nur Admin, Ersteller oder Zugewiesener):
+      Beschreibung, Zugewiesener änderbar. Zuweisungsdatum wird automatisch
+      aktualisiert.
+- [ ] Tickets schließen: Attribute GeschlossenVon, GeschlossenAm. Nur Admin,
+      Ersteller oder Zugewiesener darf schließen. Status (offen/geschlossen)
+      in Übersicht und Detail sichtbar.
+- [ ] (Optional) Dateien zu Tickets hochladen.
+
+### F4: Startseite & Statistiken
+
+- [ ] Zentrale Startseite unter Root-URL, auch ohne Login erreichbar.
+- [ ] Links/Buttons zum Ticket- und Admin-Bereich.
+- [ ] Statistiken: Tickets (Gesamt/offen/geschlossen),
+      Projekte (Gesamt/offen/beendet).
+- [ ] (Optional) Benutzer-Statistiken (Gesamt und pro Rolle).
+
+### F5: Kommentare
+
+- [ ] Kommentare auf Ticket-Detailseite (Inhalt, TicketID, Ersteller,
+      Erstellzeitpunkt).
+- [ ] Anzeige neueste zuerst, Button zum Anlegen vorhanden.
+- [ ] Ersteller = angemeldeter User, Zeitpunkt automatisch gesetzt.
+
+### F6: Filterung
+
+- [ ] Filterung nach Projekten („Bestimmtes Projekt" / „Alle Projekte").
+- [ ] Filterung nach zugeordnetem Benutzer („Benutzer" / „Alle" /
+      „Nicht zugeordnet").
+- [ ] Filterung nach Ersteller („Benutzer" / „Alle Benutzer").
+- [ ] Seite lädt bei Filterung neu.
+
+### F7: Abhängigkeiten
+
+- [ ] Auf der Detailseite Tickets auswählen, die dieses Ticket blockieren.
+- [ ] Blockierende Tickets als Liste auf der Detailseite anzeigen.
+- [ ] Ticket kann nur geschlossen werden, wenn alle blockierenden Tickets
+      bereits geschlossen sind.
+
+### F8: Workflows
+
+- [ ] Workflow-Verwaltung im Admin-Bereich (CRUD, nur Admin).
+- [ ] Workflow hat ID und Bezeichnung.
+- [ ] Workflow besteht aus Status-Reihe (die ein Ticket annehmen kann).
+- [ ] Jedem Projekt kann genau ein Workflow zugeordnet werden.
+- [ ] (Optional) Status-Folge-Regeln (welche Status als Folge möglich).
+- [ ] (Optional) Rollenbasierte Status-Vergabe.
+
+### F9: Nachrichten
+
+- [ ] Nachrichten: Absender, Empfänger, Zeitstempel, Nachrichteninhalt (Text).
+- [ ] Jeder angemeldete Benutzer hat eine Nachrichten-Seite.
+- [ ] Möglichkeit, neue Nachrichten zu erstellen.
+- [ ] Liste aller gesendeten/erhaltenen Nachrichten, gruppiert nach
+      Absender/Empfänger.
+
+### Infrastruktur (bereits erledigt)
+
+- [x] 26 Enterprise-Entitäten im Domain Layer implementiert.
+- [x] `BaseEntity` mit Id, TenantId, IsDeleted, RowVersion.
+- [x] `AppDbContext` und `DbInitialiser` (Bogus Seeding).
+- [x] GitHub Actions CI/CD Pipeline.
+- [x] Tailwind CSS v4.2.2 via MSBuild.
+- [x] LibMan für Frontend-Assets.
+
+> [!IMPORTANT] **Fehlende MVP-Entity:** Das `Project`-Entity (Titel,
+> Beschreibung, Startdatum, Enddatum) muss als eigene Domain-Entity
+> erstellt werden. Tickets werden einem Projekt zugeordnet (FK).
+> Dies ist IHK-Pflicht (F2.2)!
 
 ---
 
@@ -64,66 +151,49 @@ Normalform) Datenbankschema frei:
 
 **1. Erweitertes Ticket-Domain:**
 
-- **Time-Tracking:** Entwickler können per Start/Stop Button echte Arbeitszeit
-  auf ein Ticket buchen (TimeLogs).
-- **Auto-Close Rule:** Ein geplanter Cronjob (BackgroundService), der gelöste
-  Tickets ("Done") nach X Tagen Inaktivität automatisch ins Archiv (Closed)
-  verschiebt.
-- **Tags & Labels:** Globale Tags (z.B. `#frontend`, `#bug`), die an Tickets
-  gehängt werden können (n:m).
-- **Subtickets:** Unbegrenzt verschachtelte Aufgabenlisten pro Master-Ticket.
+- **Chillischoten-Metrik (1–5 🌶️):** Visuelle Schwierigkeitsbewertung.
+- **SHA1-Hash:** Globale Referenzierbarkeit für Tickets.
+- **GeoIP-Timestamp:** Audit-Trail bei Erstellung/Bearbeitung.
+- **Time-Tracking:** Start/Stop Button für Arbeitszeit (TimeLogs).
+- **Auto-Close Rule:** BackgroundService für Done→Archived nach X Tagen.
+- **Tags & Labels:** Globale Tags (n:m) an Tickets.
+- **Subtickets:** Verschachtelte Aufgabenlisten pro Master-Ticket.
 
-**2. Kollaboration & Echtzeit (Das "Jira/Slack" Erlebnis):**
+**2. Kollaboration & Echtzeit (Das „Jira/Slack" Erlebnis):**
 
-- **Markdown Engine & Mermaid:** Rendering von Graphen in den
-  Ticket-Beschreibungen.
-- **SignalR Chat & Kommentare:** Live-Ticket-Kommentare ohne Page-Reload.
-- **Live-Online Presence:** Grüne/Rote "Online" Punkte am Profilbild der
-  Entwickler.
-- **Community Voting:** Upvoting von Tickets durch das Team.
+- **Kanban Dashboard:** Interaktives Board mit HTML5 Drag & Drop.
+- **Markdown Engine & Mermaid:** Rendering in Ticket-Beschreibungen.
+- **SignalR Chat & Kommentare:** Live-Kommentare ohne Page-Reload.
+- **Live-Online Presence:** Grüne/Rote „Online" Punkte.
+- **Community Voting:** Upvoting von Tickets.
 
 **3. Workspace Management:**
 
 - **Teams:** Organisation von Usern in Squads/Teams.
-- **Team-Routing:** Tickets ganzen Teams (statt nur Einzelpersonen) zuweisen.
-- **Broadcast Mails:** Teamleads können via MailKit Newsletter/Notices an ihre
-  Teams senden.
-- **Erweiterte Profile:** Profilbild Uploader mit Avatar-Cropping (FileAsset
-  Management).
+- **Team-Routing:** Tickets an Teams zuweisen.
+- **Broadcast Mails:** Teamleads senden via MailKit.
+- **Erweiterte Profile:** Profilbild Uploader mit Avatar-Cropping.
 
 ---
 
 ## 🏆 Phase 3: Advanced Enterprise Modules
 
-Diese Module katapultieren das System auf das Level von Branchenriesen wie Jira
-oder Linear. Sie erfordern tiefe architektonische Planung.
-
 **1. Audit & Compliance:**
 
-- **Ticket History (Audit-Log):** Lückenlose Historisierung. Jeder
-  Statuswechsel, jede Prioritätsänderung und Neuzuweisung wird mit Timestamp und
-  Actor (User) in einer Append-Only-Tabelle (`TICKET_HISTORY`) mitgeschrieben.
-  Einsehbar für Administratoren über das "Audit Log" im Settings-Menü.
+- **Ticket History (Audit-Log):** Append-Only-Tabelle für alle Änderungen.
 
 **2. Benachrichtigungen & Alerts:**
 
-- **In-App Notification Center:** Eine "Glocke" in der UI. Benachrichtigt User
-  bei Zuweisungen, Erwähnungen (@User) oder SLA-Verletzungen.
-- **Notification Sounds:** Einstellbare akustische Signale bei eingehenden
-  Notifications oder neuen Chat-Nachrichten im Dashboard (im Benutzerprofil
-  auswählbar & probehörbar).
+- **In-App Notification Center:** Glocke in der UI.
+- **Notification Sounds:** Konfigurierbare akustische Signale.
 
 **3. Dokumentenmanagement:**
 
-- **Ticket Attachments:** Upload von PDFs, Log-Dateien oder Screenshots direkt
-  an das Ticket (via `FILE_ASSET` Entity) mit integriertem Reader/Preview in der
-  UI.
+- **Ticket Attachments:** Upload von PDFs, Screenshots (via FILE_ASSET).
 
 **4. Service Level Agreements (SLAs):**
 
-- **Automatisierte Countdowns:** SLAs für Response- und Resolution-Times
-  basierend auf Ticket-Priorität (z.B. "Blocker" muss in 4h gelöst sein).
-  Eskalation bei Verletzung.
+- **Automatisierte Countdowns:** Response- und Resolution-Times.
 
 **5. Faceted Search & Filtering (EF Core):**
 
@@ -152,7 +222,7 @@ Erweiterungen von Drittanbietern oder isolierte Kunden-Lösungen.
   implementieren, werden dynamisch per Dependency Injection in den
   Core-Lifecycle eingehängt.
 
-**2. Offizielle Erweiterungen (Beispiele):**
+**2. Offizielle Erweiterungen:**
 
 - **TogglSync:** Ein Plugin, welches die internen `TIME_LOG` Einträge
   automatisch per API an Toggl Track sendet.

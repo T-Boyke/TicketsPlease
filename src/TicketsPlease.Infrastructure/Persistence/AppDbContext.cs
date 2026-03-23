@@ -1,8 +1,12 @@
+// <copyright file="AppDbContext.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TicketsPlease.Infrastructure.Persistence;
+
 using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Domain.Common;
 using TicketsPlease.Domain.Entities;
-
-namespace TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
 /// Der zentrale Datenbankkontext der Anwendung.
@@ -11,47 +15,96 @@ namespace TicketsPlease.Infrastructure.Persistence;
 public class AppDbContext : DbContext
 {
   /// <summary>
+  /// Initializes a new instance of the <see cref="AppDbContext"/> class.
   /// Initialisiert eine neue Instanz von <see cref="AppDbContext"/> mit den angegebenen Optionen.
   /// </summary>
   /// <param name="options">Die Optionen für diesen Kontext.</param>
-  public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+  public AppDbContext(DbContextOptions<AppDbContext> options)
+    : base(options)
   {
   }
 
   /// <summary>
-  /// Ruft die Menge der Benutzer ab oder legt diese fest.
+  /// Gets ruft die Menge der Benutzer ab oder legt diese fest.
   /// </summary>
-  public DbSet<User> Users => Set<User>();
+  public DbSet<User> Users => this.Set<User>();
 
   /// <summary>
-  /// Ruft die Menge der Tickets ab oder legt diese fest.
+  /// Gets ruft die Menge der Tickets ab oder legt diese fest.
   /// </summary>
-  public DbSet<Ticket> Tickets => Set<Ticket>();
+  public DbSet<Ticket> Tickets => this.Set<Ticket>();
 
-  public DbSet<Organization> Organizations => Set<Organization>();
-  public DbSet<Role> Roles => Set<Role>();
-  public DbSet<UserProfile> UserProfiles => Set<UserProfile>();
-  public DbSet<UserAddress> UserAddresses => Set<UserAddress>();
-  public DbSet<FileAsset> FileAssets => Set<FileAsset>();
-  public DbSet<Team> Teams => Set<Team>();
-  public DbSet<TeamMember> TeamMembers => Set<TeamMember>();
-  public DbSet<TicketPriority> TicketPriorities => Set<TicketPriority>();
-  public DbSet<SubTicket> SubTickets => Set<SubTicket>();
-  public DbSet<Tag> Tags => Set<Tag>();
-  public DbSet<TicketTag> TicketTags => Set<TicketTag>();
-  public DbSet<TicketAssignment> TicketAssignments => Set<TicketAssignment>();
-  public DbSet<WorkflowState> WorkflowStates => Set<WorkflowState>();
-  public DbSet<WorkflowTransition> WorkflowTransitions => Set<WorkflowTransition>();
-  public DbSet<TimeLog> TimeLogs => Set<TimeLog>();
-  public DbSet<TicketUpvote> TicketUpvotes => Set<TicketUpvote>();
-  public DbSet<TicketHistory> TicketHistories => Set<TicketHistory>();
-  public DbSet<TicketTemplate> TicketTemplates => Set<TicketTemplate>();
-  public DbSet<SlaPolicy> SlaPolicies => Set<SlaPolicy>();
-  public DbSet<CustomFieldDefinition> CustomFieldDefinitions => Set<CustomFieldDefinition>();
-  public DbSet<TicketCustomValue> TicketCustomValues => Set<TicketCustomValue>();
-  public DbSet<Message> Messages => Set<Message>();
-  public DbSet<MessageReadReceipt> MessageReadReceipts => Set<MessageReadReceipt>();
-  public DbSet<Notification> Notifications => Set<Notification>();
+  /// <summary>Gets die Organisationen.</summary>
+  public DbSet<Organization> Organizations => this.Set<Organization>();
+
+  /// <summary>Gets die Rollen.</summary>
+  public DbSet<Role> Roles => this.Set<Role>();
+
+  /// <summary>Gets die Benutzerprofile.</summary>
+  public DbSet<UserProfile> UserProfiles => this.Set<UserProfile>();
+
+  /// <summary>Gets die Benutzeradressen.</summary>
+  public DbSet<UserAddress> UserAddresses => this.Set<UserAddress>();
+
+  /// <summary>Gets die Dateianhänge.</summary>
+  public DbSet<FileAsset> FileAssets => this.Set<FileAsset>();
+
+  /// <summary>Gets die Teams.</summary>
+  public DbSet<Team> Teams => this.Set<Team>();
+
+  /// <summary>Gets die Teammitglieder.</summary>
+  public DbSet<TeamMember> TeamMembers => this.Set<TeamMember>();
+
+  /// <summary>Gets die Ticket-Prioritäten.</summary>
+  public DbSet<TicketPriority> TicketPriorities => this.Set<TicketPriority>();
+
+  /// <summary>Gets die Sub-Tickets.</summary>
+  public DbSet<SubTicket> SubTickets => this.Set<SubTicket>();
+
+  /// <summary>Gets die Tags.</summary>
+  public DbSet<Tag> Tags => this.Set<Tag>();
+
+  /// <summary>Gets die Ticket-Tags.</summary>
+  public DbSet<TicketTag> TicketTags => this.Set<TicketTag>();
+
+  /// <summary>Gets die Ticket-Zuweisungen.</summary>
+  public DbSet<TicketAssignment> TicketAssignments => this.Set<TicketAssignment>();
+
+  /// <summary>Gets die Workflow-Status.</summary>
+  public DbSet<WorkflowState> WorkflowStates => this.Set<WorkflowState>();
+
+  /// <summary>Gets die Workflow-Übergänge.</summary>
+  public DbSet<WorkflowTransition> WorkflowTransitions => this.Set<WorkflowTransition>();
+
+  /// <summary>Gets die Zeiterfassungseinträge.</summary>
+  public DbSet<TimeLog> TimeLogs => this.Set<TimeLog>();
+
+  /// <summary>Gets die Ticket-Upvotes.</summary>
+  public DbSet<TicketUpvote> TicketUpvotes => this.Set<TicketUpvote>();
+
+  /// <summary>Gets die Ticket-Historien.</summary>
+  public DbSet<TicketHistory> TicketHistories => this.Set<TicketHistory>();
+
+  /// <summary>Gets die Ticket-Vorlagen.</summary>
+  public DbSet<TicketTemplate> TicketTemplates => this.Set<TicketTemplate>();
+
+  /// <summary>Gets die SLA-Richtlinien.</summary>
+  public DbSet<SlaPolicy> SlaPolicies => this.Set<SlaPolicy>();
+
+  /// <summary>Gets die benutzerdefinierten Felddefinitionen.</summary>
+  public DbSet<CustomFieldDefinition> CustomFieldDefinitions => this.Set<CustomFieldDefinition>();
+
+  /// <summary>Gets die Werte der benutzerdefinierten Felder.</summary>
+  public DbSet<TicketCustomValue> TicketCustomValues => this.Set<TicketCustomValue>();
+
+  /// <summary>Gets die Nachrichten.</summary>
+  public DbSet<Message> Messages => this.Set<Message>();
+
+  /// <summary>Gets die Lesebestätigungen für Nachrichten.</summary>
+  public DbSet<MessageReadReceipt> MessageReadReceipts => this.Set<MessageReadReceipt>();
+
+  /// <summary>Gets die Benachrichtigungen.</summary>
+  public DbSet<Notification> Notifications => this.Set<Notification>();
 
   /// <summary>
   /// Konfiguriert das Modell und die Datenbank-Mappings.
@@ -60,16 +113,29 @@ public class AppDbContext : DbContext
   /// <param name="modelBuilder">Der Builder für die Modellkonfiguration.</param>
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
+    ArgumentNullException.ThrowIfNull(modelBuilder);
     base.OnModelCreating(modelBuilder);
 
     // Global Configuration for RowVersion (Concurrency)
-    foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+    var entityTypes = modelBuilder.Model.GetEntityTypes()
+        .Where(e => typeof(BaseEntity).IsAssignableFrom(e.ClrType))
+        .Select(e => e.ClrType);
+
+    foreach (var type in entityTypes)
     {
-      if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
+      if (this.Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
       {
-        modelBuilder.Entity(entityType.ClrType).Property("RowVersion").IsRowVersion();
-        modelBuilder.Entity(entityType.ClrType).HasQueryFilter(ConvertFilterExpression(entityType.ClrType));
+        // SQLite does not support IsRowVersion() / TIMESTAMP columns with automatic increment.
+        // We must override the [Timestamp] attribute from BaseEntity by explicitly setting ValueGeneratedNever()
+        // and disabling the concurrency token behavior for the test provider to avoid "NOT NULL" failures.
+        modelBuilder.Entity(type).Property("RowVersion").ValueGeneratedNever();
       }
+      else
+      {
+        modelBuilder.Entity(type).Property("RowVersion").IsRowVersion();
+      }
+
+      modelBuilder.Entity(type).HasQueryFilter(ConvertFilterExpression(type));
     }
 
     // --- Identity & IAM ---
@@ -163,27 +229,27 @@ public class AppDbContext : DbContext
     });
   }
 
-  private static System.Linq.Expressions.LambdaExpression ConvertFilterExpression(Type type)
-  {
-    var parameter = System.Linq.Expressions.Expression.Parameter(type, "e");
-    var property = System.Linq.Expressions.Expression.Property(parameter, "IsDeleted");
-    var notDeleted = System.Linq.Expressions.Expression.Not(property);
-    return System.Linq.Expressions.Expression.Lambda(notDeleted, parameter);
-  }
-
   /// <summary>
   /// Konfiguriert zusätzliche Optionen wie die Resilience / Retry Strategie.
   /// </summary>
   /// <param name="optionsBuilder">Der Builder für die Kontext-Optionen.</param>
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
+    ArgumentNullException.ThrowIfNull(optionsBuilder);
+
     // Hinweis: Die eigentliche SQL Server Konfiguration erfolgt meist in Program.cs/Startup.cs.
     // Falls hier konfiguriert wird, stellen wir sicher, dass RetryOnFailure aktiviert ist.
     if (!optionsBuilder.IsConfigured)
     {
       // Placeholder für lokale Entwicklung oder Fallback
-      // optionsBuilder.UseSqlServer("fallback_connection_string",
-      //    sqlOptions => sqlOptions.EnableRetryOnFailure(maxRetryCount: 5, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null));
     }
+  }
+
+  private static System.Linq.Expressions.LambdaExpression ConvertFilterExpression(Type type)
+  {
+    var parameter = System.Linq.Expressions.Expression.Parameter(type, "e");
+    var property = System.Linq.Expressions.Expression.Property(parameter, "IsDeleted");
+    var notDeleted = System.Linq.Expressions.Expression.Not(property);
+    return System.Linq.Expressions.Expression.Lambda(notDeleted, parameter);
   }
 }

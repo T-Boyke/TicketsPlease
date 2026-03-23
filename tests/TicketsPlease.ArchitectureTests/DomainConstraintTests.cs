@@ -1,14 +1,19 @@
+// <copyright file="DomainConstraintTests.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TicketsPlease.ArchitectureTests;
+
 using FluentAssertions;
 using NetArchTest.Rules;
 using TicketsPlease.Domain.Common;
 using TicketsPlease.Domain.Entities;
 
-namespace TicketsPlease.ArchitectureTests;
-
 /// <summary>
 /// Enthält Architektur-Tests zur Sicherstellung der Datenintegrität und Einhaltung von Domain-Vorgaben.
 /// Nutzt NetArchTest zur statischen Analyse der Assembly-Struktur.
 /// </summary>
+#pragma warning disable CA1707 // Identifiers should not contain underscores
 public class DomainConstraintTests
 {
   /// <summary>
@@ -46,3 +51,4 @@ public class DomainConstraintTests
     result.IsSuccessful.Should().BeTrue("Entitäten sollten in einem spezifischen Namespace gruppiert sein.");
   }
 }
+#pragma warning restore CA1707 // Identifiers should not contain underscores

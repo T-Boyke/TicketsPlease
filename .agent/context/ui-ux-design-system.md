@@ -2,7 +2,7 @@
 
 <ui_ux>
   <css_architecture>
-    - Framework: TailwindCSS 4.2.
+    - Framework: TailwindCSS 4.2.2.
     - Tokens: CSS Custom Properties in `theme.css`.
     - Components: `@apply` in `src/TicketsPlease.Web/Tailwind/components/`.
     - Theming: `data-theme` on `<html>`.

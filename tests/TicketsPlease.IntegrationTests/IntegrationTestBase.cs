@@ -1,58 +1,112 @@
+// <copyright file="IntegrationTestBase.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TicketsPlease.IntegrationTests;
+
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
-
-namespace TicketsPlease.IntegrationTests;
 
 /// <summary>
 /// Basisklasse für alle Integrations-Tests.
 /// Konfiguriert eine Test-Infrastruktur mit SQLite In-Memory Datenbank.
 /// </summary>
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1515:Consider making public types internal", Justification = "Required as base class for IntegrationTests")]
 public abstract class IntegrationTestBase : IDisposable
 {
-  private readonly SqliteConnection _connection;
-  protected readonly WebApplicationFactory<Program> Factory;
+  private readonly SqliteConnection connection;
 
   /// <summary>
+  /// Initializes a new instance of the <see cref="IntegrationTestBase"/> class.
   /// Initialisiert eine neue Instanz von <see cref="IntegrationTestBase"/>.
   /// Erstellt die offene SQLite-Verbindung und die WebApplicationFactory.
   /// </summary>
+  [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Objekte verwerfen, bevor der Gültigkeitsbereich verloren geht", Justification = "Factory is disposed in the Dispose method of this class.")]
   protected IntegrationTestBase()
   {
     // SQLite in-memory benötigt eine offene Verbindung über die gesamte Testdauer
-    _connection = new SqliteConnection("DataSource=:memory:");
-    _connection.Open();
+    this.connection = new SqliteConnection("DataSource=:memory:");
+    this.connection.Open();
 
-    Factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
+    // SQLite Foreign Keys explizit aktivieren
+    using (var command = this.connection.CreateCommand())
     {
+      command.CommandText = "PRAGMA foreign_keys = ON;";
+      command.ExecuteNonQuery();
+    }
+
+    this.Factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
+    {
+      builder.UseEnvironment("Testing");
       builder.ConfigureServices(services =>
           {
-            // Vorhandenen DbContext entfernen
-            var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<AppDbContext>));
-            if (descriptor != null) services.Remove(descriptor);
+            // Absolut alle Entity Framework bezogenen Services entfernen, um Provider-Konflikte zu vermeiden
+            var efDescriptors = services.Where(d => d.ServiceType.FullName?.Contains("EntityFrameworkCore", StringComparison.Ordinal) == true).ToList();
+            foreach (var d in efDescriptors)
+            {
+              services.Remove(d);
+            }
 
             // SQLite für Tests hinzufügen
             services.AddDbContext<AppDbContext>(options =>
                 {
-                  options.UseSqlite(_connection);
+                  options.UseSqlite(this.connection);
                 });
           });
     });
 
     // Datenbank-Schema initialisieren
-    using var scope = Factory.Services.CreateScope();
+    using var scope = this.Factory.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.EnsureCreated();
   }
+
+  /// <summary>
+  /// Gets die WebApplicationFactory für das SUT (System Under Test).
+  /// </summary>
+  protected WebApplicationFactory<Program> Factory { get; }
 
   /// <summary>
   /// Gibt die Ressourcen (Verbindung und Factory) frei.
   /// </summary>
   public void Dispose()
   {
-    _connection.Close();
-    _connection.Dispose();
-    Factory.Dispose();
+    this.Dispose(true);
+    GC.SuppressFinalize(this);
+  }
+
+  /// <summary>
+  /// Seeds minimal required data for tests (Roles, Priorities, WorkflowStates).
+  /// </summary>
+  /// <param name="db">The database context.</param>
+  /// <returns>A task representing the asynchronous operation.</returns>
+  protected static async Task SeedMinimalAsync(AppDbContext db)
+  {
+    ArgumentNullException.ThrowIfNull(db);
+
+    if (!await db.Roles.AnyAsync().ConfigureAwait(false))
+    {
+      await db.Roles.AddAsync(new Role { Id = Guid.Parse("00000000-0000-0000-0000-000000000001"), Name = "Admin" }).ConfigureAwait(false);
+      await db.TicketPriorities.AddAsync(new TicketPriority { Id = Guid.Parse("00000000-0000-0000-0000-000000000002"), Name = "Medium" }).ConfigureAwait(false);
+      await db.WorkflowStates.AddAsync(new WorkflowState { Id = Guid.Parse("00000000-0000-0000-0000-000000000003"), Name = "Todo" }).ConfigureAwait(false);
+      await db.SaveChangesAsync().ConfigureAwait(false);
+    }
+  }
+
+  /// <summary>
+  /// Gibt verwaltete und unverwaltete Ressourcen frei.
+  /// </summary>
+  /// <param name="disposing">Gibt an, ob verwaltete Ressourcen freigegeben werden sollen.</param>
+  protected virtual void Dispose(bool disposing)
+  {
+    if (disposing)
+    {
+      this.connection.Close();
+      this.connection.Dispose();
+      this.Factory?.Dispose();
+    }
   }
 }

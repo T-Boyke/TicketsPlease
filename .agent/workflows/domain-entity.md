@@ -1,5 +1,6 @@
-description: Workflow for creating DDD Domain Entities, Value Objects, and
-Domain Events in the TicketsPlease project.
+---
+description: Workflow for creating DDD Domain Entities, Value Objects, and Domain Events in the TicketsPlease project.
+---
 
 # 🧬 Domain Entity Workflow (DDD Rich Models)
 
@@ -15,13 +16,13 @@ Domain-Entität nach den Prinzipien des Domain-Driven Design (DDD).
 
 ## Fundamentale Regeln
 
-| Regel                 | Beschreibung                                             |
-| :-------------------- | :------------------------------------------------------- |
-| **Zero Dependencies** | `Domain` hat keine NuGet-Referenzen (außer `MediatR`).   |
-| **Rich Model**        | Entities sind keine Datencontainer. Sie enthalten Logik. |
-| **Private Setter**    | Alle Properties: `{ get; private set; }`.                |
-| **Kein leerer Ctor**  | Pflichtfelder über Fabrikmethode erzwingen.              |
-| **Immutable**         | Collections extern als `IReadOnlyList<T>`.               |
+| Regel | Beschreibung |
+| :--- | :--- |
+| **Zero Dependencies** | `Domain` hat keine NuGet-Referenzen (außer `MediatR`). |
+| **Rich Model** | Entities sind keine Datencontainer. Sie enthalten Logik. |
+| **Private Setter** | Alle Properties: `{ get; private set; }`. |
+| **Kein leerer Ctor** | Pflichtfelder über Fabrikmethode erzwingen. |
+| **Immutable** | Collections extern als `IReadOnlyList<T>`. |
 
 ---
 
@@ -162,13 +163,13 @@ public void RaiseDomainEvent(INotification domainEvent)
 
 ### 4. Bounded Context einordnen
 
-| Context               | Entities                                          |
-| :-------------------- | :------------------------------------------------ |
-| **Identity & Access** | User, UserProfile, UserAddress, Role              |
+| Context | Entities |
+| :--- | :--- |
+| **Identity & Access** | User, UserProfile, UserAddress, Role |
 | **Ticket Management** | Ticket, SubTicket, Tag, Priority, TimeLog, Upvote |
-| **Workflow**          | WorkflowState, SlaPolicy                          |
-| **Communication**     | Message, MessageReadReceipt, Notification         |
-| **Asset Management**  | FileAsset                                         |
+| **Workflow** | WorkflowState, SlaPolicy |
+| **Communication** | Message, MessageReadReceipt, Notification |
+| **Asset Management** | FileAsset |
 
 → Neue Entity in den passenden Bounded Context einordnen.
 
@@ -195,18 +196,15 @@ ticket.Status = TicketStatus.Closed;
 
 - Jede Entity bekommt `byte[] RowVersion` als `[Timestamp]`.
 - EF Core nutzt dies automatisch für Optimistic Concurrency.
-- Handler fangen `DbUpdateConcurrencyException` (siehe [EF Core Workflow]
-  (file:///d:/DEV/Tickets/.agent/workflows/ef-core-migration.md)).
+- Handler fangen `DbUpdateConcurrencyException`.
 
 ### 7. XML-Dokumentation (Pflicht!)
 
 - **Alle** `public` Members der Entity müssen XML-Kommentare haben.
-- `<summary>`, `<param>`, `<returns>`, `<exception>` wo zutreffend.
 
 ### 8. Unit Tests (TDD!)
 
 - Erstelle Unit-Tests für alle Domain-Methoden **vor** der Implementierung.
-- Teste Business-Regeln, Validierungen und Edge Cases.
 - Coverage-Ziel für Domain: **100%**.
 
 ---

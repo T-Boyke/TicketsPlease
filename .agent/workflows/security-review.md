@@ -112,9 +112,9 @@ document.getElementById("output").innerHTML = marked.parse(userMarkdown);
 | Datensparsamkeit: Nur minimal nötige Daten erheben? | ☐      |
 | Keine IP-Tracking ohne Rechtsgrundlage?             | ☐      |
 | Keine externen CDNs (IP-Leak an Drittanbieter)?     | ☐      |
-| **DSGVO Isolierung**    | PII-Daten strikt von Transaktionsdaten trennen?     | ☐      |
-| **Recht auf Vergessen** | Hard-Delete Workflow für User-Accounts vorhanden?   | ☐      |
-| Cookie-Banner nur wenn nötig?                       | ☐      |
+| **DSGVO Isolierung**: PII-Daten strikt von Transaktionsdaten trennen?  | ☐      |
+| **Recht auf Vergessen**: Hard-Delete Workflow für User-Accounts?    | ☐      |
+| Cookie-Banner nur wenn nötig?                                       | ☐      |
 
 ### 8. File Upload Security
 

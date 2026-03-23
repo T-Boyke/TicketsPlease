@@ -515,10 +515,27 @@ Ein völlig neues Bounded Context für die interne Enterprise-Kommunikation.
 
 ## Aktueller Stand (MVP)
 
-Vom oben geplanten Schema sind im aktuellen MVP-Kern folgende Entitäten physisch
-implementiert:
+Vom oben geplanten Enterprise-Schema sind im Domain Layer **alle 26 Entitäten**
+als C#-Klassen vorhanden. Die meisten besitzen jedoch nur minimale Properties
+und müssen für den jeweiligen Feature-Sprint ausgebaut werden.
 
-### 1. Ticket Entity
+### MVP-relevante Entities (IHK F1–F9)
+
+| Entity | Zweck | IHK-Feature | Status |
+|:---|:---|:---|:---|
+| **User** | Auth & Zuweisung | F1.3 | Basis vorhanden |
+| **Ticket** | Kern-Aggregat | F3 | Basis vorhanden |
+| **Project** | Projekt-Zuordnung | F2.2 | ⚠️ **Fehlt!** |
+| **WorkflowState** | Status-Verwaltung | F8 | Basis vorhanden |
+| **Message** | Nachrichten | F9 | Basis vorhanden |
+| **Notification** | Benachrichtigungen | — | Basis vorhanden |
+
+> [!WARNING] Das **Project-Entity** (Titel, Beschreibung, Startdatum,
+> Enddatum) muss als eigene Domain-Entity erstellt werden. Es ist
+> IHK-Pflicht (F2.2: „Projekte CRUD"). Tickets werden über einen FK
+> einem Projekt zugeordnet.
+
+### Aktuelle Ticket Entity
 
 ```csharp
 public class Ticket : BaseEntity
@@ -532,7 +549,7 @@ public class Ticket : BaseEntity
 }
 ```
 
-### 2. User Entity
+### Aktuelle User Entity
 
 ```csharp
 public class User : BaseEntity
@@ -543,16 +560,28 @@ public class User : BaseEntity
 }
 ```
 
-### 3. Base Entity (Common)
+### Base Entity (Common)
 
 Alle Entitäten erben von `BaseEntity` (Domain Layer). Zur Sicherstellung der
-Zukunftssicherheit (ADR-0021) enthält diese nun:
+Zukunftssicherheit (ADR-0032) enthält diese nun:
 
 - `Guid Id` (Primary Key)
 - `Guid TenantId` (Multi-Tenancy Discriminator)
 - `bool IsDeleted` (Soft-Delete Flag)
 - `DateTime? DeletedAt` (Soft-Delete Audit)
 - `byte[] RowVersion` (Concurrency Token)
+
+### Enterprise-Entities (Post-MVP, bereits im Domain Layer)
+
+Die folgenden Entities sind als Klassen vorhanden, werden aber erst in
+Phase 2–5 mit UI und Business-Logik ausgebaut:
+
+- UserProfile, UserAddress, Role, Organization
+- FileAsset, Team, TeamMember
+- TicketAssignment, TicketPriority, TicketTag, Tag
+- SubTicket, TicketUpvote, TicketHistory, TicketTemplate
+- TimeLog, TicketCustomValue, CustomFieldDefinition
+- WorkflowTransition, SlaPolicy, MessageReadReceipt
 
 ---
 

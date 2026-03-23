@@ -37,4 +37,4 @@ Regeln und Tools zur Sicherstellung der Code-Qualität.
 
 ---
 
-_LintingConfig v1.0 | 2026-03-09_
+### LintingConfig v1.0 | 2026-03-09

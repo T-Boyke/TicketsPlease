@@ -1,6 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
+// <copyright file="TicketsApiController.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace TicketsPlease.Web.Controllers.Api;
+
+using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
 /// API für die Verwaltung von Tickets.
@@ -9,7 +13,7 @@ namespace TicketsPlease.Web.Controllers.Api;
 [ApiController]
 [Route("api/v1/tickets")]
 [Produces("application/json")]
-public class TicketsApiController : ControllerBase
+internal sealed class TicketsApiController : ControllerBase
 {
   /// <summary>
   /// Ruft alle Tickets ab.
@@ -21,10 +25,10 @@ public class TicketsApiController : ControllerBase
   public IActionResult GetTickets()
   {
     // Demo-Daten
-    return Ok(new[]
+    return this.Ok(new[]
     {
       new { Id = 1, Title = "Login funktioniert nicht", Priority = "Hoch", Status = "Offen" },
-      new { Id = 2, Title = "Design-Anpassungen im Footer", Priority = "Niedrig", Status = "In Arbeit" }
+      new { Id = 2, Title = "Design-Anpassungen im Footer", Priority = "Niedrig", Status = "In Arbeit" },
     });
   }
 
@@ -40,7 +44,11 @@ public class TicketsApiController : ControllerBase
   [ProducesResponseType(StatusCodes.Status404NotFound)]
   public IActionResult GetTicket(int id)
   {
-    if (id != 1) return NotFound();
-    return Ok(new { Id = 1, Title = "Login funktioniert nicht", Priority = "Hoch", Status = "Offen" });
+    if (id != 1)
+    {
+      return this.NotFound();
+    }
+
+    return this.Ok(new { Id = 1, Title = "Login funktioniert nicht", Priority = "Hoch", Status = "Offen" });
   }
 }

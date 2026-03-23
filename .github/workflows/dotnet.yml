@@ -21,15 +21,22 @@ jobs:
       with:
         dotnet-version: 10.0.x
     - name: Restore dependencies
-      run: dotnet restore src/TicketsPlease.slnx
+      run: dotnet restore TicketsPlease.slnx
     - name: Restore tools
       run: dotnet tool restore
     - name: Verify Formatting
-      run: dotnet format src/TicketsPlease.slnx --verify-no-changes
+      run: dotnet format TicketsPlease.slnx --verify-no-changes
+    - name: Download Tailwind CLI
+      run: |
+        mkdir -p src/TicketsPlease.Web/obj/tailwind-cli
+        curl -L -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -o src/TicketsPlease.Web/obj/tailwind-cli/tailwindcss-linux-x64 https://github.com/tailwindlabs/tailwindcss/releases/download/v4.2.2/tailwindcss-linux-x64
+        chmod +x src/TicketsPlease.Web/obj/tailwind-cli/tailwindcss-linux-x64
     - name: Build
-      run: dotnet build src/TicketsPlease.slnx --no-restore --configuration Release
+      run: dotnet build TicketsPlease.slnx --no-restore --configuration Release -p:TailwindCliPath=$GITHUB_WORKSPACE/src/TicketsPlease.Web/obj/tailwind-cli/tailwindcss-linux-x64
+    - name: Install Playwright Browsers
+      run: pwsh tests/TicketsPlease.E2ETests/bin/Release/net10.0/playwright.ps1 install
     - name: Test
-      run: dotnet test src/TicketsPlease.slnx --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+      run: dotnet test TicketsPlease.slnx --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
 
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0

@@ -17,7 +17,7 @@ Dieses Projekt nutzt
 
 ### Added
 
-- **Layer-Specific READMEs:** 5 neue README-Dateien im `src`-Verzeichnis mit
+- **User Stories:** Zentrale `aufgabe.md` mit allen 9 Features und Akzeptanzkriterien für das MVP erstellt.
   spezifischen Arbeitsanweisungen für Domain, Application, Infrastructure etc.
 - **Git Layer-Branching:** Einführung einer Schicht-basierten
   Branching-Strategie (`layer/domain`, etc.) inkl. Dokumentation in allen
@@ -43,6 +43,21 @@ Dieses Projekt nutzt
 
 - **Framework Update:** Migrated all Microsoft packages to v10.0.5 and locked
   SDK to v10.0.200 for team consistency.
+
+### Fixed
+
+- **CI Pipeline:** Playwright E2E-Tests stabilisiert durch automatische Browser-Installation in
+  `dotnet.yml`.
+- **EF Core SQLite Compatibility:**
+  - Provider-Konflikt (`Multiple DB Providers`) in `IntegrationTestBase.cs` durch aggressives
+    Service-Removal gelöst.
+  - `RowVersion` NOT NULL Constraints in SQLite durch provider-spezifische Konfiguration
+    (`ValueGeneratedNever`) in `AppDbContext.cs` behoben.
+  - Foreign Key Fehler in Integrationstests durch Einführung von `SeedMinimalAsync` (Roles,
+    Priorities, WorkflowStates) beseitigt.
+- **Code Style & Linting:**
+  - Sämtliche `dotnet format` Verstöße (SA1202, SA1201, SA1413, CA2007) in den Test-Projekten behoben.
+  - Markdown Linting Fehler (MD033, MD041, MD045) in `README.md` korrigiert.
 
 - **README Hub:** Umgestaltung der README zur zentralen
   Dokumentations-Drehscheibe mit Fokus auf MVP vs. Enterprise Fortschritt.

@@ -1,4 +1,6 @@
-# TicketsPlease 🎫
+# TicketsPlease ![TicketsPlease Icon](docs/assets/ticketspleaseicon.png)
+
+![TicketsPlease Logo](docs/assets/ticketspleaselogo.png)
 
 Ein hochmodernes, kollaboratives und skalierbares Kanban-Ticketsystem,
 entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
@@ -24,8 +26,8 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 <details>
 <summary>📋 Table of Contents (Inhaltsverzeichnis)</summary>
 
-- [TicketsPlease 🎫](#ticketsplease-)
-  - [📊 Implementierungs-Status (MVP vs. Enterprise)](#-implementierungs-status-mvp-vs-enterprise)
+- [TicketsPlease ![TicketsPlease Icon](docs/assets/ticketspleaseicon.png)](#ticketsplease-)
+  - [📊 Implementierungs-Status (MVP = IHK F1–F9)](#-implementierungs-status-mvp--ihk-f1f9)
   - [1. 🚀 Vision \& Projektziele](#1--vision--projektziele)
   - [2. 🛠️ Technologie-Stack](#2-️-technologie-stack)
   - [3. 📐 Architektur \& Design](#3--architektur--design)
@@ -50,7 +52,7 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
     - [📋 Kanban Dashboard (Interaktiv)](#-kanban-dashboard-interaktiv)
     - [Enterprise Add-Ons (Phase 2-5) 🚀](#enterprise-add-ons-phase-2-5-)
   - [6. 🛡️ Code-Qualität \& Workflows](#6-️-code-qualität--workflows)
-    - [Test-Driven Development (TDD) & "Perfect" Quality Assurance](#test-driven-development-tdd--perfect-quality-assurance)
+    - [Test-Driven Development (TDD) \& "Perfect" Quality Assurance](#test-driven-development-tdd--perfect-quality-assurance)
     - [💯 Google Lighthouse Tests (Performance \& SEO)](#-google-lighthouse-tests-performance--seo)
     - [Continuous Integration / Continuous Deployment (CI/CD)](#continuous-integration--continuous-deployment-cicd)
     - [🔍 Statische Code-Analyse \& Linter](#-statische-code-analyse--linter)
@@ -65,18 +67,25 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 
 ---
 
-## 📊 Implementierungs-Status (MVP vs. Enterprise)
+## 📊 Implementierungs-Status (MVP = IHK F1–F9)
 
 | Feature             | Status       | Beschreibung                              | Scope       |
 | :------------------ | :----------- | :---------------------------------------- | :---------- |
-| **Core Entities**   | ✅ Aktiv     | 26 Enterprise-Entitäten (3NF) aktiv       | MVP Context |
-| **IAM**             | ✅ Aktiv     | Full Organization, User & Profile Mapping | MVP         |
-| **Kanban Board**    | 🏗️ In Arbeit | Interaktives Board mit Drag & Drop        | MVP         |
-| **Tailwind CSS v4** | ✅ Aktiv     | Modernes Styling via nativem CLI          | MVP         |
-| **Testing Infra**   | ✅ Aktiv     | Architektur- & Integrations-Tests         | MVP         |
-| **AI Skills**       | ✅ Aktiv     | Automatisierung via Antigravity           | MVP         |
-| **Team Support**    | ✅ Aktiv     | Persistent Teams & Member Mgt.            | Enterprise  |
-| **SLA Policies**    | ✅ Aktiv     | Persistence Layer & Policies              | Enterprise  |
+| **Solution Setup**  | ✅ Fertig    | Clean Architecture .NET 10 Solution       | MVP (F1.1)  |
+| **EF Core DB**      | ✅ Fertig    | Code-First mit MS SQL                     | MVP (F1.2)  |
+| **Tailwind CSS**    | ✅ Fertig    | v4.2.2 via MSBuild (Node-free)            | MVP         |
+| **CI/CD Pipeline**  | ✅ Fertig    | GitHub Actions (Build, Lint, Test)        | MVP         |
+| **Domain Entities** | ✅ Fertig    | 26 Enterprise-Entitäten im Domain Layer   | MVP + Ent.  |
+| **Identity/Auth**   | 🏗️ Ausstehend | Login, Logout, Rollen (Admin/Dev/Tester)  | MVP (F1.3)  |
+| **Projekte CRUD**   | ⚠️ Ausstehend | Project-Entity fehlt im Domain Layer!     | MVP (F2.2)  |
+| **Ticket-Bereich**  | 🏗️ Ausstehend | Anlegen, Liste, Detail, Bearbeiten, Close | MVP (F3)    |
+| **Startseite**      | 🏗️ Ausstehend | Statistiken, Links zu Bereichen           | MVP (F4)    |
+| **Kommentare**      | 🏗️ Ausstehend | Ticket-Kommentare                         | MVP (F5)    |
+| **Filterung**       | 🏗️ Ausstehend | Nach Projekt, User, Ersteller             | MVP (F6)    |
+| **Abhängigkeiten**  | 🏗️ Ausstehend | Blockierende Tickets                      | MVP (F7)    |
+| **Workflows**       | 🏗️ Ausstehend | Status-Verwaltung für Projekte            | MVP (F8)    |
+| **Nachrichten**     | 🏗️ Ausstehend | User-to-User Messaging                    | MVP (F9)    |
+| **Kanban Board**    | 🗺️ Roadmap   | Interaktives Board mit Drag & Drop        | Enterprise  |
 | **Plugin System**   | 🗺️ Roadmap   | Externe Module (Dynamic Loading)          | Enterprise  |
 
 ---
@@ -137,12 +146,13 @@ hochmodernen, perfekt aufeinander abgestimmten Stack für das Jahr 2026:
   - [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
   - _Siehe detailliertes [Datenbankschema (ERD)](docs/database_schema.md)_
 - **Frontend & User Interface (UI):**
-  - **TailwindCSS 4.2:** Neueste Evolution via nativer CSS-Engine und
+  - **TailwindCSS 4.2.2:** Neueste Evolution via nativer CSS-Engine und
     `@theme`-Direktiven (keine `tailwind.config.js` mehr!).
   - **Client-Side Libs:** Markdig (Markdown), SortableJS (Drag & Drop),
     FontAwesome 7.2.0 (Lokal), Roboto Flex & Google Sans Flex (Lokal).
   - **Corporate Identity:** Dynamisches Theming über `ICorporateSkinProvider`
-    und CSS-Variablen (Azure/Sky Blue) mit Native Dark Mode, Glassmorphism und High-End Typografie (Flex Fonts).
+    und CSS-Variablen (Azure/Sky Blue) mit Native Dark Mode, Glassmorphism
+    und High-End Typografie (Flex Fonts).
   - **No-Bootstrap Policy:** Das Projekt ist vollständig Bootstrap-frei für
     maximalen Control-Flow.
   - Paketverwaltung via
@@ -302,7 +312,7 @@ Manager (`libman.json`) in das Projektverzeichnis (`wwwroot/lib`) integriert.
 
 Wir verfolgen strikt den Utility-First Ansatz, aber kapseln diesen sauber:
 
-- **TailwindCSS 4.2:** Wir nutzen den JIT (Just-in-Time) Compiler von Tailwind
+- **TailwindCSS 4.2.2:** Wir nutzen den JIT (Just-in-Time) Compiler von Tailwind
   für pfeilschnelles, utility-basiertes Design.
   [Offizielle Dokumentation](https://tailwindcss.com/docs).
 - **FontAwesome 7.2:** Für Enterprise-Grade Vektor Icons.

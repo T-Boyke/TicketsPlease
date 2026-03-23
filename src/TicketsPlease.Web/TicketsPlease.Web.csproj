@@ -11,6 +11,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="MimeKit" Version="4.15.1" />
+
     <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
     <PackageReference Include="Scalar.AspNetCore" Version="2.0.18" />
     <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
@@ -22,7 +23,8 @@
   </ItemGroup>
 
   <PropertyGroup Label="Tailwind Properties">
-    <TailwindVersion>4.2</TailwindVersion>
+    <TailwindVersion Condition="'$(GITHUB_ACTIONS)' != 'true'">v4.2.2</TailwindVersion>
+    <TailwindVersion Condition="'$(GITHUB_ACTIONS)' == 'true'">v4.2.2</TailwindVersion>
     <TailwindInstallPath>$(BaseIntermediateOutputPath)\tailwind-cli\</TailwindInstallPath>
     <TailwindConfigDir>$(MSBuildProjectDirectory)\Tailwind\</TailwindConfigDir>
     <TailwindInputFile>input.css</TailwindInputFile>

@@ -11,6 +11,7 @@
   <dsgvo>
     - Name: Datenschutz-Grundverordnung (DSGVO) / GDPR.
     - Core Principles: Transparency, Purpose Limitation, Data Minimization, Accuracy, Integrity, Confidentiality.
-    - User Rights: Information, Access, Rectification, Erasure (Right to be forgotten), Restriction of Processing.
+    - User Rights: Information, Access, Rectification, Erasure (Right to be forgotten),
+      Restriction of Processing.
   </dsgvo>
 </compliance_standards>

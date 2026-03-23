@@ -2,9 +2,9 @@
 
 Dieses Dokument ist das **oberste Gesetz** für alle KI-gesteuerten
 Code-Modifikationen in der **TicketsPlease** Solution. Jede Regel ist aus der
-[README.md](file:///d:/DEV/Tickets/README.md), den
-[Docs](file:///d:/DEV/Tickets/docs/) und den
-[ADRs](file:///d:/DEV/Tickets/docs/adr/) extrahiert.
+[README.md](README.md), den
+[Docs](docs/) und den
+[ADRs](docs/adr/) extrahiert.
 
 > [!CAUTION] Verstöße gegen diese Regeln führen zu **sofortigem Reject** im
 > Code-Review und blockieren die CI/CD-Pipeline.
@@ -68,7 +68,7 @@ Code-Modifikationen in der **TicketsPlease** Solution. Jede Regel ist aus der
 | **Solution**    | `TicketsPlease.slnx`                                                      |
 | **Runtime**     | ASP.NET Core 10.3 / C# 14 / .NET 10                                       |
 | **Datenbank**   | Microsoft SQL Server (EF Core Code-First)                                 |
-| **Frontend**    | TailwindCSS 4.2 (via `TailwindCSS.MSBuild`), FontAwesome 7.2, Razor Views |
+| **Frontend**    | TailwindCSS 4.2.2 (via `TailwindCSS.MSBuild`), FontAwesome 7.2, Razor Views |
 | **Architektur** | Clean Architecture (Onion) + DDD + CQRS                                   |
 | **CQRS Stack**  | MediatR + FluentValidation + Mapster                                      |
 | **Testing**     | xUnit, FluentAssertions, Moq/NSubstitute, Testcontainers, NetArchTest     |
@@ -101,7 +101,7 @@ src/
 ### Phase-Awareness (MVP vs. Enterprise)
 
 > [!IMPORTANT] Der Agent **muss** die
-> [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md) beachten. Phase 1
+> [MVP-Roadmap](docs/MVP_Roadmap.md) beachten. Phase 1
 > (IHK MVP) hat absoluten Vorrang. Enterprise-Features (Phase 2-5) dürfen das
 > Schema vorbereiten, aber **nicht** implementiert werden, bis Phase 1 komplett
 > abgeschlossen und der Build grün ist.
@@ -111,7 +111,7 @@ src/
 ## 2. 🏛️ Clean Architecture Governance
 
 > **Referenz:**
-> [ADR-0001](file:///d:/DEV/Tickets/docs/adr/0001-clean-architecture.md) |
+> [ADR-0010](docs/adr/0010-clean-architecture.md) |
 > README §3
 
 ### Dependency Rule (Unverletzlich)
@@ -149,7 +149,7 @@ flowchart LR
 
 ## 3. 🧬 Domain-Driven Design (DDD)
 
-> **Referenz:** [domain_ticket.md](file:///d:/DEV/Tickets/docs/domain_ticket.md)
+> **Referenz:** [domain_ticket.md](docs/domain_ticket.md)
 > | README §3 | README §5
 
 ### Rich Domain Models (Keine anämischen Modelle!)
@@ -195,9 +195,9 @@ ticket.Status = TicketStatus.InReview;
 
 ## 4. ⚡ CQRS & MediatR Pipeline
 
-> **Referenz:** [ADR-0009](file:///d:/DEV/Tickets/docs/adr/0009-cqrs-mediatr.md)
+> **Referenz:** [ADR-0050](docs/adr/0050-cqrs-mediatr.md)
 > \|
-> [ADR-0010](file:///d:/DEV/Tickets/docs/adr/0010-validation-fluentvalidation.md)
+> [ADR-0051](docs/adr/0051-validation-fluentvalidation.md)
 
 ### Pipeline Execution Order
 
@@ -224,8 +224,8 @@ flowchart LR
 ## 5. 🗄️ EF Core Strict Policy
 
 > **Referenz:**
-> [ADR-0019](file:///d:/DEV/Tickets/docs/adr/0019-ef-core-resilience-concurrency.md)
-> \| [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md)
+> [ADR-0031](docs/adr/0031-ef-core-resilience-concurrency.md)
+> \| [database_schema.md](docs/database_schema.md)
 
 | Regel                          | Beschreibung                                                                                                                                       |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -235,7 +235,7 @@ flowchart LR
 | **Concurrency Handling**       | `DbUpdateConcurrencyException` **muss** in jedem Write-Handler explizit gefangen werden.                                                           |
 | **`DefaultExecutionStrategy`** | Für manuelle Transaktionen zwingend die Retry-Strategy in `AppDbContext` nutzen.                                                                   |
 | **`EnableRetryOnFailure`**     | Ist in der Connection-Konfiguration aktiv. Bei manuellen Transaktionen `CreateExecutionStrategy()` verwenden.                                      |
-| **Code-First Migrations**      | Über `dotnet ef migrations add` im Infrastructure-Projekt. Siehe [EF Core Workflow](file:///d:/DEV/Tickets/.agent/workflows/ef-core-migration.md). |
+| **Code-First Migrations**      | Über `dotnet ef migrations add` im Infrastructure-Projekt. Siehe [EF Core Workflow](.agent/workflows/ef-core-migration.md). |
 | **3NF Schema**                 | Die Datenbank ist in **3. Normalform**. Keine Denormalisierung ohne ADR!                                                                           |
 | **Seed Data**                  | Stammdaten über `HasData()` in `OnModelCreating` oder separate Seed-Klassen.                                                                       |
 
@@ -272,15 +272,15 @@ flowchart TD
 ## 7. 🎨 UI/UX Excellence (Tailwind Way)
 
 > **Referenz:** README §4 \|
-> [ADR-0005](file:///d:/DEV/Tickets/docs/adr/0005-ui-sfc-tailwind.md) \|
-> [ADR-0017](file:///d:/DEV/Tickets/docs/adr/0017-no-bootstrap-policy.md) \|
-> [frontend_assets.md](file:///d:/DEV/Tickets/docs/frontend_assets.md)
+> [ADR-0040](docs/adr/0040-ui-sfc-tailwind.md) \|
+> [ADR-0041](docs/adr/0041-no-bootstrap-policy.md) \|
+> [frontend_assets.md](docs/frontend_assets.md)
 
 ### Fundamentale Regeln
 
 | Regel                        | Beschreibung                                                                                                         |
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| **No-Bootstrap Policy**      | Bootstrap ist **verboten**. Ausschließlich TailwindCSS 4.2.                                                          |
+| **No-Bootstrap Policy**      | Bootstrap ist **verboten**. Ausschließlich TailwindCSS 4.2.2.                                                          |
 | **No-CDN Policy**            | Sämtliche Libraries lokal über LibMan (`libman.json`) → `wwwroot/lib/`. Keine externen CDN-Links im HTML!            |
 | **TailwindCSS via MSBuild**  | Integration über `TailwindCSS.MSBuild` (Zero-Node). Kein `npm` / `node_modules`.                                     |
 | **CSS-Variablen für Farben** | Keine Hardcoded Tailwind-Farben (`bg-gray-800`). Nutze CSS Custom Properties (`--color-surface`, `--brand-primary`). |
@@ -359,8 +359,8 @@ css/components/
 ## 10. 🧪 Testing Excellence (TDD)
 
 > **Referenz:** README §6 \|
-> [ADR-0006](file:///d:/DEV/Tickets/docs/adr/0006-testing-strategy.md) \|
-> [nuget_stack.md](file:///d:/DEV/Tickets/docs/nuget_stack.md)
+> [ADR-0060](docs/adr/0060-testing-strategy.md) \|
+> [nuget_stack.md](docs/nuget_stack.md)
 
 ### TDD-Zyklus (Pflicht!)
 
@@ -456,7 +456,7 @@ flowchart LR
 | Regel                     | Beschreibung                                                                                                                                                               |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **XML-Documentation**     | **Vollständig** und korrekt für alle `public` Members. Nutze `<summary>`, `<param>`, `<returns>`, `<exception>`, `<remarks>`.                                              |
-| **ADR-Pflicht**           | Jede wesentliche Design-Entscheidung wird als [ADR](file:///d:/DEV/Tickets/docs/adr/) dokumentiert (Template: [template.md](file:///d:/DEV/Tickets/docs/adr/template.md)). |
+| **ADR-Pflicht**           | Jede wesentliche Design-Entscheidung wird als [ADR](docs/adr/) dokumentiert (Template: [template.md](docs/adr/template.md)). |
 | **Mermaid-Diagramme**     | Für alle komplexen Systeme, Flows und Architekturen.                                                                                                                       |
 | **CHANGELOG**             | Jeder Task/Feature/Bugfix wird in der README oder einem `CHANGELOG.md` dokumentiert.                                                                                       |
 | **Mockups & Screenshots** | In `/docs/mockups/` versioniert ablegen.                                                                                                                                   |
@@ -472,7 +472,7 @@ flowchart LR
 | ❌  | **Direktes `DbContext` im Controller** → Nutze MediatR.                      |
 | ❌  | **Command ohne Validator** → Jeder Input braucht FluentValidation.           |
 | ❌  | **Fehlende XML-Kommentare** → "I'll do it later" zählt nicht.                |
-| ❌  | **Bootstrap-Import** → Ist komplett verboten. Nur TailwindCSS 4.2.           |
+| ❌  | **Bootstrap-Import** → Ist komplett verboten. Nur TailwindCSS 4.2.2.           |
 | ❌  | **CDN-Links im HTML** → Alle Assets lokal über LibMan.                       |
 | ❌  | **`DateTime` statt `DateTimeOffset`** → Für I18N/Zeitzonen verboten.         |
 | ❌  | **Secrets in `appsettings.json`** → Nutze `dotnet user-secrets`.             |
@@ -501,8 +501,8 @@ TicketsPlease-Projekt vorgehen muss.
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Immer planen**    | Vor jeder Code-Änderung die betroffenen Layer, Dateien und Abhängigkeiten identifizieren. Niemals "blind" drauflos coden.                                                 |
 | **Workflow-First**  | Prüfe, ob ein passender Workflow existiert (§16). Wenn ja: Folge ihm **Schritt für Schritt**.                                                                             |
-| **MVP-Awareness**   | Prüfe die [MVP-Roadmap](file:///d:/DEV/Tickets/docs/MVP_Roadmap.md). Implementiere **keine** Enterprise-Features (Phase 2-5), solange Phase 1 nicht abgeschlossen ist.    |
-| **ADR-Check**       | Prüfe vor architektonischen Entscheidungen die bestehenden [ADRs](file:///d:/DEV/Tickets/docs/adr/). Widerspreche keinem bestehenden ADR ohne explizite User-Genehmigung. |
+| **MVP-Awareness**   | Prüfe die [MVP-Roadmap](docs/MVP_Roadmap.md). Implementiere **keine** Enterprise-Features (Phase 2-5), solange Phase 1 nicht abgeschlossen ist.    |
+| **ADR-Check**       | Prüfe vor architektonischen Entscheidungen die bestehenden [ADRs](docs/adr/). Widerspreche keinem bestehenden ADR ohne explizite User-Genehmigung. |
 | **Scope begrenzen** | Ändere nur, was der User angefordert hat. Keine ungewollten "Bonus-Refactorings" oder Feature-Erweiterungen.                                                              |
 
 ### 📄 Datei-Disziplin
@@ -577,21 +577,21 @@ Entwicklungs-Aufgabe:
 
 | Workflow                   | Beschreibung                                  | Link                                                                                             |
 | -------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `/add-cqrs-feature`        | Neues CQRS Feature (Command/Query) hinzufügen | [add-cqrs-feature.md](file:///d:/DEV/Tickets/.agent/workflows/add-cqrs-feature.md)               |
-| `/ef-core-migration`       | EF Core Migrations erstellen & anwenden       | [ef-core-migration.md](file:///d:/DEV/Tickets/.agent/workflows/ef-core-migration.md)             |
-| `/testing-standards`       | Unit- & Integration-Tests schreiben           | [testing-standards.md](file:///d:/DEV/Tickets/.agent/workflows/testing-standards.md)             |
-| `/ui-component-tailwind`   | UI-Komponenten mit Tailwind erstellen         | [ui-component-tailwind.md](file:///d:/DEV/Tickets/.agent/workflows/ui-component-tailwind.md)     |
-| `/atomic-commits`          | Atomare, logische Git-Commits                 | [atomic-commits.md](file:///d:/DEV/Tickets/.agent/workflows/atomic-commits.md)                   |
-| `/security-review`         | Security-Checkliste (Defense in Depth)        | [security-review.md](file:///d:/DEV/Tickets/.agent/workflows/security-review.md)                 |
-| `/domain-entity`           | DDD Entity/Value Object erstellen             | [domain-entity.md](file:///d:/DEV/Tickets/.agent/workflows/domain-entity.md)                     |
-| `/documentation-standards` | Dokumentations-Standards einhalten            | [documentation-standards.md](file:///d:/DEV/Tickets/.agent/workflows/documentation-standards.md) |
+| `/add-cqrs-feature`        | Neues CQRS Feature (Command/Query) hinzufügen | [add-cqrs-feature.md](.agent/workflows/add-cqrs-feature.md)               |
+| `/ef-core-migration`       | EF Core Migrations erstellen & anwenden       | [ef-core-migration.md](.agent/workflows/ef-core-migration.md)             |
+| `/testing-standards`       | Unit- & Integration-Tests schreiben           | [testing-standards.md](.agent/workflows/testing-standards.md)             |
+| `/ui-component-tailwind`   | UI-Komponenten mit Tailwind erstellen         | [ui-component-tailwind.md](.agent/workflows/ui-component-tailwind.md)     |
+| `/atomic-commits`          | Atomare, logische Git-Commits                 | [atomic-commits.md](.agent/workflows/atomic-commits.md)                   |
+| `/security-review`         | Security-Checkliste (Defense in Depth)        | [security-review.md](.agent/workflows/security-review.md)                 |
+| `/domain-entity`           | DDD Entity/Value Object erstellen             | [domain-entity.md](.agent/workflows/domain-entity.md)                     |
+| `/documentation-standards` | Dokumentations-Standards einhalten            | [documentation-standards.md](.agent/workflows/documentation-standards.md) |
 
 ---
 
 ## 📝 Markdown & Documentation Rules
 
 > **Referenz:**
-> [.agent/rules/markdown.md](file:///d:/DEV/Tickets/.agent/rules/markdown.md)
+> [.agent/rules/markdown.md](.agent/rules/markdown.md)
 
 Alle Markdown-Dokumente müssen den Projektspezifischen Regeln für Formatting
 (Prettier) und Linting (Markdownlint) entsprechen.
@@ -602,4 +602,4 @@ Alle Markdown-Dokumente müssen den Projektspezifischen Regeln für Formatting
 
 ---
 
-Status: Supercharged v3.2 | Letztes Update: 2026-03-09
+Status: Supercharged v3.5 | Letztes Update: 2026-03-23
