@@ -1,6 +1,12 @@
+---
+trigger: model_decision
+description: each time we commit, we check if we completed an issue and commit on it
+---
+
 # 🎫 TicketsPlease - GitHub Issues & Projects Rules
 
 <!-- markdownlint-disable MD033 -->
+
 <github_issues_rules>
 
 ## Repository & Project Board
@@ -13,11 +19,11 @@
 
 GitHub Issues use **Issue Type** (`Bug`, `Feature`, `Task`) as the primary classification.
 
-| Type      | Verwendung                                                 |
-| :-------- | :--------------------------------------------------------- |
-| `Feature` | Neue Funktionalität (IHK F1–F9, Enterprise Add-Ons)       |
-| `Bug`     | Fehler in bestehender Funktionalität                       |
-| `Task`    | Technische Aufgabe (Refactoring, Docs, Infra, CI/CD)       |
+| Type      | Verwendung                                           |
+| :-------- | :--------------------------------------------------- |
+| `Feature` | Neue Funktionalität (IHK F1–F9, Enterprise Add-Ons)  |
+| `Bug`     | Fehler in bestehender Funktionalität                 |
+| `Task`    | Technische Aufgabe (Refactoring, Docs, Infra, CI/CD) |
 
 ## Labels (Pflicht)
 
@@ -25,19 +31,19 @@ Jedes Issue **MUSS** mindestens ein `area:`-Label und ein `size/`-Label erhalten
 
 ### Area Labels (Pflicht, mind. 1)
 
-| Label                | Beschreibung                                          |
-| :------------------- | :---------------------------------------------------- |
-| `area:domain`        | Domain Layer (Entities, Value Objects, Domain Events)  |
-| `area:infrastructure`| Infrastructure Layer (EF Core, Repos, Services)       |
-| `area:web`           | Web Layer (Controllers, Views, Razor, Tailwind)        |
-| `area:tests`         | Unit Tests, Integration Tests, E2E Tests               |
-| `area:docs`          | Dokumentation, ADRs, README, CHANGELOG                 |
-| `area:github`        | CI/CD, GitHub Actions, Project Board, Issues           |
+| Label                 | Beschreibung                                          |
+| :-------------------- | :---------------------------------------------------- |
+| `area:domain`         | Domain Layer (Entities, Value Objects, Domain Events) |
+| `area:infrastructure` | Infrastructure Layer (EF Core, Repos, Services)       |
+| `area:web`            | Web Layer (Controllers, Views, Razor, Tailwind)       |
+| `area:tests`          | Unit Tests, Integration Tests, E2E Tests              |
+| `area:docs`           | Dokumentation, ADRs, README, CHANGELOG                |
+| `area:github`         | CI/CD, GitHub Actions, Project Board, Issues          |
 
 ### Size Labels (Pflicht, genau 1)
 
-| Label     | Story Points | Beschreibung                                |
-| :-------- | :----------- | :------------------------------------------ |
+| Label     | Story Points | Beschreibung                                 |
+| :-------- | :----------- | :------------------------------------------- |
 | `size/XS` | 1            | < 30 Min (Config, Typo, kleine Fixes)        |
 | `size/S`  | 2–3          | 30 Min – 2h (Einfaches Feature, kleiner Fix) |
 | `size/XL` | 8–13         | 1–3 Tage (Komplexes Feature, Multi-Layer)    |
@@ -61,6 +67,7 @@ das alle Subtasks referenziert:
 IHK Feature F3 – Alle User Stories zum Ticket-Bereich.
 
 ### Sub-Issues
+
 - [ ] #42 [Domain] Ticket Entity mit Close-Regeln
 - [ ] #43 [Application] CreateTicketCommand + Validator
 - [ ] #44 [Infrastructure] TicketRepository
@@ -72,18 +79,22 @@ IHK Feature F3 – Alle User Stories zum Ticket-Bereich.
 
 ```markdown
 ## Beschreibung
+
 [Was wird implementiert und warum?]
 
 ## Akzeptanzkriterien (IHK)
+
 - [ ] [Exaktes Kriterium aus der Aufgabe]
 - [ ] [Weiteres Kriterium]
 
 ## Technische Umsetzung
+
 - **Layer:** Domain / Application / Infrastructure / Web
 - **Dateien:** `TicketEntity.cs`, `CreateTicketCommand.cs`
 - **Abhängigkeiten:** Blocked by #XX
 
 ## Definition of Done
+
 - [ ] Code kompiliert (`dotnet build`)
 - [ ] Tests grün (`dotnet test`)
 - [ ] XML-Docs vorhanden
@@ -93,12 +104,12 @@ IHK Feature F3 – Alle User Stories zum Ticket-Bereich.
 
 ## Kanban Columns
 
-| Column        | Bedeutung                                              |
-| :------------ | :----------------------------------------------------- |
-| **Backlog**   | Geplant, aber noch nicht begonnen                      |
-| **Ready**     | Alle Abhängigkeiten erfüllt, kann begonnen werden      |
-| **In Progress**| Aktiv in Bearbeitung (max. 3 WIP)                     |
-| **Done**      | Implementiert, getestet, committed, gepushed            |
+| Column          | Bedeutung                                         |
+| :-------------- | :------------------------------------------------ |
+| **Backlog**     | Geplant, aber noch nicht begonnen                 |
+| **Ready**       | Alle Abhängigkeiten erfüllt, kann begonnen werden |
+| **In Progress** | Aktiv in Bearbeitung (max. 3 WIP)                 |
+| **Done**        | Implementiert, getestet, committed, gepushed      |
 
 ## Workflow-Regeln
 
