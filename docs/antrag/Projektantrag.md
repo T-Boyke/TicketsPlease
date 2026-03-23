@@ -93,7 +93,7 @@ Teilprojekt eigenverantwortlich vom Auszubildenden bearbeitet.
 - Erstellung der prozessorientierten Projektdokumentation: 8 Std.
 - Erstellung Benutzerhandbuch & Projektabnahme: 2 Std.
 
-#### Gesamtzeit: 70 Std.
+#### Gesamtzeit: 70 Std
 
 **Dokumentation zur Projektarbeit:**
 
