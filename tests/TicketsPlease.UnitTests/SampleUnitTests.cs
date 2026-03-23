@@ -12,12 +12,12 @@ using Xunit;
 /// </summary>
 public class SampleUnitTests
 {
-    /// <summary>
-    /// Ein einfacher Test, der sicherstellt, dass FluentAssertions funktioniert.
-    /// </summary>
-    [Fact]
-    public void ShoudWork()
-    {
-        true.Should().BeTrue();
-    }
+  /// <summary>
+  /// Ein einfacher Test, der sicherstellt, dass FluentAssertions funktioniert.
+  /// </summary>
+  [Fact]
+  public void ShoudWork()
+  {
+    true.Should().BeTrue();
+  }
 }

@@ -14,14 +14,14 @@ using Xunit;
 /// </summary>
 public class BasicE2ETests : PageTest
 {
-    /// <summary>
-    /// Überprüft, ob die Startseite den korrekten Titel hat.
-    /// </summary>
-    [Fact]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test naming convention")]
-    public void HomePage_ShouldHaveCorrectTitle()
-    {
-        // Placeholder Test
-        true.Should().BeTrue();
-    }
+  /// <summary>
+  /// Überprüft, ob die Startseite den korrekten Titel hat.
+  /// </summary>
+  [Fact]
+  [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification = "Test naming convention")]
+  public void HomePage_ShouldHaveCorrectTitle()
+  {
+    // Placeholder Test
+    true.Should().BeTrue();
+  }
 }
