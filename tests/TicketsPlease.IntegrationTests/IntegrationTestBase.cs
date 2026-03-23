@@ -35,13 +35,9 @@ public abstract class IntegrationTestBase : IDisposable
       builder.UseEnvironment("Testing");
       builder.ConfigureServices(services =>
           {
-            // Vorhandenen DbContext und Optionen entfernen
-            var descriptors = services.Where(d =>
-                d.ServiceType == typeof(DbContextOptions<AppDbContext>) ||
-                d.ServiceType == typeof(DbContextOptions) ||
-                d.ServiceType == typeof(AppDbContext)).ToList();
-
-            foreach (var d in descriptors)
+            // Absolut alle Entity Framework bezogenen Services entfernen, um Provider-Konflikte zu vermeiden
+            var efDescriptors = services.Where(d => d.ServiceType.FullName?.Contains("EntityFrameworkCore") == true).ToList();
+            foreach (var d in efDescriptors)
             {
               services.Remove(d);
             }
