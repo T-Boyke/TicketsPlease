@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 /// Stellt die Basisklasse für alle Domänen-Entitäten dar.
 /// Enthält grundlegende Eigenschaften wie eine eindeutige ID und ein Feld für die Nebenläufigkeitskontrolle.
 /// </summary>
-public abstract class BaseEntity
+public abstract class BaseEntity : IBaseEntity
 {
   /// <summary>
   /// Gets or sets die eindeutige Identität der Entität.
@@ -46,24 +46,24 @@ public abstract class BaseEntity
   /// <summary>
   /// Eine Liste von Domain-Events, die von dieser Entität ausgelöst wurden.
   /// </summary>
-  private readonly List<object> domainEvents = new();
+  private readonly List<IDomainEvent> domainEvents = new();
 
   /// <summary>
   /// Gets die Liste der Domain-Events (Read-Only).
   /// </summary>
-  public IReadOnlyCollection<object> DomainEvents => this.domainEvents.AsReadOnly();
+  public IReadOnlyCollection<IDomainEvent> DomainEvents => this.domainEvents.AsReadOnly();
 
   /// <summary>
   /// Fügt ein Domain-Event hinzu.
   /// </summary>
   /// <param name="domainEvent">Das hinzuzufügende Event.</param>
-  public void AddDomainEvent(object domainEvent) => this.domainEvents.Add(domainEvent);
+  public void AddDomainEvent(IDomainEvent domainEvent) => this.domainEvents.Add(domainEvent);
 
   /// <summary>
   /// Entfernt ein Domain-Event.
   /// </summary>
   /// <param name="domainEvent">Das zu entfernende Event.</param>
-  public void RemoveDomainEvent(object domainEvent) => this.domainEvents.Remove(domainEvent);
+  public void RemoveDomainEvent(IDomainEvent domainEvent) => this.domainEvents.Remove(domainEvent);
 
   /// <summary>
   /// Leert die Liste der Domain-Events.
