@@ -1,8 +1,6 @@
-<p align="center">
-  <img src="docs/assets/ticketspleaselogo.png" alt="TicketsPlease Logo" width="500">
-</p>
+# TicketsPlease ![TicketsPlease Icon](docs/assets/ticketspleaseicon.png)
 
-# TicketsPlease <img src="docs/assets/ticketspleaseicon.png" width="32" align="center">
+![TicketsPlease Logo](docs/assets/ticketspleaselogo.png)
 
 Ein hochmodernes, kollaboratives und skalierbares Kanban-Ticketsystem,
 entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
@@ -28,7 +26,7 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 <details>
 <summary>📋 Table of Contents (Inhaltsverzeichnis)</summary>
 
-- [TicketsPlease <img src="docs/assets/ticketspleaseicon.png" width="16" align="center">](#ticketsplease-)
+- [TicketsPlease ![TicketsPlease Icon](docs/assets/ticketspleaseicon.png)](#ticketsplease-)
   - [📊 Implementierungs-Status (MVP vs. Enterprise)](#-implementierungs-status-mvp-vs-enterprise)
   - [1. 🚀 Vision \& Projektziele](#1--vision--projektziele)
   - [2. 🛠️ Technologie-Stack](#2-️-technologie-stack)

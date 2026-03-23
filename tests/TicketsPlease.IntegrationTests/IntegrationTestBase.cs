@@ -32,13 +32,18 @@ public abstract class IntegrationTestBase : IDisposable
 
     this.Factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
     {
+      builder.UseEnvironment("Testing");
       builder.ConfigureServices(services =>
           {
-            // Vorhandenen DbContext entfernen
-            var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<AppDbContext>));
-            if (descriptor != null)
+            // Vorhandenen DbContext und Optionen entfernen
+            var descriptors = services.Where(d =>
+                d.ServiceType == typeof(DbContextOptions<AppDbContext>) ||
+                d.ServiceType == typeof(DbContextOptions) ||
+                d.ServiceType == typeof(AppDbContext)).ToList();
+
+            foreach (var d in descriptors)
             {
-              services.Remove(descriptor);
+              services.Remove(d);
             }
 
             // SQLite für Tests hinzufügen
