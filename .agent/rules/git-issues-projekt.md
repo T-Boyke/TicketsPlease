@@ -24,7 +24,8 @@ description: each time we commit, we check if we completed an issue and commit o
   - [Frontend Assets & UI](file:///d:/DEV/Tickets/docs/frontend_assets.md)
   - [Entwickler-Setup Guide](file:///d:/DEV/Tickets/docs/dev_setup_guide.md)
   - [Antigravity Agent Guide](file:///d:/DEV/Tickets/docs/antigravity-guide.md)
-- **Relationships:** Alle Issues müssen **nativ** verknüpft sein (Sidebar "Relationships"). (Siehe #31 für Beispiel).
+- **Relationships:** Alle Issues müssen **nativ** verknüpft sein (Sidebar "Relationships").
+  (Siehe #31 für Beispiel).
   - **Parent:** Epics/Features (z.B. F1) als Parent für Task-Issues.
   - **Blocked by:** Layer-Abhängigkeiten (Domain -> App -> Infra -> Web).
 
