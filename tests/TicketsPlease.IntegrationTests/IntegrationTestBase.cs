@@ -36,7 +36,7 @@ public abstract class IntegrationTestBase : IDisposable
       builder.ConfigureServices(services =>
           {
             // Absolut alle Entity Framework bezogenen Services entfernen, um Provider-Konflikte zu vermeiden
-            var efDescriptors = services.Where(d => d.ServiceType.FullName?.Contains("EntityFrameworkCore") == true).ToList();
+            var efDescriptors = services.Where(d => d.ServiceType.FullName?.Contains("EntityFrameworkCore", StringComparison.Ordinal) == true).ToList();
             foreach (var d in efDescriptors)
             {
               services.Remove(d);
