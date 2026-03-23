@@ -57,25 +57,25 @@ public abstract class IntegrationTestBase : IDisposable
   }
 
   /// <summary>
+  /// Gets die WebApplicationFactory für das SUT (System Under Test).
+  /// </summary>
+  protected WebApplicationFactory<Program> Factory { get; }
+
+  /// <summary>
   /// Seeds minimal required data for tests (Roles, Priorities, WorkflowStates).
   /// </summary>
   /// <param name="db">The database context.</param>
   /// <returns>A task representing the asynchronous operation.</returns>
   protected static async Task SeedMinimalAsync(AppDbContext db)
   {
-    if (!await db.Roles.AnyAsync())
+    if (!await db.Roles.AnyAsync().ConfigureAwait(false))
     {
-      await db.Roles.AddAsync(new Role { Id = Guid.Parse("00000000-0000-0000-0000-000000000001"), Name = "Admin" });
-      await db.TicketPriorities.AddAsync(new TicketPriority { Id = Guid.Parse("00000000-0000-0000-0000-000000000002"), Name = "Medium" });
-      await db.WorkflowStates.AddAsync(new WorkflowState { Id = Guid.Parse("00000000-0000-0000-0000-000000000003"), Name = "Todo" });
-      await db.SaveChangesAsync();
+      await db.Roles.AddAsync(new Role { Id = Guid.Parse("00000000-0000-0000-0000-000000000001"), Name = "Admin" }).ConfigureAwait(false);
+      await db.TicketPriorities.AddAsync(new TicketPriority { Id = Guid.Parse("00000000-0000-0000-0000-000000000002"), Name = "Medium" }).ConfigureAwait(false);
+      await db.WorkflowStates.AddAsync(new WorkflowState { Id = Guid.Parse("00000000-0000-0000-0000-000000000003"), Name = "Todo" }).ConfigureAwait(false);
+      await db.SaveChangesAsync().ConfigureAwait(false);
     }
   }
-
-  /// <summary>
-  /// Gets die WebApplicationFactory für das SUT (System Under Test).
-  /// </summary>
-  protected WebApplicationFactory<Program> Factory { get; }
 
   /// <summary>
   /// Gibt die Ressourcen (Verbindung und Factory) frei.

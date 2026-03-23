@@ -45,7 +45,7 @@ public class RelationshipTests : IntegrationTestBase
       PriorityId = priorityId,
       WorkflowStateId = workflowStateId,
       Creator = user,
-      AssignedUser = user
+      AssignedUser = user,
     };
 
     // Act
@@ -87,7 +87,7 @@ public class RelationshipTests : IntegrationTestBase
       AssignedUser = user,
       Creator = user,
       PriorityId = priorityId,
-      WorkflowStateId = workflowStateId
+      WorkflowStateId = workflowStateId,
     };
 
     db.Tickets.Add(ticket);
