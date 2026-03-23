@@ -34,76 +34,76 @@ public class AppDbContext : DbContext
   /// </summary>
   public DbSet<Ticket> Tickets => this.Set<Ticket>();
 
-  /// <summary>Gets or sets die Organisationen.</summary>
+  /// <summary>Gets die Organisationen.</summary>
   public DbSet<Organization> Organizations => this.Set<Organization>();
 
-  /// <summary>Gets or sets die Rollen.</summary>
+  /// <summary>Gets die Rollen.</summary>
   public DbSet<Role> Roles => this.Set<Role>();
 
-  /// <summary>Gets or sets die Benutzerprofile.</summary>
+  /// <summary>Gets die Benutzerprofile.</summary>
   public DbSet<UserProfile> UserProfiles => this.Set<UserProfile>();
 
-  /// <summary>Gets or sets die Benutzeradressen.</summary>
+  /// <summary>Gets die Benutzeradressen.</summary>
   public DbSet<UserAddress> UserAddresses => this.Set<UserAddress>();
 
-  /// <summary>Gets or sets die Dateianhänge.</summary>
+  /// <summary>Gets die Dateianhänge.</summary>
   public DbSet<FileAsset> FileAssets => this.Set<FileAsset>();
 
-  /// <summary>Gets or sets die Teams.</summary>
+  /// <summary>Gets die Teams.</summary>
   public DbSet<Team> Teams => this.Set<Team>();
 
-  /// <summary>Gets or sets die Teammitglieder.</summary>
+  /// <summary>Gets die Teammitglieder.</summary>
   public DbSet<TeamMember> TeamMembers => this.Set<TeamMember>();
 
-  /// <summary>Gets or sets die Ticket-Prioritäten.</summary>
+  /// <summary>Gets die Ticket-Prioritäten.</summary>
   public DbSet<TicketPriority> TicketPriorities => this.Set<TicketPriority>();
 
-  /// <summary>Gets or sets die Sub-Tickets.</summary>
+  /// <summary>Gets die Sub-Tickets.</summary>
   public DbSet<SubTicket> SubTickets => this.Set<SubTicket>();
 
-  /// <summary>Gets or sets die Tags.</summary>
+  /// <summary>Gets die Tags.</summary>
   public DbSet<Tag> Tags => this.Set<Tag>();
 
-  /// <summary>Gets or sets die Ticket-Tags.</summary>
+  /// <summary>Gets die Ticket-Tags.</summary>
   public DbSet<TicketTag> TicketTags => this.Set<TicketTag>();
 
-  /// <summary>Gets or sets die Ticket-Zuweisungen.</summary>
+  /// <summary>Gets die Ticket-Zuweisungen.</summary>
   public DbSet<TicketAssignment> TicketAssignments => this.Set<TicketAssignment>();
 
-  /// <summary>Gets or sets die Workflow-Status.</summary>
+  /// <summary>Gets die Workflow-Status.</summary>
   public DbSet<WorkflowState> WorkflowStates => this.Set<WorkflowState>();
 
-  /// <summary>Gets or sets die Workflow-Übergänge.</summary>
+  /// <summary>Gets die Workflow-Übergänge.</summary>
   public DbSet<WorkflowTransition> WorkflowTransitions => this.Set<WorkflowTransition>();
 
-  /// <summary>Gets or sets die Zeiterfassungseinträge.</summary>
+  /// <summary>Gets die Zeiterfassungseinträge.</summary>
   public DbSet<TimeLog> TimeLogs => this.Set<TimeLog>();
 
-  /// <summary>Gets or sets die Ticket-Upvotes.</summary>
+  /// <summary>Gets die Ticket-Upvotes.</summary>
   public DbSet<TicketUpvote> TicketUpvotes => this.Set<TicketUpvote>();
 
-  /// <summary>Gets or sets die Ticket-Historien.</summary>
+  /// <summary>Gets die Ticket-Historien.</summary>
   public DbSet<TicketHistory> TicketHistories => this.Set<TicketHistory>();
 
-  /// <summary>Gets or sets die Ticket-Vorlagen.</summary>
+  /// <summary>Gets die Ticket-Vorlagen.</summary>
   public DbSet<TicketTemplate> TicketTemplates => this.Set<TicketTemplate>();
 
-  /// <summary>Gets or sets die SLA-Richtlinien.</summary>
+  /// <summary>Gets die SLA-Richtlinien.</summary>
   public DbSet<SlaPolicy> SlaPolicies => this.Set<SlaPolicy>();
 
-  /// <summary>Gets or sets die benutzerdefinierten Felddefinitionen.</summary>
+  /// <summary>Gets die benutzerdefinierten Felddefinitionen.</summary>
   public DbSet<CustomFieldDefinition> CustomFieldDefinitions => this.Set<CustomFieldDefinition>();
 
-  /// <summary>Gets or sets die Werte der benutzerdefinierten Felder.</summary>
+  /// <summary>Gets die Werte der benutzerdefinierten Felder.</summary>
   public DbSet<TicketCustomValue> TicketCustomValues => this.Set<TicketCustomValue>();
 
-  /// <summary>Gets or sets die Nachrichten.</summary>
+  /// <summary>Gets die Nachrichten.</summary>
   public DbSet<Message> Messages => this.Set<Message>();
 
-  /// <summary>Gets or sets die Lesebestätigungen für Nachrichten.</summary>
+  /// <summary>Gets die Lesebestätigungen für Nachrichten.</summary>
   public DbSet<MessageReadReceipt> MessageReadReceipts => this.Set<MessageReadReceipt>();
 
-  /// <summary>Gets or sets die Benachrichtigungen.</summary>
+  /// <summary>Gets die Benachrichtigungen.</summary>
   public DbSet<Notification> Notifications => this.Set<Notification>();
 
   /// <summary>
@@ -117,10 +117,14 @@ public class AppDbContext : DbContext
     base.OnModelCreating(modelBuilder);
 
     // Global Configuration for RowVersion (Concurrency)
-    foreach (var entityType in modelBuilder.Model.GetEntityTypes().Where(e => typeof(BaseEntity).IsAssignableFrom(e.ClrType)))
+    var entityTypes = modelBuilder.Model.GetEntityTypes()
+        .Where(e => typeof(BaseEntity).IsAssignableFrom(e.ClrType))
+        .Select(e => e.ClrType);
+
+    foreach (var type in entityTypes)
     {
-      modelBuilder.Entity(entityType.ClrType).Property("RowVersion").IsRowVersion();
-      modelBuilder.Entity(entityType.ClrType).HasQueryFilter(ConvertFilterExpression(entityType.ClrType));
+      modelBuilder.Entity(type).Property("RowVersion").IsRowVersion();
+      modelBuilder.Entity(type).HasQueryFilter(ConvertFilterExpression(type));
     }
 
     // --- Identity & IAM ---
