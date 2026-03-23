@@ -123,7 +123,11 @@ public class AppDbContext : DbContext
 
     foreach (var type in entityTypes)
     {
-      modelBuilder.Entity(type).Property("RowVersion").IsRowVersion();
+      if (this.Database.ProviderName != "Microsoft.EntityFrameworkCore.Sqlite")
+      {
+        modelBuilder.Entity(type).Property("RowVersion").IsRowVersion();
+      }
+
       modelBuilder.Entity(type).HasQueryFilter(ConvertFilterExpression(type));
     }
 

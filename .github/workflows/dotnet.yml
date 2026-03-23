@@ -28,6 +28,8 @@ jobs:
       run: dotnet format TicketsPlease.slnx --verify-no-changes
     - name: Build
       run: dotnet build TicketsPlease.slnx --no-restore --configuration Release
+    - name: Install Playwright Browsers
+      run: pwsh tests/TicketsPlease.E2ETests/bin/Release/net10.0/playwright.ps1 install
     - name: Test
       run: dotnet test TicketsPlease.slnx --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
 
