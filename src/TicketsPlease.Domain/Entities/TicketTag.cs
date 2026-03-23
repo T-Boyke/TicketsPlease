@@ -1,11 +1,34 @@
-using TicketsPlease.Domain.Common;
+// <copyright file="TicketTag.cs" company="TicketsPlease">
+// Copyright (c) TicketsPlease. All rights reserved.
+// </copyright>
 
 namespace TicketsPlease.Domain.Entities;
 
+using System;
+using TicketsPlease.Domain.Common;
+
+/// <summary>
+/// Repräsentiert die Zuordnung (Many-to-Many) zwischen einem Ticket und einem Tag.
+/// </summary>
 public class TicketTag : BaseEntity
 {
-  public Guid TicketId { get; set; }
-  public Ticket? Ticket { get; set; }
-  public Guid TagId { get; set; }
-  public Tag? Tag { get; set; }
+    /// <summary>
+    /// Gets or sets die ID des zugehörigen Tickets.
+    /// </summary>
+    public Guid TicketId { get; set; }
+
+    /// <summary>
+    /// Gets or sets das Navigation-Property für das Ticket.
+    /// </summary>
+    public Ticket? Ticket { get; set; }
+
+    /// <summary>
+    /// Gets or sets die ID des zugeordneten Tags.
+    /// </summary>
+    public Guid TagId { get; set; }
+
+    /// <summary>
+    /// Gets or sets das Navigation-Property für das Tag.
+    /// </summary>
+    public Tag? Tag { get; set; }
 }

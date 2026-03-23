@@ -1,6 +1,11 @@
-using System.ComponentModel.DataAnnotations;
+// <copyright file="BaseEntity.cs" company="TicketsPlease">
+// Copyright (c) TicketsPlease. All rights reserved.
+// </copyright>
 
 namespace TicketsPlease.Domain.Common;
+
+using System;
+using System.ComponentModel.DataAnnotations;
 
 /// <summary>
 /// Stellt die Basisklasse für alle Domänen-Entitäten dar.
@@ -8,31 +13,31 @@ namespace TicketsPlease.Domain.Common;
 /// </summary>
 public abstract class BaseEntity
 {
-  /// <summary>
-  /// Ruft die eindeutige Identität der Entität ab oder legt diese fest.
-  /// </summary>
-  [Key]
-  public Guid Id { get; set; } = Guid.NewGuid();
+    /// <summary>
+    /// Gets or sets die eindeutige Identität der Entität.
+    /// </summary>
+    [Key]
+    public Guid Id { get; set; } = Guid.NewGuid();
 
-  /// <summary>
-  /// Ruft die Mandanten-ID ab, zu der diese Entität gehört, oder legt diese fest (Multi-Tenancy).
-  /// </summary>
-  public Guid TenantId { get; set; }
+    /// <summary>
+    /// Gets or sets die Mandanten-ID, zu der diese Entität gehört (Multi-Tenancy).
+    /// </summary>
+    public Guid TenantId { get; set; }
 
-  /// <summary>
-  /// Ruft einen Wert ab oder legt diesen fest, der angibt, ob die Entität gelöscht wurde (Soft-Delete).
-  /// </summary>
-  public bool IsDeleted { get; set; }
+    /// <summary>
+    /// Gets or sets a value indicating whether die Entität gelöscht wurde (Soft-Delete).
+    /// </summary>
+    public bool IsDeleted { get; set; }
 
-  /// <summary>
-  /// Ruft den Zeitpunkt des Soft-Deletes ab oder legt diesen fest.
-  /// </summary>
-  public DateTime? DeletedAt { get; set; }
+    /// <summary>
+    /// Gets or sets den Zeitpunkt des Soft-Deletes.
+    /// </summary>
+    public DateTime? DeletedAt { get; set; }
 
-  /// <summary>
-  /// Dient der optimistischen Nebenläufigkeitskontrolle (Concurrency Control).
-  /// Dieses Feld wird automatisch von SQL Server aktualisiert (Timestamp/RowVersion).
-  /// </summary>
-  [Timestamp]
-  public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+    /// <summary>
+    /// Gets or sets das Feld zur optimistischen Nebenläufigkeitskontrolle (Concurrency Control).
+    /// Dieses Feld wird automatisch von SQL Server aktualisiert (Timestamp/RowVersion).
+    /// </summary>
+    [Timestamp]
+    public byte[] RowVersion { get; set; } = Array.Empty<byte>();
 }
