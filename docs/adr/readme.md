@@ -16,7 +16,7 @@ architektonischen Design-Entscheidungen für das Projekt **TicketsPlease**.
 | [0030](0030-database-3nf.md)                   | Database Design (3rd Normal Form)                | Accepted | 2026-03-06 |
 | [0031](0031-ef-core-resilience-concurrency.md) | EF Core Resilience & Concurrency                 | Accepted | 2026-03-06 |
 | [0032](0032-database-future-proofing.md)       | Database Future-Proofing (Enterprise Extensions) | Accepted | 2026-03-06 |
-| [0040](0040-ui-sfc-tailwind.md)                | UI Architecture (SFC & Tailwind 4.2)             | Accepted | 2026-03-06 |
+| [0040](0040-ui-sfc-tailwind.md)                | UI Architecture (SFC & Tailwind 4.2.2)             | Accepted | 2026-03-06 |
 | [0041](0041-no-bootstrap-policy.md)            | No-Bootstrap Policy                              | Accepted | 2026-03-06 |
 | [0042](0042-no-cdn-policy.md)                  | No-CDN Policy                                    | Accepted | 2026-03-06 |
 | [0043](0043-tailwind-msbuild-integration.md)   | Tailwind CSS via MSBuild (Node-free)             | Accepted | 2026-03-06 |
