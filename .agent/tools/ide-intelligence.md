@@ -42,4 +42,4 @@ Das "Gesetz" für Code-Style und Naming:
 
 ---
 
-_IDEIntel v1.0 | 2026-03-09_
+### IDEIntel v1.0 | 2026-03-09

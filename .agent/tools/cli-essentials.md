@@ -25,8 +25,10 @@ Standard-Operationen für die Solution:
 
 Verwaltung der Datenbank-Migrationen:
 
-- `dotnet ef migrations add [Name] --project src/TicketsPlease.Infrastructure --startup-project src/TicketsPlease.Web`
-- `dotnet ef database update --project src/TicketsPlease.Infrastructure --startup-project src/TicketsPlease.Web`
+- `dotnet ef migrations add [Name] --project src/TicketsPlease.Infrastructure \
+  --startup-project src/TicketsPlease.Web`
+- `dotnet ef database update --project src/TicketsPlease.Infrastructure \
+  --startup-project src/TicketsPlease.Web`
 
 ---
 
@@ -40,4 +42,4 @@ Das Projekt nutzt `tailwindcss-dotnet` (v2.0.0-beta.3) als lokales Tool:
 
 ---
 
-_CLIEssentials v1.0 | 2026-03-09_
+### CLIEssentials v1.0 | 2026-03-09

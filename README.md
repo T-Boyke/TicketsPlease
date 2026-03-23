@@ -50,7 +50,7 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
     - [📋 Kanban Dashboard (Interaktiv)](#-kanban-dashboard-interaktiv)
     - [Enterprise Add-Ons (Phase 2-5) 🚀](#enterprise-add-ons-phase-2-5-)
   - [6. 🛡️ Code-Qualität \& Workflows](#6-️-code-qualität--workflows)
-    - [Test-Driven Development (TDD) & "Perfect" Quality Assurance](#test-driven-development-tdd--perfect-quality-assurance)
+    - [Test-Driven Development (TDD) \& "Perfect" Quality Assurance](#test-driven-development-tdd--perfect-quality-assurance)
     - [💯 Google Lighthouse Tests (Performance \& SEO)](#-google-lighthouse-tests-performance--seo)
     - [Continuous Integration / Continuous Deployment (CI/CD)](#continuous-integration--continuous-deployment-cicd)
     - [🔍 Statische Code-Analyse \& Linter](#-statische-code-analyse--linter)
@@ -72,7 +72,7 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 | **Core Entities**   | ✅ Aktiv     | 26 Enterprise-Entitäten (3NF) aktiv       | MVP Context |
 | **IAM**             | ✅ Aktiv     | Full Organization, User & Profile Mapping | MVP         |
 | **Kanban Board**    | 🏗️ In Arbeit | Interaktives Board mit Drag & Drop        | MVP         |
-| **Tailwind CSS v4** | ✅ Aktiv     | Modernes Styling via nativem CLI          | MVP         |
+| **Tailwind CSS v4.2.2** | ✅ Aktiv     | Modernes Styling via nativem CLI          | MVP         |
 | **Testing Infra**   | ✅ Aktiv     | Architektur- & Integrations-Tests         | MVP         |
 | **AI Skills**       | ✅ Aktiv     | Automatisierung via Antigravity           | MVP         |
 | **Team Support**    | ✅ Aktiv     | Persistent Teams & Member Mgt.            | Enterprise  |
@@ -137,12 +137,13 @@ hochmodernen, perfekt aufeinander abgestimmten Stack für das Jahr 2026:
   - [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
   - _Siehe detailliertes [Datenbankschema (ERD)](docs/database_schema.md)_
 - **Frontend & User Interface (UI):**
-  - **TailwindCSS 4.2:** Neueste Evolution via nativer CSS-Engine und
+  - **TailwindCSS 4.2.2:** Neueste Evolution via nativer CSS-Engine und
     `@theme`-Direktiven (keine `tailwind.config.js` mehr!).
   - **Client-Side Libs:** Markdig (Markdown), SortableJS (Drag & Drop),
     FontAwesome 7.2.0 (Lokal), Roboto Flex & Google Sans Flex (Lokal).
   - **Corporate Identity:** Dynamisches Theming über `ICorporateSkinProvider`
-    und CSS-Variablen (Azure/Sky Blue) mit Native Dark Mode, Glassmorphism und High-End Typografie (Flex Fonts).
+    und CSS-Variablen (Azure/Sky Blue) mit Native Dark Mode, Glassmorphism
+    und High-End Typografie (Flex Fonts).
   - **No-Bootstrap Policy:** Das Projekt ist vollständig Bootstrap-frei für
     maximalen Control-Flow.
   - Paketverwaltung via
@@ -302,7 +303,7 @@ Manager (`libman.json`) in das Projektverzeichnis (`wwwroot/lib`) integriert.
 
 Wir verfolgen strikt den Utility-First Ansatz, aber kapseln diesen sauber:
 
-- **TailwindCSS 4.2:** Wir nutzen den JIT (Just-in-Time) Compiler von Tailwind
+- **TailwindCSS 4.2.2:** Wir nutzen den JIT (Just-in-Time) Compiler von Tailwind
   für pfeilschnelles, utility-basiertes Design.
   [Offizielle Dokumentation](https://tailwindcss.com/docs).
 - **FontAwesome 7.2:** Für Enterprise-Grade Vektor Icons.

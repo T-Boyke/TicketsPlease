@@ -39,4 +39,4 @@ Modernes Styling ohne Node.js Abhängigkeit.
 
 ---
 
-_FrontendTooling v1.0 | 2026-03-09_
+### FrontendTooling v1.0 | 2026-03-09

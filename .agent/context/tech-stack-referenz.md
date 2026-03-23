@@ -24,7 +24,7 @@
     - Web: `Tailwind.Hosting`, `Markdig`, `DOMPurify`, `Scalar`.
   </nuget_layers>
   <frontend_assets>
-    - CSS: TailwindCSS 4.2 (Zero-Node integration via MSBuild `@theme`).
+    - CSS: TailwindCSS 4.2.2 (Zero-Node integration via MSBuild `@theme`).
     - Icons: FontAwesome 7.2.0 (Local Free/Pro).
     - Fonts: Roboto Flex & Noto Sans (Sans) + Google Sans Flex (Display).
     - LibMan: Client libraries in `wwwroot/lib` (ZERO CDN Policy).
