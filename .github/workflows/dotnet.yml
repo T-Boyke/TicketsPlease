@@ -26,8 +26,13 @@ jobs:
       run: dotnet tool restore
     - name: Verify Formatting
       run: dotnet format TicketsPlease.slnx --verify-no-changes
+    - name: Download Tailwind CLI
+      run: |
+        mkdir -p src/TicketsPlease.Web/obj/tailwind-cli
+        curl -L -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -o src/TicketsPlease.Web/obj/tailwind-cli/tailwindcss-linux-x64 https://github.com/tailwindlabs/tailwindcss/releases/download/v4.2.2/tailwindcss-linux-x64
+        chmod +x src/TicketsPlease.Web/obj/tailwind-cli/tailwindcss-linux-x64
     - name: Build
-      run: dotnet build TicketsPlease.slnx --no-restore --configuration Release
+      run: dotnet build TicketsPlease.slnx --no-restore --configuration Release -p:TailwindCliPath=$GITHUB_WORKSPACE/src/TicketsPlease.Web/obj/tailwind-cli/tailwindcss-linux-x64
     - name: Install Playwright Browsers
       run: pwsh tests/TicketsPlease.E2ETests/bin/Release/net10.0/playwright.ps1 install
     - name: Test
