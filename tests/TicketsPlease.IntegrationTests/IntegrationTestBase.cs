@@ -62,6 +62,15 @@ public abstract class IntegrationTestBase : IDisposable
   protected WebApplicationFactory<Program> Factory { get; }
 
   /// <summary>
+  /// Gibt die Ressourcen (Verbindung und Factory) frei.
+  /// </summary>
+  public void Dispose()
+  {
+    this.Dispose(true);
+    GC.SuppressFinalize(this);
+  }
+
+  /// <summary>
   /// Seeds minimal required data for tests (Roles, Priorities, WorkflowStates).
   /// </summary>
   /// <param name="db">The database context.</param>
@@ -75,15 +84,6 @@ public abstract class IntegrationTestBase : IDisposable
       await db.WorkflowStates.AddAsync(new WorkflowState { Id = Guid.Parse("00000000-0000-0000-0000-000000000003"), Name = "Todo" }).ConfigureAwait(false);
       await db.SaveChangesAsync().ConfigureAwait(false);
     }
-  }
-
-  /// <summary>
-  /// Gibt die Ressourcen (Verbindung und Factory) frei.
-  /// </summary>
-  public void Dispose()
-  {
-    this.Dispose(true);
-    GC.SuppressFinalize(this);
   }
 
   /// <summary>
