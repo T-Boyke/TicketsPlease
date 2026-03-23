@@ -31,6 +31,13 @@ public abstract class IntegrationTestBase : IDisposable
     this.connection = new SqliteConnection("DataSource=:memory:");
     this.connection.Open();
 
+    // SQLite Foreign Keys explizit aktivieren
+    using (var command = this.connection.CreateCommand())
+    {
+      command.CommandText = "PRAGMA foreign_keys = ON;";
+      command.ExecuteNonQuery();
+    }
+
     this.Factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
     {
       builder.UseEnvironment("Testing");
