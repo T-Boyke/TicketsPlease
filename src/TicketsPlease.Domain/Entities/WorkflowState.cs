@@ -27,6 +27,16 @@ public class WorkflowState : BaseEntity
   public string ColorHex { get; set; } = string.Empty;
 
   /// <summary>
+  /// Gets or sets die ID des zugehörigen Workflows.
+  /// </summary>
+  public Guid WorkflowId { get; set; }
+
+  /// <summary>
+  /// Gets or sets das Navigation-Property zum Workflow.
+  /// </summary>
+  public Workflow? Workflow { get; set; }
+
+  /// <summary>
   /// Gets or sets a value indicating whether dieser Zustand der Endzustand (Terminal State) ist.
   /// </summary>
   public bool IsTerminalState { get; set; }

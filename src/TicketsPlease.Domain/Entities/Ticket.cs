@@ -69,6 +69,26 @@ public class Ticket : BaseEntity
   public DateTime? Deadline { get; set; }
 
   /// <summary>
+  /// Gets or sets die ID des Projekts, dem das Ticket zugeordnet ist.
+  /// </summary>
+  public Guid ProjectId { get; set; }
+
+  /// <summary>
+  /// Gets or sets das Navigation-Property zum Projekt.
+  /// </summary>
+  public Project? Project { get; set; }
+
+  /// <summary>
+  /// Gets or sets die ID des zugeordneten Workflows.
+  /// </summary>
+  public Guid? WorkflowId { get; set; }
+
+  /// <summary>
+  /// Gets or sets das Navigation-Property zum Workflow.
+  /// </summary>
+  public Workflow? Workflow { get; set; }
+
+  /// <summary>
   /// Gets or sets die ID des Workflow-Status.
   /// </summary>
   public Guid WorkflowStateId { get; set; }
