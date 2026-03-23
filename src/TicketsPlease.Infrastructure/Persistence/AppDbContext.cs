@@ -1,8 +1,12 @@
+// <copyright file="AppDbContext.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TicketsPlease.Infrastructure.Persistence;
+
 using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Domain.Common;
 using TicketsPlease.Domain.Entities;
-
-namespace TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
 /// Der zentrale Datenbankkontext der Anwendung.
@@ -11,47 +15,72 @@ namespace TicketsPlease.Infrastructure.Persistence;
 public class AppDbContext : DbContext
 {
   /// <summary>
+  /// Initializes a new instance of the <see cref="AppDbContext"/> class.
   /// Initialisiert eine neue Instanz von <see cref="AppDbContext"/> mit den angegebenen Optionen.
   /// </summary>
   /// <param name="options">Die Optionen für diesen Kontext.</param>
-  public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+  public AppDbContext(DbContextOptions<AppDbContext> options)
+    : base(options)
   {
   }
 
   /// <summary>
-  /// Ruft die Menge der Benutzer ab oder legt diese fest.
+  /// Gets ruft die Menge der Benutzer ab oder legt diese fest.
   /// </summary>
-  public DbSet<User> Users => Set<User>();
+  public DbSet<User> Users => this.Set<User>();
 
   /// <summary>
-  /// Ruft die Menge der Tickets ab oder legt diese fest.
+  /// Gets ruft die Menge der Tickets ab oder legt diese fest.
   /// </summary>
-  public DbSet<Ticket> Tickets => Set<Ticket>();
+  public DbSet<Ticket> Tickets => this.Set<Ticket>();
 
-  public DbSet<Organization> Organizations => Set<Organization>();
-  public DbSet<Role> Roles => Set<Role>();
-  public DbSet<UserProfile> UserProfiles => Set<UserProfile>();
-  public DbSet<UserAddress> UserAddresses => Set<UserAddress>();
-  public DbSet<FileAsset> FileAssets => Set<FileAsset>();
-  public DbSet<Team> Teams => Set<Team>();
-  public DbSet<TeamMember> TeamMembers => Set<TeamMember>();
-  public DbSet<TicketPriority> TicketPriorities => Set<TicketPriority>();
-  public DbSet<SubTicket> SubTickets => Set<SubTicket>();
-  public DbSet<Tag> Tags => Set<Tag>();
-  public DbSet<TicketTag> TicketTags => Set<TicketTag>();
-  public DbSet<TicketAssignment> TicketAssignments => Set<TicketAssignment>();
-  public DbSet<WorkflowState> WorkflowStates => Set<WorkflowState>();
-  public DbSet<WorkflowTransition> WorkflowTransitions => Set<WorkflowTransition>();
-  public DbSet<TimeLog> TimeLogs => Set<TimeLog>();
-  public DbSet<TicketUpvote> TicketUpvotes => Set<TicketUpvote>();
-  public DbSet<TicketHistory> TicketHistories => Set<TicketHistory>();
-  public DbSet<TicketTemplate> TicketTemplates => Set<TicketTemplate>();
-  public DbSet<SlaPolicy> SlaPolicies => Set<SlaPolicy>();
-  public DbSet<CustomFieldDefinition> CustomFieldDefinitions => Set<CustomFieldDefinition>();
-  public DbSet<TicketCustomValue> TicketCustomValues => Set<TicketCustomValue>();
-  public DbSet<Message> Messages => Set<Message>();
-  public DbSet<MessageReadReceipt> MessageReadReceipts => Set<MessageReadReceipt>();
-  public DbSet<Notification> Notifications => Set<Notification>();
+  public DbSet<Organization> Organizations => this.Set<Organization>();
+
+  public DbSet<Role> Roles => this.Set<Role>();
+
+  public DbSet<UserProfile> UserProfiles => this.Set<UserProfile>();
+
+  public DbSet<UserAddress> UserAddresses => this.Set<UserAddress>();
+
+  public DbSet<FileAsset> FileAssets => this.Set<FileAsset>();
+
+  public DbSet<Team> Teams => this.Set<Team>();
+
+  public DbSet<TeamMember> TeamMembers => this.Set<TeamMember>();
+
+  public DbSet<TicketPriority> TicketPriorities => this.Set<TicketPriority>();
+
+  public DbSet<SubTicket> SubTickets => this.Set<SubTicket>();
+
+  public DbSet<Tag> Tags => this.Set<Tag>();
+
+  public DbSet<TicketTag> TicketTags => this.Set<TicketTag>();
+
+  public DbSet<TicketAssignment> TicketAssignments => this.Set<TicketAssignment>();
+
+  public DbSet<WorkflowState> WorkflowStates => this.Set<WorkflowState>();
+
+  public DbSet<WorkflowTransition> WorkflowTransitions => this.Set<WorkflowTransition>();
+
+  public DbSet<TimeLog> TimeLogs => this.Set<TimeLog>();
+
+  public DbSet<TicketUpvote> TicketUpvotes => this.Set<TicketUpvote>();
+
+  public DbSet<TicketHistory> TicketHistories => this.Set<TicketHistory>();
+
+  public DbSet<TicketTemplate> TicketTemplates => this.Set<TicketTemplate>();
+
+  public DbSet<SlaPolicy> SlaPolicies => this.Set<SlaPolicy>();
+
+  public DbSet<CustomFieldDefinition> CustomFieldDefinitions => this.Set<CustomFieldDefinition>();
+
+  public DbSet<TicketCustomValue> TicketCustomValues => this.Set<TicketCustomValue>();
+
+  public DbSet<Message> Messages => this.Set<Message>();
+
+  public DbSet<MessageReadReceipt> MessageReadReceipts => this.Set<MessageReadReceipt>();
+
+  public DbSet<Notification> Notifications => this.Set<Notification>();
 
   /// <summary>
   /// Konfiguriert das Modell und die Datenbank-Mappings.

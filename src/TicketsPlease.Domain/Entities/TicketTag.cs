@@ -1,5 +1,5 @@
-// <copyright file="TicketTag.cs" company="TicketsPlease">
-// Copyright (c) TicketsPlease. All rights reserved.
+// <copyright file="TicketTag.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
 namespace TicketsPlease.Domain.Entities;
@@ -12,23 +12,23 @@ using TicketsPlease.Domain.Common;
 /// </summary>
 public class TicketTag : BaseEntity
 {
-    /// <summary>
-    /// Gets or sets die ID des zugehörigen Tickets.
-    /// </summary>
-    public Guid TicketId { get; set; }
+  /// <summary>
+  /// Gets or sets die ID des zugehörigen Tickets.
+  /// </summary>
+  public Guid TicketId { get; set; }
 
-    /// <summary>
-    /// Gets or sets das Navigation-Property für das Ticket.
-    /// </summary>
-    public Ticket? Ticket { get; set; }
+  /// <summary>
+  /// Gets or sets das Navigation-Property für das Ticket.
+  /// </summary>
+  public Ticket? Ticket { get; set; }
 
-    /// <summary>
-    /// Gets or sets die ID des zugeordneten Tags.
-    /// </summary>
-    public Guid TagId { get; set; }
+  /// <summary>
+  /// Gets or sets die ID des zugeordneten Tags.
+  /// </summary>
+  public Guid TagId { get; set; }
 
-    /// <summary>
-    /// Gets or sets das Navigation-Property für das Tag.
-    /// </summary>
-    public Tag? Tag { get; set; }
+  /// <summary>
+  /// Gets or sets das Navigation-Property für das Tag.
+  /// </summary>
+  public Tag? Tag { get; set; }
 }

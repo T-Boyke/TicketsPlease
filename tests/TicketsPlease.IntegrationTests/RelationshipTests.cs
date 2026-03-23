@@ -1,24 +1,29 @@
+// <copyright file="RelationshipTests.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
+namespace TicketsPlease.IntegrationTests;
+
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
-namespace TicketsPlease.IntegrationTests;
-
 /// <summary>
 /// Verifiziert die Datenbank-Beziehungen und Constraints im integrierten System.
 /// Nutzt die SQLite-In-Memory-Datenbank der Basisklasse.
 /// </summary>
-public class RelationshipTests : IntegrationTestBase
+internal class RelationshipTests : IntegrationTestBase
 {
   /// <summary>
   /// Prüft, ob ein Ticket einem Benutzer korrekt zugewiesen werden kann und die Beziehung persistiert wird.
   /// </summary>
+  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous unit test.</placeholder></returns>
   [Fact]
   public async Task Ticket_Should_Be_Correctly_Assigned_To_User()
   {
     // Arrange
-    using var scope = Factory.Services.CreateScope();
+    using var scope = this.Factory.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
     var user = new User { DisplayName = "Verifikations-User", Email = "verify@example.com" };
@@ -29,12 +34,12 @@ public class RelationshipTests : IntegrationTestBase
     // Act
     db.Users.Add(user);
     db.Tickets.Add(ticket);
-    await db.SaveChangesAsync();
+    await db.SaveChangesAsync().ConfigureAwait(false);
 
     // Assert
     var savedTicket = await db.Tickets
         .Include(t => t.AssignedUser)
-        .FirstOrDefaultAsync(t => t.Id == ticket.Id);
+        .FirstOrDefaultAsync(t => t.Id == ticket.Id).ConfigureAwait(false);
 
     savedTicket.Should().NotBeNull();
     savedTicket!.AssignedUserId.Should().Be(user.Id);
@@ -46,11 +51,12 @@ public class RelationshipTests : IntegrationTestBase
   /// Verifiziert, dass das Löschverhalten (DeleteBehavior.Restrict) eingehalten wird.
   /// Ein Benutzer darf nicht gelöscht werden, wenn ihm noch Tickets zugewiesen sind.
   /// </summary>
+  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous unit test.</placeholder></returns>
   [Fact]
   public async Task Deleting_User_With_Tickets_Should_Fail_Due_To_Restrict_Behavior()
   {
     // Arrange
-    using var scope = Factory.Services.CreateScope();
+    using var scope = this.Factory.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
     var user = new User { DisplayName = "Restrict-User", Email = "restrict@example.com" };
@@ -58,13 +64,13 @@ public class RelationshipTests : IntegrationTestBase
 
     db.Users.Add(user);
     db.Tickets.Add(ticket);
-    await db.SaveChangesAsync();
+    await db.SaveChangesAsync().ConfigureAwait(false);
 
     // Act
     db.Users.Remove(user);
 
     // Assert: Bei SQLite wird der Constraint-Verstoß oft erst beim SaveChanges ausgelöst
-    var act = async () => await db.SaveChangesAsync();
-    await act.Should().ThrowAsync<Exception>(); // SQLite oder EF Core wirft hier eine DbUpdateException oder ähnliches
+    var act = async () => await db.SaveChangesAsync().ConfigureAwait(false);
+    await act.Should().ThrowAsync<Exception>().ConfigureAwait(false); // SQLite oder EF Core wirft hier eine DbUpdateException oder ähnliches
   }
 }

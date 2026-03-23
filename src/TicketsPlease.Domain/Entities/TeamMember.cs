@@ -1,5 +1,5 @@
-// <copyright file="TeamMember.cs" company="TicketsPlease">
-// Copyright (c) TicketsPlease. All rights reserved.
+// <copyright file="TeamMember.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
 namespace TicketsPlease.Domain.Entities;
@@ -12,33 +12,33 @@ using TicketsPlease.Domain.Common;
 /// </summary>
 public class TeamMember : BaseEntity
 {
-    /// <summary>
-    /// Gets or sets die ID des Teams.
-    /// </summary>
-    public Guid TeamId { get; set; }
+  /// <summary>
+  /// Gets or sets die ID des Teams.
+  /// </summary>
+  public Guid TeamId { get; set; }
 
-    /// <summary>
-    /// Gets or sets das Navigation-Property für das zugehörige Team.
-    /// </summary>
-    public Team? Team { get; set; }
+  /// <summary>
+  /// Gets or sets das Navigation-Property für das zugehörige Team.
+  /// </summary>
+  public Team? Team { get; set; }
 
-    /// <summary>
-    /// Gets or sets die ID des Mitglieds-Benutzers.
-    /// </summary>
-    public Guid UserId { get; set; }
+  /// <summary>
+  /// Gets or sets die ID des Mitglieds-Benutzers.
+  /// </summary>
+  public Guid UserId { get; set; }
 
-    /// <summary>
-    /// Gets or sets das Navigation-Property für den zugeordneten Benutzer.
-    /// </summary>
-    public User? User { get; set; }
+  /// <summary>
+  /// Gets or sets das Navigation-Property für den zugeordneten Benutzer.
+  /// </summary>
+  public User? User { get; set; }
 
-    /// <summary>
-    /// Gets or sets den Zeitpunkt (UTC) des Beitritts in das Team.
-    /// </summary>
-    public DateTime JoinedAt { get; set; } = DateTime.UtcNow;
+  /// <summary>
+  /// Gets or sets den Zeitpunkt (UTC) des Beitritts in das Team.
+  /// </summary>
+  public DateTime JoinedAt { get; set; } = DateTime.UtcNow;
 
-    /// <summary>
-    /// Gets or sets a value indicating whether dieser Benutzer der Teamleiter ist.
-    /// </summary>
-    public bool IsTeamLead { get; set; }
+  /// <summary>
+  /// Gets or sets a value indicating whether dieser Benutzer der Teamleiter ist.
+  /// </summary>
+  public bool IsTeamLead { get; set; }
 }

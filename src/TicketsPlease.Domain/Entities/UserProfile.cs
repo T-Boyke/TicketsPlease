@@ -1,5 +1,5 @@
-// <copyright file="UserProfile.cs" company="TicketsPlease">
-// Copyright (c) TicketsPlease. All rights reserved.
+// <copyright file="UserProfile.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
 namespace TicketsPlease.Domain.Entities;
@@ -12,43 +12,43 @@ using TicketsPlease.Domain.Common;
 /// </summary>
 public class UserProfile : BaseEntity
 {
-    /// <summary>
-    /// Gets or sets die ID des zugehörigen Benutzers.
-    /// </summary>
-    public Guid UserId { get; set; }
+  /// <summary>
+  /// Gets or sets die ID des zugehörigen Benutzers.
+  /// </summary>
+  public Guid UserId { get; set; }
 
-    /// <summary>
-    /// Gets or sets das Navigation-Property für den zugehörigen Benutzer.
-    /// </summary>
-    public User? User { get; set; }
+  /// <summary>
+  /// Gets or sets das Navigation-Property für den zugehörigen Benutzer.
+  /// </summary>
+  public User? User { get; set; }
 
-    /// <summary>
-    /// Gets or sets den Vornamen des Benutzers.
-    /// </summary>
-    public string FirstName { get; set; } = string.Empty;
+  /// <summary>
+  /// Gets or sets den Vornamen des Benutzers.
+  /// </summary>
+  public string FirstName { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Gets or sets den Nachnamen des Benutzers.
-    /// </summary>
-    public string LastName { get; set; } = string.Empty;
+  /// <summary>
+  /// Gets or sets den Nachnamen des Benutzers.
+  /// </summary>
+  public string LastName { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Gets or sets die (optionale) Telefonnummer des Benutzers.
-    /// </summary>
-    public string? PhoneNumber { get; set; }
+  /// <summary>
+  /// Gets or sets die (optionale) Telefonnummer des Benutzers.
+  /// </summary>
+  public string? PhoneNumber { get; set; }
 
-    /// <summary>
-    /// Gets or sets die (optionale) ID des hochgeladenen Profilbilds (Avatar).
-    /// </summary>
-    public Guid? AvatarImageId { get; set; }
+  /// <summary>
+  /// Gets or sets die (optionale) ID des hochgeladenen Profilbilds (Avatar).
+  /// </summary>
+  public Guid? AvatarImageId { get; set; }
 
-    /// <summary>
-    /// Gets or sets das Navigation-Property für das Profilbild als FileAsset.
-    /// </summary>
-    public FileAsset? AvatarImage { get; set; }
+  /// <summary>
+  /// Gets or sets das Navigation-Property für das Profilbild als FileAsset.
+  /// </summary>
+  public FileAsset? AvatarImage { get; set; }
 
-    /// <summary>
-    /// Gets or sets den Zeitpunkt (UTC) der letzten Profilaktualisierung.
-    /// </summary>
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+  /// <summary>
+  /// Gets or sets den Zeitpunkt (UTC) der letzten Profilaktualisierung.
+  /// </summary>
+  public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 }

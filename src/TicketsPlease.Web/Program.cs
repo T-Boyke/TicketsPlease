@@ -1,3 +1,7 @@
+// <copyright file="Program.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
+
 using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Infrastructure.Persistence;
@@ -37,13 +41,14 @@ var app = builder.Build();
 // Database Seeding in Development
 if (app.Environment.IsDevelopment())
 {
-  await DbInitialiser.SeedAsync(app.Services);
+  await DbInitialiser.SeedAsync(app.Services).ConfigureAwait(false);
 }
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
   app.UseExceptionHandler("/Home/Error");
+
   // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
   app.UseHsts();
 }
@@ -69,11 +74,11 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-
 app.Run();
 
 /// <summary>
 /// Ermöglicht den Zugriff auf die Program-Klasse für Integrations-Tests.
 /// </summary>
-public partial class Program { }
-
+internal partial class Program
+{
+}
