@@ -12,8 +12,8 @@ using System;
 /// </summary>
 public interface IDomainEvent
 {
-    /// <summary>
-    /// Ruft den Zeitpunkt ab, zu dem das Ereignis eingetreten ist (UTC).
-    /// </summary>
-    DateTime OccurredOn { get; }
+  /// <summary>
+  /// Gets ruft den Zeitpunkt ab, zu dem das Ereignis eingetreten ist (UTC).
+  /// </summary>
+  public DateTime OccurredOn { get; }
 }

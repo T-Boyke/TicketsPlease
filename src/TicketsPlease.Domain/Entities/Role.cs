@@ -15,6 +15,11 @@ using TicketsPlease.Domain.Common;
 public class Role : IdentityRole<Guid>, IBaseEntity
 {
   /// <summary>
+  /// Eine Liste von Domain-Events, die von dieser Entität ausgelöst wurden.
+  /// </summary>
+  private readonly List<IDomainEvent> domainEvents = new();
+
+  /// <summary>
   /// Gets or sets die detaillierte Beschreibung der Rolle und ihrer Berechtigungen.
   /// </summary>
   public string Description { get; set; } = string.Empty;
@@ -37,12 +42,9 @@ public class Role : IdentityRole<Guid>, IBaseEntity
   /// <summary>
   /// Gets or sets die Version für die Nebenläufigkeitskontrolle.
   /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
   public byte[] RowVersion { get; set; } = Array.Empty<byte>();
-
-  /// <summary>
-  /// Eine Liste von Domain-Events, die von dieser Entität ausgelöst wurden.
-  /// </summary>
-  private readonly List<IDomainEvent> domainEvents = new();
+#pragma warning restore CA1819 // Properties should not return arrays
 
   /// <summary>
   /// Gets die Liste der Domain-Events (Read-Only).

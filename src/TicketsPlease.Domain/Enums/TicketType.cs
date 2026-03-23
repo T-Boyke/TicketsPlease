@@ -9,23 +9,23 @@ namespace TicketsPlease.Domain.Enums;
 /// </summary>
 public enum TicketType
 {
-    /// <summary>
-    /// Eine Standard-Aufgabe.
-    /// </summary>
-    Task = 0,
+  /// <summary>
+  /// Eine Standard-Aufgabe.
+  /// </summary>
+  Task = 0,
 
-    /// <summary>
-    /// Ein Software-Fehler.
-    /// </summary>
-    Bug = 1,
+  /// <summary>
+  /// Ein Software-Fehler.
+  /// </summary>
+  Bug = 1,
 
-    /// <summary>
-    /// Eine neue Funktionalität.
-    /// </summary>
-    Feature = 2,
+  /// <summary>
+  /// Eine neue Funktionalität.
+  /// </summary>
+  Feature = 2,
 
-    /// <summary>
-    /// Ein übergeordnetes Thema (Epic), das mehrere Untertickets enthalten kann.
-    /// </summary>
-    Epic = 3,
+  /// <summary>
+  /// Ein übergeordnetes Thema (Epic), das mehrere Untertickets enthalten kann.
+  /// </summary>
+  Epic = 3,
 }

@@ -19,29 +19,29 @@ public class Ticket : BaseAuditableEntity
   /// <summary>
   /// Initializes a new instance of the <see cref="Ticket"/> class.
   /// </summary>
-    /// <param name="title">Der Titel des Tickets.</param>
-    /// <param name="type">Der Typ des Tickets (z.B. Task, Bug, Epic).</param>
-    /// <param name="projectId">Die ID des Projekts.</param>
-    /// <param name="creatorId">Die ID des Erstellers.</param>
-    /// <param name="workflowStateId">Die ID des initialen Status.</param>
-    /// <param name="geoIpTimestamp">Der GeoIP-Zeitstempel für Audits.</param>
-    public Ticket(string title, TicketType type, Guid projectId, Guid creatorId, Guid workflowStateId, string geoIpTimestamp)
+  /// <param name="title">Der Titel des Tickets.</param>
+  /// <param name="type">Der Typ des Tickets (z.B. Task, Bug, Epic).</param>
+  /// <param name="projectId">Die ID des Projekts.</param>
+  /// <param name="creatorId">Die ID des Erstellers.</param>
+  /// <param name="workflowStateId">Die ID des initialen Status.</param>
+  /// <param name="geoIpTimestamp">Der GeoIP-Zeitstempel für Audits.</param>
+  public Ticket(string title, TicketType type, Guid projectId, Guid creatorId, Guid workflowStateId, string geoIpTimestamp)
   {
     if (string.IsNullOrWhiteSpace(title))
     {
       throw new ArgumentException("Titel darf nicht leer sein.", nameof(title));
     }
 
-        this.Title = title;
-        this.Type = type;
-        this.ProjectId = projectId;
-        this.CreatorId = creatorId;
-        this.WorkflowStateId = workflowStateId;
-        this.GeoIpTimestamp = geoIpTimestamp ?? string.Empty;
-        this.CreatedAt = DateTime.UtcNow;
-        this.Status = "Todo";
-        this.Sha1Hash = this.GenerateSha1Hash();
-    }
+    this.Title = title;
+    this.Type = type;
+    this.ProjectId = projectId;
+    this.CreatorId = creatorId;
+    this.WorkflowStateId = workflowStateId;
+    this.GeoIpTimestamp = geoIpTimestamp ?? string.Empty;
+    this.CreatedAt = DateTime.UtcNow;
+    this.Status = "Todo";
+    this.Sha1Hash = this.GenerateSha1Hash();
+  }
 
   /// <summary>
   /// Initializes a new instance of the <see cref="Ticket"/> class.
@@ -84,7 +84,7 @@ public class Ticket : BaseAuditableEntity
   /// <summary>
   /// Gets das Navigation-Property zur Priorität.
   /// </summary>
-  public TicketPriority? Priority { get; private set; }
+  public TicketPriority? Priority { get; }
 
   /// <summary>
   /// Gets die Schwierigkeit (1-5 Chilis).
@@ -99,12 +99,12 @@ public class Ticket : BaseAuditableEntity
   /// <summary>
   /// Gets den geplanten Startzeitpunkt.
   /// </summary>
-  public DateTime? StartDate { get; private set; }
+  public DateTime? StartDate { get; }
 
   /// <summary>
   /// Gets die Deadline.
   /// </summary>
-  public DateTime? Deadline { get; private set; }
+  public DateTime? Deadline { get; }
 
   /// <summary>
   /// Gets die ID des Projekts, dem das Ticket zugeordnet ist.
@@ -114,17 +114,17 @@ public class Ticket : BaseAuditableEntity
   /// <summary>
   /// Gets das Navigation-Property zum Projekt.
   /// </summary>
-  public Project? Project { get; private set; }
+  public Project? Project { get; }
 
   /// <summary>
   /// Gets die ID des zugeordneten Workflows.
   /// </summary>
-  public Guid? WorkflowId { get; private set; }
+  public Guid? WorkflowId { get; }
 
   /// <summary>
   /// Gets das Navigation-Property zum Workflow.
   /// </summary>
-  public Workflow? Workflow { get; private set; }
+  public Workflow? Workflow { get; }
 
   /// <summary>
   /// Gets die ID des Workflow-Status.
@@ -134,63 +134,62 @@ public class Ticket : BaseAuditableEntity
   /// <summary>
   /// Gets das Navigation-Property zum Workflow-Status.
   /// </summary>
-  public WorkflowState? WorkflowState { get; private set; }
+  public WorkflowState? WorkflowState { get; }
 
   /// <summary>
   /// Gets die ID des Erstellers.
   /// </summary>
   public Guid CreatorId { get; private set; }
 
-    /// <summary>
-    /// Gets das Navigation-Property zum Ersteller.
-    /// </summary>
-    public User? Creator { get; private set; }
+  /// <summary>
+  /// Gets das Navigation-Property zum Ersteller.
+  /// </summary>
+  public User? Creator { get; }
 
-    /// <summary>
-    /// Gets den Typ des Tickets.
-    /// </summary>
-    public TicketType Type { get; private set; }
+  /// <summary>
+  /// Gets den Typ des Tickets.
+  /// </summary>
+  public TicketType Type { get; private set; }
 
-    /// <summary>
-    /// Gets die geschätzte Größe des Tickets.
-    /// </summary>
-    public TicketSize Size { get; private set; }
+  /// <summary>
+  /// Gets die geschätzte Größe des Tickets.
+  /// </summary>
+  public TicketSize Size { get; private set; }
 
-    /// <summary>
-    /// Gets die geschätzten Story Points.
-    /// </summary>
-    public int? EstimatePoints { get; private set; }
+  /// <summary>
+  /// Gets die geschätzten Story Points.
+  /// </summary>
+  public int? EstimatePoints { get; private set; }
 
-    /// <summary>
-    /// Gets die ID des übergeordneten Tickets (für Epics/Hierarchien).
-    /// </summary>
-    public Guid? ParentTicketId { get; private set; }
+  /// <summary>
+  /// Gets die ID des übergeordneten Tickets (für Epics/Hierarchien).
+  /// </summary>
+  public Guid? ParentTicketId { get; private set; }
 
-    /// <summary>
-    /// Gets das übergeordnete Ticket.
-    /// </summary>
-    public Ticket? ParentTicket { get; private set; }
+  /// <summary>
+  /// Gets das übergeordnete Ticket.
+  /// </summary>
+  public Ticket? ParentTicket { get; }
 
-    /// <summary>
-    /// Gets die Liste der zugeordneten Tags.
-    /// </summary>
-    public ICollection<TicketTag> Tags { get; private set; } = new List<TicketTag>();
+  /// <summary>
+  /// Gets die Liste der zugeordneten Tags.
+  /// </summary>
+  public ICollection<TicketTag> Tags { get; private set; } = new List<TicketTag>();
 
-    /// <summary>
-    /// Gets die Liste der Untertickets.
-    /// </summary>
-    public ICollection<Ticket> SubTickets { get; private set; } = new List<Ticket>();
+  /// <summary>
+  /// Gets die Liste der Untertickets.
+  /// </summary>
+  public ICollection<Ticket> SubTickets { get; private set; } = new List<Ticket>();
 
-    /// <summary>
-    /// Gets die Liste der Tickets, die dieses Ticket blockieren.
-    /// </summary>
-    public ICollection<TicketLink> BlockedBy { get; private set; } = new List<TicketLink>();
+  /// <summary>
+  /// Gets die Liste der Tickets, die dieses Ticket blockieren.
+  /// </summary>
+  public ICollection<TicketLink> BlockedBy { get; private set; } = new List<TicketLink>();
 
-    /// <summary>
-    /// Gets die Liste der Tickets, die von diesem Ticket blockiert werden.
-    /// </summary>
-    public ICollection<TicketLink> Blocking { get; private set; } = new List<TicketLink>();
-
+  /// <summary>
+  /// Gets die Liste der Tickets, die von diesem Ticket blockiert werden.
+  /// </summary>
+  public ICollection<TicketLink> Blocking { get; private set; } = new List<TicketLink>();
 
   /// <summary>
   /// Gets die ID des Benutzers, dem das Ticket zugewiesen ist (Nullable).
@@ -200,7 +199,7 @@ public class Ticket : BaseAuditableEntity
   /// <summary>
   /// Gets das Navigation-Property zum zugewiesenen Benutzer.
   /// </summary>
-  public User? AssignedUser { get; private set; }
+  public User? AssignedUser { get; }
 
   /// <summary>
   /// Gets den Zeitpunkt (UTC), zu dem das Ticket geschlossen wurde.
@@ -303,97 +302,97 @@ public class Ticket : BaseAuditableEntity
     this.UpdatedAt = DateTime.UtcNow;
   }
 
-    /// <summary>
-    /// Setzt den Mandanten des Tickets (Multi-Tenancy).
-    /// </summary>
-    /// <param name="tenantId">Die ID des Mandanten.</param>
-    public void SetTenantId(Guid tenantId)
+  /// <summary>
+  /// Setzt den Mandanten des Tickets (Multi-Tenancy).
+  /// </summary>
+  /// <param name="tenantId">Die ID des Mandanten.</param>
+  public void SetTenantId(Guid tenantId)
+  {
+    this.TenantId = tenantId;
+    this.UpdatedAt = DateTime.UtcNow;
+  }
+
+  /// <summary>
+  /// Setzt den Typ des Tickets.
+  /// </summary>
+  /// <param name="type">Der neue Typ.</param>
+  public void SetType(TicketType type)
+  {
+    this.Type = type;
+    this.UpdatedAt = DateTime.UtcNow;
+  }
+
+  /// <summary>
+  /// Setzt die Größe des Tickets.
+  /// </summary>
+  /// <param name="size">Die geschätzte Größe.</param>
+  public void SetSize(TicketSize size)
+  {
+    this.Size = size;
+    this.UpdatedAt = DateTime.UtcNow;
+  }
+
+  /// <summary>
+  /// Setzt die geschätzten Story Points.
+  /// </summary>
+  /// <param name="points">Die Punkte.</param>
+  public void SetEstimatePoints(int? points)
+  {
+    this.EstimatePoints = points;
+    this.UpdatedAt = DateTime.UtcNow;
+  }
+
+  /// <summary>
+  /// Setzt das übergeordnete Ticket.
+  /// </summary>
+  /// <param name="parentId">Die ID des Eltern-Tickets.</param>
+  public void SetParent(Guid? parentId)
+  {
+    if (parentId == this.Id)
     {
-        this.TenantId = tenantId;
-        this.UpdatedAt = DateTime.UtcNow;
+      throw new InvalidOperationException("Ein Ticket kann nicht sein eigenes Eltern-Ticket sein.");
     }
 
-    /// <summary>
-    /// Setzt den Typ des Tickets.
-    /// </summary>
-    /// <param name="type">Der neue Typ.</param>
-    public void SetType(TicketType type)
+    this.ParentTicketId = parentId;
+    this.UpdatedAt = DateTime.UtcNow;
+  }
+
+  /// <summary>
+  /// Fügt eine Verknüpfung zu einem anderen Ticket hinzu.
+  /// </summary>
+  /// <param name="targetId">Das Ziel-Ticket.</param>
+  /// <param name="linkType">Der Typ der Verknüpfung.</param>
+  public void AddLink(Guid targetId, TicketLinkType linkType)
+  {
+    if (targetId == this.Id)
     {
-        this.Type = type;
-        this.UpdatedAt = DateTime.UtcNow;
+      throw new InvalidOperationException("Ein Ticket kann nicht mit sich selbst verknüpft werden.");
     }
 
-    /// <summary>
-    /// Setzt die Größe des Tickets.
-    /// </summary>
-    /// <param name="size">Die geschätzte Größe.</param>
-    public void SetSize(TicketSize size)
+    this.Blocking.Add(new TicketLink(this.Id, targetId, linkType));
+    this.UpdatedAt = DateTime.UtcNow;
+  }
+
+  /// <summary>
+  /// Berechnet den Fortschritt in Prozent basierend auf den Untertickets.
+  /// </summary>
+  /// <returns>Ein Wert zwischen 0 und 100.</returns>
+  public int GetProgressPercentage()
+  {
+    if (this.SubTickets.Count == 0)
     {
-        this.Size = size;
-        this.UpdatedAt = DateTime.UtcNow;
+      return this.Status == "Closed" ? 100 : 0;
     }
 
-    /// <summary>
-    /// Setzt die geschätzten Story Points.
-    /// </summary>
-    /// <param name="points">Die Punkte.</param>
-    public void SetEstimatePoints(int? points)
-    {
-        this.EstimatePoints = points;
-        this.UpdatedAt = DateTime.UtcNow;
-    }
-
-    /// <summary>
-    /// Setzt das übergeordnete Ticket.
-    /// </summary>
-    /// <param name="parentId">Die ID des Eltern-Tickets.</param>
-    public void SetParent(Guid? parentId)
-    {
-        if (parentId == this.Id)
-        {
-            throw new InvalidOperationException("Ein Ticket kann nicht sein eigenes Eltern-Ticket sein.");
-        }
-
-        this.ParentTicketId = parentId;
-        this.UpdatedAt = DateTime.UtcNow;
-    }
-
-    /// <summary>
-    /// Fügt eine Verknüpfung zu einem anderen Ticket hinzu.
-    /// </summary>
-    /// <param name="targetId">Das Ziel-Ticket.</param>
-    /// <param name="linkType">Der Typ der Verknüpfung.</param>
-    public void AddLink(Guid targetId, TicketLinkType linkType)
-    {
-        if (targetId == this.Id)
-        {
-            throw new InvalidOperationException("Ein Ticket kann nicht mit sich selbst verknüpft werden.");
-        }
-
-        this.Blocking.Add(new TicketLink(this.Id, targetId, linkType));
-        this.UpdatedAt = DateTime.UtcNow;
-    }
-
-    /// <summary>
-    /// Berechnet den Fortschritt in Prozent basierend auf den Untertickets.
-    /// </summary>
-    /// <returns>Ein Wert zwischen 0 und 100.</returns>
-    public int GetProgressPercentage()
-    {
-        if (this.SubTickets.Count == 0)
-        {
-            return this.Status == "Closed" ? 100 : 0;
-        }
-
-        var closedCount = this.SubTickets.Count(t => t.Status == "Closed");
-        return (int)Math.Round((double)closedCount / this.SubTickets.Count * 100);
-    }
+    var closedCount = this.SubTickets.Count(t => t.Status == "Closed");
+    return (int)Math.Round((double)closedCount / this.SubTickets.Count * 100);
+  }
 
   private string GenerateSha1Hash()
   {
     // Echter SHA1 Hash für den Domain Hash (40 Zeichen Hex)
     var raw = $"{this.ProjectId}-{this.CreatorId}-{this.CreatedAt.Ticks}-{Guid.NewGuid()}";
     var hashBytes = System.Security.Cryptography.SHA1.HashData(System.Text.Encoding.UTF8.GetBytes(raw));
-    return Convert.ToHexString(hashBytes).ToLowerInvariant();
+    return Convert.ToHexString(hashBytes).ToUpperInvariant();
   }
 }

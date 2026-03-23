@@ -74,7 +74,7 @@ public class Project : BaseEntity
   /// Gets den zugeordneten Workflow.
   /// Each project can have exactly one workflow (IHK F8.4).
   /// </summary>
-  public Workflow? Workflow { get; private set; }
+  public Workflow? Workflow { get; }
 
   /// <summary>
   /// Gets die Liste der zugeordneten Tickets.

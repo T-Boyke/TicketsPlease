@@ -16,6 +16,11 @@ using TicketsPlease.Domain.Common;
 public class User : IdentityUser<Guid>, IBaseEntity
 {
   /// <summary>
+  /// Eine Liste von Domain-Events, die von dieser Entität ausgelöst wurden.
+  /// </summary>
+  private readonly List<IDomainEvent> domainEvents = new();
+
+  /// <summary>
   /// Gets or sets den Login-Namen (Alias for UserName).
   /// </summary>
   [NotMapped]
@@ -59,7 +64,9 @@ public class User : IdentityUser<Guid>, IBaseEntity
   /// <summary>
   /// Gets or sets die Version für die Nebenläufigkeitskontrolle.
   /// </summary>
+#pragma warning disable CA1819 // Properties should not return arrays
   public byte[] RowVersion { get; set; } = Array.Empty<byte>();
+#pragma warning restore CA1819 // Properties should not return arrays
 
   /// <summary>
   /// Gets or sets die ID der zugewiesenen Rolle.
@@ -75,11 +82,6 @@ public class User : IdentityUser<Guid>, IBaseEntity
   /// Gets or sets das zugehörige Benutzerprofil (1:1).
   /// </summary>
   public virtual UserProfile? Profile { get; set; }
-
-  /// <summary>
-  /// Eine Liste von Domain-Events, die von dieser Entität ausgelöst wurden.
-  /// </summary>
-  private readonly List<IDomainEvent> domainEvents = new();
 
   /// <summary>
   /// Gets die Liste der Domain-Events (Read-Only).

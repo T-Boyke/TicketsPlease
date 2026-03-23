@@ -4,7 +4,6 @@
 
 namespace TicketsPlease.Domain.Entities;
 
-using System;
 using TicketsPlease.Domain.Common;
 
 /// <summary>

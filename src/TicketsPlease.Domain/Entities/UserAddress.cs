@@ -41,5 +41,4 @@ public class UserAddress : BaseAuditableEntity
   /// Gets or sets das Land.
   /// </summary>
   public string Country { get; set; } = string.Empty;
-
 }

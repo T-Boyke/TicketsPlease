@@ -13,18 +13,18 @@ using TicketsPlease.Domain.Common;
 /// </summary>
 public class Workflow : BaseEntity
 {
-    /// <summary>
-    /// Gets or sets die Bezeichnung des Workflows.
-    /// </summary>
-    public string Name { get; set; } = string.Empty;
+  /// <summary>
+  /// Gets or sets die Bezeichnung des Workflows.
+  /// </summary>
+  public string Name { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Gets or sets die Liste der Status, die zu diesem Workflow gehören.
-    /// </summary>
-    public ICollection<WorkflowState> States { get; set; } = new List<WorkflowState>();
+  /// <summary>
+  /// Gets die Liste der Status, die zu diesem Workflow gehören.
+  /// </summary>
+  public virtual ICollection<WorkflowState> States { get; } = new List<WorkflowState>();
 
-    /// <summary>
-    /// Gets or sets die Liste der Projekte, die diesen Workflow nutzen.
-    /// </summary>
-    public ICollection<Project> Projects { get; set; } = new List<Project>();
+  /// <summary>
+  /// Gets die Liste der Projekte, die diesen Workflow nutzen.
+  /// </summary>
+  public virtual ICollection<Project> Projects { get; } = new List<Project>();
 }

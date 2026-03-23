@@ -20,7 +20,7 @@ public class UserProfile : BaseAuditableEntity
   /// <summary>
   /// Gets or sets das Navigation-Property für den zugehörigen Benutzer.
   /// </summary>
-  public User? User { get; set; }
+  public virtual User? User { get; set; }
 
   /// <summary>
   /// Gets or sets den Vornamen des Benutzers.
@@ -45,7 +45,7 @@ public class UserProfile : BaseAuditableEntity
   /// <summary>
   /// Gets or sets die URL zum Avatar-Bild.
   /// </summary>
-  public string? AvatarUrl { get; set; }
+  public Uri? AvatarUrl { get; set; }
 
   /// <summary>
   /// Gets or sets die (optionale) Telefonnummer des Benutzers.
@@ -61,6 +61,4 @@ public class UserProfile : BaseAuditableEntity
   /// Gets or sets das Navigation-Property für das Profilbild als FileAsset.
   /// </summary>
   public FileAsset? AvatarImage { get; set; }
-
-
 }

@@ -14,6 +14,11 @@ using System.ComponentModel.DataAnnotations;
 public abstract class BaseEntity : IBaseEntity
 {
   /// <summary>
+  /// Eine Liste von Domain-Events, die von dieser Entität ausgelöst wurden.
+  /// </summary>
+  private readonly List<IDomainEvent> domainEvents = new();
+
+  /// <summary>
   /// Gets or sets die eindeutige Identität der Entität.
   /// </summary>
   [Key]
@@ -42,11 +47,6 @@ public abstract class BaseEntity : IBaseEntity
   [Timestamp]
   public byte[] RowVersion { get; set; } = Array.Empty<byte>();
 #pragma warning restore CA1819 // Properties should not return arrays
-
-  /// <summary>
-  /// Eine Liste von Domain-Events, die von dieser Entität ausgelöst wurden.
-  /// </summary>
-  private readonly List<IDomainEvent> domainEvents = new();
 
   /// <summary>
   /// Gets die Liste der Domain-Events (Read-Only).
