@@ -1,17 +1,19 @@
 ---
-description: Standards and workflow for documentation, XML-comments, ADRs,
-  Mermaid diagrams, and changelogs in the TicketsPlease project.
+description:
+  Standards and workflow for documentation, XML-comments, ADRs, Mermaid
+  diagrams, and changelogs in the TicketsPlease project.
 ---
 
 # 📝 Documentation Standards Workflow
 
 Dieser Workflow definiert die vollständigen Dokumentations-Standards für das
-TicketsPlease Projekt. Dokumentation veraltet nicht, wenn sie automatisiert
-und systematischer Bestandteil des Workflows ist.
+TicketsPlease Projekt. Dokumentation veraltet nicht, wenn sie automatisiert und
+systematischer Bestandteil des Workflows ist.
 
-> **Referenz:** [README §6 – Extensive Dokumentation](file:///d:/DEV/Tickets/README.md)
-> | [ADR-Index](file:///d:/DEV/Tickets/docs/adr/README.md)
-> | [instructions.md §13](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:**
+> [README §6 – Extensive Dokumentation](file:///d:/DEV/Tickets/README.md) |
+> [ADR-Index](file:///d:/DEV/Tickets/docs/adr/README.md) |
+> [instructions.md §13](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 
@@ -19,17 +21,18 @@ und systematischer Bestandteil des Workflows ist.
 
 ### Pflicht für alle public Members
 
-Nutze die offiziellen [Microsoft XML Documentation Tags](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags):
+Nutze die offiziellen
+[Microsoft XML Documentation Tags](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/recommended-tags):
 
-| Tag | Verwendung |
-| --- | --- |
-| `<summary>` | Kurze Beschreibung (Pflicht für alles) |
-| `<param name="x">` | Parameter-Beschreibung (Pflicht für Methoden) |
-| `<returns>` | Rückgabewert-Beschreibung |
-| `<exception cref="T">` | Welche Exceptions geworfen werden können |
-| `<remarks>` | Zusätzliche Hinweise, Beispiele, Kontext |
-| `<inheritdoc />` | Dokumentation vom Interface/Basisklasse erben |
-| `<see cref="T"/>` | Verweis auf anderen Typ / Member |
+| Tag                    | Verwendung                                    |
+| ---------------------- | --------------------------------------------- |
+| `<summary>`            | Kurze Beschreibung (Pflicht für alles)        |
+| `<param name="x">`     | Parameter-Beschreibung (Pflicht für Methoden) |
+| `<returns>`            | Rückgabewert-Beschreibung                     |
+| `<exception cref="T">` | Welche Exceptions geworfen werden können      |
+| `<remarks>`            | Zusätzliche Hinweise, Beispiele, Kontext      |
+| `<inheritdoc />`       | Dokumentation vom Interface/Basisklasse erben |
+| `<see cref="T"/>`      | Verweis auf anderen Typ / Member              |
 
 ### Beispiel (Vollständig dokumentierter Handler)
 
@@ -84,26 +87,29 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
 
 ### Wann einen ADR erstellen?
 
-- **Jede wesentliche Design-Entscheidung** (Architektur, Stack, Security, Pattern-Wahl).
-- Beispiele: Wahl eines Caching-Frameworks, Einführung eines neuen Bounded Context, Änderung der Auth-Strategie.
+- **Jede wesentliche Design-Entscheidung** (Architektur, Stack, Security,
+  Pattern-Wahl).
+- Beispiele: Wahl eines Caching-Frameworks, Einführung eines neuen Bounded
+  Context, Änderung der Auth-Strategie.
 
 ### Ablauf
 
 1. Kopiere das [ADR Template](file:///d:/DEV/Tickets/docs/adr/template.md).
 2. Erstelle eine neue Datei: `docs/adr/[NNNN]-[kebab-case-titel].md`
-   - Nächste Nummer aus dem [ADR Index](file:///d:/DEV/Tickets/docs/adr/README.md) ableiten.
+   - Nächste Nummer aus dem
+     [ADR Index](file:///d:/DEV/Tickets/docs/adr/README.md) ableiten.
 3. Fülle alle Sektionen aus: **Kontext, Entscheidung, Gründe, Konsequenzen**.
 4. Aktualisiere den ADR-Index (`docs/adr/README.md`).
 5. Commit: `docs(adr): add ADR-NNNN for [Thema]`
 
 ### ADR-Index aktuell halten
 
-| Feld | Beschreibung |
-| --- | --- |
-| **Nummer** | Fortlaufend (0001, 0002, ...) |
-| **Titel** | Kurz, beschreibend (kebab-case im Dateinamen) |
-| **Status** | `Accepted`, `Superseded`, `Deprecated` |
-| **Datum** | Datum der Entscheidung |
+| Feld       | Beschreibung                                  |
+| ---------- | --------------------------------------------- |
+| **Nummer** | Fortlaufend (0001, 0002, ...)                 |
+| **Titel**  | Kurz, beschreibend (kebab-case im Dateinamen) |
+| **Status** | `Accepted`, `Superseded`, `Deprecated`        |
+| **Datum**  | Datum der Entscheidung                        |
 
 ---
 
@@ -118,9 +124,12 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
 
 ### Ablageort
 
-- **Systemarchitektur:** [architecture_diagrams.md](file:///d:/DEV/Tickets/docs/architecture_diagrams.md)
-- **Datenbank-ERD:** [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md)
-- **Ticket-Domain:** [domain_ticket.md](file:///d:/DEV/Tickets/docs/domain_ticket.md)
+- **Systemarchitektur:**
+  [architecture_diagrams.md](file:///d:/DEV/Tickets/docs/architecture_diagrams.md)
+- **Datenbank-ERD:**
+  [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md)
+- **Ticket-Domain:**
+  [domain_ticket.md](file:///d:/DEV/Tickets/docs/domain_ticket.md)
 - **Feature-spezifisch:** Inline in der jeweiligen Dokumentation oder im ADR.
 
 ### Beispiel (Ticket State Machine)
@@ -143,8 +152,8 @@ stateDiagram-v2
 ### Wann aktualisieren?
 
 - Bei **jedem Feature**, **Bugfix** oder **Breaking Change**.
-- Der CHANGELOG dokumentiert die **nutzerrelevanten** Änderungen (nicht
-  jeden einzelnen Refactoring-Commit).
+- Der CHANGELOG dokumentiert die **nutzerrelevanten** Änderungen (nicht jeden
+  einzelnen Refactoring-Commit).
 
 ### Format ([Keep a Changelog](https://keepachangelog.com/))
 
@@ -152,16 +161,20 @@ stateDiagram-v2
 ## [Unreleased]
 
 ### Added
+
 - Ticket-Erstellung mit SHA1-Hash und GeoIP-Timestamp (#42)
 - Chillischoten-Schwierigkeitsmetrik (1-5 🌶️) (#43)
 
 ### Changed
+
 - Ticket-Close-Regeln: Nur Creator, Admin oder Teamlead dürfen schließen (#45)
 
 ### Fixed
+
 - Null-Reference beim Login-Redirect (#47)
 
 ### Security
+
 - DOMPurify für Markdown-Rendering integriert (#48)
 ```
 
@@ -169,23 +182,23 @@ stateDiagram-v2
 
 ## 5. Mockups & Screenshots
 
-| Typ | Ablageort |
-| --- | --- |
-| UI-Wireframes & Mockups | `/docs/mockups/` |
-| Finale Screenshots (IHK) | `/docs/mockups/` |
-| Grafiken & Logos | `/docs/assets/` → später `wwwroot/images/` |
-| Platzhalter     | [Placehold.co](https://placehold.co/) (Open Source SVG) |
+| Typ                      | Ablageort                                               |
+| ------------------------ | ------------------------------------------------------- |
+| UI-Wireframes & Mockups  | `/docs/mockups/`                                        |
+| Finale Screenshots (IHK) | `/docs/mockups/`                                        |
+| Grafiken & Logos         | `/docs/assets/` → später `wwwroot/images/`              |
+| Platzhalter              | [Placehold.co](https://placehold.co/) (Open Source SVG) |
 
 ---
 
 ## 6. Inline-Code-Dokumentation
 
-| Situation | Regel |
-| --- | --- |
-| **Logik** | Erkläre das **"Warum"**, nicht das "Was". |
-| **TODO/FIXME** | `// TODO(username): Beschreibung` mit GitHub Issue Referenz. |
-| **Workarounds** | Dokumentiere den Grund und die geplante Lösung. |
-| **Magic Numbers** | Extrahiere in benannte Konstanten mit XML-Kommentar. |
+| Situation         | Regel                                                        |
+| ----------------- | ------------------------------------------------------------ |
+| **Logik**         | Erkläre das **"Warum"**, nicht das "Was".                    |
+| **TODO/FIXME**    | `// TODO(username): Beschreibung` mit GitHub Issue Referenz. |
+| **Workarounds**   | Dokumentiere den Grund und die geplante Lösung.              |
+| **Magic Numbers** | Extrahiere in benannte Konstanten mit XML-Kommentar.         |
 
 ---
 

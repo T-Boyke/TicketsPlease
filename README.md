@@ -3,26 +3,26 @@
 Ein hochmodernes, kollaboratives und skalierbares Kanban-Ticketsystem,
 entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 
-> 💡 **Hintergrund & Entstehung:** Dieses Abschlussprojekt
-> ("Einfaches Ticketsystem") basiert auf fundierten Vorarbeiten und
-> Erfahrungswerten aus den Repositories
+> 💡 **Hintergrund & Entstehung:** Dieses Abschlussprojekt ("Einfaches
+> Ticketsystem") basiert auf fundierten Vorarbeiten und Erfahrungswerten aus den
+> Repositories
 > [C-Sharp-OOP-Fundamentals](https://github.com/T-Boyke/C-Sharp-OOP-Fundamentals)
-> und [C-Sharp-ASP-Fundamentals](https://github.com/T-Boyke/C-Sharp-ASP-Fundamentals).
+> und
+> [C-Sharp-ASP-Fundamentals](https://github.com/T-Boyke/C-Sharp-ASP-Fundamentals).
 > Es transformiert diese theoretischen Grundlagen nun in ein vollwertiges,
-> cloud-ready Enterprise-Produkt.
-> 👉 **Projektphasen:** Da der Auftrag "Einfaches Ticketsystem" lautet, trennen
-> wir strikt zwischen dem **[IHK MVP-Kern](docs/MVP_Roadmap.md)** und der
-> späteren Enterprise-Ausbaustufe!
-> 🛠️ **Schnellstart:** Neu im Projekt? Folge der
-> **[Einrichtungsanleitung für Dummies](docs/dev_setup_guide.md)**!
-> 🤖 **AI-gestützte Entwicklung:** Dieses Projekt nutzt
-> **Antigravity AI Skills** zur Automatisierung von Scaffolding, Reviews und
-> Debugging. Siehe **[Antigravity Guide](docs/antigravity-guide.md)**.
+> cloud-ready Enterprise-Produkt. 👉 **Projektphasen:** Da der Auftrag
+> "Einfaches Ticketsystem" lautet, trennen wir strikt zwischen dem
+> **[IHK MVP-Kern](docs/MVP_Roadmap.md)** und der späteren
+> Enterprise-Ausbaustufe! 🛠️ **Schnellstart:** Neu im Projekt? Folge der
+> **[Einrichtungsanleitung für Dummies](docs/dev_setup_guide.md)**! 🤖
+> **AI-gestützte Entwicklung:** Dieses Projekt nutzt **Antigravity AI Skills**
+> zur Automatisierung von Scaffolding, Reviews und Debugging. Siehe
+> **[Antigravity Guide](docs/antigravity-guide.md)**.
 
 ---
 
 <details>
-<summary><strong>📋 Table of Contents (Inhaltsverzeichnis)</strong></summary>
+<summary>📋 Table of Contents (Inhaltsverzeichnis)</summary>
 
 - [TicketsPlease 🎫](#ticketsplease-)
   - [📊 Implementierungs-Status (MVP vs. Enterprise)](#-implementierungs-status-mvp-vs-enterprise)
@@ -50,7 +50,7 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
     - [📋 Kanban Dashboard (Interaktiv)](#-kanban-dashboard-interaktiv)
     - [Enterprise Add-Ons (Phase 2-5) 🚀](#enterprise-add-ons-phase-2-5-)
   - [6. 🛡️ Code-Qualität \& Workflows](#6-️-code-qualität--workflows)
-    - [Test-Driven Development (TDD) \& Quality Assurance](#test-driven-development-tdd--quality-assurance)
+    - [Test-Driven Development (TDD) & "Perfect" Quality Assurance](#test-driven-development-tdd--perfect-quality-assurance)
     - [💯 Google Lighthouse Tests (Performance \& SEO)](#-google-lighthouse-tests-performance--seo)
     - [Continuous Integration / Continuous Deployment (CI/CD)](#continuous-integration--continuous-deployment-cicd)
     - [🔍 Statische Code-Analyse \& Linter](#-statische-code-analyse--linter)
@@ -67,17 +67,17 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 
 ## 📊 Implementierungs-Status (MVP vs. Enterprise)
 
-| Feature | Status | Beschreibung | Scope |
-| :--- | :--- | :--- | :--- |
-| **Core Entities** | ✅ Aktiv | 26 Enterprise-Entitäten (3NF) aktiv | MVP Context |
-| **IAM** | ✅ Aktiv | Full Organization, User & Profile Mapping | MVP |
-| **Kanban Board** | 🏗️ In Arbeit | Interaktives Board mit Drag & Drop | MVP |
-| **Tailwind CSS v4** | ✅ Aktiv | Modernes Styling via nativem CLI | MVP |
-| **Testing Infra** | ✅ Aktiv | Architektur- & Integrations-Tests | MVP |
-| **AI Skills** | ✅ Aktiv | Automatisierung via Antigravity | MVP |
-| **Team Support** | ✅ Aktiv | Persistent Teams & Member Mgt. | Enterprise |
-| **SLA Policies** | ✅ Aktiv | Persistence Layer & Policies | Enterprise |
-| **Plugin System** | 🗺️ Roadmap | Externe Module (Dynamic Loading) | Enterprise |
+| Feature             | Status       | Beschreibung                              | Scope       |
+| :------------------ | :----------- | :---------------------------------------- | :---------- |
+| **Core Entities**   | ✅ Aktiv     | 26 Enterprise-Entitäten (3NF) aktiv       | MVP Context |
+| **IAM**             | ✅ Aktiv     | Full Organization, User & Profile Mapping | MVP         |
+| **Kanban Board**    | 🏗️ In Arbeit | Interaktives Board mit Drag & Drop        | MVP         |
+| **Tailwind CSS v4** | ✅ Aktiv     | Modernes Styling via nativem CLI          | MVP         |
+| **Testing Infra**   | ✅ Aktiv     | Architektur- & Integrations-Tests         | MVP         |
+| **AI Skills**       | ✅ Aktiv     | Automatisierung via Antigravity           | MVP         |
+| **Team Support**    | ✅ Aktiv     | Persistent Teams & Member Mgt.            | Enterprise  |
+| **SLA Policies**    | ✅ Aktiv     | Persistence Layer & Policies              | Enterprise  |
+| **Plugin System**   | 🗺️ Roadmap   | Externe Module (Dynamic Loading)          | Enterprise  |
 
 ---
 
@@ -88,8 +88,8 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 
 Dieses Projekt realisiert ein umfassendes Ticketverwaltungssystem mit
 dynamischen Kanban-Boards, welches explizit als Abschlussprojekt des c# .net 10
-kurses vom dozenten Tom Seelig gefordert und Der Gruppe bestehend aus Tobias
-und x, y, Z konzipiert wurde.
+kurses vom dozenten Tom Seelig gefordert und Der Gruppe bestehend aus Tobias und
+x, y, Z konzipiert wurde.
 
 Der kompromisslose Fokus liegt dabei nicht nur auf reiner Funktionalität,
 sondern vor allem auf **exzellenter Softwarearchitektur**, **höchster
@@ -108,39 +108,43 @@ dokumentiert.
 <details>
 <summary>Mehr erfahren über die genutzten Technologien...</summary>
 
-Das System nutzt einen hochmodernen und perfekt aufeinander abgestimmten Stack:
+Das System ist **State of the Art (Bleeding Edge)** und nutzt einen
+hochmodernen, perfekt aufeinander abgestimmten Stack für das Jahr 2026:
 
 - **Entwicklungsumgebungen (IDEs):**
-  - [Visual Studio 2026](https://visualstudio.microsoft.com/)
+  - [Visual Studio 2026 (v18.4+)](https://visualstudio.microsoft.com/)
   - [JetBrains Rider 3.2026](https://www.jetbrains.com/rider/)
-  - *(Exklusiver Support mit maßgeschneiderten `.editorconfig` und
-    Plugin-Configs).*
-- **Backend & Core (ASP.NET Core 10.3 / C# 14):**
+  - _(Exklusiver Support mit maßgeschneiderten `.editorconfig`, Shared
+    Run-Configs und Plugin-Settings)._
+- **Backend & Core (ASP.NET Core 10.0 LTS / C# 14):**
   - [Offizielle C# Docs](https://learn.microsoft.com/en-us/dotnet/csharp/) |
     [ASP.NET Core Docs](https://learn.microsoft.com/en-us/aspnet/core/)
+  - **Serialisierung:** Natives hochperformantes `System.Text.Json` (v10). Wir
+    haben `Newtonsoft.Json` vollständig aus dem Stack eliminiert!
+  - **API-Dokumentation:** **Scalar v2** (ersetzt das veraltete
+    Swagger/Swashbuckle) via nativem `Microsoft.AspNetCore.OpenApi` im
+    **BluePlanet** Premium-Theme.
+  - **Object Mapping:** **Mapster** (deutlich schneller und moderner als
+    AutoMapper).
+  - **Validation:** CQRS & Validation (MediatR v12, FluentValidation v11).
   - **Resilience:** EF Core mit `EnableRetryOnFailure` und expliziten
     Transaktions-Strategien.
-  - **Concurrency:** Optimistische Nebenläufigkeitskontrolle via `RowVersion`
-    (Timestamp) in allen Entitäten.
-  - **Validation:** CQRS & Validation (MediatR, FluentValidation).
-  - **Async Policy:** Zwingende Nutzung von `CancellationToken` in allen
-    asynchronen Calls.
   - 👉 **[Detaillierte Backend-Library & NuGet Strategie](docs/nuget_stack.md)**
 - **Datenbank & ORM:**
-  - [Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/)
+  - [Entity Framework Core 10](https://learn.microsoft.com/en-us/ef/core/)
     (Code-First Approach)
   - **Performance:** Strikte `AsNoTracking()` Policy für reine Lesezugriffe.
   - [Microsoft SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
-  - *Siehe detailliertes [Datenbankschema (ERD)](docs/database_schema.md)*
+  - _Siehe detailliertes [Datenbankschema (ERD)](docs/database_schema.md)_
 - **Frontend & User Interface (UI):**
+  - **TailwindCSS 4.2:** Neueste Evolution via nativer CSS-Engine und
+    `@theme`-Direktiven (keine `tailwind.config.js` mehr!).
+  - **Client-Side Libs:** Markdig (Markdown), SortableJS (Drag & Drop),
+    FontAwesome 7.2.0 (Lokal), Roboto Flex & Google Sans Flex (Lokal).
+  - **Corporate Identity:** Dynamisches Theming über `ICorporateSkinProvider`
+    und CSS-Variablen (Azure/Sky Blue) mit Native Dark Mode, Glassmorphism und High-End Typografie (Flex Fonts).
   - **No-Bootstrap Policy:** Das Projekt ist vollständig Bootstrap-frei für
     maximalen Control-Flow.
-  - **TailwindCSS v4:** Neueste Evolution via nativem `tailwindcss.exe` (Kein
-    Node.js / .NET 9 Runtime nötig!).
-  - **Client-Side Libs:** Markdig (Markdown), SortableJS (Drag & Drop),
-    FontAwesome 7.2.
-  - **Corporate Identity:** Dynamisches Theming über `ICorporateSkinProvider`
-    und CSS-Variablen.
   - Paketverwaltung via
     **[LibMan](https://learn.microsoft.com/en-us/aspnet/core/client-side/libman/libman-vs)**
     (`libman.json`).
@@ -149,12 +153,11 @@ Das System nutzt einen hochmodernen und perfekt aufeinander abgestimmten Stack:
   - [Domain-Driven Design (DDD)](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/)
   - [CQRS (Command Query Responsibility Segregation)](https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs)
 - **Testing-Frameworks:**
-
   - [xUnit](https://xunit.net/) (Unit/Integration)
   - **Architecture:** `NetArchTest.eXtend` für statische Regelprüfung.
   - **Integration:** `Microsoft.AspNetCore.Mvc.Testing` für API- & DB-Tests.
-  - **Data Seeding:** [Bogus](https://github.com/bchavez/Bogus) für
-    synthetische Testdaten (Locale: `de`).
+  - **Data Seeding:** [Bogus](https://github.com/bchavez/Bogus) für synthetische
+    Testdaten (Locale: `de`).
   - [Playwright](https://playwright.dev/dotnet/) (E2E)
   - [Vitest](https://vitest.dev/) (JS-Frontend Tests)
 
@@ -170,7 +173,8 @@ Das System nutzt einen hochmodernen und perfekt aufeinander abgestimmten Stack:
 Unsere Softwarearchitektur ist das Rückgrat des Systems. Sie sichert
 Skalierbarkeit, Wartbarkeit und Erweiterbarkeit für die kommenden Jahre.
 
-👉 **Für tiefergehende Details lesen Sie unsere [Architecture Decision Records (ADRs)](docs/adr).**
+👉 **Für tiefergehende Details lesen Sie unsere
+[Architecture Decision Records (ADRs)](docs/adr).**
 
 ### Domain-Driven Design (DDD)
 
@@ -179,8 +183,8 @@ logischen Trennung der Fachlichkeit. Dies verhindert "Spaghetti-Code" und sorgt
 dafür, dass die Software exakt die Geschäftsrealität abbildet.
 
 - **Bounded Contexts:** Wir definieren eindeutige Abgrenzungen der Domänen (z.B.
-  *Identity & Access Context*, *Ticket Management Context*, *Team Collaboration
-  Context*). Jeder Context hat sein eigenes, unantastbares Modell.
+  _Identity & Access Context_, _Ticket Management Context_, _Team Collaboration
+  Context_). Jeder Context hat sein eigenes, unantastbares Modell.
 - **Ubiquitous Language:** Wir etablieren ein klares, gemeinsames Vokabular für
   Entwickler und Fachexperten. Ein "Ticket" heißt immer "Ticket", ein "Nutzer"
   immer "Nutzer". Diese Sprache spiegelt sich 1:1 im C# Code, in der Datenbank
@@ -188,18 +192,17 @@ dafür, dass die Software exakt die Geschäftsrealität abbildet.
 
 ### Clean Architecture (Onion / Hexagonal)
 
-Wir erzwingen eine strikte Trennung von Zuständigkeiten
-(Separation of Concerns). Abhängigkeiten zeigen *immer* nur nach innen in
-Richtung der Domain-Schicht.
+Wir erzwingen eine strikte Trennung von Zuständigkeiten (Separation of
+Concerns). Abhängigkeiten zeigen _immer_ nur nach innen in Richtung der
+Domain-Schicht.
 
 - **Domain Layer (Kern):** Beinhaltet ausschließlich Core-Geschäftsregeln,
-  Entities (Ticket, User, Team) und Value Objects. Diese Schicht hat *null*
-  Abhängigkeiten nach außen – weder zur Datenbank, noch zu Web-Technologien
-  oder anderen Frameworks.
+  Entities (Ticket, User, Team) und Value Objects. Diese Schicht hat _null_
+  Abhängigkeiten nach außen – weder zur Datenbank, noch zu Web-Technologien oder
+  anderen Frameworks.
 - **Application Layer:** Orchestriert die Use Cases der Anwendung. Nutzt
-  Commands und Queries (CQRS-Pattern), um Lese- und Schreiboperationen strikt
-  zu trennen. Definiert DTOs (Data Transfer Objects) und Interfaces für die
-  Domäne.
+  Commands und Queries (CQRS-Pattern), um Lese- und Schreiboperationen strikt zu
+  trennen. Definiert DTOs (Data Transfer Objects) und Interfaces für die Domäne.
 - **Infrastructure Layer:** Implementiert die Interfaces aus der Application
   Layer. Hier leben die EF Core Repositories, Datenbank-Kontexte und die
   Anbindung an externe Dienste (z.B. Mail-Provider).
@@ -215,8 +218,8 @@ Unser Code unterliegt höchsten Qualitätsstandards:
 - **DRY (Don't Repeat Yourself):** Logik wird abstrahiert und wiederverwendet.
   Code-Duplikate werden im Code-Review rigoros abgelehnt.
 - **KISS (Keep It Simple, Stupid) & YAGNI (You Aren't Gonna Need It):** Wir
-  bauen keine komplexen Abstraktionen "für die Zukunft". Wir lösen das
-  aktuelle Problem mit dem einfachsten, lesbarsten und verständlichsten Code.
+  bauen keine komplexen Abstraktionen "für die Zukunft". Wir lösen das aktuelle
+  Problem mit dem einfachsten, lesbarsten und verständlichsten Code.
 
 ### 🧩 Enterprise Plugin Architektur (Extensibility)
 
@@ -231,7 +234,7 @@ externen) Quellen nachzuladen, ohne den Core-Code anfassen zu müssen
   Reflection (`Assembly.Load`) oder das C# `ManagedLoadContext` zur Laufzeit
   kompiliierte `.dll`-Dateien (Plugins) aus einem definierten Verzeichnis lädt
   und über Dependency Injection in die Applikation einklinkt.
-- *Beispiele für spätere Plugins:* Externe Time-tracking-Tools (Toggl
+- _Beispiele für spätere Plugins:_ Externe Time-tracking-Tools (Toggl
   Integration), Custom-Auth-Provider (SAML/SSO), oder KI-gestützte
   Ticket-Zusammenfassungen.
 
@@ -252,9 +255,9 @@ und extrem lesbaren CSHTML-Struktur**.
 
 Wir nutzen eine streng modulare UI-Architektur. Mittels ASP.NET Core Razor
 CSS-Isolation und dedizierten `ViewComponents` bündeln wir Template (HTML),
-Logik (C#) und domänenspezifisches Styling (CSS) konsequent. Jede
-UI-Komponente (Button, Card, Modal) ist völlig autark und kann ohne
-Nebenwirkungen ausgetauscht oder verschoben werden.
+Logik (C#) und domänenspezifisches Styling (CSS) konsequent. Jede UI-Komponente
+(Button, Card, Modal) ist völlig autark und kann ohne Nebenwirkungen
+ausgetauscht oder verschoben werden.
 
 Ziel ist es, den CSHTML-Code frei von C#-Business-Logik und ausufernden
 CSS-Klassen zu halten (Trennung von Markup und Styling). Wir nutzen ein
@@ -273,26 +276,27 @@ verwenden wir **keine Content Delivery Networks (CDNs)**. Sämtliche Libraries
 (Tailwind, FontAwesome) werden vollständig lokal über den Microsoft Library
 Manager (`libman.json`) in das Projektverzeichnis (`wwwroot/lib`) integriert.
 
-👉 **Mehr dazu in unserer [Asset Management Strategie](docs/frontend_assets.md).**
+👉 **Mehr dazu in unserer
+[Asset Management Strategie](docs/frontend_assets.md).**
 
 ### 🧭 Navigation & Settings-Menü
 
-- **Dynamische Navbar:** Nach erfolgreichem Login wird in der
-  Haupt-Navigation ein dediziertes "Settings" (Einstellungen) Menü sichtbar.
+- **Dynamische Navbar:** Nach erfolgreichem Login wird in der Haupt-Navigation
+  ein dediziertes "Settings" (Einstellungen) Menü sichtbar.
 - **Rollenbasierte Ansichten:** Die Unterpunkte dieses Settings-Menüs filtern
   sich streng nach den Claims/Rollen des Nutzers.
   - **Benutzer (User / Teamlead):** Zugriff auf **"Mein Profil"**
     (Avatar-Upload, persönliche Daten), **"Sicherheit"** (Passwort ändern),
     **"Benachrichtigungen"** (E-Mail/App-Präferenzen) und **"Darstellung"**
-    (Dark/Light Theme, Sprache/I18N, Zeitzone). *Teamleads* sehen zusätzlich
-    die **"Team-Verwaltung"** für ihre zugewiesenen Squads.
+    (Dark/Light Theme, Sprache/I18N, Zeitzone). _Teamleads_ sehen zusätzlich die
+    **"Team-Verwaltung"** für ihre zugewiesenen Squads.
   - **Administratoren (Admin / Owner):** Sehen zusätzlich zu den User-Settings
     die globale **"Benutzerverwaltung"** (Passwörter zurücksetzen), die
     **"Gruppen- & Rechteverwaltung"** (Rollen und Berechtigungen vergeben),
-    **"Workflow-Konfiguration"** (Kanban-Spalten anpassen), **"SLA-Richtlinien"**,
-    zentrales **"Tag-Management"**, globale **"System-Einstellungen"** (z.B.
-    SMTP, Plugin-Verwaltung) und das systemweite **"Audit Log"** (Historie &
-    Security Events).
+    **"Workflow-Konfiguration"** (Kanban-Spalten anpassen),
+    **"SLA-Richtlinien"**, zentrales **"Tag-Management"**, globale
+    **"System-Einstellungen"** (z.B. SMTP, Plugin-Verwaltung) und das
+    systemweite **"Audit Log"** (Historie & Security Events).
 
 ### Atomic CSS & Utility First
 
@@ -316,8 +320,8 @@ Wir verfolgen strikt den Utility-First Ansatz, aber kapseln diesen sauber:
 ### ♿ Barrierefreiheit (a11y) & UX Standards
 
 Wir entwickeln kompromisslos nach dem **Barrierefreiheitsstärkungsgesetz
-(BFSG)** und den strengen Richtlinien der [W3C ARIA Authoring Practices Guide
-(APG)](https://www.w3.org/WAI/ARIA/apg/).
+(BFSG)** und den strengen Richtlinien der
+[W3C ARIA Authoring Practices Guide (APG)](https://www.w3.org/WAI/ARIA/apg/).
 
 - **Keyboard-First Navigation:** Das gesamte Kanban-Board, alle Modals und
   Dropdowns müssen vollständig (und logisch) per `Tab`-Taste bedienbar sein.
@@ -357,8 +361,8 @@ Enterprise-Ticketing-Lösung ab.
 ### 🌐 Globalisierung & Lokalisierung (I18N)
 
 Die Applikation ist von Tag Eins an auf internationale Enterprise-Nutzung
-ausgelegt. Wir implementieren die nativen [ASP.NET Core Localization
-(I18N)](https://learn.microsoft.com/de-de/aspnet/core/fundamentals/localization)
+ausgelegt. Wir implementieren die nativen
+[ASP.NET Core Localization (I18N)](https://learn.microsoft.com/de-de/aspnet/core/fundamentals/localization)
 Features:
 
 - **Ressourcen-Dateien (`.resx`):** Sämtliche UI-Texte, Fehlermeldungen und
@@ -368,9 +372,9 @@ Features:
   des Nutzers (über den `Accept-Language` HTTP-Header oder ein explizites
   User-Profile Setting) und wechselt die UI-Sprache fließend (z.B. zwischen
   Deutsch und Englisch).
-- **Zeitzonen & Währungen:** Alle `DateTimeOffset` Werte werden
-  nutzerspezifisch gerendert, Währungen/Zahlenformate werden der Kultur des
-  Betrachters angepasst.
+- **Zeitzonen & Währungen:** Alle `DateTimeOffset` Werte werden nutzerspezifisch
+  gerendert, Währungen/Zahlenformate werden der Kultur des Betrachters
+  angepasst.
 
 ### 🔐 Erweitertes Rollen & Rechte System (RBAC)
 
@@ -383,7 +387,7 @@ Zugriffe:
   von Workflows.
 - **Moderator (Mod):** Konfliktlösung, Ticket-Bereinigung, Spam-Prävention
   (falls öffentliche Tickets aktiv).
-- **Teamlead:** Kann innerhalb *seines* Teams User hinzufügen/entfernen,
+- **Teamlead:** Kann innerhalb _seines_ Teams User hinzufügen/entfernen,
   Workloads einsehen und Rundmails an das Team versenden.
 - **User:** Der Standard-Entwickler/Bearbeiter. Darf Tickets anlegen,
   bearbeiten, Subtickets erstellen und kommentieren.
@@ -399,9 +403,9 @@ Zugriffe:
 - **Realtime Messaging System:** Nahtlose Integration von Direktnachrichten
   (1-to-1) und projektspezifischen Chat-Räumen für Teammitglieder (basierend auf
   SignalR/WebSockets).
-- **Teamlead "Broadcast" Mails:** Teamleiter können offizielle Ankündigungen
-  und Rundmails (formatiert in Markdown) direkt aus der Applikation an alle
-  ihre Squad-Mitglieder senden.
+- **Teamlead "Broadcast" Mails:** Teamleiter können offizielle Ankündigungen und
+  Rundmails (formatiert in Markdown) direkt aus der Applikation an alle ihre
+  Squad-Mitglieder senden.
 - **Live Online-Status (Presence):** Grüne Indikatoren neben Profilbildern
   signalisieren in Echtzeit, ob ein Entwickler oder Ticket-Besitzer gerade in
   der Applikation aktiv ist.
@@ -413,7 +417,7 @@ Zugriffe:
   erforderlich (Hard Constraints in der Domain).
 - Ausführliche Profile inklusive **Profilbild-Upload** (Avatar-Crop-Funktion),
   Kontaktdaten, Arbeitszeiten und abteilungsspezifischen Eigenschaften.
-- Personalisierte Dashboards pro User (Was sind *meine* assigned Tickets?).
+- Personalisierte Dashboards pro User (Was sind _meine_ assigned Tickets?).
 
 ### 👥 Teams & Workspaces
 
@@ -432,26 +436,27 @@ folgenden Eigenschaften:
 - **Stammdaten:** Eindeutige ID, referenzierbarer **SHA1-Hash** (zur
   systemweiten Identifizierung und Kopieren), Titel, ausführliche
   **Markdown-gestützte Beschreibung** (inkl. Mermaid-Graphen).
-- **Audit & Tracking:** Jedes Ticket erfasst neben dem Zeitstempel auch
-  zwingend einen **Geo/IP Timestamp** bei Erstellung und Bearbeitung aus
+- **Audit & Tracking:** Jedes Ticket erfasst neben dem Zeitstempel auch zwingend
+  einen **Geo/IP Timestamp** bei Erstellung und Bearbeitung aus
   Revisionsgründen.
 - **Community Voting (Upvotes):** Entwickler und Teams können über Tickets
   abstimmen (Upvoting). Dies hilft Produktmanagern automatisiert zu erkennen,
   welche Features oder Bugs der Community aktuell am wichtigsten sind.
 - **Zeitmanagement:** Startdatum, Deadline, geschätzter Aufwand und geloggte
   Arbeitszeit.
-- **Priorisierung:** Skala (z.B. Low, Medium, High, Blocker) mit
-  entsprechenden farblichen Indikatoren.
+- **Priorisierung:** Skala (z.B. Low, Medium, High, Blocker) mit entsprechenden
+  farblichen Indikatoren.
 - **Die "Chillischoten"-Metrik 🌶️:** Eine visuelle, einzigartige Aufwands- und
   Schwierigkeitsbewertung (1 bis 5 Chillischoten), die auf einen Blick die
   Komplexität verdeutlicht, ohne trockene Zahlen zu verwenden.
-- **Zuweisung (Assignees):** Flexibles Routing an Einzelpersonen, mehrere
-  Nutzer oder komplette Teams.
+- **Zuweisung (Assignees):** Flexibles Routing an Einzelpersonen, mehrere Nutzer
+  oder komplette Teams.
 - **Subtickets:** Unbegrenzte Schachtelung. Große Epics oder komplexe Tickets
   können granular in kleinere, abarbeitbare Subtickets (Tasks) unterteilt
   werden.
 
-👉 **Exakte Definitionen der Ticket-Entität finden sich in der [Domain Model Dokumentation](docs/domain_ticket.md).**
+👉 **Exakte Definitionen der Ticket-Entität finden sich in der
+[Domain Model Dokumentation](docs/domain_ticket.md).**
 
 ### 📋 Kanban Dashboard (Interaktiv)
 
@@ -477,8 +482,9 @@ die stabilen Phasen:
   - **Redis Caching:** Distributed In-Memory Cache zur Minimierung von
     DB-Latenzen.
 - **API Mastery:**
-  - **Scalar Interactive Docs:** Eine interaktive API-Dokumentation für
-    Drittanbieter.
+  - **Scalar v2 Interactive Docs:** Eine State-of-the-Art API-Dokumentation
+    (nativ in .NET 10 OpenAPI integriert) unter `/scalar/v1`, inkl.
+    Client-Generierung.
   - **Semantic Versioning:** Versionierte API-Endpunkte für langfristige
     Stabilität.
 
@@ -493,21 +499,34 @@ die stabilen Phasen:
 
 Wir betrachten Code nicht als bloßen Text, sondern als beständiges Handwerk.
 
-### Test-Driven Development (TDD) & Quality Assurance
+### Test-Driven Development (TDD) & "Perfect" Quality Assurance
 
 Tests sind in diesem Projekt kein Nachgedanke, sondern treiben das Design. Wir
-verfolgen den konsequenten **Red-Green-Refactor**-Zyklus.
+verfolgen den konsequenten **Red-Green-Refactor**-Zyklus unter Einhaltung des
+strikten **AAA-Patterns** (Arrange, Act, Assert).
 
-- **100% Test Coverage-Ziel für die Domain:** Die Domain-Logik (Kern) duldet
-  Zero Compromise. Jede Regel muss getestet sein.
-- **Unit Tests:** Fokussiert auf Systemdienste, Helferklassen und die reinen
-  Domain-Entities (geschrieben mit xUnit und Moq).
-- **Integration Tests:** Validieren das Zusammenspiel mit der Datenbank (EF
-  Core In-Memory oder Testcontainers) und testen komplette
-  API-Routen/Controller.
+- **100% Test Coverage & Mutation Testing:** Die Domain-Logik (Kern) duldet
+  Zero Compromise. 100% Line-Coverage allein reicht nicht. Wir nutzen
+  **Stryker.NET** (Mutation Testing), um zu garantieren, dass fehlerhafter Code
+  die Tests zum Absturz bringt. Ziel: 100% Mutation Score!
+- **Data Builders & Determinismus:** Hardcodierte "TestUser1" existieren bei uns
+  nicht. Reale Testdaten werden via **Bogus** generiert. Zeitliche Aspekte
+  werden _niemals_ über `DateTime.UtcNow`, sondern isoliert über den .NET 8
+  `TimeProvider` (`FakeTimeProvider`) gesteuert.
+- **Unit & Architecture Tests:** Fokussiert auf Systemdienste, Helferklassen und
+  reine Domain-Entities (geschrieben mit xUnit, Moq/NSubstitute).
+  **NetArchTest** wacht gleichzeitig darüber, dass die Clean Architecture nicht verletzt
+  wird (z.B. "Domain darf Web nicht referenzieren"). Wir nutzen `[Fact]` für
+  Einzelszenarien und `[Theory]` für tiefgreifende Boundary-Tests.
+- **Integration & Snapshot Tests:** Validieren das Zusammenspiel mit der Datenbank.
+  **Kein** "In-Memory". Wir nutzen reale SQL Server Instanzen via
+  **Testcontainers**. Komplexe JSON/DTO-Rückgaben werden via **VerifyTests**
+  gegen Snapshots abgeglichen.
 - **E2E (End-to-End) Tests:** Mittels Playwright und Vitest automatisieren wir
-  Browser-Klicks, um kritische User-Journeys (z.B. "Neues Ticket anlegen und
-  auf Done schieben") abzusichern.
+  Browser-Klicks, um kritische User-Journeys abzusichern.
+
+👉 **Für tiefergehende Details lesen Sie unsere
+[Perfect Testing Dokumentation](tests/README.md).**
 
 ### 💯 Google Lighthouse Tests (Performance & SEO)
 
@@ -515,19 +534,19 @@ Als echtes Enterprise-Produkt muss das Frontend kompromisslos performen und
 zugänglich sein.
 
 - **Die CI/CD-Pipeline (GitHub Actions)** bricht ab, wenn der automatische
-  **Google Lighthouse Score** in den Kategorien Performance, Accessibility,
-  Best Practices und SEO unter **100/100** fällt.
-- **Mobile & Desktop First:** Die Audits werden isoliert für *Desktop*
-  (Breitbild Kanban) und stark optimiertem *Mobile* Viewport (Responsive
+  **Google Lighthouse Score** in den Kategorien Performance, Accessibility, Best
+  Practices und SEO unter **100/100** fällt.
+- **Mobile & Desktop First:** Die Audits werden isoliert für _Desktop_
+  (Breitbild Kanban) und stark optimiertem _Mobile_ Viewport (Responsive
   Listen/Karten) durchlaufen.
 
 ### Continuous Integration / Continuous Deployment (CI/CD)
 
-Wir verwenden **GitHub Actions**, um jegliche menschliche Fehler beim
-Deployment auszuschließen.
+Wir verwenden **GitHub Actions**, um jegliche menschliche Fehler beim Deployment
+auszuschließen.
 
-- **The Pipeline:** Jeder Commit und jeder Pull Request triggert automatisch
-  den Build-Prozess.
+- **The Pipeline:** Jeder Commit und jeder Pull Request triggert automatisch den
+  Build-Prozess.
 - **Quality Gates:** Der Build bricht sofort ab (Red Build), wenn:
   1. Der Code nicht kompiliert.
   2. Das Code-Formatting (Linting via `dotnet format`) von der `.editorconfig`
@@ -541,7 +560,7 @@ Rider und VS 2026 integrierten **Roslyn Analyzer** steuern die Code-Qualität in
 Echtzeit:
 
 - Die Projektweite `.editorconfig` erzwingt Naming-Conventions (z.B. Interfaces
-  *müssen* mit `I` beginnen, private Felder mit `_`).
+  _müssen_ mit `I` beginnen, private Felder mit `_`).
 - Regeln wie `IDE0005` (Unused Imports) sind auf `Error` oder `Warning`
   gestellt. Warnungen im Build werden im PR Review wie Fehler behandelt.
 - Code-Smells werden von der IDE rot unterstrichen und in der CI-Pipeline
@@ -549,20 +568,19 @@ Echtzeit:
 
 ### 🛡️ Enterprise Security & Trust (Defense in Depth)
 
-Wir sichern die Applikation nach dem "Defense in Depth" (Zwiebelschalen)
-Prinzip ab. Wenn eine Schicht kompromittiert wird, hält die Nächste dem
-Angriff stand.
+Wir sichern die Applikation nach dem "Defense in Depth" (Zwiebelschalen) Prinzip
+ab. Wenn eine Schicht kompromittiert wird, hält die Nächste dem Angriff stand.
 
 - **Secret Management:** Sensible Daten (Connection Strings, JWT-Keys,
   API-Tokens) werden **niemals** im Git-Repository via `appsettings.json`
   committet.
-  - *Lokale Entwicklung:* Wir nutzen strikt den [ASP.NET Core Secret Manager
-    `dotnet user-secrets`](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets).
-  - *Produktion:* Integration von Systemen wie Azure Key Vault oder AWS Secrets
+  - _Lokale Entwicklung:_ Wir nutzen strikt den
+    [ASP.NET Core Secret Manager `dotnet user-secrets`](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets).
+  - _Produktion:_ Integration von Systemen wie Azure Key Vault oder AWS Secrets
     Manager.
-- **Data Protection & Hashing:** Passwörter werden mittels ASP.NET Core
-  Identity (Pbkdf2/Argon2Id) gehasht. Cookies zwingend mit `HttpOnly` und
-  `Secure` Flag versehen.
+- **Data Protection & Hashing:** Passwörter werden mittels ASP.NET Core Identity
+  (Pbkdf2/Argon2Id) gehasht. Cookies zwingend mit `HttpOnly` und `Secure` Flag
+  versehen.
 - **Input-Validation:** Kein User-Input erreicht die Business-Logik ungeprüft.
   FluentValidation und Anti-Forgery Tokens (XSRF/CSRF) sind in jedem
   Post-Request aktiv (und DOMPurify im Frontend, siehe Assets).
@@ -574,10 +592,10 @@ realistischen, synthetischen deutschen Daten gefüllt, falls sie leer ist. Dies
 wird durch die `Bogus` Bibliothek realisiert.
 
 - **Lokalisierung:** `de` (Deutsch)
-- **Datenschutz:** 100% synthetische Daten gemäß [ADR 0120](docs/adr/0120-synthetic-data-privacy.md).
-- **Umfang:** Generiert automatisch Organizations, Roles, Users (200),
-  Profiles, Addresses, Teams (15), Tickets (500), SubTickets (100) &
-  Messages (300).
+- **Datenschutz:** 100% synthetische Daten gemäß
+  [ADR 0120](docs/adr/0120-synthetic-data-privacy.md).
+- **Umfang:** Generiert automatisch Organizations, Roles, Users (200), Profiles,
+  Addresses, Teams (15), Tickets (500), SubTickets (100) & Messages (300).
 
 ---
 
@@ -588,16 +606,17 @@ Bestandteil des Workflows ist.
 
 - **Architektur-Graphen & Diagramme:** Wir nutzen Mermaid-Diagramme für alle
   komplexen Systeme. Diese finden sich gesammelt unter:
-  - 👉 **[System Architecture & Data-Flows (Big 5 UML)](docs/architecture_diagrams.md)**
+  - 👉
+    **[System Architecture & Data-Flows (Big 5 UML)](docs/architecture_diagrams.md)**
   - 👉 **[Datenbankschema & Entities (ERD 3NF)](docs/database_schema.md)**
   - 👉 **[Projekt Gantt-Chart (IHK Roadmap)](docs/gantt_roadmap.md)**
 - **Mockups & Screenshots:** Initiale Planungs-Mockups, UI-Entwürfe und finale
   Screenshots (z.B. für die IHK Präsentation) werden versioniert im Ordner
   **`/docs/mockups/`** abgelegt.
 - **Grafiken & Assets:** Wenn im Rahmen des UI-Designs (Frontend) oder der
-  Dokumentation temporäre Platzhalter-Bilder benötigt werden, nutzen wir
-  vorerst [Placehold.co](https://placehold.co/) (Open Source SVG Platzhalter).
-  Echte, physisch benötigte Grafiken (Logos, Icons) kommen in den Ordner
+  Dokumentation temporäre Platzhalter-Bilder benötigt werden, nutzen wir vorerst
+  [Placehold.co](https://placehold.co/) (Open Source SVG Platzhalter). Echte,
+  physisch benötigte Grafiken (Logos, Icons) kommen in den Ordner
   **`/docs/assets/`** bzw. später nach `wwwroot/images/`.
 - **Architectural Decision Records (ADR):** Alle wesentlichen
   Design-Entscheidungen (Architektur, Stack, Security) sind revisionssicher im
@@ -615,22 +634,30 @@ Bestandteil des Workflows ist.
 Um bei mehreren Entwicklern Chaos zu vermeiden, herrschen strikte Git-Regeln:
 
 - **Der `main` / `master` Branch ist HEILIG.**
-  - Der Master-Branch muss zu **jeder Zeit lauffähig** sein (Compilable & Green Tests).
-  - **Direkte Pushes in den Master-Branch sind STRENGSTENS untersagt.** Dies wird durch ein lokales **Git Hook** (`pre-push`) technisch verhindert.
+  - Der Master-Branch muss zu **jeder Zeit lauffähig** sein (Compilable & Green
+    Tests).
+  - **Direkte Pushes in den Master-Branch sind STRENGSTENS untersagt.** Dies
+    wird durch ein lokales **Git Hook** (`pre-push`) technisch verhindert.
 - **Layer-Branching (Team Collaboration):**
-  - Teammitglieder arbeiten **ausschließlich** in den Architektur-Layern entsprechenden Branches: `layer/domain`, `layer/application`, `layer/infrastructure`, `layer/web`, `layer/test`.
-  - Pushes sollten nur in den eigenen Layer-Branch (oder zugehörige Feature-Branches) erfolgen.
+  - Teammitglieder arbeiten **ausschließlich** in den Architektur-Layern
+    entsprechenden Branches: `layer/domain`, `layer/application`,
+    `layer/infrastructure`, `layer/web`, `layer/test`.
+  - Pushes sollten nur in den eigenen Layer-Branch (oder zugehörige
+    Feature-Branches) erfolgen.
 - **Setup der Git-Regeln:**
-  - Führen Sie nach dem Klonen einmalig das Script `.\scripts\setup-hooks.ps1` aus (oder nutzen Sie den VS Code Task **"Setup Git Hooks"**), um die Schutz-Mechanismen zu aktivieren.
+  - Führen Sie nach dem Klonen einmalig das Script `.\scripts\setup-hooks.ps1`
+    aus (oder nutzen Sie den VS Code Task **"Setup Git Hooks"**), um die
+    Schutz-Mechanismen zu aktivieren.
 - **Feature Branching:**
-  - Neue Features starten immer vom jeweiligen Layer-Branch: `git checkout -b feature/xyz layer/xxx`.
+  - Neue Features starten immer vom jeweiligen Layer-Branch:
+    `git checkout -b feature/xyz layer/xxx`.
   - Wir nutzen sprechende Präfixe: `feature/xyz`, `bugfix/xyz`, `hotfix/xyz`,
     `docs/xyz`.
 - **Pull Requests (PRs):**
   - Features werden über Pull Requests in den Layer-Branch und von dort in den
     Master gemerged.
-  - Ein PR benötigt zwingend das grüne Licht der **CI/CD Pipeline**
-    (Tests bestanden).
+  - Ein PR benötigt zwingend das grüne Licht der **CI/CD Pipeline** (Tests
+    bestanden).
   - Ein PR benötigt zwingend ein **Code Review** (Approve) durch mindestens
     einen anderen Entwickler.
 - **Issue Tracking:** Keine Code-Änderung ohne zugehöriges GitHub Issue.
@@ -644,7 +671,8 @@ Um bei mehreren Entwicklern Chaos zu vermeiden, herrschen strikte Git-Regeln:
 <details open>
 <summary>Roadmap & Meilensteine (IHK) aufklappen...</summary>
 
-Dieser Fahrplan strukturiert die Entwicklung chronologisch bis zur finalen Abgabe.
+Dieser Fahrplan strukturiert die Entwicklung chronologisch bis zur finalen
+Abgabe.
 
 1. **Phase 1: Planung & Setup (Aktuell)**
    - UI/UX Planung und Erstellung grundlegender Sketche / Wireframes.
@@ -661,7 +689,8 @@ Dieser Fahrplan strukturiert die Entwicklung chronologisch bis zur finalen Abgab
    - ASP.NET Core Identity & Auth implementieren.
    - Datenbank-Migrationen (Code-First) ausführen.
 4. **Phase 4: UI Foundation & Theming**
-   - Erstellung der globalen CSS-Architektur (`btn.css`, `cards.css`, `theme.css`).
+   - Erstellung der globalen CSS-Architektur (`btn.css`, `cards.css`,
+     `theme.css`).
    - Entwicklung der SFC (Single File Components) Layout-Frames und Navigation.
 5. **Phase 5: Ticket Engine & Business Logic**
    - Ticket & Subticket Domains mitsamt Validierungslogik integrieren.
@@ -683,5 +712,5 @@ Dieser Fahrplan strukturiert die Entwicklung chronologisch bis zur finalen Abgab
 
 Dieses Projekt unterliegt spezifischen Lizenzbestimmungen, die durch einen
 automatisierten GitHub-Action-Job (License Header Check) in allen Quelldateien
-validiert werden. Weitere Informationen zur Nutzung und Distribution finden
-sich in der `LICENSE` Datei im Hauptverzeichnis.
+validiert werden. Weitere Informationen zur Nutzung und Distribution finden sich
+in der `LICENSE` Datei im Hauptverzeichnis.

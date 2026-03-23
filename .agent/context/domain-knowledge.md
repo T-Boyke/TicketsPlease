@@ -1,41 +1,19 @@
-# 🧬 TicketsPlease – Domain Knowledge
+# 🧬 TicketsPlease - Domain Knowledge
 
-Geschäftsregeln und fachliche Tiefe der Kern-Domäne.
-
-## 📋 Table of Contents
-
-- [Ticket Domain Entity](#ticket-domain-entity)
-- [Chillischoten-Metrik](#chillischoten-metrik)
-- [Geschäftsregeln (Business Rules)](#geschäftsregeln-business-rules)
-
----
-
-## Ticket Domain Entity
-
-Das zentrale Domain-Aggregat.
-
-- **Identifikation:** Eindeutiger SHA1-Hash.
-- **Tracking:** Geo-Timestamp bei jeder Zustandsänderung.
-- **Rich Model:** Logik lebt in der Entity (`ticket.MoveToReview()`), nicht im Service.
-
----
-
-## Chillischoten-Metrik
-
-Ein visuelles System zur Bewertung von Ticket-Komplexität:
-
-- **1 Schote:** Trivial / Dokumentation.
-- **3 Schoten:** Standard-Feature / Refactoring.
-- **5 Schoten:** Kritischer Bug / Architektur-Umbau.
-
----
-
-## Geschäftsregeln (Business Rules)
-
-- **Close Logic:** Tickets können nur vom Ersteller, Admin oder Teamlead Final geschlossen
-  > (`Closed`) werden.
-- **State Flow:** To Do → In Progress → Review → Done → (Auto-Archiv nach X Tagen).
-
----
-
-_DomainKnowledge v1.0 | 2026-03-09_
+<domain_knowledge>
+  <ticket_aggregate>
+    - Identity: SHA1-based UIDs for global consistency.
+    - Logic: Mutation ONLY inside Entity (`Move()`, `Assign()`). No setter leakage.
+    - Security: RowVersion (byte[]) required on all modifiable entities.
+  </ticket_aggregate>
+  <business_rules>
+    - Transitions: Valid state path (To Do -> In Progress -> Review -> Done).
+    - Ownership: Closed tickets only by Creator, Admin, or TeamLead.
+    - Archiving: Auto-Archive 30 days post-completion.
+  </business_rules>
+  <complexity_scoping>
+    - 🌶️ (1): Documentation / Style / Text.
+    - 🌶️🌶️🌶️ (3): Standard Feature / UseCase / UnitTests.
+    - 🌶️🌶️🌶️🌶️🌶️ (5): Core Architecture / Security / External Integration.
+  </complexity_scoping>
+</domain_knowledge>

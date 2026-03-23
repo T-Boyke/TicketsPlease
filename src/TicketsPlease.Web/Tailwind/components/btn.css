@@ -1,39 +1,50 @@
+/* 
+   ==========================================================================
+   PREMIUM BUTTONS (Spring Animations & Depth)
+   ==========================================================================
+*/
+
+@utility btn {
+  @apply inline-flex items-center justify-center rounded-xl font-semibold transition-all;
+  /* Spring transition for "Wow-Effect" */
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-duration: 250ms;
+}
+
 @utility btn-primary {
-  @apply inline-flex items-center justify-center px-4 py-2 bg-brand-primary text-white text-sm font-semibold rounded-md hover:bg-brand-hover transition-all duration-200 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary;
+  @apply btn bg-brand-primary text-white shadow-sm;
 }
 
-@utility btn-secondary {
-  @apply inline-flex items-center justify-center px-4 py-2 bg-white dark:bg-dark-surface-soft text-text-main dark:text-dark-text-main text-sm font-semibold rounded-md border border-border-default dark:border-dark-border hover:bg-surface-muted dark:hover:bg-dark-surface-muted transition-all duration-200 shadow-sm ring-1 ring-inset ring-border-default dark:ring-dark-border;
+@utility btn-primary:hover {
+  @apply bg-brand-hover -translate-y-0.5 shadow-md;
+  transform: translateY(-2px) rotate(-1deg);
 }
 
-@utility btn-danger {
-  @apply inline-flex items-center justify-center px-4 py-2 bg-danger-primary text-white text-sm font-semibold rounded-md hover:bg-danger-hover transition-all duration-200 shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-danger-primary;
+@utility btn-primary:active {
+  @apply translate-y-0 scale-95 shadow-sm;
 }
 
-@utility btn-soft {
-  @apply inline-flex items-center justify-center px-4 py-2 bg-brand-soft dark:bg-brand-primary/10 text-brand-primary dark:text-brand-soft text-sm font-semibold rounded-md hover:bg-brand-border dark:hover:bg-brand-primary/20 transition-all duration-200;
+@utility btn-accent {
+  @apply btn bg-brand-accent text-text-main shadow-sm;
+}
+
+@utility btn-accent:hover {
+  @apply -translate-y-0.5 shadow-lg;
+  box-shadow: 0 0 16px var(--brand-accent-glow);
 }
 
 @utility btn-ghost {
-  @apply inline-flex items-center justify-center px-4 py-2 text-text-secondary dark:text-dark-text-secondary text-sm font-semibold rounded-md hover:bg-surface-muted dark:hover:bg-dark-surface-muted transition-all duration-200;
+  @apply btn text-text-secondary dark:text-dark-text-secondary border border-border-default dark:border-dark-border;
 }
 
-@utility btn-outline {
-  @apply inline-flex items-center justify-center px-4 py-2 bg-transparent text-text-main dark:text-dark-text-main text-sm font-semibold rounded-md border border-border-default dark:border-dark-border hover:bg-surface-muted dark:hover:bg-dark-surface-muted transition-all duration-200 shadow-sm;
+@utility btn-ghost:hover {
+  @apply bg-surface-soft dark:bg-dark-surface-soft text-brand-primary border-brand-primary;
 }
 
-/* Button Sizes */
-@utility btn-xs { @apply px-2 py-1 text-xs; }
-@utility btn-sm { @apply px-2.5 py-1.5 text-xs; }
-@utility btn-md { @apply px-3 py-2 text-sm; }
-@utility btn-lg { @apply px-3.5 py-2.5 text-sm; }
-@utility btn-xl { @apply px-4 py-3 text-sm; }
+/* Sizes */
+@utility btn-sm { @apply px-3 py-1.5 text-xs; }
+@utility btn-md { @apply px-5 py-2.5 text-sm; }
+@utility btn-lg { @apply px-8 py-3.5 text-base rounded-2xl; }
 
-/* Icon handling */
-@utility btn-with-icon {
-  @apply gap-x-1.5;
-}
-
-@utility btn-icon-only {
-  @apply p-2 rounded-full;
-}
+/* Icon States */
+@utility btn-icon { @apply p-2 rounded-xl aspect-square; }

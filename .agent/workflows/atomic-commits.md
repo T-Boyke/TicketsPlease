@@ -1,12 +1,13 @@
 ---
-description: Workflow for ensuring small, logical, and atomic commits in the
-  TicketsPlease project.
+description:
+  Workflow for ensuring small, logical, and atomic commits in the TicketsPlease
+  project.
 ---
 
 # ⚛️ Atomic Commit & Git Workflow
 
-Um eine saubere, nachvollziehbare Git-Historie zu gewährleisten, müssen
-Commits atomar und logisch getrennt sein. Dieser Workflow umfasst die gesamte
+Um eine saubere, nachvollziehbare Git-Historie zu gewährleisten, müssen Commits
+atomar und logisch getrennt sein. Dieser Workflow umfasst die gesamte
 Git-Etikette des Projekts.
 
 > **Referenz:** [README §7 – GitHub Etikette](file:///d:/DEV/Tickets/README.md)
@@ -113,8 +114,8 @@ chore(deps): update MediatR to v13
 | **Formatting**    | `dotnet format --verify-no-changes`  | ✅ Ja                |
 | **Keine Secrets** | Manuell prüfen                       | ✅ Ja                |
 
-> **Regel:** Die Solution **muss** nach jedem Commit kompilierbar sein.
-> "Broken Commits" sind **untersagt**.
+> **Regel:** Die Solution **muss** nach jedem Commit kompilierbar sein. "Broken
+> Commits" sind **untersagt**.
 
 ---
 

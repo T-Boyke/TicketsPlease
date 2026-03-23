@@ -14,7 +14,6 @@
   "editor.renderWhitespace": "selection",
   "editor.suggestSelection": "first",
   "editor.rulers": [80, 100, 120],
-  "prettier.configPath": ".config/.prettierrc",
   "markdownlint.config": {
     "extends": ".config/.markdownlint.json"
   },
@@ -62,12 +61,6 @@
   "tailwindCSS.emmetCompletions": true,
   "tailwindCSS.showPixelEquivalents": true,
   "tailwindCSS.colorDecorators": true,
-  "[csharp]": {
-    "editor.defaultFormatter": "ms-dotnettools.csdevkit"
-  },
-  "[razor]": {
-    "editor.defaultFormatter": "ms-dotnettools.csdevkit"
-  },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -94,6 +87,31 @@
   "playwright.testDir": "tests/TicketsPlease.E2ETests",
   "playwright.reuseBrowser": true,
   "css.validate": false,
+  "tailwindCSS.experimental.configFile": "src/TicketsPlease.Web/Tailwind/app.css",
+  "tailwindCSS.classAttributes": ["class", "className", "ngClass", "SizeClass"],
+  "tailwindCSS.experimental.classRegex": [
+    ["(?:class(?:Name)?|SizeClass)\\s*[:=]\\s*['\"`]([^'\"`]*?)['\"`]", "([^\\s']+)"]
+  ],
+  "prettier.configPath": ".prettierrc",
+  "mermaidChart.baseUrl": "https://www.mermaidchart.com",
+  "efcore.defaultProject": "src\\TicketsPlease.Infrastructure\\TicketsPlease.Infrastructure.csproj",
+  "efcore.defaultStartupProject": "src\\TicketsPlease.Web\\TicketsPlease.Web.csproj",
+  "efcore.dotnetPath": "C:\\Program Files\\dotnet\\dotnet.exe",
+  "sonarlint.pathToNodeExecutable": "C:\\nvm4w\\nodejs\\node.exe",
+  "sonarlint.pathToCompileCommands": "",
+  "sonarlint.testFilePattern": "{**/tests/**,**/*Tests.cs,**/*Test.cs}",
+  "sonarlint.rules": {
+    "csharpsquid:S1135": { "level": "off" },
+    "css:S4667": { "level": "off" },
+    "css:S4666": { "level": "off" }
+  },
+  "sonarlint.analyzerProperties": {
+    "sonar.cs.ignore.generated.code": "true"
+  },
+  "sonarlint.connectedMode.project": {
+    "projectKey": "TicketsPlease"
+  },
+  "css.lint.unknownAtRules": "ignore",
   "dotnet.unitTestDebuggingOptions": {
     "env": {
       "PWDEBUG": "0",

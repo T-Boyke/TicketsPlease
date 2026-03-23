@@ -1,0 +1,22 @@
+@model string
+@{
+    var status = Model?.ToLower() ?? "todo";
+    var badgeClass = status switch {
+        "todo" => "badge-info",
+        "inprogress" => "badge-warning",
+        "done" => "badge-success",
+        _ => "badge-info"
+    };
+    
+    // Accessibility: Dynamic ARIA description
+    var ariaLabel = status switch {
+        "todo" => "Status: Offen",
+        "inprogress" => "Status: In Bearbeitung",
+        "done" => "Status: Abgeschlossen",
+        _ => "Status: " + status
+    };
+}
+
+<span class="badge @badgeClass" role="status" aria-label="@ariaLabel">
+    @Model
+</span>

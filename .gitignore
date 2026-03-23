@@ -17,13 +17,14 @@
 
 ## [JetBrains Rider]
 .idea/**
-# Keep shared Rider settings
-!.idea/externalDependencies.xml
-!.idea/runConfigurations/
-!.idea/dictionaries/
-!.idea/inspectionProfiles/
-!.idea/icon.png
-!.idea/icon.svg
+src/.idea/**
+# Allow specific shared folders anywhere
+!**/.idea/runConfigurations/
+!**/.idea/dictionaries/
+!**/.idea/inspectionProfiles/
+!**/.idea/externalDependencies.xml
+!**/.idea/icon.png
+!**/.idea/icon.svg
 
 ## [VS Code]
 .vscode/*

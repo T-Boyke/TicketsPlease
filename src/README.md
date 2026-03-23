@@ -1,12 +1,14 @@
 # 📂 TicketsPlease Source Directory
 
-Willkommen im Herzstück der **TicketsPlease** Solution. Dieses Verzeichnis folgt strikt den
-Prinzipien der **Clean Architecture** (Onion Architecture) und des **Domain-Driven Design (DDD)**.
+Willkommen im Herzstück der **TicketsPlease** Solution. Dieses Verzeichnis folgt
+strikt den Prinzipien der **Clean Architecture** (Onion Architecture) und des
+**Domain-Driven Design (DDD)**.
 
 ## 🏗️ Finale Vision: Das integrierte System
 
-Dieser Graph zeigt, wie alle Teile der Solution ineinandergreifen, um einen Request zu
-verarbeiten. Von der ersten Interaktion bis zur dauerhaften Speicherung.
+Dieser Graph zeigt, wie alle Teile der Solution ineinandergreifen, um einen
+Request zu verarbeiten. Von der ersten Interaktion bis zur dauerhaften
+Speicherung.
 
 ```mermaid
 graph TD
@@ -62,8 +64,8 @@ graph TD
 
 ## 📊 Layer Metrics (Einstiegshilfe)
 
-Hier siehst du, welcher Layer welche Herausforderungen birgt. Nutze dies als Orientierung,
-wo du dich als Neuling am besten zuerst einarbeitest.
+Hier siehst du, welcher Layer welche Herausforderungen birgt. Nutze dies als
+Orientierung, wo du dich als Neuling am besten zuerst einarbeitest.
 
 | Layer              | Schwierigkeit | Umfang    | Zeitaufwand | Typische Probleme                           |
 | :----------------- | :-----------: | :-------- | :---------- | :------------------------------------------ |
@@ -76,8 +78,8 @@ wo du dich als Neuling am besten zuerst einarbeitest.
 
 ## 🏗️ Layer & Zuständigkeiten
 
-Hier siehst du auf einen Blick, welcher Layer für welche Aufgabe zuständig ist. Klicke auf den
-Namen für die detaillierte Anleitung.
+Hier siehst du auf einen Blick, welcher Layer für welche Aufgabe zuständig ist.
+Klicke auf den Namen für die detaillierte Anleitung.
 
 | Layer                                                        | Farbe | Kurzbeschreibung                           |                     Dokumentation                      |
 | :----------------------------------------------------------- | :---: | :----------------------------------------- | :----------------------------------------------------: |
@@ -100,5 +102,7 @@ Finde hier den direkten Einstiegspunkt für deine aktuelle Aufgabe:
 
 ---
 
-👉 **Quick Links:** [Domain 🟢](TicketsPlease.Domain/README.md) | [Application 🟡](TicketsPlease.Application/README.md)
-[Infrastructure 🔴](TicketsPlease.Infrastructure/README.md) | [Web 🔵](TicketsPlease.Web/README.md)
+👉 **Quick Links:** [Domain 🟢](TicketsPlease.Domain/README.md) |
+[Application 🟡](TicketsPlease.Application/README.md)
+[Infrastructure 🔴](TicketsPlease.Infrastructure/README.md) |
+[Web 🔵](TicketsPlease.Web/README.md)

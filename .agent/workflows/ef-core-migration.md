@@ -1,16 +1,18 @@
 ---
-description: Workflow for adding and applying EF Core migrations in the
-  TicketsPlease project.
+description:
+  Workflow for adding and applying EF Core migrations in the TicketsPlease
+  project.
 ---
 
 # 🗄️ EF Core Migration Workflow
 
-Dieser Workflow beschreibt den vollständigen Ablauf für Datenbankänderungen
-über Entity Framework Core Code-First Migrations.
+Dieser Workflow beschreibt den vollständigen Ablauf für Datenbankänderungen über
+Entity Framework Core Code-First Migrations.
 
-> **Referenz:** [ADR-0019 (EF Core Resilience)](file:///d:/DEV/Tickets/docs/adr/0019-ef-core-resilience-concurrency.md)
-> | [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md)
-> | [instructions.md §5](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:**
+> [ADR-0019 (EF Core Resilience)](file:///d:/DEV/Tickets/docs/adr/0019-ef-core-resilience-concurrency.md)
+> | [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md) |
+> [instructions.md §5](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 
@@ -76,23 +78,24 @@ dotnet ef migrations add [MigrationName] \
   --startup-project src/TicketsPlease.Web
 ```
 
-**Naming-Convention:** Beschreibender Name im PascalCase
-(z.B. `AddRowVersionToTicket`, `CreateTeamMemberTable`).
+**Naming-Convention:** Beschreibender Name im PascalCase (z.B.
+`AddRowVersionToTicket`, `CreateTeamMemberTable`).
 
 ### 4. Migration überprüfen (Pflicht!)
 
-Kontrolliere die generierte Datei in `src/TicketsPlease.Infrastructure/Migrations/`:
+Kontrolliere die generierte Datei in
+`src/TicketsPlease.Infrastructure/Migrations/`:
 
-| Prüfpunkt | Beschreibung |
-| :--- | :--- |
-| **`Up()`** | Erstellt die Tabellen/Spalten korrekt? |
-| **`Down()`** | Rückgängig machen der Änderungen vollständig? |
-| **Data types** | Entsprechen sie dem Mapping (z.B. `nvarchar(200)`)? |
-| **Indizes** | Sind Performance-Indizes für Suchspalten erstellt? |
-| **Default-Werte** | Sind `GETUTCDATE()` oder andere Defaults gesetzt? |
-| **Nullable** | Sind Nullable-Felder korrekt markiert? |
-| **RowVersion** | Ist `byte[]` als `rowversion` konfiguriert? |
-| **Down-Migration** | Ist die `Down()`-Methode sauber (Rollback-fähig)? |
+| Prüfpunkt          | Beschreibung                                        |
+| :----------------- | :-------------------------------------------------- |
+| **`Up()`**         | Erstellt die Tabellen/Spalten korrekt?              |
+| **`Down()`**       | Rückgängig machen der Änderungen vollständig?       |
+| **Data types**     | Entsprechen sie dem Mapping (z.B. `nvarchar(200)`)? |
+| **Indizes**        | Sind Performance-Indizes für Suchspalten erstellt?  |
+| **Default-Werte**  | Sind `GETUTCDATE()` oder andere Defaults gesetzt?   |
+| **Nullable**       | Sind Nullable-Felder korrekt markiert?              |
+| **RowVersion**     | Ist `byte[]` als `rowversion` konfiguriert?         |
+| **Down-Migration** | Ist die `Down()`-Methode sauber (Rollback-fähig)?   |
 
 ### 5. Datenbank aktualisieren
 
@@ -104,7 +107,8 @@ dotnet ef database update \
 
 ### 6. Seed Data (falls benötigt)
 
-- **Stammdaten** (Rollen, Priorities, WorkflowStates) über `HasData()` in `OnModelCreating`.
+- **Stammdaten** (Rollen, Priorities, WorkflowStates) über `HasData()` in
+  `OnModelCreating`.
 - **Testdaten** über separate Seed-Klassen oder Migration-Scripts.
 - Seed Data **immer** mit festen `Guid`-Werten definieren (Reproduzierbarkeit).
 
@@ -153,14 +157,16 @@ await strategy.ExecuteAsync(async () =>
 
 ### 9. Dokumentation aktualisieren
 
-- Aktualisiere [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md)
-  falls sich die Struktur wesentlich geändert hat.
+- Aktualisiere
+  [database_schema.md](file:///d:/DEV/Tickets/docs/database_schema.md) falls
+  sich die Struktur wesentlich geändert hat.
 - Aktualisiere das Mermaid ERD-Diagramm.
 - Falls es eine wesentliche Design-Entscheidung war → neuen ADR erstellen.
 
 ### 10. Tests anpassen
 
-- Aktualisiere bestehende Integration-Tests (Testcontainers) für neue Spalten/Tabellen.
+- Aktualisiere bestehende Integration-Tests (Testcontainers) für neue
+  Spalten/Tabellen.
 - Teste `RowVersion`-Handling und `AsNoTracking()`-Effekte.
 
 ### Zusammenfassung

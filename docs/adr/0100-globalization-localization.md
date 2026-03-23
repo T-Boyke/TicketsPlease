@@ -6,9 +6,10 @@
 
 ## Context and Problem Statement
 
-TicketsPlease is designed as an enterprise-grade product. Even for the IHK MVP, hardcoding strings
-in the UI is a "Code Smell" that hinders internationalization. We need a strategy to support
-multiple languages (German/English) from the start.
+TicketsPlease is designed as an enterprise-grade product. Even for the IHK MVP,
+hardcoding strings in the UI is a "Code Smell" that hinders
+internationalization. We need a strategy to support multiple languages
+(German/English) from the start.
 
 ## Decision Drivers
 
@@ -25,14 +26,17 @@ multiple languages (German/English) from the start.
 
 ## Decision Outcome
 
-Chosen option: "ASP.NET Core Request Localization + .resx", because it is the industry standard for
-.NET development and integrates natively with the Request Pipeline.
+Chosen option: "ASP.NET Core Request Localization + .resx", because it is the
+industry standard for .NET development and integrates natively with the Request
+Pipeline.
 
 ### Positive Consequences
 
 - All UI strings are centralized in `/Resources`.
-- Language can be determined by Browser Header (`Accept-Language`), Cookie, or User Profile.
-- Dates and Currencies are automatically formatted correctly based on the `CultureInfo`.
+- Language can be determined by Browser Header (`Accept-Language`), Cookie, or
+  User Profile.
+- Dates and Currencies are automatically formatted correctly based on the
+  `CultureInfo`.
 
 ### Negative Consequences
 

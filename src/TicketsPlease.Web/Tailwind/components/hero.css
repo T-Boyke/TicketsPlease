@@ -1,11 +1,25 @@
-@utility hero-container {
-  @apply relative isolate px-6 pt-14 lg:px-8 bg-brand-soft dark:bg-dark-surface-soft rounded-3xl mx-4 my-8 overflow-hidden shadow-sm border border-brand-border dark:border-dark-border;
+/* 
+   ==========================================================================
+   PREMIUM HERO SECTIONS (Atmospheric depth)
+   ==========================================================================
+*/
+
+@utility hero-premium {
+  @apply relative overflow-hidden py-24 sm:py-32;
+  background: radial-gradient(circle at top left, var(--color-brand-soft), transparent 40%),
+              radial-gradient(circle at bottom right, oklch(0.95 0.05 75 / 0.1), transparent 40%);
 }
 
-@utility hero-glass {
-  @apply relative animate-fade-in py-16 px-6 sm:py-24 lg:px-8 bg-linear-to-b from-brand-soft to-surface-bright dark:from-dark-surface-soft dark:to-dark-surface border-b border-brand-border/30 dark:border-dark-border/50;
+.dark [class*="hero-premium"] {
+  background: radial-gradient(circle at top left, oklch(0.2 0.03 260 / 0.4), transparent 50%),
+              radial-gradient(circle at bottom right, oklch(0.2 0.03 75 / 0.2), transparent 50%);
 }
 
-@utility hero-badge {
-  @apply rounded-full bg-brand-soft px-3 py-1 text-xs font-bold text-brand-primary ring-1 ring-inset ring-brand-border/30 mb-6 inline-block uppercase tracking-wider;
+@utility hero-title {
+  @apply text-5xl font-extrabold tracking-tight text-text-main dark:text-dark-text-main sm:text-7xl mb-6;
+  @apply drop-shadow-sm;
+}
+
+@utility hero-subtitle {
+  @apply text-lg text-text-secondary dark:text-dark-text-secondary max-w-2xl mx-auto;
 }

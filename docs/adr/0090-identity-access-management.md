@@ -6,16 +6,18 @@
 
 ## Context and Problem Statement
 
-The TicketsPlease system requires a secure way to manage users, passwords, and permissions. We need
-to distinguish between standard "Users" (who can create and edit their own tickets) and "Admins"
-(who can manage system-wide settings and other users).
+The TicketsPlease system requires a secure way to manage users, passwords, and
+permissions. We need to distinguish between standard "Users" (who can create and
+edit their own tickets) and "Admins" (who can manage system-wide settings and
+other users).
 
 ## Decision Drivers
 
 - Security and Industry Standards.
 - Ease of implementation (MVP time constraints).
 - Integration with ASP.NET Core.
-- Compliance with IHK requirements (User data must include Username, Firstname, Email).
+- Compliance with IHK requirements (User data must include Username, Firstname,
+  Email).
 
 ## Considered Options
 
@@ -25,25 +27,28 @@ to distinguish between standard "Users" (who can create and edit their own ticke
 
 ## Decision Outcome
 
-Chosen option: "ASP.NET Core Identity", because it is the native, highly secure, and feature-rich
-framework for .NET. We will use a **Role-Based Access Control (RBAC)** approach.
+Chosen option: "ASP.NET Core Identity", because it is the native, highly secure,
+and feature-rich framework for .NET. We will use a **Role-Based Access Control
+(RBAC)** approach.
 
 ### Positive Consequences
 
-- Built-in protection against common attacks (SQL Injection in auth, Password Hashing, XSRF).
+- Built-in protection against common attacks (SQL Injection in auth, Password
+  Hashing, XSRF).
 - Easy integration with the `AppDbContext`.
 - Standardized way to handle Cookies and Session security.
 
 ### Negative Consequences
 
-- Identity database schema is somewhat rigid (requires customization for Firstname/Lastname).
+- Identity database schema is somewhat rigid (requires customization for
+  Firstname/Lastname).
 - Default UI often needs heavy restyling to match our Tailwind UX.
 
 ## RBAC Roles for MVP
 
 1. **Admin**: Can create/delete teams, manage all users, and close any ticket.
-2. **User**: Can create tickets, edit their own tickets, and participate in projects they are
-   assigned to.
+2. **User**: Can create tickets, edit their own tickets, and participate in
+   projects they are assigned to.
 3. **Teamlead** (Roadmap): Specialized role for managing squads.
 
 ## Security Constraints

@@ -1,15 +1,17 @@
 ---
-description: Workflow for adding a new CQRS feature (Command/Query) to the
-  TicketsPlease project.
+description:
+  Workflow for adding a new CQRS feature (Command/Query) to the TicketsPlease
+  project.
 ---
 
 # ⚡ Add CQRS Feature Workflow
 
-Dieser Workflow beschreibt den vollständigen Ablauf, um ein neues Command
-oder Query in der TicketsPlease Clean Architecture zu implementieren.
+Dieser Workflow beschreibt den vollständigen Ablauf, um ein neues Command oder
+Query in der TicketsPlease Clean Architecture zu implementieren.
 
-> **Referenz:** [ADR-0009 (CQRS)](file:///d:/DEV/Tickets/docs/adr/0009-cqrs-mediatr.md)
-> | [ADR-0010 (FluentValidation)](file:///d:/DEV/Tickets/docs/adr/0010-validation-fluentvalidation.md)
+> **Referenz:**
+> [ADR-0009 (CQRS)](file:///d:/DEV/Tickets/docs/adr/0009-cqrs-mediatr.md) |
+> [ADR-0010 (FluentValidation)](file:///d:/DEV/Tickets/docs/adr/0010-validation-fluentvalidation.md)
 > | [instructions.md §4](file:///d:/DEV/Tickets/instructions.md)
 
 ---
@@ -29,7 +31,8 @@ TransactionBehavior → ⚙️ Handler → 📤 Response
 
 ### 1. Domain Entity prüfen
 
-- Prüfe, ob die benötigte Entity in `src/TicketsPlease.Domain/Entities/` existiert.
+- Prüfe, ob die benötigte Entity in `src/TicketsPlease.Domain/Entities/`
+  existiert.
 - Die Entity **muss** von `BaseEntity` erben und `byte[] RowVersion` besitzen.
 - Properties haben **`private set`** (Rich Model). Zustandsänderungen nur über
   Verhaltensmethoden.
@@ -37,7 +40,8 @@ TransactionBehavior → ⚙️ Handler → 📤 Response
 
 ### 2. DTO / Contract definieren
 
-- Erstelle bei Bedarf ein DTO in `src/TicketsPlease.Application/Features/[FeatureName]/`.
+- Erstelle bei Bedarf ein DTO in
+  `src/TicketsPlease.Application/Features/[FeatureName]/`.
   - **Queries:** DTOs in einem `Queries/` Unterordner.
   - **Commands:** DTOs in einem `Commands/` Unterordner.
 - Naming: `[Entity][Purpose]Dto` (z.B. `TicketDetailDto`, `TicketListItemDto`).
@@ -45,8 +49,10 @@ TransactionBehavior → ⚙️ Handler → 📤 Response
 ### 3. Request erstellen (Command oder Query)
 
 - Erstelle eine `IRequest<T>` Klasse:
-  - **Command:** `src/TicketsPlease.Application/Features/[FeatureName]/Commands/[Verb][Entity]Command.cs`
-  - **Query:** `src/TicketsPlease.Application/Features/[FeatureName]/Queries/Get[Entity]Query.cs`
+  - **Command:**
+    `src/TicketsPlease.Application/Features/[FeatureName]/Commands/[Verb][Entity]Command.cs`
+  - **Query:**
+    `src/TicketsPlease.Application/Features/[FeatureName]/Queries/Get[Entity]Query.cs`
 - Der Request sollte **alle** nötigen Daten als Properties enthalten (keine
   komplexen Objekte, nur primitive Typen oder IDs).
 
@@ -56,8 +62,10 @@ TransactionBehavior → ⚙️ Handler → 📤 Response
 - Naming: `[CommandName]Validator` (z.B. `CreateTicketCommandValidator`).
 - **Regeln:**
   - Validiere alle Pflichtfelder (`.NotEmpty()`, `.MaximumLength()`, `.Must()`).
-  - Validiere Business-Constraints (z.B. "Priority muss gültiger Enum-Wert sein").
-  - Der Validator wird **automatisch** von der `ValidationBehavior` Pipeline aufgerufen.
+  - Validiere Business-Constraints (z.B. "Priority muss gültiger Enum-Wert
+    sein").
+  - Der Validator wird **automatisch** von der `ValidationBehavior` Pipeline
+    aufgerufen.
 
 ```csharp
 /// <summary>
@@ -90,9 +98,10 @@ public class CreateTicketCommandValidator : AbstractValidator<CreateTicketComman
   - Injiziere Repository-Interfaces (niemals `AppDbContext` direkt!).
   - **`CancellationToken` durchreichen** bis `ToListAsync(ct)` /
     `SaveChangesAsync(ct)`.
-  - **Write-Ops:** `DbUpdateConcurrencyException` explizit fangen und User-Feedback geben.
-  - Nutze Application-Exceptions (`NotFoundException`,
-    `ValidationException`) statt generischer Exceptions.
+  - **Write-Ops:** `DbUpdateConcurrencyException` explizit fangen und
+    User-Feedback geben.
+  - Nutze Application-Exceptions (`NotFoundException`, `ValidationException`)
+    statt generischer Exceptions.
 
 ```csharp
 /// <summary>
@@ -120,19 +129,24 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
 
 ### 6. Repository erweitern (falls nötig)
 
-- **Interface:** In `src/TicketsPlease.Application/Contracts/Persistence/I[Entity]Repository.cs`.
-- **Implementierung:** In `src/TicketsPlease.Infrastructure/Persistence/Repositories/[Entity]Repository.cs`.
+- **Interface:** In
+  `src/TicketsPlease.Application/Contracts/Persistence/I[Entity]Repository.cs`.
+- **Implementierung:** In
+  `src/TicketsPlease.Infrastructure/Persistence/Repositories/[Entity]Repository.cs`.
 - **Queries:** Immer `AsNoTracking()` nutzen!
-- **Projections:** `.Select(t => new Dto { ... })` bevorzugen statt `.Include()`.
+- **Projections:** `.Select(t => new Dto { ... })` bevorzugen statt
+  `.Include()`.
 
 ### 7. Mapping registrieren (Mapster)
 
-- Falls DTOs verwendet werden: Registriere Mappings in der Mapster-Konfiguration.
+- Falls DTOs verwendet werden: Registriere Mappings in der
+  Mapster-Konfiguration.
 - Bevorzuge **explizite** Mapping-Konfigurationen über implizites Auto-Mapping.
 
 ### 8. Controller / API-Endpoint erstellen
 
-- Erstelle oder erweitere einen Controller in `src/TicketsPlease.Web/Controllers/`.
+- Erstelle oder erweitere einen Controller in
+  `src/TicketsPlease.Web/Controllers/`.
 - Der Controller sendet den Request **ausschließlich** via `IMediator.Send()`.
 - **Keine** Business-Logik im Controller!
 - Anti-Forgery Token für POST-Requests: `[ValidateAntiForgeryToken]`.
@@ -148,12 +162,12 @@ public class CreateTicketCommandHandler : IRequestHandler<CreateTicketCommand, G
 - Naming: `[HandlerName]Tests` → `Handle_[Scenario]_[ExpectedResult]`.
 - Mocke Repositories via `Moq` oder `NSubstitute`.
 - Nutze `FluentAssertions` für lesbare Asserts.
-- Teste **sowohl** den Happy-Path als auch Fehlerfälle
-  (Validation, NotFound, Concurrency).
+- Teste **sowohl** den Happy-Path als auch Fehlerfälle (Validation, NotFound,
+  Concurrency).
 
 ---
 
 ### Zusammenfassung
 
-Entity ✓, DTO ✓, Request ✓, Validator ✓, Handler ✓, Repository ✓, Mapping ✓, Controller ✓,
-XML-Docs ✓, Test ✓
+Entity ✓, DTO ✓, Request ✓, Validator ✓, Handler ✓, Repository ✓, Mapping ✓,
+Controller ✓, XML-Docs ✓, Test ✓

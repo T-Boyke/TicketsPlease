@@ -1,82 +1,26 @@
 /* 
- * Navigation Components - Tailwind Plus Flair
- * Includes Navbars, Pagination, Tabs, and Breadcrumbs
- */
+   ==========================================================================
+   PREMIUM NAVBARS (Glassmorphism & Asymmetry)
+   ==========================================================================
+*/
 
-@layer components {
-    /* --- Navbar --- */
-    .navbar {
-        @apply bg-white dark:bg-dark-surface shadow-sm border-b border-border-default dark:border-dark-border;
-    }
-
-    .navbar-container {
-        @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
-    }
-
-    .navbar-inner {
-        @apply flex h-16 justify-between;
-    }
-
-    .navbar-item {
-        @apply inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-text-secondary hover:border-border-default hover:text-text-main dark:text-dark-text-secondary dark:hover:text-dark-text-main transition-all;
-    }
-
-    .navbar-item-active {
-        @apply border-brand-primary text-text-main dark:text-dark-text-main;
-    }
-
-    /* --- Breadcrumbs --- */
-    .breadcrumbs {
-        @apply flex items-center space-x-4;
-    }
-
-    .breadcrumb-item {
-        @apply flex items-center;
-    }
-
-    .breadcrumb-link {
-        @apply text-sm font-medium text-text-muted hover:text-text-main dark:text-dark-text-muted dark:hover:text-dark-text-main transition-colors;
-    }
-
-    .breadcrumb-separator {
-        @apply h-5 w-5 flex-shrink-0 text-text-subtle;
-    }
-
-    /* --- Pagination --- */
-    .pagination {
-        @apply flex items-center justify-between border-t border-border-default bg-white px-4 py-3 sm:px-6 dark:bg-dark-surface dark:border-dark-border;
-    }
-
-    .pagination-link {
-        @apply relative inline-flex items-center rounded-md border border-border-default bg-white px-4 py-2 text-sm font-medium text-text-secondary hover:bg-surface-muted focus:z-20 focus:outline-offset-0 dark:bg-dark-surface-soft dark:border-dark-border dark:text-dark-text-secondary dark:hover:bg-dark-surface-muted transition-colors;
-    }
-
-    .pagination-link-active {
-        @apply z-10 bg-brand-primary text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary border-brand-primary;
-    }
-
-    /* --- Tabs --- */
-    .tabs-container {
-        @apply border-b border-border-default dark:border-dark-border;
-    }
-
-    .tabs-list {
-        @apply flex space-x-8;
-    }
-
-    .tab-item {
-        @apply whitespace-nowrap border-b-2 border-transparent py-4 px-1 text-sm font-medium text-text-muted hover:border-border-default hover:text-text-secondary dark:text-dark-text-muted dark:hover:text-dark-text-secondary transition-all;
-    }
-
-    .tab-item-active {
-        @apply border-brand-primary text-brand-primary dark:text-brand-soft;
-    }
+@utility navbar {
+  @apply sticky top-0 z-[100] w-full border-b border-white/10 bg-nav-bg/80 backdrop-blur-xl transition-all;
 }
 
-@utility nav-link-pill {
-    @apply rounded-md px-3 py-2 text-sm font-medium text-text-muted hover:bg-surface-muted hover:text-text-main dark:text-dark-text-muted dark:hover:bg-dark-surface-muted dark:hover:text-dark-text-main transition-all;
+@utility nav-link {
+  @apply px-4 py-2 text-sm font-medium text-nav-link hover:text-nav-link-hover transition-colors relative;
 }
 
-@utility nav-link-pill-active {
-    @apply bg-brand-soft text-brand-primary dark:bg-brand-primary/10 dark:text-brand-soft;
+.nav-link::after {
+  content: "";
+  @apply absolute bottom-0 left-4 right-4 h-0.5 bg-brand-primary scale-x-0 transition-transform origin-right duration-300;
+}
+
+.nav-link:hover::after {
+  @apply scale-x-100 origin-left;
+}
+
+@utility nav-accent {
+  @apply ml-4 pl-4 border-l border-white/10;
 }

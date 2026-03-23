@@ -7,7 +7,7 @@
     <File Path="Directory.Build.props" />
     <File Path=".github/LICENSE" />
     <File Path=".github/CHANGELOG.md" />
-    <File Path=".github/.vsconfig" />
+    <File Path=".vsconfig" />
     <File Path=".config/dotnet-tools.json" />
     <File Path=".config/.prettierrc" />
     <File Path=".config/.markdownlint.json" />
@@ -23,4 +23,7 @@
   <Project Path="src/TicketsPlease.Application/TicketsPlease.Application.csproj" />
   <Project Path="src/TicketsPlease.Infrastructure/TicketsPlease.Infrastructure.csproj" />
   <Project Path="src/TicketsPlease.Web/TicketsPlease.Web.csproj" />
+  <Properties>
+    <StartupProject Path="src/TicketsPlease.Web/TicketsPlease.Web.csproj" />
+  </Properties>
 </Solution>

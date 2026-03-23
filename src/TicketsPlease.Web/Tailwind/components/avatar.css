@@ -1,105 +1,27 @@
 /* 
- * Avatar Component - Based on Tailwind UI
- * Implementation for _10_Filmdatenbank
- */
+   ==========================================================================
+   PREMIUM AVATARS (Depth & Precision)
+   ==========================================================================
+*/
 
-@layer components {
-    /* Base Avatar Container (for Badge positioning) */
-    .avatar-container {
-        @apply relative inline-block shrink-0;
-    }
-
-    /* Base Avatar Component */
-    .avatar {
-        @apply inline-block shrink-0 object-cover bg-gray-100;
-        /* Circular by default */
-        @apply rounded-full;
-    }
-
-    /* Variant: Rounded (6px radius) */
-    .avatar-rounded {
-        @apply rounded-md;
-    }
-
-    /* Sizes */
-    .avatar-xs { @apply size-6; }
-    .avatar-sm { @apply size-8; }
-    .avatar-md { @apply size-10; }
-    .avatar-lg { @apply size-12; }
-    .avatar-xl { @apply size-14; }
-    .avatar-2xl { @apply size-16; }
-
-    /* Avatar with Placeholder Icon */
-    .avatar-placeholder {
-        @apply flex items-center justify-center bg-gray-100 text-gray-300;
-    }
-
-    /* Avatar with Initials */
-    .avatar-initials {
-        @apply flex items-center justify-center bg-gray-500 font-medium text-white;
-    }
-
-    .avatar-initials.avatar-xs { @apply text-[10px]; }
-    .avatar-initials.avatar-sm { @apply text-xs; }
-    .avatar-initials.avatar-md { @apply text-sm; }
-    .avatar-initials.avatar-lg { @apply text-base; }
-    .avatar-initials.avatar-xl { @apply text-lg; }
-    .avatar-initials.avatar-2xl { @apply text-xl; }
-
-    /* Badges / Notifications */
-    .avatar-badge {
-        @apply absolute block rounded-full ring-2 ring-white;
-    }
-
-    /* Badge Positions */
-    .avatar-badge-top { @apply top-0 right-0; }
-    .avatar-badge-bottom { @apply bottom-0 right-0; }
-
-    /* Badge Colors */
-    .avatar-badge-online { @apply bg-green-400; }
-    .avatar-badge-offline { @apply bg-gray-300; }
-    .avatar-badge-busy { @apply bg-red-400; }
-
-    /* Badge Sizes (matched to Avatar sizes) */
-    .avatar-xs .avatar-badge { @apply size-1.5; }
-    .avatar-sm .avatar-badge { @apply size-2; }
-    .avatar-md .avatar-badge { @apply size-2.5; }
-    .avatar-lg .avatar-badge { @apply size-3; }
-    .avatar-xl .avatar-badge { @apply size-3.5; }
-    .avatar-2xl .avatar-badge { @apply size-4; }
-
-    /* Grouping / Stacking */
-    .avatar-group {
-        @apply flex overflow-hidden;
-    }
-
-    /* Stacked variants */
-    .avatar-group-stacked-bottom-to-top {
-        @apply -space-x-1;
-    }
-    .avatar-group-stacked-bottom-to-top .avatar {
-        @apply ring-2 ring-white;
-    }
-
-    .avatar-group-stacked-top-to-bottom {
-        @apply isolate -space-x-2;
-    }
-    .avatar-group-stacked-top-to-bottom .avatar {
-        @apply ring-2 ring-white relative;
-        /* Increase z-index for top-to-bottom overlap using css order or explicit z */
-    }
-
-    /* Avatar with Text (Horizontal Layout) */
-    .avatar-with-text {
-        @apply flex items-center gap-3;
-    }
-    .avatar-with-text .avatar-text-content {
-        @apply min-w-0;
-    }
-    .avatar-with-text .avatar-name {
-        @apply text-sm font-medium text-gray-900 dark:text-white truncate;
-    }
-    .avatar-with-text .avatar-subtext {
-        @apply text-xs text-gray-500 dark:text-gray-400 truncate;
-    }
+@utility avatar {
+  @apply relative inline-flex items-center justify-center rounded-2xl bg-surface-muted dark:bg-dark-surface-soft overflow-hidden shadow-inner;
+  @apply transition-transform hover:scale-105 duration-300;
 }
+
+@utility avatar-primary {
+  @apply avatar ring-2 ring-brand-primary/20 ring-offset-2 ring-offset-brand-bg dark:ring-offset-dark-surface;
+}
+
+@utility avatar-img {
+  @apply h-full w-full object-cover;
+}
+
+/* Status Indicator on Avatar */
+@utility avatar-status {
+  @apply absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-brand-bg dark:border-dark-surface;
+}
+
+@utility avatar-status-online { @apply avatar-status bg-success-primary; }
+@utility avatar-status-offline { @apply avatar-status bg-text-muted; }
+@utility avatar-status-busy { @apply avatar-status bg-danger-primary; }

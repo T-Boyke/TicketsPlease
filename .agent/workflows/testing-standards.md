@@ -1,6 +1,7 @@
 ---
-description: Standards and workflow for writing tests (Unit & Integration) in
-  the TicketsPlease project.
+description:
+  Standards and workflow for writing tests (Unit & Integration) in the
+  TicketsPlease project.
 ---
 
 # 🧪 Testing & QA Standards
@@ -8,9 +9,10 @@ description: Standards and workflow for writing tests (Unit & Integration) in
 Dieser Workflow definiert die vollständigen Test-Standards für das TicketsPlease
 Projekt. Tests sind **kein Nachgedanke**, sondern treiben das Design (TDD).
 
-> **Referenz:** [ADR-0006 (Testing Strategy)](file:///d:/DEV/Tickets/docs/adr/0006-testing-strategy.md)
-> | [nuget_stack.md §5](file:///d:/DEV/Tickets/docs/nuget_stack.md)
-> | [instructions.md §10](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:**
+> [ADR-0006 (Testing Strategy)](file:///d:/DEV/Tickets/docs/adr/0006-testing-strategy.md)
+> | [nuget_stack.md §5](file:///d:/DEV/Tickets/docs/nuget_stack.md) |
+> [instructions.md §10](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 
@@ -50,7 +52,8 @@ Projekt. Tests sind **kein Nachgedanke**, sondern treiben das Design (TDD).
 ### 1. Test-Projekt auswählen
 
 - Wähle das passende Projekt im `tests/` Ordner.
-- Erstelle ggf. einen neuen Testordner parallel zur Feature-Struktur in `Application`.
+- Erstelle ggf. einen neuen Testordner parallel zur Feature-Struktur in
+  `Application`.
 
 ### 2. Naming Conventions (Unverletzlich!)
 
@@ -135,8 +138,10 @@ public async Task AddAsync_ValidTicket_PersistsToDatabase()
 
 ### 6. Architektur-Tests (NetArchTest)
 
-- Nutze `NetArchTest.Rules` um Layer-Dependency-Verletzungen automatisch zu erkennen.
-- Diese Tests verhindern, dass z.B. die Domain-Schicht eine Infrastructure-Referenz bekommt.
+- Nutze `NetArchTest.Rules` um Layer-Dependency-Verletzungen automatisch zu
+  erkennen.
+- Diese Tests verhindern, dass z.B. die Domain-Schicht eine
+  Infrastructure-Referenz bekommt.
 
 ```csharp
 /// <summary>

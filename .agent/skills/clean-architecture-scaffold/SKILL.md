@@ -1,17 +1,20 @@
 ---
 name: clean-architecture-scaffold
-description: Scaffolds a complete feature across all Clean Architecture layers
-  (Domain, Application, Infrastructure, Web). Use when creating a new feature,
-  endpoint, or use case from scratch. Guides layer-by-layer file creation with
-  correct naming, structure, and dependencies.
+description:
+  Scaffolds a complete feature across all Clean Architecture layers (Domain,
+  Application, Infrastructure, Web). Use when creating a new feature, endpoint,
+  or use case from scratch. Guides layer-by-layer file creation with correct
+  naming, structure, and dependencies.
 ---
 
 # 🏗️ Clean Architecture Scaffold
 
-Dieses Skill scaffoldet ein komplettes Feature über alle Layer der Clean Architecture.
+Dieses Skill scaffoldet ein komplettes Feature über alle Layer der Clean
+Architecture.
 
-> **Referenz:** [Architecture Rules](file:///d:/DEV/Tickets/.agent/rules/architecture.md)
-> | [/add-cqrs-feature](file:///d:/DEV/Tickets/.agent/workflows/add-cqrs-feature.md)
+> **Referenz:**
+> [Architecture Rules](file:///d:/DEV/Tickets/.agent/rules/architecture.md) |
+> [/add-cqrs-feature](file:///d:/DEV/Tickets/.agent/workflows/add-cqrs-feature.md)
 
 ---
 
@@ -136,18 +139,18 @@ TicketsPlease.Domain.Tests/
 
 ## Dateien pro Feature (Zusammenfassung)
 
-| # | Datei | Layer |
-| --- | --- | --- |
-| 1 | `Entity.cs` | Domain |
-| 2 | `IEntityRepository.cs` | Application/Contracts |
-| 3 | `VerbEntityCommand.cs` | Application/Features |
-| 4 | `VerbEntityCommandValidator.cs` | Application/Features |
-| 5 | `VerbEntityCommandHandler.cs` | Application/Features |
-| 6 | `EntityDetailDto.cs` | Application/Features |
-| 7 | `EntityRepository.cs` | Infrastructure |
-| 8 | `EntityConfiguration.cs` | Infrastructure |
-| 9 | `EntityController.cs` | Web |
-| 10 | `VerbEntityCommandHandlerTests.cs` | Tests |
+| #   | Datei                              | Layer                 |
+| --- | ---------------------------------- | --------------------- |
+| 1   | `Entity.cs`                        | Domain                |
+| 2   | `IEntityRepository.cs`             | Application/Contracts |
+| 3   | `VerbEntityCommand.cs`             | Application/Features  |
+| 4   | `VerbEntityCommandValidator.cs`    | Application/Features  |
+| 5   | `VerbEntityCommandHandler.cs`      | Application/Features  |
+| 6   | `EntityDetailDto.cs`               | Application/Features  |
+| 7   | `EntityRepository.cs`              | Infrastructure        |
+| 8   | `EntityConfiguration.cs`           | Infrastructure        |
+| 9   | `EntityController.cs`              | Web                   |
+| 10  | `VerbEntityCommandHandlerTests.cs` | Tests                 |
 
 ---
 

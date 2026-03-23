@@ -1,55 +1,40 @@
-# 🎨 TicketsPlease – UI & Frontend Rules
-
-Regeln für Frontend-Entwicklung, Barrierefreiheit und Styling.
-
+---
+trigger: model_decision
 ---
 
-## TailwindCSS & Styling
+# 🎨 TicketsPlease - UI & Frontend Rules
 
-- **No Bootstrap** – Komplett verboten. Nur TailwindCSS 4.2.
-- **No CDN** – Alle Assets lokal via LibMan (`libman.json` → `wwwroot/lib/`).
-- **No Inline-Styles** – Alles über Tailwind oder CSS-Variablen.
-- **No Hardcoded Farben** – Nutze CSS Custom Properties (`--brand-primary`,
-  `--color-surface`).
-- **`@apply`** – Wiederkehrende Patterns in `css/components/` abstrahieren:
-  - `btn.css` – Button-Variationen
-  - `cards.css` – Kanban-Card Struktur
-  - `form.css` – Inputs, Selects, Validation States
-  - `theme.css` – Color-Tokens, Typografie, Dark/Light Mode
+<ui_rules>
+<styling>
 
-## Accessibility (BFSG / a11y)
-
-- **Keyboard-First** – Alles per `Tab` bedienbar.
-- **Focus-Traps** – In Modals Pflicht.
-- **Semantisches HTML5** – `<dialog>`, `<nav>`, `<main>`, `<button>` (nicht
-  `<div onclick>`).
-- **ARIA-Attribute** – `aria-label`, `aria-expanded`, `aria-describedby` wo nötig.
-- **Unique `id`** – Jedes interaktive Element hat eine eindeutige `id`.
-- **Kontrast** – WCAG AA Minimum (4.5:1).
-
-## Theme-Switching
-
-- CSS Custom Properties in `theme.css`.
-- Theme-Wechsel via `data-theme="dark"` auf `<html>`. Kein Page-Reload.
-- `ICorporateSkinProvider` für Multi-Tenancy Branding.
-
-## SFC & DRY
-
-- ViewComponents in `Views/Shared/Components/`.
-- Partials für wiederkehrende Konstrukte: `<partial name="_Avatar" />`.
-- Kein C# Business-Logic Code im CSHTML.
-
-## Icons
-
-- FontAwesome 7.2 (lokal): `fa-solid`, `fa-regular`.
-- `aria-hidden="true"` auf dekorativen Icons.
-
-## Micro-Animations
-
-- `transition-all duration-200 ease-in-out` für Hover.
-- `backdrop-blur` für Glassmorphism (Modals, Dropdowns).
-- Hover-, Focus- und Active-States sind Pflicht.
-
----
-
-## TicketsPlease UI Rules v1.0 | 2026-03-06
+- Framework: TailwindCSS 4.2 ONLY. NO Bootstrap.
+- Assets: LibMan ONLY (`wwwroot/lib/`). NO CDN.
+- Inline Styles: STRICTLY FORBIDDEN. Use Tailwind or CSS variables.
+- Colors: NO hardcoded colors. Use CSS Custom Properties (`--brand-primary`, `--color-surface`).
+- Abstraction: Use `@apply` in `css/components/` (btn.css, cards.css, form.css, theme.css).
+  </styling>
+  <a11y>
+    - Standard: BFSG / EN 301 549 (WCAG 2.1 AA+).
+    - Navigation: Keyboard-only MUST work. Focus-traps in modals mandatory.
+    - Semantics: Use `<main>`, `<nav>`, `<article>`, `<header>`, `<footer>`. 
+    - Buttons: Use `<button>` or `<a role="button">`. NO `div` with click handlers.
+    - Labels: `aria-label` for icons/empty buttons. `aria-describedby` for validation errors.
+    - Motion: `prefers-reduced-motion` MUST be respected.
+  </a11y>
+  <theming>
+- Variables: Extract to `theme.css`. Switch via `data-theme="dark"` on `<html>` (NO reload).
+- Branding: Multi-Tenancy via `ICorporateSkinProvider`.
+  </theming>
+  <sfc_dry>
+- ViewComponents: `Views/Shared/Components/`. Partials for repetition (`<partial name="_Avatar" />`).
+- Logic: ZERO C# business logic in CSHTML.
+  </sfc_dry>
+  <icons>
+- FontAwesome 7.2 (Local). `aria-hidden="true"` on decorative icons.
+  </icons>
+  <animations>
+- Hover: `transition-all duration-200 ease-in-out`.
+- Glass: `backdrop-blur` for modals/dropdowns.
+- States: Hover, Focus, Active MUST be styled.
+  </animations>
+  </ui_rules>

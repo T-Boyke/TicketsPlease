@@ -6,9 +6,9 @@
 
 ## Context and Problem Statement
 
-Verteilte Systeme (Datenbank, Mail-Server, externe Plugins) können temporär ausfallen. Ohne eine
-Strategie zum Umgang mit Fehlern (Transiente Fehler) stürzt die Applikation bei kleinen
-Netzwerkstörungen sofort ab.
+Verteilte Systeme (Datenbank, Mail-Server, externe Plugins) können temporär
+ausfallen. Ohne eine Strategie zum Umgang mit Fehlern (Transiente Fehler) stürzt
+die Applikation bei kleinen Netzwerkstörungen sofort ab.
 
 ## Decision Drivers
 
@@ -24,8 +24,9 @@ Netzwerkstörungen sofort ab.
 
 ## Decision Outcome
 
-Chosen option: "Polly", because es ein bewährtes .NET Framework ist, um Politiken wie "Retry",
-"Circuit Breaker", "Timeout" oder "Fallback" deklarativ zu definieren.
+Chosen option: "Polly", because es ein bewährtes .NET Framework ist, um
+Politiken wie "Retry", "Circuit Breaker", "Timeout" oder "Fallback" deklarativ
+zu definieren.
 
 ### Positive Consequences
 
@@ -35,7 +36,8 @@ Chosen option: "Polly", because es ein bewährtes .NET Framework ist, um Politik
 
 ### Negative Consequences
 
-- Komplexität bei der Definition der Politiken (Wann mache ich einen Retry? Wie oft?).
+- Komplexität bei der Definition der Politiken (Wann mache ich einen Retry? Wie
+  oft?).
 - Kann Fehler "verschleiern", wenn das Logging nicht sauber mitläuft.
 
 ## Pros and Cons of the Options

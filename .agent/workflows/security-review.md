@@ -1,6 +1,7 @@
 ---
-description: Security review checklist based on Defense in Depth for the
-  TicketsPlease project.
+description:
+  Security review checklist based on Defense in Depth for the TicketsPlease
+  project.
 ---
 
 # 🛡️ Security Review Workflow (Defense in Depth)
@@ -9,8 +10,9 @@ Dieser Workflow stellt sicher, dass jede Code-Änderung die Security-Standards
 des Projekts erfüllt. Unser System wird nach dem **"Defense in Depth"**
 (Zwiebelschalen) Prinzip abgesichert.
 
-> **Referenz:** [README §6 – Enterprise Security](file:///d:/DEV/Tickets/README.md)
-> | [instructions.md §6](file:///d:/DEV/Tickets/instructions.md)
+> **Referenz:**
+> [README §6 – Enterprise Security](file:///d:/DEV/Tickets/README.md) |
+> [instructions.md §6](file:///d:/DEV/Tickets/instructions.md)
 
 ---
 
@@ -32,11 +34,11 @@ des Projekts erfüllt. Unser System wird nach dem **"Defense in Depth"**
 
 ### 1. Secret Management
 
-| Prüfpunkt                                            | Status |
-| :--------------------------------------------------- | :----- |
-| Keine Secrets in `appsettings.json` committet?        | ☐      |
+| Prüfpunkt                                              | Status |
+| :----------------------------------------------------- | :----- |
+| Keine Secrets in `appsettings.json` committet?         | ☐      |
 | Connection Strings über `dotnet user-secrets` (lokal)? | ☐      |
-| JWT-Keys, API-Tokens über Secrets Manager (Prod)?    | ☐      |
+| JWT-Keys, API-Tokens über Secrets Manager (Prod)?      | ☐      |
 | `.gitignore` enthält `appsettings.*.json` (overrides)? | ☐      |
 
 ```cmd
@@ -52,7 +54,7 @@ dotnet user-secrets list
 | Prüfpunkt                                            | Status |
 | :--------------------------------------------------- | :----- |
 | Passwort-Hashing via ASP.NET Core Identity?          | ☐      |
-| Keine eigenen Hash-Algorithmen / Crypto?              | ☐      |
+| Keine eigenen Hash-Algorithmen / Crypto?             | ☐      |
 | Cookies mit `HttpOnly` **und** `Secure` Flag?        | ☐      |
 | Session-Timeout konfiguriert?                        | ☐      |
 | RBAC (Role-Based Access Control) korrekt angewendet? | ☐      |
@@ -60,12 +62,12 @@ dotnet user-secrets list
 
 ### 3. Input Validation (Kein User-Input ungeprüft!)
 
-| Prüfpunkt                                            | Status |
-| :--------------------------------------------------- | :----- |
-| Jeder Command hat einen `AbstractValidator<T>`?      | ☐      |
-| Validation wird über MediatR Pipeline Behavior?      | ☐      |
+| Prüfpunkt                                             | Status |
+| :---------------------------------------------------- | :----- |
+| Jeder Command hat einen `AbstractValidator<T>`?       | ☐      |
+| Validation wird über MediatR Pipeline Behavior?       | ☐      |
 | Kein `ModelState`-Bypass (z.B. `ModelState.Clear()`)? | ☐      |
-| String-Inputs auf Max-Length beschränkt?             | ☐      |
+| String-Inputs auf Max-Length beschränkt?              | ☐      |
 
 ### 4. CSRF / XSRF Protection
 
@@ -77,20 +79,20 @@ dotnet user-secrets list
 
 ### 5. XSS (Cross-Site Scripting) Prevention
 
-| Prüfpunkt                                            | Status |
-| :--------------------------------------------------- | :----- |
-| Markdown-Output im Frontend durch **DOMPurify**?     | ☐      |
-| DOMPurify lokal via LibMan installiert (kein CDN)?   | ☐      |
-| Kein `@Html.Raw()` ohne vorherige Sanitization?      | ☐      |
-| User-Input wird nicht direkt in JS/HTML injiziert?   | ☐      |
+| Prüfpunkt                                          | Status |
+| :------------------------------------------------- | :----- |
+| Markdown-Output im Frontend durch **DOMPurify**?   | ☐      |
+| DOMPurify lokal via LibMan installiert (kein CDN)? | ☐      |
+| Kein `@Html.Raw()` ohne vorherige Sanitization?    | ☐      |
+| User-Input wird nicht direkt in JS/HTML injiziert? | ☐      |
 
 ```javascript
 // ✅ RICHTIG: DOMPurify vor DOM-Insertion
 const cleanHtml = DOMPurify.sanitize(marked.parse(userMarkdown));
-document.getElementById('output').innerHTML = cleanHtml;
+document.getElementById("output").innerHTML = cleanHtml;
 
 // ❌ FALSCH: Unsanitized Markdown direkt ins DOM
-document.getElementById('output').innerHTML = marked.parse(userMarkdown);
+document.getElementById("output").innerHTML = marked.parse(userMarkdown);
 ```
 
 ### 6. SQL Injection Prevention
@@ -103,23 +105,25 @@ document.getElementById('output').innerHTML = marked.parse(userMarkdown);
 
 ### 7. DSGVO / Privacy by Design
 
-| Prüfpunkt                                            | Status |
-| :--------------------------------------------------- | :----- |
-| Personenbezogene Daten in separaten Tabellen?        | ☐      |
-| Löschkonzept: Können User-Daten gezielt gelöscht?    | ☐      |
-| Datensparsamkeit: Nur minimal nötige Daten erheben?  | ☐      |
-| Keine IP-Tracking ohne Rechtsgrundlage?              | ☐      |
-| Keine externen CDNs (IP-Leak an Drittanbieter)?      | ☐      |
-| Cookie-Banner nur wenn nötig?                        | ☐      |
+| Prüfpunkt                                           | Status |
+| :-------------------------------------------------- | :----- |
+| Personenbezogene Daten in separaten Tabellen?       | ☐      |
+| Löschkonzept: Können User-Daten gezielt gelöscht?   | ☐      |
+| Datensparsamkeit: Nur minimal nötige Daten erheben? | ☐      |
+| Keine IP-Tracking ohne Rechtsgrundlage?             | ☐      |
+| Keine externen CDNs (IP-Leak an Drittanbieter)?     | ☐      |
+| **DSGVO Isolierung**    | PII-Daten strikt von Transaktionsdaten trennen?     | ☐      |
+| **Recht auf Vergessen** | Hard-Delete Workflow für User-Accounts vorhanden?   | ☐      |
+| Cookie-Banner nur wenn nötig?                       | ☐      |
 
 ### 8. File Upload Security
 
-| Prüfpunkt                                            | Status |
-| :--------------------------------------------------- | :----- |
-| Datei-Typ-Validierung (Whitelist, nicht Blacklist)?  | ☐      |
-| Dateigröße limitiert?                                | ☐      |
-| Dateien in Blob-Storage (oder außerhalb `wwwroot`)?  | ☐      |
-| Dateiname sanitized (keine Path-Traversal)?           | ☐      |
+| Prüfpunkt                                           | Status |
+| :-------------------------------------------------- | :----- |
+| Datei-Typ-Validierung (Whitelist, nicht Blacklist)? | ☐      |
+| Dateigröße limitiert?                               | ☐      |
+| Dateien in Blob-Storage (oder außerhalb `wwwroot`)? | ☐      |
+| Dateiname sanitized (keine Path-Traversal)?         | ☐      |
 
 ---
 

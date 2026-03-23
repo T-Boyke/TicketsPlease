@@ -1,57 +1,26 @@
 /* 
- * Data Display Components - Tailwind Plus Flair
- * Includes Description Lists, Stats, and Calendars
- */
+   ==========================================================================
+   PREMIUM DATA DISPLAY (Contrast & Precision)
+   ==========================================================================
+*/
 
-@layer components {
-    /* --- Description Lists --- */
-    .description-list {
-        @apply border-t border-border-default dark:border-dark-border;
-    }
+@utility data-table {
+  @apply w-full text-left text-sm border-separate border-spacing-0;
+}
 
-    .description-list-row {
-        @apply px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6;
-    }
+@utility table-th {
+  @apply px-4 py-3.5 border-b border-border-default dark:border-dark-border text-text-secondary dark:text-dark-text-secondary font-bold;
+}
 
-    .description-list-term {
-        @apply text-sm font-medium text-text-main dark:text-dark-text-main;
-    }
+@utility table-tr {
+  @apply hover:bg-surface-soft/50 dark:hover:bg-dark-surface-soft/50 transition-colors cursor-default;
+}
 
-    .description-list-details {
-        @apply mt-1 text-sm leading-6 text-text-secondary sm:col-span-2 sm:mt-0 dark:text-dark-text-secondary;
-    }
+@utility table-td {
+  @apply px-4 py-3 border-b border-border-muted dark:border-dark-border;
+}
 
-    /* --- Stats --- */
-    .stats-container {
-        @apply grid grid-cols-1 gap-5 sm:grid-cols-3;
-    }
-
-    .stat-card {
-        @apply overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 dark:bg-dark-surface dark:border dark:border-dark-border;
-    }
-
-    .stat-label {
-        @apply truncate text-sm font-medium text-text-muted dark:text-dark-text-muted;
-    }
-
-    .stat-value {
-        @apply mt-1 text-3xl font-semibold tracking-tight text-text-main dark:text-dark-text-main;
-    }
-
-    /* --- Calendars (Small/Basic) --- */
-    .calendar-mini {
-        @apply text-center;
-    }
-
-    .calendar-mini-grid {
-        @apply mt-6 grid grid-cols-7 text-xs leading-6 text-text-muted dark:text-dark-text-muted;
-    }
-
-    .calendar-mini-days {
-        @apply isolate mt-2 grid grid-cols-7 gap-px rounded-lg bg-border-default text-sm shadow ring-1 ring-border-default dark:bg-dark-border dark:ring-dark-border;
-    }
-
-    .calendar-mini-day {
-        @apply bg-white py-1.5 hover:bg-surface-muted focus:z-10 dark:bg-dark-surface dark:hover:bg-dark-surface-soft transition-colors;
-    }
+/* Empty States */
+@utility empty-state-card {
+  @apply flex flex-col items-center justify-center p-12 text-center rounded-3xl border-2 border-dashed border-border-default;
 }

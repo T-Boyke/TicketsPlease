@@ -6,9 +6,10 @@
 
 ## Context and Problem Statement
 
-Valider Input ist die erste Verteidigungslinie eines Enterprise-Systems. Wir benötigen eine Lösung,
-die komplexe Validierungsregeln (z.B. Abhängigkeiten zwischen Feldern) sauber und außerhalb der
-Domain-Entities oder Controller definiert.
+Valider Input ist die erste Verteidigungslinie eines Enterprise-Systems. Wir
+benötigen eine Lösung, die komplexe Validierungsregeln (z.B. Abhängigkeiten
+zwischen Feldern) sauber und außerhalb der Domain-Entities oder Controller
+definiert.
 
 ## Decision Drivers
 
@@ -25,9 +26,9 @@ Domain-Entities oder Controller definiert.
 
 ## Decision Outcome
 
-Chosen option: "FluentValidation", because es eine flüssige (Fluent) API bietet, um auch
-hochkomplexe Regeln ausdrucksstark zu definieren. Die Regeln liegen in separaten Klassen, was die
-DTOs sauber hält.
+Chosen option: "FluentValidation", because es eine flüssige (Fluent) API bietet,
+um auch hochkomplexe Regeln ausdrucksstark zu definieren. Die Regeln liegen in
+separaten Klassen, was die DTOs sauber hält.
 
 ### Positive Consequences
 

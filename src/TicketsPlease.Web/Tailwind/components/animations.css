@@ -1,88 +1,41 @@
 /* 
- * Animations & Transitions - Tailwind Plus Flair
- * Curated micro-animations for premium UX
- */
+   ==========================================================================
+   PREMIUM ANIMATIONS (Dynamic & Alive)
+   ==========================================================================
+*/
 
-@theme {
-  /* --- Keyframes --- */
-  
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes fade-in-up {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fade-out {
-    from { opacity: 1; }
-    to { opacity: 0; }
-  }
-
-  @keyframes slide-in-right {
-    from { transform: translateX(100%); }
-    to { transform: translateX(0); }
-  }
-
-  @keyframes slide-in-left {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(0); }
-  }
-
-  @keyframes scale-in {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-  }
-
-  /* --- Animation Utilities --- */
-  
-  --animate-fade-in: fade-in 0.3s ease-out;
-  --animate-fade-in-up: fade-in-up 0.4s ease-out;
-  --animate-fade-out: fade-out 0.2s ease-in;
-  --animate-slide-in-right: slide-in-right 0.5s ease-in-out;
-  --animate-slide-in-left: slide-in-left 0.5s ease-in-out;
-  --animate-scale-in: scale-in 0.2s ease-out;
-  --animate-shimmer: shimmer 2s infinite linear;
+@utility reveal-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: reveal-up-entrance 600ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-@layer utilities {
-  /* --- Staggered Entry Transitions --- */
-  .stagger-1 { animation-delay: 100ms; }
-  .stagger-2 { animation-delay: 200ms; }
-  .stagger-3 { animation-delay: 300ms; }
-  .stagger-4 { animation-delay: 400ms; }
+@utility reveal-delay-1 { animation-delay: 100ms; }
+@utility reveal-delay-2 { animation-delay: 200ms; }
+@utility reveal-delay-3 { animation-delay: 300ms; }
 
-  /* --- Pulse Soft (Less aggressive than default pulse) --- */
-  .animate-pulse-soft {
-    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+@keyframes reveal-up-entrance {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
-  /* --- Shimmer Effect (Loading States) --- */
-  .skeleton {
-    @apply bg-surface-soft dark:bg-dark-surface-soft relative overflow-hidden rounded-md;
-    background-image: linear-gradient(
-      90deg, 
-      rgba(255, 255, 255, 0) 0%, 
-      rgba(255, 255, 255, 0.4) 50%, 
-      rgba(255, 255, 255, 0) 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite linear;
-  }
+/* Hover Lift Effect */
+@utility hover-lift {
+  @apply transition-transform duration-300 ease-out;
+}
 
-  .dark .skeleton {
-    background-image: linear-gradient(
-      90deg, 
-      rgba(255, 255, 255, 0) 0%, 
-      rgba(255, 255, 255, 0.05) 50%, 
-      rgba(255, 255, 255, 0) 100%
-    );
-  }
+@utility hover-lift:hover {
+  @apply -translate-y-1 scale-[1.02];
+}
+
+/* Pulse Glow (Premium Brand) */
+@utility pulse-glow {
+  animation: pulse-glow-brand 2s infinite ease-in-out;
+}
+
+@keyframes pulse-glow-brand {
+  0%, 100% { box-shadow: 0 0 0 0 var(--color-brand-primary-a10); }
+  50% { box-shadow: 0 0 20px 0 var(--color-brand-primary-a10); }
 }

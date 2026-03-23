@@ -1,42 +1,24 @@
-# 🧪 TicketsPlease – Quality Assurance
+# 🧪 TicketsPlease - Quality Assurance
 
-Leitfaden für Testing und Code-Stabilität.
-
-## 📋 Table of Contents
-
-- [🔄 TDD Cycle](#-tdd-cycle)
-- [🔭 Test-Struktur](#-test-struktur)
-- [💯 Quality Gates](#-quality-gates)
-
----
-
-## 🔄 TDD Cycle
-
-Wir fordern den strikten TDD-Arbeitsfluss:
-
-1. **Red:** Schreibe einen fehlschlagenden Test.
-2. **Green:** Implementiere den Code, bis der Test besteht.
-3. **Refactor:** Optimiere den Code unter Erhalt der Tests.
-
----
-
-## 🔭 Test-Struktur
-
-- **Architecture Tests:** NetArchTest prüft Layer-Abhängigkeiten.
-- **Unit Tests:** xUnit für Domain-Logic & MediatR Handler.
-- **Integration Tests:** Testcontainers (SQL Server) für Persistence Layer.
-- **E2E Tests:** Playwright für kritische Web-Journeys.
-
----
-
-## 💯 Quality Gates
-
-Die CI-Pipeline bricht ab, wenn:
-
-- **Build:** Fehler oder Warnungen (as error).
-- **Tests:** Auch nur ein Test fehlschlägt.
-- **Lighthouse:** Score in Performance oder Accessibility < 100.
-
----
-
-_QA v1.0 | 2026-03-09_
+<quality_assurance>
+  <tdd_cycle>
+  - Rule: Red (Fail) -> Green (Pass) -> Refactor (Keep Green). TDD is MANDATORY.
+  - Workflow: Write tests BEFORE business logic.
+  </tdd_cycle>
+  <test_structure>
+  - Architecture: NetArchTest (Layer dependencies).
+  - Unit: xUnit (Facts & Theories). Mock time predictably via `FakeTimeProvider`.
+  - Integration: Testcontainers SQL Server (Persistence completeness).
+  - System: Playwright E2E.
+  </test_structure>
+  <fortification>
+  - Mutation Testing: Stryker.NET ensures test validity. Surviving mutants are failures.
+  - Data Generation: Bogus generates production-like entities to fuzz inputs.
+  - Visual/Complex Assertions: Snapshot testing via `VerifyTests`.
+  </fortification>
+  <quality_gates>
+  - Build: Warnings = Errors.
+  - Tests: Must be 100% green. 100% Line Coverage (Domain/App). 100% Stryker score.
+  - Lighthouse: Score 100/100 (Perf, a11y).
+  </quality_gates>
+</quality_assurance>

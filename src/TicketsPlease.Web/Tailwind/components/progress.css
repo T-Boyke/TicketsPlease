@@ -1,50 +1,18 @@
 /* 
- * Progress & Steps Components - Tailwind Plus Flair
- */
+   ==========================================================================
+   PREMIUM PROGRESS (Smooth Gradients & Motion)
+   ==========================================================================
+*/
 
-@layer components {
-    /* --- Progress Bar --- */
-    .progress-wrapper {
-        @apply relative w-full h-2 bg-border-default rounded-full overflow-hidden dark:bg-dark-border;
-    }
-
-    .progress-bar {
-        @apply absolute top-0 left-0 h-full bg-brand-primary transition-all duration-500 ease-in-out;
-    }
-
-    /* --- Steps (Horizontal) --- */
-    .steps-nav {
-        @apply flex items-center justify-center;
-    }
-
-    .steps-list {
-        @apply flex items-center space-x-5;
-    }
-
-    .step-item {
-        @apply relative flex items-center;
-    }
-
-    .step-circle {
-        @apply flex h-8 w-8 items-center justify-center rounded-full border-2 text-sm font-semibold;
-    }
-
-    .step-circle-complete {
-        @apply border-brand-primary bg-brand-primary text-white;
-    }
-
-    .step-circle-current {
-        @apply border-brand-primary text-brand-primary;
-    }
-
-    .step-circle-upcoming {
-        @apply border-border-default text-text-muted dark:border-dark-border dark:text-dark-text-muted;
-    }
-
-    .step-label {
-        @apply ml-3 text-sm font-medium;
-    }
+@utility progress-bar {
+  @apply h-2 w-full bg-surface-muted dark:bg-dark-surface-muted rounded-full overflow-hidden;
 }
 
-@utility progress-sm { @apply h-1; }
-@utility progress-lg { @apply h-4; }
+@utility progress-fill {
+  @apply h-full bg-gradient-to-r from-brand-primary to-brand-accent transition-all duration-1000 ease-in-out;
+}
+
+/* Skeleton Loaders */
+@utility skeleton {
+  @apply animate-pulse bg-surface-muted dark:bg-dark-surface-muted rounded-xl;
+}

@@ -1,17 +1,20 @@
 ---
 name: ef-core-debugging
-description: Debugs and optimizes EF Core queries, detects N+1 problems,
-  analyzes query plans, and troubleshoots migrations. Use when facing slow
-  queries, unexpected database behavior, concurrency issues, or migration
-  errors in the TicketsPlease project.
+description:
+  Debugs and optimizes EF Core queries, detects N+1 problems, analyzes query
+  plans, and troubleshoots migrations. Use when facing slow queries, unexpected
+  database behavior, concurrency issues, or migration errors in the
+  TicketsPlease project.
 ---
 
 # 🔬 EF Core Debugging & Performance
 
 Dieses Skill hilft bei der Diagnose und Optimierung von EF Core Problemen.
 
-> **Referenz:** [Architecture Rules §EF Core](file:///d:/DEV/Tickets/.agent/rules/architecture.md)
-| [/ef-core-migration](file:///d:/DEV/Tickets/.agent/workflows/ef-core-migration.md)
+> **Referenz:**
+> [Architecture Rules §EF Core](file:///d:/DEV/Tickets/.agent/rules/architecture.md)
+> |
+> [/ef-core-migration](file:///d:/DEV/Tickets/.agent/workflows/ef-core-migration.md)
 
 ---
 
@@ -128,16 +131,16 @@ builder.HasIndex(t => new { t.Status, t.Priority }); // Composite
 
 ## Performance-Checkliste
 
-| # | Check | Status |
-| --- | --- | --- |
-| 1 | `AsNoTracking()` auf allen Lese-Queries | ☐ |
-| 2 | `.Select()` Projection statt `.Include()` | ☐ |
-| 3 | Keine N+1 Queries (Logging prüfen) | ☐ |
-| 4 | Indizes auf Filter/Sort-Spalten | ☐ |
-| 5 | `CancellationToken` durchgereicht | ☐ |
-| 6 | Pagination bei Listen (`Skip/Take`) | ☐ |
-| 7 | `RowVersion` als `[Timestamp]` konfiguriert | ☐ |
-| 8 | `CreateExecutionStrategy()` bei manuellen Transaktionen | ☐ |
+| #   | Check                                                   | Status |
+| --- | ------------------------------------------------------- | ------ |
+| 1   | `AsNoTracking()` auf allen Lese-Queries                 | ☐      |
+| 2   | `.Select()` Projection statt `.Include()`               | ☐      |
+| 3   | Keine N+1 Queries (Logging prüfen)                      | ☐      |
+| 4   | Indizes auf Filter/Sort-Spalten                         | ☐      |
+| 5   | `CancellationToken` durchgereicht                       | ☐      |
+| 6   | Pagination bei Listen (`Skip/Take`)                     | ☐      |
+| 7   | `RowVersion` als `[Timestamp]` konfiguriert             | ☐      |
+| 8   | `CreateExecutionStrategy()` bei manuellen Transaktionen | ☐      |
 
 ---
 

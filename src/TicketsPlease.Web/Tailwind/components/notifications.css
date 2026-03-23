@@ -1,52 +1,29 @@
 /* 
- * Notifications Components - Tailwind Plus Flair
- * Includes Toast Notifications and Action Panels
- */
+   ==========================================================================
+   PREMIUM NOTIFICATIONS (Glassmorphism & Spring Entrance)
+   ==========================================================================
+*/
 
-@layer components {
-    /* --- Notifications --- */
-    .notification-container {
-        @apply pointer-events-none fixed inset-0 z-50 flex items-end px-4 py-6 sm:items-start sm:p-6;
-    }
+@utility notification {
+  @apply fixed right-4 bottom-4 z-[100] w-full max-w-sm flex p-4 rounded-2xl glass-premium shadow-2xl;
+  animation: notification-slide 500ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
 
-    .notification {
-        @apply pointer-events-auto flex w-full max-w-sm rounded-lg bg-white shadow-lg ring-1 ring-black/5 dark:bg-dark-surface dark:ring-white/10;
-    }
+@keyframes notification-slide {
+  from {
+    transform: translateX(110%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
 
-    .notification-inner {
-        @apply p-4;
-    }
+@utility notification-title {
+  @apply text-sm font-bold text-text-main dark:text-dark-text-main mb-1;
+}
 
-    .notification-content {
-        @apply flex items-start;
-    }
-
-    .notification-icon {
-        @apply flex-shrink-0;
-    }
-
-    .notification-text {
-        @apply ml-3 w-0 flex-1 pt-0.5;
-    }
-
-    .notification-title {
-        @apply text-sm font-medium text-text-main dark:text-dark-text-main;
-    }
-
-    .notification-description {
-        @apply mt-1 text-sm text-text-muted dark:text-dark-text-muted;
-    }
-
-    /* --- Action Panels --- */
-    .action-panel {
-        @apply bg-white shadow sm:rounded-lg dark:bg-dark-surface dark:border dark:border-dark-border;
-    }
-
-    .action-panel-body {
-        @apply px-4 py-5 sm:p-6;
-    }
-
-    .action-panel-footer {
-        @apply mt-5;
-    }
+@utility notification-body {
+  @apply text-xs text-text-secondary dark:text-dark-text-secondary;
 }

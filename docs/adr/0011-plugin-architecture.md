@@ -37,7 +37,8 @@ Performance und UX (Notification-Channels etc.) vorteilhaft ist.
 ### Negative Consequences
 
 - Höhere Komplexität im Startvorgang der App (Assembly Discovery).
-- Sicherheitsrisiken durch das Laden von Fremdcode (muss über Interfaces/Sandbox isoliert werden).
+- Sicherheitsrisiken durch das Laden von Fremdcode (muss über Interfaces/Sandbox
+  isoliert werden).
 
 ## Pros and Cons of the Options
 
@@ -45,4 +46,5 @@ Performance und UX (Notification-Channels etc.) vorteilhaft ist.
 
 - Good, because maximale Flexibilität für Enterprise-Kunden.
 - Good, because saubere Trennung von Third-Party Code.
-- Bad, because Fehler in Plugins können das gesamte System instabil machen (Isolations-Layer nötig).
+- Bad, because Fehler in Plugins können das gesamte System instabil machen
+  (Isolations-Layer nötig).
