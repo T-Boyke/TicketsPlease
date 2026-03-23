@@ -291,8 +291,8 @@ erDiagram
     WORKFLOW_STATE ||--o{ TICKET : groups
     TICKET_PRIORITY ||--o{ TICKET : categorizes
     TICKET ||--o{ SUBTICKET : contains_checklist_items
-    TICKET ||--o{ TICKET : parent_of (Epic/Task Hierarchy)
-    TICKET ||--o{ TICKET_LINK : blocks / blocked_by
+    TICKET ||--o{ TICKET : "parent_of (Epic/Task Hierarchy)"
+    TICKET ||--o{ TICKET_LINK : "blocks / blocked_by"
 
     %% Assignments (3NF resolution)
     TICKET ||--o{ TICKET_ASSIGNMENT : has
