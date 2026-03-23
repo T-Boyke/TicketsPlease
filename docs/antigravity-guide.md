@@ -8,7 +8,7 @@ spezialisierte Werkzeuge.
 ## 🧠 Core Intelligence: Agent Governance
 
 Die gesamte Agenten-Logik ist im Verzeichnis
-[`.agent/`](file:///d:/DEV/Tickets/.agent) gekapselt:
+[`.agent/`](.agent) gekapselt:
 
 - **`instructions.md`**: Das zentrale Regelwerk ("Grundgesetz") für die KI.
 - **`rules/`**: Modulare Regeln für Clean Architecture, C#, DDD und Testing.

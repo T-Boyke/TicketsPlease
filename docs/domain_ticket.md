@@ -3,56 +3,40 @@
 Die `Ticket`-Entität ist das absolut zentrale Objekt dieser Applikation. Sie
 unterliegt strikten Design-Regeln aus dem _Domain-Driven Design (DDD)_.
 
-## Eigenschaften (Properties)
+## MVP-Eigenschaften (IHK F3 Pflicht)
 
-Eine vollständige Ausbaustufe eines Tickets umfasst:
+Die folgenden Properties sind für die IHK-Prüfung zwingend erforderlich:
 
 - **Id:** `Guid` (Global Unique Identifier)
-- **Sha1Hash:** `string` (Ein Hash zur globalen, systemweiten Identifikation
-  eines Tickets. Erlaubt es, das Ticket zu kopieren und überall im System per
-  Hash zu referenzieren).
-- **Title/Name:** `string` (Max. 150 Zeichen)
-- **Description:** `string` (Markdown wird unterstützt)
-- **State / Status:** `TicketStatus` Enum
-  - `ToDo`
-  - `InProgress`
-  - `InReview`
-  - `Done`
-- **Priority:** `TicketPriority` Enum (`Low`, `Medium`, `High`,
-  `Critical/Blocker`)
-- **Complexity / Difficulty (Chillischoten 🌶️):** `byte` (1 bis 5). Dies soll
-  rein visuell die Komplexität abbilden, ohne klassische "Story Points" zu
-  nutzen.
-- `CreatedAt`: `DateTimeOffset` (Systemgesteuert)
-- `UpdatedAt`: `DateTimeOffset?` (Bei Modifikation)
-- `GeoIpTimestamp`: `string` (Kombination aus IP-Adresse/Geo-Location und
-  exaktem Zeitstempel der Erstellung oder Modifikation aus Audit-Gründen).
-- `StartDate`: `DateTimeOffset?` (Optional, wann die Arbeit beginnt)
-- `Deadline`: `DateTimeOffset?` (Optional, wann die Arbeit beendet sein muss)
-- `EstimatedHours`: `decimal?` (Geschätzter Aufwand)
-- **Time Tracking & Logs:**
-  - Im Gegensatz zu einem simplen `LoggedHours` Feld, besitzt das Ticket eine
-    Collection von `TimeLog` Objekten (`IReadOnlyList<TimeLog>`). Dies erfasst
-    exakt, _welcher_ User _wann_ _wie lange_ an dem Ticket gearbeitet hat.
-- **Service Level Agreements (SLAs):**
-  - Über die Priorität (`TicketPriority`) ist eine `SLA_POLICY` verknüpft, die
-    feste `ResponseTimeHours` und `ResolutionTimeHours` vorschreibt. Die UI
-    warnt den User optisch vor Ablauf dieser Deadlines.
-- **Tags & Labels:**
-  - Eine Collection an Metadaten (`IReadOnlyList<Tag>`), um Tickets
-    projektübergreifend zu filtern (z.B. `#frontend`, `#bug`).
-- **Dateianhänge (Attachments):**
-  - Eine Collection von `FileAsset` (`IReadOnlyList<FileAsset>`). Erlaubt den
-    Upload von PDFs, Log-Files oder Screenshots (`DOMPurify` geprüft) direkt an
-    das Ticket.
-- **Assignees:**
-  - `AssignedUserId`: `Guid?` (Referenz zum bearbeitenden Nutzer)
-  - Fazit: Kann an eine Person oder ein ganzes `Team` delegiert werden (via
-    Join-Table oder eigener Property).
-- **Hierarchy:**
-  - `ParentTicketId`: `Guid?`
-  - `SubTickets`: `IReadOnlyList<Ticket>` (Hiermit können große Epics in Tasks
-    zerlegt werden).
+- **Title:** `string` (Max. 150 Zeichen, Pflicht)
+- **Description:** `string` (Pflicht)
+- **ProjectId:** `Guid` (FK → Project, Pflicht. Nur offene Projekte.)
+- **CreatorId:** `Guid` (FK → User, automatisch = angemeldeter Benutzer)
+- **CreatedAt:** `DateTimeOffset` (Systemgesteuert, automatisch)
+- **AssignedUserId:** `Guid?` (Nullable, Referenz zum bearbeitenden Nutzer)
+- **AssignedAt:** `DateTimeOffset?` (Automatisch bei Zuweisung gesetzt)
+- **ClosedByUserId:** `Guid?` (Wer hat geschlossen? F3.4)
+- **ClosedAt:** `DateTimeOffset?` (Wann geschlossen? F3.4)
+- **Status:** Offen / Geschlossen (F3.4)
+
+## Enterprise-Eigenschaften (Phase 2–5, Post-MVP)
+
+Die folgenden Properties werden erst nach der IHK-Prüfung implementiert:
+
+- **Sha1Hash:** `string` (Globale Identifikation)
+- **State / WorkflowStateId:** `Guid` FK (Kanban-Status: ToDo, InProgress,
+  Review, Done)
+- **Priority:** `TicketPriority` Enum (`Low`, `Medium`, `High`, `Blocker`)
+- **Complexity / Difficulty (Chillischoten 🌶️):** `byte` (1 bis 5)
+- **GeoIpTimestamp:** `string` (Audit: IP/Geo + Zeitstempel)
+- **StartDate:** `DateTimeOffset?` (Geplanter Beginn)
+- **Deadline:** `DateTimeOffset?` (Abgabetermin)
+- **EstimatedHours:** `decimal?` (Geschätzter Aufwand)
+- **Time Tracking:** Collection von `TimeLog` Objekten
+- **SLA Policy:** Über Priorität verknüpft
+- **Tags & Labels:** Collection von `Tag` (n:m)
+- **Dateianhänge:** Collection von `FileAsset`
+- **Hierarchy:** `ParentTicketId` + `SubTickets` Collection
 
 ## Domain Logic & Encapsulation
 

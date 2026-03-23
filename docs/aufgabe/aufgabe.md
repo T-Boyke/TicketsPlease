@@ -2,8 +2,8 @@
 
 ## Feature #1: Web-Anwendung
 
-- [ ] 1.1 - ASP.NET Core-Anwendung
-- [ ] 1.2 - Datenbank-Anbindung
+- [x] 1.1 - ASP.NET Core-Anwendung
+- [x] 1.2 - Datenbank-Anbindung
 - [ ] 1.3 - Authentifizierung/Autorisierung
 
 ## Feature #2: Admin-Bereich
