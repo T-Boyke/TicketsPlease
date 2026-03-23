@@ -123,7 +123,14 @@ public class AppDbContext : DbContext
 
     foreach (var type in entityTypes)
     {
-      if (this.Database.ProviderName != "Microsoft.EntityFrameworkCore.Sqlite")
+      if (this.Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
+      {
+        // SQLite does not support IsRowVersion() / TIMESTAMP columns with automatic increment.
+        // We must override the [Timestamp] attribute from BaseEntity by explicitly setting ValueGeneratedNever()
+        // and disabling the concurrency token behavior for the test provider to avoid "NOT NULL" failures.
+        modelBuilder.Entity(type).Property("RowVersion").ValueGeneratedNever();
+      }
+      else
       {
         modelBuilder.Entity(type).Property("RowVersion").IsRowVersion();
       }
