@@ -47,16 +47,11 @@ public static class DbInitialiser
       var faker = new Faker("de");
 
       // 1. Organizations
-      var orgs = new List<Organization>();
-      for (int i = 0; i < 3; i++)
+      var orgs = Enumerable.Range(0, 3).Select(_ => new Organization
       {
-        var org = new Organization
-        {
-          Name = faker.Company.CompanyName(),
-          SubscriptionLevel = faker.PickRandom("Trial", "Basic", "Enterprise"),
-        };
-        orgs.Add(org);
-      }
+        Name = faker.Company.CompanyName(),
+        SubscriptionLevel = faker.PickRandom("Trial", "Basic", "Enterprise"),
+      }).ToList();
 
       await context.Organizations.AddRangeAsync(orgs).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
@@ -181,17 +176,14 @@ public static class DbInitialiser
       {
         var membersCount = faker.Random.Int(2, 5);
         var teamUsers = faker.PickRandom(users, membersCount).ToList();
-        foreach (var user in teamUsers)
+        var members = teamUsers.Select(user => new TeamMember
         {
-          var member = new TeamMember
-          {
-            TeamId = team.Id,
-            UserId = user.Id,
-            IsTeamLead = user.Id == team.CreatedByUserId,
-            TenantId = team.TenantId,
-          };
-          await context.TeamMembers.AddAsync(member).ConfigureAwait(false);
-        }
+          TeamId = team.Id,
+          UserId = user.Id,
+          IsTeamLead = user.Id == team.CreatedByUserId,
+          TenantId = team.TenantId,
+        }).ToList();
+        await context.TeamMembers.AddRangeAsync(members).ConfigureAwait(false);
       }
 
       await context.SaveChangesAsync().ConfigureAwait(false);
@@ -211,7 +203,7 @@ public static class DbInitialiser
         ticket.SetPriority(faker.PickRandom(priorities).Id);
         ticket.SetDifficulty(faker.Random.Int(1, 5));
         ticket.SetTenantId(faker.PickRandom(orgs).Id);
-        
+
         tickets.Add(ticket);
       }
 

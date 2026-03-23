@@ -140,7 +140,7 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
 
       if (typeof(BaseEntity).IsAssignableFrom(type))
       {
-          builder.Entity(type).HasQueryFilter(ConvertFilterExpression(type));
+        builder.Entity(type).HasQueryFilter(ConvertFilterExpression(type));
       }
     }
 
@@ -161,20 +161,20 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     // --- Projects & Workflows ---
     builder.Entity<Project>(entity =>
     {
-        entity.HasKey(e => e.Id);
-        entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
-        entity.HasOne(e => e.Workflow).WithMany(w => w.Projects).HasForeignKey(e => e.WorkflowId).OnDelete(DeleteBehavior.Restrict);
+      entity.HasKey(e => e.Id);
+      entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
+      entity.HasOne(e => e.Workflow).WithMany(w => w.Projects).HasForeignKey(e => e.WorkflowId).OnDelete(DeleteBehavior.Restrict);
     });
 
     builder.Entity<Workflow>(entity =>
     {
-        entity.HasKey(e => e.Id);
-        entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+      entity.HasKey(e => e.Id);
+      entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
     });
 
     builder.Entity<WorkflowState>(entity =>
     {
-        entity.HasOne(e => e.Workflow).WithMany(w => w.States).HasForeignKey(e => e.WorkflowId).OnDelete(DeleteBehavior.Cascade);
+      entity.HasOne(e => e.Workflow).WithMany(w => w.States).HasForeignKey(e => e.WorkflowId).OnDelete(DeleteBehavior.Cascade);
     });
 
     // --- Ticket Core ---
