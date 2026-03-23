@@ -17,6 +17,7 @@ Dieses Projekt nutzt
 
 ### Added
 
+- **User Stories:** Zentrale `aufgabe.md` mit allen 9 Features und Akzeptanzkriterien für das MVP erstellt.
 - **Layer-Specific READMEs:** 5 neue README-Dateien im `src`-Verzeichnis mit
   spezifischen Arbeitsanweisungen für Domain, Application, Infrastructure etc.
 - **Git Layer-Branching:** Einführung einer Schicht-basierten
