@@ -11,9 +11,9 @@
 *.nupkg
 
 ## [Visual Studio]
-!.vs/
-# Keep shared VS settings
+.vs/
 !.vsconfig
+# Keep shared VS settings if any
 
 ## [JetBrains Rider]
 .idea/**
@@ -47,6 +47,7 @@ yarn-debug.log*
 yarn-error.log*
 
 ## [TicketsPlease Specific]
+src/TicketsPlease.Web/wwwroot/lib/
 src/TicketsPlease.Web/wwwroot/css/app.css
 src/TicketsPlease.Web/Tailwind/tailwind-cli/
 tests/TicketsPlease.E2ETests/bin/
