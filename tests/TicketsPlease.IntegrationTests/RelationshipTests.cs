@@ -10,6 +10,7 @@ using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using TicketsPlease.Domain.Entities;
+using TicketsPlease.Domain.Enums;
 using TicketsPlease.Infrastructure.Persistence;
 using Xunit;
 
@@ -55,7 +56,7 @@ public class RelationshipTests : IntegrationTestBase
     db.Users.Add(user);
     await db.SaveChangesAsync();
     
-    var ticket = new Ticket("Beziehungs-Test", project.Id, user.Id, workflowStateId, "127.0.0.1");
+    var ticket = new Ticket("Beziehungs-Test", TicketType.Task, project.Id, user.Id, workflowStateId, "127.0.0.1");
     ticket.UpdateDescription("Testet die FK-Integrität", "Testet die FK-Integrität");
     ticket.SetPriority(priorityId);
     ticket.AssignUser(user.Id);
@@ -113,7 +114,7 @@ public class RelationshipTests : IntegrationTestBase
     db.Users.Add(user);
     await db.SaveChangesAsync();
 
-    var ticket = new Ticket("Restrict-Test", project.Id, user.Id, workflowStateId, "127.0.0.1");
+    var ticket = new Ticket("Restrict-Test", TicketType.Task, project.Id, user.Id, workflowStateId, "127.0.0.1");
     ticket.AssignUser(user.Id);
     ticket.SetPriority(priorityId);
     ticket.SetTenantId(project.TenantId);

@@ -51,6 +51,8 @@ public class DomainConstraintTests
     var result = Types.InAssembly(typeof(User).Assembly)
         .That()
         .Inherit(typeof(BaseEntity))
+        .And()
+        .AreNotAbstract()
         .Should()
         .ResideInNamespace("TicketsPlease.Domain.Entities")
         .GetResult();

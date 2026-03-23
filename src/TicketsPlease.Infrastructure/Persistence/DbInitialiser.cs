@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using TicketsPlease.Domain.Entities;
+using TicketsPlease.Domain.Enums;
 
 /// <summary>
 /// Bietet Methoden zur Initialisierung und zum Seeding der Datenbank mit synthetischen Testdaten.
@@ -204,7 +205,7 @@ public static class DbInitialiser
         var workflowStateId = faker.PickRandom(workflowStates).Id;
         var geoIp = faker.Internet.Ip();
 
-        var ticket = new Ticket(faker.Commerce.ProductName(), projectId, creatorId, workflowStateId, geoIp);
+        var ticket = new Ticket(faker.Commerce.ProductName(), faker.PickRandom<TicketType>(), projectId, creatorId, workflowStateId, geoIp);
         ticket.UpdateDescription(faker.Lorem.Paragraphs(1), $"# {faker.Commerce.ProductName()}\n\n{faker.Lorem.Paragraphs(2)}");
         ticket.AssignUser(faker.Random.Bool() ? faker.PickRandom(users).Id : null);
         ticket.SetPriority(faker.PickRandom(priorities).Id);
