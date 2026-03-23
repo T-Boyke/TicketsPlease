@@ -392,7 +392,9 @@ public class Ticket : BaseAuditableEntity
   {
     // Echter SHA1 Hash für den Domain Hash (40 Zeichen Hex)
     var raw = $"{this.ProjectId}-{this.CreatorId}-{this.CreatedAt.Ticks}-{Guid.NewGuid()}";
+#pragma warning disable CA5350 // Do Not Use Weak Cryptographic Algorithms
     var hashBytes = System.Security.Cryptography.SHA1.HashData(System.Text.Encoding.UTF8.GetBytes(raw));
+#pragma warning restore CA5350 // Do Not Use Weak Cryptographic Algorithms
     return Convert.ToHexString(hashBytes).ToUpperInvariant();
   }
 }

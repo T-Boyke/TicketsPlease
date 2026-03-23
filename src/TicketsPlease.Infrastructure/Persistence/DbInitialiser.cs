@@ -124,7 +124,7 @@ public static class DbInitialiser
           FirstName = faker.Person.FirstName,
           LastName = faker.Person.LastName,
           Bio = faker.Lorem.Sentence(),
-          AvatarUrl = faker.Internet.Avatar(),
+          AvatarUrl = new Uri(faker.Internet.Avatar()),
           TenantId = user.TenantId,
         };
         await context.UserProfiles.AddAsync(profile).ConfigureAwait(false);
