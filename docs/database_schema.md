@@ -96,6 +96,10 @@ erDiagram
         string Sha1Hash "Unique Identifier / Copy-Ref"
         string Title
         string DescriptionMarkdown
+        TicketType Type "Task, Bug, Feature, Epic"
+        TicketSize Size "XS, S, M, L, XL"
+        int? EstimatePoints
+        Guid? ParentTicketId FK "Hierarchical Parent"
         Guid PriorityId FK
         int ChilliesDifficulty "1-5 🌶️"
         string GeoIpTimestamp "Audit Trail"
@@ -106,6 +110,13 @@ erDiagram
         datetime CreatedAt
         datetime UpdatedAt
         byte RowVersion "Optimistic Concurrency (Timestamp)"
+    }
+
+    TICKET_LINK {
+        Guid Id PK
+        Guid SourceTicketId FK
+        Guid TargetTicketId FK
+        TicketLinkType LinkType "Blocks, RelatesTo, Duplicates"
     }
 
     TICKET_ASSIGNMENT {
@@ -261,7 +272,9 @@ erDiagram
     USER ||--o{ TICKET : creates
     WORKFLOW_STATE ||--o{ TICKET : groups
     TICKET_PRIORITY ||--o{ TICKET : categorizes
-    TICKET ||--o{ SUBTICKET : contains
+    TICKET ||--o{ SUBTICKET : contains_checklist_items
+    TICKET ||--o{ TICKET : parent_of (Epic/Task Hierarchy)
+    TICKET ||--o{ TICKET_LINK : blocks / blocked_by
 
     %% Assignments (3NF resolution)
     TICKET ||--o{ TICKET_ASSIGNMENT : has
@@ -335,6 +348,10 @@ erDiagram
 |                   | Sha1Hash            | string   | Unique     | Identifier für Referenzen         |
 |                   | Title               | string   |            | Kurzer Betreff                    |
 |                   | DescriptionMarkdown | string   |            | Ausführliche Beschreibung (MD)    |
+|                   | Type                | Enum     |            | Task, Bug, Feature, Epic          |
+|                   | Size                | Enum     |            | XS, S, M, L, XL                   |
+|                   | EstimatePoints      | int?     |            | Geschätzte Story Points           |
+|                   | ParentTicketId      | Guid?    | FK         | Verweis auf das Eltern-Ticket     |
 |                   | PriorityId          | Guid     | FK         | Verweis auf TICKET_PRIORITY.Id    |
 |                   | ChilliesDifficulty  | int      |            | Schwierigkeit (1-5 🌶️)            |
 |                   | GeoIpTimestamp      | string   |            | Audit-Information (Standort/Zeit) |
@@ -345,6 +362,10 @@ erDiagram
 |                   | CreatedAt           | datetime |            | Erstellungszeitraum               |
 |                   | UpdatedAt           | datetime |            | Letzte Änderung                   |
 |                   | RowVersion          | byte[]   | Timestamp  | Optimistic Concurrency Token      |
+| **TICKET_LINK**   | Id                  | Guid     | PK         | Eindeutige Link ID                |
+|                   | SourceTicketId      | Guid     | FK         | Quell-Ticket                      |
+|                   | TargetTicketId      | Guid     | FK         | Ziel-Ticket                       |
+|                   | LinkType            | Enum     |            | Blocks, RelatesTo, Duplicates     |
 | **MESSAGE**       | Id                  | Guid     | PK         | Eindeutige Nachrichten ID         |
 |                   | SenderUserId        | Guid     | FK         | Verweis auf USER.Id               |
 |                   | TicketId            | Guid     | FK (Null)  | Kontext: Ticket-Kommentar         |
@@ -475,9 +496,10 @@ halten (sowie DSGVO-Löschkonzepte zu vereinfachen), wurde die gigantische
 #### 4. Ticket Management Context
 
 - **Ticket:** Das Kern-Aggregat. Unterstützt nun ausdrücklich
-  `DescriptionMarkdown`. Jedes Ticket wird primär durch einen `Sha1Hash`
+  `DescriptionMarkdown`, Hierarchien (Parent/Child) und verschiedene Ticket-Typen (Epics, Bugs, etc.). Jedes Ticket wird primär durch einen `Sha1Hash`
   referenziert, der ein einfaches Kopieren und systemweites Tracking erlaubt.
   Außerdem ist für die Revisionssicherheit ein `GeoIpTimestamp` verankert.
+- **TicketLink:** Ermöglicht die Modellierung von Abhängigkeiten (z.B. "Blocked by") zwischen Tickets, was für professionelle Kanban-Boards unerlässlich ist.
 - **TicketPriority:** Prioritäten wurden aus dem Enum-Status in eine eigene
   Entität ausgelagert (3NF), um Level und Farben dynamisch durch Admins
   definierbar zu machen.
@@ -538,14 +560,18 @@ und müssen für den jeweiligen Feature-Sprint ausgebaut werden.
 ### Aktuelle Ticket Entity
 
 ```csharp
-public class Ticket : BaseEntity
+public class Ticket : BaseAuditableEntity
 {
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public string Status { get; set; }
-    public int Priority { get; set; }
-    public Guid? AssignedUserId { get; set; }
-    public User? AssignedUser { get; set; }
+    public string Title { get; private set; }
+    public string DescriptionMarkdown { get; private set; }
+    public TicketType Type { get; private set; }
+    public TicketSize Size { get; private set; }
+    public int? EstimatePoints { get; private set; }
+    public Guid? ParentTicketId { get; private set; }
+    public Ticket? ParentTicket { get; private set; }
+    public ICollection<Ticket> SubTickets { get; private set; }
+    public ICollection<TicketLink> BlockedBy { get; private set; }
+    public ICollection<TicketLink> Blocking { get; private set; }
 }
 ```
 

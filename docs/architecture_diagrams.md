@@ -101,7 +101,7 @@ sequenceDiagram
     Mediator->>Handler: Handle(CreateTicketCommand)
 
     note over Handler,Domain: Business Logic Execution
-    Handler->>Domain: new Ticket(Title, Desc)
+    Handler->>Domain: new Ticket(Title, Type, ProjectId, CreatorId, StateId, GeoIp)
     Domain-->>Handler: Ticket Instance
 
     note over Handler,Repo: Persistence
