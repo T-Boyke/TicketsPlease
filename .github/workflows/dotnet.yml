@@ -21,15 +21,15 @@ jobs:
       with:
         dotnet-version: 10.0.x
     - name: Restore dependencies
-      run: dotnet restore src/TicketsPlease.slnx
+      run: dotnet restore TicketsPlease.slnx
     - name: Restore tools
       run: dotnet tool restore
     - name: Verify Formatting
-      run: dotnet format src/TicketsPlease.slnx --verify-no-changes
+      run: dotnet format TicketsPlease.slnx --verify-no-changes
     - name: Build
-      run: dotnet build src/TicketsPlease.slnx --no-restore --configuration Release
+      run: dotnet build TicketsPlease.slnx --no-restore --configuration Release
     - name: Test
-      run: dotnet test src/TicketsPlease.slnx --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+      run: dotnet test TicketsPlease.slnx --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
 
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
