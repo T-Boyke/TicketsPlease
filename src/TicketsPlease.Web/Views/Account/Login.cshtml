@@ -1,0 +1,99 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@using TicketsPlease.Web.Models.Account
+@inject IViewLocalizer L
+@model LoginViewModel
+@{
+    ViewData["Title"] = L["Login"];
+}
+
+<div class="min-h-[80vh] flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-slate-50">
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="flex justify-center">
+            <i class="fa-solid fa-ticket-simple text-brand-primary text-5xl fa-bounce" style="--fa-animation-iteration-count: 2;"></i>
+        </div>
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-slate-900">
+            @L["Sign in to your account"]
+        </h2>
+        <p class="mt-2 text-center text-sm text-slate-600">
+            @L["Or"]
+            <a asp-action="Register" class="font-medium text-brand-primary hover:text-brand-secondary transition-colors">
+                @L["create a new account"]
+            </a>
+        </p>
+    </div>
+
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="bg-white py-8 px-4 shadow-2xl shadow-slate-200 sm:rounded-2xl sm:px-10 border border-slate-100">
+            <form class="space-y-6" asp-action="Login" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm font-medium bg-red-50 p-3 rounded-lg border border-red-100 mb-4"></div>
+                
+                <div>
+                    <label asp-for="Email" for="Email" class="block text-sm font-semibold text-slate-700">@L["Email address"]</label>
+                    <div class="mt-1 relative group">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-envelope text-slate-400 group-focus-within:text-brand-primary transition-colors"></i>
+                        </div>
+                        <input asp-for="Email" id="Email" class="appearance-none block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm" placeholder="mark@enterprise.com" />
+                        <span asp-validation-for="Email" class="text-red-500 text-xs mt-1"></span>
+                    </div>
+                </div>
+
+                <div>
+                    <label asp-for="Password" for="Password" class="block text-sm font-semibold text-slate-700">@L["Password"]</label>
+                    <div class="mt-1 relative group">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-lock text-slate-400 group-focus-within:text-brand-primary transition-colors"></i>
+                        </div>
+                        <input asp-for="Password" id="Password" class="appearance-none block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm" />
+                        <span asp-validation-for="Password" class="text-red-500 text-xs mt-1"></span>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input asp-for="RememberMe" id="RememberMe" class="h-4 w-4 text-brand-primary focus:ring-brand-primary border-slate-300 rounded-md transition-all" />
+                        <label asp-for="RememberMe" for="RememberMe" class="ml-2 block text-sm text-slate-700">@L["Remember me"]</label>
+                    </div>
+
+                    <div class="text-sm">
+                        <a href="#" class="font-medium text-brand-primary hover:text-brand-secondary">@L["Forgot your password?"]</a>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg text-sm font-bold text-white bg-brand-primary hover:bg-brand-secondary hover:shadow-brand-primary/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary transition-all duration-200">
+                        <i class="fa-solid fa-right-to-bracket mr-2"></i>
+                        @L["Sign In"]
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-6">
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-slate-200"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-slate-500 font-medium">@L["Or continue with"]</span>
+                    </div>
+                </div>
+
+                <div class="mt-6 grid grid-cols-2 gap-3">
+                    <div>
+                        <a href="#" class="w-full inline-flex justify-center py-2.5 px-4 border border-slate-300 rounded-xl shadow-sm bg-white text-sm font-medium text-slate-500 hover:bg-slate-50 transition-colors">
+                            <i class="fa-brands fa-github text-xl"></i>
+                            <span class="sr-only">@L["Sign in with GitHub"]</span>
+                        </a>
+                    </div>
+
+                    <div>
+                        <a href="#" class="w-full inline-flex justify-center py-2.5 px-4 border border-slate-300 rounded-xl shadow-sm bg-white text-sm font-medium text-slate-500 hover:bg-slate-50 transition-colors">
+                            <i class="fa-brands fa-microsoft text-xl"></i>
+                            <span class="sr-only">@L["Sign in with Microsoft"]</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
