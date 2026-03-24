@@ -1,111 +1,150 @@
-﻿@using TicketsPlease.Application.Common.Interfaces
+@using Microsoft.AspNetCore.Mvc.Localization
+@using TicketsPlease.Application.Common.Interfaces
 @inject ICorporateSkinProvider SkinProvider
+@inject IViewLocalizer L
 @{
-    ViewData["Title"] = "Willkommen";
+    ViewData["Title"] = L["Welcome"];
 }
 
-<div class="relative overflow-hidden bg-white">
-    @* Decorative background elements *@
-    <div class="hidden sm:absolute sm:inset-y-0 sm:h-full sm:w-full sm:block" aria-hidden="true">
-        <div class="relative h-full mx-auto max-w-7xl">
-            <svg class="absolute right-full translate-y-1/4 translate-x-1/4 lg:translate-x-1/2" width="404" height="784" fill="none" viewBox="0 0 404 784">
-                <defs>
-                    <pattern id="f210dbf6-a58d-4871-961e-36d5016a0f49" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                        <rect x="0" y="0" width="4" height="4" class="text-slate-200" fill="currentColor" />
-                    </pattern>
-                </defs>
-                <rect width="404" height="784" fill="url(#f210dbf6-a58d-4871-961e-36d5016a0f49)" />
-            </svg>
-        </div>
+@* Hero Section with Glassmorphism *@
+<section class="relative bg-slate-50 overflow-hidden py-24 sm:py-32" aria-labelledby="hero-heading">
+    <div class="absolute inset-0 z-0">
+        <div class="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-brand-primary/10 ring-1 ring-brand-primary/5 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
+        <div class="absolute -top-24 right-0 -z-10 w-96 h-96 bg-brand-primary/10 rounded-full blur-3xl"></div>
     </div>
 
-    <div class="relative pt-6 pb-16 sm:pb-24">
-        <main class="px-4 mx-auto mt-16 max-w-7xl sm:mt-24">
-            <div class="text-center">
-                <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl md:text-6xl">
-                    <span class="block xl:inline">Kollaboratives Ticketsystem</span>
-                    <span class="block text-brand-primary xl:inline">für Enterprise Teams</span>
-                </h1>
-                <p class="max-w-md mx-auto mt-3 text-base text-slate-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-                    Verwalten Sie Ihre Projekte mit höchster Präzision. TicketsPlease kombiniert moderne Clean Architecture mit einer intuitiven Kanban-Erfahrung – sicher, skalierbar und mandantenfähig.
-                </p>
-                <div class="max-w-md mx-auto mt-5 sm:flex sm:justify-center md:mt-8">
-                    <div class="rounded-md shadow">
-                        <a href="#" class="flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white border border-transparent rounded-md bg-brand-primary hover:bg-brand-secondary md:py-4 md:text-lg md:px-10">
-                            Starten Sie jetzt
-                        </a>
-                    </div>
-                    <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-                        <a href="#" class="flex items-center justify-center w-full px-8 py-3 text-base font-medium border border-transparent rounded-md text-brand-primary bg-white hover:bg-slate-50 md:py-4 md:text-lg md:px-10">
-                            Live Demo ansehen
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-</div>
-
-@* Feature Section *@
-<div class="py-12 bg-slate-50">
-    <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="lg:text-center">
-            <h2 class="text-base font-semibold tracking-wide uppercase text-brand-primary">Features</h2>
-            <p class="mt-2 text-3xl font-extrabold leading-8 tracking-tight text-slate-900 sm:text-4xl">
-                Alles was Sie für effizientes Projektmanagement benötigen
+    <div class="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl lg:max-w-4xl text-center">
+            <h1 id="hero-heading" class="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-6xl animate-in slide-in-from-bottom-4 duration-700">
+                <span class="block">@L["Collaborative Ticketing"]</span>
+                <span class="block text-brand-primary mt-2">@L["For Enterprise Squads"]</span>
+            </h1>
+            <p class="mt-8 text-lg leading-8 text-slate-600 sm:text-xl animate-in slide-in-from-bottom-6 duration-1000">
+                @L["Manage your projects with surgical precision. TicketsPlease combines Clean Architecture with an intuitive Kanban experience - secure, scalable, and multi-tenant."]
             </p>
+            <div class="mt-10 flex items-center justify-center gap-x-6 animate-in fade-in duration-1000 delay-500">
+                <a asp-controller="Account" asp-action="Register" class="rounded-full bg-brand-primary px-8 py-4 text-lg font-bold text-white shadow-xl shadow-brand-primary/40 hover:bg-brand-secondary hover:scale-105 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary">
+                    <i class="fa-solid fa-rocket mr-2 fa-bounce"></i>
+                    @L["Start Your Journey"]
+                </a>
+                <a href="#features" class="text-sm font-bold leading-6 text-slate-900 flex items-center group">
+                    @L["View Features"] 
+                    <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
         </div>
+    </div>
+</section>
 
-        <div class="mt-10">
-            <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
-                <div class="relative">
-                    <dt>
-                        <div class="absolute flex items-center justify-center w-12 h-12 text-white rounded-md bg-brand-primary">
-                            <i class="fa-solid fa-layer-group"></i>
+@* Feature Section with Beautiful Cards *@
+<section id="features" class="py-24 bg-white" aria-labelledby="features-heading">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl lg:text-center">
+            <h2 id="features-heading" class="text-base font-semibold leading-7 text-brand-primary uppercase tracking-widest">@L["The Arsenal"]</h2>
+            <p class="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">@L["Everything you need for efficient management"]</p>
+        </div>
+        
+        <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+            <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-4">
+                <div class="flex flex-col group">
+                    <dt class="flex items-center gap-x-3 text-lg font-bold leading-7 text-slate-900">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
+                            <i class="fa-solid fa-layer-group text-xl fa-beat-hover"></i>
                         </div>
-                        <p class="ml-16 text-lg font-medium leading-6 text-slate-900">Clean Architecture</p>
+                        @L["Clean Architecture"]
                     </dt>
-                    <dd class="mt-2 ml-16 text-base text-slate-500">
-                        Zukunftssicher durch strikte Trennung von Geschäftslogik und Infrastruktur.
+                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-slate-600">
+                        <p class="flex-auto">@L["Future-proof through strict separation of business logic and infrastructure. Built for eternity."]</p>
+                    </dd>
+                </div>
+                
+                <div class="flex flex-col group">
+                    <dt class="flex items-center gap-x-3 text-lg font-bold leading-7 text-slate-900">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
+                            <i class="fa-solid fa-shield-halved text-xl fa-fade-hover"></i>
+                        </div>
+                        @L["Enterprise Security"]
+                    </dt>
+                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-slate-600">
+                        <p class="flex-auto">@L["Data integrity through concurrency checks and EF Core resilience. Your data is a fortress."]</p>
                     </dd>
                 </div>
 
-                <div class="relative">
-                    <dt>
-                        <div class="absolute flex items-center justify-center w-12 h-12 text-white rounded-md bg-brand-primary">
-                            <i class="fa-solid fa-shield-halved"></i>
+                <div class="flex flex-col group">
+                    <dt class="flex items-center gap-x-3 text-lg font-bold leading-7 text-slate-900">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
+                            <i class="fa-solid fa-gauge-high text-xl fa-bounce-hover"></i>
                         </div>
-                        <p class="ml-16 text-lg font-medium leading-6 text-slate-900">Enterprise Security</p>
+                        @L["Performance First"]
                     </dt>
-                    <dd class="mt-2 ml-16 text-base text-slate-500">
-                        Datenintegrität durch Concurrency Checks und EF Core Resilience.
+                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-slate-600">
+                        <p class="flex-auto">@L["Optimized queries and native TailwindCSS 4.x ensure lightning-fast interaction at any scale."]</p>
                     </dd>
                 </div>
 
-                <div class="relative">
-                    <dt>
-                        <div class="absolute flex items-center justify-center w-12 h-12 text-white rounded-md bg-brand-primary">
-                            <i class="fa-solid fa-palette"></i>
+                <div class="flex flex-col group">
+                    <dt class="flex items-center gap-x-3 text-lg font-bold leading-7 text-slate-900">
+                        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
+                            <i class="fa-solid fa-users-viewfinder text-xl fa-flip-hover"></i>
                         </div>
-                        <p class="ml-16 text-lg font-medium leading-6 text-slate-900">Custom Branding</p>
+                        @L["Multi-Tenancy"]
                     </dt>
-                    <dd class="mt-2 ml-16 text-base text-slate-500">
-                        Individuelles Theming pro Mandant über den Corporate Skin Provider.
-                    </dd>
-                </div>
-
-                <div class="relative">
-                    <dt>
-                        <div class="absolute flex items-center justify-center w-12 h-12 text-white rounded-md bg-brand-primary">
-                            <i class="fa-solid fa-gauge-high"></i>
-                        </div>
-                        <p class="ml-16 text-lg font-medium leading-6 text-slate-900">Echtzeit Collaboration</p>
-                    </dt>
-                    <dd class="mt-2 ml-16 text-base text-slate-500">
-                        Sehen Sie Änderungen sofort – ohne die Seite neu laden zu müssen.
+                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-slate-600">
+                        <p class="flex-auto">@L["Securely isolate data between departments or companies within a single application instance."]</p>
                     </dd>
                 </div>
             </dl>
         </div>
     </div>
-</div>
+</section>
+
+@* Testimonials with Tilt Effect *@
+<section class="py-24 bg-slate-900 text-white overflow-hidden" aria-labelledby="testimonials-heading">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 relative">
+        <h2 id="testimonials-heading" class="sr-only">@L["Testimonials"]</h2>
+        <div class="mx-auto max-w-2xl text-center">
+            <h3 class="text-3xl font-extrabold sm:text-4xl">@L["Trusted by Developers"]</h3>
+        </div>
+        
+        <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+            <figure class="rounded-2xl bg-white/5 p-8 ring-1 ring-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
+                <blockquote class="text-lg leading-7">
+                    <p>“@L["The Clean Architecture implementation is flawless. It's the first tool where I actually feel like skipping the onboarding because it's so intuitive."]”</p>
+                </blockquote>
+                <figcaption class="mt-6 flex items-center gap-x-4">
+                    <div class="h-10 w-10 flex-none rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary font-bold">TB</div>
+                    <div>
+                        <div class="font-semibold text-white">T-Boyke</div>
+                        <div class="text-slate-400">Lead Architect</div>
+                    </div>
+                </figcaption>
+            </figure>
+
+            <figure class="rounded-2xl bg-white/5 p-8 ring-1 ring-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
+                <blockquote class="text-lg leading-7">
+                    <p>“@L["Identity integration and RBAC work right out of the box. The security standards are exactly what enterprise customers expect."]”</p>
+                </blockquote>
+                <figcaption class="mt-6 flex items-center gap-x-4">
+                    <div class="h-10 w-10 flex-none rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary font-bold">JD</div>
+                    <div>
+                        <div class="font-semibold text-white">Jane Doe</div>
+                        <div class="text-slate-400">Security Specialist</div>
+                    </div>
+                </figcaption>
+            </figure>
+
+            <figure class="rounded-2xl bg-white/5 p-8 ring-1 ring-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
+                <blockquote class="text-lg leading-7">
+                    <p>“@L["The Kanban experience is butter-smooth. Tailwind 4 combined with Razor Partials makes UI customization a breeze."]”</p>
+                </blockquote>
+                <figcaption class="mt-6 flex items-center gap-x-4">
+                    <div class="h-10 w-10 flex-none rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary font-bold">MS</div>
+                    <div>
+                        <div class="font-semibold text-white">Max Smith</div>
+                        <div class="text-slate-400">Frontend Dev</div>
+                    </div>
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+</section>

@@ -1,43 +1,133 @@
 @using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Identity
 @using TicketsPlease.Application.Common.Interfaces
+@using TicketsPlease.Domain.Entities
 @inject ICorporateSkinProvider SkinProvider
 @inject IViewLocalizer L
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
-<header class="bg-white border-b border-slate-200 sticky top-0 z-50">
-    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+@{
+    var user = await UserManager.GetUserAsync(User);
+    var initials = user?.UserName?.Substring(0, 2).ToUpper() ?? "??";
+}
+
+<header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main Navigation">
         <div class="flex justify-between h-16">
             <div class="flex">
                 @* Logo Section *@
                 <div class="flex-shrink-0 flex items-center">
-                    <a asp-controller="Home" asp-action="Index" class="text-2xl font-bold text-brand-primary">
-                        <i class="fa-solid fa-ticket-simple mr-2"></i>
-                        @SkinProvider.GetLogoName()
+                    <a asp-controller="Home" asp-action="Index" class="text-2xl font-bold text-brand-primary hover:scale-105 transition-transform duration-200" aria-label="TicketsPlease Home">
+                        <i class="fa-solid fa-ticket-simple mr-2 fa-bounce" style="--fa-animation-iteration-count: 2;"></i>
+                        <span class="hidden md:inline">@SkinProvider.GetLogoName()</span>
                     </a>
                 </div>
 
                 @* Desktop Navigation *@
                 <div class="hidden sm:ml-8 sm:flex sm:space-x-8">
-                    <a asp-controller="Home" asp-action="Index"
-                       class="inline-flex items-center px-1 pt-1 border-b-2 border-brand-primary text-sm font-medium text-slate-900">
-                        @L["Dashboard"]
-                    </a>
-                    <a asp-controller="Tickets" asp-action="Index"
-                       class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700">
-                        @L["Tickets"]
-                    </a>
-                    <a asp-controller="Teams" asp-action="Index"
-                       class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700">
-                        @L["Teams"]
-                    </a>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a asp-controller="Home" asp-action="Index"
+                           class="inline-flex items-center px-1 pt-1 border-b-2 border-brand-primary text-sm font-medium text-slate-900" aria-current="page">
+                            <i class="fa-solid fa-house-chimney mr-2 text-brand-primary"></i>
+                            @L["Dashboard"]
+                        </a>
+                        <a asp-controller="Tickets" asp-action="Index"
+                           class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700 transition-colors duration-200">
+                            <i class="fa-solid fa-ticket mr-2 text-slate-400"></i>
+                            @L["Tickets"]
+                        </a>
+                        <a asp-controller="Teams" asp-action="Index"
+                           class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700 transition-colors duration-200">
+                            <i class="fa-solid fa-users mr-2 text-slate-400"></i>
+                            @L["Teams"]
+                        </a>
+                    }
                 </div>
             </div>
 
             @* User Menu & Actions *@
             <div class="flex items-center space-x-4">
-                <button class="text-slate-500 hover:text-slate-700" aria-label="@L["Notifications"]">
-                    <i class="fa-solid fa-bell text-xl"></i>
-                </button>
-                <partial name="_Avatar" model='"JD"' view-data='@new ViewDataDictionary(ViewData) { { "SizeClass", "h-8 w-8" } }' />
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <button class="text-slate-500 hover:text-brand-primary transition-colors duration-200 relative p-2 rounded-full hover:bg-slate-100" aria-label="@L["Notifications"]">
+                        <i class="fa-solid fa-bell text-xl fa-shake-hover"></i>
+                        <span class="absolute top-1 right-1 block h-2.5 w-2.5 rounded-full bg-red-500 ring-4 ring-white"></span>
+                    </button>
+
+                    @* Profile Dropdown (Jump List) *@
+                    <div class="relative ml-3">
+                        <details class="group list-none">
+                            <summary class="flex items-center cursor-pointer focus:outline-none list-none" aria-haspopup="true" aria-expanded="false">
+                                <partial name="_Avatar" model='initials' view-data='@new ViewDataDictionary(ViewData) { { "SizeClass", "h-9 w-9" } }' />
+                                <i class="fa-solid fa-chevron-down ml-2 text-slate-400 text-xs group-open:rotate-180 transition-transform duration-200"></i>
+                            </summary>
+                            
+                            <div class="absolute right-0 mt-2 w-56 origin-top-right rounded-xl bg-white p-2 shadow-2xl ring-1 ring-slate-200 focus:outline-none z-50 animate-in fade-in zoom-in duration-200">
+                                <div class="px-3 py-2 border-b border-slate-100 mb-2">
+                                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">@L["Account"]</p>
+                                    <p class="text-sm font-bold text-slate-900 truncate">@(user?.UserName ?? "User")</p>
+                                </div>
+                                
+                                <a asp-controller="Account" asp-action="Profile" class="flex items-center px-3 py-2 text-sm text-slate-700 rounded-lg hover:bg-slate-50 hover:text-brand-primary transition-colors duration-150">
+                                    <i class="fa-solid fa-user-gear mr-3 text-slate-400 w-5"></i>
+                                    @L["Profile"]
+                                </a>
+
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <div class="mt-2 pt-2 border-t border-slate-100">
+                                        <p class="px-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">@L["Administration"]</p>
+                                        <a asp-controller="Project" asp-action="Index" class="flex items-center px-3 py-2 text-sm text-slate-700 rounded-lg hover:bg-slate-50 hover:text-brand-primary transition-colors duration-150">
+                                            <i class="fa-solid fa-diagram-project mr-3 text-slate-400 w-5"></i>
+                                            @L["Project Management"]
+                                        </a>
+                                        <a asp-controller="Admin" asp-action="Users" class="flex items-center px-3 py-2 text-sm text-slate-700 rounded-lg hover:bg-amber-50 hover:text-amber-600 transition-colors duration-150">
+                                            <i class="fa-solid fa-user-shield mr-3 text-amber-500/60 w-5"></i>
+                                            @L["User Management"]
+                                        </a>
+                                        <a asp-controller="Admin" asp-action="Settings" class="flex items-center px-3 py-2 text-sm text-slate-700 rounded-lg hover:bg-slate-50 hover:text-brand-primary transition-colors duration-150">
+                                            <i class="fa-solid fa-gears mr-3 text-slate-400 w-5"></i>
+                                            @L["Settings"]
+                                        </a>
+                                    </div>
+                                }
+
+                                @if (User.IsInRole("Admin") || User.IsInRole("Teamlead"))
+                                {
+                                    <div class="mt-2 pt-2 border-t border-slate-100">
+                                        <a asp-controller="Teams" asp-action="Management" class="flex items-center px-3 py-2 text-sm text-slate-700 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-150">
+                                            <i class="fa-solid fa-users-gear mr-3 text-indigo-500/60 w-5"></i>
+                                            @L["Team Management"]
+                                        </a>
+                                    </div>
+                                }
+
+                                <div class="mt-2 pt-2 border-t border-slate-100">
+                                    <form asp-controller="Account" asp-action="Logout" method="post" class="inline">
+                                        <button type="submit" class="w-full flex items-center px-3 py-2 text-sm text-red-600 rounded-lg hover:bg-red-50 transition-colors duration-150">
+                                            <i class="fa-solid fa-right-from-bracket mr-3 text-red-400 w-5"></i>
+                                            @L["Logout"]
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                }
+                else
+                {
+                    <div class="flex items-center space-x-3">
+                        <a asp-controller="Account" asp-action="Login" class="text-sm font-semibold text-slate-600 hover:text-brand-primary transition-colors">
+                            @L["Login"]
+                        </a>
+                        <a asp-controller="Account" asp-action="Register" class="inline-flex items-center justify-center px-4 py-2 text-sm font-bold text-white bg-brand-primary rounded-full hover:bg-brand-secondary hover:shadow-lg hover:shadow-brand-primary/30 transition-all duration-200">
+                            <i class="fa-solid fa-user-plus mr-2"></i>
+                            @L["Get Started"]
+                        </a>
+                    </div>
+                }
             </div>
         </div>
     </nav>

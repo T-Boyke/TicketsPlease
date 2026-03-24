@@ -1,5 +1,5 @@
-// <copyright file="HomeController.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// <copyright file="HomeController.cs" company="BitLC-NE-2025-2026">
+// Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
 namespace TicketsPlease.Web.Controllers;
@@ -27,6 +27,15 @@ internal sealed class HomeController : Controller
   /// </summary>
   /// <returns>Die Privacy-View.</returns>
   public IActionResult Privacy()
+  {
+    return this.View();
+  }
+
+  /// <summary>
+  /// Zeigt das Impressum an.
+  /// </summary>
+  /// <returns>Die Impressum-View.</returns>
+  public IActionResult Impressum()
   {
     return this.View();
   }
