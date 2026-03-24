@@ -1,0 +1,30 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer L
+@{
+    ViewData["Title"] = L["Imprint"];
+}
+
+<div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-extrabold text-slate-900 mb-6">@L["Imprint"]</h1>
+    
+    <div class="prose prose-slate lg:prose-lg max-w-none text-slate-600">
+        <h2 class="text-xl font-bold text-slate-800 mt-8 mb-4">@L["Information according to § 5 TMG"]</h2>
+        <p>
+            TicketsPlease Enterprise Systems<br />
+            Musterstraße 123<br />
+            12345 Musterstadt
+        </p>
+
+        <h2 class="text-xl font-bold text-slate-800 mt-8 mb-4">@L["Represented by"]</h2>
+        <p>T-Boyke</p>
+
+        <h2 class="text-xl font-bold text-slate-800 mt-8 mb-4">@L["Contact"]</h2>
+        <p>
+            @L["Phone"]: +49 (0) 123 456789<br />
+            @L["Email"]: info@ticketsplease.com
+        </p>
+
+        <h2 class="text-xl font-bold text-slate-800 mt-8 mb-4">@L["Value Added Tax ID"]</h2>
+        <p>@L["VAT ID number according to § 27 a Value Added Tax Act"]: DE 999 999 999</p>
+    </div>
+</div>

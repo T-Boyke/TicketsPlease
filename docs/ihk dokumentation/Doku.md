@@ -176,13 +176,13 @@ gantt
     "Entwurf abgeschlossen" :milestone, m2, after p2_5, 0d
 
     section Kern-Implementierung (F1-F9)
-    "F1 Identity & Middleware" :crit, p3_1, 30.03.2026, 2h
-    "F1 GitHub Actions" :crit, p3_2, after p3_1, 2h
-    "F2 Admin Management" :crit, p3_3, 31.03.2026, 4h
-    "F3 Ticket Core State" :crit, p3_4, 01.04.2026, 3h
-    "F3 UI Detail & Logic" :crit, p3_5, after p3_4, 3h
-    "F4 Dashboard Backend" :crit, p3_6, 02.04.2026, 2h
-    "F4 Dashboard Charts" :crit, p3_7, after p3_6, 2h
+    "F1 Identity & Middleware" :done, p3_1, 30.03.2026, 2h
+    "F1 GitHub Actions" :done, p3_2, after p3_1, 2h
+    "F2 Admin Management" :done, p3_3, 31.03.2026, 4h
+    "F3 Ticket Core State" :done, p3_4, 01.04.2026, 3h
+    "F3 UI Detail & Logic" :done, p3_5, after p3_4, 3h
+    "F4 Dashboard Backend" :done, p3_6, 02.04.2026, 2h
+    "F4 Dashboard Charts" :done, p3_7, after p3_6, 2h
     "F5 Comment Domain" :crit, p3_8, 03.04.2026, 2h
     "F5 Real-time Updates" :crit, p3_9, after p3_8, 1h
     "F6 Query Expression Trees" :crit, p3_10, 07.04.2026, 3h
