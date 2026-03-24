@@ -163,7 +163,7 @@ gantt
 
     section 2. Entwurf
     "ERD & Datenbank-Normalisierung" : 25.03.2026, 4h
-    "UI/UX Design: Mocks" : 26.03.2026, 3h
+    "UI/UX Design - Mocks" : 26.03.2026, 3h
     "CSS-Konzept & Theme-Definition" : 26.03.2026, 2h
     "Architecture Design" : 27.03.2026, 2h
     "API-Design & MediatR Pattern" : 27.03.2026, 3h
