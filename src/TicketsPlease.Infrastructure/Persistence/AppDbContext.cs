@@ -248,6 +248,36 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
       entity.HasKey(e => new { e.TicketId, e.UserId });
     });
 
+    // --- Teams & Members ---
+    builder.Entity<Team>(entity =>
+    {
+      entity.HasKey(e => e.Id);
+      entity.HasOne(e => e.CreatedByUser)
+            .WithMany()
+            .HasForeignKey(e => e.CreatedByUserId)
+            .OnDelete(DeleteBehavior.Restrict);
+    });
+
+    builder.Entity<TeamMember>(entity =>
+    {
+      entity.HasKey(e => e.Id);
+      entity.HasOne(e => e.Team)
+            .WithMany(t => t.Members)
+            .HasForeignKey(e => e.TeamId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+      entity.HasOne(e => e.User)
+            .WithMany()
+            .HasForeignKey(e => e.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+    });
+
+    builder.Entity<TimeLog>(entity =>
+    {
+      entity.HasKey(e => e.Id);
+      entity.Property(e => e.HoursLogged).HasPrecision(18, 2);
+    });
+
     // --- Workflow Transitions ---
     builder.Entity<WorkflowTransition>(entity =>
     {
@@ -291,14 +321,29 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
       entity.HasOne(e => e.Author).WithMany().HasForeignKey(e => e.AuthorId).OnDelete(DeleteBehavior.Restrict);
     });
 
-    this.SeedStaticData(builder);
+    SeedStaticData(builder);
   }
 
-  private void SeedStaticData(ModelBuilder builder)
+  /// <summary>
+  /// Konfiguriert zusätzliche Optionen wie die Resilience / Retry Strategie.
+  /// </summary>
+  /// <param name="optionsBuilder">Der Builder für die Kontext-Optionen.</param>
+  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+  {
+    ArgumentNullException.ThrowIfNull(optionsBuilder);
+
+    // Hinweis: Die eigentliche SQL Server Konfiguration erfolgt meist in Program.cs/Startup.cs.
+    // Falls hier konfiguriert wird, stellen wir sicher, dass RetryOnFailure aktiviert ist.
+    if (!optionsBuilder.IsConfigured)
+    {
+      // Placeholder für lokale Entwicklung oder Fallback
+    }
+  }
+
+  private static void SeedStaticData(ModelBuilder builder)
   {
     // Fixe IDs für stabiles Seeding und Referenzierung
     var adminRoleId = new Guid("32d733e1-4c7a-4c2d-9b51-1e9a7e6b7d21");
-    var ownerRoleId = new Guid("a9e1d8c1-5b7a-4c2d-9b51-1e9a7e6b7d22");
     var teamleadRoleId = new Guid("b8f2e9d2-6c8a-4d3e-ac62-2f0b8f7c8e33");
     var userRoleId = new Guid("c903f0e3-7d9b-4e4f-bd73-3f1c908d9f44");
 
@@ -317,44 +362,24 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     builder.Entity<Role>().HasData(
       new Role { Id = adminRoleId, Name = "Admin", NormalizedName = "ADMIN", ConcurrencyStamp = "32d733e1-4c7a-4c2d-9b51-1e9a7e6b7d21", Description = "Full system access" },
       new Role { Id = teamleadRoleId, Name = "Teamlead", NormalizedName = "TEAMLEAD", ConcurrencyStamp = "b8f2e9d2-6c8a-4d3e-ac62-2f0b8f7c8e33", Description = "Team lead permissions" },
-      new Role { Id = userRoleId, Name = "User", NormalizedName = "USER", ConcurrencyStamp = "c903f0e3-7d9b-4e4f-bd73-3f1c908d9f44", Description = "Standard user access" }
-    );
+      new Role { Id = userRoleId, Name = "User", NormalizedName = "USER", ConcurrencyStamp = "c903f0e3-7d9b-4e4f-bd73-3f1c908d9f44", Description = "Standard user access" });
 
     // 2. Priorities
     builder.Entity<TicketPriority>().HasData(
       new TicketPriority { Id = lowPriorityId, Name = "Low", LevelWeight = 1, ColorHex = "#808080" },
       new TicketPriority { Id = mediumPriorityId, Name = "Medium", LevelWeight = 2, ColorHex = "#0000FF" },
       new TicketPriority { Id = highPriorityId, Name = "High", LevelWeight = 3, ColorHex = "#FFA500" },
-      new TicketPriority { Id = blockerPriorityId, Name = "Blocker", LevelWeight = 4, ColorHex = "#FF0000" }
-    );
+      new TicketPriority { Id = blockerPriorityId, Name = "Blocker", LevelWeight = 4, ColorHex = "#FF0000" });
 
     // 3. Workflow & States
     builder.Entity<Workflow>().HasData(
-      new Workflow { Id = workflowId, Name = "Standard Workflow" }
-    );
+      new Workflow { Id = workflowId, Name = "Standard Workflow" });
 
     builder.Entity<WorkflowState>().HasData(
       new WorkflowState { Id = todoStateId, Name = "Todo", OrderIndex = 0, ColorHex = "#D3D3D3", WorkflowId = workflowId },
       new WorkflowState { Id = inProgressStateId, Name = "In Progress", OrderIndex = 1, ColorHex = "#ADD8E6", WorkflowId = workflowId },
       new WorkflowState { Id = inReviewStateId, Name = "In Review", OrderIndex = 2, ColorHex = "#FFFFE0", WorkflowId = workflowId },
-      new WorkflowState { Id = doneStateId, Name = "Done", OrderIndex = 3, ColorHex = "#90EE90", IsTerminalState = true, WorkflowId = workflowId }
-    );
-  }
-
-  /// <summary>
-  /// Konfiguriert zusätzliche Optionen wie die Resilience / Retry Strategie.
-  /// </summary>
-  /// <param name="optionsBuilder">Der Builder für die Kontext-Optionen.</param>
-  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-  {
-    ArgumentNullException.ThrowIfNull(optionsBuilder);
-
-    // Hinweis: Die eigentliche SQL Server Konfiguration erfolgt meist in Program.cs/Startup.cs.
-    // Falls hier konfiguriert wird, stellen wir sicher, dass RetryOnFailure aktiviert ist.
-    if (!optionsBuilder.IsConfigured)
-    {
-      // Placeholder für lokale Entwicklung oder Fallback
-    }
+      new WorkflowState { Id = doneStateId, Name = "Done", OrderIndex = 3, ColorHex = "#90EE90", IsTerminalState = true, WorkflowId = workflowId });
   }
 
   private static System.Linq.Expressions.LambdaExpression ConvertFilterExpression(Type type)

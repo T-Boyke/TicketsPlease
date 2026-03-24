@@ -56,6 +56,19 @@
         "index.css",
         "files/roboto-flex-latin-wght-normal.woff2"
       ]
+    },
+    {
+      "library": "jquery@3.7.1",
+      "destination": "wwwroot/lib/jquery",
+      "files": [ "dist/jquery.min.js" ]
+    },
+    {
+      "library": "@fontsource-variable/open-sans@5.1.1",
+      "destination": "wwwroot/lib/google-sans-flex",
+      "files": [
+        "index.css",
+        "files/open-sans-latin-wght-normal.woff2"
+      ]
     }
   ]
 }

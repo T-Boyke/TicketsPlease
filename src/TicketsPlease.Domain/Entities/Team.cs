@@ -5,6 +5,7 @@
 namespace TicketsPlease.Domain.Entities;
 
 using System;
+using System.Collections.Generic;
 using TicketsPlease.Domain.Common;
 
 /// <summary>
@@ -41,4 +42,9 @@ public class Team : BaseEntity
   /// Gets or sets das Navigation-Property für den Benutzer, der das Team angelegt hat.
   /// </summary>
   public User? CreatedByUser { get; set; }
+
+  /// <summary>
+  /// Gets or sets die Liste der Teammitglieder.
+  /// </summary>
+  public virtual ICollection<TeamMember> Members { get; set; } = new List<TeamMember>();
 }
