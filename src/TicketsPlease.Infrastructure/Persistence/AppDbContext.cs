@@ -225,7 +225,7 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
       entity.HasOne(e => e.Ticket)
             .WithMany(t => t.SubTickets)
             .HasForeignKey(e => e.TicketId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
       entity.HasOne(e => e.Creator)
             .WithMany()
@@ -252,6 +252,16 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     builder.Entity<WorkflowTransition>(entity =>
     {
       entity.HasKey(e => new { e.FromStateId, e.ToStateId });
+
+      entity.HasOne(e => e.FromState)
+            .WithMany()
+            .HasForeignKey(e => e.FromStateId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+      entity.HasOne(e => e.ToState)
+            .WithMany()
+            .HasForeignKey(e => e.ToStateId)
+            .OnDelete(DeleteBehavior.Restrict);
     });
 
     // --- Communication ---
@@ -277,9 +287,58 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     {
       entity.HasKey(e => e.Id);
       entity.Property(e => e.Content).IsRequired().HasMaxLength(2000);
-      entity.HasOne(e => e.Ticket).WithMany(t => t.Comments).HasForeignKey(e => e.TicketId).OnDelete(DeleteBehavior.Cascade);
+      entity.HasOne(e => e.Ticket).WithMany(t => t.Comments).HasForeignKey(e => e.TicketId).OnDelete(DeleteBehavior.Restrict);
       entity.HasOne(e => e.Author).WithMany().HasForeignKey(e => e.AuthorId).OnDelete(DeleteBehavior.Restrict);
     });
+
+    this.SeedStaticData(builder);
+  }
+
+  private void SeedStaticData(ModelBuilder builder)
+  {
+    // Fixe IDs für stabiles Seeding und Referenzierung
+    var adminRoleId = new Guid("32d733e1-4c7a-4c2d-9b51-1e9a7e6b7d21");
+    var ownerRoleId = new Guid("a9e1d8c1-5b7a-4c2d-9b51-1e9a7e6b7d22");
+    var teamleadRoleId = new Guid("b8f2e9d2-6c8a-4d3e-ac62-2f0b8f7c8e33");
+    var userRoleId = new Guid("c903f0e3-7d9b-4e4f-bd73-3f1c908d9f44");
+
+    var lowPriorityId = new Guid("d01401f4-8e0c-4f50-ce84-402d019e0055");
+    var mediumPriorityId = new Guid("e12512a5-9f1d-5061-df95-513e12af1166");
+    var highPriorityId = new Guid("f23623b6-af2e-5172-ef06-624f23b02277");
+    var blockerPriorityId = new Guid("034734c7-b03f-5283-f017-735034c13388");
+
+    var workflowId = new Guid("145845d8-c140-5394-0128-846145d24499");
+    var todoStateId = new Guid("256956e9-d251-54a5-1239-957256e35500");
+    var inProgressStateId = new Guid("367a67fa-e362-55b6-234a-a68367f46611");
+    var inReviewStateId = new Guid("478b780b-f473-56c7-345b-b79478057722");
+    var doneStateId = new Guid("589c891c-0584-57d8-456c-c8a589168833");
+
+    // 1. Roles
+    builder.Entity<Role>().HasData(
+      new Role { Id = adminRoleId, Name = "Admin", NormalizedName = "ADMIN", ConcurrencyStamp = "32d733e1-4c7a-4c2d-9b51-1e9a7e6b7d21", Description = "Full system access" },
+      new Role { Id = teamleadRoleId, Name = "Teamlead", NormalizedName = "TEAMLEAD", ConcurrencyStamp = "b8f2e9d2-6c8a-4d3e-ac62-2f0b8f7c8e33", Description = "Team lead permissions" },
+      new Role { Id = userRoleId, Name = "User", NormalizedName = "USER", ConcurrencyStamp = "c903f0e3-7d9b-4e4f-bd73-3f1c908d9f44", Description = "Standard user access" }
+    );
+
+    // 2. Priorities
+    builder.Entity<TicketPriority>().HasData(
+      new TicketPriority { Id = lowPriorityId, Name = "Low", LevelWeight = 1, ColorHex = "#808080" },
+      new TicketPriority { Id = mediumPriorityId, Name = "Medium", LevelWeight = 2, ColorHex = "#0000FF" },
+      new TicketPriority { Id = highPriorityId, Name = "High", LevelWeight = 3, ColorHex = "#FFA500" },
+      new TicketPriority { Id = blockerPriorityId, Name = "Blocker", LevelWeight = 4, ColorHex = "#FF0000" }
+    );
+
+    // 3. Workflow & States
+    builder.Entity<Workflow>().HasData(
+      new Workflow { Id = workflowId, Name = "Standard Workflow" }
+    );
+
+    builder.Entity<WorkflowState>().HasData(
+      new WorkflowState { Id = todoStateId, Name = "Todo", OrderIndex = 0, ColorHex = "#D3D3D3", WorkflowId = workflowId },
+      new WorkflowState { Id = inProgressStateId, Name = "In Progress", OrderIndex = 1, ColorHex = "#ADD8E6", WorkflowId = workflowId },
+      new WorkflowState { Id = inReviewStateId, Name = "In Review", OrderIndex = 2, ColorHex = "#FFFFE0", WorkflowId = workflowId },
+      new WorkflowState { Id = doneStateId, Name = "Done", OrderIndex = 3, ColorHex = "#90EE90", IsTerminalState = true, WorkflowId = workflowId }
+    );
   }
 
   /// <summary>
