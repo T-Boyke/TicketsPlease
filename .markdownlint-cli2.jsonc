@@ -1,0 +1,7 @@
+{
+  "ignores": [
+    ".agent/**/*",
+    "node_modules",
+    "wwwroot/lib"
+  ]
+}

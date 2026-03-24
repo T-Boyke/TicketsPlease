@@ -15,7 +15,9 @@ jobs:
       - name: Lint Markdown
         uses: DavidAnson/markdownlint-cli2-action@v20
         with:
-          globs: "**/*.md"
+          globs: |
+            **/*.md
+            !.agent/**/*
           config: ".markdownlint.json"
 
       - name: Check Links
