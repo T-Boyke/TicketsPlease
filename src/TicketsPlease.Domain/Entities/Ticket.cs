@@ -177,9 +177,14 @@ public class Ticket : BaseAuditableEntity
   public ICollection<TicketTag> Tags { get; private set; } = new List<TicketTag>();
 
   /// <summary>
-  /// Gets die Liste der Untertickets.
+  /// Gets die Liste der hierarchisch untergeordneten Tickets (Children).
   /// </summary>
-  public ICollection<Ticket> SubTickets { get; private set; } = new List<Ticket>();
+  public ICollection<Ticket> Children { get; private set; } = new List<Ticket>();
+
+  /// <summary>
+  /// Gets die Liste der Untertickets (Checklisteneinträge).
+  /// </summary>
+  public ICollection<SubTicket> SubTickets { get; private set; } = new List<SubTicket>();
 
   /// <summary>
   /// Gets die Liste der Kommentare zu diesem Ticket (F5).
@@ -390,7 +395,7 @@ public class Ticket : BaseAuditableEntity
   }
 
   /// <summary>
-  /// Berechnet den Fortschritt in Prozent basierend auf den Untertickets.
+  /// Berechnet den Fortschritt in Prozent basierend auf den Untertickets (Checklisteneinträgen).
   /// </summary>
   /// <returns>Ein Wert zwischen 0 und 100.</returns>
   public int GetProgressPercentage()
@@ -400,7 +405,7 @@ public class Ticket : BaseAuditableEntity
       return this.Status == "Closed" ? 100 : 0;
     }
 
-    var closedCount = this.SubTickets.Count(t => t.Status == "Closed");
+    var closedCount = this.SubTickets.Count(t => t.IsCompleted);
     return (int)Math.Round((double)closedCount / this.SubTickets.Count * 100);
   }
 

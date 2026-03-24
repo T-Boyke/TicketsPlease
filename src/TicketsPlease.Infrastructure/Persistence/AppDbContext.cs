@@ -195,7 +195,7 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
       entity.HasOne(t => t.AssignedUser).WithMany().HasForeignKey(t => t.AssignedUserId).OnDelete(DeleteBehavior.Restrict);
 
       entity.HasOne(t => t.ParentTicket)
-            .WithMany(t => t.SubTickets)
+            .WithMany(t => t.Children)
             .HasForeignKey(t => t.ParentTicketId)
             .OnDelete(DeleteBehavior.Restrict);
 
@@ -217,6 +217,15 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
             .WithMany(t => t.BlockedBy)
             .HasForeignKey(e => e.TargetTicketId)
             .OnDelete(DeleteBehavior.Restrict);
+    });
+
+    builder.Entity<SubTicket>(entity =>
+    {
+      entity.HasKey(e => e.Id);
+      entity.HasOne(e => e.ParentTicket)
+            .WithMany(t => t.SubTickets)
+            .HasForeignKey(e => e.ParentTicketId)
+            .OnDelete(DeleteBehavior.Cascade);
     });
 
     builder.Entity<TicketTag>(entity =>
