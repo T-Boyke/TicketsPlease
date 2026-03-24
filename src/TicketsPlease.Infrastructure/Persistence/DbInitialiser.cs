@@ -106,10 +106,10 @@ public static class DbInitialiser
 
       foreach (var u in staticUsers)
       {
-          u.PasswordHash = passwordHasher.HashPassword(u, "Pass123!");
-          u.NormalizedEmail = u.Email?.ToUpperInvariant();
-          u.NormalizedUserName = u.UserName?.ToUpperInvariant();
-          u.SecurityStamp = Guid.NewGuid().ToString();
+        u.PasswordHash = passwordHasher.HashPassword(u, "Pass123!");
+        u.NormalizedEmail = u.Email?.ToUpperInvariant();
+        u.NormalizedUserName = u.UserName?.ToUpperInvariant();
+        u.SecurityStamp = Guid.NewGuid().ToString();
       }
 
       await context.Users.AddRangeAsync(staticUsers).ConfigureAwait(false);
@@ -161,7 +161,7 @@ public static class DbInitialiser
         };
         await context.UserAddresses.AddAsync(address).ConfigureAwait(false);
       }
-      
+
       await context.SaveChangesAsync().ConfigureAwait(false);
 
       // 5. Teams & TeamMembers

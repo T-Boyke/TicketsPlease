@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 /// <summary>
 /// Das ViewModel für den Login.
 /// </summary>
-public class LoginViewModel
+internal class LoginViewModel
 {
   /// <summary>
   /// Gets or sets die E-Mail-Adresse.
@@ -29,5 +29,5 @@ public class LoginViewModel
   /// Gets or sets a value indicating whether die Sitzung gespeichert werden soll.
   /// </summary>
   [Display(Name = "Remember me?")]
-  public bool RememberMe { get; set; }
+  public bool? RememberMe { get; set; }
 }

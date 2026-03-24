@@ -44,7 +44,7 @@ public class Team : BaseEntity
   public User? CreatedByUser { get; set; }
 
   /// <summary>
-  /// Gets or sets die Liste der Teammitglieder.
+  /// Gets die Liste der Teammitglieder.
   /// </summary>
-  public virtual ICollection<TeamMember> Members { get; set; } = new List<TeamMember>();
+  public virtual ICollection<TeamMember> Members { get; } = new List<TeamMember>();
 }
