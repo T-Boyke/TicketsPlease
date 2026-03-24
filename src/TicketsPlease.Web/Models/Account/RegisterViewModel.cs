@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 /// <summary>
 /// Das ViewModel für die Registrierung.
 /// </summary>
-internal class RegisterViewModel
+public class RegisterViewModel
 {
   /// <summary>
   /// Gets or sets den Benutzernamen.
