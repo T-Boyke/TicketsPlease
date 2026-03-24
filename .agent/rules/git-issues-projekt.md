@@ -33,11 +33,11 @@ description: each time we commit, we check if we completed an issue and commit o
 
 GitHub Issues use **Issue Type** (`Bug`, `Feature`, `Task`) as the primary classification.
 
-| Type      | Verwendung                                           |
-| :-------- | :--------------------------------------------------- |
-| `Feature` | Neue Funktionalität (IHK F1–F9, Enterprise Add-Ons)  |
-| `Bug`     | Fehler in bestehender Funktionalität                 |
-| `Task`    | Technische Aufgabe (Refactoring, Docs, Infra, CI/CD) |
+| Type       | Verwendung                                           |
+| :--------- | :--------------------------------------------------- |
+| `Feature`  | Neue Funktionalität (F1–F9, Enterprise Add-Ons)      |
+| `Bug`      | Fehler in bestehender Funktionalität                 |
+| `Task`     | Technische Aufgabe (Refactoring, Docs, Infra, CI/CD) |
 
 ## Labels (Pflicht)
 
@@ -72,13 +72,13 @@ Jedes Issue **MUSS** mindestens ein `area:`-Label und ein `size/`-Label erhalten
 
 ### Epic/Parent Issue
 
-Für jedes IHK-Feature (F1–F9) gibt es ein **Parent Issue** (Epic),
+Für jedes Feature (F1–F9) gibt es ein **Parent Issue** (Epic),
 das alle Subtasks referenziert:
 
 ```markdown
 ## F3: Ticket-Management
 
-IHK Feature F3 – Alle User Stories zum Ticket-Bereich.
+Feature F3 – Alle User Stories zum Ticket-Bereich.
 
 ### Sub-Issues
 

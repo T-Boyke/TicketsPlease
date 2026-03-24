@@ -1,5 +1,5 @@
 # full-verification.ps1
-# Comprehensive Health-Check for the TicketsPlease project (IHK/Enterprise Ready).
+# Comprehensive Health-Check for the TicketsPlease project (Enterprise Ready).
 
 $ErrorActionPreference = "Stop"
 

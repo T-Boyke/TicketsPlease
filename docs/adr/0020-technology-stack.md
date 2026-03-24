@@ -7,7 +7,7 @@
 ## Context and Problem Statement
 
 Wir müssen einen modernen, stabilen und zukunftssicheren Stack wählen, der
-sowohl die IHK-Anforderungen erfüllt als auch die geplante Enterprise-Skalierung
+sowohl die Anforderungen erfüllt als auch die geplante Enterprise-Skalierung
 unterstützt.
 
 ## Decision Drivers

@@ -34,7 +34,7 @@ auszutauschen, ohne die Kern-Logik zu verändern.
 
 - Domain-Code ist 100% testbar ohne Datenbank-Mocking-Hölle.
 - Wir können problemlos zwischen SQL Server und anderen Providern wechseln.
-- Die Projektstruktur ist für das IHK-Projekt professionell und
+- Die Projektstruktur ist für das Projekt professionell und
   State-of-the-Art.
 
 ### Negative Consequences

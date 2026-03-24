@@ -16,7 +16,7 @@ developers.
 
 ## Decision Drivers
 
-- **Governance**: Alignment with IHK (Industrie- und Handelskammer)
+- **Governance**: Alignment with (Industrie- und Handelskammer)
   documentation standards.
 - **Automation**: Enabling repository rulesets to trigger based on metadata.
 - **Transparency**: Making repository "decorations" visible and documented as
@@ -34,7 +34,7 @@ the team.
 ### Positive Consequences
 
 - **Auditability**: Changes to the expected properties are tracked via Git.
-- **Compliance**: Direct mapping to IHK requirements (e.g., project
+- **Compliance**: Direct mapping to requirements (e.g., project
   classification).
 - **Developer Experience**: New contributors can quickly see the repository's
   metadata requirements.
@@ -50,7 +50,7 @@ the team.
 graph TD
     A[Organization Settings] -->|Definition| B(Custom Properties)
     B -->|Assignment| C{Repository: TicketsPlease}
-    C -->|Metadata| D[Compliance: IHK-2025]
+    C -->|Metadata| D[Compliance: 2025]
     C -->|Metadata| E[Sensitivity: Internal]
     C -->|Metadata| F[Status: Active]
 
@@ -74,7 +74,7 @@ graph TD
 | `repository_type`  | Single Select | Architectural classification of the repo.  | `frontend`, `backend`, `library`, `infrastructure` |
 | `production_state` | Single Select | Lifecycle and stability state.             | `internal`, `beta`, `production`, `archived`       |
 | `data_sensitivity` | Single Select | Data classification level.                 | `public`, `internal`, `confidential`, `restricted` |
-| `ihk_compliance`   | Boolean       | Whether IHK documentation standards apply. | `true`, `false`                                    |
+| `ihk_compliance`   | Boolean       | Whether documentation standards apply. | `true`, `false`                                    |
 
 ## Pros and Cons of the Options
 
