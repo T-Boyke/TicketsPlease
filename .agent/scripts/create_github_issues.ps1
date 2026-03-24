@@ -55,7 +55,7 @@ Create-Issue "F1: [Infrastructure] Identity Setup & Seeding" "Configure ASP.NET 
 Create-Issue "F1: [Web] AccountController & Auth Views" "Implement Login, Logout, and registration flow with Tailwind styling." @("area:web", "size/M", "Feature")
 
 # --- F2: Admin Area & Project CRUD ---
-Create-Issue "F2: [Domain] Project Entity" "Create Project entity with Title, Description, and Dates (IHK F2.2)." @("area:domain", "size/S", "Feature")
+Create-Issue "F2: [Domain] Project Entity" "Create Project entity with Title, Description, and Dates (F2.2)." @("area:domain", "size/S", "Feature")
 Create-Issue "F2: [Application] Project CRUD Commands" "Implement MediatR commands for Project management." @("area:application", "size/S", "Feature")
 Create-Issue "F2: [Web] Admin Area Dashboard & CRUD" "Implement Admin-only views for Project management." @("area:web", "size/M", "Feature")
 

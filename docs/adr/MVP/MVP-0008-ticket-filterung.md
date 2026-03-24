@@ -6,7 +6,7 @@
 
 ## Kontext
 
-Die IHK-Aufgabe (F6.1–F6.3) fordert eine Filterung der Ticket-Liste nach
+Die Aufgabe (F6.1–F6.3) fordert eine Filterung der Ticket-Liste nach
 drei Kriterien: Projekt, zugeordneter Benutzer und Ersteller. Die Seite
 soll bei Filterung neu laden (serverseitiges Filtern).
 
@@ -39,7 +39,7 @@ if (assignedUserId.HasValue)
 
 ### Positiv
 
-- Einfach, performant, IHK-konform.
+- Einfach, performant, konform.
 - Server-seitig: Kein JavaScript nötig.
 - Dynamische LINQ-Komposition ist erweiterbar.
 - Filter über URL teilbar (Bookmarkable).
@@ -53,6 +53,6 @@ if (assignedUserId.HasValue)
 
 | Alternative            | Pro                   | Contra                      | Entscheidung |
 | ---------------------- | --------------------- | --------------------------- | ------------ |
-| Server-Side LINQ       | Einfach, IHK-konform  | Page-Reload                 | ✅ Gewählt   |
+| Server-Side LINQ       | Einfach, konform  | Page-Reload                 | ✅ Gewählt   |
 | Client-Side JS Filter  | Kein Reload           | Alle Daten ins Frontend     | ❌ Abgelehnt |
 | OData / GraphQL        | Flexibel              | Overkill für MVP            | ❌ Abgelehnt |

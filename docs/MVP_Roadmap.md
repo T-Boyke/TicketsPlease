@@ -1,21 +1,21 @@
 # 🚀 Minimum Viable Product (MVP) vs. Enterprise Roadmap
 
-Unser Projektauftrag der IHK lautet: **„Ein einfaches Ticketsystem
+Unser Projektauftrag der lautet: **„Ein einfaches Ticketsystem
 realisieren."** (Projektantrag: 70 Stunden, 23.03.–16.04.2026)
 
 Wir definieren hier eine strikte Abgrenzung zwischen dem **Kern-MVP**, das
-exakt die **IHK-Aufgabe (Features F1–F9)** abdeckt, und den **Enterprise
+exakt die **Aufgabe (Features F1–F9)** abdeckt, und den **Enterprise
 Add-Ons**, die wir erst nach bestandener Prüfung umsetzen.
 
 Die „Clean Architecture" und das „3NF Entity Schema" bilden das Fundament für
 beide Phasen. Das Schema ist von Tag 1 an auf „Enterprise" ausgelegt, wir
-implementieren in Phase 1 (MVP) jedoch nur die IHK-relevanten Endpunkte.
+implementieren in Phase 1 (MVP) jedoch nur die relevanten Endpunkte.
 
 ---
 
-## 🛠️ Phase 1: Das Kern-MVP (IHK F1–F9)
+## 🛠️ Phase 1: Das Kern-MVP (F1–F9)
 
-Dies ist der **exakte IHK-Prüfungsumfang**. Alle Features hier müssen 100%
+Dies ist der **exakte Prüfungsumfang**. Alle Features hier müssen 100%
 funktionsfähig sein und durch Unit/Integration-Tests abgedeckt werden.
 
 ### F1: Web-Anwendung (Basis-Setup)
@@ -139,13 +139,13 @@ funktionsfähig sein und durch Unit/Integration-Tests abgedeckt werden.
 > [!IMPORTANT] **Fehlende MVP-Entity:** Das `Project`-Entity (Titel,
 > Beschreibung, Startdatum, Enddatum) muss als eigene Domain-Entity
 > erstellt werden. Tickets werden einem Projekt zugeordnet (FK).
-> Dies ist IHK-Pflicht (F2.2)!
+> Dies ist Pflicht (F2.2)!
 
 ---
 
 ## 🚀 Phase 2: Die Enterprise Add-Ons (Nach dem MVP)
 
-Sobald das MVP steht, der Build (CI/CD) dauerhaft grün ist und die IHK-Doku
+Sobald das MVP steht, der Build (CI/CD) dauerhaft grün ist und die Doku
 wächst, schalten wir nach und nach folgende Module auf das bestehende 3NF (3.
 Normalform) Datenbankschema frei:
 
@@ -269,6 +269,6 @@ Die Vorbereitung auf den skalierten Live-Betrieb (Operations).
 - **Versioning:** Versionierte API-Routen (`/api/v1/tickets`), um
   Breaking-Changes sicher zu managen.
 
-> **Finales Fazit:** Das System ist nun von den IHK-Grundlagen bis zur High-End
+> **Finales Fazit:** Das System ist nun von den Grundlagen bis zur High-End
 > Enterprise-Cloud-Architektur vollständig durchgeplant. Jedes C# Projekt und
 > jedes NuGet-Paket hat seinen festen Platz.

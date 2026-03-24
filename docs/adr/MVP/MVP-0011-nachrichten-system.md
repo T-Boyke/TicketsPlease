@@ -6,7 +6,7 @@
 
 ## Kontext
 
-Die IHK-Aufgabe (F9.1) fordert ein Nachrichtensystem, über das Benutzer
+Die Aufgabe (F9.1) fordert ein Nachrichtensystem, über das Benutzer
 außerhalb von Tickets miteinander kommunizieren können. Nachrichten bestehen
 aus Absender, Empfänger, Zeitstempel und Textinhalt. Jeder Benutzer
 bekommt eine Nachrichten-Seite mit einer nach Absender/Empfänger

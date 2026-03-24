@@ -6,7 +6,7 @@
 
 ## Context and Problem Statement
 
-TicketsPlease is designed as an enterprise-grade product. Even for the IHK MVP,
+TicketsPlease is designed as an enterprise-grade product. Even for the MVP,
 hardcoding strings in the UI is a "Code Smell" that hinders
 internationalization. We need a strategy to support multiple languages
 (German/English) from the start.

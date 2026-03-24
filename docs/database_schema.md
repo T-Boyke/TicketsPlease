@@ -527,7 +527,7 @@ halten (sowie DSGVO-Löschkonzepte zu vereinfachen), wurde die gigantische
 
 #### 4. Ticket Management Context
 
-- **Project:** Repräsentiert die oberste Ebene der Organisation (IHK F2.2). Ein Projekt
+- **Project:** Repräsentiert die oberste Ebene der Organisation (F2.2). Ein Projekt
   bündelt Tickets und definiert einen spezifischen Zeitrahmen (`StartDate`, `EndDate`)
   sowie einen Standard-Workflow (`WorkflowId`).
 - **Ticket:** Das Kern-Aggregat. Unterstützt nun ausdrücklich
@@ -579,9 +579,9 @@ Vom oben geplanten Enterprise-Schema sind im Domain Layer **alle 29 Entitäten**
 als C#-Klassen vorhanden. Die meisten besitzen jedoch nur minimale Properties
 und müssen für den jeweiligen Feature-Sprint ausgebaut werden.
 
-### MVP-relevante Entities (IHK F1–F9)
+### MVP-relevante Entities (F1–F9)
 
-| Entity            | Zweck               | IHK-Feature | Status          |
+| Entity            | Zweck               | Feature | Status          |
 | :---------------- | :------------------ | :---------- | :-------------  |
 | **User**          | Auth & Zuweisung    | F1.3        | ✅ Vorhanden    |
 | **Ticket**        | Kern-Aggregat       | F3          | ✅ Vorhanden    |

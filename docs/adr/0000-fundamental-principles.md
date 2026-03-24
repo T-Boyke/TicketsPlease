@@ -16,7 +16,7 @@ the bedrock principles that guide every line of code.
 - Maximum maintainability and readability.
 - Scalability for enterprise features (Phase 2-5).
 - Ease of onboarding for new developers.
-- Alignment with industrial "Best Practices" for IHK standards.
+- Alignment with industrial "Best Practices" for standards.
 
 ## Considered Options
 

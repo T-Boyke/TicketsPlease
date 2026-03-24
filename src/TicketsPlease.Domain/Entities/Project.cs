@@ -10,7 +10,7 @@ using TicketsPlease.Domain.Common;
 
 /// <summary>
 /// Repräsentiert ein Projekt, dem Tickets zugeordnet werden können.
-/// (IHK Pflicht F2.2).
+/// (Pflicht F2.2).
 /// </summary>
 public class Project : BaseEntity
 {
@@ -72,7 +72,7 @@ public class Project : BaseEntity
 
   /// <summary>
   /// Gets den zugeordneten Workflow.
-  /// Each project can have exactly one workflow (IHK F8.4).
+  /// Each project can have exactly one workflow (F8.4).
   /// </summary>
   public Workflow? Workflow { get; }
 

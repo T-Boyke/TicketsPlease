@@ -68,7 +68,7 @@ public static class DbInitialiser
       await context.SaveChangesAsync().ConfigureAwait(false);
 
       // 3. Projects & Workflows
-      var workflow = new Workflow { Name = "Standard IHK Workflow" };
+      var workflow = new Workflow { Name = "Standard Workflow" };
       await context.Workflows.AddAsync(workflow).ConfigureAwait(false);
 
       var workflowStates = new List<WorkflowState>
@@ -83,8 +83,8 @@ public static class DbInitialiser
 
       var projects = new List<Project>();
 
-      var project1 = new Project("IHK Abschlussprüfung 2026", DateTime.UtcNow);
-      project1.UpdateMetadata("IHK Abschlussprüfung 2026", "Das Hauptprojekt für die IHK.");
+      var project1 = new Project("Abschlussprüfung 2026", DateTime.UtcNow);
+      project1.UpdateMetadata("Abschlussprüfung 2026", "Das Hauptprojekt für die IHK.");
       project1.AssignWorkflow(workflow.Id);
       project1.SetTenantId(faker.PickRandom(orgs).Id);
       projects.Add(project1);

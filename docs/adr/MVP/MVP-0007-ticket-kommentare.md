@@ -6,7 +6,7 @@
 
 ## Kontext
 
-Die IHK-Aufgabe (F5.1) fordert ein Kommentarsystem für Tickets. Kommentare
+Die Aufgabe (F5.1) fordert ein Kommentarsystem für Tickets. Kommentare
 haben Inhalt, TicketID, Ersteller und Erstellzeitpunkt. Sie werden auf der
 Ticket-Detailseite angezeigt (neueste zuerst) und können dort angelegt werden.
 

@@ -6,7 +6,7 @@
 
 ## Kontext
 
-Die IHK-Aufgabe (F3.1–F3.4) definiert den vollständigen Ticket-Lifecycle:
+Die Aufgabe (F3.1–F3.4) definiert den vollständigen Ticket-Lifecycle:
 Erstellen, Auflisten, Detailansicht, Bearbeiten und Schließen. Strikte
 Berechtigungsregeln bestimmen, wer welche Aktionen ausführen darf.
 
@@ -39,7 +39,7 @@ implementiert:
 
 - Rich Domain Model: Geschäftslogik liegt im Entity, nicht im Controller.
 - Klare Berechtigungsprüfung via Domain-Methoden.
-- Alle IHK-Akzeptanzkriterien (F3.1–F3.4) vollständig abgedeckt.
+- Alle Akzeptanzkriterien (F3.1–F3.4) vollständig abgedeckt.
 
 ### Negativ
 

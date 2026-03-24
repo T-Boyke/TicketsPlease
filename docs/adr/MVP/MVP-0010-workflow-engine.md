@@ -6,7 +6,7 @@
 
 ## Kontext
 
-Die IHK-Aufgabe (F8.1) fordert eine Workflow-Verwaltung für Tickets. Admins
+Die Aufgabe (F8.1) fordert eine Workflow-Verwaltung für Tickets. Admins
 können Workflows erstellen (CRUD). Ein Workflow hat eine ID und Bezeichnung
 und besteht aus einer Reihe von Status. Jedem Projekt wird genau ein
 Workflow zugeordnet.
@@ -56,6 +56,6 @@ Layer) und erweitern es um ein **`Workflow`-Aggregat**.
 
 | Alternative                 | Pro                   | Contra                     | Entscheidung |
 | --------------------------- | --------------------- | -------------------------- | ------------ |
-| Workflow-Entity (Dynamisch) | Flexibel, IHK-konform | Mehr Code, Migration       | ✅ Gewählt    |
+| Workflow-Entity (Dynamisch) | Flexibel, konform | Mehr Code, Migration       | ✅ Gewählt    |
 | Status als Enum             | Extrem einfach        | Nicht dynamisch, kein CRUD | ❌ Abgelehnt  |
 | Status als Lookup-Table     | Einfach               | Kein Workflow-Konzept      | ❌ Abgelehnt  |

@@ -6,7 +6,7 @@
 
 ## Kontext
 
-Die IHK-Aufgabe (F2.1, F2.2) fordert einen eigenen Admin-Bereich mit
+Die Aufgabe (F2.1, F2.2) fordert einen eigenen Admin-Bereich mit
 CRUD-Funktionalität für Projekte. Ein Projekt besteht aus Titel,
 Beschreibung, Startdatum (Pflicht) und Enddatum (optional). Nur Admins
 dürfen Projekte verwalten. Tickets werden später einem Projekt zugeordnet.
@@ -36,7 +36,7 @@ neu erstellt werden.
 - Saubere Domain-Entity mit Rich-Model-Pattern.
 - Projekte sind von Tag 1 an Aggregate Roots (Tickets referenzieren sie).
 - Admin-Bereich ist rollenbasiert abgesichert.
-- IHK-Anforderung F2.2 vollständig abgedeckt.
+- Anforderung F2.2 vollständig abgedeckt.
 
 ### Negativ
 

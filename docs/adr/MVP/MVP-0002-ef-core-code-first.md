@@ -6,7 +6,7 @@
 
 ## Kontext
 
-Die IHK-Aufgabe (F1.2) verlangt eine SQL Server-Datenbank, angebunden über
+Die Aufgabe (F1.2) verlangt eine SQL Server-Datenbank, angebunden über
 Entity Framework mit dem Code-First-Ansatz. Offene Migrationen sollen beim
 App-Start automatisch ausgeführt werden.
 
@@ -28,7 +28,7 @@ Microsoft SQL Server. Migrationen werden beim App-Start automatisch über
 ### Negativ
 
 - Automatische Migration bei App-Start kann in Produktion riskant sein
-  (für IHK/MVP akzeptabel, für Enterprise separate Strategie nötig).
+  (für MVP akzeptabel, für Enterprise separate Strategie nötig).
 - Performance-Overhead durch ORM gegenüber Raw SQL (vernachlässigbar).
 
 ### Neutral
@@ -40,7 +40,7 @@ Microsoft SQL Server. Migrationen werden beim App-Start automatisch über
 
 | Alternative         | Pro                    | Contra                        | Entscheidung |
 | ------------------- | ---------------------- | ----------------------------- | ------------ |
-| EF Core Code-First  | IHK-konform, DDD       | ORM-Overhead                  | ✅ Gewählt   |
+| EF Core Code-First  | konform, DDD       | ORM-Overhead                  | ✅ Gewählt   |
 | EF Core DB-First    | Bestehende DB nutzbar  | Kein Code-First, aufwändiger  | ❌ Abgelehnt |
 | Dapper (Micro-ORM)  | Performanter           | Kein EF, kein Code-First      | ❌ Abgelehnt |
 | ADO.NET Raw         | Volle Kontrolle        | Viel Boilerplate, unsicher    | ❌ Abgelehnt |

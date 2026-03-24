@@ -6,7 +6,7 @@
 
 ## Kontext
 
-Die IHK-Aufgabe (F7.1) fordert die Möglichkeit, Tickets als „blockiert
+Die Aufgabe (F7.1) fordert die Möglichkeit, Tickets als „blockiert
 durch andere Tickets" zu markieren. Ein Ticket kann nur geschlossen werden,
 wenn alle blockierenden Tickets bereits geschlossen sind.
 

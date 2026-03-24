@@ -9,7 +9,7 @@ using TicketsPlease.Domain.Common;
 
 /// <summary>
 /// Repräsentiert einen Workflow (Status-Reihe), den ein Ticket annehmen kann.
-/// (IHK Pflicht F8).
+/// (Pflicht F8).
 /// </summary>
 public class Workflow : BaseEntity
 {

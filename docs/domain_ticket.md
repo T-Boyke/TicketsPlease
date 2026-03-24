@@ -3,9 +3,9 @@
 Die `Ticket`-Entität ist das absolut zentrale Objekt dieser Applikation. Sie
 unterliegt strikten Design-Regeln aus dem _Domain-Driven Design (DDD)_.
 
-## MVP-Eigenschaften (IHK F3 Pflicht)
+## MVP-Eigenschaften (F3 Pflicht)
 
-Die folgenden Properties sind für die IHK-Prüfung zwingend erforderlich:
+Die folgenden Properties sind für die Prüfung zwingend erforderlich:
 
 - **Id:** `Guid` (Global Unique Identifier)
 - **Title:** `string` (Max. 150 Zeichen, Pflicht)
@@ -21,7 +21,7 @@ Die folgenden Properties sind für die IHK-Prüfung zwingend erforderlich:
 
 ## Enterprise-Eigenschaften (Phase 2–5, Post-MVP)
 
-Die folgenden Properties werden erst nach der IHK-Prüfung implementiert:
+Die folgenden Properties werden erst nach der Prüfung implementiert:
 
 - **Sha1Hash:** `string` (Globale Identifikation)
 - **State / WorkflowStateId:** `Guid` FK (Kanban-Status: ToDo, InProgress,

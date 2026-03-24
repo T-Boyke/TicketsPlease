@@ -4,7 +4,7 @@
 <agent_behavior>
 <mindset>
 
-- Project: IHK Final Project (C# .NET 10, ASP.NET Core 10.3, Clean Architecture)
+- Project: Final Project (C# .NET 10, ASP.NET Core 10.3, Clean Architecture)
 - Language: Read/Write Docs & XML-Docs in German. Commits in English (Conventional).
   Converse in User's language.
 

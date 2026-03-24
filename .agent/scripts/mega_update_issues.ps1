@@ -7,7 +7,7 @@ function Update-Issue($number, $title, $labels, $rel, $is_closed) {
     Write-Host ("Syncing #" + $number)
     $lbl_str = $labels -join ","
     & $gh issue edit $number --repo $repo --title $title --add-assignee $assignee --add-label $lbl_str
-    
+
     $body = "Objective: Detailed in documentation. Relationships: " + $rel
     & $gh issue edit $number --repo $repo --body $body
 
@@ -31,7 +31,7 @@ Update-Issue 25 "FOUNDATION: CI/CD Hardening" @("area:github", "size/M", "Task")
 Update-Issue 26 "UI: OKLCH Design Tokens" @("area:web", "size/M", "Task") "Parent: #UI" $true
 Update-Issue 27 "UI: Local Font Integration" @("area:web", "size/S", "Task") "Parent: #UI" $true
 Update-Issue 28 "UI: Global Layout" @("area:web", "size/S", "Task") "Parent: #UI" $true
-Update-Issue 29 "DOCS: IHK Chapter 1-2" @("area:docs", "size/M", "Task") "Parent: #DOCS" $true
+Update-Issue 29 "DOCS: Chapter 1-2" @("area:docs", "size/M", "Task") "Parent: #DOCS" $true
 Update-Issue 30 "DOCS: 11 MVP ADRs" @("area:docs", "size/M", "Task") "Parent: #DOCS" $true
 
 # --- Phase 1: MVP ---

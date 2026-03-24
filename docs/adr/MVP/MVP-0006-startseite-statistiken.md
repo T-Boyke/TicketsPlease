@@ -6,7 +6,7 @@
 
 ## Kontext
 
-Die IHK-Aufgabe (F4.1, F4.2) fordert eine zentrale Startseite, die auch
+Die Aufgabe (F4.1, F4.2) fordert eine zentrale Startseite, die auch
 ohne Login erreichbar ist. Sie soll Statistiken anzeigen: Tickets
 (Gesamt/offen/geschlossen), Projekte (Gesamt/offen/beendet) und optional
 Benutzer (Gesamt/pro Rolle).

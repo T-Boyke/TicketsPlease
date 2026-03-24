@@ -1,12 +1,12 @@
 # MVP Architecture Decision Records
 
-Dieses Unterverzeichnis enthält die ADRs für die **IHK-Prüfungsfeatures
+Dieses Unterverzeichnis enthält die ADRs für die **Prüfungsfeatures
 (F1–F9)** des MVPs gemäß
 [aufgabe.md](../../aufgabe/aufgabe.md).
 
 ## Übersicht
 
-|ID|Titel|IHK-Feature|Status|Datum|
+|ID|Titel|Feature|Status|Datum|
 |:---|:---|:---|:---|:---|
 |[MVP-0001](MVP-0001-aspnet-core-mvc.md)|ASP.NET Core MVC|F1.1|Accepted|2026-03-23|
 |[MVP-0002](MVP-0002-ef-core-code-first.md)|EF Core Code-First|F1.2|Accepted|2026-03-23|
@@ -23,5 +23,5 @@ Dieses Unterverzeichnis enthält die ADRs für die **IHK-Prüfungsfeatures
 ---
 
 > [!NOTE] Diese ADRs dokumentieren die Architektur-Entscheidungen für den
-> IHK-Prüfungsumfang (70 Stunden, 23.03.–20.04.2026). Enterprise-ADRs
+> Prüfungsumfang (70 Stunden, 23.03.–20.04.2026). Enterprise-ADRs
 > befinden sich im übergeordneten Verzeichnis [docs/adr/](../readme.md).
