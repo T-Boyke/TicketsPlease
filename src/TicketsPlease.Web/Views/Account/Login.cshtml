@@ -33,7 +33,7 @@
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <i class="fa-solid fa-envelope text-slate-400 group-focus-within:text-brand-primary transition-colors"></i>
                         </div>
-                        <input asp-for="Email" id="Email" class="appearance-none block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm" placeholder="mark@enterprise.com" />
+                        <input asp-for="Email" id="Email" autocomplete="email" class="appearance-none block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm" placeholder="mark@enterprise.com" />
                         <span asp-validation-for="Email" class="text-red-500 text-xs mt-1"></span>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <i class="fa-solid fa-lock text-slate-400 group-focus-within:text-brand-primary transition-colors"></i>
                         </div>
-                        <input asp-for="Password" id="Password" class="appearance-none block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm" />
+                        <input asp-for="Password" id="Password" autocomplete="current-password" class="appearance-none block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm" />
                         <span asp-validation-for="Password" class="text-red-500 text-xs mt-1"></span>
                     </div>
                 </div>
@@ -91,6 +91,37 @@
                             <i class="fa-brands fa-microsoft text-xl"></i>
                             <span class="sr-only">@L["Sign in with Microsoft"]</span>
                         </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Login Panel -->
+            <div class="mt-10 pt-6 border-t border-slate-100">
+                <h3 class="text-xs font-black uppercase tracking-widest text-slate-400 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-bolt-lightning text-amber-500"></i>
+                    Quick Login (Seeded)
+                </h3>
+                <div class="grid grid-cols-1 gap-3">
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 flex flex-col gap-1 hover:border-brand-primary/30 transition-colors group cursor-pointer" onclick="document.getElementById('Email').value='admin@ticketsplease.com'; document.getElementById('Password').value='Pass123!';">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-black uppercase tracking-tighter text-brand-primary">Admin</span>
+                            <i class="fa-solid fa-copy text-slate-300 group-hover:text-brand-primary transition-colors text-xs"></i>
+                        </div>
+                        <code class="text-xs font-mono text-slate-600">admin@ticketsplease.com : Pass123!</code>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 flex flex-col gap-1 hover:border-brand-primary/30 transition-colors group cursor-pointer" onclick="document.getElementById('Email').value='teamlead@ticketsplease.com'; document.getElementById('Password').value='Pass123!';">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-black uppercase tracking-tighter text-indigo-500">Teamlead</span>
+                            <i class="fa-solid fa-copy text-slate-300 group-hover:text-brand-primary transition-colors text-xs"></i>
+                        </div>
+                        <code class="text-xs font-mono text-slate-600">teamlead@ticketsplease.com : Pass123!</code>
+                    </div>
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 flex flex-col gap-1 hover:border-brand-primary/30 transition-colors group cursor-pointer" onclick="document.getElementById('Email').value='user@ticketsplease.com'; document.getElementById('Password').value='Pass123!';">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-black uppercase tracking-tighter text-emerald-500">User</span>
+                            <i class="fa-solid fa-copy text-slate-300 group-hover:text-brand-primary transition-colors text-xs"></i>
+                        </div>
+                        <code class="text-xs font-mono text-slate-600">user@ticketsplease.com : Pass123!</code>
                     </div>
                 </div>
             </div>
