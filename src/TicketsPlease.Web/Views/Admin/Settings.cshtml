@@ -1,0 +1,23 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer L
+@{
+    ViewData["Title"] = L["Settings"];
+}
+
+<div class="max-w-4xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    <div class="mb-10">
+        <h1 class="text-3xl font-extrabold text-slate-900">@L["System Settings"]</h1>
+        <p class="text-slate-500 mt-1">@L["Configure global application behavior."]</p>
+    </div>
+
+    <div class="bg-white shadow-xl rounded-2xl border border-slate-100 overflow-hidden">
+        <div class="p-8 border-b border-slate-100">
+            <h2 class="text-lg font-bold text-slate-900">@L["General Settings"]</h2>
+        </div>
+        <div class="p-8 bg-slate-50/50 text-center">
+            <i class="fa-solid fa-sliders text-slate-300 text-5xl mb-4"></i>
+            <h3 class="text-lg font-bold text-slate-500">@L["Settings implementation pending"]</h3>
+            <p class="text-slate-400 text-sm mt-1">@L["Advanced system configuration will be added soon."]</p>
+        </div>
+    </div>
+</div>

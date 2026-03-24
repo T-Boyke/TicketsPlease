@@ -1,0 +1,25 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer L
+@{
+    ViewData["Title"] = L["User Management"];
+}
+
+<div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    <div class="mb-10">
+        <h1 class="text-3xl font-extrabold text-slate-900">@L["User Management"]</h1>
+        <p class="text-slate-500 mt-1">@L["Manage system users and their roles."]</p>
+    </div>
+
+    <div class="bg-white shadow-xl rounded-2xl p-12 border border-slate-100 text-center">
+        <div class="inline-flex h-20 w-20 items-center justify-center rounded-full bg-slate-100 text-slate-400 mb-6">
+            <i class="fa-solid fa-users-gear text-4xl"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-slate-900 mb-2">@L["User Management Coming Soon"]</h2>
+        <p class="text-slate-500 max-w-md mx-auto">@L["The full user management suite (F2.1) will be implemented in the next iteration."]</p>
+        <div class="mt-8">
+            <a asp-controller="Home" asp-action="Index" class="text-brand-primary font-bold hover:underline">
+                <i class="fa-solid fa-arrow-left mr-2"></i> @L["Back to Dashboard"]
+            </a>
+        </div>
+    </div>
+</div>

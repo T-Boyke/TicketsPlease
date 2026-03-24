@@ -1,0 +1,67 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@using TicketsPlease.Application.Common.Dtos
+@inject IViewLocalizer L
+@model ProjectDto
+@{
+    ViewData["Title"] = L["Project Details"];
+}
+
+<div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    <div class="mb-10 flex items-center space-x-3">
+        <a asp-action="Index" class="text-slate-400 hover:text-brand-primary transition-colors">
+            <i class="fa-solid fa-arrow-left-long text-xl"></i>
+        </a>
+        <h1 class="text-3xl font-extrabold text-slate-900">@Model.Title</h1>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        @* Project Stats & Main Info *@
+        <div class="lg:col-span-2 space-y-8">
+            <div class="bg-white shadow-xl rounded-2xl p-8 border border-slate-100">
+                <h2 class="text-xl font-bold text-slate-900 mb-4">@L["Overview"]</h2>
+                <p class="text-slate-600 leading-relaxed">@Model.Description</p>
+                
+                <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-slate-50 p-4 rounded-xl">
+                        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">@L["Status"]</div>
+                        <div class="text-sm font-bold @(Model.IsOpen ? "text-emerald-600" : "text-slate-600")">
+                            @(Model.IsOpen ? L["Active"] : L["Closed"])
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl">
+                        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">@L["Start Date"]</div>
+                        <div class="text-sm font-bold text-slate-900">@Model.StartDate.ToShortDateString()</div>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl">
+                        <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">@L["End Date"]</div>
+                        <div class="text-sm font-bold text-slate-900">@(Model.EndDate?.ToShortDateString() ?? "-")</div>
+                    </div>
+                </div>
+            </div>
+
+            @* Placeholder for Tickets (F3) *@
+            <div class="bg-slate-50 rounded-2xl p-10 border-2 border-dashed border-slate-200 text-center">
+                <i class="fa-solid fa-ticket-simple text-slate-300 text-5xl mb-4"></i>
+                <h3 class="text-lg font-bold text-slate-500">@L["Ticket Management coming soon"]</h3>
+                <p class="text-slate-400 text-sm mt-1">@L["F3 implementation is the next milestone."]</p>
+            </div>
+        </div>
+
+        @* Actions Sidebar *@
+        <div class="space-y-6">
+            <div class="bg-white shadow-xl rounded-2xl p-6 border border-slate-100">
+                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-widest mb-4">@L["Management Actions"]</h3>
+                <div class="space-y-3">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="flex items-center w-full px-4 py-3 text-sm font-bold text-amber-600 bg-amber-50 rounded-xl hover:bg-amber-100 transition-all">
+                        <i class="fa-solid fa-pen-to-square mr-3"></i> @L["Edit Configuration"]
+                    </a>
+                    <form asp-action="Delete" asp-route-id="@Model.Id" method="post" onsubmit="return confirm('@L["Are you sure?"]');">
+                        <button type="submit" class="flex items-center w-full px-4 py-3 text-sm font-bold text-red-600 bg-red-50 rounded-xl hover:bg-red-100 transition-all">
+                            <i class="fa-solid fa-trash-can mr-3"></i> @L["Archive Project"]
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

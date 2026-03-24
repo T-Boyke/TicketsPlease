@@ -1,0 +1,81 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@using TicketsPlease.Application.Common.Dtos
+@inject IViewLocalizer L
+@model IEnumerable<ProjectDto>
+@{
+    ViewData["Title"] = L["Project Management"];
+}
+
+<div class="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-10 gap-4">
+        <div>
+            <h1 class="text-3xl font-extrabold text-slate-900">@L["Projects"]</h1>
+            <p class="text-slate-500 mt-1">@L["Manage and oversee all enterprise projects."]</p>
+        </div>
+        <a asp-action="Create" class="inline-flex items-center px-6 py-3 border border-transparent text-sm font-bold rounded-full shadow-lg text-white bg-brand-primary hover:bg-brand-secondary transition-all hover:scale-105 active:scale-95">
+            <i class="fa-solid fa-plus mr-2"></i>
+            @L["Create New Project"]
+        </a>
+    </div>
+
+    <div class="bg-white shadow-2xl shadow-slate-200 rounded-3xl overflow-hidden border border-slate-100">
+        <table class="min-w-full divide-y divide-slate-200" aria-label="@L["Project Table"]">
+            <thead class="bg-slate-50">
+                <tr>
+                    <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-widest">@L["Title"]</th>
+                    <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-widest">@L["Status"]</th>
+                    <th scope="col" class="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-widest">@L["Start Date"]</th>
+                    <th scope="col" class="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-widest">@L["Actions"]</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-slate-100">
+                @foreach (var project in Model)
+                {
+                    <tr class="hover:bg-slate-50/50 transition-colors">
+                        <td class="px-6 py-5 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 h-10 w-10 bg-brand-primary/10 rounded-xl flex items-center justify-center text-brand-primary font-bold">
+                                    @project.Title.Substring(0, 1).ToUpper()
+                                </div>
+                                <div class="ml-4">
+                                    <div class="text-sm font-bold text-slate-900">@project.Title</div>
+                                    <div class="text-xs text-slate-400">@project.Description?.Substring(0, Math.Min(project.Description.Length, 30))...</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-5 whitespace-nowrap">
+                            @if (project.IsOpen)
+                            {
+                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full bg-emerald-100 text-emerald-700">
+                                    <i class="fa-solid fa-circle-play mr-1.5 self-center"></i> @L["Active"]
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full bg-slate-100 text-slate-500">
+                                    <i class="fa-solid fa-circle-stop mr-1.5 self-center"></i> @L["Closed"]
+                                </span>
+                            }
+                        </td>
+                        <td class="px-6 py-5 whitespace-nowrap text-sm text-slate-500 font-medium">
+                            @project.StartDate.ToShortDateString()
+                        </td>
+                        <td class="px-6 py-5 whitespace-nowrap text-right text-sm font-medium space-x-2">
+                            <a asp-action="Details" asp-route-id="@project.Id" class="text-slate-400 hover:text-brand-primary p-2 rounded-lg hover:bg-slate-100 transition-all" title="@L["Details"]">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@project.Id" class="text-slate-400 hover:text-amber-500 p-2 rounded-lg hover:bg-amber-50 transition-all" title="@L["Edit"]">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                            <form asp-action="Delete" asp-route-id="@project.Id" method="post" class="inline" onsubmit="return confirm('@L["Are you sure?"]');">
+                                <button type="submit" class="text-slate-400 hover:text-red-500 p-2 rounded-lg hover:bg-red-50 transition-all" title="@L["Delete"]">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
