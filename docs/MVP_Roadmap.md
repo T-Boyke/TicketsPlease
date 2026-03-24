@@ -24,67 +24,67 @@ funktionsfähig sein und durch Unit/Integration-Tests abgedeckt werden.
 - [x] Entity Framework Code-First DB mit MS SQL (Docker Testcontainers).
 - [x] **Antigravity AI Integration:** Vollautomatisierung via AI Skills
       (Scaffold, review, ADR).
-- [ ] User-Registrierung & Login (ASP.NET Core Identity). Registrierung
+- [x] User-Registrierung & Login (ASP.NET Core Identity). Registrierung
       erfordert zwingend **Username, Vorname und E-Mail**.
-- [ ] Dynamische Navbar mit kontext-sensitivem "Settings"-Menü (Profile für
+- [x] Dynamische Navbar mit kontext-sensitivem "Settings"-Menü (Profile für
       User; Gruppen- & Rechteverwaltung für Admins).
 - [x] **Foundation Ready:** Alle 26 Enterprise-Entitäten (RBAC, Profiles, Teams)
       im persistence layer implementiert.
 
 **Ticket Management (Core Funktionalität):**
 
-- [ ] Kanban Dashboard (To Do, In Progress, Review, Done) mit Vanilla HTML5 Drag
+- [x] Kanban Dashboard (To Do, In Progress, Review, Done) mit Vanilla HTML5 Drag
       & Drop.
-- [ ] Tickets erstellen (Titel, Beschreibung, Priorität). Inkl. automatischer
+- [x] Tickets erstellen (Titel, Beschreibung, Priorität). Inkl. automatischer
       SHA1-Hash Generierung (Referenzierbarkeit) und Geo/IP-Timestamp Erfassung
       pro Ticket.
-- [ ] Chillischoten-Schwierigkeits-Metrik (1-5 🌶️).
-- [ ] Einem User ein Ticket zuweisen.
-- [ ] **Close-Regeln:** Ein Ticket kann manuell nur von seinem _Ersteller_ oder
+- [x] Chillischoten-Schwierigkeits-Metrik (1-5 🌶️).
+- [x] Einem User ein Ticket zuweisen.
+- [x] **Close-Regeln:** Ein Ticket kann manuell nur von seinem _Ersteller_ oder
       einem _Admin_ geschlossen/gelöscht werden.
 
 **Data & UI:**
 
-- [ ] Razor Views & ViewComponents (strikte Nutzung von Partials zur Vermeidung
+- [x] Razor Views & ViewComponents (strikte Nutzung von Partials zur Vermeidung
       von Code-Duplikation `DRY`).
 - [x] **Tailwind CSS v4.2.2 Stack:** Vollständige Integration via
       `tailwindcss-dotnet` (Node-free).
 - [x] **Client-Side Asset Management:** `libman.json` für SortableJS, FA7.
 - [x] CI/CD Pipeline (GitHub Actions) aktiv.
-- [ ] ASP.NET Core Identity: Login & Logout.
-- [ ] Eigener AccountController zur Steuerung der Authentifizierung.
-- [ ] Rollen: Admin, Developer, Tester (mind. je 1 User).
-- [ ] Nicht angemeldete Benutzer sehen nur die Startseite.
+- [x] ASP.NET Core Identity: Login & Logout.
+- [x] Eigener AccountController zur Steuerung der Authentifizierung.
+- [x] Rollen: Admin, Developer, Tester (mind. je 1 User).
+- [x] Nicht angemeldete Benutzer sehen nur die Startseite.
 
 ### F2: Admin-Bereich
 
-- [ ] Eigener Admin-Bereich, nur für Admins erreichbar.
-- [ ] Admin-Startseite mit Links zu Unterbereichen.
-- [ ] Button/Link zum Admin-Bereich auf Startseite (nur für Admins sichtbar).
-- [ ] **Projekte CRUD** (Titel, Beschreibung, Startdatum [Pflicht],
+- [x] Eigener Admin-Bereich, nur für Admins erreichbar.
+- [x] Admin-Startseite mit Links zu Unterbereichen.
+- [x] Button/Link zum Admin-Bereich auf Startseite (nur für Admins sichtbar).
+- [x] **Projekte CRUD** (Titel, Beschreibung, Startdatum [Pflicht],
       Enddatum [optional]).
-- [ ] (Optional) Benutzerverwaltung im Admin-Bereich.
+- [x] (Optional) Benutzerverwaltung im Admin-Bereich.
 
 ### F3: Ticket-Management
 
-- [ ] Tickets anlegen: Titel, Beschreibung, Projekt, Ersteller (automatisch),
+- [x] Tickets anlegen: Titel, Beschreibung, Projekt, Ersteller (automatisch),
       Erstellungsdatum (automatisch), Zugewiesener, Zuweisungsdatum.
-- [ ] Nur offene Projekte können zugeordnet werden.
-- [ ] Ticket-Liste (sortiert nach Projekt + Erstellungsdatum absteigend).
-- [ ] Ticket-Detailseite mit allen Informationen + Zurück-Button.
-- [ ] Tickets bearbeiten (nur Admin, Ersteller oder Zugewiesener):
+- [x] Nur offene Projekte können zugeordnet werden.
+- [x] Ticket-Liste (sortiert nach Projekt + Erstellungsdatum absteigend).
+- [x] Ticket-Detailseite mit allen Informationen + Zurück-Button.
+- [x] Tickets bearbeiten (nur Admin, Ersteller oder Zugewiesener):
       Beschreibung, Zugewiesener änderbar. Zuweisungsdatum wird automatisch
       aktualisiert.
-- [ ] Tickets schließen: Attribute GeschlossenVon, GeschlossenAm. Nur Admin,
+- [x] Tickets schließen: Attribute GeschlossenVon, GeschlossenAm. Nur Admin,
       Ersteller oder Zugewiesener darf schließen. Status (offen/geschlossen)
       in Übersicht und Detail sichtbar.
 - [ ] (Optional) Dateien zu Tickets hochladen.
 
 ### F4: Startseite & Statistiken
 
-- [ ] Zentrale Startseite unter Root-URL, auch ohne Login erreichbar.
-- [ ] Links/Buttons zum Ticket- und Admin-Bereich.
-- [ ] Statistiken: Tickets (Gesamt/offen/geschlossen),
+- [x] Zentrale Startseite unter Root-URL, auch ohne Login erreichbar.
+- [x] Links/Buttons zum Ticket- und Admin-Bereich.
+- [x] Statistiken: Tickets (Gesamt/offen/geschlossen),
       Projekte (Gesamt/offen/beendet).
 - [ ] (Optional) Benutzer-Statistiken (Gesamt und pro Rolle).
 
