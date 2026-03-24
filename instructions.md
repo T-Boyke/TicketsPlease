@@ -56,8 +56,8 @@ Code-Modifikationen in der **TicketsPlease** Solution. Jede Regel ist aus der
     - [🗣️ Kommunikation \& Entscheidungen](#️-kommunikation--entscheidungen)
     - [🔄 Ablauf bei typischen Aufgaben](#-ablauf-bei-typischen-aufgaben)
     - [🚫 Agent No-Gos](#-agent-no-gos)
-    - [📝 Markdown & Documentation Rules](#-markdown--documentation-rules)
   - [16. 🛠️ Workflows](#16-️-workflows)
+  - [📝 Markdown \& Documentation Rules](#-markdown--documentation-rules)
 
 ---
 
@@ -575,15 +575,15 @@ flowchart TD
 Nutze diese spezialisierten Workflows für Konsistenz bei jeder
 Entwicklungs-Aufgabe:
 
-| Workflow                   | Beschreibung                                  | Link                                                                  |
-| -------------------------- | --------------------------------------------- | --------------------------------------------------------------------- |
-| `/add-cqrs-feature`        | Neues CQRS Feature (Command/Query) hinzufügen | [add-cqrs-feature.md](.agent/workflows/add-cqrs-feature.md)           |
-| `/ef-core-migration`       | EF Core Migrations erstellen & anwenden       | [ef-core-migration.md](.agent/workflows/ef-core-migration.md)         |
-| `/testing-standards`       | Unit- & Integration-Tests schreiben           | [testing-standards.md](.agent/workflows/testing-standards.md)         |
-| `/ui-component-tailwind`   | UI-Komponenten mit Tailwind erstellen         | [ui-component-tailwind.md](.agent/workflows/ui-component-tailwind.md) |
-| `/atomic-commits`          | Atomare, logische Git-Commits                 | [atomic-commits.md](.agent/workflows/atomic-commits.md)               |
-| `/security-review`         | Security-Checkliste (Defense in Depth)        | [security-review.md](.agent/workflows/security-review.md)             |
-| `/domain-entity`           | DDD Entity/Value Object erstellen             | [domain-entity.md](.agent/workflows/domain-entity.md)                 |
+| Workflow                   | Beschreibung                                  | Link                                                                      |
+| -------------------------- | --------------------------------------------- | ------------------------------------------------------------------------- |
+| `/add-cqrs-feature`        | Neues CQRS Feature (Command/Query) hinzufügen | [add-cqrs-feature.md](.agent/workflows/add-cqrs-feature.md)               |
+| `/ef-core-migration`       | EF Core Migrations erstellen & anwenden       | [ef-core-migration.md](.agent/workflows/ef-core-migration.md)             |
+| `/testing-standards`       | Unit- & Integration-Tests schreiben           | [testing-standards.md](.agent/workflows/testing-standards.md)             |
+| `/ui-component-tailwind`   | UI-Komponenten mit Tailwind erstellen         | [ui-component-tailwind.md](.agent/workflows/ui-component-tailwind.md)     |
+| `/atomic-commits`          | Atomare, logische Git-Commits                 | [atomic-commits.md](.agent/workflows/atomic-commits.md)                   |
+| `/security-review`         | Security-Checkliste (Defense in Depth)        | [security-review.md](.agent/workflows/security-review.md)                 |
+| `/domain-entity`           | DDD Entity/Value Object erstellen             | [domain-entity.md](.agent/workflows/domain-entity.md)                     |
 | `/documentation-standards` | Dokumentations-Standards einhalten            | [documentation-standards.md](.agent/workflows/documentation-standards.md) |
 
 ---
