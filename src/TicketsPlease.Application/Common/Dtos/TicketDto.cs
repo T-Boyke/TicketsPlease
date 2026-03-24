@@ -36,13 +36,3 @@ public record TicketDto(
     DateTime CreatedAt,
     int? EstimatePoints);
 
-/// <summary>
-/// Datenübertragungsobjekt für Ticket-Prioritäten.
-/// </summary>
-/// <param name="Id">Die ID der Priorität.</param>
-/// <param name="Name">Der Anzeigename.</param>
-/// <param name="ColorHex">Der Hex-Farbcode für die UI.</param>
-public record TicketPriorityDto(
-    Guid Id,
-    string Name,
-    string ColorHex);

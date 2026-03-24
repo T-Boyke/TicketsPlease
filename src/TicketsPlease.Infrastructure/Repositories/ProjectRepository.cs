@@ -18,53 +18,53 @@ using TicketsPlease.Infrastructure.Persistence;
 /// </summary>
 public class ProjectRepository : IProjectRepository
 {
-    private readonly AppDbContext _context;
+    private readonly AppDbContext context;
 
     /// <summary>
-    /// Initialisiert eine neue Instanz der <see cref="ProjectRepository"/> Klasse.
+    /// Initializes a new instance of the <see cref="ProjectRepository"/> class.
     /// </summary>
     /// <param name="context">Der Datenbankkontext.</param>
     public ProjectRepository(AppDbContext context)
     {
-        _context = context;
+        this.context = context;
     }
 
     /// <inheritdoc/>
     public async Task<Project?> GetByIdAsync(Guid id)
     {
-        return await _context.Projects
+        return await this.context.Projects
             .Include(p => p.Tickets)
-            .FirstOrDefaultAsync(p => p.Id == id);
+            .FirstOrDefaultAsync(p => p.Id == id).ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
     public async Task<IEnumerable<Project>> GetAllAsync(Guid tenantId)
     {
-        return await _context.Projects
+        return await this.context.Projects
             .AsNoTracking()
             .Where(p => p.TenantId == tenantId)
             .OrderByDescending(p => p.StartDate)
-            .ToListAsync();
+            .ToListAsync().ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
     public async Task AddAsync(Project project)
     {
-        await _context.Projects.AddAsync(project);
-        await _context.SaveChangesAsync();
+        await this.context.Projects.AddAsync(project).ConfigureAwait(false);
+        await this.context.SaveChangesAsync().ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
     public async Task UpdateAsync(Project project)
     {
-        _context.Projects.Update(project);
-        await _context.SaveChangesAsync();
+        this.context.Projects.Update(project);
+        await this.context.SaveChangesAsync().ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
     public async Task DeleteAsync(Project project)
     {
-        _context.Projects.Remove(project);
-        await _context.SaveChangesAsync();
+        this.context.Projects.Remove(project);
+        await this.context.SaveChangesAsync().ConfigureAwait(false);
     }
 }

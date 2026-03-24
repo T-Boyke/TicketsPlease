@@ -1,3 +1,3 @@
-// <copyright file="GlobalUsings.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// <copyright file="GlobalUsings.cs" company="BitLC-NE-2025-2026">
+// Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>

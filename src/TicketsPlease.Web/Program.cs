@@ -2,19 +2,19 @@
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
+using System.Globalization;
 using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using TicketsPlease.Application.Common.Interfaces;
+using TicketsPlease.Application.Services;
+using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 using TicketsPlease.Infrastructure.Repositories;
 using TicketsPlease.Infrastructure.Services;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Razor;
-using System.Globalization;
-using Microsoft.AspNetCore.Localization;
-using TicketsPlease.Application.Services;
-using TicketsPlease.Domain.Entities;
 
 [assembly: InternalsVisibleTo("TicketsPlease.IntegrationTests")]
 

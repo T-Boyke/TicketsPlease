@@ -4,6 +4,8 @@
 
 namespace TicketsPlease.Web.Controllers;
 
+using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,18 +17,18 @@ using TicketsPlease.Web.Models.Account;
 /// </summary>
 public class AccountController : Controller
 {
-    private readonly SignInManager<User> _signInManager;
-    private readonly UserManager<User> _userManager;
+    private readonly SignInManager<User> signInManager;
+    private readonly UserManager<User> userManager;
 
     /// <summary>
-    /// Initialisiert eine neue Instanz der <see cref="AccountController"/> Klasse.
+    /// Initializes a new instance of the <see cref="AccountController"/> class.
     /// </summary>
     /// <param name="signInManager">Der Identity SignInManager.</param>
     /// <param name="userManager">Der Identity UserManager.</param>
     public AccountController(SignInManager<User> signInManager, UserManager<User> userManager)
     {
-        _signInManager = signInManager;
-        _userManager = userManager;
+        this.signInManager = signInManager;
+        this.userManager = userManager;
     }
 
     /// <summary>
@@ -36,7 +38,7 @@ public class AccountController : Controller
     [HttpGet]
     public IActionResult Login()
     {
-        return View();
+        return this.View();
     }
 
     /// <summary>
@@ -48,16 +50,20 @@ public class AccountController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginViewModel model)
     {
-        if (ModelState.IsValid)
+        ArgumentNullException.ThrowIfNull(model);
+
+        if (this.ModelState.IsValid)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+            var result = await this.signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false).ConfigureAwait(false);
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                return this.RedirectToAction("Index", "Home");
             }
-            ModelState.AddModelError(string.Empty, "Ungültiger Login-Versuch.");
+
+            this.ModelState.AddModelError(string.Empty, "Ungültiger Login-Versuch.");
         }
-        return View(model);
+
+        return this.View(model);
     }
 
     /// <summary>
@@ -67,7 +73,7 @@ public class AccountController : Controller
     [HttpGet]
     public IActionResult Register()
     {
-        return View();
+        return this.View();
     }
 
     /// <summary>
@@ -79,21 +85,25 @@ public class AccountController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Register(RegisterViewModel model)
     {
-        if (ModelState.IsValid)
+        ArgumentNullException.ThrowIfNull(model);
+
+        if (this.ModelState.IsValid)
         {
             var user = new User { UserName = model.Username, Email = model.Email };
-            var result = await _userManager.CreateAsync(user, model.Password);
+            var result = await this.userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, isPersistent: false);
-                return RedirectToAction("Index", "Home");
+                await this.signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
+                return this.RedirectToAction("Index", "Home");
             }
+
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                this.ModelState.AddModelError(string.Empty, error.Description);
             }
         }
-        return View(model);
+
+        return this.View(model);
     }
 
     /// <summary>
@@ -104,8 +114,8 @@ public class AccountController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Logout()
     {
-        await _signInManager.SignOutAsync();
-        return RedirectToAction("Index", "Home");
+        await this.signInManager.SignOutAsync().ConfigureAwait(false);
+        return this.RedirectToAction("Index", "Home");
     }
 
     /// <summary>
@@ -113,19 +123,25 @@ public class AccountController : Controller
     /// </summary>
     /// <returns>Die Profil-View.</returns>
     [Authorize]
+    [HttpGet]
     public async Task<IActionResult> Profile()
     {
-        var user = await _userManager.GetUserAsync(User);
-        if (user == null) return NotFound();
-        return View(user);
+        var user = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
+        if (user == null)
+        {
+            return this.NotFound();
+        }
+
+        return this.View(user);
     }
 
     /// <summary>
     /// Zeigt die Seite für verweigerten Zugriff an.
     /// </summary>
     /// <returns>Die AccessDenied-View.</returns>
+    [HttpGet]
     public IActionResult AccessDenied()
     {
-        return View();
+        return this.View();
     }
 }
