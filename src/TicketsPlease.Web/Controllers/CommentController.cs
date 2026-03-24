@@ -15,7 +15,7 @@ using TicketsPlease.Application.Common.Interfaces;
 /// Controller für die Kommentarverwaltung (F5).
 /// </summary>
 [Authorize]
-internal class CommentController : Controller
+public class CommentController : Controller
 {
   private readonly ICommentService commentService;
 

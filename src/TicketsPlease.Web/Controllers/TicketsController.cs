@@ -19,7 +19,7 @@ using TicketsPlease.Infrastructure.Persistence;
 /// Controller für das Ticket-Handling und das Kanban-Board.
 /// </summary>
 [Authorize]
-internal class TicketsController : Controller
+public class TicketsController : Controller
 {
   private readonly ITicketService ticketService;
   private readonly IProjectService projectService;

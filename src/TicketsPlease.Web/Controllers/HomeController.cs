@@ -11,7 +11,7 @@ using TicketsPlease.Web.Models;
 /// <summary>
 /// Der Standard-Controller für die Startseite und allgemeine Seiten.
 /// </summary>
-internal sealed class HomeController : Controller
+public sealed class HomeController : Controller
 {
   /// <summary>
   /// Zeigt die Index-Seite an.

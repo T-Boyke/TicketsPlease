@@ -15,7 +15,7 @@ using TicketsPlease.Application.Common.Interfaces;
 /// Controller für die Projektverwaltung (CRUD für Admins).
 /// </summary>
 [Authorize(Roles = "Admin")]
-internal class ProjectController : Controller
+public class ProjectController : Controller
 {
   private readonly IProjectService projectService;
 
