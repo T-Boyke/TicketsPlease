@@ -35,6 +35,60 @@
         </div>
     </div>
 
+    @* Filter Bar (F6) *@
+    <div class="bg-white rounded-2xl p-4 border border-slate-100 shadow-md mb-8 flex flex-wrap items-center gap-6">
+        <div class="flex items-center text-slate-400 font-bold text-[10px] uppercase tracking-widest border-r border-slate-100 pr-6">
+            <i class="fa-solid fa-filter mr-2 text-brand-primary"></i> @L["Filter"]
+        </div>
+        
+        <form asp-action="Index" method="get" class="flex flex-wrap items-center gap-4">
+            @* Project Filter *@
+            <div class="flex flex-col">
+                <label for="filter-project" class="text-[9px] font-bold text-slate-400 uppercase mb-1 ml-1">@L["Project"]</label>
+                <select id="filter-project" name="projectId" class="bg-slate-50 border-none text-slate-700 text-xs font-bold rounded-lg focus:ring-2 focus:ring-brand-primary/20 block px-3 py-2 transition-all outline-none min-w-[140px]" onchange="this.form.submit()">
+                    <option value="">@L["All Projects"]</option>
+                    @foreach (var p in (SelectList)ViewBag.Projects)
+                    {
+                        <option value="@p.Value" selected='@(ViewData["CurrentProject"]?.ToString() == p.Value)'>@p.Text</option>
+                    }
+                </select>
+            </div>
+
+            @* Assignee Filter *@
+            <div class="flex flex-col">
+                <label for="filter-assignee" class="text-[9px] font-bold text-slate-400 uppercase mb-1 ml-1">@L["Assignee"]</label>
+                <select id="filter-assignee" name="assignedUserId" class="bg-slate-50 border-none text-slate-700 text-xs font-bold rounded-lg focus:ring-2 focus:ring-brand-primary/20 block px-3 py-2 transition-all outline-none min-w-[140px]" onchange="this.form.submit()">
+                    <option value="">@L["All Assignees"]</option>
+                    @foreach (var u in (SelectList)ViewBag.Users)
+                    {
+                        <option value="@u.Value" selected='@(ViewData["CurrentAssignee"]?.ToString() == u.Value)'>@u.Text</option>
+                    }
+                </select>
+            </div>
+
+            @* Creator Filter *@
+            <div class="flex flex-col">
+                <label for="filter-creator" class="text-[9px] font-bold text-slate-400 uppercase mb-1 ml-1">@L["Creator"]</label>
+                <select id="filter-creator" name="creatorId" class="bg-slate-50 border-none text-slate-700 text-xs font-bold rounded-lg focus:ring-2 focus:ring-brand-primary/20 block px-3 py-2 transition-all outline-none min-w-[140px]" onchange="this.form.submit()">
+                    <option value="">@L["All Creators"]</option>
+                    @foreach (var u in (SelectList)ViewBag.Users)
+                    {
+                        <option value="@u.Value" selected='@(ViewData["CurrentCreator"]?.ToString() == u.Value)'>@u.Text</option>
+                    }
+                </select>
+            </div>
+
+            @if (ViewData["CurrentProject"] != null || ViewData["CurrentAssignee"] != null || ViewData["CurrentCreator"] != null)
+            {
+                <div class="flex items-end h-full pb-2">
+                    <a asp-action="Index" class="text-[10px] font-bold text-rose-500 hover:text-rose-600 transition-colors flex items-center bg-rose-50 px-3 py-1.5 rounded-full">
+                        <i class="fa-solid fa-xmark mr-1"></i> @L["Clear Filters"]
+                    </a>
+                </div>
+            }
+        </form>
+    </div>
+
     @* Kanban Grid *@
     <div class="flex-grow grid grid-cols-1 md:grid-cols-3 gap-6 overflow-hidden">
         

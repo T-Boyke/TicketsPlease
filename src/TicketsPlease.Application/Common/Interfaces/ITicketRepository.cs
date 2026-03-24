@@ -27,6 +27,16 @@ public interface ITicketRepository
   public Task<List<Ticket>> GetAllActiveAsync(CancellationToken ct = default);
 
   /// <summary>
+  /// Ruft gefilterte Tickets ab (F6).
+  /// </summary>
+  /// <param name="projectId">Optionale Projekt-ID.</param>
+  /// <param name="assignedUserId">Optionale Zuweisungs-ID.</param>
+  /// <param name="creatorId">Optionale Ersteller-ID.</param>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Eine Liste gefilterter Tickets.</returns>
+  public Task<List<Ticket>> GetFilteredAsync(Guid? projectId = null, Guid? assignedUserId = null, Guid? creatorId = null, CancellationToken ct = default);
+
+  /// <summary>
   /// Fügt ein neues Ticket hinzu.
   /// </summary>
   /// <param name="ticket">Das zu speichernde Ticket.</param>
