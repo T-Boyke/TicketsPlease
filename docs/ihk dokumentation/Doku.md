@@ -169,20 +169,20 @@ gantt
     "API-Design & MediatR Pattern" : 27.03.2026, 3h
 
     section 3. Implementierung (F1-F9)
-    "F1: Identity & Auth Middleware" : 30.03.2026, 2h
-    "F1: GitHub Actions & Env-Setup" : 30.03.2026, 2h
-    "F2: Admin CRUD (Projekte/User)" : 31.03.2026, 4h
-    "F3: Ticket-Core State Machine" : 01.04.2026, 3h
-    "F3: Detailview & Edit-Logik" : 01.04.2026, 3h
-    "F4: Dashboard SQL-Aggregation" : 02.04.2026, 2h
-    "F4: Dashboard UI-Charts" : 02.04.2026, 2h
-    "F5: Kommentare & Domain Events" : 03.04.2026, 2h
-    "F5: Real-time UI Updates" : 03.04.2026, 1h
-    crit, "F6: Filter Expression Trees" : 07.04.2026, 3h
-    "F7: Abhängigkeits-Validierung" : 08.04.2026, 3h
-    "F8: Workflow Status-Guards" : 09.04.2026, 2h
-    "F8: Kanban Drag&Drop Logik" : 09.04.2026, 2h
-    "F9: Messaging Entity & Repo" : 10.04.2026, 3h
+    "F1 Identity & Auth Middleware" : 30.03.2026, 2h
+    "F1 GitHub Actions & Env-Setup" : 30.03.2026, 2h
+    "F2 Admin CRUD (Projekte/User)" : 31.03.2026, 4h
+    "F3 Ticket-Core State Machine" : 01.04.2026, 3h
+    "F3 Detailview & Edit-Logik" : 01.04.2026, 3h
+    "F4 Dashboard SQL-Aggregation" : 02.04.2026, 2h
+    "F4 Dashboard UI-Charts" : 02.04.2026, 2h
+    "F5 Kommentare & Domain Events" : 03.04.2026, 2h
+    "F5 Real-time UI Updates" : 03.04.2026, 1h
+    crit, "F6 Filter Expression Trees" : 07.04.2026, 3h
+    "F7 Abhängigkeits-Validierung" : 08.04.2026, 3h
+    "F8 Workflow Status-Guards" : 09.04.2026, 2h
+    "F8 Kanban Drag&Drop Logik" : 09.04.2026, 2h
+    "F9 Messaging Entity & Repo" : 10.04.2026, 3h
 
     section 4. Qualitätssicherung
     "Unit-Testing" : 13.04.2026, 4h
