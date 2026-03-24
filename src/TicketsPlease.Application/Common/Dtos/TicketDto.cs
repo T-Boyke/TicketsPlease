@@ -13,7 +13,7 @@ using TicketsPlease.Domain.Enums;
 /// <param name="Id">Die eindeutige ID des Tickets.</param>
 /// <param name="Title">Der Titel des Tasks.</param>
 /// <param name="Description">Die detaillierte Beschreibung.</param>
-/// <param name="Status">Der aktuelle Status (z.B. Todo, Doing, Closed).</param>
+/// <param name="Status">Der aktuelle Status (z.B. To-Do, Doing, Closed).</param>
 /// <param name="ProjectId">Die ID des zugehörigen Projekts.</param>
 /// <param name="ProjectTitle">Der Name des Projekts (für die UI).</param>
 /// <param name="AssignedUserId">Die ID des zugewiesenen Benutzers.</param>
