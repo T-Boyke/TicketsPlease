@@ -13,32 +13,32 @@
 
 @utility btn-primary {
   @apply btn bg-brand-primary text-white shadow-sm;
-}
 
-@utility btn-primary:hover {
-  @apply bg-brand-hover -translate-y-0.5 shadow-md;
-  transform: translateY(-2px) rotate(-1deg);
-}
+  &:hover {
+    @apply bg-brand-hover -translate-y-0.5 shadow-md;
+    transform: translateY(-2px) rotate(-1deg);
+  }
 
-@utility btn-primary:active {
-  @apply translate-y-0 scale-95 shadow-sm;
+  &:active {
+    @apply translate-y-0 scale-95 shadow-sm;
+  }
 }
 
 @utility btn-accent {
   @apply btn bg-brand-accent text-text-main shadow-sm;
-}
 
-@utility btn-accent:hover {
-  @apply -translate-y-0.5 shadow-lg;
-  box-shadow: 0 0 16px var(--brand-accent-glow);
+  &:hover {
+    @apply -translate-y-0.5 shadow-lg;
+    box-shadow: 0 0 16px var(--brand-accent-glow);
+  }
 }
 
 @utility btn-ghost {
   @apply btn text-text-secondary dark:text-dark-text-secondary border border-border-default dark:border-dark-border;
-}
 
-@utility btn-ghost:hover {
-  @apply bg-surface-soft dark:bg-dark-surface-soft text-brand-primary border-brand-primary;
+  &:hover {
+    @apply bg-surface-soft dark:bg-dark-surface-soft text-brand-primary border-brand-primary;
+  }
 }
 
 /* Sizes */

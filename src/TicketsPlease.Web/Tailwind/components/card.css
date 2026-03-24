@@ -8,11 +8,11 @@
   @apply overflow-hidden rounded-2xl bg-surface-bright dark:bg-dark-surface-soft border border-border-default dark:border-dark-border shadow-sm transition-all;
   transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
   transition-duration: 400ms;
-}
 
-@utility card:hover {
-  @apply -translate-y-1.5 shadow-xl border-border-default;
-  transform: translateY(-6px) rotate(0.5deg);
+  &:hover {
+    @apply -translate-y-1.5 shadow-xl border-border-default;
+    transform: translateY(-6px) rotate(0.5deg);
+  }
 }
 
 /* Feature Card with Asymmetric Accent */
@@ -28,10 +28,10 @@
 /* Kanban Card with Primary Accent */
 @utility kanban-card {
   @apply card border-l-4 border-l-brand-primary cursor-grab active:cursor-grabbing;
-}
 
-@utility kanban-card:hover {
-  @apply border-l-brand-accent;
+  &:hover {
+    @apply border-l-brand-accent;
+  }
 }
 
 /* Header & Body */

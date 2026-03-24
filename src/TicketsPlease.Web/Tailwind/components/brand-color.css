@@ -30,6 +30,7 @@
   --color-surface-bright: oklch(1 0 0);
   --color-surface-soft: oklch(0.96 0.005 260);
   --color-surface-muted: oklch(0.94 0.005 260);
+  --color-surface-subtle: oklch(0.92 0.005 260);
 
   /* Light Mode Semantic Text */
   --color-text-main: oklch(0.15 0.01 260);      /* Deep Navy-Slate */
@@ -51,7 +52,14 @@
   /* Dark Mode Surfaces */
   --color-dark-surface: oklch(0.13 0.015 260);
   --color-dark-surface-soft: oklch(0.17 0.02 260);
+  --color-dark-surface-muted: oklch(0.2 0.02 260);
+  --color-dark-surface-subtle: oklch(0.22 0.02 260);
   --color-dark-border: oklch(0.25 0.02 260);
+
+  /* Dark Mode Semantic Text */
+  --color-dark-text-main: oklch(0.95 0.01 260);      /* Crisp Slate-White */
+  --color-dark-text-secondary: oklch(0.8 0.015 260);
+  --color-dark-text-muted: oklch(0.6 0.02 260);
 
   /* 
      ==========================================================================

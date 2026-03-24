@@ -35,6 +35,8 @@
 }
 
 /* Hover State for Interactive Badges */
-@utility badge-interactive:hover {
-  @apply -translate-y-0.5 cursor-pointer shadow-sm saturate-150;
+@utility badge-interactive {
+  &:hover {
+    @apply -translate-y-0.5 cursor-pointer shadow-sm saturate-150;
+  }
 }

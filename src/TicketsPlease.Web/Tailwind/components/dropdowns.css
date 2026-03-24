@@ -12,10 +12,10 @@
 
 @utility dropdown-item {
   @apply flex items-center px-4 py-2.5 text-sm text-text-secondary dark:text-dark-text-secondary transition-colors;
-}
 
-@utility dropdown-item:hover {
-  @apply bg-brand-primary/10 text-brand-primary dark:bg-brand-primary/20;
+  &:hover {
+    @apply bg-brand-primary/10 text-brand-primary dark:bg-brand-primary/20;
+  }
 }
 
 @utility dropdown-divider {
