@@ -1,0 +1,79 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@using TicketsPlease.Application.Common.Dtos
+@model TicketDto
+@inject IViewLocalizer L
+
+@{
+    ViewData["Title"] = L["Ticket Details"];
+}
+
+<div class="max-w-5xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between mb-8">
+        <a asp-action="Index" class="text-slate-400 hover:text-brand-primary font-bold transition-colors flex items-center">
+            <i class="fa-solid fa-arrow-left mr-2"></i> @L["Back to Board"]
+        </a>
+        <div class="flex space-x-3">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="px-5 py-2.5 rounded-full border border-slate-200 text-slate-600 font-bold hover:bg-slate-50 transition-all">
+                <i class="fa-solid fa-pen mr-2"></i> @L["Edit"]
+            </a>
+            @if (Model.Status != "Closed")
+            {
+                <form asp-action="Move" asp-route-id="@Model.Id" asp-route-status="Closed" method="post" class="inline">
+                    <button type="submit" class="px-5 py-2.5 rounded-full bg-emerald-500 text-white font-bold hover:bg-emerald-600 hover:shadow-lg hover:shadow-emerald-500/30 transition-all">
+                        <i class="fa-solid fa-check mr-2"></i> @L["Close Ticket"]
+                    </button>
+                </form>
+            }
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        @* Main Content *@
+        <div class="lg:col-span-2 space-y-8">
+            <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-xl">
+                <div class="flex items-center space-x-3 mb-6">
+                    <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest"
+                          style="background-color: @(Model.Priority.ColorHex + "20"); color: @(Model.Priority.ColorHex)">
+                        @Model.Priority.Name
+                    </span>
+                    <span class="text-slate-400 font-bold text-sm">TICKET-@Model.Id.ToString().Substring(0, 8).ToUpper()</span>
+                </div>
+                <h1 class="text-4xl font-extrabold text-slate-900 mb-6 leading-tight">@Model.Title</h1>
+                <div class="prose prose-slate max-w-none">
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">@L["Description"]</h3>
+                    <p class="text-slate-700 leading-relaxed whitespace-pre-wrap">@Model.Description</p>
+                </div>
+            </div>
+        </div>
+
+        @* Sidebar *@
+        <div class="space-y-6">
+            <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-xl">
+                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">@L["Properties"]</h3>
+                <div class="space-y-6">
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">@L["Status"]</p>
+                        <div class="inline-flex items-center px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">
+                            @Model.Status
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">@L["Assignee"]</p>
+                        <div class="flex items-center space-x-3">
+                            <partial name="_Avatar" model='Model.AssignedUserName.Substring(0, 2).ToUpper()' view-data='@new ViewDataDictionary(ViewData) { { "SizeClass", "h-8 w-8" } }' />
+                            <span class="text-sm font-bold text-slate-700">@Model.AssignedUserName</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">@L["Project"]</p>
+                        <p class="text-sm font-bold text-slate-700">@Model.ProjectTitle</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">@L["Created"]</p>
+                        <p class="text-sm font-bold text-slate-700">@Model.CreatedAt.ToString("g")</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

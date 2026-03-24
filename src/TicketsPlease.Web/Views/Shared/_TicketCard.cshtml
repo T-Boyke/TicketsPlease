@@ -1,0 +1,35 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@model TicketsPlease.Application.Common.Dtos.TicketDto
+@inject IViewLocalizer L
+
+<div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-primary/30 transition-all group cursor-pointer active:scale-[0.98]">
+    <div class="flex justify-between items-start mb-2">
+        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-tighter" 
+              style="background-color: @(Model.Priority.ColorHex + "20"); color: @(Model.Priority.ColorHex)">
+            @Model.Priority.Name
+        </span>
+        <div class="flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="p-1 text-slate-400 hover:text-brand-primary"><i class="fa-solid fa-pen-to-square text-[10px]"></i></a>
+            <a asp-action="Details" asp-route-id="@Model.Id" class="p-1 text-slate-400 hover:text-brand-primary"><i class="fa-solid fa-eye text-[10px]"></i></a>
+        </div>
+    </div>
+    
+    <h3 class="text-sm font-bold text-slate-800 mb-1 leading-tight group-hover:text-brand-primary transition-colors">@Model.Title</h3>
+    <p class="text-[11px] text-slate-500 line-clamp-2 mb-3">@Model.Description</p>
+    
+    <div class="pt-3 border-t border-slate-50 flex items-center justify-between mt-auto">
+        <div class="flex -space-x-1 overflow-hidden">
+            <partial name="_Avatar" model='Model.AssignedUserName.Substring(0, 2).ToUpper()' view-data='@new ViewDataDictionary(ViewData) { { "SizeClass", "h-6 w-6 ring-2 ring-white" } }' />
+        </div>
+        <div class="flex items-center space-x-2 text-slate-400">
+            @if (Model.EstimatePoints.HasValue)
+            {
+                <div class="flex items-center text-[10px] font-bold">
+                    <i class="fa-solid fa-bolt mr-1 text-brand-primary/60"></i>
+                    @Model.EstimatePoints
+                </div>
+            }
+            <div class="text-[10px] font-medium">@Model.ProjectTitle</div>
+        </div>
+    </div>
+</div>

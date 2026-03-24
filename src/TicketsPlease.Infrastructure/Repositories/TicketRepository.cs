@@ -1,5 +1,5 @@
-// <copyright file="TicketRepository.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// <copyright file="TicketRepository.cs" company="BitLC-NE-2025-2026">
+// Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
 namespace TicketsPlease.Infrastructure.Repositories;
@@ -33,6 +33,8 @@ public class TicketRepository : ITicketRepository
     // Wir nutzen hier kein AsNoTracking, da das Objekt evtl. bearbeitet werden soll (Tracking benötig).
     return await this.context.Tickets
         .Include(t => t.AssignedUser)
+        .Include(t => t.Project)
+        .Include(t => t.Priority)
         .FirstOrDefaultAsync(t => t.Id == id, ct).ConfigureAwait(false);
   }
 
@@ -43,7 +45,9 @@ public class TicketRepository : ITicketRepository
     return await this.context.Tickets
         .AsNoTracking()
         .Include(t => t.AssignedUser)
-        .OrderByDescending(t => t.Priority)
+        .Include(t => t.Project)
+        .Include(t => t.Priority)
+        .OrderByDescending(t => t.Priority.LevelWeight)
         .ToListAsync(ct).ConfigureAwait(false);
   }
 

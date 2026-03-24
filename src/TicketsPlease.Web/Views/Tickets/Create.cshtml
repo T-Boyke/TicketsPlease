@@ -1,0 +1,67 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@using TicketsPlease.Application.Common.Dtos
+@model CreateTicketDto
+@inject IViewLocalizer L
+
+@{
+    ViewData["Title"] = L["New Ticket"];
+}
+
+<div class="max-w-3xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="bg-white shadow-2xl rounded-3xl overflow-hidden border border-slate-100">
+        <div class="bg-slate-50 px-8 py-10 border-b border-slate-100 relative">
+            <a asp-action="Index" class="absolute top-10 right-8 text-slate-400 hover:text-brand-primary transition-colors">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </a>
+            <h1 class="text-2xl font-extrabold text-slate-900">@L["Create New Ticket"]</h1>
+            <p class="text-slate-500 mt-1">@L["Define the task and assign it to your team."]</p>
+        </div>
+
+        <form asp-action="Create" method="post" class="p-8 space-y-6">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="md:col-span-2">
+                    <label asp-for="Title" for="Title" class="block text-sm font-bold text-slate-700">@L["Ticket Title"]</label>
+                    <input asp-for="Title" id="Title" class="mt-1 block w-full px-4 py-3 border border-slate-300 rounded-xl shadow-sm focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm" placeholder="@L["What needs to be done?"]" />
+                    <span asp-validation-for="Title" class="text-red-500 text-xs mt-1"></span>
+                </div>
+
+                <div class="md:col-span-2">
+                    <label asp-for="Description" for="Description" class="block text-sm font-bold text-slate-700">@L["Description"]</label>
+                    <textarea asp-for="Description" id="Description" rows="4" class="mt-1 block w-full px-4 py-3 border border-slate-300 rounded-xl shadow-sm focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm" placeholder="@L["Detailed steps, requirements, or context..."]"></textarea>
+                    <span asp-validation-for="Description" class="text-red-500 text-xs mt-1"></span>
+                </div>
+
+                <div>
+                    <label asp-for="ProjectId" for="ProjectId" class="block text-sm font-bold text-slate-700">@L["Project"]</label>
+                    <select asp-for="ProjectId" id="ProjectId" asp-items="ViewBag.Projects" class="mt-1 block w-full px-4 py-3 border border-slate-300 rounded-xl shadow-sm focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm"></select>
+                    <span asp-validation-for="ProjectId" class="text-red-500 text-xs mt-1"></span>
+                </div>
+
+                <div>
+                    <label asp-for="PriorityId" for="PriorityId" class="block text-sm font-bold text-slate-700">@L["Priority"]</label>
+                    <select asp-for="PriorityId" id="PriorityId" asp-items="ViewBag.Priorities" class="mt-1 block w-full px-4 py-3 border border-slate-300 rounded-xl shadow-sm focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm"></select>
+                </div>
+
+                <div>
+                    <label asp-for="AssignedUserId" for="AssignedUserId" class="block text-sm font-bold text-slate-700">@L["Assignee"]</label>
+                    <select asp-for="AssignedUserId" id="AssignedUserId" asp-items="ViewBag.Users" class="mt-1 block w-full px-4 py-3 border border-slate-300 rounded-xl shadow-sm focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm">
+                        <option value="">@L["No Assignee"]</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label asp-for="EstimatePoints" for="EstimatePoints" class="block text-sm font-bold text-slate-700">@L["Story Points"]</label>
+                    <input asp-for="EstimatePoints" id="EstimatePoints" type="number" min="0" class="mt-1 block w-full px-4 py-3 border border-slate-300 rounded-xl shadow-sm focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm" />
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-slate-100 flex justify-end space-x-4">
+                <a asp-action="Index" class="px-6 py-3 border border-slate-200 text-slate-600 font-bold rounded-xl hover:bg-slate-50 transition-colors">@L["Cancel"]</a>
+                <button type="submit" class="px-10 py-3 bg-brand-primary text-white font-bold rounded-xl hover:bg-brand-secondary hover:shadow-xl hover:shadow-brand-primary/30 transition-all active:scale-95">@L["Create Ticket"]</button>
+            </div>
+        </form>
+    </div>
+</div>
