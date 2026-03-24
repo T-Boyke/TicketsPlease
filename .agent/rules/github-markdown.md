@@ -24,8 +24,10 @@ Tabellen **müssen** dem `aligned` Style entsprechen.
 - Die Pipes `|` müssen vertikal perfekt untereinander stehen.
 - In der Trennzeile **müssen** pro Spalte mindestens **drei Bindestriche** (`---`) vorhanden sein.
 - Die Trennstriche müssen exakt der Breite der längsten Zelle entsprechen.
-- **Wichtig:** Sonderzeichen wie Emojis (✅, ❌) zählen als Double-Width Zeichen. Das Padding muss entsprechend manuell angepasst werden.
-- Die äußeren Pipes am Zeilenanfang und -ende sind optional, werden aber für den `aligned` Style zur besseren Lesbarkeit **immer** gesetzt.
+- **Wichtig:** Sonderzeichen wie Emojis (✅, ❌) zählen als Double-Width Zeichen.
+  Das Padding muss entsprechend manuell angepasst werden.
+- Die äußeren Pipes am Zeilenanfang und -ende sind optional, werden aber für den
+  `aligned` Style zur besseren Lesbarkeit **immer** gesetzt.
 
 ### 3. Mathematische Ausdrücke (KaTeX)
 
@@ -46,7 +48,8 @@ Standard für Issue-Templates und Checklisten in Dokumentationen.
 
 ### 5. Mermaid-Diagramme
 
-Mermaid ist der Standard für architektonische Visualisierungen. Labels mit Sonderzeichen (z.B. Doppelpunkte) **müssen** in Anführungszeichen gesetzt werden.
+Mermaid ist der Standard für architektonische Visualisierungen. Labels mit
+Sonderzeichen (z.B. Doppelpunkte) **müssen** in Anführungszeichen gesetzt werden.
 
 ---
 
@@ -54,7 +57,8 @@ Mermaid ist der Standard für architektonische Visualisierungen. Labels mit Sond
 
 ### Permalinks
 
-Referenziere Code-Ausschnitte immer über den Permalink zur spezifischen Zeile oder dem Zeilenbereich (z.B. `L123-L130`).
+Referenziere Code-Ausschnitte immer über den Permalink zur spezifischen Zeile oder
+dem Zeilenbereich (z.B. `L123-L130`).
 
 ### Keywords
 

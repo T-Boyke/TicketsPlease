@@ -149,49 +149,59 @@ Die Gesamtdauer des Projektes ist auf **80 Stunden** festgeschrieben.
 |                                | Fazit, Reflexion & Abgabe                             | 2 h          | 16.04.2026     |
 | **Gesamt**                     |                                                       | **80 h**     |                |
 
+---
+
 ```mermaid
 gantt
+    title Kurs Abschlussprojekt: "TicketsPlease" (80h)
     dateFormat  DD.MM.YYYY
-    title Projektablauf "TicketsPlease"
+    axisFormat  %d.%m
+    tickInterval 1day
+    excludes weekends
 
-    section 1. Analyse & Planung
-    "Ist-Analyse & Marktvergleich" : 23.03.2026, 2h
-    "Wirtschaftlichkeitsanalyse" : 23.03.2026, 2h
-    "Repository-Setup & GitHub Project" : 23.03.2026, 3h
-    "Lastenheft" : 24.03.2026, 3h
-    "Zeit- & Ressourcenplanung" : 24.03.2026, 2h
+    section Analyse & Planung
+    "Ist-Analyse & Marktvergleich" :done, p1_1, 23.03.2026, 2h
+    "Wirtschaftlichkeitsanalyse" :done, p1_2, after p1_1, 2h
+    "Repository-Setup & GitHub Project" :done, p1_3, after p1_2, 3h
+    "Lastenheft (F & NF)" :active, p1_4, 24.03.2026, 3h
+    "Zeitplanung & WakaTime" :active, p1_5, after p1_4, 2h
+    "Konzeption abgeschlossen" :milestone, m1, after p1_5, 0d
 
-    section 2. Entwurf
-    "ERD & Datenbank-Normalisierung" : 25.03.2026, 4h
-    "UI/UX Design - Mocks" : 26.03.2026, 3h
-    "CSS-Konzept & Theme-Definition" : 26.03.2026, 2h
-    "Architecture Design" : 27.03.2026, 2h
-    "API-Design & MediatR Pattern" : 27.03.2026, 3h
+    section Entwurf & Architektur
+    "ERD & Datenbank-Modell" :p2_1, 25.03.2026, 4h
+    "UI/UX Design - Mocks" :p2_2, 26.03.2026, 3h
+    "CSS-Framework Definition" :p2_3, after p2_2, 2h
+    "Architecture Design" :p2_4, 27.03.2026, 2h
+    "API-Design & MediatR Pattern" :p2_5, after p2_4, 3h
+    "Entwurf abgeschlossen" :milestone, m2, after p2_5, 0d
 
-    section 3. Implementierung (F1-F9)
-    "F1 Identity & Auth Middleware" : 30.03.2026, 2h
-    "F1 GitHub Actions & Env-Setup" : 30.03.2026, 2h
-    "F2 Admin CRUD (Projekte/User)" : 31.03.2026, 4h
-    "F3 Ticket-Core State Machine" : 01.04.2026, 3h
-    "F3 Detailview & Edit-Logik" : 01.04.2026, 3h
-    "F4 Dashboard SQL-Aggregation" : 02.04.2026, 2h
-    "F4 Dashboard UI-Charts" : 02.04.2026, 2h
-    "F5 Kommentare & Domain Events" : 03.04.2026, 2h
-    "F5 Real-time UI Updates" : 03.04.2026, 1h
-    crit, "F6 Filter Expression Trees" : 07.04.2026, 3h
-    "F7 Abhängigkeits-Validierung" : 08.04.2026, 3h
-    "F8 Workflow Status-Guards" : 09.04.2026, 2h
-    "F8 Kanban Drag&Drop Logik" : 09.04.2026, 2h
-    "F9 Messaging Entity & Repo" : 10.04.2026, 3h
+    section Kern-Implementierung (F1-F9)
+    "F1 Identity & Middleware" :crit, p3_1, 30.03.2026, 2h
+    "F1 GitHub Actions" :crit, p3_2, after p3_1, 2h
+    "F2 Admin Management" :crit, p3_3, 31.03.2026, 4h
+    "F3 Ticket Core State" :crit, p3_4, 01.04.2026, 3h
+    "F3 UI Detail & Logic" :crit, p3_5, after p3_4, 3h
+    "F4 Dashboard Backend" :crit, p3_6, 02.04.2026, 2h
+    "F4 Dashboard Charts" :crit, p3_7, after p3_6, 2h
+    "F5 Comment Domain" :crit, p3_8, 03.04.2026, 2h
+    "F5 Real-time Updates" :crit, p3_9, after p3_8, 1h
+    "F6 Query Expression Trees" :crit, p3_10, 07.04.2026, 3h
+    "F7 Validation & Deps" :crit, p3_11, 08.04.2026, 3h
+    "F8 Workflow Engines" :crit, p3_12, 09.04.2026, 2h
+    "F8 Kanban Mechanics" :crit, p3_13, after p3_12, 2h
+    "F9 Messaging Logic" :crit, p3_14, 10.04.2026, 3h
+    "Feature-Freeze" :milestone, m3, after p3_14, 0d
 
-    section 4. Qualitätssicherung
-    "Unit-Testing" : 13.04.2026, 4h
-    "Integrationstests" : 14.04.2026, 4h
-    "Bugfixing & Cleanup" : 14.04.2026, 2h
+    section QA & Übergabe
+    "Unit- & Integrationstests" :active, p4_1, 13.04.2026, 8h
+    "Final Bugfixing" :p4_2, 14.04.2026, 2h
+    "Qualitätssicherung Ende" :milestone, m4, after p4_2, 0d
 
-    section 5. Dokumentation
-    "IHK Dokumentation (Endredaktion)" : 15.04.2026, 8h
-    "Fazit, Reflexion & Abgabe" : 16.04.2026, 2h
+    section Projektdokumentation
+    "IHK Dokumentation (Schrieb)" :p5_1, 15.04.2026, 8h
+    "Reflexion & Abgabe" :p5_2, 16.04.2026, 2h
+    "Submission" :milestone, m5, after p5_2, 0d
+    "Deadine" :vert, v1, 16.04.2026, 1h
 ```
 
 ### **2.4 Kostenplanung**
