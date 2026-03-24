@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="0" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Privacy Policy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="Information about how we process your data." xml:space="preserve">
+    <value>Information about how we process your data.</value>
+  </data>
+  <data name="General Information" xml:space="preserve">
+    <value>General Information</value>
+  </data>
+  <data name="We take the protection of your personal data very seriously. This application (TicketsPlease) processes data solely for project management purposes." xml:space="preserve">
+    <value>We take the protection of your personal data very seriously. This application (TicketsPlease) processes data solely for project management purposes.</value>
+  </data>
+  <data name="Data Collection" xml:space="preserve">
+    <value>Data Collection</value>
+  </data>
+  <data name="When using our ticket system, we store your username, email, and optionally your profile data. For audit reasons, we also store Geo/IP timestamps upon ticket creation (F1.6)." xml:space="preserve">
+    <value>When using our ticket system, we store your username, email, and optionally your profile data. For audit reasons, we also store Geo/IP timestamps upon ticket creation (F1.6).</value>
+  </data>
+  <data name="Soft-Delete and Data Retention" xml:space="preserve">
+    <value>Soft-Delete and Data Retention</value>
+  </data>
+  <data name="Our system uses a soft-delete mechanism. This means that deleted records remain in the database but are hidden from the UI unless explicitly purged (ADR 0120)." xml:space="preserve">
+    <value>Our system uses a soft-delete mechanism. This means that deleted records remain in the database but are hidden from the UI unless explicitly purged (ADR 0120).</value>
+  </data>
+  <data name="Your Rights" xml:space="preserve">
+    <value>Your Rights</value>
+  </data>
+  <data name="You have the right to information, correction, or deletion of your personal data at any time." xml:space="preserve">
+    <value>You have the right to information, correction, or deletion of your personal data at any time.</value>
+  </data>
+</root>

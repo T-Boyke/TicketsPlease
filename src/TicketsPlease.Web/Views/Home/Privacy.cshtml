@@ -4,22 +4,70 @@
     ViewData["Title"] = L["Privacy Policy"];
 }
 
-<div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-    <h1 class="text-3xl font-extrabold text-slate-900 mb-6">@L["Privacy Policy"]</h1>
-    
-    <div class="prose prose-slate lg:prose-lg max-w-none text-slate-600">
-        <p class="lead">@L["Information about how we process your data."]</p>
-        
-        <h2 class="text-xl font-bold text-slate-800 mt-8 mb-4">1. @L["General Information"]</h2>
-        <p>@L["We take the protection of your personal data very seriously. This application (TicketsPlease) processes data solely for project management purposes."]</p>
-        
-        <h2 class="text-xl font-bold text-slate-800 mt-8 mb-4">2. @L["Data Collection"]</h2>
-        <p>@L["When using our ticket system, we store your username, email, and optionally your profile data. For audit reasons, we also store Geo/IP timestamps upon ticket creation (F1.6)."]</p>
-        
-        <h2 class="text-xl font-bold text-slate-800 mt-8 mb-4">3. @L["Soft-Delete and Data Retention"]</h2>
-        <p>@L["Our system uses a soft-delete mechanism. This means that deleted records remain in the database but are hidden from the UI unless explicitly purged (ADR 0120)."]</p>
-        
-        <h2 class="text-xl font-bold text-slate-800 mt-8 mb-4">4. @L["Your Rights"]</h2>
-        <p>@L["You have the right to information, correction, or deletion of your personal data at any time."]</p>
+<main role="main" class="min-h-screen bg-surface-subtle py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto reveal-up">
+        @* Header Section *@
+        <header class="mb-12 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-4 bg-linear-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent">
+                @L["Privacy Policy"]
+            </h1>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                @L["Information about how we process your data."]
+            </p>
+            <div class="mt-6 flex justify-center gap-4 no-print">
+                <button onclick="window.print()" class="btn btn-ghost flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                    <span>Print PDF</span>
+                </button>
+            </div>
+        </header>
+
+        @* Content Sections *@
+        <div class="space-y-8">
+            <section class="glass-premium p-8 md:p-10 accent-border" aria-labelledby="section-general">
+                <h2 id="section-general" class="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-3">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand-primary/10 text-brand-primary text-sm">1</span>
+                    @L["General Information"]
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    @L["We take the protection of your personal data very seriously. This application (TicketsPlease) processes data solely for project management purposes."]
+                </p>
+            </section>
+
+            <section class="glass-premium p-8 md:p-10" aria-labelledby="section-collection">
+                <h2 id="section-collection" class="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-3">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand-primary/10 text-brand-primary text-sm">2</span>
+                    @L["Data Collection"]
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    @L["When using our ticket system, we store your username, email, and optionally your profile data. For audit reasons, we also store Geo/IP timestamps upon ticket creation (F1.6)."]
+                </p>
+            </section>
+
+            <section class="glass-premium p-8 md:p-10" aria-labelledby="section-retention">
+                <h2 id="section-retention" class="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-3">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand-primary/10 text-brand-primary text-sm">3</span>
+                    @L["Soft-Delete and Data Retention"]
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    @L["Our system uses a soft-delete mechanism. This means that deleted records remain in the database but are hidden from the UI unless explicitly purged (ADR 0120)."]
+                </p>
+            </section>
+
+            <section class="glass-premium p-8 md:p-10" aria-labelledby="section-rights">
+                <h2 id="section-rights" class="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-3">
+                    <span class="flex items-center justify-center w-8 h-8 rounded-full bg-brand-primary/10 text-brand-primary text-sm">4</span>
+                    @L["Your Rights"]
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    @L["You have the right to information, correction, or deletion of your personal data at any time."]
+                </p>
+            </section>
+        </div>
+
+        @* Footer Metadata *@
+        <footer class="mt-12 pt-8 border-t border-slate-200 text-center text-sm text-slate-500">
+            <p>Last Updated: @DateTime.Now.ToString("yyyy-MM-dd")</p>
+        </footer>
     </div>
-</div>
+</main>

@@ -21,6 +21,12 @@
                         <i class="fa-brands fa-github ml-1.5 text-lg group-hover:fa-spin transition-all"></i>
                     </a>
                 </div>
+                @* Language Switcher *@
+                <div class="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-slate-400">
+                    <a href="?culture=de" class="@(System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "de" ? "text-brand-primary border-b-2 border-brand-primary" : "hover:text-slate-600 transition-colors")" aria-label="Switch to German">DE</a>
+                    <span class="w-1 h-1 rounded-full bg-slate-200"></span>
+                    <a href="?culture=en" class="@(System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "en" ? "text-brand-primary border-b-2 border-brand-primary" : "hover:text-slate-600 transition-colors")" aria-label="Switch to English">EN</a>
+                </div>
             </div>
 
             <div class="flex justify-center md:justify-end space-x-6 h-full items-center">

@@ -6,86 +6,123 @@
     ViewData["Title"] = L["Register"];
 }
 
-<div class="min-h-[80vh] flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-slate-50">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="flex justify-center">
-            <i class="fa-solid fa-user-plus text-brand-primary text-5xl fa-bounce" style="--fa-animation-iteration-count: 2;"></i>
+<div class="min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-50 relative overflow-hidden">
+    <!-- Background Accents -->
+    <div class="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-brand-primary/10 rounded-full blur-3xl opacity-50"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-brand-secondary/10 rounded-full blur-3xl opacity-50"></div>
+    </div>
+
+    <div class="sm:mx-auto sm:w-full sm:max-w-md relative reveal-up">
+        <div class="flex justify-center mb-6">
+            <div class="w-20 h-20 bg-white rounded-3xl shadow-xl flex items-center justify-center border border-slate-100 group hover:scale-110 transition-transform duration-300">
+                <i class="fa-solid fa-user-plus text-brand-primary text-4xl group-hover:rotate-12 transition-transform"></i>
+            </div>
         </div>
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-slate-900">
+        <h2 class="text-center text-4xl font-black text-slate-900 tracking-tight">
             @L["Create your account"]
         </h2>
-        <p class="mt-2 text-center text-sm text-slate-600">
+        <p class="mt-3 text-center text-sm text-slate-500 font-medium">
             @L["Already have an account?"]
-            <a asp-action="Login" class="font-medium text-brand-primary hover:text-brand-secondary transition-colors">
+            <a asp-action="Login" class="font-bold text-brand-primary hover:text-brand-secondary underline decoration-2 underline-offset-4 decoration-brand-primary/20 hover:decoration-brand-secondary/40 transition-all">
                 @L["Sign in here"]
             </a>
         </p>
     </div>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="bg-white py-8 px-4 shadow-2xl shadow-slate-200 sm:rounded-2xl sm:px-10 border border-slate-100">
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-md relative reveal-up" style="animation-delay: 100ms;">
+        <div class="bg-white/70 py-10 px-6 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] sm:rounded-[2.5rem] sm:px-12 border border-white/60" style="backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.6) !important;">
             <form class="space-y-6" asp-action="Register" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm font-medium bg-red-50 p-3 rounded-lg border border-red-100 mb-4"></div>
+                <div asp-validation-summary="ModelOnly" class="text-red-600 text-sm font-semibold bg-red-50/50 p-4 rounded-2xl border border-red-100/50 mb-6 flex items-start gap-3" style="backdrop-filter: blur(8px);">
+                    <i class="fa-solid fa-circle-exclamation mt-1"></i>
+                    <span>@L["Please correct the errors below."]</span>
+                </div>
                 
-                <div>
-                    <label asp-for="Username" for="Username" class="block text-sm font-semibold text-slate-700">@L["Username"]</label>
-                    <div class="mt-1 relative group">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fa-solid fa-user text-slate-400 group-focus-within:text-brand-primary transition-colors"></i>
+                <div class="space-y-2">
+                    <label asp-for="Username" class="block text-sm font-bold text-slate-800 ml-1">@L["Username"]</label>
+                    <div class="relative flex items-center">
+                        <i class="fa-solid fa-user absolute left-4 text-slate-400 pointer-events-none z-10 text-sm"></i>
+                        <input asp-for="Username" 
+                               id="Username"
+                               autocomplete="username"
+                               style="padding-left: 2.75rem !important;"
+                               class="appearance-none block w-full pr-4 py-3.5 bg-slate-50/50 border-2 border-slate-100 rounded-2xl shadow-inner placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary focus:bg-white transition-all duration-300 sm:text-sm font-medium" 
+                               placeholder="@L["johndoe"]" />
+                    </div>
+                    <span asp-validation-for="Username" class="text-red-500 text-xs font-bold ml-1 block mt-1"></span>
+                </div>
+
+                <div class="space-y-2">
+                    <label asp-for="Email" class="block text-sm font-bold text-slate-800 ml-1">@L["Email address"]</label>
+                    <div class="relative flex items-center">
+                        <i class="fa-solid fa-envelope absolute left-4 text-slate-400 pointer-events-none z-10 text-sm"></i>
+                        <input asp-for="Email" 
+                               id="Email"
+                               type="email"
+                               autocomplete="email"
+                               style="padding-left: 2.75rem !important;"
+                               class="appearance-none block w-full pr-4 py-3.5 bg-slate-50/50 border-2 border-slate-100 rounded-2xl shadow-inner placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary focus:bg-white transition-all duration-300 sm:text-sm font-medium" 
+                               placeholder="john@enterprise.com" />
+                    </div>
+                    <span asp-validation-for="Email" class="text-red-500 text-xs font-bold ml-1 block mt-1"></span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label asp-for="Password" class="block text-sm font-bold text-slate-800 ml-1">@L["Password"]</label>
+                        <div class="relative flex items-center">
+                            <i class="fa-solid fa-lock absolute left-4 text-slate-400 pointer-events-none z-10 text-sm"></i>
+                            <input asp-for="Password" 
+                                   id="Password"
+                                   type="password"
+                                   autocomplete="new-password"
+                                   style="padding-left: 2.75rem !important;"
+                                   class="appearance-none block w-full pr-4 py-3.5 bg-slate-50/50 border-2 border-slate-100 rounded-2xl shadow-inner focus:outline-none focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary focus:bg-white transition-all duration-300 sm:text-sm font-medium" />
                         </div>
-                        <input asp-for="Username" id="Username" class="appearance-none block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm" placeholder="johndoe" />
-                        <span asp-validation-for="Username" class="text-red-500 text-xs mt-1"></span>
+                        <span asp-validation-for="Password" class="text-red-500 text-xs font-bold ml-1 block mt-1"></span>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label asp-for="ConfirmPassword" class="block text-sm font-bold text-slate-800 ml-1">@L["Confirm"]</label>
+                        <div class="relative flex items-center">
+                            <i class="fa-solid fa-shield-check absolute left-4 text-slate-400 pointer-events-none z-10 text-sm"></i>
+                            <input asp-for="ConfirmPassword" 
+                                   id="ConfirmPassword"
+                                   type="password"
+                                   autocomplete="new-password"
+                                   style="padding-left: 2.75rem !important;"
+                                   class="appearance-none block w-full pr-4 py-3.5 bg-slate-50/50 border-2 border-slate-100 rounded-2xl shadow-inner focus:outline-none focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary focus:bg-white transition-all duration-300 sm:text-sm font-medium" />
+                        </div>
+                        <span asp-validation-for="ConfirmPassword" class="text-red-500 text-xs font-bold ml-1 block mt-1"></span>
                     </div>
                 </div>
 
-                <div>
-                    <label asp-for="Email" for="Email" class="block text-sm font-semibold text-slate-700">@L["Email address"]</label>
-                    <div class="mt-1 relative group">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fa-solid fa-envelope text-slate-400 group-focus-within:text-brand-primary transition-colors"></i>
-                        </div>
-                        <input asp-for="Email" id="Email" class="appearance-none block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm" placeholder="john@enterprise.com" />
-                        <span asp-validation-for="Email" class="text-red-500 text-xs mt-1"></span>
+                <div class="flex items-center group cursor-pointer pt-2">
+                    <div class="relative flex items-center">
+                        <input id="terms" name="terms" type="checkbox" required 
+                               class="peer appearance-none border-2 border-slate-200 rounded-lg checked:bg-brand-primary checked:border-brand-primary focus:ring-4 focus:ring-brand-primary/10 transition-all cursor-pointer bg-white"
+                               style="height: 1.5rem !important; width: 1.5rem !important;" />
+                        <i class="fa-solid fa-check absolute left-1.5 text-xs text-white opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none"></i>
                     </div>
-                </div>
-
-                <div>
-                    <label asp-for="Password" for="Password" class="block text-sm font-semibold text-slate-700">@L["Password"]</label>
-                    <div class="mt-1 relative group">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fa-solid fa-lock text-slate-400 group-focus-within:text-brand-primary transition-colors"></i>
-                        </div>
-                        <input asp-for="Password" id="Password" class="appearance-none block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm" />
-                        <span asp-validation-for="Password" class="text-red-500 text-xs mt-1"></span>
-                    </div>
-                </div>
-
-                <div>
-                    <label asp-for="ConfirmPassword" for="ConfirmPassword" class="block text-sm font-semibold text-slate-700">@L["Confirm password"]</label>
-                    <div class="mt-1 relative group">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class="fa-solid fa-lock-open text-slate-400 group-focus-within:text-brand-primary transition-colors"></i>
-                        </div>
-                        <input asp-for="ConfirmPassword" id="ConfirmPassword" class="appearance-none block w-full pl-10 pr-3 py-3 border border-slate-300 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm" />
-                        <span asp-validation-for="ConfirmPassword" class="text-red-500 text-xs mt-1"></span>
-                    </div>
-                </div>
-
-                <div class="flex items-center">
-                    <input id="terms" name="terms" type="checkbox" required class="h-4 w-4 text-brand-primary focus:ring-brand-primary border-slate-300 rounded-md transition-all" />
-                    <label for="terms" class="ml-2 block text-sm text-slate-700">
+                    <label for="terms" class="ml-3 block text-sm font-semibold text-slate-600 select-none cursor-pointer group-hover:text-slate-900 transition-colors">
                         @L["I agree to the"]
-                        <a asp-controller="Home" asp-action="Privacy" class="font-medium text-brand-primary hover:text-brand-secondary">@L["Privacy Policy"]</a>
+                        <a asp-controller="Home" asp-action="Privacy" class="font-bold text-brand-primary hover:text-brand-secondary transition-colors underline decoration-brand-primary/10 underline-offset-4">@L["Privacy Policy"]</a>
                     </label>
                 </div>
 
-                <div>
-                    <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-lg text-sm font-bold text-white bg-brand-primary hover:bg-brand-secondary hover:shadow-brand-primary/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary transition-all duration-200">
-                        <i class="fa-solid fa-user-plus mr-2"></i>
-                        @L["Create Account"]
+                <div class="pt-4">
+                    <button type="submit" class="w-full relative group overflow-hidden flex justify-center py-4 px-4 border border-transparent rounded-[1.25rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] text-sm font-black text-white bg-brand-primary hover:bg-brand-secondary transition-all duration-300 hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4)] hover:-translate-y-0.5 active:translate-y-0">
+                        <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:animate-shimmer"></div>
+                        <span class="flex items-center">
+                            <i class="fa-solid fa-user-plus mr-2.5"></i>
+                            @L["Create Account"]
+                        </span>
                     </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
+
