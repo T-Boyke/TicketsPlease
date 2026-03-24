@@ -1,4 +1,4 @@
-# IHK Dokumentation: TicketsPlease
+# Dokumentation: TicketsPlease
 
 ## **1. Einleitung**
 

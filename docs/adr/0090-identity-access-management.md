@@ -16,7 +16,7 @@ other users).
 - Security and Industry Standards.
 - Ease of implementation (MVP time constraints).
 - Integration with ASP.NET Core.
-- Compliance with IHK requirements (User data must include Username, Firstname,
+- Compliance with requirements (User data must include Username, Firstname,
   Email).
 
 ## Considered Options

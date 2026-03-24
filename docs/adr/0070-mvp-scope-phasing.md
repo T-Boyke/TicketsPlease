@@ -7,11 +7,11 @@
 ## Context and Problem Statement
 
 Bei komplexen Projekten besteht die Gefahr des "Scope Creeps" (Verzettelung),
-besonders im Rahmen einer zeitkritischen IHK-Projektarbeit (80 Stunden).
+besonders im Rahmen einer zeitkritischen Projektarbeit (80 Stunden).
 
 ## Decision Drivers
 
-- Deadline-Treue (IHK-Abgabe)
+- Deadline-Treue (be)
 - Fokus auf Kernfunktionen
 - Erweiterbarkeit für spätere Versionen (Enterprise)
 - Stabilität des Kerns
@@ -31,8 +31,8 @@ Dokumentation bereits den Weg für Enterprise-Features ebnen.
 
 ### Positive Consequences
 
-- IHK-Projekt ist "Sicherer Hafen".
-- Klare Trennung zwischen IHK-Basis und Bonus-Features.
+- ekt ist "Sicherer Hafen".
+- Klare Trennung zwischen s und Bonus-Features.
 - Professionelles Produktmanagement-Vorgehen.
 
 ### Negative Consequences

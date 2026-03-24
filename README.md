@@ -14,7 +14,7 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 > Es transformiert diese theoretischen Grundlagen nun in ein vollwertiges,
 > cloud-ready Enterprise-Produkt. 👉 **Projektphasen:** Da der Auftrag
 > "Einfaches Ticketsystem" lautet, trennen wir strikt zwischen dem
-> **[IHK MVP-Kern](docs/MVP_Roadmap.md)** und der späteren
+> **[MVP-Kern](docs/MVP_Roadmap.md)** und der späteren
 > Enterprise-Ausbaustufe! 🛠️ **Schnellstart:** Neu im Projekt? Folge der
 > **[Einrichtungsanleitung für Dummies](docs/dev_setup_guide.md)**! 🤖
 > **AI-gestützte Entwicklung:** Dieses Projekt nutzt **Antigravity AI Skills**
@@ -27,7 +27,7 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 <summary>📋 Table of Contents (Inhaltsverzeichnis)</summary>
 
 - [TicketsPlease ![TicketsPlease Icon](docs/assets/ticketspleaseicon.png)](#ticketsplease-)
-  - [📊 Implementierungs-Status (MVP = IHK F1–F9)](#-implementierungs-status-mvp--ihk-f1f9)
+  - [📊 Implementierungs-Status (MVP = F1–F9)](#-implementierungs-status-mvp--f1f9)
   - [1. 🚀 Vision \& Projektziele](#1--vision--projektziele)
   - [2. 🛠️ Technologie-Stack](#2-️-technologie-stack)
   - [3. 📐 Architektur \& Design](#3--architektur--design)
@@ -67,7 +67,7 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 
 ---
 
-## 📊 Implementierungs-Status (MVP = IHK F1–F9)
+## 📊 Implementierungs-Status (MVP = F1–F9)
 
 | Feature             | Status        | Beschreibung                                 | Scope        |
 | :------------------ | :------------ | :------------------------------------------- | :----------- |
@@ -619,9 +619,9 @@ Bestandteil des Workflows ist.
   - 👉
     **[System Architecture & Data-Flows (Big 5 UML)](docs/architecture_diagrams.md)**
   - 👉 **[Datenbankschema & Entities (ERD 3NF)](docs/database_schema.md)**
-  - 👉 **[Projekt Gantt-Chart (IHK Roadmap)](docs/gantt_roadmap.md)**
+  - 👉 **[Projekt Gantt-Chart (Roadmap)](docs/gantt_roadmap.md)**
 - **Mockups & Screenshots:** Initiale Planungs-Mockups, UI-Entwürfe und finale
-  Screenshots (z.B. für die IHK Präsentation) werden versioniert im Ordner
+  Screenshots (z.B. für die Präsentation) werden versioniert im Ordner
   **`/docs/mockups/`** abgelegt.
 - **Grafiken & Assets:** Wenn im Rahmen des UI-Designs (Frontend) oder der
   Dokumentation temporäre Platzhalter-Bilder benötigt werden, nutzen wir vorerst
@@ -709,8 +709,8 @@ Abgabe.
    - Drag & Drop Dashboard entwickeln.
    - Die visuelle "Chillischoten"-Anzeige rendern.
    - Workflow-Logik (Status-Übergänge der Tickets) festigen.
-7. **Phase 7: Finale & Dokumentation (IHK Abgabe)**
-   - **FINALE IHK-DOKU:** Ausarbeitung der Projektarbeit im Google Docs Form.
+7. **Phase 7: Finale & Dokumentation (Abgabe)**
+   - **FINALE DOKU:** Ausarbeitung der Projektarbeit im Google Docs Form.
    - Erstellung der finalen Präsentation für das Fachgespräch (Google Slides).
    - Letzter Review-Zyklus: Test Coverage Check und Code Cleanup.
 

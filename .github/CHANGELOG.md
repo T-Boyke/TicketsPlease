@@ -43,7 +43,7 @@ Dieses Projekt nutzt
   `TicketLinkType`) und `TicketLink`-Entity für Ticket-Abhängigkeiten
   (Blocks, RelatesTo, Duplicates). (#37, #40)
 - **Project Entity:** `Project`-Entity mit `StartDate`, `EndDate` und
-  `WorkflowId` für IHK F2.2 Projektmanagement hinzugefügt. (#34)
+  `WorkflowId` für F2.2 Projektmanagement hinzugefügt. (#34)
 - **DDD Base Classes:** `BaseAuditableEntity`, `IAggregateRoot`,
   `IDomainEvent` und `IBaseEntity`-Interface für Rich Domain Model
   Infrastruktur eingeführt.

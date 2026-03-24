@@ -1,11 +1,11 @@
-# Projekt Gantt-Chart (IHK Roadmap)
+# Projekt Gantt-Chart (Roadmap)
 
-Dieses Gantt-Diagramm visualisiert die Zeitplanung des IHK Abschlussprojekts.
+Dieses Gantt-Diagramm visualisiert die Zeitplanung des Abschlussprojekts.
 Projektzeitraum: **23.03.2026 – 20.04.2026** (70 Stunden).
 
 ```mermaid
 gantt
-    title TicketsPlease - IHK Abschlussprojekt (70h)
+    title TicketsPlease - Abschlussprojekt (70h)
     dateFormat  YYYY-MM-DD
     axisFormat  %d.%m
 
