@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bogus;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -53,6 +54,7 @@ public static class DbInitialiser
       logger.LogInformation("Starte synthetisches Datenbank-Seeding...");
 
       // Hinweis: Roles, Priorities und WorkflowStates werden via AppDbContext.OnModelCreating (HasData) erzeugt.
+      await context.Database.EnsureDeletedAsync().ConfigureAwait(false);
       await context.Database.EnsureCreatedAsync().ConfigureAwait(false);
 
       if (await context.Users.AnyAsync().ConfigureAwait(false))
@@ -93,18 +95,41 @@ public static class DbInitialiser
       await context.Projects.AddRangeAsync(projects).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      // 3. Users
+      // 3. Static Seeded Users (for easy testing)
+      var passwordHasher = new PasswordHasher<User>();
+      var staticUsers = new List<User>
+      {
+          new User { UserName = "admin", Email = "admin@ticketsplease.com", RoleId = AdminRoleId, TenantId = orgs[0].Id },
+          new User { UserName = "teamlead", Email = "teamlead@ticketsplease.com", RoleId = TeamleadRoleId, TenantId = orgs[0].Id },
+          new User { UserName = "user", Email = "user@ticketsplease.com", RoleId = UserRoleId, TenantId = orgs[0].Id },
+      };
+
+      foreach (var u in staticUsers)
+      {
+          u.PasswordHash = passwordHasher.HashPassword(u, "Pass123!");
+          u.NormalizedEmail = u.Email?.ToUpperInvariant();
+          u.NormalizedUserName = u.UserName?.ToUpperInvariant();
+          u.SecurityStamp = Guid.NewGuid().ToString();
+      }
+
+      await context.Users.AddRangeAsync(staticUsers).ConfigureAwait(false);
+
+      // 4. Random Users
       var users = new List<User>();
-      for (int i = 0; i < 50; i++)
+      users.AddRange(staticUsers);
+      for (int i = 0; i < 47; i++)
       {
         var user = new User
         {
           UserName = faker.Internet.UserName(),
           Email = faker.Internet.Email(),
-          PasswordHash = Guid.NewGuid().ToString(),
           RoleId = faker.PickRandom(roleIds),
           TenantId = faker.PickRandom(orgs).Id,
+          SecurityStamp = Guid.NewGuid().ToString(),
         };
+        user.PasswordHash = passwordHasher.HashPassword(user, "Pass123!");
+        user.NormalizedEmail = user.Email?.ToUpperInvariant();
+        user.NormalizedUserName = user.UserName?.ToUpperInvariant();
         users.Add(user);
       }
 
@@ -136,6 +161,7 @@ public static class DbInitialiser
         };
         await context.UserAddresses.AddAsync(address).ConfigureAwait(false);
       }
+      
       await context.SaveChangesAsync().ConfigureAwait(false);
 
       // 5. Teams & TeamMembers
@@ -174,7 +200,7 @@ public static class DbInitialiser
 
       // 6. Tickets & Related
       var tickets = new List<Ticket>();
-      for (int i = 0; i < 200; i++)
+      for (int i = 0; i < 50; i++)
       {
         var projectId = faker.PickRandom(projects).Id;
         var creatorId = faker.PickRandom(users).Id;
