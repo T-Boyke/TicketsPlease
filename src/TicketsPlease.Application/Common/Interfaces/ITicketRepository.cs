@@ -40,4 +40,11 @@ public interface ITicketRepository
   /// <param name="ct">Das Abbruchsignal.</param>
   /// <returns>Die asynchrone Operation, die die Anzahl der betroffenen Datensätze zurückgibt.</returns>
   public Task<int> SaveChangesAsync(CancellationToken ct = default);
+
+  /// <summary>
+  /// Ruft die Standard-Workflow-Status-ID ab.
+  /// </summary>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Die ID des Standard-Status.</returns>
+  public Task<Guid> GetDefaultWorkflowStateIdAsync(CancellationToken ct = default);
 }

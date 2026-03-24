@@ -8,7 +8,7 @@
       "documentInterfaces": true,
       "documentInternalElements": false,
       "documentExposedElements": true,
-      "xmlHeader": false
+      "xmlHeader": true
     },
     "namingRules": {
     },

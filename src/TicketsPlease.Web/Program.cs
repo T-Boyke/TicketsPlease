@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using TicketsPlease.Application.Services;
+using TicketsPlease.Domain.Entities;
 
 [assembly: InternalsVisibleTo("TicketsPlease.IntegrationTests")]
 
@@ -53,7 +55,6 @@ builder.Services.AddScoped<ICorporateSkinProvider, DefaultCorporateSkinProvider>
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
-builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddHttpContextAccessor();
 

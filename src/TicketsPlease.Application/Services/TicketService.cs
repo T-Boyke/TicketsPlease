@@ -10,11 +10,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
-using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
 /// Implementierung des Ticket-Services zur Steuerung des Kanban-Boards.
@@ -24,7 +22,6 @@ public class TicketService : ITicketService
     private readonly ITicketRepository _ticketRepository;
     private readonly UserManager<User> _userManager;
     private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly AppDbContext _context;
 
     /// <summary>
     /// Initialisiert eine neue Instanz der <see cref="TicketService"/> Klasse.
@@ -32,17 +29,14 @@ public class TicketService : ITicketService
     /// <param name="ticketRepository">Das Repository für Tickets.</param>
     /// <param name="userManager">Der Identity UserManager.</param>
     /// <param name="httpContextAccessor">Der Accessor für den aktuellen HttpContext.</param>
-    /// <param name="context">Der Datenbankkontext (für Metadaten/Status).</param>
     public TicketService(
         ITicketRepository ticketRepository,
         UserManager<User> userManager,
-        IHttpContextAccessor httpContextAccessor,
-        AppDbContext context)
+        IHttpContextAccessor httpContextAccessor)
     {
         _ticketRepository = ticketRepository;
         _userManager = userManager;
         _httpContextAccessor = httpContextAccessor;
-        _context = context;
     }
 
     /// <summary>
@@ -75,7 +69,7 @@ public class TicketService : ITicketService
         if (user == null) throw new UnauthorizedAccessException();
 
         // Standard-Status für MVP (Initialzustand des Workflows)
-        var defaultStateId = (await _context.WorkflowStates.FirstOrDefaultAsync())?.Id ?? Guid.Empty;
+        var defaultStateId = await _ticketRepository.GetDefaultWorkflowStateIdAsync();
 
         var ticket = new Ticket(dto.Title, TicketsPlease.Domain.Enums.TicketType.Task, dto.ProjectId, user.Id, defaultStateId, "initial");
         ticket.UpdateDescription(dto.Description, dto.Description);

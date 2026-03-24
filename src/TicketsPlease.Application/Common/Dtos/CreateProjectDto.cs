@@ -12,7 +12,9 @@ using System;
 /// <param name="Title">Der Titel des Projekts (Pflicht).</param>
 /// <param name="Description">Die Kurzbeschreibung.</param>
 /// <param name="StartDate">Das Startdatum (Pflicht).</param>
+/// <param name="EndDate">Das optionale Enddatum.</param>
 public record CreateProjectDto(
     string Title,
     string Description,
-    DateTime StartDate);
+    DateTime StartDate,
+    DateTime? EndDate = null);

@@ -63,4 +63,10 @@ public class TicketRepository : ITicketRepository
     // EF Core führt hier automatisch die Nebenläufigkeitsprüfung (RowVersion) durch
     return await this.context.SaveChangesAsync(ct).ConfigureAwait(false);
   }
+
+  /// <inheritdoc />
+  public async Task<Guid> GetDefaultWorkflowStateIdAsync(CancellationToken ct = default)
+  {
+    return (await this.context.WorkflowStates.AsNoTracking().FirstOrDefaultAsync(ct).ConfigureAwait(false))?.Id ?? Guid.Empty;
+  }
 }
