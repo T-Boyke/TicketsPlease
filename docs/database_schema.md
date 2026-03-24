@@ -581,14 +581,14 @@ und müssen für den jeweiligen Feature-Sprint ausgebaut werden.
 
 ### MVP-relevante Entities (IHK F1–F9)
 
-| Entity            | Zweck               | IHK-Feature | Status         |
-| :---------------- | :------------------ | :---------- | :------------- |
+| Entity            | Zweck               | IHK-Feature | Status          |
+| :---------------- | :------------------ | :---------- | :-------------  |
 | **User**          | Auth & Zuweisung    | F1.3        | ✅ Vorhanden    |
 | **Ticket**        | Kern-Aggregat       | F3          | ✅ Vorhanden    |
 | **Project**       | Projekt-Zuordnung   | F2.2        | ✅ Vorhanden    |
 | **WorkflowState** | Status-Verwaltung   | F8          | ✅ Vorhanden    |
 | **Message**       | Nachrichten         | F9          | ✅ Vorhanden    |
-| **Notification**  | Benachrichtigungen | —           | ✅ Vorhanden    |
+| **Notification**  | Benachrichtigungen  | —           | ✅ Vorhanden    |
 
 ### Aktuelle Ticket Entity
 
