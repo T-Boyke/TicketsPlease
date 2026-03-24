@@ -155,33 +155,43 @@ gantt
     title Projektablauf "TicketsPlease"
 
     section 1. Analyse & Planung
-    "Analyse & Prozessaufnahme" : 23.03.2026, 2d
-    "Lastenheft & Pflichtenheft" : 24.03.2026, 5h
-    "Wirtschaftlichkeitsanalyse" : 24.03.2026, 2h
+    "Ist-Analyse & Marktvergleich" : 23.03.2026, 2h
+    "Wirtschaftlichkeitsanalyse" : 23.03.2026, 2h
+    "Repository-Setup & GitHub Project" : 23.03.2026, 3h
+    "Lastenheft" : 24.03.2026, 3h
+    "Zeit- & Ressourcenplanung" : 24.03.2026, 2h
 
     section 2. Entwurf
-    "DB-Design & ERD" : 25.03.2026, 1d
-    "UX/UI Prototyping" : 26.03.2026, 5h
-    "Clean Arch Scaffolding" : 27.03.2026, 1d
+    "ERD & Datenbank-Normalisierung" : 25.03.2026, 4h
+    "UI/UX Design: Mocks" : 26.03.2026, 3h
+    "CSS-Konzept & Theme-Definition" : 26.03.2026, 2h
+    "Architecture Design" : 27.03.2026, 2h
+    "API-Design & MediatR Pattern" : 27.03.2026, 3h
 
     section 3. Implementierung (F1-F9)
-    "F1: Auth & Identity" : 30.03.2026, 4h
-    "F2: Projektmanagement" : 31.03.2026, 4h
-    "F3: Ticket-Management" : 01.04.2026, 6h
-    "F4: Dashboard & View-Components" : 02.04.2026, 4h
-    "F5: Kommentare & History" : 03.04.2026, 3h
-    "F6: Granulares Filtersystem" : 07.04.2026, 3h
+    "F1: Identity & Auth Middleware" : 30.03.2026, 2h
+    "F1: GitHub Actions & Env-Setup" : 30.03.2026, 2h
+    "F2: Admin CRUD (Projekte/User)" : 31.03.2026, 4h
+    "F3: Ticket-Core State Machine" : 01.04.2026, 3h
+    "F3: Detailview & Edit-Logik" : 01.04.2026, 3h
+    "F4: Dashboard SQL-Aggregation" : 02.04.2026, 2h
+    "F4: Dashboard UI-Charts" : 02.04.2026, 2h
+    "F5: Kommentare & Domain Events" : 03.04.2026, 2h
+    "F5: Real-time UI Updates" : 03.04.2026, 1h
+    crit, "F6: Filter Expression Trees" : 07.04.2026, 3h
     "F7: Abhängigkeits-Validierung" : 08.04.2026, 3h
-    "F8: Kanban Workflow-Engine" : 09.04.2026, 4h
-    "F9: Messaging-System" : 10.04.2026, 3h
+    "F8: Workflow Status-Guards" : 09.04.2026, 2h
+    "F8: Kanban Drag&Drop Logik" : 09.04.2026, 2h
+    "F9: Messaging Entity & Repo" : 10.04.2026, 3h
 
     section 4. Qualitätssicherung
-    "Unit- & Integrationstests" : 13.04.2026, 1d
-    "Debugging & Cleanup" : 14.04.2026, 1d
+    "Unit-Testing" : 13.04.2026, 4h
+    "Integrationstests" : 14.04.2026, 4h
+    "Bugfixing & Cleanup" : 14.04.2026, 2h
 
     section 5. Dokumentation
-    "Projektdokumentation" : 15.04.2026, 1d
-    "Fazit & Reflexion" : 16.04.2026, 2h
+    "IHK Dokumentation (Endredaktion)" : 15.04.2026, 8h
+    "Fazit, Reflexion & Abgabe" : 16.04.2026, 2h
 ```
 
 ### **2.4 Kostenplanung**
