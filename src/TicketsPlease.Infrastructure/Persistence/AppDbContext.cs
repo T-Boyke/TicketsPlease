@@ -222,10 +222,15 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     builder.Entity<SubTicket>(entity =>
     {
       entity.HasKey(e => e.Id);
-      entity.HasOne(e => e.ParentTicket)
+      entity.HasOne(e => e.Ticket)
             .WithMany(t => t.SubTickets)
-            .HasForeignKey(e => e.ParentTicketId)
+            .HasForeignKey(e => e.TicketId)
             .OnDelete(DeleteBehavior.Cascade);
+
+      entity.HasOne(e => e.Creator)
+            .WithMany()
+            .HasForeignKey(e => e.CreatorId)
+            .OnDelete(DeleteBehavior.Restrict);
     });
 
     builder.Entity<TicketTag>(entity =>

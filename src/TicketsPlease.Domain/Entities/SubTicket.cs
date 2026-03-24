@@ -15,12 +15,12 @@ public class SubTicket : BaseEntity
   /// <summary>
   /// Gets or sets die ID des übergeordneten Haupttickets.
   /// </summary>
-  public Guid ParentTicketId { get; set; }
+  public Guid TicketId { get; set; }
 
   /// <summary>
   /// Gets or sets das Navigation-Property für das Hauptticket.
   /// </summary>
-  public Ticket? ParentTicket { get; set; }
+  public Ticket? Ticket { get; set; }
 
   /// <summary>
   /// Gets or sets den Titel der Teilaufgabe.

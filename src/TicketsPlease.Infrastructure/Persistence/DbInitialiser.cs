@@ -238,7 +238,7 @@ public static class DbInitialiser
           IsCompleted = faker.Random.Bool(),
           CreatedAt = faker.Date.Past(),
           CreatorId = faker.PickRandom(users).Id,
-          ParentTicketId = faker.PickRandom(tickets).Id,
+          TicketId = faker.PickRandom(tickets).Id,
           TenantId = faker.PickRandom(orgs).Id,
         };
         subTickets.Add(subTicket);
