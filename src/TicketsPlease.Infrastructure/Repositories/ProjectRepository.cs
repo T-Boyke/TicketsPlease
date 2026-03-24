@@ -18,53 +18,53 @@ using TicketsPlease.Infrastructure.Persistence;
 /// </summary>
 public class ProjectRepository : IProjectRepository
 {
-    private readonly AppDbContext context;
+  private readonly AppDbContext context;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ProjectRepository"/> class.
-    /// </summary>
-    /// <param name="context">Der Datenbankkontext.</param>
-    public ProjectRepository(AppDbContext context)
-    {
-        this.context = context;
-    }
+  /// <summary>
+  /// Initializes a new instance of the <see cref="ProjectRepository"/> class.
+  /// </summary>
+  /// <param name="context">Der Datenbankkontext.</param>
+  public ProjectRepository(AppDbContext context)
+  {
+    this.context = context;
+  }
 
-    /// <inheritdoc/>
-    public async Task<Project?> GetByIdAsync(Guid id)
-    {
-        return await this.context.Projects
-            .Include(p => p.Tickets)
-            .FirstOrDefaultAsync(p => p.Id == id).ConfigureAwait(false);
-    }
+  /// <inheritdoc/>
+  public async Task<Project?> GetByIdAsync(Guid id)
+  {
+    return await this.context.Projects
+        .Include(p => p.Tickets)
+        .FirstOrDefaultAsync(p => p.Id == id).ConfigureAwait(false);
+  }
 
-    /// <inheritdoc/>
-    public async Task<IEnumerable<Project>> GetAllAsync(Guid tenantId)
-    {
-        return await this.context.Projects
-            .AsNoTracking()
-            .Where(p => p.TenantId == tenantId)
-            .OrderByDescending(p => p.StartDate)
-            .ToListAsync().ConfigureAwait(false);
-    }
+  /// <inheritdoc/>
+  public async Task<IEnumerable<Project>> GetAllAsync(Guid tenantId)
+  {
+    return await this.context.Projects
+        .AsNoTracking()
+        .Where(p => p.TenantId == tenantId)
+        .OrderByDescending(p => p.StartDate)
+        .ToListAsync().ConfigureAwait(false);
+  }
 
-    /// <inheritdoc/>
-    public async Task AddAsync(Project project)
-    {
-        await this.context.Projects.AddAsync(project).ConfigureAwait(false);
-        await this.context.SaveChangesAsync().ConfigureAwait(false);
-    }
+  /// <inheritdoc/>
+  public async Task AddAsync(Project project)
+  {
+    await this.context.Projects.AddAsync(project).ConfigureAwait(false);
+    await this.context.SaveChangesAsync().ConfigureAwait(false);
+  }
 
-    /// <inheritdoc/>
-    public async Task UpdateAsync(Project project)
-    {
-        this.context.Projects.Update(project);
-        await this.context.SaveChangesAsync().ConfigureAwait(false);
-    }
+  /// <inheritdoc/>
+  public async Task UpdateAsync(Project project)
+  {
+    this.context.Projects.Update(project);
+    await this.context.SaveChangesAsync().ConfigureAwait(false);
+  }
 
-    /// <inheritdoc/>
-    public async Task DeleteAsync(Project project)
-    {
-        this.context.Projects.Remove(project);
-        await this.context.SaveChangesAsync().ConfigureAwait(false);
-    }
+  /// <inheritdoc/>
+  public async Task DeleteAsync(Project project)
+  {
+    this.context.Projects.Remove(project);
+    await this.context.SaveChangesAsync().ConfigureAwait(false);
+  }
 }

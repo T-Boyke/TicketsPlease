@@ -17,6 +17,7 @@ internal sealed class HomeController : Controller
   /// Zeigt die Index-Seite an.
   /// </summary>
   /// <returns>Die Index-View.</returns>
+  [HttpGet]
   public IActionResult Index()
   {
     return this.View();
@@ -26,6 +27,7 @@ internal sealed class HomeController : Controller
   /// Zeigt die Datenschutz-Seite an.
   /// </summary>
   /// <returns>Die Privacy-View.</returns>
+  [HttpGet]
   public IActionResult Privacy()
   {
     return this.View();
@@ -35,6 +37,7 @@ internal sealed class HomeController : Controller
   /// Zeigt das Impressum an.
   /// </summary>
   /// <returns>Die Impressum-View.</returns>
+  [HttpGet]
   public IActionResult Impressum()
   {
     return this.View();
@@ -44,6 +47,7 @@ internal sealed class HomeController : Controller
   /// Zeigt die Fehlerseite für HTTP-Fehler an.
   /// </summary>
   /// <returns>Die Error-View mit Anforderungs-ID.</returns>
+  [HttpGet]
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult Error()
   {

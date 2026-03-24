@@ -39,25 +39,6 @@ public class TicketService : ITicketService
         this.httpContextAccessor = httpContextAccessor;
     }
 
-    /// <summary>
-    /// Mappt eine Ticket-Entität auf ein DTO.
-    /// </summary>
-    /// <param name="t">Die Entität.</param>
-    /// <returns>Das gemappte <see cref="TicketDto"/>.</returns>
-    private static TicketDto MapToDto(Ticket t) => new TicketDto(
-        t.Id,
-        t.Title,
-        t.Description,
-        t.Status,
-        t.ProjectId,
-        t.Project?.Title ?? "Unbekannt",
-        t.AssignedUserId,
-        t.AssignedUser?.UserName ?? "Nicht zugewiesen",
-        t.Type,
-        new TicketPriorityDto(t.PriorityId, t.Priority?.Name ?? "Normal", t.Priority?.ColorHex ?? "#ccc"),
-        t.CreatedAt,
-        t.EstimatePoints);
-
     /// <inheritdoc/>
     public async Task<IEnumerable<TicketDto>> GetActiveTicketsAsync()
     {
@@ -154,6 +135,25 @@ public class TicketService : ITicketService
     }
 
     /// <summary>
+    /// Mappt eine Ticket-Entität auf ein DTO.
+    /// </summary>
+    /// <param name="t">Die Entität.</param>
+    /// <returns>Das gemappte <see cref="TicketDto"/>.</returns>
+    private static TicketDto MapToDto(Ticket t) => new TicketDto(
+        t.Id,
+        t.Title,
+        t.Description,
+        t.Status,
+        t.ProjectId,
+        t.Project?.Title ?? "Unbekannt",
+        t.AssignedUserId,
+        t.AssignedUser?.UserName ?? "Nicht zugewiesen",
+        t.Type,
+        new TicketPriorityDto(t.PriorityId, t.Priority?.Name ?? "Normal", t.Priority?.ColorHex ?? "#ccc"),
+        t.CreatedAt,
+        t.EstimatePoints);
+
+    /// <summary>
     /// Ermittelt den aktuell angemeldeten Benutzer.
     /// </summary>
     /// <returns>Das <see cref="User"/> Objekt oder null.</returns>
@@ -161,5 +161,4 @@ public class TicketService : ITicketService
     {
         return await this.userManager.GetUserAsync(this.httpContextAccessor.HttpContext!.User).ConfigureAwait(false);
     }
-
 }

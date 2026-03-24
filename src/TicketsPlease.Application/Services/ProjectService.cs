@@ -20,105 +20,105 @@ using TicketsPlease.Domain.Entities;
 /// </summary>
 public class ProjectService : IProjectService
 {
-    private readonly IProjectRepository projectRepository;
-    private readonly UserManager<User> userManager;
-    private readonly IHttpContextAccessor httpContextAccessor;
+  private readonly IProjectRepository projectRepository;
+  private readonly UserManager<User> userManager;
+  private readonly IHttpContextAccessor httpContextAccessor;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ProjectService"/> class.
-    /// </summary>
-    /// <param name="projectRepository">Das Repository für Projekte.</param>
-    /// <param name="userManager">Der Identity UserManager.</param>
-    /// <param name="httpContextAccessor">Der Accessor für den aktuellen HttpContext.</param>
-    public ProjectService(
-        IProjectRepository projectRepository,
-        UserManager<User> userManager,
-        IHttpContextAccessor httpContextAccessor)
+  /// <summary>
+  /// Initializes a new instance of the <see cref="ProjectService"/> class.
+  /// </summary>
+  /// <param name="projectRepository">Das Repository für Projekte.</param>
+  /// <param name="userManager">Der Identity UserManager.</param>
+  /// <param name="httpContextAccessor">Der Accessor für den aktuellen HttpContext.</param>
+  public ProjectService(
+      IProjectRepository projectRepository,
+      UserManager<User> userManager,
+      IHttpContextAccessor httpContextAccessor)
+  {
+    this.projectRepository = projectRepository;
+    this.userManager = userManager;
+    this.httpContextAccessor = httpContextAccessor;
+  }
+
+  /// <inheritdoc/>
+  public async Task<IEnumerable<ProjectDto>> GetProjectsAsync()
+  {
+    var tenantId = await this.GetCurrentTenantIdAsync().ConfigureAwait(false);
+    var projects = await this.projectRepository.GetAllAsync(tenantId).ConfigureAwait(false);
+    return projects.Select(p => new ProjectDto(
+        p.Id, p.Title, p.Description, p.StartDate, p.EndDate, p.IsOpen, p.TenantId));
+  }
+
+  /// <inheritdoc/>
+  public async Task<ProjectDto?> GetProjectAsync(Guid id)
+  {
+    var project = await this.projectRepository.GetByIdAsync(id).ConfigureAwait(false);
+    if (project == null)
     {
-        this.projectRepository = projectRepository;
-        this.userManager = userManager;
-        this.httpContextAccessor = httpContextAccessor;
+      return null;
     }
 
-    /// <inheritdoc/>
-    public async Task<IEnumerable<ProjectDto>> GetProjectsAsync()
+    return new ProjectDto(
+        project.Id, project.Title, project.Description, project.StartDate, project.EndDate, project.IsOpen, project.TenantId);
+  }
+
+  /// <inheritdoc/>
+  public async Task CreateProjectAsync(CreateProjectDto dto)
+  {
+    ArgumentNullException.ThrowIfNull(dto);
+
+    var tenantId = await this.GetCurrentTenantIdAsync().ConfigureAwait(false);
+    var project = new Project(dto.Title, dto.StartDate);
+    project.UpdateMetadata(dto.Title, dto.Description);
+    project.SetEndDate(dto.EndDate);
+    project.SetTenantId(tenantId);
+
+    await this.projectRepository.AddAsync(project).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc/>
+  public async Task UpdateProjectAsync(UpdateProjectDto dto)
+  {
+    ArgumentNullException.ThrowIfNull(dto);
+
+    var project = await this.projectRepository.GetByIdAsync(dto.Id).ConfigureAwait(false);
+    if (project == null)
     {
-        var tenantId = await this.GetCurrentTenantIdAsync().ConfigureAwait(false);
-        var projects = await this.projectRepository.GetAllAsync(tenantId).ConfigureAwait(false);
-        return projects.Select(p => new ProjectDto(
-            p.Id, p.Title, p.Description, p.StartDate, p.EndDate, p.IsOpen, p.TenantId));
+      throw new KeyNotFoundException("Projekt nicht gefunden.");
     }
 
-    /// <inheritdoc/>
-    public async Task<ProjectDto?> GetProjectAsync(Guid id)
-    {
-        var project = await this.projectRepository.GetByIdAsync(id).ConfigureAwait(false);
-        if (project == null)
-        {
-            return null;
-        }
+    project.UpdateMetadata(dto.Title, dto.Description);
+    project.SetEndDate(dto.EndDate);
 
-        return new ProjectDto(
-            project.Id, project.Title, project.Description, project.StartDate, project.EndDate, project.IsOpen, project.TenantId);
+    if (dto.IsOpen)
+    {
+      project.Open();
+    }
+    else
+    {
+      project.Close();
     }
 
-    /// <inheritdoc/>
-    public async Task CreateProjectAsync(CreateProjectDto dto)
+    await this.projectRepository.UpdateAsync(project).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc/>
+  public async Task DeleteProjectAsync(Guid id)
+  {
+    var project = await this.projectRepository.GetByIdAsync(id).ConfigureAwait(false);
+    if (project != null)
     {
-        ArgumentNullException.ThrowIfNull(dto);
-
-        var tenantId = await this.GetCurrentTenantIdAsync().ConfigureAwait(false);
-        var project = new Project(dto.Title, dto.StartDate);
-        project.UpdateMetadata(dto.Title, dto.Description);
-        project.SetEndDate(dto.EndDate);
-        project.SetTenantId(tenantId);
-
-        await this.projectRepository.AddAsync(project).ConfigureAwait(false);
+      await this.projectRepository.DeleteAsync(project).ConfigureAwait(false);
     }
+  }
 
-    /// <inheritdoc/>
-    public async Task UpdateProjectAsync(UpdateProjectDto dto)
-    {
-        ArgumentNullException.ThrowIfNull(dto);
-
-        var project = await this.projectRepository.GetByIdAsync(dto.Id).ConfigureAwait(false);
-        if (project == null)
-        {
-            throw new KeyNotFoundException("Projekt nicht gefunden.");
-        }
-
-        project.UpdateMetadata(dto.Title, dto.Description);
-        project.SetEndDate(dto.EndDate);
-
-        if (dto.IsOpen)
-        {
-            project.Open();
-        }
-        else
-        {
-            project.Close();
-        }
-
-        await this.projectRepository.UpdateAsync(project).ConfigureAwait(false);
-    }
-
-    /// <inheritdoc/>
-    public async Task DeleteProjectAsync(Guid id)
-    {
-        var project = await this.projectRepository.GetByIdAsync(id).ConfigureAwait(false);
-        if (project != null)
-        {
-            await this.projectRepository.DeleteAsync(project).ConfigureAwait(false);
-        }
-    }
-
-    /// <summary>
-    /// Ermittelt die Mandanten-ID des aktuell angemeldeten Benutzers.
-    /// </summary>
-    /// <returns>Die Mandanten-ID (Guid).</returns>
-    private async Task<Guid> GetCurrentTenantIdAsync()
-    {
-        var user = await this.userManager.GetUserAsync(this.httpContextAccessor.HttpContext!.User).ConfigureAwait(false);
-        return user?.TenantId ?? Guid.Empty;
-    }
+  /// <summary>
+  /// Ermittelt die Mandanten-ID des aktuell angemeldeten Benutzers.
+  /// </summary>
+  /// <returns>Die Mandanten-ID (Guid).</returns>
+  private async Task<Guid> GetCurrentTenantIdAsync()
+  {
+    var user = await this.userManager.GetUserAsync(this.httpContextAccessor.HttpContext!.User).ConfigureAwait(false);
+    return user?.TenantId ?? Guid.Empty;
+  }
 }

@@ -2,10 +2,8 @@
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
-using System.Globalization;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
@@ -32,20 +30,20 @@ builder.Services.AddOpenApi();
 // Identity Configuration
 builder.Services.AddIdentity<User, Role>(options =>
 {
-    options.Password.RequireDigit = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequiredLength = 8;
+  options.Password.RequireDigit = true;
+  options.Password.RequireLowercase = true;
+  options.Password.RequireNonAlphanumeric = true;
+  options.Password.RequireUppercase = true;
+  options.Password.RequiredLength = 8;
 })
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = "/Account/Login";
-    options.LogoutPath = "/Account/Logout";
-    options.AccessDeniedPath = "/Account/AccessDenied";
+  options.LoginPath = "/Account/Login";
+  options.LogoutPath = "/Account/Logout";
+  options.AccessDeniedPath = "/Account/AccessDenied";
 });
 
 // Enterprise Skinning / Theming

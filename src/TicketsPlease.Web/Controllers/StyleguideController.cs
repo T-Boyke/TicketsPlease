@@ -16,6 +16,7 @@ internal sealed class StyleguideController : Controller
   /// Zeigt die Übersicht aller UI-Komponenten und Design-Tokens an.
   /// </summary>
   /// <returns>Die Styleguide-View.</returns>
+  [HttpGet]
   public IActionResult Index()
   {
     return this.View();

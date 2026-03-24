@@ -14,37 +14,37 @@ using TicketsPlease.Application.Common.Dtos;
 /// </summary>
 public interface IProjectService
 {
-    /// <summary>
-    /// Ruft alle Projekte des aktuellen Mandanten ab.
-    /// </summary>
-    /// <returns>Eine Liste von <see cref="ProjectDto"/>.</returns>
-    Task<IEnumerable<ProjectDto>> GetProjectsAsync();
+  /// <summary>
+  /// Ruft alle Projekte des aktuellen Mandanten ab.
+  /// </summary>
+  /// <returns>Eine Liste von <see cref="ProjectDto"/>.</returns>
+  public Task<IEnumerable<ProjectDto>> GetProjectsAsync();
 
-    /// <summary>
-    /// Ruft ein spezifisches Projekt ab.
-    /// </summary>
-    /// <param name="id">Die ID des Projekts.</param>
-    /// <returns>Ein <see cref="ProjectDto"/> oder null, wenn nicht gefunden.</returns>
-    Task<ProjectDto?> GetProjectAsync(Guid id);
+  /// <summary>
+  /// Ruft ein spezifisches Projekt ab.
+  /// </summary>
+  /// <param name="id">Die ID des Projekts.</param>
+  /// <returns>Ein <see cref="ProjectDto"/> oder null, wenn nicht gefunden.</returns>
+  public Task<ProjectDto?> GetProjectAsync(Guid id);
 
-    /// <summary>
-    /// Erstellt ein neues Projekt für den aktuellen Mandanten.
-    /// </summary>
-    /// <param name="dto">Die Projektdaten.</param>
-    /// <returns>Ein Task für die asynchrone Operation.</returns>
-    Task CreateProjectAsync(CreateProjectDto dto);
+  /// <summary>
+  /// Erstellt ein neues Projekt für den aktuellen Mandanten.
+  /// </summary>
+  /// <param name="dto">Die Projektdaten.</param>
+  /// <returns>Ein Task für die asynchrone Operation.</returns>
+  public Task CreateProjectAsync(CreateProjectDto dto);
 
-    /// <summary>
-    /// Aktualisiert ein bestehendes Projekt.
-    /// </summary>
-    /// <param name="dto">Die aktualisierten Projektdaten.</param>
-    /// <returns>Ein Task für die asynchrone Operation.</returns>
-    Task UpdateProjectAsync(UpdateProjectDto dto);
+  /// <summary>
+  /// Aktualisiert ein bestehendes Projekt.
+  /// </summary>
+  /// <param name="dto">Die aktualisierten Projektdaten.</param>
+  /// <returns>Ein Task für die asynchrone Operation.</returns>
+  public Task UpdateProjectAsync(UpdateProjectDto dto);
 
-    /// <summary>
-    /// Löscht ein Projekt.
-    /// </summary>
-    /// <param name="id">Die ID des zu löschenden Projekts.</param>
-    /// <returns>Ein Task für die asynchrone Operation.</returns>
-    Task DeleteProjectAsync(Guid id);
+  /// <summary>
+  /// Löscht ein Projekt.
+  /// </summary>
+  /// <param name="id">Die ID des zu löschenden Projekts.</param>
+  /// <returns>Ein Task für die asynchrone Operation.</returns>
+  public Task DeleteProjectAsync(Guid id);
 }

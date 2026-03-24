@@ -35,4 +35,3 @@ public record TicketDto(
     TicketPriorityDto Priority,
     DateTime CreatedAt,
     int? EstimatePoints);
-

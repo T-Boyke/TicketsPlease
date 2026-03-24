@@ -14,45 +14,45 @@ using TicketsPlease.Application.Common.Dtos;
 /// </summary>
 public interface ITicketService
 {
-    /// <summary>
-    /// Ruft alle aktiven Tickets für den aktuellen Mandanten ab.
-    /// </summary>
-    /// <returns>Eine Liste von <see cref="TicketDto"/>.</returns>
-    Task<IEnumerable<TicketDto>> GetActiveTicketsAsync();
+  /// <summary>
+  /// Ruft alle aktiven Tickets für den aktuellen Mandanten ab.
+  /// </summary>
+  /// <returns>Eine Liste von <see cref="TicketDto"/>.</returns>
+  public Task<IEnumerable<TicketDto>> GetActiveTicketsAsync();
 
-    /// <summary>
-    /// Ruft ein spezifisches Ticket ab.
-    /// </summary>
-    /// <param name="id">Die ID des Tickets.</param>
-    /// <returns>Ein <see cref="TicketDto"/> oder null.</returns>
-    Task<TicketDto?> GetTicketAsync(Guid id);
+  /// <summary>
+  /// Ruft ein spezifisches Ticket ab.
+  /// </summary>
+  /// <param name="id">Die ID des Tickets.</param>
+  /// <returns>Ein <see cref="TicketDto"/> oder null.</returns>
+  public Task<TicketDto?> GetTicketAsync(Guid id);
 
-    /// <summary>
-    /// Erstellt ein neues Ticket.
-    /// </summary>
-    /// <param name="dto">Die Ticketdaten.</param>
-    /// <returns>Ein Task für die asynchrone Operation.</returns>
-    Task CreateTicketAsync(CreateTicketDto dto);
+  /// <summary>
+  /// Erstellt ein neues Ticket.
+  /// </summary>
+  /// <param name="dto">Die Ticketdaten.</param>
+  /// <returns>Ein Task für die asynchrone Operation.</returns>
+  public Task CreateTicketAsync(CreateTicketDto dto);
 
-    /// <summary>
-    /// Aktualisiert ein bestehendes Ticket.
-    /// </summary>
-    /// <param name="dto">Die aktualisierten Daten.</param>
-    /// <returns>Ein Task für die asynchrone Operation.</returns>
-    Task UpdateTicketAsync(UpdateTicketDto dto);
+  /// <summary>
+  /// Aktualisiert ein bestehendes Ticket.
+  /// </summary>
+  /// <param name="dto">Die aktualisierten Daten.</param>
+  /// <returns>Ein Task für die asynchrone Operation.</returns>
+  public Task UpdateTicketAsync(UpdateTicketDto dto);
 
-    /// <summary>
-    /// Verschiebt ein Ticket in einen neuen Status.
-    /// </summary>
-    /// <param name="id">Die ID des Tickets.</param>
-    /// <param name="newStatus">Der Zielstatus.</param>
-    /// <returns>Ein Task für die asynchrone Operation.</returns>
-    Task MoveTicketAsync(Guid id, string newStatus);
+  /// <summary>
+  /// Verschiebt ein Ticket in einen neuen Status.
+  /// </summary>
+  /// <param name="id">Die ID des Tickets.</param>
+  /// <param name="newStatus">Der Zielstatus.</param>
+  /// <returns>Ein Task für die asynchrone Operation.</returns>
+  public Task MoveTicketAsync(Guid id, string newStatus);
 
-    /// <summary>
-    /// Schließt ein Ticket endgültig.
-    /// </summary>
-    /// <param name="id">Die ID des zu schließenden Tickets.</param>
-    /// <returns>Ein Task für die asynchrone Operation.</returns>
-    Task CloseTicketAsync(Guid id);
+  /// <summary>
+  /// Schließt ein Ticket endgültig.
+  /// </summary>
+  /// <param name="id">Die ID des zu schließenden Tickets.</param>
+  /// <returns>Ein Task für die asynchrone Operation.</returns>
+  public Task CloseTicketAsync(Guid id);
 }

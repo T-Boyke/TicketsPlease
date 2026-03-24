@@ -4,6 +4,8 @@
 
 namespace TicketsPlease.Web.Controllers;
 
+using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TicketsPlease.Application.Common.Dtos;
@@ -13,108 +15,121 @@ using TicketsPlease.Application.Common.Interfaces;
 /// Controller für die Projektverwaltung (CRUD für Admins).
 /// </summary>
 [Authorize(Roles = "Admin")]
-public class ProjectController : Controller
+internal class ProjectController : Controller
 {
-    private readonly IProjectService _projectService;
+  private readonly IProjectService projectService;
 
-    /// <summary>
-    /// Initialisiert eine neue Instanz der <see cref="ProjectController"/> Klasse.
-    /// </summary>
-    /// <param name="projectService">Der Dienst für Projektoperationen.</param>
-    public ProjectController(IProjectService projectService)
+  /// <summary>
+  /// Initializes a new instance of the <see cref="ProjectController"/> class.
+  /// </summary>
+  /// <param name="projectService">Der Dienst für Projektoperationen.</param>
+  public ProjectController(IProjectService projectService)
+  {
+    this.projectService = projectService;
+  }
+
+  /// <summary>
+  /// Zeigt die Liste aller Projekte an.
+  /// </summary>
+  /// <returns>Die Index-View mit einer Liste von Projekten.</returns>
+  [HttpGet]
+  public async Task<IActionResult> Index()
+  {
+    var projects = await this.projectService.GetProjectsAsync().ConfigureAwait(false);
+    return this.View(projects);
+  }
+
+  /// <summary>
+  /// Zeigt das Formular zum Erstellen eines neuen Projekts an.
+  /// </summary>
+  /// <returns>Die Create-View.</returns>
+  [HttpGet]
+  public IActionResult Create()
+  {
+    return this.View();
+  }
+
+  /// <summary>
+  /// Verarbeitet die Erstellung eines neuen Projekts.
+  /// </summary>
+  /// <param name="dto">Die Projektdaten.</param>
+  /// <returns>Ein Redirect auf die Index-Seite bei Erfolg.</returns>
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> Create(CreateProjectDto dto)
+  {
+    if (this.ModelState.IsValid)
     {
-        _projectService = projectService;
+      await this.projectService.CreateProjectAsync(dto).ConfigureAwait(false);
+      return this.RedirectToAction(nameof(this.Index));
     }
 
-    /// <summary>
-    /// Zeigt die Liste aller Projekte an.
-    /// </summary>
-    /// <returns>Die Index-View mit einer Liste von Projekten.</returns>
-    public async Task<IActionResult> Index()
+    return this.View(dto);
+  }
+
+  /// <summary>
+  /// Zeigt das Formular zum Bearbeiten eines bestehenden Projekts an.
+  /// </summary>
+  /// <param name="id">Die ID des Projekts.</param>
+  /// <returns>Die Edit-View mit den Projektdaten.</returns>
+  [HttpGet]
+  public async Task<IActionResult> Edit(Guid id)
+  {
+    var project = await this.projectService.GetProjectAsync(id).ConfigureAwait(false);
+    if (project == null)
     {
-        var projects = await _projectService.GetProjectsAsync();
-        return View(projects);
+      return this.NotFound();
     }
 
-    /// <summary>
-    /// Zeigt das Formular zum Erstellen eines neuen Projekts an.
-    /// </summary>
-    /// <returns>Die Create-View.</returns>
-    public IActionResult Create()
+    var dto = new UpdateProjectDto(project.Id, project.Title, project.Description, project.StartDate, project.EndDate, project.IsOpen);
+    return this.View(dto);
+  }
+
+  /// <summary>
+  /// Verarbeitet die Aktualisierung eines Projekts.
+  /// </summary>
+  /// <param name="dto">Die aktualisierten Projektdaten.</param>
+  /// <returns>Ein Redirect auf die Index-Seite bei Erfolg.</returns>
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> Edit(UpdateProjectDto dto)
+  {
+    if (this.ModelState.IsValid)
     {
-        return View();
+      await this.projectService.UpdateProjectAsync(dto).ConfigureAwait(false);
+      return this.RedirectToAction(nameof(this.Index));
     }
 
-    /// <summary>
-    /// Verarbeitet die Erstellung eines neuen Projekts.
-    /// </summary>
-    /// <param name="dto">Die Projektdaten.</param>
-    /// <returns>Ein Redirect auf die Index-Seite bei Erfolg.</returns>
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(CreateProjectDto dto)
+    return this.View(dto);
+  }
+
+  /// <summary>
+  /// Zeigt die Details eines Projekts an.
+  /// </summary>
+  /// <param name="id">Die ID des Projekts.</param>
+  /// <returns>Die Details-View.</returns>
+  [HttpGet]
+  public async Task<IActionResult> Details(Guid id)
+  {
+    var project = await this.projectService.GetProjectAsync(id).ConfigureAwait(false);
+    if (project == null)
     {
-        if (ModelState.IsValid)
-        {
-            await _projectService.CreateProjectAsync(dto);
-            return RedirectToAction(nameof(Index));
-        }
-        return View(dto);
+      return this.NotFound();
     }
 
-    /// <summary>
-    /// Zeigt das Formular zum Bearbeiten eines bestehenden Projekts an.
-    /// </summary>
-    /// <param name="id">Die ID des Projekts.</param>
-    /// <returns>Die Edit-View mit den Projektdaten.</returns>
-    public async Task<IActionResult> Edit(Guid id)
-    {
-        var project = await _projectService.GetProjectAsync(id);
-        if (project == null) return NotFound();
+    return this.View(project);
+  }
 
-        var dto = new UpdateProjectDto(project.Id, project.Title, project.Description, project.StartDate, project.EndDate, project.IsOpen);
-        return View(dto);
-    }
-
-    /// <summary>
-    /// Verarbeitet die Aktualisierung eines Projekts.
-    /// </summary>
-    /// <param name="dto">Die aktualisierten Projektdaten.</param>
-    /// <returns>Ein Redirect auf die Index-Seite bei Erfolg.</returns>
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(UpdateProjectDto dto)
-    {
-        if (ModelState.IsValid)
-        {
-            await _projectService.UpdateProjectAsync(dto);
-            return RedirectToAction(nameof(Index));
-        }
-        return View(dto);
-    }
-
-    /// <summary>
-    /// Zeigt die Details eines Projekts an.
-    /// </summary>
-    /// <param name="id">Die ID des Projekts.</param>
-    /// <returns>Die Details-View.</returns>
-    public async Task<IActionResult> Details(Guid id)
-    {
-        var project = await _projectService.GetProjectAsync(id);
-        if (project == null) return NotFound();
-        return View(project);
-    }
-
-    /// <summary>
-    /// Löscht ein Projekt.
-    /// </summary>
-    /// <param name="id">Die ID des zu löschenden Projekts.</param>
-    /// <returns>Ein Redirect auf die Index-Seite.</returns>
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Delete(Guid id)
-    {
-        await _projectService.DeleteProjectAsync(id);
-        return RedirectToAction(nameof(Index));
-    }
+  /// <summary>
+  /// Löscht ein Projekt.
+  /// </summary>
+  /// <param name="id">Die ID des zu löschenden Projekts.</param>
+  /// <returns>Ein Redirect auf die Index-Seite.</returns>
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> Delete(Guid id)
+  {
+    await this.projectService.DeleteProjectAsync(id).ConfigureAwait(false);
+    return this.RedirectToAction(nameof(this.Index));
+  }
 }

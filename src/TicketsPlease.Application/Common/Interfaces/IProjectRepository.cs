@@ -14,38 +14,38 @@ using TicketsPlease.Domain.Entities;
 /// </summary>
 public interface IProjectRepository
 {
-    /// <summary>
-    /// Ruft ein Projekt anhand seiner ID ab.
-    /// </summary>
-    /// <param name="id">Die ID des Projekts.</param>
-    /// <returns>Das gefundene Projekt oder null.</returns>
-    Task<Project?> GetByIdAsync(Guid id);
+  /// <summary>
+  /// Ruft ein Projekt anhand seiner ID ab.
+  /// </summary>
+  /// <param name="id">Die ID des Projekts.</param>
+  /// <returns>Das gefundene Projekt oder null.</returns>
+  public Task<Project?> GetByIdAsync(Guid id);
 
-    /// <summary>
-    /// Ruft alle Projekte einer Organisation (Mandant) ab.
-    /// </summary>
-    /// <param name="tenantId">Die ID der Organisation.</param>
-    /// <returns>Eine Liste von Projekten.</returns>
-    Task<IEnumerable<Project>> GetAllAsync(Guid tenantId);
+  /// <summary>
+  /// Ruft alle Projekte einer Organisation (Mandant) ab.
+  /// </summary>
+  /// <param name="tenantId">Die ID der Organisation.</param>
+  /// <returns>Eine Liste von Projekten.</returns>
+  public Task<IEnumerable<Project>> GetAllAsync(Guid tenantId);
 
-    /// <summary>
-    /// Fügt ein neues Projekt hinzu.
-    /// </summary>
-    /// <param name="project">Das zu speichernde Projekt.</param>
-    /// <returns>Die asynchrone Operation.</returns>
-    Task AddAsync(Project project);
+  /// <summary>
+  /// Fügt ein neues Projekt hinzu.
+  /// </summary>
+  /// <param name="project">Das zu speichernde Projekt.</param>
+  /// <returns>Die asynchrone Operation.</returns>
+  public Task AddAsync(Project project);
 
-    /// <summary>
-    /// Aktualisiert ein bestehendes Projekt.
-    /// </summary>
-    /// <param name="project">Das zu aktualisierende Projekt.</param>
-    /// <returns>Die asynchrone Operation.</returns>
-    Task UpdateAsync(Project project);
+  /// <summary>
+  /// Aktualisiert ein bestehendes Projekt.
+  /// </summary>
+  /// <param name="project">Das zu aktualisierende Projekt.</param>
+  /// <returns>Die asynchrone Operation.</returns>
+  public Task UpdateAsync(Project project);
 
-    /// <summary>
-    /// Markiert ein Projekt als gelöscht oder entfernt es persistent.
-    /// </summary>
-    /// <param name="project">Das zu löschende Projekt.</param>
-    /// <returns>Die asynchrone Operation.</returns>
-    Task DeleteAsync(Project project);
+  /// <summary>
+  /// Markiert ein Projekt als gelöscht oder entfernt es persistent.
+  /// </summary>
+  /// <param name="project">Das zu löschende Projekt.</param>
+  /// <returns>Die asynchrone Operation.</returns>
+  public Task DeleteAsync(Project project);
 }

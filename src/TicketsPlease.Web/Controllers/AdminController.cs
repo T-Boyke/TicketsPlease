@@ -12,32 +12,35 @@ using Microsoft.AspNetCore.Mvc;
 /// Erfordert die Admin-Rolle.
 /// </summary>
 [Authorize(Roles = "Admin")]
-public class AdminController : Controller
+internal class AdminController : Controller
 {
-    /// <summary>
-    /// Leitet zur Benutzerverwaltung weiter.
-    /// </summary>
-    /// <returns>Ein Redirect auf die Benutzerliste.</returns>
-    public IActionResult Index()
-    {
-        return RedirectToAction(nameof(Users));
-    }
+  /// <summary>
+  /// Leitet zur Benutzerverwaltung weiter.
+  /// </summary>
+  /// <returns>Ein Redirect auf die Benutzerliste.</returns>
+  [HttpGet]
+  public IActionResult Index()
+  {
+    return this.RedirectToAction(nameof(this.Users));
+  }
 
-    /// <summary>
-    /// Zeigt die Benutzerverwaltung an.
-    /// </summary>
-    /// <returns>Die Users-View.</returns>
-    public IActionResult Users()
-    {
-        return View();
-    }
+  /// <summary>
+  /// Zeigt die Benutzerverwaltung an.
+  /// </summary>
+  /// <returns>Die Users-View.</returns>
+  [HttpGet]
+  public IActionResult Users()
+  {
+    return this.View();
+  }
 
-    /// <summary>
-    /// Zeigt die Systemeinstellungen an.
-    /// </summary>
-    /// <returns>Die Settings-View.</returns>
-    public IActionResult Settings()
-    {
-        return View();
-    }
+  /// <summary>
+  /// Zeigt die Systemeinstellungen an.
+  /// </summary>
+  /// <returns>Die Settings-View.</returns>
+  [HttpGet]
+  public IActionResult Settings()
+  {
+    return this.View();
+  }
 }
