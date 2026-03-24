@@ -54,7 +54,7 @@ internal class AccountController : Controller
 
     if (this.ModelState.IsValid)
     {
-      var result = await this.signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false).ConfigureAwait(false);
+      var result = await this.signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe ?? false, lockoutOnFailure: false).ConfigureAwait(false);
       if (result.Succeeded)
       {
         return this.RedirectToAction("Index", "Home");
