@@ -7,7 +7,7 @@ namespace TicketsPlease.Web.Models;
 /// <summary>
 /// Modell für die Anzeige von Fehlermeldungen.
 /// </summary>
-public sealed class ErrorViewModel
+internal sealed class ErrorViewModel
 {
   /// <summary>
   /// Gets or sets die ID der Anforderung.
