@@ -182,6 +182,22 @@ public class Ticket : BaseAuditableEntity
   public ICollection<Ticket> SubTickets { get; private set; } = new List<Ticket>();
 
   /// <summary>
+  /// Gets die Liste der Kommentare zu diesem Ticket (F5).
+  /// </summary>
+  public ICollection<Comment> Comments { get; private set; } = new List<Comment>();
+
+  /// <summary>
+  /// Prüft, ob das Ticket geschlossen werden kann (F7).
+  /// Ein Ticket kann nicht geschlossen werden, wenn es noch offene Abhängigkeiten (Vorgänger) hat.
+  /// </summary>
+  /// <returns>True, wenn keine offenen Blocker existieren.</returns>
+  public bool CanBeClosed()
+  {
+    // Ein Ticket ist blockiert, wenn einer seiner Vorgänger (BlockedBy -> SourceTicket) nicht geschlossen ist.
+    return !this.BlockedBy.Any(d => d.LinkType == TicketsPlease.Domain.Enums.TicketLinkType.Blocks && d.SourceTicket != null && d.SourceTicket.Status != "Closed" && d.SourceTicket.Status != "Done");
+  }
+
+  /// <summary>
   /// Gets die Liste der Tickets, die dieses Ticket blockieren.
   /// </summary>
   public ICollection<TicketLink> BlockedBy { get; private set; } = new List<TicketLink>();

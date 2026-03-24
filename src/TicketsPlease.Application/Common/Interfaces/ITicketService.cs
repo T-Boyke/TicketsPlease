@@ -21,6 +21,15 @@ public interface ITicketService
   public Task<IEnumerable<TicketDto>> GetActiveTicketsAsync();
 
   /// <summary>
+  /// Ruft gefilterte Tickets ab (F6).
+  /// </summary>
+  /// <param name="projectId">Optionale Projekt-ID.</param>
+  /// <param name="assignedUserId">Optionale Zuweisungs-ID.</param>
+  /// <param name="creatorId">Optionale Ersteller-ID.</param>
+  /// <returns>Eine Liste von <see cref="TicketDto"/>.</returns>
+  public Task<IEnumerable<TicketDto>> GetFilteredTicketsAsync(Guid? projectId = null, Guid? assignedUserId = null, Guid? creatorId = null);
+
+  /// <summary>
   /// Ruft ein spezifisches Ticket ab.
   /// </summary>
   /// <param name="id">Die ID des Tickets.</param>
@@ -50,9 +59,26 @@ public interface ITicketService
   public Task MoveTicketAsync(Guid id, string newStatus);
 
   /// <summary>
-  /// Schließt ein Ticket endgültig.
+  /// Schließt ein Ticket endgültig (F3.4).
+  /// Berücksichtigt Abhängigkeiten (Blocker) (F7).
   /// </summary>
   /// <param name="id">Die ID des zu schließenden Tickets.</param>
   /// <returns>Ein Task für die asynchrone Operation.</returns>
   public Task CloseTicketAsync(Guid id);
+
+  /// <summary>
+  /// Fügt eine Abhängigkeit hinzu (F7).
+  /// </summary>
+  /// <param name="ticketId">Das blockierte Ticket (Nachfolger).</param>
+  /// <param name="blockerId">Das blockierende Ticket (Vorgänger).</param>
+  /// <returns>Ein Task für die asynchrone Operation.</returns>
+  public Task AddDependencyAsync(Guid ticketId, Guid blockerId);
+
+  /// <summary>
+  /// Entfernt eine Abhängigkeit (F7).
+  /// </summary>
+  /// <param name="ticketId">Die ID des Tickets.</param>
+  /// <param name="dependencyId">Die ID der Verknüpfung.</param>
+  /// <returns>Ein Task für die asynchrone Operation.</returns>
+  public Task RemoveDependencyAsync(Guid ticketId, Guid dependencyId);
 }

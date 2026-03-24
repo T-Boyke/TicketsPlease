@@ -8,6 +8,13 @@
 }
 
 <div class="max-w-5xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="mb-8 px-6 py-4 rounded-2xl bg-rose-50 border border-rose-100 text-rose-600 font-bold flex items-center shadow-sm animate-pulse">
+            <i class="fa-solid fa-circle-exclamation mr-3 text-rose-500 text-xl"></i>
+            @TempData["ErrorMessage"]
+        </div>
+    }
     <div class="flex items-center justify-between mb-8">
         <a asp-action="Index" class="text-slate-400 hover:text-brand-primary font-bold transition-colors flex items-center">
             <i class="fa-solid fa-arrow-left mr-2"></i> @L["Back to Board"]
@@ -39,9 +46,60 @@
                     <span class="text-slate-400 font-bold text-sm">TICKET-@Model.Id.ToString().Substring(0, 8).ToUpper()</span>
                 </div>
                 <h1 class="text-4xl font-extrabold text-slate-900 mb-6 leading-tight">@Model.Title</h1>
-                <div class="prose prose-slate max-w-none">
+                <div class="prose prose-slate max-w-none mb-8">
                     <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">@L["Description"]</h3>
                     <p class="text-slate-700 leading-relaxed whitespace-pre-wrap">@Model.Description</p>
+                </div>
+
+                @* Comments Section (F5) *@
+                <div class="pt-8 border-t border-slate-100">
+                    <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center">
+                        <i class="fa-solid fa-comments mr-3 text-indigo-500"></i> @L["Comments"] (@Model.Comments.Count())
+                    </h3>
+
+                    @* Comment Form *@
+                    <form asp-controller="Comment" asp-action="Create" method="post" class="mb-8 p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="TicketId" value="@Model.Id" />
+                        <div class="mb-4">
+                            <textarea name="Content" rows="3" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none resize-none bg-white font-medium text-slate-700" placeholder="@L["Write a comment..."]"></textarea>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="submit" class="px-6 py-2.5 rounded-full bg-indigo-500 text-white font-bold hover:bg-indigo-600 hover:shadow-lg hover:shadow-indigo-500/30 transition-all flex items-center">
+                                <i class="fa-solid fa-paper-plane mr-2"></i> @L["Post Comment"]
+                            </button>
+                        </div>
+                    </form>
+
+                    @* Comment List *@
+                    <div class="space-y-6">
+                        @if (!Model.Comments.Any())
+                        {
+                            <div class="text-center py-12 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                                <i class="fa-solid fa-comment-slash text-slate-300 text-3xl mb-3 block"></i>
+                                <p class="text-slate-400 font-medium">@L["No comments yet. Be the first to start the discussion!"]</p>
+                            </div>
+                        }
+                        else
+                        {
+                            @foreach (var comment in Model.Comments)
+                            {
+                                <div class="flex space-x-4 p-5 rounded-2xl hover:bg-slate-50 transition-all border border-transparent hover:border-slate-100 group">
+                                    @{
+                                        var initials = comment.AuthorName?.Length >= 2 ? comment.AuthorName.Substring(0, 2).ToUpper() : (comment.AuthorName?.Length == 1 ? comment.AuthorName.ToUpper() + "?" : "??");
+                                    }
+                                    <partial name="_Avatar" model='initials' view-data='@new ViewDataDictionary(ViewData) { { "SizeClass", "h-10 w-10 flex-shrink-0" } }' />
+                                    <div class="flex-1">
+                                        <div class="flex items-center justify-between mb-1">
+                                            <span class="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">@comment.AuthorName</span>
+                                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">@comment.CreatedAt.ToString("g")</span>
+                                        </div>
+                                        <p class="text-slate-600 text-sm leading-relaxed">@comment.Content</p>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,6 +129,73 @@
                     <div>
                         <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">@L["Created"]</p>
                         <p class="text-sm font-bold text-slate-700">@Model.CreatedAt.ToString("g")</p>
+                    </div>
+                </div>
+            </div>
+
+            @* Dependencies Section (F7) *@
+            <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-xl">
+                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6 flex items-center">
+                    <i class="fa-solid fa-link mr-2 text-brand-primary"></i> @L["Dependencies"]
+                </h3>
+                
+                @* Blocked By (Predecessors) *@
+                <div class="mb-6">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-3 flex items-center">
+                        <i class="fa-solid fa-lock mr-2"></i> @L["Blocked By"]
+                    </p>
+                    <div class="space-y-3">
+                        @foreach (var link in Model.BlockedBy)
+                        {
+                            <div class="flex items-center justify-between group">
+                                <a asp-action="Details" asp-route-id="@link.SourceTicketId" class="text-sm font-bold @(link.IsClosed ? "text-slate-400 line-through" : "text-slate-700 hover:text-brand-primary") transition-colors truncate flex-1 mr-2" title="@link.SourceTicketTitle">
+                                    @link.SourceTicketTitle
+                                </a>
+                                <form asp-action="RemoveDependency" asp-route-id="@Model.Id" asp-route-dependencyId="@link.Id" method="post" class="opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button type="submit" class="text-slate-300 hover:text-rose-500 transition-colors"><i class="fa-solid fa-xmark"></i></button>
+                                </form>
+                            </div>
+                        }
+                        @if (!Model.BlockedBy.Any())
+                        {
+                            <p class="text-xs text-slate-400 italic">@L["No blockers"]</p>
+                        }
+                    </div>
+                </div>
+
+                @* Add Dependency Form *@
+                <form asp-action="AddDependency" asp-route-id="@Model.Id" method="post" class="pt-5 border-t border-slate-100">
+                    <div class="flex flex-col space-y-2">
+                        <select name="blockerId" class="w-full bg-slate-50 border-none text-slate-700 text-xs font-bold rounded-xl focus:ring-2 focus:ring-brand-primary/20 block px-3 py-2 transition-all outline-none" asp-items="ViewBag.AllTickets">
+                            <option value="">-- @L["Add Blocker"] --</option>
+                        </select>
+                        <button type="submit" class="w-full py-2 bg-slate-900 text-white text-[10px] font-bold uppercase tracking-widest rounded-xl hover:bg-slate-800 transition-all">
+                            <i class="fa-solid fa-plus mr-1"></i> @L["Add"]
+                        </button>
+                    </div>
+                </form>
+                
+                @* Blocking (Successors) *@
+                <div class="mt-8 pt-6 border-t border-slate-100">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-3 flex items-center">
+                        <i class="fa-solid fa-unlock mr-2"></i> @L["Blocking"]
+                    </p>
+                    <div class="space-y-3">
+                        @foreach (var link in Model.Blocking)
+                        {
+                            <div class="flex items-center justify-between group">
+                                <a asp-action="Details" asp-route-id="@link.TargetTicketId" class="text-sm font-bold @(link.IsClosed ? "text-slate-400 line-through" : "text-slate-700 hover:text-brand-primary") transition-colors truncate flex-1 mr-2" title="@link.TargetTicketTitle">
+                                    @link.TargetTicketTitle
+                                </a>
+                                <form asp-action="RemoveDependency" asp-route-id="@Model.Id" asp-route-dependencyId="@link.Id" method="post" class="opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button type="submit" class="text-slate-300 hover:text-rose-500 transition-colors"><i class="fa-solid fa-xmark"></i></button>
+                                </form>
+                            </div>
+                        }
+                        @if (!Model.Blocking.Any())
+                        {
+                            <p class="text-xs text-slate-400 italic">@L["No successors"]</p>
+                        }
                     </div>
                 </div>
             </div>

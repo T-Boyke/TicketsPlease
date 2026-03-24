@@ -112,6 +112,9 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
   /// <summary>Gets die Benachrichtigungen.</summary>
   public DbSet<Notification> Notifications => this.Set<Notification>();
 
+  /// <summary>Gets die Kommentare (F5).</summary>
+  public DbSet<Comment> Comments => this.Set<Comment>();
+
   /// <summary>
   /// Konfiguriert das Modell und die Datenbank-Mappings.
   /// Hier wird die explizite Konfiguration für Nebenläufigkeit und Tabellennamen vorgenommen.
@@ -253,6 +256,15 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     builder.Entity<TicketCustomValue>(entity =>
     {
       entity.HasKey(e => new { e.TicketId, e.FieldDefinitionId });
+    });
+
+    // --- Comments (F5) ---
+    builder.Entity<Comment>(entity =>
+    {
+      entity.HasKey(e => e.Id);
+      entity.Property(e => e.Content).IsRequired().HasMaxLength(2000);
+      entity.HasOne(e => e.Ticket).WithMany(t => t.Comments).HasForeignKey(e => e.TicketId).OnDelete(DeleteBehavior.Cascade);
+      entity.HasOne(e => e.Author).WithMany().HasForeignKey(e => e.AuthorId).OnDelete(DeleteBehavior.Restrict);
     });
   }
 

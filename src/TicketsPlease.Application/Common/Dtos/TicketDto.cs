@@ -22,6 +22,9 @@ using TicketsPlease.Domain.Enums;
 /// <param name="Priority">Die Prioritätsdetails.</param>
 /// <param name="CreatedAt">Der Erstellungszeitpunkt.</param>
 /// <param name="EstimatePoints">Die geschätzten Story Points.</param>
+/// <param name="Comments">Die Liste der Kommentare zum Ticket (F5).</param>
+/// <param name="BlockedBy">Tickets, die dieses Ticket blockieren (F7).</param>
+/// <param name="Blocking">Tickets, die von diesem Ticket blockiert werden (F7).</param>
 public record TicketDto(
     Guid Id,
     string Title,
@@ -34,4 +37,7 @@ public record TicketDto(
     TicketType Type,
     TicketPriorityDto Priority,
     DateTime CreatedAt,
-    int? EstimatePoints);
+    int? EstimatePoints,
+    IEnumerable<CommentDto> Comments,
+    IEnumerable<TicketLinkDto> BlockedBy,
+    IEnumerable<TicketLinkDto> Blocking);

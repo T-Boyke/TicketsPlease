@@ -39,6 +39,12 @@ public class TicketRepository : ITicketRepository
         .Include(t => t.AssignedUser)
         .Include(t => t.Project)
         .Include(t => t.Priority)
+        .Include(t => t.Comments)
+            .ThenInclude(c => c.Author)
+        .Include(t => t.BlockedBy)
+            .ThenInclude(l => l.SourceTicket)
+        .Include(t => t.Blocking)
+            .ThenInclude(l => l.TargetTicket)
         .FirstOrDefaultAsync(t => t.Id == id, ct).ConfigureAwait(false);
   }
 
@@ -51,6 +57,36 @@ public class TicketRepository : ITicketRepository
         .Include(t => t.AssignedUser)
         .Include(t => t.Project)
         .Include(t => t.Priority)
+        .OrderByDescending(t => t.Priority != null ? t.Priority.LevelWeight : 0)
+        .ToListAsync(ct).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc />
+  public async Task<List<Ticket>> GetFilteredAsync(Guid? projectId = null, Guid? assignedUserId = null, Guid? creatorId = null, CancellationToken ct = default)
+  {
+    var query = this.context.Tickets
+        .AsNoTracking()
+        .Include(t => t.AssignedUser)
+        .Include(t => t.Project)
+        .Include(t => t.Priority)
+        .AsQueryable();
+
+    if (projectId.HasValue)
+    {
+      query = query.Where(t => t.ProjectId == projectId.Value);
+    }
+
+    if (assignedUserId.HasValue)
+    {
+      query = query.Where(t => t.AssignedUserId == assignedUserId.Value);
+    }
+
+    if (creatorId.HasValue)
+    {
+      query = query.Where(t => t.CreatorId == creatorId.Value);
+    }
+
+    return await query
         .OrderByDescending(t => t.Priority != null ? t.Priority.LevelWeight : 0)
         .ToListAsync(ct).ConfigureAwait(false);
   }

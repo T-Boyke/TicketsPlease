@@ -39,13 +39,23 @@ internal class TicketsController : Controller
   }
 
   /// <summary>
-  /// Zeigt das Kanban-Board an.
+  /// Zeigt das Kanban-Board an (F3).
   /// </summary>
+  /// <param name="projectId">Der Filter für das Projekt (F6).</param>
+  /// <param name="assignedUserId">Der Filter für den zugewiesenen Benutzer (F6).</param>
+  /// <param name="creatorId">Der Filter für den Ersteller (F6).</param>
   /// <returns>Die Index-View mit allen aktiven Tickets.</returns>
   [HttpGet]
-  public async Task<IActionResult> Index()
+  public async Task<IActionResult> Index(Guid? projectId, Guid? assignedUserId, Guid? creatorId)
   {
-    var tickets = await this.ticketService.GetActiveTicketsAsync().ConfigureAwait(false);
+    var tickets = await this.ticketService.GetFilteredTicketsAsync(projectId, assignedUserId, creatorId).ConfigureAwait(false);
+
+    await this.PrepareViewBags().ConfigureAwait(false);
+
+    this.ViewData["CurrentProject"] = projectId;
+    this.ViewData["CurrentAssignee"] = assignedUserId;
+    this.ViewData["CurrentCreator"] = creatorId;
+
     return this.View(tickets);
   }
 
@@ -157,6 +167,42 @@ internal class TicketsController : Controller
   }
 
   /// <summary>
+  /// Fügt eine Abhängigkeit hinzu (F7).
+  /// </summary>
+  /// <param name="id">Die ID des blockierten Tickets.</param>
+  /// <param name="blockerId">Die ID des blockierenden Tickets.</param>
+  /// <returns>Ein Umleitungsergebnis.</returns>
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> AddDependency(Guid id, Guid blockerId)
+  {
+    try 
+    {
+      await this.ticketService.AddDependencyAsync(id, blockerId).ConfigureAwait(false);
+      return this.RedirectToAction(nameof(Details), new { id });
+    }
+    catch (Exception ex)
+    {
+      this.TempData["ErrorMessage"] = ex.Message;
+      return this.RedirectToAction(nameof(Details), new { id });
+    }
+  }
+
+  /// <summary>
+  /// Entfernt eine Abhängigkeit (F7).
+  /// </summary>
+  /// <param name="id">Die ID des Tickets.</param>
+  /// <param name="dependencyId">Die ID der Verknüpfung.</param>
+  /// <returns>Ein Umleitungsergebnis.</returns>
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> RemoveDependency(Guid id, Guid dependencyId)
+  {
+    await this.ticketService.RemoveDependencyAsync(id, dependencyId).ConfigureAwait(false);
+    return this.RedirectToAction(nameof(Details), new { id });
+  }
+
+  /// <summary>
   /// Bereitet die Dropdown-Listen für die Views vor.
   /// </summary>
   /// <returns>Ein Task für die asynchrone Operation.</returns>
@@ -170,5 +216,8 @@ internal class TicketsController : Controller
 
     var priorities = await this.context.TicketPriorities.OrderByDescending(p => p.LevelWeight).ToListAsync().ConfigureAwait(false);
     this.ViewBag.Priorities = new SelectList(priorities, "Id", "Name");
+
+    var allTickets = await this.context.Tickets.Where(t => !t.IsDeleted).OrderBy(t => t.Title).ToListAsync().ConfigureAwait(false);
+    this.ViewBag.AllTickets = new SelectList(allTickets, "Id", "Title");
   }
 }

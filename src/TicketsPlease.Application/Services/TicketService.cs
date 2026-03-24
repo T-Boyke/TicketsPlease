@@ -43,7 +43,14 @@ public class TicketService : ITicketService
   public async Task<IEnumerable<TicketDto>> GetActiveTicketsAsync()
   {
     var tickets = await this.ticketRepository.GetAllActiveAsync().ConfigureAwait(false);
-    return tickets.Select(MapToDto);
+    return tickets.Select(t => MapToDto(t));
+  }
+
+  /// <inheritdoc/>
+  public async Task<IEnumerable<TicketDto>> GetFilteredTicketsAsync(Guid? projectId = null, Guid? assignedUserId = null, Guid? creatorId = null)
+  {
+    var tickets = await this.ticketRepository.GetFilteredAsync(projectId, assignedUserId, creatorId).ConfigureAwait(false);
+    return tickets.Select(t => MapToDto(t));
   }
 
   /// <inheritdoc/>
@@ -129,9 +136,52 @@ public class TicketService : ITicketService
       throw new KeyNotFoundException();
     }
 
+    if (!ticket.CanBeClosed())
+    {
+      throw new InvalidOperationException("Das Ticket kann nicht geschlossen werden, da es noch offene Abhängigkeiten (Vorgänger) hat.");
+    }
+
     var roles = await this.userManager.GetRolesAsync(user).ConfigureAwait(false);
     ticket.Close(user.Id, roles.Contains("Admin"));
     await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+  }
+
+  /// <inheritdoc/>
+  public async Task AddDependencyAsync(Guid ticketId, Guid blockerId)
+  {
+    var ticket = await this.ticketRepository.GetByIdAsync(ticketId).ConfigureAwait(false);
+    if (ticket == null)
+    {
+      throw new KeyNotFoundException("Ticket nicht gefunden.");
+    }
+
+    ticket.AddLink(blockerId, TicketsPlease.Domain.Enums.TicketLinkType.Blocks);
+    await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+  }
+
+  /// <inheritdoc/>
+  public async Task RemoveDependencyAsync(Guid ticketId, Guid dependencyId)
+  {
+    var ticket = await this.ticketRepository.GetByIdAsync(ticketId).ConfigureAwait(false);
+    if (ticket == null)
+    {
+      throw new KeyNotFoundException("Ticket nicht gefunden.");
+    }
+
+    var link = ticket.BlockedBy.Union(ticket.Blocking).FirstOrDefault(l => l.Id == dependencyId);
+    if (link != null)
+    {
+      if (ticket.BlockedBy.Contains(link))
+      {
+        ticket.BlockedBy.Remove(link);
+      }
+      else
+      {
+        ticket.Blocking.Remove(link);
+      }
+
+      await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+    }
   }
 
   /// <summary>
@@ -151,7 +201,29 @@ public class TicketService : ITicketService
       t.Type,
       new TicketPriorityDto(t.PriorityId, t.Priority?.Name ?? "Normal", t.Priority?.ColorHex ?? "#ccc"),
       t.CreatedAt,
-      t.EstimatePoints);
+      t.EstimatePoints,
+      t.Comments?.OrderByDescending(c => c.CreatedAt).Select(c => new CommentDto(
+          c.Id,
+          c.Content,
+          c.AuthorId,
+          c.Author?.UserName ?? "Unbekannt",
+          c.CreatedAt)) ?? Enumerable.Empty<CommentDto>(),
+      t.BlockedBy?.Select(l => new TicketLinkDto(
+          l.Id,
+          l.SourceTicketId,
+          l.SourceTicket?.Title ?? "???",
+          l.TargetTicketId,
+          l.TargetTicket?.Title ?? "???",
+          l.LinkType,
+          l.SourceTicket?.Status == "Closed" || l.SourceTicket?.Status == "Done")) ?? Enumerable.Empty<TicketLinkDto>(),
+      t.Blocking?.Select(l => new TicketLinkDto(
+          l.Id,
+          l.SourceTicketId,
+          l.SourceTicket?.Title ?? "???",
+          l.TargetTicketId,
+          l.TargetTicket?.Title ?? "???",
+          l.LinkType,
+          l.TargetTicket?.Status == "Closed" || l.TargetTicket?.Status == "Done")) ?? Enumerable.Empty<TicketLinkDto>());
 
   /// <summary>
   /// Ermittelt den aktuell angemeldeten Benutzer.
