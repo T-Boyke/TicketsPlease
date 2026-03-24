@@ -176,15 +176,15 @@ internal class TicketsController : Controller
   [ValidateAntiForgeryToken]
   public async Task<IActionResult> AddDependency(Guid id, Guid blockerId)
   {
-    try 
+    try
     {
       await this.ticketService.AddDependencyAsync(id, blockerId).ConfigureAwait(false);
-      return this.RedirectToAction(nameof(Details), new { id });
+      return this.RedirectToAction(nameof(this.Details), new { id });
     }
-    catch (Exception ex)
+    catch (InvalidOperationException ex)
     {
       this.TempData["ErrorMessage"] = ex.Message;
-      return this.RedirectToAction(nameof(Details), new { id });
+      return this.RedirectToAction(nameof(this.Details), new { id });
     }
   }
 
@@ -199,7 +199,7 @@ internal class TicketsController : Controller
   public async Task<IActionResult> RemoveDependency(Guid id, Guid dependencyId)
   {
     await this.ticketService.RemoveDependencyAsync(id, dependencyId).ConfigureAwait(false);
-    return this.RedirectToAction(nameof(Details), new { id });
+    return this.RedirectToAction(nameof(this.Details), new { id });
   }
 
   /// <summary>

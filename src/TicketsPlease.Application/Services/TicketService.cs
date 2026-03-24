@@ -189,41 +189,50 @@ public class TicketService : ITicketService
   /// </summary>
   /// <param name="t">Die Entität.</param>
   /// <returns>Das gemappte <see cref="TicketDto"/>.</returns>
-  private static TicketDto MapToDto(Ticket t) => new TicketDto(
-      t.Id,
-      t.Title,
-      t.Description,
-      t.Status,
-      t.ProjectId,
-      t.Project?.Title ?? "Unbekannt",
-      t.AssignedUserId,
-      t.AssignedUser?.UserName ?? "Nicht zugewiesen",
-      t.Type,
-      new TicketPriorityDto(t.PriorityId, t.Priority?.Name ?? "Normal", t.Priority?.ColorHex ?? "#ccc"),
-      t.CreatedAt,
-      t.EstimatePoints,
-      t.Comments?.OrderByDescending(c => c.CreatedAt).Select(c => new CommentDto(
+  private static TicketDto MapToDto(Ticket t)
+  {
+    var comments = t.Comments?.OrderByDescending(c => c.CreatedAt).Select(c => new CommentDto(
           c.Id,
           c.Content,
           c.AuthorId,
           c.Author?.UserName ?? "Unbekannt",
-          c.CreatedAt)) ?? Enumerable.Empty<CommentDto>(),
-      t.BlockedBy?.Select(l => new TicketLinkDto(
+          c.CreatedAt)) ?? Enumerable.Empty<CommentDto>();
+
+    var blockedBy = t.BlockedBy?.Select(l => new TicketLinkDto(
           l.Id,
           l.SourceTicketId,
           l.SourceTicket?.Title ?? "???",
           l.TargetTicketId,
           l.TargetTicket?.Title ?? "???",
           l.LinkType,
-          l.SourceTicket?.Status == "Closed" || l.SourceTicket?.Status == "Done")) ?? Enumerable.Empty<TicketLinkDto>(),
-      t.Blocking?.Select(l => new TicketLinkDto(
+          l.SourceTicket?.Status == "Closed" || l.SourceTicket?.Status == "Done")) ?? Enumerable.Empty<TicketLinkDto>();
+
+    var blocking = t.Blocking?.Select(l => new TicketLinkDto(
           l.Id,
           l.SourceTicketId,
           l.SourceTicket?.Title ?? "???",
           l.TargetTicketId,
           l.TargetTicket?.Title ?? "???",
           l.LinkType,
-          l.TargetTicket?.Status == "Closed" || l.TargetTicket?.Status == "Done")) ?? Enumerable.Empty<TicketLinkDto>());
+          l.TargetTicket?.Status == "Closed" || l.TargetTicket?.Status == "Done")) ?? Enumerable.Empty<TicketLinkDto>();
+
+    return new TicketDto(
+        t.Id,
+        t.Title,
+        t.Description,
+        t.Status,
+        t.ProjectId,
+        t.Project?.Title ?? "Unbekannt",
+        t.AssignedUserId,
+        t.AssignedUser?.UserName ?? "Nicht zugewiesen",
+        t.Type,
+        new TicketPriorityDto(t.PriorityId, t.Priority?.Name ?? "Normal", t.Priority?.ColorHex ?? "#ccc"),
+        t.CreatedAt,
+        t.EstimatePoints,
+        comments,
+        blockedBy,
+        blocking);
+  }
 
   /// <summary>
   /// Ermittelt den aktuell angemeldeten Benutzer.

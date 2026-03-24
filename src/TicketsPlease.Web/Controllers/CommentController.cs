@@ -15,7 +15,7 @@ using TicketsPlease.Application.Common.Interfaces;
 /// Controller für die Kommentarverwaltung (F5).
 /// </summary>
 [Authorize]
-public class CommentController : Controller
+internal class CommentController : Controller
 {
   private readonly ICommentService commentService;
 
@@ -37,6 +37,8 @@ public class CommentController : Controller
   [ValidateAntiForgeryToken]
   public async Task<IActionResult> Create(CreateCommentDto dto)
   {
+    ArgumentNullException.ThrowIfNull(dto);
+
     if (this.ModelState.IsValid)
     {
       try
@@ -44,12 +46,12 @@ public class CommentController : Controller
         await this.commentService.CreateCommentAsync(dto).ConfigureAwait(false);
         return this.RedirectToAction("Details", "Tickets", new { id = dto.TicketId });
       }
-      catch (Exception)
+      catch (InvalidOperationException ex)
       {
-        this.ModelState.AddModelError(string.Empty, "Fehler beim Speichern des Kommentars.");
+        this.ModelState.AddModelError(string.Empty, ex.Message);
       }
     }
 
-    return this.RedirectToAction("Details", "Tickets", new { id = dto?.TicketId });
+    return this.RedirectToAction("Details", "Tickets", new { id = dto.TicketId });
   }
 }

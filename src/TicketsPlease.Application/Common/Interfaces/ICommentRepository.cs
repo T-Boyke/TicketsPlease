@@ -21,7 +21,7 @@ public interface ICommentRepository
   /// <param name="ticketId">Die ID des Tickets.</param>
   /// <param name="ct">Das CancellationToken.</param>
   /// <returns>Eine Liste von <see cref="Comment"/>.</returns>
-  Task<List<Comment>> GetByTicketIdAsync(Guid ticketId, CancellationToken ct = default);
+  public Task<List<Comment>> GetByTicketIdAsync(Guid ticketId, CancellationToken ct = default);
 
   /// <summary>
   /// Fügt einen neuen Kommentar hinzu.
@@ -29,12 +29,12 @@ public interface ICommentRepository
   /// <param name="comment">Der Kommentar.</param>
   /// <param name="ct">Das CancellationToken.</param>
   /// <returns>Ein Task für die asynchrone Operation.</returns>
-  Task AddAsync(Comment comment, CancellationToken ct = default);
+  public Task AddAsync(Comment comment, CancellationToken ct = default);
 
   /// <summary>
   /// Speichert die Änderungen in der Datenbank.
   /// </summary>
   /// <param name="ct">Das CancellationToken.</param>
   /// <returns>Die Anzahl der betroffenen Datensätze.</returns>
-  Task<int> SaveChangesAsync(CancellationToken ct = default);
+  public Task<int> SaveChangesAsync(CancellationToken ct = default);
 }
