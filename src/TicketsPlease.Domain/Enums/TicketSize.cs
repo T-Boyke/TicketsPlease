@@ -1,5 +1,5 @@
-// <copyright file="TicketSize.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// <copyright file="TicketSize.cs" company="BitLC-NE-2025-2026">
+// Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
 namespace TicketsPlease.Domain.Enums;

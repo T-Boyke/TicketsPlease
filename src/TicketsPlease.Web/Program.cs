@@ -1,5 +1,5 @@
-// <copyright file="Program.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
+// <copyright file="Program.cs" company="BitLC-NE-2025-2026">
+// Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
 using System.Runtime.CompilerServices;
@@ -9,20 +9,53 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Infrastructure.Persistence;
 using TicketsPlease.Infrastructure.Repositories;
 using TicketsPlease.Infrastructure.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 [assembly: InternalsVisibleTo("TicketsPlease.IntegrationTests")]
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization();
+
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
 builder.Services.AddOpenApi();
+
+// Identity Configuration
+builder.Services.AddIdentity<User, Role>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 8;
+})
+.AddEntityFrameworkStores<AppDbContext>()
+.AddDefaultTokenProviders();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.LogoutPath = "/Account/Logout";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+});
 
 // Enterprise Skinning / Theming
 builder.Services.AddScoped<ICorporateSkinProvider, DefaultCorporateSkinProvider>();
 
 // Data Access Layer
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<ITicketRepository, TicketRepository>();
+builder.Services.AddScoped<ITicketService, TicketService>();
+builder.Services.AddHttpContextAccessor();
 
 // Database Configuration with Resilience
 
@@ -58,8 +91,20 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Localization Middleware
+var supportedCultures = new[] { "de", "en" };
+var localizationOptions = new RequestLocalizationOptions()
+    .SetDefaultCulture(supportedCultures[0])
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+
+app.UseRequestLocalization(localizationOptions);
+
+app.UseStaticFiles();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
