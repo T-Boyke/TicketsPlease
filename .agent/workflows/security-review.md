@@ -1,137 +1,62 @@
----
-description:
-  Security review checklist based on Defense in Depth for the TicketsPlease
-  project.
----
-
-# 🛡️ Security Review Workflow (Defense in Depth)
-
-Dieser Workflow stellt sicher, dass jede Code-Änderung die Security-Standards
-des Projekts erfüllt. Unser System wird nach dem **"Defense in Depth"**
-(Zwiebelschalen) Prinzip abgesichert.
-
-> **Referenz:**
-> [README §6 – Enterprise Security](file:///d:/DEV/Tickets/README.md) |
-> [instructions.md §6](file:///d:/DEV/Tickets/instructions.md)
-
----
-
-## Schichten-Modell
-
-```text
-🌐 Browser
-  └── 🔒 Anti-Forgery Token (CSRF-Schutz)
-       └── 🧹 DOMPurify (XSS-Sanitizing)
-            └── ✅ FluentValidation (Input-Validation)
-                 └── 🔑 ASP.NET Core Identity (Auth/AuthZ)
-                      └── 🗄️ Parameterized Queries (SQL Injection)
-                           └── 💾 Encrypted at Rest (Datenverschlüsselung)
-```
-
----
-
-## Checkliste (Bei jeder Code-Änderung prüfen!)
-
-### 1. Secret Management
-
-| Prüfpunkt                                              | Status |
-| :----------------------------------------------------- | :----- |
-| Keine Secrets in `appsettings.json` committet?         | ☐      |
-| Connection Strings über `dotnet user-secrets` (lokal)? | ☐      |
-| JWT-Keys, API-Tokens über Secrets Manager (Prod)?      | ☐      |
-| `.gitignore` enthält `appsettings.*.json` (overrides)? | ☐      |
-
-```cmd
-# Lokal: Secret setzen
-dotnet user-secrets set "ConnectionStrings:Default" "Server=...;Password=..."
-
-# Lokal: Secret anzeigen
-dotnet user-secrets list
-```
-
-### 2. Authentication & Authorization
-
-| Prüfpunkt                                            | Status |
-| :--------------------------------------------------- | :----- |
-| Passwort-Hashing via ASP.NET Core Identity?          | ☐      |
-| Keine eigenen Hash-Algorithmen / Crypto?             | ☐      |
-| Cookies mit `HttpOnly` **und** `Secure` Flag?        | ☐      |
-| Session-Timeout konfiguriert?                        | ☐      |
-| RBAC (Role-Based Access Control) korrekt angewendet? | ☐      |
-| `[Authorize]` auf schützenswerten Endpunkten?        | ☐      |
-
-### 3. Input Validation (Kein User-Input ungeprüft!)
-
-| Prüfpunkt                                             | Status |
-| :---------------------------------------------------- | :----- |
-| Jeder Command hat einen `AbstractValidator<T>`?       | ☐      |
-| Validation wird über MediatR Pipeline Behavior?       | ☐      |
-| Kein `ModelState`-Bypass (z.B. `ModelState.Clear()`)? | ☐      |
-| String-Inputs auf Max-Length beschränkt?              | ☐      |
-
-### 4. CSRF / XSRF Protection
-
-| Prüfpunkt                                            | Status |
-| :--------------------------------------------------- | :----- |
-| `[ValidateAntiForgeryToken]` auf allen POST-Actions? | ☐      |
-| Oder globaler Anti-Forgery Filter aktiv?             | ☐      |
-| `@Html.AntiForgeryToken()` im Razor-Form?            | ☐      |
-
-### 5. XSS (Cross-Site Scripting) Prevention
-
-| Prüfpunkt                                          | Status |
-| :------------------------------------------------- | :----- |
-| Markdown-Output im Frontend durch **DOMPurify**?   | ☐      |
-| DOMPurify lokal via LibMan installiert (kein CDN)? | ☐      |
-| Kein `@Html.Raw()` ohne vorherige Sanitization?    | ☐      |
-| User-Input wird nicht direkt in JS/HTML injiziert? | ☐      |
-
-```javascript
-// ✅ RICHTIG: DOMPurify vor DOM-Insertion
-const cleanHtml = DOMPurify.sanitize(marked.parse(userMarkdown));
-document.getElementById("output").innerHTML = cleanHtml;
-
-// ❌ FALSCH: Unsanitized Markdown direkt ins DOM
-document.getElementById("output").innerHTML = marked.parse(userMarkdown);
-```
-
-### 6. SQL Injection Prevention
-
-| Prüfpunkt                                            | Status |
-| :--------------------------------------------------- | :----- |
-| Alle DB-Queries über EF Core (parameterisiert)?      | ☐      |
-| Keine Raw-SQL Queries ohne Parameter (`FromSqlRaw`)? | ☐      |
-| Kein String-Concatenation für SQL-Queries?           | ☐      |
-
-### 7. DSGVO / Privacy by Design
-
-| Prüfpunkt                                           | Status |
-| :-------------------------------------------------- | :----- |
-| Personenbezogene Daten in separaten Tabellen?       | ☐      |
-| Löschkonzept: Können User-Daten gezielt gelöscht?   | ☐      |
-| Datensparsamkeit: Nur minimal nötige Daten erheben? | ☐      |
-| Keine IP-Tracking ohne Rechtsgrundlage?             | ☐      |
-| Keine externen CDNs (IP-Leak an Drittanbieter)?     | ☐      |
-| **DSGVO Isolierung**: PII-Daten strikt von Transaktionsdaten trennen?  | ☐      |
-| **Recht auf Vergessen**: Hard-Delete Workflow für User-Accounts?    | ☐      |
-| Cookie-Banner nur wenn nötig?                                       | ☐      |
-
-### 8. File Upload Security
-
-| Prüfpunkt                                           | Status |
-| :-------------------------------------------------- | :----- |
-| Datei-Typ-Validierung (Whitelist, nicht Blacklist)? | ☐      |
-| Dateigröße limitiert?                               | ☐      |
-| Dateien in Blob-Storage (oder außerhalb `wwwroot`)? | ☐      |
-| Dateiname sanitized (keine Path-Traversal)?         | ☐      |
-
----
-
-## Bei Security-Findings
-
-1. **Kritisch (P0):** Sofort via `hotfix/` Branch. Kein Deployment bis gefixt.
-2. **Hoch (P1):** Fix im aktuellen Sprint. Blockiert den PR-Merge.
-3. **Mittel (P2):** GitHub Issue erstellen, im nächsten Sprint adressieren.
-4. **Low (P3):** Als Tech-Debt dokumentieren, bei Gelegenheit fixen.
-
-### Zusammenfassung
+security_review_workflow:
+  objective: "Ensure code compliance with 'Defense in Depth' (DiD) security standards"
+  defense_in_depth_model:
+    layers:
+      Browser: "Anti-Forgery Token (CSRF) -> DOMPurify (XSS Sanitization)"
+      Application: "FluentValidation (Input) -> ASP.NET Core Identity (AuthN/AuthZ)"
+      Infrastructure: "Parameterized Queries (SQLi Protection) -> Encrypted at Rest (Storage Security)"
+  review_checklists:
+    secrets_management:
+      checklist:
+        - "No secrets committed to appsettings.json"
+        - "Local connection strings stored via 'dotnet user-secrets'"
+        - "Production keys/tokens via secure Secrets Manager"
+        - ".gitignore excludes appsettings.*.json overrides"
+    authentication_authorization:
+      checklist:
+        - "ASP.NET Core Identity hashing (no custom crypto)"
+        - "HttpOnly and Secure flags on all cookies"
+        - "Configured session timeouts"
+        - "RBAC (Role-Based Access Control) correctly applied"
+        - "[Authorize] present on all protected endpoints"
+    input_validation:
+      checklist:
+        - "AbstractValidator<T> for every Command"
+        - "Validation enforced via MediatR Pipeline Behavior"
+        - "No ModelState bypass allowed"
+        - "Explicit MaxLength limits on string inputs"
+    xsrf_csrf_protection:
+      checklist:
+        - "[ValidateAntiForgeryToken] on all POST actions"
+        - "Global anti-forgery filter active"
+        - "@Html.AntiForgeryToken() used in Razor forms"
+    xss_prevention:
+      checklist:
+        - "DOMPurify for all frontend Markdown output"
+        - "DOMPurify hosted locally (LibMan)"
+        - "Zero @Html.Raw() without prior sanitization"
+        - "No direct user-input injection into JS/HTML"
+    sql_injection_prevention:
+      checklist:
+        - "All DB queries via EF Core (parameterized)"
+        - "Zero raw SQL queries without parameters (FromSqlRaw)"
+        - "No string concatenation for SQL queries"
+    gdpr_privacy_by_design:
+      checklist:
+        - "PII in separate tables"
+        - "Data deletion (Right to be Forgotten) implementation"
+        - "Minimal data collection principle"
+        - "Zero external CDNs (prevents IP leaks)"
+        - "PII isolated from transaction data"
+        - "Hard-delete workflow for user accounts"
+    file_upload_security:
+      checklist:
+        - "Whitelist extension validation"
+        - "File size limits enforced"
+        - "Storage in Blobs (outside wwwroot)"
+        - "Sanitized filenames (Path-Traversal protection)"
+  findings_priority:
+    Critical_P0: "Immediate hotfix; blocks deployment"
+    High_P1: "Current sprint fix; blocks PR merge"
+    Medium_P2: "Create GitHub Issue; next sprint addressal"
+    Low_P3: "Document as tech debt; fix when possible"

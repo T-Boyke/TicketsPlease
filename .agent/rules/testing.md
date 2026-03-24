@@ -1,61 +1,25 @@
-# 🧪 TicketsPlease - Testing Rules
-
-<!-- markdownlint-disable MD033 -->
-<testing_rules>
-<fundamentals>
-
-- TDD: RED-GREEN-REFACTOR cycle is STRICTLY MANDATORY.
-- AAA Pattern: Arrange, Act, Assert blocks must be visually separated by comments:
-  `// Arrange`, `// Act`, `// Assert`.
-- Naming: `[ClassName]Tests` -> `[Method]_[Scenario]_[Result]`.
-
-</fundamentals>
-
-<coverage_mutation>
-
-- Line Coverage: 100% minimum on Domain and Application logic. Zero compromise.
-- Mutation Testing (Stryker.NET): Tests must fail when code is mutated.
-  Objective is 100% Mutation Score for core logic.
-
-</coverage_mutation>
-
-<xunit_features>
-
-- Single scenarios: Use `[Fact]`.
-- Edge cases/Parameterization: Use `[Theory]` and `[InlineData]` or `[ClassData]`.
-  Do NOT duplicate code for edge cases.
-
-</xunit_features>
-
-<mocking_data>
-
-- Data Builders: Use `Bogus` to generate realistic Fakes (Names, UUIDs). NO hardcoded `TestUser`.
-- Determinism: Use .NET 8 `TimeProvider` interface and `FakeTimeProvider`. NEVER use `DateTime.UtcNow`.
-- Mocks: `Moq` or `NSubstitute`. Fakes must act strictly to avoid hidden interactions.
-
-</mocking_data>
-
-<test_layers>
-
-- Architecture: NetArchTest (Ensures Clean Architecture dependency rules are unbroken).
-- Unit: Domain logic, MediatR Handlers, Services.
-- Integration: Testcontainers for SQL Server. NEVER use InMemoryDB.
-  Verify `AsNoTracking` and concurrency changes.
-- System/E2E: Playwright for crucial Web Journeys.
-
-</test_layers>
-
-<assertions>
-
-- Framework: `FluentAssertions` is MANDATORY (`.Should().NotBeNull()`).
-- Snapshots: Use `VerifyTests` for asserting complex JSON, HTML, or large DTO results
-  instead of manual field mapping.
-
-</assertions>
-
-<ci_cd>
-
-- Rule: CI pipeline fails immediately on any warnings or failing tests.
-
-</ci_cd>
-</testing_rules>
+testing_rules:
+  fundamentals:
+    tdd_cycle: "RED-GREEN-REFACTOR is strictly mandatory"
+    aaa_pattern: "Arrange, Act, Assert blocks must be visually separated by comments"
+    naming_convention: "[ClassName]Tests -> [Method]_[Scenario]_[Result]"
+  coverage_mutation:
+    line_coverage: "100% minimum on Domain and Application logic (no exceptions)"
+    mutation_testing: "Stryker.NET score of 100% for core logic"
+  xunit_features:
+    single_scenarios: "Use [Fact]"
+    parameterization: "Use [Theory] with [InlineData] or [ClassData]; do not duplicate code for edge cases"
+  mocking_data_generation:
+    data_builders: "Use Bogus for realistic fakes (e.g., Names, UUIDs); no hardcoded 'TestUser'"
+    determinism: "Use TimeProvider interface and FakeTimeProvider; never use DateTime.UtcNow"
+    mocks_fakes: "Use Moq or NSubstitute; fakes must act strictly to avoid hidden interactions"
+  testing_layers:
+    architecture: "NetArchTest for Clean Architecture dependency verification"
+    unit_tests: "Domain logic, MediatR Handlers, Services"
+    integration_tests: "Use Testcontainers for SQL Server; strictly no InMemoryDB; verify AsNoTracking and concurrency"
+    e2e_system_tests: "Playwright for critical web journeys"
+  assertions:
+    framework: "FluentAssertions is mandatory (.Should().NotBeNull())"
+    snapshot_testing: "Use VerifyTests for asserting complex JSON, HTML, or large DTO results; avoid manual field mapping"
+  ci_cd_policy:
+    failure_rule: "CI pipeline must fail immediately on any warnings or failing tests"

@@ -1,78 +1,67 @@
-# 🤖 TicketsPlease - Agent Index
+agent_identity:
+  name: "TicketsPlease AI Agent"
+  mindset: "Follow .agent/ instructions strictly; favor Clean Architecture and DDD."
+  language:
+    external: "German"
+    internal: "English (token-efficient)"
+    token_efficiency:
+      rule: "Contents of .md files in .agent/ subdirectories must be in YAML format to reduce context overhead."
 
-<system_prompt>
-You are the TicketsPlease AI Agent. Your configuration relies on the
-contents of `.agent/`. Read instructions carefully. Use specific XML tags
-for context. Communicate with the user in German, but process these
-internal rules in English to save tokens.
-</system_prompt>
+repositories:
+  rules:
+    path: ".agent/rules/"
+    manifest:
+      agent-behavior: "Mindset, constraints, No-Gos"
+      architecture: "Clean Architecture, DDD, CQRS, EF"
+      security: "Defense in Depth, Secrets, XSS"
+      ui-frontend: "Tailwind 4.2.2, a11y, SFC, Theme"
+      testing: "TDD, Testcontainers, Lighthouse"
+      git-documentation: "Branching, Commits, PRs, ADRs"
+      mermaid: "Gantt charts, Best Practices"
+  workflows:
+    path: ".agent/workflows/"
+    commands:
+      add-cqrs-feature: "Scaffold CQRS MediatR"
+      ef-core-migration: "Safe DB migrations"
+      testing-standards: "Unit/Integration rules"
+      ui-component-tailwind: "Tailwind components"
+      atomic-commits: "Logical Git commits"
+      security-review: "DiD checklist"
+      domain-entity: "DDD entities"
+      documentation-standards: "MD001-MD060 compliance"
+  skills:
+    path: ".agent/skills/"
+    items:
+      - "clean-architecture-scaffold/SKILL.md"
+      - "code-review/SKILL.md"
+      - "ef-core-debugging/SKILL.md"
+      - "refactoring-patterns/SKILL.md"
+      - "adr-writer/SKILL.md"
+      - "tailwind-component-patterns/SKILL.md"
+  context:
+    path: ".agent/context/"
+    links:
+      project-intelligence: "Mission, Vision"
+      tech-stack-referenz: ".NET 10, Tailwind 4.2.2, Scalar"
+      architectural-blueprint: "Layers, CQRS"
+      domain-knowledge: "Core entities"
+      ui-ux-design-system: "Styling tokens"
+      quality-assurance: "QA rules"
 
-<agent_rules>
-Read rules from `.agent/rules/`:
-
-- `agent-behavior.md`: Core mindset, constraints, No-Gos.
-- `architecture.md`: Clean Architecture, DDD, CQRS, EF.
-- `security.md`: Defense in Depth, Secrets, XSS.
-- `ui-frontend.md`: Tailwind 4.2.2, a11y, SFC, Theme.
-- `testing.md`: TDD, Testcontainers, Lighthouse.
-- `git-documentation.md`: Branching, Commits, PRs, ADRs.
-  </agent_rules>
-
-<agent_workflows>
-Available workflows in `.agent/workflows/` (`/command`):
-
-- `add-cqrs-feature`: Scaffold new CQRS MediatR feature.
-- `ef-core-migration`: Manage DB migrations safely.
-- `testing-standards`: Follow Unit/Integration test rules.
-- `ui-component-tailwind`: Build Tailwind 4.2.2 components.
-- `atomic-commits`: Enforce strict logical Git commits.
-- `security-review`: Run Defense in Depth checklist.
-- `domain-entity`: Create rich DDD entities.
-- `documentation-standards`: Maintain MD001-MD060 compliance.
-  </agent_workflows>
-
-<agent_skills>
-Load specific behavior from `.agent/skills/`:
-
-- `clean-architecture-scaffold/SKILL.md`
-- `code-review/SKILL.md`
-- `ef-core-debugging/SKILL.md`
-- `refactoring-patterns/SKILL.md`
-- `adr-writer/SKILL.md`
-- `tailwind-component-patterns/SKILL.md`
-  </agent_skills>
-
-<project_context>
-Read context from `.agent/context/` and `docs/`:
-
-- `project-intelligence.md`: Mission, Vision.
-- `tech-stack-referenz.md`: .NET 10, Tailwind 4.2.2, Scalar.
-- `architectural-blueprint.md`: Layers, CQRS.
-- `domain-knowledge.md`: Core entities.
-- `ui-ux-design-system.md`: Styling tokens.
-- `quality-assurance.md`: QA rules.
-  </project_context>
-
-<task_prompts>
-<prompt id="bug-fix">
-<goal>Systematic bug resolution</goal>
-<flow>1. Reproduce (Test) 2. Analyze (EF Debug) 3. Fix (Root cause) 4. Verify</flow>
-<rules>Use ILogger. Update CHANGELOG/ADR if needed.</rules>
-</prompt>
-<prompt id="code-review">
-<goal>Deep review against project standards</goal>
-<checks>Clean Arch, Rich Domain Model, Security (XSS/CSRF), AAA Testing, XML Docs.</checks>
-<action>Analyze, find violations, suggest fixes, rate complexity (1-10).</action>
-</prompt>
-<prompt id="feature-implementation">
-<goal>Structured feature delivery</goal>
-<flow>1. Domain (Entities) 2. Application (MediatR/FluentValidation)
-3. Infrastructure (Repo/EF) 4. Presentation (Razor/Tailwind 4.2.2)</flow>
-<rules>Use CancellationToken. Enforce RowVersion. Validate all inputs.</rules>
-</prompt>
-<prompt id="refactoring">
-<goal>Safe code restructuring</goal>
-<targets>DRY, Move Logic to MediatR, Push logic to Domain, Add AsNoTracking.</targets>
-<safety>Run tests before/after. No silent breaking changes.</safety>
-</prompt>
-</task_prompts>
+task_prompts:
+  bug_fix:
+    goal: "Systematic resolution"
+    flow: ["Reproduce", "Analyze", "Fix", "Verify"]
+    rules: "Log via ILogger; update CHANGELOG/ADR"
+  code_review:
+    goal: "Standard-compliant audit"
+    checks: ["Arch", "DDD", "Security", "Testing", "XML Docs"]
+    action: "Violation analysis, fix suggestion, complexity rating (1-10)"
+  feature_implementation:
+    goal: "Layered delivery"
+    flow: ["Domain", "Application", "Infrastructure", "Presentation"]
+    rules: "CancellationToken, RowVersion, Input Validation"
+  refactoring:
+    goal: "Safe restructuring"
+    targets: ["DRY", "MediatR push", "Domain shift", "AsNoTracking"]
+    safety: "Pre/post test runs; no silent breaks"

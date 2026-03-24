@@ -1,43 +1,20 @@
-# 🤝 TicketsPlease - Git & Documentation Rules
-
-<!-- markdownlint-disable MD033 -->
-<git_docs_rules>
-<branches>
-
-- `main` is SACRED: Always runnable. Protected branch. NO direct push.
-- Naming: `feature/xyz`, `bugfix/xyz`, `docs/xyz`, `refactor/xyz`, `test/xyz`. Base from `main`.
-
-</branches>
-
-<commits>
-
-- Conventional Commits (English language). Format: `<type>(<scope>): <subject>`
-- Types: feat, fix, docs, style, refactor, test, chore.
-- Subject: Imperative ("add" not "added").
-- Rule: ONE logical change = ONE Commit. NO mixed commits.
-
-</commits>
-
-<pull_requests>
-
-- Merge via PR only. CI MUST be green. Minimum 1 Approve. Reference GitHub Issue (`Closes #42`).
-
-</pull_requests>
-
-<pre_commit>
-
-- MUST pass: `dotnet build`, `dotnet test`, `dotnet format --verify-no-changes`.
-- Check CHANGELOG.md for feat/fix/security/breaking. NO secets staged.
-
-</pre_commit>
-
-<documentation>
-
-- C# XML-Docs: German language. MANDATORY for `public` members
-  (`<summary>`, `<param>`, `<returns>`, `<exception>`).
-- ADRs: Record major design decisions in `docs/adr/`. Update Index.
-- CHANGELOG: Format matches `Keep a Changelog`. Update under `## [Unreleased]`.
-- Mermaid: Use for architecture/flows/ERD in `docs/` or ADRs.
-
-</documentation>
-</git_docs_rules>
+git_documentation_rules:
+  branching_strategy:
+    main_branch: "Sacred; always runnable; protected; no direct pushes"
+    naming_conventions: "feature/xyz, bugfix/xyz, docs/xyz, refactor/xyz, test/xyz (base from main)"
+  commit_standards:
+    format: "Conventional Commits (English): <type>(<scope>): <subject>"
+    types: ["feat", "fix", "docs", "style", "refactor", "test", "chore"]
+    subject_style: "Imperative (e.g., 'add', not 'added')"
+    atomicity: "One logical change per commit; no mixed commits"
+  pull_requests:
+    process: "Merge via PR only; CI must be green; minimum 1 approval required"
+    referencing: "Reference GitHub Issue in body (e.g., 'Closes #42')"
+  pre_commit_checklist:
+    mandatory_checks: ["dotnet build", "dotnet test", "dotnet format --verify-no-changes"]
+    data_integrity: "Check CHANGELOG.md for feat/fix/security/breaking changes; ensure no secrets are staged"
+  documentation_standards:
+    xml_docs: "German language; mandatory for public members (<summary>, <param>, <returns>, <exception>)"
+    adr: "Record major design decisions in docs/adr/; update index"
+    changelog: "Follow 'Keep a Changelog' format; update under ## [Unreleased] section"
+    visuals: "Use Mermaid for architecture, flows, and ERD diagrams in docs/ or ADRs"

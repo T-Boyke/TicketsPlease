@@ -1,57 +1,27 @@
----
-trigger: model_decision
----
-
-# 🎨 TicketsPlease - UI & Frontend Rules
-
-<!-- markdownlint-disable MD033 -->
-<ui_rules>
-<styling>
-
-- Framework: TailwindCSS 4.2.2 ONLY. NO Bootstrap.
-- Assets: LibMan ONLY (`wwwroot/lib/`). NO CDN.
-- Inline Styles: STRICTLY FORBIDDEN. Use Tailwind or CSS variables.
-- Colors: NO hardcoded colors. Use CSS Custom Properties (`--brand-primary`, `--color-surface`).
-- Abstraction: Use `@apply` in `css/components/` (btn.css, cards.css, form.css, theme.css).
-
-</styling>
-
-<a11y>
-
-- Standard: BFSG / EN 301 549 (WCAG 2.1 AA+).
-- Navigation: Keyboard-only MUST work. Focus-traps in modals mandatory.
-- Semantics: Use `<main>`, `<nav>`, `<article>`, `<header>`, `<footer>`.
-- Buttons: Use `<button>` or `<a role="button">`. NO `div` with click handlers.
-- Labels: `aria-label` for icons/empty buttons. `aria-describedby` for validation errors.
-- Motion: `prefers-reduced-motion` MUST be respected.
-
-</a11y>
-
-<theming>
-
-- Variables: Extract to `theme.css`. Switch via `data-theme="dark"` on `<html>` (NO reload).
-- Branding: Multi-Tenancy via `ICorporateSkinProvider`.
-
-</theming>
-
-<sfc_dry>
-
-- ViewComponents: `Views/Shared/Components/`. Partials for repetition (`<partial name="_Avatar" />`).
-- Logic: ZERO C# business logic in CSHTML.
-
-</sfc_dry>
-
-<icons>
-
-- FontAwesome 7.2 (Local). `aria-hidden="true"` on decorative icons.
-
-</icons>
-
-<animations>
-
-- Hover: `transition-all duration-200 ease-in-out`.
-- Glass: `backdrop-blur` for modals/dropdowns.
-- States: Hover, Focus, Active MUST be styled.
-
-</animations>
-</ui_rules>
+ui_frontend_rules:
+  styling:
+    framework: "TailwindCSS 4.2.2 only (No Bootstrap)"
+    asset_management: "LibMan only (wwwroot/lib/); no CDN"
+    inline_styles: "Strictly forbidden; use Tailwind or CSS variables"
+    colors: "No hardcoded colors; use CSS Custom Properties (--brand-primary, --color-surface)"
+    abstraction_pattern: "Use @apply in css/components/ (btn.css, cards.css, form.css, theme.css)"
+  accessibility_a11y:
+    standards: "BFSG / EN 301 549 (WCAG 2.1 AA+)"
+    navigation: "Keyboard-only navigation must work; focus-traps in modals are mandatory"
+    semantics: "Use HTML5 semantic tags: <main>, <nav>, <article>, <header>, <footer>"
+    interaction: "Use <button> or <a role='button'>; avoid <div> with click handlers"
+    labeling: "aria-label for icons/empty buttons; aria-describedby for validation errors"
+    motion: "prefers-reduced-motion must be respected"
+  theming:
+    implementation: "Extract variables to theme.css; switch via data-theme='dark' on <html> without reloads"
+    branding: "Multi-Tenancy via ICorporateSkinProvider"
+  component_structure_sfc:
+    structure: "ViewComponents in Views/Shared/Components/; use Partials for repetition"
+    logic_separation: "Zero C# business logic in CSHTML files"
+  icons:
+    library: "FontAwesome 7.2 (Local)"
+    usage: "aria-hidden='true' on decorative icons"
+  animations_ux:
+    hover_defaults: "transition-all duration-200 ease-in-out"
+    aesthetic_effects: "backdrop-blur for modals/dropdowns (Glassmorphism)"
+    state_styling: "Hover, Focus, and Active states must be styled"

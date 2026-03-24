@@ -1,33 +1,26 @@
-# 🛠️ TicketsPlease - Tech-Stack Reference
-
-<tech_stack>
-  <core>
-    - Runtime: .NET 10 / ASP.NET Core 10.3 / C# 14.
-    - Architecture: Clean Architecture (Onion) + DDD + CQRS.
-    - Database: MS SQL Server (EF Core Code-First).
-    - Async: `CancellationToken` REQUIRED everywhere.
-  </core>
-  <test_suite>
-    - Runner: `xUnit` (Facts/Theories).
-    - Assertions: `FluentAssertions` + `VerifyTests` (Snapshots).
-    - Mocks: `Moq` / `NSubstitute` / `FakeTimeProvider`.
-    - Data: `Bogus` (Fakers).
-    - Mutation: `Stryker.NET` (100% Mutation Score goal).
-    - Containers: `Testcontainers.MsSql` (Integration).
-    - Architecture: `NetArchTest.eXtend`.
-    - E2E: `Playwright`.
-  </test_suite>
-  <nuget_layers>
-    - Domain: `MediatR.Contracts` (Zero-Dependency Policy).
-    - Application: `MediatR`, `FluentValidation`, `Mapster`.
-    - Infrastructure: `Microsoft.EntityFrameworkCore.SqlServer`, `Serilog`, `MailKit`.
-    - Web: `Tailwind.Hosting`, `Markdig`, `DOMPurify`, `Scalar`.
-  </nuget_layers>
-  <frontend_assets>
-    - CSS: TailwindCSS 4.2.2 (Zero-Node integration via MSBuild `@theme`).
-    - Icons: FontAwesome 7.2.0 (Local Free/Pro).
-    - Fonts: Roboto Flex & Noto Sans (Sans) + Google Sans Flex (Display).
-    - LibMan: Client libraries in `wwwroot/lib` (ZERO CDN Policy).
-    - Theming: `ICorporateSkinProvider` + OKLCH Color Space.
-  </frontend_assets>
-</tech_stack>
+tech_stack_reference:
+  core_runtime:
+    version: ".NET 10 / ASP.NET Core 10.3 / C# 14"
+    architecture: "Clean Architecture (Onion) + DDD + CQRS"
+    database_abstraction: "MS SQL Server (EF Core Code-First)"
+    async_policy: "CancellationToken REQUIRED everywhere"
+  test_suite:
+    runner: "xUnit (Facts, Theories)"
+    assertions: "FluentAssertions + VerifyTests (Snapshots)"
+    mocking: ["Moq", "NSubstitute", "FakeTimeProvider"]
+    data_generation: "Bogus (Fakers)"
+    mutation_testing: "Stryker.NET (100% Mutation Score goal)"
+    containers: "Testcontainers.MsSql (Integration)"
+    architecture_tests: "NetArchTest.eXtend"
+    e2e: "Playwright"
+  nuget_layers:
+    domain: "MediatR.Contracts (Zero-Dependency Policy)"
+    application: ["MediatR", "FluentValidation", "Mapster"]
+    infrastructure: ["Microsoft.EntityFrameworkCore.SqlServer", "Serilog", "MailKit"]
+    web: ["Tailwind.Hosting", "Markdig", "DOMPurify", "Scalar"]
+  frontend_assets:
+    css_framework: "TailwindCSS 4.2.2 (Zero-Node integration via MSBuild @theme)"
+    iconography: "FontAwesome 7.2.0 (Local Free/Pro)"
+    typography: ["Roboto Flex & Noto Sans (Sans)", "Google Sans Flex (Display)"]
+    asset_management: "LibMan in wwwroot/lib (Zero CDN Policy)"
+    branding: "ICorporateSkinProvider + OKLCH Color Space"

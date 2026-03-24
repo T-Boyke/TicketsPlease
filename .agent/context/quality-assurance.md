@@ -1,33 +1,17 @@
-# 🧪 TicketsPlease - Quality Assurance
-
-<!-- markdownlint-disable MD033 -->
-<quality_assurance>
-  <tdd_cycle>
-
-- Rule: Red (Fail) -> Green (Pass) -> Refactor (Keep Green). TDD is MANDATORY.
-- Workflow: Write tests BEFORE business logic.
-
-  </tdd_cycle>
-  <test_structure>
-
-- Architecture: NetArchTest (Layer dependencies).
-- Unit: xUnit (Facts & Theories). Mock time predictably via `FakeTimeProvider`.
-- Integration: Testcontainers SQL Server (Persistence completeness).
-- System: Playwright E2E.
-
-  </test_structure>
-  <fortification>
-
-- Mutation Testing: Stryker.NET ensures test validity. Surviving mutants are failures.
-- Data Generation: Bogus generates production-like entities to fuzz inputs.
-- Visual/Complex Assertions: Snapshot testing via `VerifyTests`.
-
-  </fortification>
-  <quality_gates>
-
-- Build: Warnings = Errors.
-- Tests: Must be 100% green. 100% Line Coverage (Domain/App). 100% Stryker score.
-- Lighthouse: Score 100/100 (Perf, a11y).
-
-  </quality_gates>
-</quality_assurance>
+quality_assurance:
+  tdd_cycle:
+    rule: "Red (Fail) -> Green (Pass) -> Refactor (Keep Green); TDD is mandatory"
+    workflow: "Write tests before business logic"
+  test_structure:
+    architecture: "NetArchTest (layer dependencies)"
+    unit: "xUnit (Facts & Theories); predictable time mocking via FakeTimeProvider"
+    integration: "Testcontainers SQL Server (persistence completeness)"
+    system: "Playwright E2E"
+  fortification:
+    mutation_testing: "Stryker.NET ensures test validity; surviving mutants are failures"
+    data_generation: "Bogus generates production-like entities to fuzz inputs"
+    visual_complex_assertions: "Snapshot testing via VerifyTests"
+  quality_gates:
+    build: "Treat warnings as errors"
+    tests: "100% green; 100% line coverage (Domain/App); 100% Stryker score"
+    lighthouse: "Score 100/100 (Performance, Accessibility)"

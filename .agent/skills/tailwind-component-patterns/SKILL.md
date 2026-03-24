@@ -1,52 +1,34 @@
----
-name: tailwind-component-patterns
-description: Premium TailwindCSS 4.2 patterns with OKLCH, Glassmorphism, and BFSG/a11y.
----
-
-# 🎨 TailwindCSS - Component Patterns
-
-<tailwind_patterns>
-  <philosophy>
-    - Aesthetics: "Wow-Effect" via premium OKLCH colors, asymmetric layouts, and overlapping elements.
-    - Anti-Patterns: NO generic fonts, NO purple AI gradients, NO Bootstrap, NO CDNs.
-    - Atmosphere: Use Grain Overlays, Motion (Reveal-up), and Glassmorphism (Backdrop-blur).
-  </philosophy>
-
-  <design_tokens>
-    - Space: Asymmetry > Symmetry. Use -mx margins for grid-breaking sections.
-    - Colors: Use OKLCH for brilliance. Sharp Contrast Accents (e.g., Ocean Blue + Gold).
-    - Surfaces: Depth via `shadow-dramatic` and layered transparencies.
-  </design_tokens>
-
-  <components>
-    <buttons>
-      - Class: `.btn` (Base), `.btn-primary` (Brand), `.btn-accent` (Sharp).
-      - Interaction: `hover-lift` (translateY + rotate) + `hover-glow`.
-    </buttons>
-    <cards>
-      - Pattern: `.card` with `rounded-2xl` and `shadow-elevation-1`.
-      - Effect: `.card-feature` with asymmetric linear-gradient borders.
-      - Kanban: `.kanban-card` with dynamic accent borders and active-dragging cursor.
-    </cards>
-    <forms>
-      - Input: `.form-input` with focus-glow and spring-based shake animation on error.
-      - A11y: Contrast-check every color; `aria-label` for icons mandatory.
-    </forms>
-    <modals>
-      - Style: `.modal-content` with `backdrop-filter: blur(24px)` (Glassmorphism).
-      - Entry: Staggered `reveal-up` animation for a "premium" feel.
-    </modals>
-  </components>
-
-  <animations>
-    - Reveal: `reveal-up` using `cubic-bezier(0.34, 1.56, 0.64, 1)` (Spring).
-    - Staggered: Classes `.reveal-delay-1` through `.reveal-delay-5`.
-    - Motion: Always respect `prefers-reduced-motion: reduce`.
-  </animations>
-
-  <accessibility>
-    - Checkbox: Keyboard-first (Focus-visible ring-2).
-    - Semantics: Use `<dialog>`, `<nav>`, `<main>`, `<section>`.
-    - ARIA: `aria-expanded`, `aria-describedby`, `aria-hidden` roles mandatory.
-  </accessibility>
-</tailwind_patterns>
+tailwind_component_patterns_skill:
+  name: "tailwind-component-patterns"
+  description: "Premium TailwindCSS 4.2 patterns using OKLCH, Glassmorphism, and BFSG/a11y"
+  design_philosophy:
+    aesthetics: "'Wow-Effect' via premium OKLCH colors, asymmetric layouts, and overlapping elements"
+    anti_patterns: ["Generic fonts", "Purple AI gradients", "Bootstrap", "CDNs"]
+    atmosphere: ["Grain Overlays", "Motion (Reveal-up)", "Glassmorphism (Backdrop-blur)"]
+  design_tokens:
+    spacing: "Asymmetry > Symmetry; grid-breaking sections (-mx margins)"
+    colors: "OKLCH brilliance; sharp contrast accents (e.g., Ocean Blue + Gold)"
+    surfaces: "Depth via shadow-dramatic and layered transparencies"
+  components:
+    buttons:
+      classes: [".btn", ".btn-primary", ".btn-accent"]
+      interaction: "hover-lift (translateY + rotate) and hover-glow"
+    cards:
+      base: ".card (rounded-2xl, shadow-elevation-1)"
+      feature: ".card-feature (asymmetric linear-gradient borders)"
+      kanban: ".kanban-card (dynamic accent borders)"
+    forms:
+      inputs: ".form-input (focus-glow, spring-shake on error)"
+      a11y: "Contrast checks; aria-label for icon-only buttons"
+    modals:
+      styling: ".modal-content (backdrop-blur-md, Glassmorphism)"
+      entry: "Staggered reveal-up animation"
+  animations:
+    reveal: "reveal-up (spring cubic-bezier)"
+    staggering: ".reveal-delay-1 to .reveal-delay-5"
+    sensitivity: "Respect prefers-reduced-motion: reduce"
+  accessibility_a11y:
+    controls: "Keyboard-first (Focus-visible ring-2)"
+    semantics: ["<dialog>", "<nav>", "<main>", "<section>"]
+    aria_roles: ["aria-expanded", "aria-describedby", "aria-hidden"]
+  version: "1.0"

@@ -1,64 +1,67 @@
-# 🤖 TicketsPlease - Agent Behavior Rules
-
-<!-- markdownlint-disable MD033 -->
-<agent_behavior>
-<mindset>
-
-- Project: Final Project (C# .NET 10, ASP.NET Core 10.3, Clean Architecture)
-- Language: Read/Write Docs & XML-Docs in German. Commits in English (Conventional).
-  Converse in User's language.
-
-</mindset>
-
-<plan_first>
-
-1. Workflow-Check: Follow `/workflows` strictly if applicable.
-2. MVP-Awareness: Phase 1 (MVP) takes absolute priority. No Enterprise features without green MVP.
-3. ADR-Check: Respect `/docs/adr/`. Do not contradict ADRs without user permission.
-4. Scope: Modify ONLY requested items. No unsolicited refactorings.
-5. Layers: Identify affected layers/files before coding.
-
-</plan_first>
-
-<file_discipline>
-
-- CQRS Bundle: `Command`/`Query`, `Validator`, `Handler` MUST exist in ONE file.
-- Standard: Entities, Interfaces, Enums, ValueObjects get 1 file each.
-- Layers: Domain (`.Domain`), UseCases (`.Application`), DB/Services (`.Infrastructure`), UI/Api (`.Web`).
-- Deletion: NEVER delete files without explicit permission.
-- Pattern: Follow existing `.editorconfig` & codebase patterns. Not negotiable.
-
-</file_discipline>
-
-<quality_gates>
-
-- ALWAYS: XML-Docs on public members, `AbstractValidator<T>`, Unit Tests (TDD), `CancellationToken`,
-  `AsNoTracking()` for read queries, catch `DbUpdateConcurrencyException` for writes,
-  semantic HTML/a11y for UI.
-- CONDITIONAL: Anti-Forgery/Validation/DOMPurify on User Input.
-
-</quality_gates>
-
-<communication>
-
-- Ask if unsure about MVP/Enterprise scoping.
-- Announce breaking changes before applying.
-- No silent NuGet packages or architectural shifts (requires ADR).
-
-</communication>
-
-<workflow>
-1. Parse request. 2. Check workflow or plan. 3. Code in correct layer. 4. XML-Docs. 5. TDD.
-6. Build & Test. 7. Atomic Commit.
-</workflow>
-
-<no_gos>
-
-- NEVER: Commit without tests, delete tests, skip MVP, silent breaking changes, merge multiple
-  logical changes into 1 commit, wrong layer logic, silent NuGet adds, TODO workarounds
-  without Issue ref, ignore .editorconfig, violate YAGNI, use Console.WriteLine (use Serilog),
-  hardcode colors, use CDN/Bootstrap, use DateTime (use DateTimeOffset), put Secrets in
-  appsettings.json, output un-sanitized Markdown, direct push to main, code without GitHub Issue.
-
-</no_gos>
-</agent_behavior>
+agent_behavior:
+  mindset:
+    project: "Final Project (C# .NET 10, ASP.NET Core 10.3, Clean Architecture)"
+    language_mapping:
+      docs_xml: "German"
+      commits: "English (Conventional)"
+      conversations: "User's language"
+  planning_principles:
+    - "Follow /workflows strictly"
+    - "Prioritize MVP Phase 1 (F1-F9) over Enterprise features"
+    - "Respect /docs/adr/ ADRs"
+    - "Modify only requested items; no unsolicited refactorings"
+    - "Identify layers and files before coding"
+  file_discipline:
+    cqrs_bundle: "Command/Query, Validator, Handler in ONE file"
+    singularity: "Entities, Interfaces, Enums, ValueObjects in discrete files"
+    layer_mapping:
+      domain: ".Domain"
+      use_cases: ".Application"
+      db_services: ".Infrastructure"
+      ui_api: ".Web"
+    restrictions:
+      - "Never delete files without explicit permission"
+      - "Strictly follow .editorconfig and codebase patterns"
+    token_efficiency:
+      - "Contents of .md files in .agent/{context,rules,skills,workflows} must be in YAML format"
+      - "Use English for internal rules to minimize token usage"
+  quality_gates:
+    mandatory:
+      - "XML-Docs on public members"
+      - "AbstractValidator<T>"
+      - "Unit Tests (TDD)"
+      - "CancellationToken usage"
+      - "AsNoTracking() for read queries"
+      - "DbUpdateConcurrencyException handling for writes"
+      - "Semantic HTML and a11y for UI"
+    conditional:
+      - "Anti-Forgery/Validation/DOMPurify on User Input"
+  communication_rules:
+    - "Ask for clarity on MVP/Enterprise scoping"
+    - "Announce breaking changes beforehand"
+    - "No silent NuGet additions or architectural shifts (require ADR)"
+  workflow_steps:
+    1: "Parse request"
+    2: "Check workflow/plan"
+    3: "Code in correct layer"
+    4: "Apply XML-Docs"
+    5: "TDD"
+    6: "Build and Test"
+    7: "Atomic Commit"
+  no_gos:
+    - "Commit without tests"
+    - "Delete existing tests"
+    - "Skip MVP requirements"
+    - "Silent breaking changes"
+    - "Multi-task commits"
+    - "Layer logic violation"
+    - "Silent NuGet additions"
+    - "TODO workarounds without issue reference"
+    - "Console.WriteLine (use Serilog)"
+    - "Hardcoded colors"
+    - "CDN/Bootstrap usage"
+    - "DateTime usage (use DateTimeOffset)"
+    - "Secrets in appsettings.json"
+    - "Unsanitized Markdown output"
+    - "Direct push to main"
+    - "Coding without GitHub Issue"
