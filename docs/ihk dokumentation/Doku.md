@@ -77,6 +77,9 @@ Kommunikation. Es existiert keine zentrale Codebasis für ein Ticket-Management
 
 - Entwickler-Workstation mit Windows 11 und Rocky Linux 10.
 - Zugriff auf .NET SDK 10, Visual Studio 2022 / JetBrains Rider.
+- **Infrastruktur-Setup:** Vollständig eingerichtetes GitHub-Repository mit `.github` Templates (Issue/PR).
+- **Time-Management:** Integriertes Tracking über **WakaTime** für präzise Zeitaufwandsanalysen.
+- **IDE-Standardisierung:** Gemeinsame Konfigurationen für `.vs`, `.vscode` und `.idea` (Shared Settings/EditorConfig).
 - Bestehende CI/CD Pipeline (GitHub Actions) für automatisierte Tests und Deployments.
 
 ### **2.2. Soll-Analyse**
@@ -101,40 +104,50 @@ erfüllen:
 - **Technologie:** ASP.NET Core (MVC), Entity Framework Core (Code First).
 - **Architektur:** Clean Architecture (Domain Driven Design Ansätze).
 - **UI/UX:** Responsive Design mit Tailwind CSS (Corporate Design).
-- **Qualität:** Hohe Testabdeckung und automatisierte CI/CD Pipeline.
+- **Qualität:** Hohe Testabdeckung und automatisierte CI/CD Pipeline (GitHub Actions).
+- **Projektmanagement:** Agiles Kanban-Board via **GitHub Projects** mit Issue-Abhängigkeiten (Parent/Child/Blocked).
 
 ### **2.3 Zeitplanung**
 
-Die Gesamtdauer des Projektes ist auf **70 Stunden** festgeschrieben.
+Die Gesamtdauer des Projektes ist auf **80 Stunden** festgeschrieben.
 
-| **Phase** | **Tätigkeit** | **Zeit (h)** | **Startdatum** |
-| :--- | :--- | :---: | :---: |
-| **1. Analyse & Planung** | | **11 h** | **01.07.2024** |
-| | Ist-Analyse & Prozessaufnahme | 3 h | 01.07.2024 |
-| | Erstellung Lastenheft / Pflichtenheft | 4 h | 02.07.2024 |
-| | Wirtschaftlichkeitsanalyse | 2 h | 03.07.2024 |
-| | Zeit- & Ressourcenplanung | 2 h | 03.07.2024 |
-| **2. Entwurf** | | **12 h** | **04.07.2024** |
-| | UI/UX Design (Wireframes & Mockups) | 4 h | 04.07.2024 |
-| | Datenbankmodellierung (ERD) & API-Design | 4 h | 05.07.2024 |
-| | Software-Architektur & Clean Architecture Setup | 4 h | 08.07.2024 |
-| **3. Implementierung (F1-F9)** | | **28 h** | **09.07.2024** |
-| | F1: Web-Anwendung (Setup, Basis-Layout) | 3 h | 09.07.2024 |
-| | F2: Admin-Bereich (CRUD Projekte, Benutzer) | 4 h | 09.07.2024 |
-| | F3: Ticket-Management (Erfassung, Bearbeitung) | 6 h | 10.07.2024 |
-| | F4: Dashboard (Statistiken, Übersicht) | 2 h | 11.07.2024 |
-| | F5: Kommentarsystem (Implementierung) | 3 h | 12.07.2024 |
-| | F6: Filtersystem (Implementierung) | 2 h | 12.07.2024 |
-| | F7: Abhängigkeiten (Logik, UI-Integration) | 2 h | 15.07.2024 |
-| | F8: Workflow-Engine (Status-Transitionen) | 4 h | 15.07.2024 |
-| | F9: Messaging (Grundfunktionalität) | 2 h | 16.07.2024 |
-| **4. Qualitätssicherung** | | **9 h** | **17.07.2024** |
-| | Erstellung von Unittests (xUnit) | 4 h | 17.07.2024 |
-| | Integrationstests & Bugfixing | 5 h | 18.07.2024 |
-| **5. Dokumentation** | | **10 h** | **19.07.2024** |
-| | Projektdokumentation (Kap. 3 - 6) | 8 h | 19.07.2024 |
-| | Benutzerhandbuch & Übergabe | 2 h | 22.07.2024 |
-| **Gesamt** | | **70 h** | |
+| **Phase**                      | **Tätigkeit**                                         | **Zeit (h)** | **Startdatum** |
+| :----------------------------- | :---------------------------------------------------- | :----------: | :------------: |
+| **1. Analyse & Planung**       |                                                       | **12 h**     | **23.03.2026** |
+|                                | Ist-Analyse & Marktvergleich                          | 2 h          | 23.03.2026     |
+|                                | Wirtschaftlichkeitsanalyse (ROI / Make-or-Buy)        | 2 h          | 23.03.2026     |
+|                                | Repository-Setup & GitHub Project (Kanban)            | 3 h          | 23.03.2026     |
+|                                | Lastenheft: Funktional vs. Nicht-funktional           | 3 h          | 24.03.2026     |
+|                                | Zeit- & Ressourcenplanung (Gantt, WakaTime Setup)     | 2 h          | 24.03.2026     |
+| **2. Entwurf**                 |                                                       | **14 h**     | **25.03.2026** |
+|                                | Datenbankmodellierung (ERD, Relationen)               | 4 h          | 25.03.2026     |
+|                                | UI/UX Design: Wireframes & Corporate Skin             | 3 h          | 26.03.2026     |
+|                                | IDE-Konfiguration & CI/CD Workflow-Definition         | 2 h          | 26.03.2026     |
+|                                | Architecture Design (Clean Arch Layering)             | 2 h          | 27.03.2026     |
+|                                | API-Design & MediatR Pattern Definition               | 3 h          | 27.03.2026     |
+| **3. Implementierung (F1-F9)** |                                                       | **34 h**     | **30.03.2026** |
+|                                | F1: SDK Setup & Identity (Auth Middleware)            | 2 h          | 30.03.2026     |
+|                                | F1: Shared Projects, GitHub Actions & Env-Setup       | 2 h          | 30.03.2026     |
+|                                | F2: Admin: CRUD Logik (Projekte & Benutzer)           | 4 h          | 31.03.2026     |
+|                                | F3: Ticket-Core: State Machine & Aggregates           | 3 h          | 01.04.2026     |
+|                                | F3: Ticket-Detailview & Edit-Logik                    | 3 h          | 01.04.2026     |
+|                                | F4: Dashboard: SQL-Aggregation & View-Components       | 2 h          | 02.04.2026     |
+|                                | F4: Dashboard: UI-Charts Integration                  | 2 h          | 02.04.2026     |
+|                                | F5: Kommentare: Domain Events & Persistence           | 2 h          | 03.04.2026     |
+|                                | F5: Kommentare: Real-time UI Updates                  | 1 h          | 03.04.2026     |
+|                                | F6: Filter: Expression Trees & Query Extensions       | 3 h          | 07.04.2026     |
+|                                | F7: Abhängigkeiten: Validation Logik & UI             | 3 h          | 08.04.2026     |
+|                                | F8: Workflow: Status-Transition Guards                | 2 h          | 09.04.2026     |
+|                                | F8: Kanban-Drag&Drop Integration                      | 2 h          | 09.04.2026     |
+|                                | F9: Messaging: Entity Design & DB-Repository          | 3 h          | 10.04.2026     |
+| **4. Qualitätssicherung**       |                                                       | **10 h**     | **13.04.2026** |
+|                                | Unit-Testing: Domain Logic & Commands                 | 4 h          | 13.04.2026     |
+|                                | Integrationstests: SQL & Repositories                 | 4 h          | 14.04.2026     |
+|                                | Finales Bugfixing & Dokumentations-Cleanup            | 2 h          | 14.04.2026     |
+| **5. Dokumentation**            |                                                       | **10 h**     | **15.04.2026** |
+|                                | IHK Projektdokumentation (Endredaktion)               | 8 h          | 15.04.2026     |
+|                                | Fazit, Reflexion & Abgabe                             | 2 h          | 16.04.2026     |
+| **Gesamt**                     |                                                       | **80 h**     |                |
 
 ```mermaid
 gantt
@@ -142,34 +155,33 @@ gantt
     title Projektablauf "TicketsPlease"
 
     section 1. Analyse & Planung
-    Ist-Analyse & Prozessaufnahme : 01.07.2024, 3h
-    Erstellung Lastenheft / Pflichtenheft : 02.07.2024, 4h
-    Wirtschaftlichkeitsanalyse : 03.07.2024, 2h
-    Zeit- & Ressourcenplanung : 03.07.2024, 2h
+    "Analyse & Prozessaufnahme" : 23.03.2026, 2d
+    "Lastenheft & Pflichtenheft" : 24.03.2026, 5h
+    "Wirtschaftlichkeitsanalyse" : 24.03.2026, 2h
 
     section 2. Entwurf
-    UI/UX Design (Wireframes & Mockups) : 04.07.2024, 4h
-    Datenbankmodellierung (ERD) & API-Design : 05.07.2024, 4h
-    Software-Architektur & Clean Architecture Setup : 08.07.2024, 4h
+    "DB-Design & ERD" : 25.03.2026, 1d
+    "UX/UI Prototyping" : 26.03.2026, 5h
+    "Clean Arch Scaffolding" : 27.03.2026, 1d
 
     section 3. Implementierung (F1-F9)
-    F1: Web-Anwendung (Setup, Basis-Layout) : 09.07.2024, 3h
-    F2: Admin-Bereich (CRUD Projekte, Benutzer) : 09.07.2024, 4h
-    F3: Ticket-Management (Erfassung, Bearbeitung) : 10.07.2024, 6h
-    F4: Dashboard (Statistiken, Übersicht) : 11.07.2024, 2h
-    F5: Kommentarsystem (Implementierung) : 12.07.2024, 3h
-    F6: Filtersystem (Implementierung) : 12.07.2024, 2h
-    F7: Abhängigkeiten (Logik, UI-Integration) : 15.07.2024, 2h
-    F8: Workflow-Engine (Status-Transitionen) : 15.07.2024, 4h
-    F9: Messaging (Grundfunktionalität) : 16.07.2024, 2h
+    "F1: Auth & Identity" : 30.03.2026, 4h
+    "F2: Projektmanagement" : 31.03.2026, 4h
+    "F3: Ticket-Management" : 01.04.2026, 6h
+    "F4: Dashboard & View-Components" : 02.04.2026, 4h
+    "F5: Kommentare & History" : 03.04.2026, 3h
+    "F6: Granulares Filtersystem" : 07.04.2026, 3h
+    "F7: Abhängigkeits-Validierung" : 08.04.2026, 3h
+    "F8: Kanban Workflow-Engine" : 09.04.2026, 4h
+    "F9: Messaging-System" : 10.04.2026, 3h
 
     section 4. Qualitätssicherung
-    Erstellung von Unittests (xUnit) : 17.07.2024, 4h
-    Integrationstests & Bugfixing : 18.07.2024, 5h
+    "Unit- & Integrationstests" : 13.04.2026, 1d
+    "Debugging & Cleanup" : 14.04.2026, 1d
 
     section 5. Dokumentation
-    Projektdokumentation (Kap. 3 - 6) : 19.07.2024, 8h
-    Benutzerhandbuch & Übergabe : 22.07.2024, 2h
+    "Projektdokumentation" : 15.04.2026, 1d
+    "Fazit & Reflexion" : 16.04.2026, 2h
 ```
 
 ### **2.4 Kostenplanung**
@@ -179,12 +191,12 @@ Die Kalkulation erfolgt auf Basis des Praktikumsbetriebs.
 **Personalkosten:**
 
 - Fachinformatiker (Stundenverrechnungssatz): 9,00 €/h
-- Geplante Stunden: 70 h
-- **Summe Personal: 630,00 €**
+- Geplante Stunden: 80 h
+- **Summe Personal: 720,00 €**
 
 **Sachmittelkosten:**
 
 - Infrastruktur-Pauschale (Server, Strom, Arbeitsplatz): 150,00 €
 - **Summe Sachmittel: 150,00 €**
 
-#### Gesamtkosten (Plan): 780,00 €
+#### Gesamtkosten (Plan): 870,00 €
