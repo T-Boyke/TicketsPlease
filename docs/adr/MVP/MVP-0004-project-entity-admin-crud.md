@@ -51,8 +51,8 @@ neu erstellt werden.
 
 ## Alternativen
 
-| Alternative             | Pro                    | Contra                     | Entscheidung |
-| ----------------------- | ---------------------- | -------------------------- | ------------ |
-| Eigene Project-Entity   | DDD-konform, flexibel  | Migration nötig            | ✅ Gewählt   |
-| Projekte als Enum/Liste | Einfacher              | Kein CRUD, nicht erweiterbar| ❌ Abgelehnt |
-| Projekte als Tags       | Flexible Zuordnung     | Kein Admin-CRUD möglich    | ❌ Abgelehnt |
+| Alternative             | Pro                   | Contra                      | Entscheidung |
+| ----------------------- | --------------------- | --------------------------- | ------------ |
+| Eigene Project-Entity   | DDD-konform, flexibel | Migration nötig             | ✅ Gewählt    |
+| Projekte als Enum/Liste | Einfacher             | Kein CRUD, nicht erweiterbar | ❌ Abgelehnt  |
+| Projekte als Tags       | Flexible Zuordnung    | Kein Admin-CRUD möglich     | ❌ Abgelehnt  |

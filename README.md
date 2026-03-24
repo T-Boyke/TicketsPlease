@@ -69,24 +69,24 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 
 ## 📊 Implementierungs-Status (MVP = IHK F1–F9)
 
-| Feature             | Status       | Beschreibung                              | Scope       |
-| :------------------ | :----------- | :---------------------------------------- | :---------- |
-| **Solution Setup**  | ✅ Fertig    | Clean Architecture .NET 10 Solution       | MVP (F1.1)  |
-| **EF Core DB**      | ✅ Fertig    | Code-First mit MS SQL                     | MVP (F1.2)  |
-| **Tailwind CSS**    | ✅ Fertig    | v4.2.2 via MSBuild (Node-free)            | MVP         |
-| **CI/CD Pipeline**  | ✅ Fertig    | GitHub Actions (Build, Lint, Test)        | MVP         |
-| **Domain Entities** | ✅ Fertig    | 26 Enterprise-Entitäten im Domain Layer   | MVP + Ent.  |
-| **Identity/Auth**   | 🚀 Ready     | Login, Logout, Rollen (See #31-#33, #49-#58) | MVP (F1.3)  |
-| **Projekte CRUD**   | 🚀 Ready     | Project-Entity & Base Service (See #34-#36)   | MVP (F2.2)  |
-| **Ticket-Bereich**  | 🏗️ Ausstehend | Anlegen, Liste, Detail, Bearbeiten, Close | MVP (F3)    |
-| **Startseite**      | 🏗️ Ausstehend | Statistiken, Links zu Bereichen           | MVP (F4)    |
-| **Kommentare**      | 🏗️ Ausstehend | Ticket-Kommentare                         | MVP (F5)    |
-| **Filterung**       | 🏗️ Ausstehend | Nach Projekt, User, Ersteller             | MVP (F6)    |
-| **Abhängigkeiten**  | 🏗️ Ausstehend | Blockierende Tickets                      | MVP (F7)    |
-| **Workflows**       | 🏗️ Ausstehend | Status-Verwaltung für Projekte            | MVP (F8)    |
-| **Nachrichten**     | 🏗️ Ausstehend | User-to-User Messaging                    | MVP (F9)    |
-| **Kanban Board**    | 🗺️ Roadmap   | Interaktives Board mit Drag & Drop        | Enterprise  |
-| **Plugin System**   | 🗺️ Roadmap   | Externe Module (Dynamic Loading)          | Enterprise  |
+| Feature             | Status        | Beschreibung                                 | Scope        |
+| :------------------ | :------------ | :------------------------------------------- | :----------- |
+| **Solution Setup**  | ✅ Fertig     | Clean Architecture .NET 10 Solution          | MVP (F1.1)   |
+| **EF Core DB**      | ✅ Fertig     | Code-First mit MS SQL                        | MVP (F1.2)   |
+| **Tailwind CSS**    | ✅ Fertig     | v4.2.2 via MSBuild (Node-free)               | MVP          |
+| **CI/CD Pipeline**  | ✅ Fertig     | GitHub Actions (Build, Lint, Test)           | MVP          |
+| **Domain Entities** | ✅ Fertig     | 26 Enterprise-Entitäten im Domain Layer      | MVP + Ent.   |
+| **Identity/Auth**   | 🚀 Ready      | Login, Logout, Rollen (See #31-#33, #49-#58) | MVP (F1.3)   |
+| **Projekte CRUD**   | 🚀 Ready      | Project-Entity & Base Service (See #34-#36)  | MVP (F2.2)   |
+| **Ticket-Bereich**  | 🏗️ Ausstehend | Anlegen, Liste, Detail, Bearbeiten, Close    | MVP (F3)     |
+| **Startseite**      | 🏗️ Ausstehend | Statistiken, Links zu Bereichen              | MVP (F4)     |
+| **Kommentare**      | 🏗️ Ausstehend | Ticket-Kommentare                            | MVP (F5)     |
+| **Filterung**       | 🏗️ Ausstehend | Nach Projekt, User, Ersteller                | MVP (F6)     |
+| **Abhängigkeiten**  | 🏗️ Ausstehend | Blockierende Tickets                         | MVP (F7)     |
+| **Workflows**       | 🏗️ Ausstehend | Status-Verwaltung für Projekte               | MVP (F8)     |
+| **Nachrichten**     | 🏗️ Ausstehend | User-to-User Messaging                       | MVP (F9)     |
+| **Kanban Board**    | 🗺️ Roadmap    | Interaktives Board mit Drag & Drop           | Enterprise   |
+| **Plugin System**   | 🗺️ Roadmap    | Externe Module (Dynamic Loading)             | Enterprise   |
 
 ---
 

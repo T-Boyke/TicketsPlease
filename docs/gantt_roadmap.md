@@ -42,9 +42,9 @@ gantt
 
 ## Legende
 
-| Symbol | Bedeutung |
-|:-------|:----------|
-| `done` | Bereits abgeschlossen |
+| Symbol | Bedeutung                     |
+| :----- | :---------------------------- |
+| `done` | Bereits abgeschlossen         |
 | `crit` | Kritischer Pfad (kein Puffer) |
 
 > [!NOTE] Die Qualitätssicherung (Unit-Tests) läuft parallel zur

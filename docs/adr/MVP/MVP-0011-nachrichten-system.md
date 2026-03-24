@@ -47,8 +47,8 @@ Eine Direktnachricht (DM) ist eine Message mit gesetztem `ReceiverUserId`
 
 ## Alternativen
 
-| Alternative            | Pro                    | Contra                     | Entscheidung |
-| ---------------------- | ---------------------- | -------------------------- | ------------ |
-| Message-Entity (DM)    | DRY, polymorphes Design | Kein Echtzeit              | ✅ Gewählt   |
-| Eigene DM-Entity       | Spezialisiert          | Code-Duplizierung          | ❌ Abgelehnt |
-| SignalR Real-Time Chat | Echtzeit               | Overkill für MVP           | ❌ Abgelehnt |
+| Alternative            | Pro                      | Contra                    | Entscheidung |
+| ---------------------- | ------------------------ | ------------------------- | ------------ |
+| Message-Entity (DM)    | DRY, polymorphes Design  | Kein Echtzeit             | ✅ Gewählt     |
+| Eigene DM-Entity       | Spezialisiert            | Code-Duplizierung         | ❌ Abgelehnt   |
+| SignalR Real-Time Chat | Echtzeit                 | Overkill für MVP          | ❌ Abgelehnt   |

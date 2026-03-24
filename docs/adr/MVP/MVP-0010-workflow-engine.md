@@ -54,8 +54,8 @@ Layer) und erweitern es um ein **`Workflow`-Aggregat**.
 
 ## Alternativen
 
-| Alternative             | Pro                    | Contra                     | Entscheidung |
-| ----------------------- | ---------------------- | -------------------------- | ------------ |
-| Workflow-Entity (Dynamisch) | Flexibel, IHK-konform | Mehr Code, Migration       | ✅ Gewählt   |
-| Status als Enum         | Extrem einfach         | Nicht dynamisch, kein CRUD | ❌ Abgelehnt |
-| Status als Lookup-Table | Einfach                | Kein Workflow-Konzept      | ❌ Abgelehnt |
+| Alternative                 | Pro                   | Contra                     | Entscheidung |
+| --------------------------- | --------------------- | -------------------------- | ------------ |
+| Workflow-Entity (Dynamisch) | Flexibel, IHK-konform | Mehr Code, Migration       | ✅ Gewählt    |
+| Status als Enum             | Extrem einfach        | Nicht dynamisch, kein CRUD | ❌ Abgelehnt  |
+| Status als Lookup-Table     | Einfach               | Kein Workflow-Konzept      | ❌ Abgelehnt  |
