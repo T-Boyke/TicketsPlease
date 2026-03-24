@@ -227,17 +227,17 @@ flowchart LR
 > [ADR-0031](docs/adr/0031-ef-core-resilience-concurrency.md)
 > \| [database_schema.md](docs/database_schema.md)
 
-| Regel                          | Beschreibung                                                                                  |
-| ------------------------------ | --------------------------------------------------------------------------------------------- |
-| **`AsNoTracking()`**           | **Pflicht** für alle Lesezugriffe (Queries). Tracking nur für Write-Operationen.              |
-| **Projections**                | Nutze `.Select(t => new Dto { ... })` statt `.Include()` wo möglich. Nur benötigte Spalten laden! |
-| **`RowVersion` Pflicht**       | Alle Domain-Entities brauchen `byte[] RowVersion` für Optimistic Concurrency (`[Timestamp]`). |
-| **Concurrency Handling**       | `DbUpdateConcurrencyException` **muss** in jedem Write-Handler explizit gefangen werden.      |
-| **`DefaultExecutionStrategy`** | Für manuelle Transaktionen zwingend die Retry-Strategy in `AppDbContext` nutzen.              |
-| **`EnableRetryOnFailure`**     | Ist in der Connection-Konfiguration aktiv. Bei manuellen Transaktionen `CreateExecutionStrategy()` verwenden. |
+| Regel                          | Beschreibung                                                                                                               |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| **`AsNoTracking()`**           | **Pflicht** für alle Lesezugriffe (Queries). Tracking nur für Write-Operationen.                                           |
+| **Projections**                | Nutze `.Select(t => new Dto { ... })` statt `.Include()` wo möglich. Nur benötigte Spalten laden!                          |
+| **`RowVersion` Pflicht**       | Alle Domain-Entities brauchen `byte[] RowVersion` für Optimistic Concurrency (`[Timestamp]`).                              |
+| **Concurrency Handling**       | `DbUpdateConcurrencyException` **muss** in jedem Write-Handler explizit gefangen werden.                                   |
+| **`DefaultExecutionStrategy`** | Für manuelle Transaktionen zwingend die Retry-Strategy in `AppDbContext` nutzen.                                           |
+| **`EnableRetryOnFailure`**     | Ist in der Connection-Konfiguration aktiv. Bei manuellen Transaktionen `CreateExecutionStrategy()` verwenden.              |
 | **Code-First Migrations**      | Über `dotnet ef migrations add` im Infrastructure-Projekt. Siehe [EF Core Workflow](.agent/workflows/ef-core-migration.md). |
-| **3NF Schema**                 | Die Datenbank ist in **3. Normalform**. Keine Denormalisierung ohne ADR!                      |
-| **Seed Data**                  | Stammdaten über `HasData()` in `OnModelCreating` oder separate Seed-Klassen.                  |
+| **3NF Schema**                 | Die Datenbank ist in **3. Normalform**. Keine Denormalisierung ohne ADR!                                                   |
+| **Seed Data**                  | Stammdaten über `HasData()` in `OnModelCreating` oder separate Seed-Klassen.                                               |
 
 ---
 
