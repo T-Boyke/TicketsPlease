@@ -16,27 +16,65 @@ jobs:
 
     steps:
     - uses: actions/checkout@v6
+      with:
+        fetch-depth: 0  # Required for SonarCloud analysis
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v5
       with:
         dotnet-version: 10.0.x
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: 17
+        distribution: 'zulu'
+
+    - name: Cache SonarCloud packages
+      uses: actions/cache@v4
+      with:
+        path: ~/sonar/cache
+        key: ${{ runner.os }}-sonar
+        restore-keys: ${{ runner.os }}-sonar
+
+    - name: Install SonarCloud scanner
+      run: |
+        dotnet tool install --global dotnet-sonarscanner
+
     - name: Restore dependencies
       run: dotnet restore TicketsPlease.slnx
+
     - name: Restore tools
       run: dotnet tool restore
+
     - name: Verify Formatting
       run: dotnet format TicketsPlease.slnx --verify-no-changes
+
     - name: Download Tailwind CLI
       run: |
         mkdir -p src/TicketsPlease.Web/obj/tailwind-cli
         curl -L -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -o src/TicketsPlease.Web/obj/tailwind-cli/tailwindcss-linux-x64 https://github.com/tailwindlabs/tailwindcss/releases/download/v4.2.2/tailwindcss-linux-x64
         chmod +x src/TicketsPlease.Web/obj/tailwind-cli/tailwindcss-linux-x64
-    - name: Build
-      run: dotnet build TicketsPlease.slnx --no-restore --configuration Release -p:TailwindCliPath=$GITHUB_WORKSPACE/src/TicketsPlease.Web/obj/tailwind-cli/tailwindcss-linux-x64
+
+    - name: Build and analyze
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: |
+        dotnet-sonarscanner begin /k:"BitLC-NE-2025-2026_TicketsPlease" /o:"bitlc-ne-2025-2026" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="coverage/**/coverage.opencover.xml"
+        dotnet build TicketsPlease.slnx --no-restore --configuration Release -p:TailwindCliPath=$GITHUB_WORKSPACE/src/TicketsPlease.Web/obj/tailwind-cli/tailwindcss-linux-x64
+
     - name: Install Playwright Browsers
       run: pwsh tests/TicketsPlease.E2ETests/bin/Release/net10.0/playwright.ps1 install
-    - name: Test
-      run: dotnet test TicketsPlease.slnx --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+
+    - name: Test and collect coverage
+      run: dotnet test TicketsPlease.slnx --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura,opencover
+
+    - name: SonarCloud End
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
