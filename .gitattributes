@@ -2,18 +2,18 @@
 * text=auto
 
 # C# / .NET specific
-*.cs text eol=lf
-*.cshtml text eol=lf
-*.razor text eol=lf
-*.sln text eol=lf
-*.slnx text eol=lf
-*.csproj text eol=lf
-*.props text eol=lf
-*.targets text eol=lf
-*.config text eol=lf
-*.settings text eol=lf
-*.resx text eol=lf
-*.pubxml text eol=lf
+*.cs text eol=crlf
+*.cshtml text eol=crlf
+*.razor text eol=crlf
+*.sln text eol=crlf
+*.slnx text eol=crlf
+*.csproj text eol=crlf
+*.props text eol=crlf
+*.targets text eol=crlf
+*.config text eol=crlf
+*.settings text eol=crlf
+*.resx text eol=crlf
+*.pubxml text eol=crlf
 
 # Web / Frontend
 *.js text eol=lf

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 /// Erfordert die Admin-Rolle.
 /// </summary>
 [Authorize(Roles = "Admin")]
-public sealed class AdminController : Controller
+internal sealed class AdminController : Controller
 {
   /// <summary>
   /// Leitet zur Benutzerverwaltung weiter.

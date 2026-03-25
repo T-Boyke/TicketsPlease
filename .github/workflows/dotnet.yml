@@ -51,9 +51,11 @@ jobs:
       run: dotnet format TicketsPlease.slnx --verify-no-changes
 
     - name: Download Tailwind CLI
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         mkdir -p src/TicketsPlease.Web/obj/tailwind-cli
-        curl -L -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -o src/TicketsPlease.Web/obj/tailwind-cli/tailwindcss-linux-x64 https://github.com/tailwindlabs/tailwindcss/releases/download/v4.2.2/tailwindcss-linux-x64
+        curl -L -H "Authorization: token $GITHUB_TOKEN" -o src/TicketsPlease.Web/obj/tailwind-cli/tailwindcss-linux-x64 https://github.com/tailwindlabs/tailwindcss/releases/download/v4.2.2/tailwindcss-linux-x64
         chmod +x src/TicketsPlease.Web/obj/tailwind-cli/tailwindcss-linux-x64
 
     - name: Build and analyze
@@ -61,7 +63,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
-        dotnet-sonarscanner begin /k:"BitLC-NE-2025-2026_TicketsPlease" /o:"bitlc-ne-2025-2026" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="coverage/**/coverage.opencover.xml"
+        dotnet-sonarscanner begin /k:"BitLC-NE-2025-2026_TicketsPlease" /o:"bitlc-ne-2025-2026" /d:sonar.login="$SONAR_TOKEN" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="coverage/**/coverage.opencover.xml"
         dotnet build TicketsPlease.slnx --no-restore --configuration Release -p:TailwindCliPath=$GITHUB_WORKSPACE/src/TicketsPlease.Web/obj/tailwind-cli/tailwindcss-linux-x64
 
     - name: Install Playwright Browsers
@@ -74,7 +76,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+      run: dotnet-sonarscanner end /d:sonar.login="$SONAR_TOKEN"
 
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0

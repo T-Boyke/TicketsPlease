@@ -15,7 +15,7 @@ using TicketsPlease.Web.Models.Account;
 /// <summary>
 /// Controller für die Benutzerverwaltung (Login, Registrierung, Profil).
 /// </summary>
-public sealed class AccountController : Controller
+internal sealed class AccountController : Controller
 {
   private readonly SignInManager<User> signInManager;
   private readonly UserManager<User> userManager;
