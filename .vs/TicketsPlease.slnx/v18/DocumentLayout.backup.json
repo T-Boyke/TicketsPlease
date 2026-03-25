@@ -1,16 +1,7 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\DEV\\TicketsPlease\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{52E4C03A-1E08-344D-D6AD-326812F611CB}|src\\TicketsPlease.Web\\TicketsPlease.Web.csproj|d:\\dev\\ticketsplease\\src\\ticketsplease.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{52E4C03A-1E08-344D-D6AD-326812F611CB}|src\\TicketsPlease.Web\\TicketsPlease.Web.csproj|solutionrelative:src\\ticketsplease.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CD48E978-1069-06F7-BEE5-77865EEE5777}|src\\TicketsPlease.Domain\\TicketsPlease.Domain.csproj|d:\\dev\\ticketsplease\\src\\ticketsplease.domain\\entities\\ticket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CD48E978-1069-06F7-BEE5-77865EEE5777}|src\\TicketsPlease.Domain\\TicketsPlease.Domain.csproj|solutionrelative:src\\ticketsplease.domain\\entities\\ticket.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "WorkspaceRootPath": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\",
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -18,37 +9,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Ticket.cs",
-              "DocumentMoniker": "D:\\DEV\\TicketsPlease\\src\\TicketsPlease.Domain\\Entities\\Ticket.cs",
-              "RelativeDocumentMoniker": "src\\TicketsPlease.Domain\\Entities\\Ticket.cs",
-              "ToolTip": "D:\\DEV\\TicketsPlease\\src\\TicketsPlease.Domain\\Entities\\Ticket.cs",
-              "RelativeToolTip": "src\\TicketsPlease.Domain\\Entities\\Ticket.cs",
-              "ViewState": "AgIAAHIBAAAAAAAAAAAkwKUBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-24T17:44:52.321Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\DEV\\TicketsPlease\\src\\TicketsPlease.Web\\Program.cs",
-              "RelativeDocumentMoniker": "src\\TicketsPlease.Web\\Program.cs",
-              "ToolTip": "D:\\DEV\\TicketsPlease\\src\\TicketsPlease.Web\\Program.cs",
-              "RelativeToolTip": "src\\TicketsPlease.Web\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAH4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-24T17:41:55.328Z",
-              "EditorCaption": ""
             }
           ]
         }

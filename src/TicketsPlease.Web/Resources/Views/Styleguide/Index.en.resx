@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="0" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DesignSystemVersion" xml:space="preserve">
+    <value>DESIGN SYSTEM v2.1.0-PREMIUM</value>
+  </data>
+  <data name="UITitle" xml:space="preserve">
+    <value>UI</value>
+  </data>
+  <data name="StyleguideLabel" xml:space="preserve">
+    <value>Styleguide</value>
+  </data>
+  <data name="StyleguideIntro" xml:space="preserve">
+    <value>A curated collection of atomic components, design tokens, and interactive motion patterns driving the TicketsPlease experience.</value>
+  </data>
+  <data name="QuickActions" xml:space="preserve">
+    <value>Quick actions</value>
+  </data>
+  <data name="DownloadAssetsDesc" xml:space="preserve">
+    <value>Download all design assets</value>
+  </data>
+  <data name="Assets" xml:space="preserve">
+    <value>Assets</value>
+  </data>
+  <data name="ViewDocs" xml:space="preserve">
+    <value>View documentation</value>
+  </data>
+  <data name="Docs" xml:space="preserve">
+    <value>Docs</value>
+  </data>
+  <data name="MainNavigation" xml:space="preserve">
+    <value>Main navigation</value>
+  </data>
+  <data name="Tokens" xml:space="preserve">
+    <value>Tokens</value>
+  </data>
+  <data name="Typography" xml:space="preserve">
+    <value>Typography</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>Cards</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Forms" xml:space="preserve">
+    <value>Forms</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="Motion" xml:space="preserve">
+    <value>Motion</value>
+  </data>
+  <data name="CoreTokens" xml:space="preserve">
+    <value>Core Tokens</value>
+  </data>
+  <data name="ColorSpec" xml:space="preserve">
+    <value>{0} Specification</value>
+  </data>
+  <data name="BrandPrimary" xml:space="preserve">
+    <value>Brand Primary</value>
+  </data>
+  <data name="BrandPrimaryDesc" xml:space="preserve">
+    <value>Main action color</value>
+  </data>
+  <data name="VariableLabel" xml:space="preserve">
+    <value>CSS Variable Name</value>
+  </data>
+  <data name="BrandAccent" xml:space="preserve">
+    <value>Brand Accent</value>
+  </data>
+  <data name="BrandAccentDesc" xml:space="preserve">
+    <value>Secondary highlights</value>
+  </data>
+  <data name="BrandSecondary" xml:space="preserve">
+    <value>Secondary</value>
+  </data>
+  <data name="BrandSecondaryDesc" xml:space="preserve">
+    <value>Subtle elements</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="SuccessDesc" xml:space="preserve">
+    <value>Positive feedback</value>
+  </data>
+  <data name="Danger" xml:space="preserve">
+    <value>Danger</value>
+  </data>
+  <data name="DangerDesc" xml:space="preserve">
+    <value>Destructive actions</value>
+  </data>
+  <data name="InfoGhost" xml:space="preserve">
+    <value>Info Ghost</value>
+  </data>
+  <data name="WarnGhost" xml:space="preserve">
+    <value>Warn Ghost</value>
+  </data>
+  <data name="SurfaceDeep" xml:space="preserve">
+    <value>Surface Deep</value>
+  </data>
+  <data name="DarkDeep" xml:space="preserve">
+    <value>Dark Deep</value>
+  </data>
+  <data name="Elevation1" xml:space="preserve">
+    <value>Elevation 1</value>
+  </data>
+  <data name="DisplayFontHeading" xml:space="preserve">
+    <value>Display Font Heading</value>
+  </data>
+  <data name="AzureSample" xml:space="preserve">
+    <value>Azure</value>
+  </data>
+  <data name="TypographyDisplayIntro" xml:space="preserve">
+    <value>Extra bold italics with tight tracking for high-impact headlines and branding.</value>
+  </data>
+  <data name="HeadlineH2" xml:space="preserve">
+    <value>Headline H2</value>
+  </data>
+  <data name="SystemCore" xml:space="preserve">
+    <value>System Core</value>
+  </data>
+  <data name="SubHeadlineH3" xml:space="preserve">
+    <value>Sub Headline H3</value>
+  </data>
+  <data name="ComponentSpecs" xml:space="preserve">
+    <value>Component Specs</value>
+  </data>
+  <data name="BodyTextFont" xml:space="preserve">
+    <value>Body Text Font</value>
+  </data>
+  <data name="TypographyBodyIntro" xml:space="preserve">
+    <value>Inter provide excellent legibility for long-form content with balanced proportions.</value>
+  </data>
+  <data name="MetadataCaptions" xml:space="preserve">
+    <value>Metadata &amp; Captions</value>
+  </data>
+  <data name="MetadataCaptionsDesc" xml:space="preserve">
+    <value>Small specialized text for technical data and labels.</value>
+  </data>
+  <data name="ActionsComponents" xml:space="preserve">
+    <value>Actions &amp; Components</value>
+  </data>
+  <data name="StandardVariations" xml:space="preserve">
+    <value>Standard Variations</value>
+  </data>
+  <data name="PrimarySolid" xml:space="preserve">
+    <value>Primary Solid</value>
+  </data>
+  <data name="AccentSolid" xml:space="preserve">
+    <value>Accent Solid</value>
+  </data>
+  <data name="SecondarySolid" xml:space="preserve">
+    <value>Secondary Solid</value>
+  </data>
+  <data name="SecondaryOutline" xml:space="preserve">
+    <value>Secondary Outline</value>
+  </data>
+  <data name="GhostDefault" xml:space="preserve">
+    <value>Ghost Default</value>
+  </data>
+  <data name="DangerSolid" xml:space="preserve">
+    <value>Danger Solid</value>
+  </data>
+  <data name="SuccessSolid" xml:space="preserve">
+    <value>Success Solid</value>
+  </data>
+  <data name="PremiumEffects" xml:space="preserve">
+    <value>Premium Effects</value>
+  </data>
+  <data name="OuterGlow" xml:space="preserve">
+    <value>Outer Glow</value>
+  </data>
+  <data name="GlassEffect" xml:space="preserve">
+    <value>Glass Effect</value>
+  </data>
+  <data name="StatesFeedback" xml:space="preserve">
+    <value>States &amp; Feedback</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="SizeHierarchy" xml:space="preserve">
+    <value>Size Hierarchy</value>
+  </data>
+  <data name="SmallButton" xml:space="preserve">
+    <value>Small button</value>
+  </data>
+  <data name="Small" xml:space="preserve">
+    <value>Small</value>
+  </data>
+  <data name="MediumButton" xml:space="preserve">
+    <value>Medium button</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="LargePremiumButton" xml:space="preserve">
+    <value>Large premium button</value>
+  </data>
+  <data name="LargePremium" xml:space="preserve">
+    <value>Large Premium</value>
+  </data>
+  <data name="IconIntegration" xml:space="preserve">
+    <value>Icon Integration</value>
+  </data>
+  <data name="AddItem" xml:space="preserve">
+    <value>Add item</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="InformationData" xml:space="preserve">
+    <value>Information &amp; Data</value>
+  </data>
+  <data name="GlassVariant" xml:space="preserve">
+    <value>Glass Variant</value>
+  </data>
+  <data name="PremiumGlass" xml:space="preserve">
+    <value>Premium Glass</value>
+  </data>
+  <data name="GlassVariantDesc" xml:space="preserve">
+    <value>Ultra-modern glassmorphism with subtle blurring.</value>
+  </data>
+  <data name="InteractiveVariant" xml:space="preserve">
+    <value>Interactive Variant</value>
+  </data>
+  <data name="InnerGlow" xml:space="preserve">
+    <value>Inner Glow</value>
+  </data>
+  <data name="InnerGlowDesc" xml:space="preserve">
+    <value>Focused state with internal luminance and border-play.</value>
+  </data>
+  <data name="TicketPreview" xml:space="preserve">
+    <value>Ticket sample preview</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="SampleTaskTitle" xml:space="preserve">
+    <value>Implement Neural UI Core</value>
+  </data>
+  <data name="AssignedUsers" xml:space="preserve">
+    <value>Assigned users</value>
+  </data>
+  <data name="StatusMicroInteractions" xml:space="preserve">
+    <value>Status &amp; Micro-interactions</value>
+  </data>
+  <data name="StatusBadges" xml:space="preserve">
+    <value>Status badges list</value>
+  </data>
+  <data name="Feature" xml:space="preserve">
+    <value>Feature</value>
+  </data>
+  <data name="Stability" xml:space="preserve">
+    <value>Stability</value>
+  </data>
+  <data name="Hotfix" xml:space="preserve">
+    <value>Hotfix</value>
+  </data>
+  <data name="Refactor" xml:space="preserve">
+    <value>Refactor</value>
+  </data>
+  <data name="UserOnlineStatus" xml:space="preserve">
+    <value>User is online</value>
+  </data>
+  <data name="OnlineNow" xml:space="preserve">
+    <value>Online Now</value>
+  </data>
+  <data name="UserOfflineStatus" xml:space="preserve">
+    <value>User is offline</value>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
+  <data name="ClickableSkill" xml:space="preserve">
+    <value>Clickable Skill</value>
+  </data>
+  <data name="FormMastery" xml:space="preserve">
+    <value>Form Mastery</value>
+  </data>
+  <data name="SelectionChoices" xml:space="preserve">
+    <value>Selection &amp; Choices</value>
+  </data>
+  <data name="SelectionControls" xml:space="preserve">
+    <value>Selection Controls</value>
+  </data>
+  <data name="Autosave" xml:space="preserve">
+    <value>Enable Autosave</value>
+  </data>
+  <data name="ToggleAutosave" xml:space="preserve">
+    <value>Toggle autosave</value>
+  </data>
+  <data name="PlanSelection" xml:space="preserve">
+    <value>Plan selection</value>
+  </data>
+  <data name="ProPlan" xml:space="preserve">
+    <value>Pro Plan</value>
+  </data>
+  <data name="Enterprise" xml:space="preserve">
+    <value>Enterprise</value>
+  </data>
+  <data name="FreePlan" xml:space="preserve">
+    <value>Free Plan</value>
+  </data>
+  <data name="Developer" xml:space="preserve">
+    <value>Developer</value>
+  </data>
+  <data name="InteractiveSliders" xml:space="preserve">
+    <value>Interactive Sliders</value>
+  </data>
+  <data name="StandardRange" xml:space="preserve">
+    <value>Standard Range</value>
+  </data>
+  <data name="GlowThumb" xml:space="preserve">
+    <value>Glow Thumb</value>
+  </data>
+  <data name="VisualRange" xml:space="preserve">
+    <value>Visual Range Preview</value>
+  </data>
+  <data name="FeedbackOverlays" xml:space="preserve">
+    <value>Feedback &amp; Overlays</value>
+  </data>
+  <data name="SyncCompleted" xml:space="preserve">
+    <value>Sync Completed</value>
+  </data>
+  <data name="SyncCompletedDesc" xml:space="preserve">
+    <value>Database migration was successful.</value>
+  </data>
+  <data name="SystemThreat" xml:space="preserve">
+    <value>System Threat</value>
+  </data>
+  <data name="SystemThreatDesc" xml:space="preserve">
+    <value>Intrusion detected on neural node 0xBF9.</value>
+  </data>
+  <data name="AISuggestion" xml:space="preserve">
+    <value>AI Suggestion</value>
+  </data>
+  <data name="AISuggestionQuote" xml:space="preserve">
+    <value>Shall I optimize the ticket flow?</value>
+  </data>
+  <data name="NotificationDemo" xml:space="preserve">
+    <value>Notification demo area</value>
+  </data>
+  <data name="MessageReceived" xml:space="preserve">
+    <value>Message Received</value>
+  </data>
+  <data name="SampleMessageContent" xml:space="preserve">
+    <value>New comment on TKT-42...</value>
+  </data>
+  <data name="SafeMode" xml:space="preserve">
+    <value>Safe Mode</value>
+  </data>
+  <data name="SafeModeDesc" xml:space="preserve">
+    <value>This will enter a restricted execution environment.</value>
+  </data>
+  <data name="TerminateSystem" xml:space="preserve">
+    <value>Terminate System</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="MotionMastery" xml:space="preserve">
+    <value>Motion &amp; Animation</value>
+  </data>
+  <data name="StaggerList" xml:space="preserve">
+    <value>Stagger Reveal</value>
+  </data>
+  <data name="StaggerListDesc" xml:space="preserve">
+    <value>Sequential entry of elements for reduced cognitive load.</value>
+  </data>
+  <data name="Levitation" xml:space="preserve">
+    <value>Levitation</value>
+  </data>
+  <data name="LevitationDesc" xml:space="preserve">
+    <value>Subtle hovering lifting effect for primary interactive zones.</value>
+  </data>
+  <data name="Morphing" xml:space="preserve">
+    <value>Scale &amp; Morph</value>
+  </data>
+  <data name="SystemReady" xml:space="preserve">
+    <value>System Ready</value>
+  </data>
+  <data name="MorphingDesc" xml:space="preserve">
+    <value>Smooth transition between shapes and sizes for state flow.</value>
+  </data>
+  <data name="FooterCredit" xml:space="preserve">
+    <value>Built for the future of task management.</value>
+  </data>
+</root>

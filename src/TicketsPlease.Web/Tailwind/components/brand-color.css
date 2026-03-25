@@ -35,7 +35,7 @@
   /* Light Mode Semantic Text */
   --color-text-main: oklch(0.15 0.01 260);      /* Deep Navy-Slate */
   --color-text-secondary: oklch(0.35 0.015 260);
-  --color-text-muted: oklch(0.55 0.02 260);
+  --color-text-muted: oklch(0.45 0.02 260);
   
   /* 
      ==========================================================================
@@ -59,7 +59,7 @@
   /* Dark Mode Semantic Text */
   --color-dark-text-main: oklch(0.95 0.01 260);      /* Crisp Slate-White */
   --color-dark-text-secondary: oklch(0.8 0.015 260);
-  --color-dark-text-muted: oklch(0.6 0.02 260);
+  --color-dark-text-muted: oklch(0.7 0.02 260);
 
   /* 
      ==========================================================================

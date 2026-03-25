@@ -1,3 +1,5 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 <style>
     .active-glow:active { box-shadow: 0 0 25px oklch(0.55 0.22 260 / 0.4); }
     .glass { background: oklch(1 0 0 / 0.03); backdrop-filter: blur(12px); border: 1px solid oklch(1 0 0 / 0.1); }
@@ -71,147 +73,159 @@
         50% { box-shadow: 0 0 35px oklch(0.6 0.25 25 / 0.8); }
         100% { box-shadow: 0 0 15px oklch(0.6 0.25 25 / 0.4); }
     }
+
+    /* Standardized Fallback Styles (Ensure visibility in Styleguide) */
+    .btn-secondary { background-color: oklch(0.45 0.05 260); color: white; display: inline-flex; align-items: center; justify-content: center; border-radius: 0.75rem; font-weight: 600; transition: all 0.3s; }
+    .btn-secondary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px oklch(0.1 0.01 260 / 0.1); background-color: oklch(0.4 0.05 260); }
+    
+    .btn-secondary-outline { border: 2px solid oklch(0.45 0.05 260); color: oklch(0.45 0.05 260); display: inline-flex; align-items: center; justify-content: center; border-radius: 0.75rem; font-weight: 600; transition: all 0.3s; }
+    .btn-secondary-outline:hover { background-color: oklch(0.45 0.05 260); color: white; transform: translateY(-2px); }
+
+    .btn-danger { background-color: oklch(0.55 0.22 25); color: white; display: inline-flex; align-items: center; justify-content: center; border-radius: 0.75rem; font-weight: 600; transition: all 0.3s; }
+    .btn-danger:hover { transform: translateY(-2px); box-shadow: 0 4px 15px oklch(0.55 0.22 25 / 0.4); filter: saturate(1.5); }
+
+    .btn-success { background-color: oklch(0.55 0.18 155); color: white; display: inline-flex; align-items: center; justify-content: center; border-radius: 0.75rem; font-weight: 600; transition: all 0.3s; }
+    .btn-success:hover { transform: translateY(-2px); box-shadow: 0 4px 15px oklch(0.55 0.18 155 / 0.4); filter: saturate(1.5); }
 </style>
 
-<div class="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8 reveal-up">
+<div class="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8 animate-in fade-in">
     <!-- Header Section -->
     <header class="mb-16 border-b border-border-default dark:border-dark-border pb-10">
         <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div class="max-w-2xl">
-                <span class="badge-primary mb-4 p-2 px-3 text-xs uppercase tracking-widest font-bold">Design System v4.2</span>
+                <span class="badge-primary mb-4 p-2 px-3 text-xs uppercase tracking-widest font-bold">@Localizer["DesignSystemVersion"]</span>
                 <h1 class="text-6xl font-extrabold tracking-tighter text-text-main dark:text-dark-text-main sm:text-7xl leading-tight">
-                    UI <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-primary to-brand-accent">Styleguide</span>
+                    @Localizer["UITitle"] <span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-primary to-brand-accent">@Localizer["StyleguideLabel"]</span>
                 </h1>
                 <p class="mt-6 text-xl text-text-secondary dark:text-dark-text-secondary leading-relaxed max-w-xl">
-                    Our interactive reference for <span class="text-brand-primary font-bold">premium elements</span>,
-                    motion tokens, and enterprise-grade design standards.
+                    @Localizer["StyleguideIntro"]
                 </p>
             </div>
-            <div class="flex gap-3 pb-2">
-                <button class="btn-primary min-w-[140px] shadow-xl shadow-brand-primary/20">
-                    <i class="fa-solid fa-download mr-2"></i> Assets
+            <nav class="flex gap-3 pb-2" aria-label="@Localizer["QuickActions"]">
+                <button type="button" class="btn-primary min-w-[140px] shadow-xl shadow-brand-primary/20" aria-label="@Localizer["DownloadAssetsDesc"]">
+                    <i class="fa-solid fa-download mr-2" aria-hidden="true"></i> @Localizer["Assets"]
                 </button>
-                <button class="btn-ghost border border-border-muted hover:border-brand-primary/30 transition-all p-3 px-6">
-                    <i class="fa-solid fa-code mr-2"></i> Docs
+                <button type="button" class="btn-ghost border border-border-muted hover:border-brand-primary/30 transition-all p-3 px-6" aria-label="@Localizer["ViewDocs"]">
+                    <i class="fa-solid fa-code mr-2" aria-hidden="true"></i> @Localizer["Docs"]
                 </button>
-            </div>
+            </nav>
         </div>
     </header>
 
     <!-- Navigation (Floating Glassmorphism) -->
-    <nav class="sticky top-6 z-40 mb-16 glass-premium p-1.5 rounded-2xl flex items-center justify-between gap-1 overflow-x-auto whitespace-nowrap scrollbar-hide border border-white/10 shadow-3xl max-w-fit mx-auto">
-        <a href="#tokens" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">Tokens</a>
-        <a href="#typography" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">Typo</a>
-        <a href="#buttons" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">Actions</a>
-        <a href="#cards" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">Cards</a>
-        <a href="#data" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">Data</a>
-        <a href="#forms" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">Forms</a>
-        <a href="#feedback" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">Feedback</a>
-        <a href="#animations" class="px-5 py-2.5 bg-brand-primary text-white rounded-xl text-sm font-extrabold shadow-lg shadow-brand-primary/25 hover:rotate-1 transition-transform">Motion</a>
+    <nav class="sticky top-6 z-40 mb-16 glass-premium p-1.5 rounded-2xl flex items-center justify-between gap-1 overflow-x-auto whitespace-nowrap scrollbar-hide border border-white/10 shadow-3xl max-w-fit mx-auto" role="navigation" aria-label="@Localizer["MainNavigation"]">
+        <a href="#tokens" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">@Localizer["Tokens"]</a>
+        <a href="#typography" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">@Localizer["Typography"]</a>
+        <a href="#buttons" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">@Localizer["Actions"]</a>
+        <a href="#cards" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">@Localizer["Cards"]</a>
+        <a href="#data" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">@Localizer["Data"]</a>
+        <a href="#forms" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">@Localizer["Forms"]</a>
+        <a href="#feedback" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">@Localizer["Feedback"]</a>
+        <a href="#animations" class="px-5 py-2.5 bg-brand-primary text-white rounded-xl text-sm font-extrabold shadow-lg shadow-brand-primary/25 hover:rotate-1 transition-transform">@Localizer["Motion"]</a>
     </nav>
 
     <!-- 1. Color Tokens -->
-    <section id="tokens" class="mb-24 reveal-up">
+    <section id="tokens" class="mb-24 animate-in fade-in" aria-labelledby="tokens-title">
         <div class="flex items-center gap-4 mb-10">
-            <div class="h-10 w-2 bg-gradient-to-b from-brand-primary to-brand-accent rounded-full"></div>
-            <h2 class="text-3xl font-black tracking-tight uppercase">Core Tokens</h2>
+            <div class="h-10 w-2 bg-gradient-to-b from-brand-primary to-brand-accent rounded-full" aria-hidden="true"></div>
+            <h2 id="tokens-title" class="text-3xl font-black tracking-tight uppercase">@Localizer["CoreTokens"]</h2>
         </div>
 
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             <!-- Brand Colors -->
-            <div class="card p-5 group hover-lift border-t-4 border-t-blue-600">
-                <div class="h-24 min-h-[6rem] w-full rounded-lg shadow-inner mb-4" style="background-color: #2563eb;"></div>
+            <section class="card p-5 group hover-lift border-t-4 border-t-blue-600" aria-label="@Localizer["ColorSpec", Localizer["BrandPrimary"]]">
+                <div class="h-24 min-h-[6rem] w-full rounded-lg shadow-inner mb-4" style="background-color: #2563eb;" aria-hidden="true"></div>
                 <div>
-                    <h3 class="font-bold text-sm uppercase tracking-wide">Brand Primary</h3>
-                    <p class="text-xs text-text-muted mb-2">Azure High-Contrast</p>
-                    <code class="block p-2 bg-surface-soft dark:bg-dark-surface-soft rounded text-[9px] font-mono border border-border-muted overflow-x-auto whitespace-nowrap">--brand-primary</code>
+                    <h3 class="font-bold text-sm uppercase tracking-wide">@Localizer["BrandPrimary"]</h3>
+                    <p class="text-xs text-text-muted mb-2">@Localizer["BrandPrimaryDesc"]</p>
+                    <code class="block p-2 bg-surface-soft dark:bg-dark-surface-soft rounded text-[9px] font-mono border border-border-muted overflow-x-auto whitespace-nowrap" aria-label="@Localizer["VariableLabel"]">--brand-primary</code>
                 </div>
-            </div>
-            <div class="card p-5 group hover-lift border-t-4 border-t-amber-500">
-                <div class="h-24 min-h-[6rem] w-full rounded-lg shadow-inner mb-4" style="background-color: #f59e0b;"></div>
+            </section>
+            <section class="card p-5 group hover-lift border-t-4 border-t-amber-500" aria-label="@Localizer["ColorSpec", Localizer["BrandAccent"]]">
+                <div class="h-24 min-h-[6rem] w-full rounded-lg shadow-inner mb-4" style="background-color: #f59e0b;" aria-hidden="true"></div>
                 <div>
-                    <h3 class="font-bold text-sm uppercase tracking-wide">Brand Accent</h3>
-                    <p class="text-xs text-text-muted mb-2">Amber Glow</p>
-                    <code class="block p-2 bg-surface-soft dark:bg-dark-surface-soft rounded text-[9px] font-mono border border-border-muted overflow-x-auto whitespace-nowrap">--brand-accent</code>
+                    <h3 class="font-bold text-sm uppercase tracking-wide">@Localizer["BrandAccent"]</h3>
+                    <p class="text-xs text-text-muted mb-2">@Localizer["BrandAccentDesc"]</p>
+                    <code class="block p-2 bg-surface-soft dark:bg-dark-surface-soft rounded text-[9px] font-mono border border-border-muted overflow-x-auto whitespace-nowrap" aria-label="@Localizer["VariableLabel"]">--brand-accent</code>
                 </div>
-            </div>
+            </section>
 
-            <div class="card p-5 group hover-lift border-t-4 border-t-slate-500">
-                <div class="h-24 min-h-[6rem] w-full rounded-lg shadow-inner mb-4" style="background-color: #64748b;"></div>
+            <section class="card p-5 group hover-lift border-t-4 border-t-slate-500" aria-label="@Localizer["ColorSpec", Localizer["BrandSecondary"]]">
+                <div class="h-24 min-h-[6rem] w-full rounded-lg shadow-inner mb-4" style="background-color: #64748b;" aria-hidden="true"></div>
                 <div>
-                    <h3 class="font-bold text-sm uppercase tracking-wide">Brand Secondary</h3>
-                    <p class="text-xs text-text-muted mb-2">Slate Steel</p>
-                    <code class="block p-2 bg-surface-soft dark:bg-dark-surface-soft rounded text-[9px] font-mono border border-border-muted overflow-x-auto whitespace-nowrap">--brand-secondary</code>
+                    <h3 class="font-bold text-sm uppercase tracking-wide">@Localizer["BrandSecondary"]</h3>
+                    <p class="text-xs text-text-muted mb-2">@Localizer["BrandSecondaryDesc"]</p>
+                    <code class="block p-2 bg-surface-soft dark:bg-dark-surface-soft rounded text-[9px] font-mono border border-border-muted overflow-x-auto whitespace-nowrap" aria-label="@Localizer["VariableLabel"]">--brand-secondary</code>
                 </div>
-            </div>
+            </section>
 
-            <div class="card p-5 group hover-lift border-t-4 border-t-emerald-500">
-                <div class="h-24 min-h-[6rem] w-full rounded-lg shadow-inner mb-4" style="background-color: #10b981;"></div>
+            <section class="card p-5 group hover-lift border-t-4 border-t-emerald-500" aria-label="@Localizer["ColorSpec", Localizer["Success"]]">
+                <div class="h-24 min-h-[6rem] w-full rounded-lg shadow-inner mb-4" style="background-color: #10b981;" aria-hidden="true"></div>
                 <div>
-                    <h3 class="font-bold text-sm uppercase tracking-wide">Success</h3>
-                    <p class="text-xs text-text-muted mb-2">Emerald System</p>
-                    <code class="block p-2 bg-surface-soft dark:bg-dark-surface-soft rounded text-[9px] font-mono border border-border-muted overflow-x-auto whitespace-nowrap">--success-primary</code>
+                    <h3 class="font-bold text-sm uppercase tracking-wide">@Localizer["Success"]</h3>
+                    <p class="text-xs text-text-muted mb-2">@Localizer["SuccessDesc"]</p>
+                    <code class="block p-2 bg-surface-soft dark:bg-dark-surface-soft rounded text-[9px] font-mono border border-border-muted overflow-x-auto whitespace-nowrap" aria-label="@Localizer["VariableLabel"]">--success-primary</code>
                 </div>
-            </div>
+            </section>
 
-            <div class="card p-5 group hover-lift border-t-4 border-t-rose-500">
-                <div class="h-24 min-h-[6rem] w-full rounded-lg shadow-inner mb-4" style="background-color: #f43f5e;"></div>
+            <section class="card p-5 group hover-lift border-t-4 border-t-rose-500" aria-label="@Localizer["ColorSpec", Localizer["Danger"]]">
+                <div class="h-24 min-h-[6rem] w-full rounded-lg shadow-inner mb-4" style="background-color: #f43f5e;" aria-hidden="true"></div>
                 <div>
-                    <h3 class="font-bold text-sm uppercase tracking-wide">Danger</h3>
-                    <p class="text-xs text-text-muted mb-2">Rose Critical</p>
-                    <code class="block p-2 bg-surface-soft dark:bg-dark-surface-soft rounded text-[9px] font-mono border border-border-muted overflow-x-auto whitespace-nowrap">--danger-primary</code>
+                    <h3 class="font-bold text-sm uppercase tracking-wide">@Localizer["Danger"]</h3>
+                    <p class="text-xs text-text-muted mb-2">@Localizer["DangerDesc"]</p>
+                    <code class="block p-2 bg-surface-soft dark:bg-dark-surface-soft rounded text-[9px] font-mono border border-border-muted overflow-x-auto whitespace-nowrap" aria-label="@Localizer["VariableLabel"]">--danger-primary</code>
                 </div>
-            </div>
+            </section>
         </div>
 
         <!-- Semantic Secondary -->
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             <div class="flex flex-col gap-2">
                 <div class="h-10 rounded-lg bg-info-primary/20 border border-info-primary/30 flex items-center justify-center">
-                    <span class="text-[10px] font-bold text-info-primary uppercase tracking-tighter">Info Ghost</span>
+                    <span class="text-[10px] font-bold text-info-primary uppercase tracking-tighter">@Localizer["InfoGhost"]</span>
                 </div>
             </div>
             <div class="flex flex-col gap-2">
                 <div class="h-10 rounded-lg bg-warning-primary/20 border border-warning-primary/30 flex items-center justify-center">
-                    <span class="text-[10px] font-bold text-warning-primary uppercase tracking-tighter">Warn Ghost</span>
+                    <span class="text-[10px] font-bold text-warning-primary uppercase tracking-tighter">@Localizer["WarnGhost"]</span>
                 </div>
             </div>
             <div class="flex flex-col gap-2">
                 <div class="h-10 rounded-lg bg-surface-deep border border-border-muted flex items-center justify-center">
-                    <span class="text-[10px] font-bold text-text-muted uppercase tracking-tighter">Surface Deep</span>
+                    <span class="text-[10px] font-bold text-text-muted uppercase tracking-tighter">@Localizer["SurfaceDeep"]</span>
                 </div>
             </div>
             <div class="flex flex-col gap-2">
                 <div class="h-10 rounded-lg bg-slate-900 border border-white/5 flex items-center justify-center">
-                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Dark Deep</span>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">@Localizer["DarkDeep"]</span>
                 </div>
             </div>
             <div class="flex flex-col gap-2">
                 <div class="h-10 rounded-lg bg-white dark:bg-dark-surface-main border-2 border-brand-primary/40 flex items-center justify-center shadow-lg shadow-brand-primary/5">
-                    <span class="text-[10px] font-bold text-brand-primary uppercase tracking-tighter">Elevation 1</span>
+                    <span class="text-[10px] font-bold text-brand-primary uppercase tracking-tighter">@Localizer["Elevation1"]</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- 2. Typography -->
-    <section id="typography" class="mb-24 reveal-up">
+    <section id="typography" class="mb-24 reveal-up" aria-labelledby="typography-title">
         <div class="flex items-center gap-4 mb-10">
-            <div class="h-10 w-2 bg-brand-accent rounded-full"></div>
-            <h2 class="text-3xl font-black tracking-tight uppercase">Typography</h2>
+            <div class="h-10 w-2 bg-brand-accent rounded-full" aria-hidden="true"></div>
+            <h2 id="typography-title" class="text-3xl font-black tracking-tight uppercase">@Localizer["Typography"]</h2>
         </div>
 
         <div class="card p-12 space-y-16 overflow-hidden relative border border-border-muted/50">
-            <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-primary/5 rounded-full blur-[120px]"></div>
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-primary/5 rounded-full blur-[120px]" aria-hidden="true"></div>
 
             <div class="grid lg:grid-cols-12 gap-10 items-center">
                 <div class="lg:col-span-4 border-r border-border-muted pr-8">
-                    <span class="text-[10px] font-black uppercase tracking-[0.3em] text-brand-primary mb-2 block">Display 1 / Outfit</span>
-                    <h1 class="text-7xl font-black tracking-tighter leading-none italic">Azure</h1>
+                    <span class="text-[10px] font-black uppercase tracking-[0.3em] text-brand-primary mb-2 block">@Localizer["DisplayFontHeading"]</span>
+                    <h1 class="text-7xl font-black tracking-tighter leading-none italic">@Localizer["AzureSample"]</h1>
                 </div>
                 <div class="lg:col-span-8">
                     <p class="text-2xl text-text-main dark:text-dark-text-main font-light leading-snug">
-                        <span class="font-black text-brand-primary italic">Outfit</span> is our primary choice for high-impact headlines, delivering a modern, geometric aesthetic.
+                        @Localizer["TypographyDisplayIntro"]
                     </p>
                 </div>
             </div>
@@ -219,26 +233,25 @@
             <div class="grid lg:grid-cols-12 gap-10 pt-10 border-t border-border-muted/30">
                 <div class="lg:col-span-4 space-y-8 border-r border-border-muted pr-8">
                     <div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-2 block">Headline H2</span>
-                        <h2 class="text-4xl font-extrabold tracking-tight">System Core</h2>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-2 block">@Localizer["HeadlineH2"]</span>
+                        <h2 class="text-4xl font-extrabold tracking-tight">@Localizer["SystemCore"]</h2>
                     </div>
                     <div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-2 block">Sub-Headline H3</span>
-                        <h3 class="text-2xl font-bold">Component Specs</h3>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-2 block">@Localizer["SubHeadlineH3"]</span>
+                        <h3 class="text-2xl font-bold">@Localizer["ComponentSpecs"]</h3>
                     </div>
                 </div>
                 <div class="lg:col-span-8 space-y-6 flex flex-col justify-center">
                     <div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-3 block">Body Text / Roboto Flex</span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-3 block">@Localizer["BodyTextFont"]</span>
                         <p class="text-lg text-text-main dark:text-dark-text-main leading-relaxed">
-                            <span class="font-semibold text-brand-primary">Roboto Flex</span> provides exceptional legibility for long-form content, ticket descriptions, and complex data tables.
-                            It adapts perfectly to all screen sizes without losing character.
+                            @Localizer["TypographyBodyIntro"]
                         </p>
                     </div>
                     <div>
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-2 block">Metadata & Captions</span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-2 block">@Localizer["MetadataCaptions"]</span>
                         <p class="text-sm text-text-secondary dark:text-dark-text-secondary font-medium italic">
-                            Used for timestamps, IDs, and secondary information labels.
+                            @Localizer["MetadataCaptionsDesc"]
                         </p>
                     </div>
                 </div>
@@ -247,66 +260,66 @@
     </section>
 
     <!-- 3. Actions & Buttons -->
-    <section id="buttons" class="mb-24 reveal-up">
+    <section id="buttons" class="mb-24 reveal-up" aria-labelledby="buttons-title">
         <div class="flex items-center gap-4 mb-10">
-            <div class="h-10 w-2 bg-success-primary rounded-full"></div>
-            <h2 class="text-3xl font-black tracking-tight uppercase">Actions & Components</h2>
+            <div class="h-10 w-2 bg-success-primary rounded-full" aria-hidden="true"></div>
+            <h2 id="buttons-title" class="text-3xl font-black tracking-tight uppercase">@Localizer["ActionsComponents"]</h2>
         </div>
 
         <div class="grid lg:grid-cols-2 gap-10">
             <!-- Variations -->
             <div class="card p-10 flex flex-col">
-                <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mb-8 border-l-4 border-brand-primary pl-4">Standard Variations</h3>
+                <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mb-8 border-l-4 border-brand-primary pl-4">@Localizer["StandardVariations"]</h3>
                 <div class="grid grid-cols-2 gap-4">
-                    <button class="btn-primary min-w-[160px] py-4">Primary Solid</button>
-                    <button class="btn-accent min-w-[160px] py-4">Accent Solid</button>
-                    <button class="btn-secondary min-w-[160px] py-4">Secondary Solid</button>
-                    <button class="btn-secondary-outline min-w-[160px] py-4">Secondary Outline</button>
-                    <button class="btn-ghost border border-border-muted min-w-[160px] py-4">Ghost Default</button>
-                    <button class="btn-danger min-w-[160px] py-4">Danger Solid</button>
-                    <button class="btn-success min-w-[160px] py-4">Success Solid</button>
+                    <button type="button" class="btn-primary min-w-[160px] py-4">@Localizer["PrimarySolid"]</button>
+                    <button type="button" class="btn-accent min-w-[160px] py-4">@Localizer["AccentSolid"]</button>
+                    <button type="button" class="btn-secondary min-w-[160px] py-4">@Localizer["SecondarySolid"]</button>
+                    <button type="button" class="btn-secondary-outline min-w-[160px] py-4">@Localizer["SecondaryOutline"]</button>
+                    <button type="button" class="btn-ghost border border-border-muted min-w-[160px] py-4">@Localizer["GhostDefault"]</button>
+                    <button type="button" class="btn-danger min-w-[160px] py-4">@Localizer["DangerSolid"]</button>
+                    <button type="button" class="btn-success min-w-[160px] py-4">@Localizer["SuccessSolid"]</button>
                 </div>
 
-                <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mt-12 mb-8 border-l-4 border-brand-primary pl-4">Premium Effects</h3>
+                <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mt-12 mb-8 border-l-4 border-brand-primary pl-4">@Localizer["PremiumEffects"]</h3>
                 <div class="flex flex-wrap gap-4">
-                    <button class="btn-primary px-8 py-4 shadow-xl shadow-brand-primary/25 hover:shadow-brand-primary/40 transition-all hover:-translate-y-1 active:scale-95">
-                        Outer Glow
+                    <button type="button" class="btn-primary px-8 py-4 shadow-xl shadow-brand-primary/25 hover:shadow-brand-primary/40 transition-all hover:-translate-y-1 active:scale-95">
+                        @Localizer["OuterGlow"]
                     </button>
-                    <button class="glass-premium px-8 py-4 rounded-xl font-bold border border-white/20 hover:bg-white/10 transition-all active:scale-95 text-brand-primary">
-                        Glass Effect
+                    <button type="button" class="glass-premium px-8 py-4 rounded-xl font-bold border border-brand-primary/20 hover:bg-white/10 transition-all active:scale-95 text-brand-primary">
+                        @Localizer["GlassEffect"]
                     </button>
                 </div>
             </div>
 
             <!-- Sizes & Icons -->
             <div class="card p-10 flex flex-col">
-                <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mb-8 border-l-4 border-success-primary pl-4">States & Feedback</h3>
+                <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mb-8 border-l-4 border-success-primary pl-4">@Localizer["StatesFeedback"]</h3>
                 <div class="flex flex-wrap items-center gap-4 mb-10">
-                    <button class="btn-primary flex items-center gap-3 px-6 py-3 cursor-wait opacity-80">
-                        <i class="fa-solid fa-circle-notch animate-spin"></i> Loading...
+                    <button type="button" class="btn-primary flex items-center gap-3 px-6 py-3 cursor-wait opacity-80" aria-busy="true">
+                        <i class="fa-solid fa-circle-notch animate-spin" aria-hidden="true"></i> @Localizer["Loading"]...
                     </button>
-                    <button class="btn-primary px-6 py-3 grayscale cursor-not-allowed opacity-50" disabled>
-                        Disabled
+                    <button type="button" class="btn-primary px-6 py-3 grayscale cursor-not-allowed opacity-50" disabled>
+                        @Localizer["Disabled"]
                     </button>
                 </div>
 
-                <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mb-8 border-l-4 border-success-primary pl-4">Size Hierarchy</h3>
+                <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mb-8 border-l-4 border-success-primary pl-4">@Localizer["SizeHierarchy"]</h3>
                 <div class="flex flex-wrap items-end gap-5">
-                    <button class="btn-primary text-xs px-4 py-2">Small</button>
-                    <button class="btn-primary text-base px-6 py-3">Medium</button>
-                    <button class="btn-primary text-lg px-8 py-4 font-black">Large Premium</button>
+                    <button type="button" class="btn-primary text-xs px-4 py-2" aria-label="@Localizer["SmallButton"]">@Localizer["Small"]</button>
+                    <button type="button" class="btn-primary text-base px-6 py-3" aria-label="@Localizer["MediumButton"]">@Localizer["Medium"]</button>
+                    <button type="button" class="btn-primary text-lg px-8 py-4 font-black" aria-label="@Localizer["LargePremiumButton"]">@Localizer["LargePremium"]</button>
                 </div>
 
-                <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mt-12 mb-8 border-l-4 border-success-primary pl-4">Icon Integration</h3>
+                <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mt-12 mb-8 border-l-4 border-success-primary pl-4">@Localizer["IconIntegration"]</h3>
                 <div class="flex flex-wrap gap-4">
-                    <button class="btn-icon h-12 w-12 bg-surface-soft hover:bg-brand-primary hover:text-white border border-border-muted transition-all">
-                        <i class="fa-solid fa-plus text-lg"></i>
+                    <button type="button" class="btn-icon h-12 w-12 bg-surface-soft hover:bg-brand-primary hover:text-white border border-border-muted transition-all" aria-label="@Localizer["AddItem"]">
+                        <i class="fa-solid fa-plus text-lg" aria-hidden="true"></i>
                     </button>
-                    <button class="btn-icon h-12 w-12 glass-premium border border-white/10 hover:border-brand-primary transition-all text-brand-primary">
-                        <i class="fa-solid fa-bell"></i>
+                    <button type="button" class="btn-icon h-12 w-12 glass-premium border border-white/10 hover:border-brand-primary transition-all text-brand-primary" aria-label="@Localizer["Notifications"]">
+                        <i class="fa-solid fa-bell" aria-hidden="true"></i>
                     </button>
-                    <button class="btn-ghost flex items-center group font-bold px-6 py-3">
-                        Continue <i class="fa-solid fa-arrow-right ml-3 group-hover:translate-x-2 transition-transform"></i>
+                    <button type="button" class="btn-ghost flex items-center group font-bold px-6 py-3">
+                        @Localizer["Continue"] <i class="fa-solid fa-arrow-right ml-3 group-hover:translate-x-2 transition-transform" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
@@ -314,371 +327,317 @@
     </section>
 
     <!-- 4. Data Display (Cards & Badges) -->
-    <section id="cards" class="mb-24 reveal-up">
+    <section id="cards" class="mb-24 reveal-up" aria-labelledby="cards-title">
         <div class="flex items-center gap-4 mb-10">
-            <div class="h-10 w-2 bg-info-primary rounded-full"></div>
-            <h2 class="text-3xl font-black tracking-tight uppercase">Information & Data</h2>
+            <div class="h-10 w-2 bg-info-primary rounded-full" aria-hidden="true"></div>
+            <h2 id="cards-title" class="text-3xl font-black tracking-tight uppercase">@Localizer["InformationData"]</h2>
         </div>
 
         <div class="grid lg:grid-cols-3 gap-8 mb-8">
             <!-- Glassmorphism Card -->
-            <div class="glass-premium p-8 rounded-2xl border border-white/10 hover:border-brand-primary/30 transition-all group hover-lift relative overflow-hidden">
-                <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-brand-primary/10 rounded-full blur-2xl group-hover:bg-brand-primary/20 transition-all"></div>
+            <section class="glass-premium p-8 rounded-2xl border border-white/10 hover:border-brand-primary/30 transition-all group hover-lift relative overflow-hidden" aria-label="@Localizer["GlassVariant"]">
+                <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-brand-primary/10 rounded-full blur-2xl group-hover:bg-brand-primary/20 transition-all" aria-hidden="true"></div>
                 <div class="relative z-10">
-                    <span class="text-[10px] font-black uppercase tracking-widest text-brand-primary mb-2 block">Glass Variant</span>
-                    <h3 class="text-xl font-bold mb-3">Premium Glass</h3>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-brand-primary mb-2 block">@Localizer["GlassVariant"]</span>
+                    <h3 class="text-xl font-bold mb-3">@Localizer["PremiumGlass"]</h3>
                     <p class="text-sm text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-                        High-end semi-transparent surface with multi-layered blur and crisp borders.
+                        @Localizer["GlassVariantDesc"]
                     </p>
                 </div>
-            </div>
+            </section>
 
             <!-- Inner Glow Card -->
-            <div class="card p-8 group hover:shadow-[inset_0_0_20px_rgba(59,130,246,0.1)] transition-all hover:border-brand-primary/40">
-                <div class="w-12 h-12 rounded-xl bg-brand-accent/10 text-brand-accent flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform">
+            <section class="card p-8 group hover:shadow-[inset_0_0_20px_rgba(59,130,246,0.1)] transition-all hover:border-brand-primary/40" aria-label="@Localizer["InteractiveVariant"]">
+                <div class="w-12 h-12 rounded-xl bg-brand-accent/10 text-brand-accent flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform" aria-hidden="true">
                     <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
                 </div>
-                <span class="text-[10px] font-black uppercase tracking-widest text-brand-accent mb-2 block">Interactive Variant</span>
-                <h3 class="text-xl font-bold mb-3">Inner Glow</h3>
+                <span class="text-[10px] font-black uppercase tracking-widest text-brand-accent mb-2 block">@Localizer["InteractiveVariant"]</span>
+                <h3 class="text-xl font-bold mb-3">@Localizer["InnerGlow"]</h3>
                 <p class="text-sm text-text-secondary dark:text-dark-text-secondary">
-                    Subtle internal luminescence that triggers on interaction for depth.
+                    @Localizer["InnerGlowDesc"]
                 </p>
-            </div>
+            </section>
 
             <!-- Kanban Card (Refined) -->
-            <div class="kanban-card p-6 border-l-4 border-l-brand-primary group hover:bg-surface-soft dark:hover:bg-dark-surface-soft transition-colors">
+            <article class="kanban-card p-6 border-l-4 border-l-brand-primary group hover:bg-surface-soft dark:hover:bg-dark-surface-soft transition-colors" aria-label="@Localizer["TicketPreview"]">
                 <div class="flex gap-2 mb-4 justify-between items-start">
-                    <span class="badge-success px-2 py-0.5 text-[10px]">Active</span>
+                    <span class="badge-success px-2 py-0.5 text-[10px]">@Localizer["Active"]</span>
                     <span class="text-[10px] text-text-muted font-mono bg-surface-soft px-2 py-1 rounded border border-border-muted/30">TKT-2048</span>
                 </div>
-                <h4 class="font-bold text-base mb-4 group-hover:text-brand-primary transition-colors">Implement Real-time Sync</h4>
+                <h4 class="font-bold text-base mb-4 group-hover:text-brand-primary transition-colors">@Localizer["SampleTaskTitle"]</h4>
                 <div class="flex items-center justify-between">
-                    <div class="flex -space-x-2">
-                        <div class="h-8 w-8 rounded-full border-2 border-white dark:border-dark-bg bg-brand-primary/20 flex items-center justify-center text-[10px] font-bold text-brand-primary">AU</div>
-                        <div class="h-8 w-8 rounded-full border-2 border-white dark:border-dark-bg bg-brand-accent/20 flex items-center justify-center text-[10px] font-bold text-brand-accent">JD</div>
+                    <div class="flex -space-x-2" aria-label="@Localizer["AssignedUsers"]">
+                        <div class="h-8 w-8 rounded-full border-2 border-white dark:border-dark-bg bg-brand-primary/20 flex items-center justify-center text-[10px] font-bold text-brand-primary" title="Assignee 1">AU</div>
+                        <div class="h-8 w-8 rounded-full border-2 border-white dark:border-dark-bg bg-brand-accent/20 flex items-center justify-center text-[10px] font-bold text-brand-accent" title="Assignee 2">JD</div>
                     </div>
                     <div class="flex items-center gap-3 text-text-muted">
-                        <span class="text-[10px] flex items-center gap-1"><i class="fa-solid fa-paperclip"></i> 5</span>
-                        <span class="text-[10px] flex items-center gap-1"><i class="fa-solid fa-comment"></i> 12</span>
+                        <span class="text-[10px] flex items-center gap-1"><i class="fa-solid fa-paperclip" aria-hidden="true"></i> 5</span>
+                        <span class="text-[10px] flex items-center gap-1"><i class="fa-solid fa-comment" aria-hidden="true"></i> 12</span>
                     </div>
                 </div>
-            </div>
+            </article>
         </div>
 
         <!-- Badges Showcase -->
         <div class="card p-10">
-            <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mb-10 border-l-4 border-info-primary pl-4">Status & Micro-Interactions</h3>
+            <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mb-10 border-l-4 border-info-primary pl-4">@Localizer["StatusMicroInteractions"]</h3>
             <div class="flex flex-wrap gap-10 items-center">
-                <div class="flex flex-wrap gap-3">
-                    <span class="badge-primary px-3 py-1">Feature</span>
-                    <span class="badge-success px-3 py-1">Stability</span>
-                    <span class="badge-danger px-3 py-1">Hotfix</span>
-                    <span class="badge-warning px-3 py-1">Refactor</span>
-                </div>
+                <ul class="flex flex-wrap gap-3" aria-label="@Localizer["StatusBadges"]">
+                    <li class="badge-primary px-3 py-1">@Localizer["Feature"]</li>
+                    <li class="badge-success px-3 py-1">@Localizer["Stability"]</li>
+                    <li class="badge-danger px-3 py-1">@Localizer["Hotfix"]</li>
+                    <li class="badge-warning px-3 py-1">@Localizer["Refactor"]</li>
+                </ul>
 
-                <div class="h-10 w-[1px] bg-border-muted dark:bg-dark-border"></div>
+                <div class="h-10 w-[1px] bg-border-muted dark:bg-dark-border" aria-hidden="true"></div>
 
                 <div class="flex gap-6">
-                    <div class="flex items-center gap-3 group cursor-help">
+                    <div class="flex items-center gap-3 group cursor-help" aria-label="@Localizer["UserOnlineStatus"]">
                         <div class="relative flex h-3 w-3">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success-primary opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-3 w-3 bg-success-primary"></span>
                         </div>
-                        <span class="text-xs font-black uppercase tracking-widest text-success-primary group-hover:underline">Online Now</span>
+                        <span class="text-xs font-black uppercase tracking-widest text-success-primary group-hover:underline">@Localizer["OnlineNow"]</span>
                     </div>
 
-                    <div class="flex items-center gap-3 group cursor-not-allowed">
+                    <div class="flex items-center gap-3 group cursor-not-allowed" aria-label="@Localizer["UserOfflineStatus"]">
                         <div class="relative flex h-3 w-3">
                             <span class="relative inline-flex rounded-full h-3 w-3 bg-danger-primary opacity-50"></span>
                         </div>
-                        <span class="text-xs font-black uppercase tracking-widest text-danger-primary/60">Offline</span>
+                        <span class="text-xs font-black uppercase tracking-widest text-danger-primary/60">@Localizer["Offline"]</span>
                     </div>
                 </div>
 
-                <div class="h-10 w-[1px] bg-border-muted dark:bg-dark-border"></div>
+                <div class="h-10 w-[1px] bg-border-muted dark:bg-dark-border" aria-hidden="true"></div>
 
-                <span class="px-5 py-2.5 bg-surface-soft border border-border-muted rounded-full text-xs font-bold hover:bg-brand-primary hover:text-white hover:border-brand-primary hover:scale-110 active:scale-90 transition-all cursor-pointer shadow-sm hover:shadow-lg hover:shadow-brand-primary/20">
-                    <i class="fa-solid fa-bolt mr-2"></i> Clickable Skill
-                </span>
+                <button type="button" class="px-5 py-2.5 bg-surface-soft border border-border-muted rounded-full text-xs font-bold hover:bg-brand-primary hover:text-white hover:border-brand-primary hover:scale-110 active:scale-90 transition-all cursor-pointer shadow-sm hover:shadow-lg hover:shadow-brand-primary/20">
+                    <i class="fa-solid fa-bolt mr-2" aria-hidden="true"></i> @Localizer["ClickableSkill"]
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- 5. Forms & Inputs -->
-    <section id="forms" class="mb-24 reveal-up">
+    <!-- 5. Form Mastery -->
+    <section id="forms" class="mb-24 reveal-up" aria-labelledby="forms-title">
         <div class="flex items-center gap-4 mb-10">
-            <div class="h-10 w-2 bg-text-main dark:bg-dark-text-main rounded-full"></div>
-            <h2 class="text-3xl font-black tracking-tight uppercase">Form Mastery</h2>
+            <div class="h-10 w-2 bg-text-main dark:bg-dark-text-main rounded-full" aria-hidden="true"></div>
+            <h2 id="forms-title" class="text-3xl font-black tracking-tight uppercase">@Localizer["FormMastery"]</h2>
         </div>
 
         <div class="grid lg:grid-cols-2 gap-10">
-            <!-- Text Inputs & Groups -->
-            <div class="card p-10">
-                <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mb-8 border-l-4 border-slate-400 pl-4">Standard Inputs</h3>
-                <div class="space-y-6">
-                    <div>
-                        <label class="form-label mb-2 block">Full Name</label>
-                        <div class="relative">
-                            <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-text-muted"></i>
-                            <input type="text" class="form-input pl-12" placeholder="John Doe">
-                        </div>
+            <!-- Toggles & Radios -->
+            <section class="card p-10" aria-labelledby="selection-controls-title">
+                <h3 id="selection-controls-title" class="text-sm font-black uppercase tracking-widest text-text-muted mb-10 border-l-4 border-brand-primary pl-4">@Localizer["SelectionControls"]</h3>
+                <div class="space-y-8">
+                    <div class="flex items-center justify-between p-4 rounded-xl bg-surface-soft/50 dark:bg-dark-surface-soft/50">
+                        <span class="text-sm font-bold">@Localizer["Autosave"]</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked aria-label="@Localizer["ToggleAutosave"]">
+                            <div class="w-11 h-6 bg-slate-200 rounded-full peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brand-primary/20 dark:bg-slate-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-brand-primary"></div>
+                        </label>
                     </div>
-                    <div>
-                        <label class="form-label mb-2 block">Scheduled Date</label>
-                        <div class="relative">
-                            <i class="fa-solid fa-calendar absolute left-4 top-1/2 -translate-y-1/2 text-brand-primary"></i>
-                            <input type="date" class="form-input pl-12 focus:ring-brand-primary/20">
-                        </div>
+
+                    <div class="grid grid-cols-2 gap-4" role="radiogroup" aria-label="@Localizer["PlanSelection"]">
+                        <label class="relative flex flex-col p-5 rounded-2xl border-2 border-brand-primary bg-brand-primary/5 cursor-pointer hover:bg-brand-primary/10 transition-all">
+                            <input type="radio" name="plan" class="sr-only" checked>
+                            <span class="text-xs font-black uppercase tracking-widest text-brand-primary mb-1">@Localizer["ProPlan"]</span>
+                            <span class="text-lg font-bold">@Localizer["Enterprise"]</span>
+                            <div class="absolute top-4 right-4 h-5 w-5 rounded-full border-4 border-brand-primary flex items-center justify-center" aria-hidden="true">
+                                <div class="h-2 w-2 rounded-full bg-brand-primary"></div>
+                            </div>
+                        </label>
+                        <label class="relative flex flex-col p-5 rounded-2xl border-2 border-border-muted bg-surface-soft/30 cursor-pointer hover:border-brand-primary/40 transition-all">
+                            <input type="radio" name="plan" class="sr-only">
+                            <span class="text-xs font-black uppercase tracking-widest text-text-muted mb-1">@Localizer["FreePlan"]</span>
+                            <span class="text-lg font-bold">@Localizer["Developer"]</span>
+                            <div class="absolute top-4 right-4 h-5 w-5 rounded-full border-2 border-border-muted" aria-hidden="true"></div>
+                        </label>
                     </div>
                 </div>
+            </section>
 
-                <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mt-12 mb-8 border-l-4 border-slate-400 pl-4">Validation States</h3>
-                <div class="space-y-4">
-                    <div class="relative">
-                        <input type="text" class="form-input border-danger-primary ring-danger-primary/10 pr-12" value="Invalid Input Data">
-                        <i class="fa-solid fa-circle-exclamation absolute right-4 top-1/2 -translate-y-1/2 text-danger-primary"></i>
-                    </div>
-                    <p class="text-xs font-bold text-danger-primary tracking-wide uppercase">Value must be at least 8 characters</p>
-                </div>
-            </div>
-
-            <!-- Choice & Selection -->
-            <div class="card p-10">
-                <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mb-8 border-l-4 border-brand-accent pl-4">Selection & Choices</h3>
-
+            <!-- Sliders -->
+            <section class="card p-10" aria-labelledby="interactive-sliders-title">
+                <h3 id="interactive-sliders-title" class="text-sm font-black uppercase tracking-widest text-text-muted mb-10 border-l-4 border-brand-accent pl-4">@Localizer["InteractiveSliders"]</h3>
                 <div class="space-y-10">
-                    <!-- Premium Dropdown -->
-                    <div>
-                        <label class="form-label mb-3 block">Priority Level</label>
-                        <select class="form-input appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2020%2020%22%3E%3Cpath%20stroke%3D%22%236b7280%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20stroke-width%3D%221.5%22%20d%3D%22m6%208%204%204%204-4%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem_1.25rem] bg-[right_0.5rem_center] bg-no-repeat pr-10">
-                            <option>Low Priority</option>
-                            <option>Medium Priority</option>
-                            <option>High Priority</option>
-                            <option>Critical / Urgent</option>
-                        </select>
+                    <div class="space-y-4 p-4 rounded-2xl bg-surface-soft/30 dark:bg-dark-surface-soft/30 border border-border-muted/20">
+                        <label for="slider-standard" class="block text-[10px] font-black uppercase tracking-widest text-text-muted mb-2">@Localizer["StandardRange"]</label>
+                        <input id="slider-standard" type="range" class="w-full h-1.5 bg-surface-subtle dark:bg-dark-surface-soft rounded-lg appearance-none cursor-pointer accent-brand-accent transition-colors" />
                     </div>
-
-                    <!-- Toggles & Radios -->
-                    <div class="grid grid-cols-2 gap-8">
-                        <div class="space-y-4">
-                            <p class="text-xs font-black uppercase tracking-widest text-text-muted">Toggles</p>
-                            <div class="flex items-center justify-between p-3 bg-surface-soft dark:bg-dark-surface-soft rounded-xl border border-border-muted/30">
-                                <span class="text-sm font-bold">Autosave</span>
-                                <label class="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" checked>
-                                    <div class="w-11 h-6 bg-slate-200 rounded-full peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brand-primary/20 dark:bg-slate-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-brand-primary"></div>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="space-y-4">
-                            <p class="text-xs font-black uppercase tracking-widest text-text-muted">Radio Group</p>
-                            <div class="flex flex-col gap-3 mt-2">
-                                <label class="flex items-center gap-3 cursor-pointer group">
-                                    <div class="w-5 h-5 rounded-full border-2 border-border-muted group-hover:border-brand-primary flex items-center justify-center p-1 transition-all">
-                                        <div class="w-full h-full rounded-full bg-brand-primary scale-0 group-hover:scale-50 transition-transform"></div>
-                                    </div>
-                                    <span class="text-sm font-bold">Standard</span>
-                                </label>
-                                <label class="flex items-center gap-3 cursor-pointer group">
-                                    <div class="w-5 h-5 rounded-full border-2 border-brand-primary flex items-center justify-center p-1 transition-all">
-                                        <div class="w-full h-full rounded-full bg-brand-primary scale-100 transition-transform"></div>
-                                    </div>
-                                    <span class="text-sm font-bold text-brand-primary">Express</span>
-                                </label>
-                            </div>
+                    <!-- Glow Thumb -->
+                    <div class="space-y-4 p-4 rounded-2xl bg-surface-soft/30 dark:bg-dark-surface-soft/30 border border-border-muted/20">
+                        <label for="slider-glow" class="block text-[10px] font-black uppercase tracking-widest text-text-muted mb-2">@Localizer["GlowThumb"]</label>
+                        <div class="grid grid-cols-[auto_1fr_auto] items-center gap-3 w-full">
+                            <i class="fa-solid fa-volume-off text-[10px] text-text-muted flex-none" aria-hidden="true"></i>
+                            <input id="slider-glow" type="range" class="w-full appearance-none cursor-pointer slider-glow" />
+                            <i class="fa-solid fa-volume-high text-[10px] text-brand-primary flex-none" aria-hidden="true"></i>
                         </div>
                     </div>
-
-                    <!-- Sliders -->
-                    <div class="col-span-full space-y-8 pt-8 border-t border-border-muted mt-8">
-                        <div class="flex items-center gap-3">
-                            <i class="fa-solid fa-sliders text-brand-primary"></i>
-                            <h4 class="text-sm font-black uppercase tracking-widest text-brand-primary">Interactive Sliders</h4>
+                    <!-- Range Preview -->
+                    <div class="space-y-4 p-4 rounded-2xl bg-surface-soft/30 dark:bg-dark-surface-soft/30 border border-border-muted/20 relative">
+                        <label for="slider-range" class="block text-[10px] font-black uppercase tracking-widest text-text-muted mb-2">@Localizer["VisualRange"]</label>
+                        <div class="relative h-2 bg-surface-subtle dark:bg-dark-surface-soft rounded-full overflow-hidden" aria-hidden="true">
+                            <div class="absolute inset-y-0 left-12 right-24 bg-gradient-to-r from-brand-primary to-brand-accent opacity-60"></div>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                            <!-- Standard -->
-                            <div class="space-y-4 p-4 rounded-2xl bg-surface-soft/30 dark:bg-dark-surface-soft/30 border border-border-muted/20">
-                                <label class="block text-[10px] font-black uppercase tracking-widest text-text-muted mb-2">Standard Range</label>
-                                <input type="range" class="w-full h-1.5 bg-surface-subtle dark:bg-dark-surface-soft rounded-lg appearance-none cursor-pointer accent-brand-primary hover:accent-brand-hover transition-colors" />
-                            </div>
-                            <!-- Stepped -->
-                            <div class="space-y-4 p-4 rounded-2xl bg-surface-soft/30 dark:bg-dark-surface-soft/30 border border-border-muted/20">
-                                <label class="block text-[10px] font-black uppercase tracking-widest text-text-muted mb-2">Stepped (25%)</label>
-                                <input type="range" min="0" max="100" step="25" class="w-full h-1.5 bg-surface-subtle dark:bg-dark-surface-soft rounded-lg appearance-none cursor-pointer accent-brand-accent transition-colors" />
-                            </div>
-                            <!-- Glow Thumb -->
-                            <div class="space-y-4 p-4 rounded-2xl bg-surface-soft/30 dark:bg-dark-surface-soft/30 border border-border-muted/20">
-                                <label class="block text-[10px] font-black uppercase tracking-widest text-text-muted mb-2">Glow Thumb</label>
-                                <div class="flex items-center gap-3 w-full">
-                                    <i class="fa-solid fa-volume-off text-[10px] text-text-muted w-4 flex-none"></i>
-                                    <input type="range" class="flex-1 min-w-0 appearance-none cursor-pointer slider-glow" />
-                                    <i class="fa-solid fa-volume-high text-[10px] text-brand-primary w-4 flex-none"></i>
-                                </div>
-                            </div>
-                            <!-- Range Preview -->
-                            <div class="space-y-4 p-4 rounded-2xl bg-surface-soft/30 dark:bg-dark-surface-soft/30 border border-border-muted/20 overflow-hidden">
-                                <label class="block text-[10px] font-black uppercase tracking-widest text-text-muted mb-2">Visual Range</label>
-                                <div class="pt-2">
-                                    <div class="relative h-2 bg-surface-subtle dark:bg-dark-surface-soft rounded-full overflow-hidden">
-                                        <div class="absolute h-full bg-brand-primary/40 shadow-[0_0_10px_rgba(37,99,235,0.3)]" style="left: 20%; right: 30%"></div>
-                                    </div>
-                                </div>
-                            </div>
+                        <input id="slider-range" type="range" class="w-full h-1.5 absolute bottom-10 left-4 right-4 opacity-0 cursor-pointer" />
+                        <div class="flex justify-between mt-2" aria-hidden="true">
+                            <span class="text-[9px] font-bold text-text-muted">0%</span>
+                            <span class="text-[9px] font-black text-brand-primary">45%</span>
+                            <span class="text-[9px] font-bold text-text-muted">100%</span>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
     </section>
 
     <!-- 6. Feedback & Alerts -->
-    <section id="feedback" class="mb-24 reveal-up">
+    <section id="feedback" class="mb-24 reveal-up" aria-labelledby="feedback-title">
         <div class="flex items-center gap-4 mb-10">
-            <div class="h-10 w-2 bg-danger-primary rounded-full"></div>
-            <h2 class="text-3xl font-black tracking-tight uppercase">Feedback & Overlays</h2>
+            <div class="h-10 w-2 bg-danger-primary rounded-full" aria-hidden="true"></div>
+            <h2 id="feedback-title" class="text-3xl font-black tracking-tight uppercase">@Localizer["FeedbackOverlays"]</h2>
         </div>
 
         <div class="grid lg:grid-cols-2 gap-10 items-start">
             <div class="space-y-6">
                 <!-- Alerts -->
-                <div class="alert-success backdrop-blur-md border-l-8 border-success-primary py-6 px-8 shadow-2xl">
+                <div class="alert-success backdrop-blur-md border-l-8 border-success-primary py-6 px-8 shadow-2xl" role="alert">
                     <div class="flex items-start">
-                        <i class="fa-solid fa-circle-check text-2xl mr-4 text-success-primary"></i>
+                        <i class="fa-solid fa-circle-check text-2xl mr-4 text-success-primary" aria-hidden="true"></i>
                         <div>
-                            <p class="font-black text-lg uppercase tracking-tight">Sync Completed</p>
-                            <p class="mt-1 opacity-80 font-medium">Your project files have been securely updated to the cloud.</p>
+                            <p class="font-black text-lg uppercase tracking-tight">@Localizer["SyncCompleted"]</p>
+                            <p class="mt-1 opacity-80 font-medium">@Localizer["SyncCompletedDesc"]</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="alert-danger border-2 border-danger-primary/20 bg-danger-primary/5 py-6 px-8 rounded-2xl">
+                <div class="alert-danger border-2 border-danger-primary/20 bg-danger-primary/5 py-6 px-8 rounded-2xl" role="alert">
                     <div class="flex items-start">
-                        <i class="fa-solid fa-shield-virus text-2xl mr-4 text-danger-primary"></i>
+                        <i class="fa-solid fa-shield-virus text-2xl mr-4 text-danger-primary" aria-hidden="true"></i>
                         <div>
-                            <p class="font-black text-lg uppercase tracking-tight">System Threat</p>
-                            <p class="mt-1 opacity-80 font-medium tracking-wide">Unauthorized access attempt detected from IP 192.168.1.1. Safety lock engaged.</p>
+                            <p class="font-black text-lg uppercase tracking-tight">@Localizer["SystemThreat"]</p>
+                            <p class="mt-1 opacity-80 font-medium tracking-wide">@Localizer["SystemThreatDesc"]</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex flex-col gap-2 p-6 glass-premium rounded-2xl border border-white/20 animate-pulse">
+                <output class="flex flex-col gap-2 p-6 glass-premium rounded-2xl border border-white/20 animate-pulse block" aria-live="polite">
                     <div class="flex items-center gap-3 text-brand-primary">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        <span class="text-xs font-black uppercase tracking-widest">AI Suggestion</span>
+                        <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+                        <span class="text-xs font-black uppercase tracking-widest">@Localizer["AISuggestion"]</span>
                     </div>
-                    <p class="text-sm font-semibold italic">"Try overhauling the database schema for better performance."</p>
-                </div>
+                    <p class="text-sm font-semibold italic">"@Localizer["AISuggestionQuote"]"</p>
+                </output>
             </div>
 
             <div class="space-y-8">
                 <!-- Notifications & Overlays -->
-                <div class="relative h-[400px] w-full bg-surface-soft dark:bg-dark-surface-soft rounded-3xl border border-border-muted overflow-hidden flex items-center justify-center">
-                    <div class="absolute inset-0 bg-brand-primary/5 pattern-dots"></div>
+                <section class="relative h-[400px] w-full bg-surface-soft dark:bg-dark-surface-soft rounded-3xl border border-border-muted overflow-hidden flex items-center justify-center" aria-label="@Localizer["NotificationDemo"]">
+                    <div class="absolute inset-0 bg-brand-primary/5 pattern-dots" aria-hidden="true"></div>
 
                     <!-- Floating Toast Example -->
-                    <div class="absolute top-6 right-6 w-64 bg-white dark:bg-dark-bg p-4 rounded-xl shadow-2xl border border-border-muted/50 translate-x-0 animate-spring-in z-20">
+                    <output class="absolute top-6 right-6 w-64 bg-white dark:bg-dark-bg p-4 rounded-xl shadow-2xl border border-border-muted/50 translate-x-0 animate-spring-in z-20 block" aria-live="polite">
                         <div class="flex gap-3 items-center">
-                            <div class="h-8 w-8 rounded bg-brand-primary flex items-center justify-center text-white"><i class="fa-solid fa-envelope"></i></div>
+                            <div class="h-8 w-8 rounded bg-brand-primary flex items-center justify-center text-white" aria-hidden="true"><i class="fa-solid fa-envelope"></i></div>
                             <div class="flex-grow">
-                                <p class="text-[10px] font-black uppercase tracking-widest text-text-muted">Message Recieved</p>
-                                <p class="text-xs font-bold truncate">Max Smith: "Looking good!"</p>
+                                <p class="text-[10px] font-black uppercase tracking-widest text-text-muted">@Localizer["MessageReceived"]</p>
+                                <p class="text-xs font-bold truncate">@Localizer["SampleMessageContent"]</p>
                             </div>
                         </div>
-                    </div>
+                    </output>
 
                     <!-- Mini Modal Example -->
-                    <div class="relative z-10 w-4/5 glass-premium p-8 rounded-2xl border border-white/30 shadow-3xl text-center transform scale-90 hover:scale-95 transition-transform cursor-pointer">
-                        <div class="h-16 w-16 bg-brand-primary text-white rounded-2xl flex items-center justify-center text-3xl mx-auto mb-6 shadow-xl shadow-brand-primary/30">
+                    <article class="relative z-10 w-4/5 glass-premium p-8 rounded-2xl border border-white/30 shadow-3xl text-center transform scale-90 hover:scale-95 transition-transform cursor-pointer">
+                        <div class="h-16 w-16 bg-brand-primary text-white rounded-2xl flex items-center justify-center text-3xl mx-auto mb-6 shadow-xl shadow-brand-primary/30" aria-hidden="true">
                             <i class="fa-solid fa-lock"></i>
                         </div>
-                        <h4 class="text-xl font-black uppercase tracking-tighter mb-2">Safe Mode</h4>
-                        <p class="text-sm font-medium text-text-secondary dark:text-dark-text-secondary leading-relaxed mb-6">Confirm your identity to proceed with sensitive operations.</p>
+                        <h4 class="text-xl font-black uppercase tracking-tighter mb-2">@Localizer["SafeMode"]</h4>
+                        <p class="text-sm font-medium text-text-secondary dark:text-dark-text-secondary leading-relaxed mb-6">@Localizer["SafeModeDesc"]</p>
                         <div class="flex flex-col gap-4">
-                            <button class="btn-danger-premium py-4 px-8 rounded-xl flex items-center justify-center gap-3">
-                                <i class="fa-solid fa-triangle-exclamation"></i>
-                                Terminate System
+                            <button type="button" class="btn-danger-premium py-4 px-8 rounded-xl flex items-center justify-center gap-3 shadow-lg shadow-danger-primary/20">
+                                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                                @Localizer["TerminateSystem"]
                             </button>
-                            <button class="btn-ghost py-2 px-6 text-sm">Cancel</button>
+                            <button type="button" class="btn-ghost py-2 px-6 text-sm">@Localizer["Cancel"]</button>
                         </div>
-                    </div>
-                </div>
+                    </article>
+                </section>
             </div>
         </div>
     </section>
 
     <!-- 7. Motion & Animation -->
-    <section id="motion" class="mb-24 reveal-up">
+    <section id="motion" class="mb-24 reveal-up" aria-labelledby="motion-title">
         <div class="flex items-center gap-4 mb-10">
-            <div class="h-10 w-2 bg-brand-accent rounded-full"></div>
-            <h2 class="text-3xl font-black tracking-tight uppercase">Motion Mastery</h2>
+            <div class="h-10 w-2 bg-brand-accent rounded-full" aria-hidden="true"></div>
+            <h2 id="motion-title" class="text-3xl font-black tracking-tight uppercase">@Localizer["MotionMastery"]</h2>
         </div>
 
         <div class="grid lg:grid-cols-3 gap-8">
             <!-- Stagger Reveal -->
-            <div class="card p-8 group cursor-pointer overflow-hidden">
+            <article class="card p-8 group cursor-pointer overflow-hidden">
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="h-10 w-10 bg-brand-primary/10 rounded-lg flex items-center justify-center text-brand-primary">
+                    <div class="h-10 w-10 bg-brand-primary/10 rounded-lg flex items-center justify-center text-brand-primary" aria-hidden="true">
                         <i class="fa-solid fa-layer-group"></i>
                     </div>
-                    <span class="text-xs font-black uppercase tracking-widest text-text-muted">Stagger List</span>
+                    <span class="text-xs font-black uppercase tracking-widest text-text-muted">@Localizer["StaggerList"]</span>
                 </div>
-                <div class="space-y-3">
+                <div class="space-y-3" aria-hidden="true">
                     <div class="h-8 bg-surface-soft dark:bg-dark-surface-soft rounded-lg w-full group-hover:translate-x-2 transition-all duration-300 delay-[50ms]"></div>
                     <div class="h-8 bg-surface-soft dark:bg-dark-surface-soft rounded-lg w-[85%] group-hover:translate-x-2 transition-all duration-300 delay-[100ms]"></div>
                     <div class="h-8 bg-surface-soft dark:bg-dark-surface-soft rounded-lg w-[70%] group-hover:translate-x-2 transition-all duration-300 delay-[150ms]"></div>
                 </div>
                 <p class="mt-6 text-sm text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-                    Sequential entrance animations for menus and list items.
+                    @Localizer["StaggerListDesc"]
                 </p>
-            </div>
+            </article>
 
             <!-- Floating / Hover Lifts -->
-            <div class="card p-8 group cursor-pointer border-brand-primary/0 hover:border-brand-primary/30 transition-all duration-500">
+            <article class="card p-8 group cursor-pointer border-brand-primary/0 hover:border-brand-primary/30 transition-all duration-500">
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="h-10 w-10 bg-brand-accent/10 rounded-lg flex items-center justify-center text-brand-accent">
+                    <div class="h-10 w-10 bg-brand-accent/10 rounded-lg flex items-center justify-center text-brand-accent" aria-hidden="true">
                         <i class="fa-solid fa-arrows-up-to-line"></i>
                     </div>
-                    <span class="text-xs font-black uppercase tracking-widest text-text-muted">Levitation</span>
+                    <span class="text-xs font-black uppercase tracking-widest text-text-muted">@Localizer["Levitation"]</span>
                 </div>
-                <div class="relative h-24 mb-6 flex items-center justify-center">
+                <div class="relative h-24 mb-6 flex items-center justify-center" aria-hidden="true">
                     <div class="absolute inset-0 bg-brand-accent/5 blur-2xl rounded-full scale-0 group-hover:scale-100 transition-transform duration-700"></div>
                     <div class="h-16 w-16 bg-white dark:bg-dark-bg border border-border-muted rounded-2xl shadow-xl flex items-center justify-center text-3xl group-hover:-translate-y-4 group-hover:shadow-brand-accent/20 transition-all duration-500">
                         <i class="fa-solid fa-rocket text-brand-accent"></i>
                     </div>
                 </div>
                 <p class="text-sm text-text-secondary dark:text-dark-text-secondary leading-relaxed">
-                    Depth-based interactions that respond to user focus.
+                    @Localizer["LevitationDesc"]
                 </p>
-            </div>
+            </article>
 
             <!-- Scale & Morph -->
-            <div class="card p-8 group cursor-pointer overflow-hidden relative">
-                <div class="absolute inset-0 bg-success-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-700 origin-bottom"></div>
+            <article class="card p-8 group cursor-pointer overflow-hidden relative">
+                <div class="absolute inset-0 bg-success-primary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-700 origin-bottom" aria-hidden="true"></div>
                 <div class="relative z-10">
                     <div class="flex items-center gap-3 mb-6">
-                        <div class="h-10 w-10 bg-success-primary/10 rounded-lg flex items-center justify-center text-success-primary group-hover:bg-white group-hover:text-success-primary transition-colors">
+                        <div class="h-10 w-10 bg-success-primary/10 rounded-lg flex items-center justify-center text-success-primary group-hover:bg-white group-hover:text-success-primary transition-colors" aria-hidden="true">
                             <i class="fa-solid fa-maximize"></i>
                         </div>
-                        <span class="text-xs font-black uppercase tracking-widest text-text-muted group-hover:text-success-primary">Morphing</span>
+                        <span class="text-xs font-black uppercase tracking-widest text-text-muted group-hover:text-success-primary">@Localizer["Morphing"]</span>
                     </div>
-                    <div class="h-1 flex items-center justify-center mb-8">
+                    <div class="h-1 flex items-center justify-center mb-8" aria-hidden="true">
                         <div class="w-12 h-12 bg-success-primary/20 rounded-full group-hover:w-full group-hover:h-12 group-hover:rounded-xl transition-all duration-500 flex items-center justify-center overflow-hidden">
-                            <span class="text-xs font-bold text-success-primary scale-0 group-hover:scale-100 transition-transform delay-200">System Ready</span>
+                            <span class="text-xs font-bold text-success-primary scale-0 group-hover:scale-100 transition-transform delay-200">@Localizer["SystemReady"]</span>
                         </div>
                     </div>
                     <p class="text-sm text-text-secondary dark:text-dark-text-secondary group-hover:text-success-primary/80 transition-colors">
-                        Fluid geometry changes that emphasize state transitions.
+                        @Localizer["MorphingDesc"]
                     </p>
                 </div>
-            </div>
+            </article>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="mt-24 pt-10 border-t border-border-default dark:border-dark-border text-center text-text-muted text-sm pb-10">
-        <p>&copy; 2026 TicketsPlease Design Team. Built with <span class="text-brand-primary">Tailwind v4</span> & Azure OKLCH.</p>
-    </footer>
+    <section class="mt-24 pt-10 border-t border-border-default dark:border-dark-border text-center text-text-muted text-sm pb-10" aria-label="Styleguide Credit">
+        <p>&copy; @DateTime.Now.Year TicketsPlease Design Team. @Localizer["FooterCredit"]</p>
+    </section>
 
     <!-- Final Lint Fixes: Dynamic ID Association -->
     <script>

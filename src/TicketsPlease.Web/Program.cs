@@ -98,6 +98,17 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Standard Security Headers (Enterprise Compliance)
+app.Use((context, next) =>
+{
+  context.Response.Headers.Append("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none';");
+  context.Response.Headers.Append("X-Frame-Options", "DENY");
+  context.Response.Headers.Append("X-Content-Type-Options", "nosniff");
+  context.Response.Headers.Append("Referrer-Policy", "strict-origin-when-cross-origin");
+  context.Response.Headers.Append("Cross-Origin-Opener-Policy", "same-origin");
+  return next();
+});
+
 // Localization Middleware
 var supportedCultures = new[] { "de", "en" };
 var localizationOptions = new RequestLocalizationOptions()
