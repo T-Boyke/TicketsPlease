@@ -73,4 +73,6 @@ brain/
 implementation_plan.md
 walkthrough.md
 task.md
-nuget_comparison.md
+## [Sonar]
+.sonar/
+.sonarqube/
