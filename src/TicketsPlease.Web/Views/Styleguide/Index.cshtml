@@ -32,6 +32,22 @@
         transform: scale(1.2);
         box-shadow: 0 0 15px oklch(0.55 0.22 260 / 0.8);
     }
+    input[type="range"].slider-glow {
+        margin: 0;
+        background: transparent;
+    }
+    /* Webkit track styles for Glow variant */
+    input[type="range"].slider-glow::-webkit-slider-runnable-track {
+        height: 4px;
+        background: oklch(0.55 0.22 260 / 0.2);
+        border-radius: 99px;
+    }
+    /* Moz track styles */
+    input[type="range"].slider-glow::-moz-range-track {
+        height: 4px;
+        background: oklch(0.55 0.22 260 / 0.2);
+        border-radius: 99px;
+    }
 
     /* Destructive Danger Button Polish */
     .btn-danger-premium {
@@ -450,7 +466,7 @@
                                 <span class="text-sm font-bold">Autosave</span>
                                 <label class="relative inline-flex items-center cursor-pointer">
                                     <input type="checkbox" class="sr-only peer" checked>
-                                    <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brand-primary/20 dark:bg-slate-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-brand-primary"></div>
+                                    <div class="w-11 h-6 bg-slate-200 rounded-full peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-brand-primary/20 dark:bg-slate-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-brand-primary"></div>
                                 </label>
                             </div>
                         </div>
@@ -492,12 +508,12 @@
                                 <input type="range" min="0" max="100" step="25" class="w-full h-1.5 bg-surface-subtle dark:bg-dark-surface-soft rounded-lg appearance-none cursor-pointer accent-brand-accent transition-colors" />
                             </div>
                             <!-- Glow Thumb -->
-                            <div class="space-y-4 p-4 rounded-2xl bg-surface-soft/30 dark:bg-dark-surface-soft/30 border border-border-muted/20 overflow-hidden">
+                            <div class="space-y-4 p-4 rounded-2xl bg-surface-soft/30 dark:bg-dark-surface-soft/30 border border-border-muted/20">
                                 <label class="block text-[10px] font-black uppercase tracking-widest text-text-muted mb-2">Glow Thumb</label>
                                 <div class="flex items-center gap-3 w-full">
-                                    <i class="fa-solid fa-volume-off text-[10px] text-text-muted flex-shrink-0"></i>
-                                    <input type="range" class="min-w-0 flex-grow h-1 bg-brand-primary/20 rounded-full appearance-none cursor-pointer slider-glow" />
-                                    <i class="fa-solid fa-volume-high text-[10px] text-brand-primary flex-shrink-0"></i>
+                                    <i class="fa-solid fa-volume-off text-[10px] text-text-muted w-4 flex-none"></i>
+                                    <input type="range" class="flex-1 min-w-0 appearance-none cursor-pointer slider-glow" />
+                                    <i class="fa-solid fa-volume-high text-[10px] text-brand-primary w-4 flex-none"></i>
                                 </div>
                             </div>
                             <!-- Range Preview -->
