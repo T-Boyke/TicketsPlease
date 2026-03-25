@@ -86,7 +86,15 @@
                             {
                                 <div class="flex space-x-4 p-5 rounded-2xl hover:bg-slate-50 transition-all border border-transparent hover:border-slate-100 group">
                                     @{
-                                        var initials = comment.AuthorName?.Length >= 2 ? comment.AuthorName.Substring(0, 2).ToUpper() : (comment.AuthorName?.Length == 1 ? comment.AuthorName.ToUpper() + "?" : "??");
+                                        string initials = "??";
+                                        if (comment.AuthorName?.Length >= 2)
+                                        {
+                                            initials = comment.AuthorName.Substring(0, 2).ToUpper();
+                                        }
+                                        else if (comment.AuthorName?.Length == 1)
+                                        {
+                                            initials = comment.AuthorName.ToUpper() + "?";
+                                        }
                                     }
                                     <partial name="_Avatar" model='initials' view-data='@new ViewDataDictionary(ViewData) { { "SizeClass", "h-10 w-10 flex-shrink-0" } }' />
                                     <div class="flex-1">

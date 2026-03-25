@@ -185,8 +185,8 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     {
       entity.HasKey(e => e.Id);
       entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
-      entity.Property(e => e.Sha1Hash).IsRequired().HasMaxLength(40);
-      entity.HasIndex(e => e.Sha1Hash).IsUnique();
+      entity.Property(e => e.DomainHash).IsRequired().HasMaxLength(64);
+      entity.HasIndex(e => e.DomainHash).IsUnique();
 
       entity.HasOne(t => t.Project).WithMany(p => p.Tickets).HasForeignKey(t => t.ProjectId).OnDelete(DeleteBehavior.Restrict);
       entity.HasOne(t => t.Priority).WithMany().HasForeignKey(t => t.PriorityId).OnDelete(DeleteBehavior.Restrict);

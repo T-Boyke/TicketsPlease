@@ -40,7 +40,7 @@ public class Ticket : BaseAuditableEntity
     this.GeoIpTimestamp = geoIpTimestamp ?? string.Empty;
     this.CreatedAt = DateTime.UtcNow;
     this.Status = "Todo";
-    this.Sha1Hash = this.GenerateSha1Hash();
+    this.DomainHash = this.GenerateDomainHash();
   }
 
   /// <summary>
@@ -57,9 +57,9 @@ public class Ticket : BaseAuditableEntity
   public string Title { get; private set; } = string.Empty;
 
   /// <summary>
-  /// Gets den SHA1-Hash zur eindeutigen Identifizierung.
+  /// Gets den Hash zur eindeutigen Identifizierung (Domain-Level).
   /// </summary>
-  public string Sha1Hash { get; private set; } = string.Empty;
+  public string DomainHash { get; private set; } = string.Empty;
 
   /// <summary>
   /// Gets die detaillierte Beschreibung des Tickets.
@@ -409,13 +409,11 @@ public class Ticket : BaseAuditableEntity
     return (int)Math.Round((double)closedCount / this.SubTickets.Count * 100);
   }
 
-  private string GenerateSha1Hash()
+  private string GenerateDomainHash()
   {
-    // Echter SHA1 Hash für den Domain Hash (40 Zeichen Hex)
+    // SHA256 Hash für den Domain Hash (64 Zeichen Hex)
     var raw = $"{this.ProjectId}-{this.CreatorId}-{this.CreatedAt.Ticks}-{Guid.NewGuid()}";
-#pragma warning disable CA5350 // Do Not Use Weak Cryptographic Algorithms
-    var hashBytes = System.Security.Cryptography.SHA1.HashData(System.Text.Encoding.UTF8.GetBytes(raw));
-#pragma warning restore CA5350 // Do Not Use Weak Cryptographic Algorithms
+    var hashBytes = System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(raw));
     return Convert.ToHexString(hashBytes).ToUpperInvariant();
   }
 }

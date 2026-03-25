@@ -19,6 +19,8 @@ using TicketsPlease.Domain.Entities;
 /// </summary>
 public class TicketService : ITicketService
 {
+  private const string TicketNotFoundMessage = "Ticket nicht gefunden.";
+
   private readonly ITicketRepository ticketRepository;
   private readonly UserManager<User> userManager;
   private readonly IHttpContextAccessor httpContextAccessor;
@@ -93,7 +95,7 @@ public class TicketService : ITicketService
     var ticket = await this.ticketRepository.GetByIdAsync(dto.Id).ConfigureAwait(false);
     if (ticket == null)
     {
-      throw new KeyNotFoundException("Ticket nicht gefunden.");
+      throw new KeyNotFoundException(TicketNotFoundMessage);
     }
 
     ticket.UpdateTitle(dto.Title);
@@ -111,7 +113,7 @@ public class TicketService : ITicketService
     var ticket = await this.ticketRepository.GetByIdAsync(id).ConfigureAwait(false);
     if (ticket == null)
     {
-      throw new KeyNotFoundException("Ticket nicht gefunden.");
+      throw new KeyNotFoundException(TicketNotFoundMessage);
     }
 
     if (newStatus == "Closed")
@@ -152,7 +154,7 @@ public class TicketService : ITicketService
     var ticket = await this.ticketRepository.GetByIdAsync(ticketId).ConfigureAwait(false);
     if (ticket == null)
     {
-      throw new KeyNotFoundException("Ticket nicht gefunden.");
+      throw new KeyNotFoundException(TicketNotFoundMessage);
     }
 
     ticket.AddLink(blockerId, TicketsPlease.Domain.Enums.TicketLinkType.Blocks);
@@ -171,11 +173,7 @@ public class TicketService : ITicketService
     var link = ticket.BlockedBy.Union(ticket.Blocking).FirstOrDefault(l => l.Id == dependencyId);
     if (link != null)
     {
-      if (ticket.BlockedBy.Contains(link))
-      {
-        ticket.BlockedBy.Remove(link);
-      }
-      else
+      if (!ticket.BlockedBy.Remove(link))
       {
         ticket.Blocking.Remove(link);
       }
