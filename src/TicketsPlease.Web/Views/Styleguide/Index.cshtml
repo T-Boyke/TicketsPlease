@@ -18,6 +18,20 @@
         transform: scale(1.2);
         box-shadow: 0 0 15px oklch(0.55 0.22 260 / 0.8);
     }
+    input[type="range"].slider-glow::-moz-range-thumb {
+        height: 18px;
+        width: 18px;
+        border-radius: 50%;
+        background: oklch(0.55 0.22 260);
+        box-shadow: 0 0 10px oklch(0.55 0.22 260 / 0.5);
+        cursor: pointer;
+        border: 2px solid white;
+        transition: all 0.2s ease;
+    }
+    input[type="range"].slider-glow::-moz-range-thumb:hover {
+        transform: scale(1.2);
+        box-shadow: 0 0 15px oklch(0.55 0.22 260 / 0.8);
+    }
 
     /* Destructive Danger Button Polish */
     .btn-danger-premium {
@@ -96,7 +110,6 @@
                     <p class="text-xs text-text-muted mb-2">Azure High-Contrast</p>
                     <code class="block p-2 bg-surface-soft dark:bg-dark-surface-soft rounded text-[9px] font-mono border border-border-muted overflow-x-auto whitespace-nowrap">--brand-primary</code>
                 </div>
-            </div>
             </div>
             <div class="card p-5 group hover-lift border-t-4 border-t-amber-500">
                 <div class="h-24 min-h-[6rem] w-full rounded-lg shadow-inner mb-4" style="background-color: #f59e0b;"></div>
@@ -231,10 +244,11 @@
                 <div class="grid grid-cols-2 gap-4">
                     <button class="btn-primary min-w-[160px] py-4">Primary Solid</button>
                     <button class="btn-accent min-w-[160px] py-4">Accent Solid</button>
-                    <button class="px-6 py-4 rounded-xl bg-slate-500 text-white font-bold hover:bg-slate-600 transition-all active:scale-95 shadow-lg shadow-slate-500/20">Secondary Solid</button>
-                    <button class="px-6 py-4 rounded-xl border-2 border-slate-500 text-slate-500 font-bold hover:bg-slate-500 hover:text-white transition-all active:scale-95">Secondary Outline</button>
+                    <button class="btn-secondary min-w-[160px] py-4">Secondary Solid</button>
+                    <button class="btn-secondary-outline min-w-[160px] py-4">Secondary Outline</button>
                     <button class="btn-ghost border border-border-muted min-w-[160px] py-4">Ghost Default</button>
-                    <button class="btn-danger min-w-[160px] py-4 font-bold">Danger Action</button>
+                    <button class="btn-danger min-w-[160px] py-4">Danger Solid</button>
+                    <button class="btn-success min-w-[160px] py-4">Success Solid</button>
                 </div>
 
                 <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mt-12 mb-8 border-l-4 border-brand-primary pl-4">Premium Effects</h3>
@@ -478,19 +492,21 @@
                                 <input type="range" min="0" max="100" step="25" class="w-full h-1.5 bg-surface-subtle dark:bg-dark-surface-soft rounded-lg appearance-none cursor-pointer accent-brand-accent transition-colors" />
                             </div>
                             <!-- Glow Thumb -->
-                            <div class="space-y-4 p-4 rounded-2xl bg-surface-soft/30 dark:bg-dark-surface-soft/30 border border-border-muted/20">
+                            <div class="space-y-4 p-4 rounded-2xl bg-surface-soft/30 dark:bg-dark-surface-soft/30 border border-border-muted/20 overflow-hidden">
                                 <label class="block text-[10px] font-black uppercase tracking-widest text-text-muted mb-2">Glow Thumb</label>
-                                <div class="flex items-center gap-3">
-                                    <i class="fa-solid fa-volume-off text-[10px] text-text-muted"></i>
-                                    <input type="range" class="flex-grow h-1 bg-brand-primary/20 rounded-full appearance-none cursor-pointer slider-glow" />
-                                    <i class="fa-solid fa-volume-high text-[10px] text-brand-primary"></i>
+                                <div class="flex items-center gap-3 w-full">
+                                    <i class="fa-solid fa-volume-off text-[10px] text-text-muted flex-shrink-0"></i>
+                                    <input type="range" class="min-w-0 flex-grow h-1 bg-brand-primary/20 rounded-full appearance-none cursor-pointer slider-glow" />
+                                    <i class="fa-solid fa-volume-high text-[10px] text-brand-primary flex-shrink-0"></i>
                                 </div>
                             </div>
                             <!-- Range Preview -->
-                            <div class="space-y-4 p-4 rounded-2xl bg-surface-soft/30 dark:bg-dark-surface-soft/30 border border-border-muted/20">
+                            <div class="space-y-4 p-4 rounded-2xl bg-surface-soft/30 dark:bg-dark-surface-soft/30 border border-border-muted/20 overflow-hidden">
                                 <label class="block text-[10px] font-black uppercase tracking-widest text-text-muted mb-2">Visual Range</label>
-                                <div class="relative h-2 bg-surface-subtle dark:bg-dark-surface-soft rounded-full overflow-hidden mt-3">
-                                    <div class="absolute h-full bg-brand-primary/40 shadow-[0_0_10px_rgba(37,99,235,0.3)]" style="left: 20%; right: 30%"></div>
+                                <div class="pt-2">
+                                    <div class="relative h-2 bg-surface-subtle dark:bg-dark-surface-soft rounded-full overflow-hidden">
+                                        <div class="absolute h-full bg-brand-primary/40 shadow-[0_0_10px_rgba(37,99,235,0.3)]" style="left: 20%; right: 30%"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

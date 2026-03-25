@@ -41,6 +41,52 @@
   }
 }
 
+@utility btn-secondary {
+  @apply btn bg-slate-500 text-white shadow-sm;
+  &:hover {
+    @apply -translate-y-0.5 bg-slate-600 shadow-md;
+  }
+  &:active {
+    @apply translate-y-0 scale-95;
+  }
+}
+
+@utility btn-secondary-outline {
+  @apply btn border-2 border-slate-500 text-slate-500;
+  &:hover {
+    @apply bg-slate-500 text-white -translate-y-0.5 shadow-md;
+  }
+  &:active {
+    @apply translate-y-0 scale-95;
+  }
+}
+
+@utility btn-danger {
+  @apply btn bg-danger-primary text-white shadow-sm;
+
+  &:hover {
+    @apply -translate-y-0.5 shadow-lg saturate-150;
+    background-color: oklch(0.48 0.24 25);
+  }
+
+  &:active {
+    @apply translate-y-0 scale-95;
+  }
+}
+
+@utility btn-success {
+  @apply btn bg-success-primary text-white shadow-sm;
+
+  &:hover {
+    @apply -translate-y-0.5 shadow-lg saturate-150;
+    background-color: oklch(0.48 0.24 155);
+  }
+
+  &:active {
+    @apply translate-y-0 scale-95;
+  }
+}
+
 /* Sizes */
 @utility btn-sm { @apply px-3 py-1.5 text-xs; }
 @utility btn-md { @apply px-5 py-2.5 text-sm; }

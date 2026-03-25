@@ -3,6 +3,7 @@
 // </copyright>
 
 using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,10 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 builder.Services.AddOpenApi();
+
+// Add Data Protection configuration to prevent cryptographic mismatches (Enterprise Standard)
+builder.Services.AddDataProtection()
+    .SetApplicationName("TicketsPlease");
 
 // Identity Configuration
 builder.Services.AddIdentity<User, Role>(options =>
