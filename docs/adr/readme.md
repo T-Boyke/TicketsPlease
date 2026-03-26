@@ -35,10 +35,13 @@ architektonischen Design-Entscheidungen für das Projekt **TicketsPlease**.
 | [0083](0083-background-jobs-hangfire.md)                | Background Job Scheduling (Hangfire)             | Accepted | 2026-03-06 |
 | [0090](0090-identity-access-management.md)              | Identity & Access Management (IAM)               | Accepted | 2026-03-08 |
 | [0100](0100-globalization-localization.md)              | Globalization & Localization (I18N)              | Accepted | 2026-03-08 |
-| [0110](0110-security-secret-management.md)              | Security Policies & Secret Management            | Accepted | 2026-03-08 |
-| [0120](0120-synthetic-data-privacy.md)                  | Synthetic Data Generation                        | Proposed | -          |
-| [0130](0130-visual-documentation-strategy.md)           | Visual Documentation Strategy                    | Accepted | 2026-03-26 |
-| [0140](0140-test-infrastructure-security-relaxation.md) | Test Infrastructure & Security Relaxation        | Accepted | 2026-03-26 |
+| [0110](0110-security-secret-management.md)      | Security Policies & Secret Management            | Accepted | 2026-03-08 |
+| [0120](0120-synthetic-data-privacy.md)          | Synthetic Data Generation                        | Proposed | -          |
+| [0130](0130-visual-documentation-strategy.md)   | Visual Documentation Strategy                    | Accepted | 2026-03-26 |
+| [0140](0140-test-infrastructure-security-relaxation.md) | Test Infrastructure Security Relaxation    | Accepted | 2026-03-26 |
+| [0150](0150-api-contract-stabilization.md)      | API Contract Stabilization                       | Proposed | -          |
+| [0160](0160-resource-isolation-strategy.md)      | Resource Isolation Strategy                      | Proposed | -          |
+| [0170](0170-data-initialization-strategy.md)    | Data Initialization Strategy                     | Proposed | -          |
 
 ---
 
