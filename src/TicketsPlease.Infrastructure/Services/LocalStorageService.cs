@@ -42,14 +42,25 @@ public class LocalStorageService : IFileStorageService
 
     var extension = Path.GetExtension(fileName);
     var blobName = $"{Guid.NewGuid()}{extension}";
-    var fullPath = Path.Combine(this.storageRoot, blobName);
+    
+    // Create dated subdirectories (e.g., uploads/2026/03/)
+    var datePath = DateTime.UtcNow.ToString("yyyy/MM");
+    var directoryPath = Path.Combine(this.storageRoot, datePath);
+    
+    if (!Directory.Exists(directoryPath))
+    {
+      Directory.CreateDirectory(directoryPath);
+    }
+
+    var blobPath = Path.Combine(datePath, blobName).Replace('\\', '/');
+    var fullPath = Path.Combine(this.storageRoot, blobPath);
 
     using (var fileStream = new FileStream(fullPath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, true))
     {
       await content.CopyToAsync(fileStream, ct).ConfigureAwait(false);
     }
 
-    return blobName;
+    return blobPath;
   }
 
   /// <inheritdoc />
