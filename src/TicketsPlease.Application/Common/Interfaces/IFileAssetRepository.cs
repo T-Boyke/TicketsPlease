@@ -13,28 +13,30 @@ using TicketsPlease.Domain.Entities;
 /// </summary>
 public interface IFileAssetRepository
 {
-    /// <summary>
-    /// Ruft eine Datei nach ID ab.
-    /// </summary>
-    /// <param name="id">Die ID.</param>
-    /// <returns>Die Datei.</returns>
-    Task<FileAsset?> GetByIdAsync(Guid id);
+  /// <summary>
+  /// Ruft eine Datei nach ID ab.
+  /// </summary>
+  /// <param name="id">Die ID.</param>
+  /// <returns>Die Datei.</returns>
+  public Task<FileAsset?> GetByIdAsync(Guid id);
 
-    /// <summary>
-    /// Fügt eine neue Datei hinzu.
-    /// </summary>
-    /// <param name="fileAsset">Die Datei.</param>
-    /// <returns>Ein Task.</returns>
-    Task AddAsync(FileAsset fileAsset);
+  /// <summary>
+  /// Fügt eine neue Datei hinzu.
+  /// </summary>
+  /// <param name="fileAsset">Die Datei.</param>
+  /// <returns>Ein Task.</returns>
+  public Task AddAsync(FileAsset fileAsset);
 
-    /// <summary>
-    /// Löscht eine Datei aus der DB.
-    /// </summary>
-    /// <param name="fileAsset">Die zu löschende Datei.</param>
-    Task DeleteAsync(FileAsset fileAsset);
+  /// <summary>
+  /// Löscht eine Datei aus der DB.
+  /// </summary>
+  /// <param name="fileAsset">Die zu löschende Datei.</param>
+  /// <returns>Ein Task.</returns>
+  public Task DeleteAsync(FileAsset fileAsset);
 
-    /// <summary>
-    /// Speichert Änderungen.
-    /// </summary>
-    Task SaveChangesAsync();
+  /// <summary>
+  /// Speichert Änderungen.
+  /// </summary>
+  /// <returns>Ein Task.</returns>
+  public Task SaveChangesAsync();
 }

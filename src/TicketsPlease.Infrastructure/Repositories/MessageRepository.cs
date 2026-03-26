@@ -19,47 +19,47 @@ using TicketsPlease.Infrastructure.Persistence;
 /// </summary>
 public class MessageRepository : IMessageRepository
 {
-    private readonly AppDbContext context;
+  private readonly AppDbContext context;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="MessageRepository"/> class.
-    /// </summary>
-    /// <param name="context">Der Datenbankkontext.</param>
-    public MessageRepository(AppDbContext context)
-    {
-        this.context = context;
-    }
+  /// <summary>
+  /// Initializes a new instance of the <see cref="MessageRepository"/> class.
+  /// </summary>
+  /// <param name="context">Der Datenbankkontext.</param>
+  public MessageRepository(AppDbContext context)
+  {
+    this.context = context;
+  }
 
-    /// <inheritdoc />
-    public async Task<Message?> GetByIdAsync(Guid id, CancellationToken ct = default)
-    {
-        return await this.context.Messages
-            .Include(m => m.SenderUser)
-            .Include(m => m.ReceiverUser)
-            .FirstOrDefaultAsync(m => m.Id == id, ct).ConfigureAwait(false);
-    }
+  /// <inheritdoc />
+  public async Task<Message?> GetByIdAsync(Guid id, CancellationToken ct = default)
+  {
+    return await this.context.Messages
+        .Include(m => m.SenderUser)
+        .Include(m => m.ReceiverUser)
+        .FirstOrDefaultAsync(m => m.Id == id, ct).ConfigureAwait(false);
+  }
 
-    /// <inheritdoc />
-    public async Task<List<Message>> GetUserMessagesAsync(Guid userId, CancellationToken ct = default)
-    {
-        return await this.context.Messages
-            .AsNoTracking()
-            .Where(m => m.SenderUserId == userId || m.ReceiverUserId == userId)
-            .Include(m => m.SenderUser)
-            .Include(m => m.ReceiverUser)
-            .OrderByDescending(m => m.SentAt)
-            .ToListAsync(ct).ConfigureAwait(false);
-    }
+  /// <inheritdoc />
+  public async Task<List<Message>> GetUserMessagesAsync(Guid userId, CancellationToken ct = default)
+  {
+    return await this.context.Messages
+        .AsNoTracking()
+        .Where(m => m.SenderUserId == userId || m.ReceiverUserId == userId)
+        .Include(m => m.SenderUser)
+        .Include(m => m.ReceiverUser)
+        .OrderByDescending(m => m.SentAt)
+        .ToListAsync(ct).ConfigureAwait(false);
+  }
 
-    /// <inheritdoc />
-    public async Task AddAsync(Message message, CancellationToken ct = default)
-    {
-        await this.context.Messages.AddAsync(message, ct).ConfigureAwait(false);
-    }
+  /// <inheritdoc />
+  public async Task AddAsync(Message message, CancellationToken ct = default)
+  {
+    await this.context.Messages.AddAsync(message, ct).ConfigureAwait(false);
+  }
 
-    /// <inheritdoc />
-    public async Task SaveChangesAsync(CancellationToken ct = default)
-    {
-        await this.context.SaveChangesAsync(ct).ConfigureAwait(false);
-    }
+  /// <inheritdoc />
+  public async Task SaveChangesAsync(CancellationToken ct = default)
+  {
+    await this.context.SaveChangesAsync(ct).ConfigureAwait(false);
+  }
 }

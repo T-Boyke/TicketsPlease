@@ -5,27 +5,26 @@
 namespace TicketsPlease.Application.Common.Interfaces;
 
 using TicketsPlease.Application.Common.Dtos;
-using TicketsPlease.Domain.Entities;
 
 /// <summary>
 /// Definiert die Geschäftslogik für die Nachrichtenverwaltung.
 /// </summary>
 public interface IMessageService
 {
-    /// <summary>
-    /// Ruft alle Nachrichten für den aktuellen Benutzer ab.
-    /// </summary>
-    /// <param name="userId">Die ID des Benutzers.</param>
-    /// <param name="ct">Das Abbruchsignal.</param>
-    /// <returns>Eine Liste von Nachrichten-DTOs.</returns>
-    Task<List<MessageDto>> GetUserMessagesAsync(Guid userId, CancellationToken ct = default);
+  /// <summary>
+  /// Ruft alle Nachrichten für den aktuellen Benutzer ab.
+  /// </summary>
+  /// <param name="userId">Die ID des Benutzers.</param>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Eine Liste von Nachrichten-DTOs.</returns>
+  public Task<List<MessageDto>> GetUserMessagesAsync(Guid userId, CancellationToken ct = default);
 
-    /// <summary>
-    /// Sendet eine neue Nachricht.
-    /// </summary>
-    /// <param name="senderId">Die ID des Absenders.</param>
-    /// <param name="dto">Das DTO mit den Nachrichtendaten.</param>
-    /// <param name="ct">Das Abbruchsignal.</param>
-    /// <returns>Das DTO der erstellten Nachricht.</returns>
-    Task<MessageDto> SendMessageAsync(Guid senderId, CreateMessageDto dto, CancellationToken ct = default);
+  /// <summary>
+  /// Sendet eine neue Nachricht.
+  /// </summary>
+  /// <param name="senderId">Die ID des Absenders.</param>
+  /// <param name="dto">Das DTO mit den Nachrichtendaten.</param>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Das DTO der erstellten Nachricht.</returns>
+  public Task<MessageDto> SendMessageAsync(Guid senderId, CreateMessageDto dto, CancellationToken ct = default);
 }

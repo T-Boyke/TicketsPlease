@@ -13,28 +13,28 @@ using System.Threading.Tasks;
 /// </summary>
 public interface IFileStorageService
 {
-    /// <summary>
-    /// Speichert eine Datei und gibt den Pfad/Key zurück.
-    /// </summary>
-    /// <param name="content">Der Datenstrom der Datei.</param>
-    /// <param name="fileName">Der gewünschte Dateiname (zur Erweiterungsprüfung).</param>
-    /// <param name="ct">Abbruchtoken.</param>
-    /// <returns>Der Speicherpfad (BlobPath).</returns>
-    Task<string> SaveFileAsync(Stream content, string fileName, CancellationToken ct = default);
+  /// <summary>
+  /// Speichert eine Datei und gibt den Pfad/Key zurück.
+  /// </summary>
+  /// <param name="content">Der Datenstrom der Datei.</param>
+  /// <param name="fileName">Der gewünschte Dateiname (zur Erweiterungsprüfung).</param>
+  /// <param name="ct">Abbruchtoken.</param>
+  /// <returns>Der Speicherpfad (BlobPath).</returns>
+  public Task<string> SaveFileAsync(Stream content, string fileName, CancellationToken ct = default);
 
-    /// <summary>
-    /// Ruft eine Datei ab.
-    /// </summary>
-    /// <param name="blobPath">Der Speicherpfad.</param>
-    /// <param name="ct">Abbruchtoken.</param>
-    /// <returns>Der Datenstrom der Datei.</returns>
-    Task<Stream> GetFileAsync(string blobPath, CancellationToken ct = default);
+  /// <summary>
+  /// Ruft eine Datei ab.
+  /// </summary>
+  /// <param name="blobPath">Der Speicherpfad.</param>
+  /// <param name="ct">Abbruchtoken.</param>
+  /// <returns>Der Datenstrom der Datei.</returns>
+  public Task<Stream> GetFileAsync(string blobPath, CancellationToken ct = default);
 
-    /// <summary>
-    /// Löscht eine Datei.
-    /// </summary>
-    /// <param name="blobPath">Der Speicherpfad.</param>
-    /// <param name="ct">Abbruchtoken.</param>
-    /// <returns>Ein Task.</returns>
-    Task DeleteFileAsync(string blobPath, CancellationToken ct = default);
+  /// <summary>
+  /// Löscht eine Datei.
+  /// </summary>
+  /// <param name="blobPath">Der Speicherpfad.</param>
+  /// <param name="ct">Abbruchtoken.</param>
+  /// <returns>Ein Task.</returns>
+  public Task DeleteFileAsync(string blobPath, CancellationToken ct = default);
 }
