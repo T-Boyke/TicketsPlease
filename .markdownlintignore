@@ -1,0 +1,7 @@
+tests/coverage-report/
+coverage-report/
+TestResults/
+bin/
+obj/
+node_modules/
+.sonarqube/

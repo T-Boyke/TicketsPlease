@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Optimized
 
 - **Build & Linting**: Achieved 100% compliance with `dotnet format --verify-no-changes`.
+- **Ignore Strategy**: Added `.markdownlintignore` and updated `.gitignore` for coverage reports.
 - **Static Analysis**: Resolved multiple SA1402, CA1515, and CS0660 warnings.
 
 ### Fixed

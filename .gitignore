@@ -64,7 +64,10 @@ tests/TicketsPlease.UnitTests/obj/
 ehthumbs.db
 Thumbs.db
 
-## [Test Results]
+## Testing & Coverage
+tests/coverage-report/
+coverage-report/
+TestResults/
 [Tt]est[Rr]esults/
 [Ff]ixed[Rr]esults/
 

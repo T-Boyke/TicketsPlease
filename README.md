@@ -83,10 +83,10 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 | **Kommentare**      | ✅ Fertig     | Ticket-Kommentare (Domain Logic)             | MVP (F5)     |
 | **Filterung**       | ✅ Fertig     | Nach Projekt, User, Ersteller                | MVP (F6)     |
 | **Abhängigkeiten**  | ✅ Fertig     | Blockierende Tickets (Domain Logic)          | MVP (F7)     |
-| **Workflows**       | ✅ Fertig     | Status-Verwaltung für Projekte (Domain Logic) | MVP (F8)     |
-| **Nachrichten**     | 🏗️ Ausstehend | User-to-User Messaging                       | MVP (F9)     |
-| **Kanban Board**    | 🗺️ Roadmap    | Interaktives Board mit Drag & Drop           | Enterprise   |
-| **Plugin System**   | 🗺️ Roadmap    | Externe Module (Dynamic Loading)             | Enterprise   |
+| **Workflows**       | ✅ Fertig      | Status-Verwaltung für Projekte (Domain Logic) | MVP (F8)      |
+| **Nachrichten**      | 🏗️ Ausstehend | User-to-User Messaging                        | MVP (F9)      |
+| **Kanban Board**     | 🗺️ Roadmap     | Interaktives Board mit Drag & Drop            | Enterprise    |
+| **Plugin System**    | 🗺️ Roadmap     | Externe Module (Dynamic Loading)              | Enterprise    |
 
 ---
 
