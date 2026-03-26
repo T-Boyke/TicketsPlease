@@ -20,17 +20,17 @@ We will maintain a "Big 11" set of comprehensive Mermaid diagrams to visualize a
 critical aspects of the system. These diagrams will be co-located in `docs/big5.md`
 and will include:
 
-1.  Layered Architecture
-2.  Domain Class Model
-3.  ERD (Database Schema)
-4.  Use Case Diagram
-5.  Sequence Diagram (Ticket Lifecycle)
-6.  Test Strategy (Pyramid & Layers)
-7.  Ticket Lifecycle State Machine
-8.  Deployment Architecture
-9.  Component Dependencies
-10. Security & Data Flow (DFD)
-11. Business Process Workflow
+1. **Layered Architecture**
+2. **Domain Class Model**
+3. **ERD (Database Schema)**
+4. **Use Case Diagram**
+5. **Sequence Diagram (Ticket Lifecycle)**
+6. **Test Strategy (Pyramid & Layers)**
+7. **Ticket Lifecycle State Machine**
+8. **Deployment Architecture**
+9. **Component Dependencies**
+10. **Security & Data Flow (DFD)**
+11. **Business Process Workflow**
 
 ## Consequences
 
