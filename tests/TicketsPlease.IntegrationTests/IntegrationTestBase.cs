@@ -55,6 +55,14 @@ public abstract class IntegrationTestBase : IDisposable
                 {
                   options.UseSqlite(this.connection);
                 });
+
+            // Authentifizierung für Tests überschreiben
+            services.AddAuthentication(TestAuthHandler.AuthenticationScheme)
+                    .AddScheme<Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions, TestAuthHandler>(
+                        TestAuthHandler.AuthenticationScheme, options => { });
+
+            // Antiforgery deaktivieren für Tests
+            services.AddSingleton<Microsoft.AspNetCore.Antiforgery.IAntiforgery, FakeAntiforgery>();
           });
     });
 
@@ -122,5 +130,24 @@ public abstract class IntegrationTestBase : IDisposable
       this.connection.Dispose();
       this.Factory?.Dispose();
     }
+  }
+
+  /// <summary>
+  /// Fake Antiforgery implementation for tests.
+  /// </summary>
+  [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Instantiated by DI in IntegrationTestBase")]
+  private sealed class FakeAntiforgery : Microsoft.AspNetCore.Antiforgery.IAntiforgery
+  {
+    public Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet GetAndStoreTokens(Microsoft.AspNetCore.Http.HttpContext httpContext) => new("test", "test", "test", "test");
+
+    public Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet GetTokens(Microsoft.AspNetCore.Http.HttpContext httpContext) => new("test", "test", "test", "test");
+
+    public Task<bool> IsRequestValidAsync(Microsoft.AspNetCore.Http.HttpContext httpContext) => Task.FromResult(true);
+
+    public void SetCookieTokenAndHeader(Microsoft.AspNetCore.Http.HttpContext httpContext)
+    {
+    }
+
+    public Task ValidateRequestAsync(Microsoft.AspNetCore.Http.HttpContext httpContext) => Task.CompletedTask;
   }
 }

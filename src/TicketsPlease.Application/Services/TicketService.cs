@@ -122,8 +122,12 @@ public class TicketService : ITicketService
     }
     else
     {
-      // MVP: Status-Update über Repository-Save (Property-Setzen erfolgt im Controller oder Service)
-      // Beachte: Ticket Entity Status ist private set in DDD, hier müsste ggf. eine Methode hin.
+      var state = await this.ticketRepository.GetWorkflowStateByNameAsync(newStatus).ConfigureAwait(false);
+      if (state != null)
+      {
+        ticket.MoveToState(state.Id);
+      }
+
       await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
     }
   }
@@ -173,11 +177,7 @@ public class TicketService : ITicketService
     var link = ticket.BlockedBy.Union(ticket.Blocking).FirstOrDefault(l => l.Id == dependencyId);
     if (link != null)
     {
-      if (!ticket.BlockedBy.Remove(link))
-      {
-        ticket.Blocking.Remove(link);
-      }
-
+      await this.ticketRepository.RemoveLinkAsync(link.Id).ConfigureAwait(false);
       await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
     }
   }

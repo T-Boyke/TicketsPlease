@@ -57,4 +57,20 @@ public interface ITicketRepository
   /// <param name="ct">Das Abbruchsignal.</param>
   /// <returns>Die ID des Standard-Status.</returns>
   public Task<Guid> GetDefaultWorkflowStateIdAsync(CancellationToken ct = default);
+
+  /// <summary>
+  /// Ruft einen Workflow-Status anhand seines Namens ab.
+  /// </summary>
+  /// <param name="name">Der Name des Status.</param>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Der Status oder null.</returns>
+  public Task<WorkflowState?> GetWorkflowStateByNameAsync(string name, CancellationToken ct = default);
+
+  /// <summary>
+  /// Entfernt eine Ticket-Verknüpfung.
+  /// </summary>
+  /// <param name="linkId">Die ID der Verknüpfung.</param>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Ein Task.</returns>
+  public Task RemoveLinkAsync(Guid linkId, CancellationToken ct = default);
 }

@@ -110,4 +110,20 @@ public class TicketRepository : ITicketRepository
     var state = await this.context.WorkflowStates.AsNoTracking().FirstOrDefaultAsync(ct).ConfigureAwait(false);
     return state?.Id ?? Guid.Empty;
   }
+
+  /// <inheritdoc />
+  public async Task<WorkflowState?> GetWorkflowStateByNameAsync(string name, CancellationToken ct = default)
+  {
+    return await this.context.WorkflowStates.AsNoTracking().FirstOrDefaultAsync(s => s.Name == name, ct).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc />
+  public async Task RemoveLinkAsync(Guid linkId, CancellationToken ct = default)
+  {
+    var link = await this.context.TicketLinks.FindAsync(new object?[] { linkId }, ct).ConfigureAwait(false);
+    if (link != null)
+    {
+      this.context.TicketLinks.Remove(link);
+    }
+  }
 }
