@@ -5,7 +5,9 @@
 namespace TicketsPlease.Web.Controllers;
 
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Web.Models;
 
 /// <summary>
@@ -13,13 +15,25 @@ using TicketsPlease.Web.Models;
 /// </summary>
 internal sealed class HomeController : Controller
 {
+  private readonly IDashboardService dashboardService;
+
+  public HomeController(IDashboardService dashboardService)
+  {
+    this.dashboardService = dashboardService;
+  }
   /// <summary>
   /// Zeigt die Index-Seite an.
   /// </summary>
   /// <returns>Die Index-View.</returns>
   [HttpGet]
-  public IActionResult Index()
+  public async Task<IActionResult> Index()
   {
+    if (this.User.Identity?.IsAuthenticated == true)
+    {
+      var stats = await this.dashboardService.GetDashboardStatsAsync().ConfigureAwait(false);
+      return this.View(stats);
+    }
+
     return this.View();
   }
 

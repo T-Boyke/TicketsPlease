@@ -1,150 +1,281 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @using TicketsPlease.Application.Common.Interfaces
+@using TicketsPlease.Application.Common.Dtos
+@model DashboardStatsDto
 @inject ICorporateSkinProvider SkinProvider
 @inject IViewLocalizer L
 @{
     ViewData["Title"] = L["Welcome"];
 }
 
-@* Hero Section with Glassmorphism *@
-<section class="relative bg-slate-50 overflow-hidden py-24 sm:py-32" aria-labelledby="hero-heading">
-    <div class="absolute inset-0 z-0">
-        <div class="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-brand-primary/10 ring-1 ring-brand-primary/5 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
-        <div class="absolute -top-24 right-0 -z-10 w-96 h-96 bg-brand-primary/10 rounded-full blur-3xl"></div>
-    </div>
+@if (Model != null)
+{
+    @* Dashboard for Logged-In Users *@
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <header class="mb-12">
+            <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">@L["Dashboard"]</h1>
+            <p class="mt-2 text-lg text-slate-500">@L["Welcome back! Here's what's happening in your workspace today."]</p>
+        </header>
 
-    <div class="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="mx-auto max-w-2xl lg:max-w-4xl text-center">
-            <h1 id="hero-heading" class="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-6xl animate-in slide-in-from-bottom-4 duration-700">
-                <span class="block">@L["Collaborative Ticketing"]</span>
-                <span class="block text-brand-primary mt-2">@L["For Enterprise Squads"]</span>
-            </h1>
-            <p class="mt-8 text-lg leading-8 text-slate-600 sm:text-xl animate-in slide-in-from-bottom-6 duration-1000">
-                @L["Manage your projects with surgical precision. TicketsPlease combines Clean Architecture with an intuitive Kanban experience - secure, scalable, and multi-tenant."]
-            </p>
-            <div class="mt-10 flex items-center justify-center gap-x-6 animate-in fade-in duration-1000 delay-500">
-                <a asp-controller="Account" asp-action="Register" class="rounded-full bg-brand-primary px-8 py-4 text-lg font-bold text-white shadow-xl shadow-brand-primary/40 hover:bg-brand-secondary hover:scale-105 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary">
-                    <i class="fa-solid fa-rocket mr-2 fa-bounce"></i>
-                    @L["Start Your Journey"]
-                </a>
-                <a href="#features" class="text-sm font-bold leading-6 text-slate-900 flex items-center group">
-                    @L["View Features"] 
-                    <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
-                </a>
+        @* Stat Grid *@
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 hover:scale-[1.02] transition-transform duration-300">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-3 bg-brand-primary/10 rounded-2xl text-brand-primary">
+                        <i class="fa-solid fa-ticket text-xl"></i>
+                    </div>
+                </div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">@L["Total Tickets"]</p>
+                <h3 class="text-3xl font-black text-slate-900 mt-1">@Model.TotalTickets</h3>
+                <div class="mt-4 flex items-center text-xs font-bold">
+                    <span class="text-emerald-500 bg-emerald-50 px-2 py-0.5 rounded-full mr-2">@Model.OpenTickets @L["Open"]</span>
+                    <span class="text-slate-400 bg-slate-50 px-2 py-0.5 rounded-full">@Model.ClosedTickets @L["Done"]</span>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 hover:scale-[1.02] transition-transform duration-300">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-3 bg-indigo-500/10 rounded-2xl text-indigo-500">
+                        <i class="fa-solid fa-diagram-project text-xl"></i>
+                    </div>
+                </div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">@L["Active Projects"]</p>
+                <h3 class="text-3xl font-black text-slate-900 mt-1">@Model.TotalProjects</h3>
+                <p class="mt-4 text-xs font-bold text-slate-400 flex items-center">
+                    <i class="fa-solid fa-check-double mr-1 text-indigo-400"></i> @L["Across all teams"]
+                </p>
+            </div>
+
+            <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 hover:scale-[1.02] transition-transform duration-300">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-3 bg-amber-500/10 rounded-2xl text-amber-500">
+                        <i class="fa-solid fa-users text-xl"></i>
+                    </div>
+                </div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">@L["Total Users"]</p>
+                <h3 class="text-3xl font-black text-slate-900 mt-1">@Model.TotalUsers</h3>
+                <div class="mt-4 flex flex-wrap gap-2">
+                    @foreach (var role in Model.UsersByRole)
+                    {
+                        <span class="text-[8px] font-black uppercase tracking-tighter px-2 py-0.5 bg-slate-100 text-slate-500 rounded-lg">@role.Key: @role.Value</span>
+                    }
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 hover:scale-[1.02] transition-transform duration-300 overflow-hidden relative">
+                <div class="absolute -right-4 -bottom-4 text-brand-primary/5 text-8xl rotate-12">
+                    <i class="fa-solid fa-rocket"></i>
+                </div>
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-3 bg-rose-500/10 rounded-2xl text-rose-500">
+                        <i class="fa-solid fa-chart-line text-xl"></i>
+                    </div>
+                </div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">@L["Velocity"]</p>
+                <h3 class="text-3xl font-black text-slate-900 mt-1">@(Model.TotalTickets > 0 ? Math.Round((double)Model.ClosedTickets / Model.TotalTickets * 100, 0) : 0)%</h3>
+                <p class="mt-4 text-xs font-bold text-slate-400">@L["Completion rate"]</p>
+            </div>
+        </div>
+
+        @* Quick Actions *@
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-8">
+                <div class="bg-slate-900 rounded-[2.5rem] p-12 text-white overflow-hidden relative group">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-brand-primary/20 rounded-full blur-[100px] group-hover:bg-brand-primary/30 transition-all duration-700"></div>
+                    <div class="relative z-10">
+                        <h2 class="text-4xl font-black mb-4">@L["Ready to scale?"]</h2>
+                        <p class="text-slate-400 text-lg mb-10 max-w-md">@L["Your workspace is optimized and ready for more. Start a new project or manage your existing team."]</p>
+                        <div class="flex flex-wrap gap-4">
+                            <a asp-controller="Tickets" asp-action="Index" class="px-8 py-4 bg-brand-primary rounded-full font-bold text-white shadow-xl shadow-brand-primary/20 hover:scale-105 active:scale-95 transition-all">
+                                <i class="fa-solid fa-plus mr-2"></i> @L["View Board"]
+                            </a>
+                            <a asp-controller="Messages" asp-action="Index" class="px-8 py-4 bg-white/10 backdrop-blur-md rounded-full font-bold text-white hover:bg-white/20 transition-all">
+                                <i class="fa-solid fa-message mr-2"></i> @L["Messages"]
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-xl shadow-slate-200/50">
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6 flex items-center">
+                        <i class="fa-solid fa-bolt mr-2 text-brand-primary"></i> @L["Quick Access"]
+                    </h3>
+                    <div class="space-y-4">
+                        <a asp-controller="Projects" asp-action="Index" class="flex items-center p-4 rounded-2xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all group">
+                            <div class="h-10 w-10 rounded-xl bg-slate-100 text-slate-400 group-hover:bg-brand-primary/10 group-hover:text-brand-primary flex items-center justify-center transition-colors">
+                                <i class="fa-solid fa-folder"></i>
+                            </div>
+                            <span class="ml-4 font-bold text-slate-700">@L["Projects"]</span>
+                            <i class="fa-solid fa-chevron-right ml-auto text-slate-300 text-[10px]"></i>
+                        </a>
+                        <a asp-controller="Tickets" asp-action="Create" class="flex items-center p-4 rounded-2xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all group">
+                            <div class="h-10 w-10 rounded-xl bg-slate-100 text-slate-400 group-hover:bg-indigo-500/10 group-hover:text-indigo-500 flex items-center justify-center transition-colors">
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
+                            <span class="ml-4 font-bold text-slate-700">@L["New Ticket"]</span>
+                            <i class="fa-solid fa-chevron-right ml-auto text-slate-300 text-[10px]"></i>
+                        </a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-controller="Admin" asp-action="Index" class="flex items-center p-4 rounded-2xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all group">
+                                <div class="h-10 w-10 rounded-xl bg-slate-100 text-slate-400 group-hover:bg-rose-500/10 group-hover:text-rose-500 flex items-center justify-center transition-colors">
+                                    <i class="fa-solid fa-user-gear"></i>
+                                </div>
+                                <span class="ml-4 font-bold text-slate-700">@L["Admin Panel"]</span>
+                                <i class="fa-solid fa-chevron-right ml-auto text-slate-300 text-[10px]"></i>
+                            </a>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</section>
-
-@* Feature Section with Beautiful Cards *@
-<section id="features" class="py-24 bg-white" aria-labelledby="features-heading">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="mx-auto max-w-2xl lg:text-center">
-            <h2 id="features-heading" class="text-base font-semibold leading-7 text-brand-primary uppercase tracking-widest">@L["The Arsenal"]</h2>
-            <p class="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">@L["Everything you need for efficient management"]</p>
+}
+else
+{
+    @* Existing Landing Page for Guests *@
+    @* Hero Section with Glassmorphism *@
+    <section class="relative bg-slate-50 overflow-hidden py-24 sm:py-32" aria-labelledby="hero-heading">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-brand-primary/10 ring-1 ring-brand-primary/5 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
+            <div class="absolute -top-24 right-0 -z-10 w-96 h-96 bg-brand-primary/10 rounded-full blur-3xl"></div>
         </div>
-        
-        <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-            <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-4">
-                <div class="flex flex-col group">
-                    <dt class="flex items-center gap-x-3 text-lg font-bold leading-7 text-slate-900">
-                        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
-                            <i class="fa-solid fa-layer-group text-xl fa-beat-hover"></i>
-                        </div>
-                        @L["Clean Architecture"]
-                    </dt>
-                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-slate-600">
-                        <p class="flex-auto">@L["Future-proof through strict separation of business logic and infrastructure. Built for eternity."]</p>
-                    </dd>
-                </div>
-                
-                <div class="flex flex-col group">
-                    <dt class="flex items-center gap-x-3 text-lg font-bold leading-7 text-slate-900">
-                        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
-                            <i class="fa-solid fa-shield-halved text-xl fa-fade-hover"></i>
-                        </div>
-                        @L["Enterprise Security"]
-                    </dt>
-                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-slate-600">
-                        <p class="flex-auto">@L["Data integrity through concurrency checks and EF Core resilience. Your data is a fortress."]</p>
-                    </dd>
-                </div>
 
-                <div class="flex flex-col group">
-                    <dt class="flex items-center gap-x-3 text-lg font-bold leading-7 text-slate-900">
-                        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
-                            <i class="fa-solid fa-gauge-high text-xl fa-bounce-hover"></i>
-                        </div>
-                        @L["Performance First"]
-                    </dt>
-                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-slate-600">
-                        <p class="flex-auto">@L["Optimized queries and native TailwindCSS 4.x ensure lightning-fast interaction at any scale."]</p>
-                    </dd>
+        <div class="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl lg:max-w-4xl text-center">
+                <h1 id="hero-heading" class="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-6xl animate-in slide-in-from-bottom-4 duration-700">
+                    <span class="block">@L["Collaborative Ticketing"]</span>
+                    <span class="block text-brand-primary mt-2">@L["For Enterprise Squads"]</span>
+                </h1>
+                <p class="mt-8 text-lg leading-8 text-slate-600 sm:text-xl animate-in slide-in-from-bottom-6 duration-1000">
+                    @L["Manage your projects with surgical precision. TicketsPlease combines Clean Architecture with an intuitive Kanban experience - secure, scalable, and multi-tenant."]
+                </p>
+                <div class="mt-10 flex items-center justify-center gap-x-6 animate-in fade-in duration-1000 delay-500">
+                    <a asp-controller="Account" asp-action="Register" class="rounded-full bg-brand-primary px-8 py-4 text-lg font-bold text-white shadow-xl shadow-brand-primary/40 hover:bg-brand-secondary hover:scale-105 transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary">
+                        <i class="fa-solid fa-rocket mr-2 fa-bounce"></i>
+                        @L["Start Your Journey"]
+                    </a>
+                    <a href="#features" class="text-sm font-bold leading-6 text-slate-900 flex items-center group">
+                        @L["View Features"] 
+                        <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
                 </div>
-
-                <div class="flex flex-col group">
-                    <dt class="flex items-center gap-x-3 text-lg font-bold leading-7 text-slate-900">
-                        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
-                            <i class="fa-solid fa-users-viewfinder text-xl fa-flip-hover"></i>
-                        </div>
-                        @L["Multi-Tenancy"]
-                    </dt>
-                    <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-slate-600">
-                        <p class="flex-auto">@L["Securely isolate data between departments or companies within a single application instance."]</p>
-                    </dd>
-                </div>
-            </dl>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-@* Testimonials with Tilt Effect *@
-<section class="py-24 bg-slate-900 text-white overflow-hidden" aria-labelledby="testimonials-heading">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8 relative">
-        <h2 id="testimonials-heading" class="sr-only">@L["Testimonials"]</h2>
-        <div class="mx-auto max-w-2xl text-center">
-            <h3 class="text-3xl font-extrabold sm:text-4xl">@L["Trusted by Developers"]</h3>
-        </div>
-        
-        <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-            <figure class="flex flex-col rounded-2xl bg-white/5 p-8 ring-1 ring-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
-                <blockquote class="text-lg leading-7 flex-grow">
-                    <p>“@L["The Clean Architecture implementation is flawless. It's the first tool where I actually feel like skipping the onboarding because it's so intuitive."]”</p>
-                </blockquote>
-                <figcaption class="mt-6 flex items-center gap-x-4 pt-4">
-                    <div class="h-10 w-10 flex-none rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary font-bold">TB</div>
-                    <div>
-                        <div class="font-semibold text-white">T-Boyke</div>
-                        <div class="text-slate-400">Lead Architect</div>
+    @* Feature Section with Beautiful Cards *@
+    <section id="features" class="py-24 bg-white" aria-labelledby="features-heading">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-2xl lg:text-center">
+                <h2 id="features-heading" class="text-base font-semibold leading-7 text-brand-primary uppercase tracking-widest">@L["The Arsenal"]</h2>
+                <p class="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">@L["Everything you need for efficient management"]</p>
+            </div>
+            
+            <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+                <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-4">
+                    <div class="flex flex-col group">
+                        <dt class="flex items-center gap-x-3 text-lg font-bold leading-7 text-slate-900">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
+                                <i class="fa-solid fa-layer-group text-xl fa-beat-hover"></i>
+                            </div>
+                            @L["Clean Architecture"]
+                        </dt>
+                        <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-slate-600">
+                            <p class="flex-auto">@L["Future-proof through strict separation of business logic and infrastructure. Built for eternity."]</p>
+                        </dd>
                     </div>
-                </figcaption>
-            </figure>
-
-            <figure class="flex flex-col rounded-2xl bg-white/5 p-8 ring-1 ring-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
-                <blockquote class="text-lg leading-7 flex-grow">
-                    <p>“@L["Identity integration and RBAC work right out of the box. The security standards are exactly what enterprise customers expect."]”</p>
-                </blockquote>
-                <figcaption class="mt-6 flex items-center gap-x-4 pt-4">
-                    <div class="h-10 w-10 flex-none rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary font-bold">JD</div>
-                    <div>
-                        <div class="font-semibold text-white">Jane Doe</div>
-                        <div class="text-slate-400">Security Specialist</div>
+                    
+                    <div class="flex flex-col group">
+                        <dt class="flex items-center gap-x-3 text-lg font-bold leading-7 text-slate-900">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
+                                <i class="fa-solid fa-shield-halved text-xl fa-fade-hover"></i>
+                            </div>
+                            @L["Enterprise Security"]
+                        </dt>
+                        <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-slate-600">
+                            <p class="flex-auto">@L["Data integrity through concurrency checks and EF Core resilience. Your data is a fortress."]</p>
+                        </dd>
                     </div>
-                </figcaption>
-            </figure>
 
-            <figure class="flex flex-col rounded-2xl bg-white/5 p-8 ring-1 ring-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
-                <blockquote class="text-lg leading-7 flex-grow">
-                    <p>“@L["The Kanban experience is butter-smooth. Tailwind 4 combined with Razor Partials makes UI customization a breeze."]”</p>
-                </blockquote>
-                <figcaption class="mt-6 flex items-center gap-x-4 pt-4">
-                    <div class="h-10 w-10 flex-none rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary font-bold">MS</div>
-                    <div>
-                        <div class="font-semibold text-white">Max Smith</div>
-                        <div class="text-slate-400">Frontend Dev</div>
+                    <div class="flex flex-col group">
+                        <dt class="flex items-center gap-x-3 text-lg font-bold leading-7 text-slate-900">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
+                                <i class="fa-solid fa-gauge-high text-xl fa-bounce-hover"></i>
+                            </div>
+                            @L["Performance First"]
+                        </dt>
+                        <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-slate-600">
+                            <p class="flex-auto">@L["Optimized queries and native TailwindCSS 4.x ensure lightning-fast interaction at any scale."]</p>
+                        </dd>
                     </div>
-                </figcaption>
-            </figure>
+
+                    <div class="flex flex-col group">
+                        <dt class="flex items-center gap-x-3 text-lg font-bold leading-7 text-slate-900">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
+                                <i class="fa-solid fa-users-viewfinder text-xl fa-flip-hover"></i>
+                            </div>
+                            @L["Multi-Tenancy"]
+                        </dt>
+                        <dd class="mt-4 flex flex-auto flex-col text-base leading-7 text-slate-600">
+                            <p class="flex-auto">@L["Securely isolate data between departments or companies within a single application instance."]</p>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    @* Testimonials with Tilt Effect *@
+    <section class="py-24 bg-slate-900 text-white overflow-hidden" aria-labelledby="testimonials-heading">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8 relative">
+            <h2 id="testimonials-heading" class="sr-only">@L["Testimonials"]</h2>
+            <div class="mx-auto max-w-2xl text-center">
+                <h3 class="text-3xl font-extrabold sm:text-4xl">@L["Trusted by Developers"]</h3>
+            </div>
+            
+            <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                <figure class="flex flex-col rounded-2xl bg-white/5 p-8 ring-1 ring-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
+                    <blockquote class="text-lg leading-7 flex-grow">
+                        <p>“@L["The Clean Architecture implementation is flawless. It's the first tool where I actually feel like skipping the onboarding because it's so intuitive."]”</p>
+                    </blockquote>
+                    <figcaption class="mt-6 flex items-center gap-x-4 pt-4">
+                        <div class="h-10 w-10 flex-none rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary font-bold">TB</div>
+                        <div>
+                            <div class="font-semibold text-white">T-Boyke</div>
+                            <div class="text-slate-400">Lead Architect</div>
+                        </div>
+                    </figcaption>
+                </figure>
+
+                <figure class="flex flex-col rounded-2xl bg-white/5 p-8 ring-1 ring-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
+                    <blockquote class="text-lg leading-7 flex-grow">
+                        <p>“@L["Identity integration and RBAC work right out of the box. The security standards are exactly what enterprise customers expect."]”</p>
+                    </blockquote>
+                    <figcaption class="mt-6 flex items-center gap-x-4 pt-4">
+                        <div class="h-10 w-10 flex-none rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary font-bold">JD</div>
+                        <div>
+                            <div class="font-semibold text-white">Jane Doe</div>
+                            <div class="text-slate-400">Security Specialist</div>
+                        </div>
+                    </figcaption>
+                </figure>
+
+                <figure class="flex flex-col rounded-2xl bg-white/5 p-8 ring-1 ring-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
+                    <blockquote class="text-lg leading-7 flex-grow">
+                        <p>“@L["The Kanban experience is butter-smooth. Tailwind 4 combined with Razor Partials makes UI customization a breeze."]”</p>
+                    </blockquote>
+                    <figcaption class="mt-6 flex items-center gap-x-4 pt-4">
+                        <div class="h-10 w-10 flex-none rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary font-bold">MS</div>
+                        <div>
+                            <div class="font-semibold text-white">Max Smith</div>
+                            <div class="text-slate-400">Frontend Dev</div>
+                        </div>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+}

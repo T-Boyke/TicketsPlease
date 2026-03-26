@@ -45,6 +45,8 @@ public class TicketRepository : ITicketRepository
             .ThenInclude(l => l.SourceTicket)
         .Include(t => t.Blocking)
             .ThenInclude(l => l.TargetTicket)
+        .Include(t => t.Attachments)
+            .ThenInclude(a => a.UploadedByUser)
         .FirstOrDefaultAsync(t => t.Id == id, ct).ConfigureAwait(false);
   }
 
@@ -115,6 +117,15 @@ public class TicketRepository : ITicketRepository
   public async Task<WorkflowState?> GetWorkflowStateByNameAsync(string name, CancellationToken ct = default)
   {
     return await this.context.WorkflowStates.AsNoTracking().FirstOrDefaultAsync(s => s.Name == name, ct).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc />
+  public async Task<WorkflowTransition?> GetTransitionAsync(Guid fromStateId, Guid toStateId, CancellationToken ct = default)
+  {
+    return await this.context.WorkflowTransitions
+        .AsNoTracking()
+        .FirstOrDefaultAsync(tr => tr.FromStateId == fromStateId && tr.ToStateId == toStateId, ct)
+        .ConfigureAwait(false);
   }
 
   /// <inheritdoc />

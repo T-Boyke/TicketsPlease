@@ -78,7 +78,7 @@ funktionsfähig sein und durch Unit/Integration-Tests abgedeckt werden.
 - [x] Tickets schließen: Attribute GeschlossenVon, GeschlossenAm. Nur Admin,
       Ersteller oder Zugewiesener darf schließen. Status (offen/geschlossen)
       in Übersicht und Detail sichtbar.
-- [ ] (Optional) Dateien zu Tickets hochladen.
+- [x] (Optional) Dateien zu Tickets hochladen.
 
 ### F4: Startseite & Statistiken
 
@@ -86,7 +86,7 @@ funktionsfähig sein und durch Unit/Integration-Tests abgedeckt werden.
 - [x] Links/Buttons zum Ticket- und Admin-Bereich.
 - [x] Statistiken: Tickets (Gesamt/offen/geschlossen),
       Projekte (Gesamt/offen/beendet).
-- [ ] (Optional) Benutzer-Statistiken (Gesamt und pro Rolle).
+- [x] (Optional) Benutzer-Statistiken (Gesamt und pro Rolle).
 
 ### F5: Kommentare
 
@@ -116,8 +116,8 @@ funktionsfähig sein und durch Unit/Integration-Tests abgedeckt werden.
 - [x] Workflow hat ID und Bezeichnung.
 - [x] Workflow besteht aus Status-Reihe (die ein Ticket annehmen kann).
 - [x] Jedem Projekt kann genau ein Workflow zugeordnet werden.
-- [ ] (Optional) Status-Folge-Regeln (welche Status als Folge möglich).
-- [ ] (Optional) Rollenbasierte Status-Vergabe.
+- [x] (Optional) Status-Folge-Regeln (welche Status als Folge möglich).
+- [x] (Optional) Rollenbasierte Status-Vergabe.
 
 ### F9: Nachrichten
 

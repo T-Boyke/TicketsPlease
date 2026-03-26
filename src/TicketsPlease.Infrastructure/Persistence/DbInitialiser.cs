@@ -257,6 +257,22 @@ public static class DbInitialiser
       await context.SubTickets.AddRangeAsync(subTickets).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
+      // 9. Workflow Transitions (F8)
+      var transitions = new List<WorkflowTransition>
+      {
+          new WorkflowTransition { FromStateId = TodoStateId, ToStateId = InProgressStateId },
+          new WorkflowTransition { FromStateId = InProgressStateId, ToStateId = InReviewStateId },
+          new WorkflowTransition { FromStateId = InReviewStateId, ToStateId = DoneStateId },
+          new WorkflowTransition { FromStateId = InProgressStateId, ToStateId = TodoStateId },
+          new WorkflowTransition { FromStateId = InReviewStateId, ToStateId = InProgressStateId },
+          // Admin can move anything to Done
+          new WorkflowTransition { FromStateId = TodoStateId, ToStateId = DoneStateId, AllowedRoleId = AdminRoleId },
+          new WorkflowTransition { FromStateId = InProgressStateId, ToStateId = DoneStateId, AllowedRoleId = AdminRoleId },
+      };
+
+      await context.WorkflowTransitions.AddRangeAsync(transitions).ConfigureAwait(false);
+      await context.SaveChangesAsync().ConfigureAwait(false);
+
       logger.LogInformation("Synthetisches Seeding erfolgreich abgeschlossen.");
     }
     catch (Exception ex)

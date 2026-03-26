@@ -67,6 +67,15 @@ public interface ITicketRepository
   public Task<WorkflowState?> GetWorkflowStateByNameAsync(string name, CancellationToken ct = default);
 
   /// <summary>
+  /// Ruft einen Workflow-Übergang ab.
+  /// </summary>
+  /// <param name="fromStateId">Ausgangszustand.</param>
+  /// <param name="toStateId">Zielzustand.</param>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Der Übergang oder null.</returns>
+  public Task<WorkflowTransition?> GetTransitionAsync(Guid fromStateId, Guid toStateId, CancellationToken ct = default);
+
+  /// <summary>
   /// Entfernt eine Ticket-Verknüpfung.
   /// </summary>
   /// <param name="linkId">Die ID der Verknüpfung.</param>

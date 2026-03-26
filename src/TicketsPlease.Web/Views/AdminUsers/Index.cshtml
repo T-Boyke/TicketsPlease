@@ -1,0 +1,80 @@
+@using TicketsPlease.Web.Controllers
+@model IEnumerable<UserListViewModel>
+@{
+    ViewData["Title"] = "Benutzerverwaltung";
+}
+
+<div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">Benutzerverwaltung</h1>
+            <p class="mt-2 text-slate-500">Verwalten Sie Systembenutzer, Rollen und Zugriffsberechtigungen.</p>
+        </div>
+        <div class="p-3 bg-rose-500/10 rounded-2xl text-rose-500">
+            <i class="fa-solid fa-users-gear text-2xl"></i>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-slate-50/50 border-b border-slate-100">
+                        <th class="px-8 py-5 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center w-20">Avatar</th>
+                        <th class="px-8 py-5 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Benutzer</th>
+                        <th class="px-8 py-5 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">Status</th>
+                        <th class="px-8 py-5 text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">Aktionen</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-50">
+                    @foreach (var user in Model)
+                    {
+                        <tr class="hover:bg-slate-50/50 transition-colors group">
+                            <td class="px-8 py-6 text-center">
+                                @{
+                                    string initials = user.UserName.Length >= 2 ? user.UserName.Substring(0, 2).ToUpper() : user.UserName.ToUpper();
+                                }
+                                <div class="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary font-black group-hover:scale-110 group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
+                                    @initials
+                                </div>
+                            </td>
+                            <td class="px-8 py-6">
+                                <div class="flex flex-col">
+                                    <span class="text-lg font-bold text-slate-900 group-hover:text-brand-primary transition-colors">@user.UserName</span>
+                                    <span class="text-xs font-medium text-slate-400">@user.Email</span>
+                                    <div class="flex gap-1 mt-2">
+                                        @foreach (var role in user.Roles)
+                                        {
+                                            <span class="text-[8px] font-black uppercase tracking-tighter px-2 py-0.5 bg-slate-100 text-slate-500 rounded-lg">@role</span>
+                                        }
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-8 py-6 text-center">
+                                @if (user.IsActive)
+                                {
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-bold uppercase tracking-widest">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
+                                        Aktiv
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-rose-50 text-rose-600 text-[10px] font-bold uppercase tracking-widest">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500 mr-2"></span>
+                                        Inaktiv
+                                    </span>
+                                }
+                            </td>
+                            <td class="px-8 py-6 text-center">
+                                <a asp-action="Edit" asp-route-id="@user.Id" class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-400 hover:bg-brand-primary/10 hover:text-brand-primary transition-all">
+                                    <i class="fa-solid fa-user-pen"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

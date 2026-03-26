@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2026-03-26]
 
+### Phase 1 Optional Features (MVP Completion)
+
+- **F2: Admin User Management**: Implemented `AdminUsersController` and premium Razor views for
+  listing and editing users, including role management and profile updates.
+- **F3: Ticket Attachments**: Fully integrated file upload and download capabilities for tickets,
+  supported by `IFileStorageService` and `IFileAssetRepository`.
+- **F4: Dashboard Statistics**: Created `DashboardService` to aggregate system-wide metrics (tickets,
+  projects, users) and updated `Home/Index` with a modern stats grid.
+- **F8: Advanced Workflow Logic**: Implemented state machine transition rules and role-based
+  validation in `TicketService.MoveTicketAsync`, ensuring business process compliance.
+
 ### Added
 
 - **100% Integration Coverage**: Expanded Integration tests for Infrastructure, Services, and

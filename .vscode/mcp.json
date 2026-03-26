@@ -102,6 +102,33 @@
                 "-y",
                 "flowbite-mcp@latest"
             ]
+        },
+        // ═══════════════════════════════════════════════════════════
+        // 📊 SonarQube – Statische Code-Analyse & Qualität
+        // Für Code-Quality, Security-Scans und Technical Debt
+        // Docs: https://hub.docker.com/r/mcp/sonarqube
+        // ═══════════════════════════════════════════════════════════
+        "sonarqube": {
+            "command": "docker",
+            "args": [
+                "run",
+                "--init",
+                "--pull=always",
+                "-i",
+                "--rm",
+                "-e",
+                "SONARQUBE_TOKEN=671960d02cc3f33b2dbd6a6652a08e15d7ef62c0",
+                "-e",
+                "SONARQUBE_ORG=BitLC-NE-2025-2026_TicketsPlease",
+                "-e",
+                "SONARQUBE_URL=https://sonarcloud.io",
+                "mcp/sonarqube"
+            ],
+            "env": {
+                "SONARQUBE_TOKEN": "671960d02cc3f33b2dbd6a6652a08e15d7ef62c0",
+                "SONARQUBE_ORG": "bitlc-ne-2025-2026",
+                "SONARQUBE_URL": "https://sonarcloud.io"
+            }
         }
     }
 }

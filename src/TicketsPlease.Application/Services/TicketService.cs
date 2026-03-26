@@ -26,24 +26,28 @@ public class TicketService : ITicketService
   private readonly IHttpContextAccessor httpContextAccessor;
   private readonly IFileStorageService fileStorageService;
   private readonly IFileAssetRepository fileAssetRepository;
+  private readonly RoleManager<Role> roleManager;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="TicketService"/> class.
   /// </summary>
   /// <param name="ticketRepository">Das Repository für Tickets.</param>
   /// <param name="userManager">Der Identity UserManager.</param>
+  /// <param name="roleManager">Der Identity RoleManager.</param>
   /// <param name="httpContextAccessor">Der Accessor für den aktuellen HttpContext.</param>
   /// <param name="fileStorageService">Der Dienst zur Dateispeicherung.</param>
   /// <param name="fileAssetRepository">Das Repository für Datei-Metadaten.</param>
   public TicketService(
       ITicketRepository ticketRepository,
       UserManager<User> userManager,
+      RoleManager<Role> roleManager,
       IHttpContextAccessor httpContextAccessor,
       IFileStorageService fileStorageService,
       IFileAssetRepository fileAssetRepository)
   {
     this.ticketRepository = ticketRepository;
     this.userManager = userManager;
+    this.roleManager = roleManager;
     this.httpContextAccessor = httpContextAccessor;
     this.fileStorageService = fileStorageService;
     this.fileAssetRepository = fileAssetRepository;
@@ -118,23 +122,51 @@ public class TicketService : ITicketService
   public async Task MoveTicketAsync(Guid id, string newStatus)
   {
     var ticket = await this.ticketRepository.GetByIdAsync(id).ConfigureAwait(false);
-    if (ticket == null)
+    var user = await this.GetCurrentUserAsync().ConfigureAwait(false);
+    if (ticket == null || user == null)
     {
       throw new KeyNotFoundException(TicketNotFoundMessage);
     }
 
-    if (newStatus == "Closed")
+    var targetState = await this.ticketRepository.GetWorkflowStateByNameAsync(newStatus).ConfigureAwait(false);
+    if (targetState == null)
+    {
+      throw new ArgumentException($"Ungültiger Status: {newStatus}");
+    }
+
+    // Übergangsregel prüfen (F8)
+    var transition = await this.ticketRepository.GetTransitionAsync(ticket.WorkflowStateId, targetState.Id).ConfigureAwait(false);
+    if (transition == null)
+    {
+      throw new InvalidOperationException($"Der Übergang von '{ticket.Status}' nach '{newStatus}' ist nicht erlaubt.");
+    }
+
+    // Rollenprüfung falls eingeschränkt
+    if (transition.AllowedRoleId.HasValue)
+    {
+        var roles = await this.userManager.GetRolesAsync(user).ConfigureAwait(false);
+        // Wir gehen davon aus, dass wir die Rollen-Namen prüfen oder die ID vergleichen müssen.
+        // Da wir in der Transition die RoleId haben, prüfen wir ob der User diese Rolle hat.
+        var allowedRole = await this.userManager.GetUsersInRoleAsync(transition.AllowedRoleId.Value.ToString()).ConfigureAwait(false);
+        // Besser: roleManager nutzen oder rollen-Strings vergleichen.
+        // Einfachere Lösung für MVVM: User-Rollen gegen Namen prüfen wenn Role-ID bekannt ist.
+        // Da wir statische IDs haben, können wir es hardcoden oder sauber auflösen.
+        
+        // Suche Rolle Name für ID
+        var role = await this.roleManager.FindByIdAsync(transition.AllowedRoleId.Value.ToString()).ConfigureAwait(false);
+        if (role != null && !roles.Contains(role.Name!))
+        {
+            throw new UnauthorizedAccessException($"Dieser Übergang ist nur für die Rolle '{role.Name}' erlaubt.");
+        }
+    }
+
+    if (newStatus == "Closed" || targetState.IsTerminalState)
     {
       await this.CloseTicketAsync(id).ConfigureAwait(false);
     }
     else
     {
-      var state = await this.ticketRepository.GetWorkflowStateByNameAsync(newStatus).ConfigureAwait(false);
-      if (state != null)
-      {
-        ticket.MoveToState(state.Id);
-      }
-
+      ticket.MoveToState(targetState.Id);
       await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
     }
   }
