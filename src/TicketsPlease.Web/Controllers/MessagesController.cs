@@ -94,6 +94,34 @@ internal sealed class MessagesController : Controller
     return this.RedirectToAction(nameof(this.Index));
   }
 
+  /// <summary>
+  /// Zeigt die Konversation mit einem bestimmten Benutzer an (F9).
+  /// </summary>
+  /// <param name="userId">Die ID des Gesprächspartners.</param>
+  /// <returns>Die Conversation-View.</returns>
+  [HttpGet]
+  public async Task<IActionResult> Conversation(Guid userId)
+  {
+    var currentUser = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
+    if (currentUser == null)
+    {
+      return this.Challenge();
+    }
+
+    var messages = await this.messageService.GetConversationAsync(currentUser.Id, userId).ConfigureAwait(false);
+    var otherUser = await this.userManager.FindByIdAsync(userId.ToString()).ConfigureAwait(false);
+
+    if (otherUser == null)
+    {
+      return this.NotFound();
+    }
+
+    this.ViewBag.OtherUserName = otherUser.UserName;
+    this.ViewBag.OtherUserId = otherUser.Id;
+
+    return this.View(messages);
+  }
+
   private async Task PrepareUserList()
   {
     var currentUserId = Guid.Parse(this.userManager.GetUserId(this.User)!);

@@ -14,7 +14,7 @@
     </div>
 
     <div class="glass-premium p-10 rounded-3xl border border-slate-100 shadow-3xl">
-        <form asp-action="Create" method="post" class="space-y-8">
+        <form asp-action="Create" method="post" enctype="multipart/form-data" class="space-y-8">
             <div asp-validation-summary="ModelOnly" class="bg-rose-50 text-rose-500 border border-rose-100 p-4 rounded-xl text-xs font-bold uppercase tracking-widest"></div>
 
             <div class="group h-full flex flex-col">
@@ -41,6 +41,15 @@
                         @L["Markdown supported"]
                     </span>
                 </div>
+            </div>
+
+            <div class="group">
+                <label for="Attachment" class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2.5 ml-1 group-focus-within:text-brand-primary transition-colors">@L["Attachment (Optional)"]</label>
+                <div class="relative">
+                    <i class="fa-solid fa-paperclip absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none transition-colors group-focus-within:text-brand-primary"></i>
+                    <input type="file" id="Attachment" name="Attachment" class="form-input pl-12 h-14 w-full bg-slate-50 border-2 border-slate-100 focus:border-brand-primary/30 focus:bg-white rounded-2xl text-sm font-bold transition-all outline-none appearance-none flex items-center py-3" />
+                </div>
+                <p class="text-[9px] text-slate-400 mt-2 ml-1 uppercase font-bold tracking-wider">@L["Accepted: PDF, PNG, JPG, ZIP (max 10MB)"]</p>
             </div>
 
             <div class="flex flex-col sm:flex-row items-center gap-4 pt-4">

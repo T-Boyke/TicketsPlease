@@ -1,0 +1,109 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@using TicketsPlease.Application.Common.Dtos
+@model IEnumerable<MessageDto>
+@inject IViewLocalizer L
+
+@{
+    ViewData["Title"] = string.Format(L["Conversation with {0}"].Value, ViewBag.OtherUserName);
+    var otherUserId = (Guid)ViewBag.OtherUserId;
+}
+
+<div class="max-w-4xl mx-auto py-8 px-4 sm:px-6">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-8">
+        <div class="flex items-center gap-4">
+            <a asp-action="Index" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div>
+                <h1 class="text-2xl font-black text-slate-900">@ViewBag.OtherUserName</h1>
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">@L["Direct Messages"]</p>
+            </div>
+        </div>
+        <div class="hidden sm:block">
+            <span class="px-4 py-2 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-widest border border-emerald-100">
+                <i class="fa-solid fa-circle text-[6px] mr-1.5 align-middle"></i>
+                @L["Online"]
+            </span>
+        </div>
+    </div>
+
+    <!-- Chat Area -->
+    <div class="glass-premium rounded-3xl border border-slate-100 shadow-2xl overflow-hidden flex flex-col h-[70vh]">
+        <div class="flex-1 overflow-y-auto p-6 space-y-6" id="chat-container">
+            @foreach (var message in Model)
+            {
+                var isMine = message.SenderUserName != ViewBag.OtherUserName;
+                
+                <div class="flex @(isMine ? "justify-end" : "justify-start")">
+                    <div class="max-w-[80%] flex flex-col @(isMine ? "items-end" : "items-start")">
+                        <div class="px-5 py-3 rounded-2xl text-sm font-medium shadow-sm @(isMine ? "bg-brand-primary text-white rounded-tr-none" : "bg-white border border-slate-100 text-slate-700 rounded-tl-none")">
+                            @Html.Raw(message.BodyMarkdown) @* In production use a proper markdown parser *@
+                            
+                            @if (message.Attachments.Any())
+                            {
+                                <div class="mt-3 pt-3 border-t @(isMine ? "border-white/20" : "border-slate-100") space-y-2">
+                                    @foreach (var attachment in message.Attachments)
+                                    {
+                                        <a href="#" class="flex items-center gap-2 p-2 rounded-lg @(isMine ? "bg-white/10 hover:bg-white/20" : "bg-slate-50 hover:bg-slate-100") transition-colors text-xs">
+                                            <i class="fa-solid fa-file-lines opacity-70"></i>
+                                            <span class="truncate max-w-[150px]">@attachment.FileName</span>
+                                            <span class="opacity-50 text-[10px]">(@(attachment.SizeBytes / 1024) KB)</span>
+                                        </a>
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mt-1.5 opacity-70">
+                            @message.SentAt.ToString("HH:mm")
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Input Area -->
+        <div class="p-4 bg-slate-50 border-t border-slate-100">
+            <form asp-action="Create" method="post" enctype="multipart/form-data" class="flex items-end gap-3">
+                <input type="hidden" name="ReceiverUserId" value="@otherUserId" />
+                
+                <div class="flex-1 group">
+                    <textarea id="BodyMarkdown" name="BodyMarkdown" rows="1" 
+                              class="form-input w-full p-4 bg-white border-2 border-slate-200 focus:border-brand-primary/30 rounded-2xl text-sm font-medium transition-all outline-none resize-none"
+                              placeholder="@L["Type your message..."]"></textarea>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <label for="Attachment" class="w-12 h-12 flex items-center justify-center rounded-xl bg-white border-2 border-slate-200 text-slate-400 hover:text-brand-primary hover:border-brand-primary/30 cursor-pointer transition-all">
+                        <i class="fa-solid fa-paperclip"></i>
+                        <input type="file" id="Attachment" name="Attachment" class="hidden" />
+                    </label>
+                    <button type="submit" class="w-12 h-12 flex items-center justify-center rounded-xl bg-brand-primary text-white shadow-lg shadow-brand-primary/30 hover:scale-105 active:scale-95 transition-all">
+                        <i class="fa-solid fa-paper-plane mr-[-2px]"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Scroll to bottom
+        const container = document.getElementById('chat-container');
+        container.scrollTop = container.scrollHeight;
+
+        // Auto-expand textarea
+        const textarea = document.getElementById('BodyMarkdown');
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+            if (this.scrollHeight > 200) {
+                this.style.overflowY = 'auto';
+                this.style.height = '200px';
+            } else {
+                this.style.overflowY = 'hidden';
+            }
+        });
+    </script>
+}
