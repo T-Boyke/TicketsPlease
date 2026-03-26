@@ -165,7 +165,7 @@ public class ControllerTests : IntegrationTestBase
   [Fact]
   public async Task CommentController_Create_Post_Should_Add_Comment()
   {
-     // Arrange
+    // Arrange
     using var scope = this.Factory.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await SeedMinimalAsync(db);

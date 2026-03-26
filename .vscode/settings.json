@@ -189,5 +189,6 @@
     "wwwroot",
     "zockerbot"
   ],
-  "cSpell.language": "en,de"
+  "cSpell.language": "en,de",
+  "markdown.validate.enabled": true
 }
