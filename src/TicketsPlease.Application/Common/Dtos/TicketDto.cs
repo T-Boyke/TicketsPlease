@@ -40,4 +40,5 @@ public record TicketDto(
     int? EstimatePoints,
     IEnumerable<CommentDto> Comments,
     IEnumerable<TicketLinkDto> BlockedBy,
-    IEnumerable<TicketLinkDto> Blocking);
+    IEnumerable<TicketLinkDto> Blocking,
+    IEnumerable<FileAssetDto> Attachments);
