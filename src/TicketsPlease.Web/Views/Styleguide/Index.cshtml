@@ -86,6 +86,20 @@
 
     .btn-success { background-color: oklch(0.55 0.18 155); color: white; display: inline-flex; align-items: center; justify-content: center; border-radius: 0.75rem; font-weight: 600; transition: all 0.3s; }
     .btn-success:hover { transform: translateY(-2px); box-shadow: 0 4px 15px oklch(0.55 0.18 155 / 0.4); filter: saturate(1.5); }
+ 
+    /* New Animations */
+    @@keyframes spring-in {
+        0% { transform: scale(0.8) translateY(20px); opacity: 0; }
+        60% { transform: scale(1.05) translateY(-5px); opacity: 1; }
+        100% { transform: scale(1) translateY(0); }
+    }
+    .animate-spring-in { animation: spring-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both; }
+ 
+    @@keyframes slide-in-right {
+        0% { transform: translateX(100%); opacity: 0; }
+        100% { transform: translateX(0); opacity: 1; }
+    }
+    .animate-slide-in-right { animation: slide-in-right 0.5s cubic-bezier(0.4, 0, 0.2, 1) both; }
 </style>
 
 <div class="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8 animate-in fade-in">
@@ -121,7 +135,9 @@
         <a href="#data" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">@Localizer["Data"]</a>
         <a href="#forms" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">@Localizer["Forms"]</a>
         <a href="#feedback" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">@Localizer["Feedback"]</a>
-        <a href="#animations" class="px-5 py-2.5 bg-brand-primary text-white rounded-xl text-sm font-extrabold shadow-lg shadow-brand-primary/25 hover:rotate-1 transition-transform">@Localizer["Motion"]</a>
+        <a href="#overlays" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">@Localizer["Overlays"]</a>
+        <a href="#patterns" class="px-4 py-2 hover:bg-brand-primary/10 rounded-xl text-sm font-bold transition-all hover:scale-105 active:scale-95">@Localizer["LayoutPatterns"]</a>
+        <a href="#motion" class="px-5 py-2.5 bg-brand-primary text-white rounded-xl text-sm font-extrabold shadow-lg shadow-brand-primary/25 hover:rotate-1 transition-transform">@Localizer["Motion"]</a>
     </nav>
 
     <!-- 1. Color Tokens -->
@@ -565,8 +581,225 @@
             </div>
         </div>
     </section>
-
-    <!-- 7. Motion & Animation -->
+ 
+    <!-- 8. Overlays & Modals -->
+    <section id="overlays" class="mb-24 reveal-up" aria-labelledby="overlays-title">
+        <div class="flex items-center gap-4 mb-10">
+            <div class="h-10 w-2 bg-brand-primary rounded-full" aria-hidden="true"></div>
+            <h2 id="overlays-title" class="text-3xl font-black tracking-tight uppercase">@Localizer["Overlays"]</h2>
+        </div>
+ 
+        <div class="grid lg:grid-cols-2 gap-10">
+            <!-- Modal Variations -->
+            <div class="card p-10">
+                <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mb-8 border-l-4 border-brand-primary pl-4">@Localizer["Modals"]</h3>
+                <div class="space-y-6">
+                    <!-- Confirm Modal Mockup -->
+                    <div class="p-6 bg-surface-soft dark:bg-dark-surface-soft rounded-2xl border border-border-muted relative">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="h-12 w-12 rounded-full bg-danger-primary/10 text-danger-primary flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </div>
+                            <h4 class="text-lg font-bold">@Localizer["DeleteConfirmation"]</h4>
+                        </div>
+                        <p class="text-sm text-text-secondary dark:text-dark-text-secondary mb-6 leading-relaxed">
+                            @Localizer["DeleteConfirmationDesc"]
+                        </p>
+                        <div class="flex justify-end gap-3">
+                            <button type="button" class="btn-ghost px-5 py-2">@Localizer["Cancel"]</button>
+                            <button type="button" class="btn-danger px-5 py-2">@Localizer["YesDelete"]</button>
+                        </div>
+                    </div>
+ 
+                    <!-- Form Modal Mockup -->
+                    <div class="p-6 bg-surface-soft dark:bg-dark-surface-soft rounded-2xl border border-border-muted">
+                        <h4 class="text-lg font-bold mb-6">@Localizer["CreateNewTicket"]</h4>
+                        <div class="space-y-4 mb-6">
+                            <div>
+                                <label class="text-xs font-black uppercase tracking-widest text-text-muted mb-1 block">@Localizer["Title"]</label>
+                                <input type="text" class="form-input" placeholder="Ticket Titel..." />
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-xs font-black uppercase tracking-widest text-text-muted mb-1 block">@Localizer["Priority"]</label>
+                                    <select class="form-select">
+                                        <option>@Localizer["High"]</option>
+                                        <option>@Localizer["Medium"]</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-xs font-black uppercase tracking-widest text-text-muted mb-1 block">@Localizer["Type"]</label>
+                                    <select class="form-select">
+                                        <option>@Localizer["Bug"]</option>
+                                        <option>@Localizer["Feature"]</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <button type="button" class="btn-ghost text-xs">@Localizer["Cancel"]</button>
+                            <button type="button" class="btn-primary px-6 py-3">@Localizer["Create"]</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Drawers & Toasts -->
+            <div class="space-y-8">
+                <!-- Drawer Mockup -->
+                <div class="card p-0 overflow-hidden h-[300px] relative bg-surface-subtle border-2 border-dashed border-border-muted" aria-label="Drawer Example">
+                    <div class="absolute inset-y-0 right-0 w-64 glass-premium border-l border-white/20 shadow-[-20px_0_40px_rgba(0,0,0,0.1)] p-6 translate-x-0 animate-slide-in-right">
+                        <div class="flex items-center justify-between mb-8">
+                            <h4 class="font-black uppercase tracking-tight">@Localizer["Details"]</h4>
+                            <button class="text-text-muted hover:text-text-main" aria-label="Close Drawer"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-4">
+                                <div class="h-10 w-10 rounded bg-brand-primary/10 flex items-center justify-center text-brand-primary font-bold">T</div>
+                                <div>
+                                    <p class="text-[10px] font-black uppercase tracking-widest text-text-muted">@Localizer["Creator"]</p>
+                                    <p class="text-sm font-bold">Tobias</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="h-10 w-10 rounded bg-success-primary/10 flex items-center justify-center text-success-primary font-bold">A</div>
+                                <div>
+                                    <p class="text-[10px] font-black uppercase tracking-widest text-text-muted">@Localizer["Status"]</p>
+                                    <span class="badge-success text-[10px]">@Localizer["Active"]</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center h-full opacity-30 italic text-sm">Main Content Area</div>
+                </div>
+ 
+                <!-- Toasts & Breadcrumbs -->
+                <div class="card p-10">
+                    <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mb-8 border-l-4 border-brand-accent pl-4">@Localizer["MediaObjectsToasts"]</h3>
+                    <div class="space-y-6">
+                        <!-- Media Object -->
+                        <div class="flex items-start gap-4 p-4 rounded-xl bg-surface-soft/50 dark:bg-dark-surface-soft/50 hover:bg-brand-primary/5 transition-colors cursor-pointer group">
+                             <img src="/api/placeholder/100/100" class="h-12 w-12 rounded-lg object-cover shadow-lg group-hover:scale-110 transition-transform" alt="@Localizer["SystemUpdateTitle"]" />
+                             <div>
+                                 <h5 class="font-bold text-sm">@Localizer["SystemUpdateTitle"]</h5>
+                                 <p class="text-xs text-text-secondary dark:text-dark-text-secondary leading-relaxed mt-1">
+                                     @Localizer["SystemUpdateDesc"]
+                                 </p>
+                                 <time class="text-[9px] font-black uppercase tracking-widest text-brand-primary mt-2 block">@Localizer["JustNow"]</time>
+                             </div>
+                        </div>
+                        
+                        <!-- Toast Sample -->
+                        <output class="flex items-center gap-3 p-3 px-5 bg-dark-bg text-white rounded-full shadow-2xl border border-white/10 w-fit animate-spring-in block" aria-live="polite">
+                            <div class="h-2 w-2 rounded-full bg-success-primary animate-ping"></div>
+                            <span class="text-xs font-bold">@Localizer["MessageSent"]</span>
+                            <button class="ml-4 opacity-50 hover:opacity-100" aria-label="Dismiss Notification"><i class="fa-solid fa-xmark"></i></button>
+                        </output>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- 9. Full Layout Patterns -->
+    <section id="patterns" class="mb-24 reveal-up" aria-labelledby="patterns-title">
+        <div class="flex items-center gap-4 mb-10">
+            <div class="h-10 w-2 bg-brand-accent rounded-full" aria-hidden="true"></div>
+            <h2 id="patterns-title" class="text-3xl font-black tracking-tight uppercase">@Localizer["FullPagePatterns"]</h2>
+        </div>
+ 
+        <div class="grid lg:grid-cols-2 gap-10">
+            <!-- Homescreen Dashboard -->
+            <article class="card p-0 overflow-hidden border-2 border-brand-primary/20 shadow-4xl group">
+                <div class="p-4 bg-surface-soft dark:bg-dark-surface-soft border-b border-border-muted flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="h-8 w-8 bg-brand-primary rounded shadow-lg shadow-brand-primary/20"></div>
+                        <h4 class="text-xs font-black uppercase tracking-tighter">@Localizer["DashboardHome"]</h4>
+                    </div>
+                    <div class="flex gap-2">
+                        <div class="h-2 w-2 rounded-full bg-border-muted" aria-hidden="true"></div>
+                        <div class="h-2 w-2 rounded-full bg-border-muted" aria-hidden="true"></div>
+                        <div class="h-2 w-2 rounded-full bg-border-muted" aria-hidden="true"></div>
+                    </div>
+                </div>
+                <div class="p-6 bg-dark-bg/5 space-y-6 min-h-[400px]">
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="p-4 bg-white dark:bg-dark-surface-main rounded-xl shadow-sm border border-border-muted/30">
+                            <p class="text-[9px] font-black uppercase tracking-widest text-text-muted mb-1">@Localizer["OpenStatus"]</p>
+                            <p class="text-xl font-black text-brand-primary">128</p>
+                        </div>
+                        <div class="p-4 bg-white dark:bg-dark-surface-main rounded-xl shadow-sm border border-border-muted/30">
+                            <p class="text-[9px] font-black uppercase tracking-widest text-text-muted mb-1">@Localizer["Active"]</p>
+                            <p class="text-xl font-black text-success-primary">42</p>
+                        </div>
+                        <div class="p-4 bg-white dark:bg-dark-surface-main rounded-xl shadow-sm border border-border-muted/30">
+                            <p class="text-[9px] font-black uppercase tracking-widest text-text-muted mb-1">@Localizer["Due"]</p>
+                            <p class="text-xl font-black text-danger-primary">7</p>
+                        </div>
+                    </div>
+                    <!-- Activity Feed Mock -->
+                    <div class="space-y-3">
+                        <h5 class="text-[10px] font-black uppercase tracking-widest text-text-muted">@Localizer["RecentActivity"]</h5>
+                        <div class="flex gap-4 p-3 bg-white dark:bg-dark-surface-main rounded-xl shadow-sm border border-border-muted/20">
+                            <div class="h-8 w-8 rounded bg-surface-soft" aria-hidden="true"></div>
+                            <div class="flex-grow space-y-1">
+                                <div class="h-2 bg-surface-soft rounded w-3/4" aria-hidden="true"></div>
+                                <div class="h-1.5 bg-surface-subtle rounded w-1/2" aria-hidden="true"></div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 p-3 bg-white dark:bg-dark-surface-main rounded-xl shadow-sm border border-border-muted/20">
+                            <div class="h-8 w-8 rounded bg-surface-soft" aria-hidden="true"></div>
+                            <div class="flex-grow space-y-1">
+                                <div class="h-2 bg-surface-soft rounded w-2/3" aria-hidden="true"></div>
+                                <div class="h-1.5 bg-surface-subtle rounded w-1/3" aria-hidden="true"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <span class="block text-center p-3 text-[10px] font-black uppercase tracking-widest text-brand-primary bg-brand-primary/5 group-hover:bg-brand-primary group-hover:text-white transition-all cursor-alias">@Localizer["ExploreHomescreen"]</span>
+            </article>
+ 
+            <!-- Detail Screen Mockup -->
+            <article class="card p-0 overflow-hidden border-2 border-brand-accent/20 shadow-4xl group">
+                <div class="h-24 bg-gradient-to-r from-brand-secondary to-brand-primary p-6 flex flex-col justify-end">
+                    <h4 class="text-white font-black text-lg">@Localizer["TicketDetailSection"]</h4>
+                    <p class="text-white/70 text-xs">TKT-1024 • Project: Infrastructure</p>
+                </div>
+                <div class="flex min-h-[300px]">
+                    <aside class="w-1/3 border-r border-border-muted p-4 space-y-6">
+                        <div>
+                             <p class="text-[9px] font-black uppercase tracking-widest text-text-muted mb-2">@Localizer["Data"]</p>
+                             <div class="space-y-3" aria-hidden="true">
+                                 <div class="h-2 bg-surface-soft rounded w-full"></div>
+                                 <div class="h-2 bg-surface-soft rounded w-3/4"></div>
+                                 <div class="h-2 bg-surface-soft rounded w-1/2"></div>
+                             </div>
+                        </div>
+                        <div class="pt-6 border-t border-border-muted">
+                            <div class="h-8 w-full bg-surface-soft rounded-lg" aria-hidden="true"></div>
+                        </div>
+                    </aside>
+                    <main class="w-2/3 p-6 space-y-6">
+                        <section class="space-y-3" aria-hidden="true">
+                             <div class="h-3 bg-surface-soft rounded w-full"></div>
+                             <div class="h-3 bg-surface-soft rounded w-full"></div>
+                             <div class="h-3 bg-surface-soft rounded w-11/12"></div>
+                             <div class="h-3 bg-surface-soft rounded w-10/12"></div>
+                             <div class="h-3 bg-surface-soft rounded w-full"></div>
+                        </section>
+                        <div class="flex gap-3" aria-hidden="true">
+                            <div class="h-10 w-10 rounded-full bg-surface-soft"></div>
+                            <div class="h-10 w-10 rounded-full bg-surface-soft"></div>
+                        </div>
+                    </main>
+                </div>
+                <span class="block text-center p-3 text-[10px] font-black uppercase tracking-widest text-brand-accent bg-brand-accent/5 group-hover:bg-brand-accent group-hover:text-white transition-all cursor-alias">@Localizer["ExploreDetailPattern"]</span>
+            </article>
+        </div>
+    </section>
+ 
+    <!-- 10. Motion & Animation -->
     <section id="motion" class="mb-24 reveal-up" aria-labelledby="motion-title">
         <div class="flex items-center gap-4 mb-10">
             <div class="h-10 w-2 bg-brand-accent rounded-full" aria-hidden="true"></div>
@@ -629,16 +862,15 @@
                     <p class="text-sm text-text-secondary dark:text-dark-text-secondary group-hover:text-success-primary/80 transition-colors">
                         @Localizer["MorphingDesc"]
                     </p>
-                </div>
             </article>
         </div>
     </section>
-
+ 
     <!-- Footer -->
     <section class="mt-24 pt-10 border-t border-border-default dark:border-dark-border text-center text-text-muted text-sm pb-10" aria-label="Styleguide Credit">
         <p>&copy; @DateTime.Now.Year TicketsPlease Design Team. @Localizer["FooterCredit"]</p>
     </section>
-
+ 
     <!-- Final Lint Fixes: Dynamic ID Association -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
