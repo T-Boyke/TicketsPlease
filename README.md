@@ -1,4 +1,4 @@
-# TicketsPlease ![TicketsPlease Icon](docs/assets/ticketspleaseicon.png)
+# <a id="ticketsplease"></a>TicketsPlease ![TicketsPlease Icon](docs/assets/ticketspleaseicon.png)
 
 ![TicketsPlease Logo](docs/assets/ticketspleaselogo.png)
 
@@ -26,7 +26,7 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 <details>
 <summary>📋 Table of Contents (Inhaltsverzeichnis)</summary>
 
-- [TicketsPlease ![TicketsPlease Icon](docs/assets/ticketspleaseicon.png)](#ticketsplease-)
+- [TicketsPlease ![TicketsPlease Icon](docs/assets/ticketspleaseicon.png)](#ticketsplease)
   - [📊 Implementierungs-Status (MVP = F1–F9)](#-implementierungs-status-mvp--f1f9)
   - [1. 🚀 Vision \& Projektziele](#1--vision--projektziele)
   - [2. 🛠️ Technologie-Stack](#2-️-technologie-stack)
@@ -69,24 +69,24 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 
 ## 📊 Implementierungs-Status (MVP = F1–F9)
 
-| Feature             | Status        | Beschreibung                                 | Scope        |
-| :------------------ | :------------ | :------------------------------------------- | :----------- |
-| **Solution Setup**  | ✅ Fertig     | Clean Architecture .NET 10 Solution          | MVP (F1.1)   |
-| **EF Core DB**      | ✅ Fertig     | Code-First mit MS SQL                        | MVP (F1.2)   |
-| **Tailwind CSS**    | ✅ Fertig     | v4.2.2 via MSBuild (Node-free)               | MVP          |
-| **CI/CD Pipeline**  | ✅ Fertig     | GitHub Actions (Build, Lint, Test)           | MVP          |
-| **Domain Entities** | ✅ Fertig     | 26 Enterprise-Entitäten im Domain Layer      | MVP + Ent.   |
-| **Identity/Auth**   | ✅ Fertig     | Login, Logout, Rollen (See #31-#33, #49-#58) | MVP (F1.3)   |
-| **Projekte CRUD**   | ✅ Fertig     | Project-Entity & Base Service (See #34-#36)  | MVP (F2.2)   |
-| **Ticket-Bereich**  | ✅ Fertig     | Anlegen, Liste, Detail, Bearbeiten, Close    | MVP (F3)     |
-| **Startseite**      | ✅ Fertig     | Statistiken, Links zu Bereichen              | MVP (F4)     |
-| **Kommentare**      | ✅ Fertig     | Ticket-Kommentare (Domain Logic)             | MVP (F5)     |
-| **Filterung**       | ✅ Fertig     | Nach Projekt, User, Ersteller                | MVP (F6)     |
-| **Abhängigkeiten**  | ✅ Fertig     | Blockierende Tickets (Domain Logic)          | MVP (F7)     |
-| **Workflows**       | ✅ Fertig     | Status-Verwaltung für Projekte (Domain Logic) | MVP (F8)     |
-| **Nachrichten**     | 🏗️ Ausstehend | User-to-User Messaging                       | MVP (F9)     |
-| **Kanban Board**     | 🗺️ Roadmap     | Interaktives Board mit Drag & Drop            | Enterprise    |
-| **Plugin System**    | 🗺️ Roadmap     | Externe Module (Dynamic Loading)              | Enterprise    |
+| Feature             | Status     | Beschreibung                                  | Scope      |
+| :------------------ | :--------- | :-------------------------------------------- | :--------- |
+| **Solution Setup**  | ✅ Fertig  | Clean Architecture .NET 10 Solution           | MVP (F1.1) |
+| **EF Core DB**      | ✅ Fertig  | Code-First mit MS SQL                         | MVP (F1.2) |
+| **Tailwind CSS**    | ✅ Fertig  | v4.2.2 via MSBuild (Node-free)                | MVP        |
+| **CI/CD Pipeline**  | ✅ Fertig  | GitHub Actions (Build, Lint, Test)            | MVP        |
+| **Domain Entities** | ✅ Fertig  | 26 Enterprise-Entitäten im Domain Layer       | MVP + Ent. |
+| **Identity/Auth**   | ✅ Fertig  | Login, Logout, Rollen (See #31-#33, #49-#58)  | MVP (F1.3) |
+| **Projekte CRUD**   | ✅ Fertig  | Project-Entity & Base Service (See #34-#36)   | MVP (F2.2) |
+| **Ticket-Bereich**  | ✅ Fertig  | Anlegen, Liste, Detail, Bearbeiten, Close     | MVP (F3)   |
+| **Startseite**      | ✅ Fertig  | Statistiken, Links zu Bereichen               | MVP (F4)   |
+| **Kommentare**      | ✅ Fertig  | Ticket-Kommentare (Domain Logic)              | MVP (F5)   |
+| **Filterung**       | ✅ Fertig  | Nach Projekt, User, Ersteller                 | MVP (F6)   |
+| **Abhängigkeiten**  | ✅ Fertig  | Blockierende Tickets (Domain Logic)           | MVP (F7)   |
+| **Workflows**       | ✅ Fertig  | Status-Verwaltung für Projekte (Domain Logic) | MVP (F8)   |
+| **Nachrichten**     | ✅ Fertig  | User-to-User Messaging & Anhänge              | MVP (F9)   |
+| **Kanban Board**    | 🗺️ Roadmap | Interaktives Board mit Drag & Drop            | Enterprise |
+| **Plugin System**   | 🗺️ Roadmap | Externe Module (Dynamic Loading)              | Enterprise |
 
 ---
 

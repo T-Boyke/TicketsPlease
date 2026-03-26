@@ -73,6 +73,7 @@ erDiagram
         long SizeBytes
         datetime UploadedAt
         Guid UploadedByUserId FK
+        Guid MessageId FK "Nullable (Relationship to Message)"
     }
 
     %% --- Teams & Workspaces ---
@@ -364,6 +365,7 @@ erDiagram
 |                   | SizeBytes           | long     |            | Dateigröße in Byte                |
 |                   | UploadedAt          | datetime |            | Zeitstempel des Uploads           |
 |                   | UploadedByUserId    | Guid     | FK         | Verweis auf USER.Id               |
+|                   | MessageId           | Guid     | FK (Null)  | Verweis auf MESSAGE.Id            |
 | **PROJECT**       | Id                  | Guid     | PK         | Eindeutige Projekt ID             |
 |                   | Title               | string   |            | Projekttitel                      |
 |                   | Description         | string   |            | Projektbeschreibung               |
@@ -581,14 +583,14 @@ und müssen für den jeweiligen Feature-Sprint ausgebaut werden.
 
 ### MVP-relevante Entities (F1–F9)
 
-| Entity            | Zweck               | Feature | Status          |
-| :---------------- | :------------------ | :---------- | :-------------  |
-| **User**          | Auth & Zuweisung    | F1.3        | ✅ Vorhanden    |
-| **Ticket**        | Kern-Aggregat       | F3          | ✅ Vorhanden    |
-| **Project**       | Projekt-Zuordnung   | F2.2        | ✅ Vorhanden    |
-| **WorkflowState** | Status-Verwaltung   | F8          | ✅ Vorhanden    |
-| **Message**       | Nachrichten         | F9          | ✅ Vorhanden    |
-| **Notification**  | Benachrichtigungen  | —           | ✅ Vorhanden    |
+| Entity            | Zweck              | Feature | Status       |
+| :---------------- | :----------------- | :------ | :----------- |
+| **User**          | Auth & Zuweisung   | F1.3    | ✅ Vorhanden |
+| **Ticket**        | Kern-Aggregat      | F3      | ✅ Vorhanden |
+| **Project**       | Projekt-Zuordnung  | F2.2    | ✅ Vorhanden |
+| **WorkflowState** | Status-Verwaltung  | F8      | ✅ Vorhanden |
+| **Message**       | Nachrichten        | F9      | ✅ Vorhanden |
+| **Notification**  | Benachrichtigungen | —       | ✅ Vorhanden |
 
 ### Aktuelle Ticket Entity
 

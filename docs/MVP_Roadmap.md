@@ -126,6 +126,7 @@ funktionsfähig sein und durch Unit/Integration-Tests abgedeckt werden.
 - [x] Möglichkeit, neue Nachrichten zu erstellen.
 - [x] Liste aller gesendeten/erhaltenen Nachrichten, gruppiert nach
       Absender/Empfänger.
+- [x] **Dateianhänge:** Unterstützung für Anhänge in Direktnachrichten (MVP+).
 
 ### Infrastruktur (bereits erledigt)
 
@@ -189,7 +190,8 @@ Normalform) Datenbankschema frei:
 
 **3. Dokumentenmanagement:**
 
-- **Ticket Attachments:** Upload von PDFs, Screenshots (via FILE_ASSET).
+- [x] **Ticket Attachments:** Upload von PDFs, Screenshots (via FILE_ASSET).
+      *Infrastruktur implementiert & für Messaging freigeschaltet.*
 
 **4. Service Level Agreements (SLAs):**
 
