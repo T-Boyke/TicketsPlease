@@ -236,3 +236,124 @@ graph LR
     Unit --> Coverlet
     Coverlet --> Sonar
 ```
+
+---
+
+## 7. Ticket Lifecycle (State Diagram)
+
+Der Lebenszyklus eines Tickets von der Erstellung bis zur endgültigen Schließung.
+
+```mermaid
+stateDiagram-v2
+    [*] --> New: Created
+    New --> Assigned: User assigned
+    Assigned --> InProgress: Work started
+    InProgress --> Review: PR/Verification
+    Review --> InProgress: Changes requested
+    Review --> Resolved: Verified
+    Resolved --> Closed: Archived
+    
+    InProgress --> Blocked: Impediment found
+    Blocked --> InProgress: Resolved
+    
+    New --> Closed: Rejected/Duplicate
+    Assigned --> Closed: Cancelled
+```
+
+---
+
+## 8. Deployment Architecture
+
+Physische Verteilung der Komponenten in einer Standard-Umgebung.
+
+```mermaid
+graph LR
+    subgraph Client ["🌐 Client Side"]
+        Browser["Web Browser (Edge/Chrome)"]
+    end
+
+    subgraph Server ["💻 Application Server (IIS/Kestrel)"]
+        Web["ASP.NET Core Web App"]
+        DP["Data Protection API"]
+    end
+
+    subgraph Data ["🗄️ Persistence Layer"]
+        SQL["SQL Server DB"]
+        Redis["Optional: Redis Cache"]
+    end
+
+    Browser -- HTTPS/TLS 1.2+ --> Web
+    Web -- EF Core / SQL Client --> SQL
+    Web -- Keys --> DP
+```
+
+---
+
+## 9. Component Dependency Diagram
+
+Striktes DDD-Abhängigkeitsmodell (Onion Architecture Approach).
+
+```mermaid
+graph BT
+    subgraph Layers ["🏗️ Project Dependencies"]
+        Domain["TicketsPlease.Domain"]
+        App["TicketsPlease.Application"]
+        Infra["TicketsPlease.Infrastructure"]
+        Web["TicketsPlease.Web"]
+    end
+
+    App --> Domain
+    Infra --> Domain
+    Infra -.-> App
+    Web --> App
+    Web --> Infra
+```
+
+---
+
+## 10. Security & Data Flow (DFD)
+
+Darstellung der Vertrauensgrenzen und des Datenflusses.
+
+```mermaid
+graph TD
+    subgraph User_Zone ["External Zone (Untrusted)"]
+        User((User))
+        PublicUI["Public Login Pages"]
+    end
+
+    subgraph App_Zone ["Web Application Zone"]
+        Auth["ASP.NET Identity / Auth"]
+        Controllers["Internal Controllers"]
+        CSP["CSP Headers / HSTS"]
+    end
+
+    subgraph Data_Zone ["Data Storage Zone (Protected)"]
+        DB[(SQL Server)]
+        Config["appsettings.json / Environment"]
+    end
+
+    User -- HTTPS --> PublicUI
+    PublicUI -- Login Credentials --> Auth
+    Auth -- JWT/Cookie --> Controllers
+    Controllers -- EF Core --> DB
+    Config -- ConnectionString --> DB
+    CSP -.-> User
+```
+
+---
+
+## 11. Business Workflow: Organization Setup
+
+Prozessablauf bei der Einrichtung einer neuen Organisation im System.
+
+```mermaid
+flowchart TD
+    Start([Start]) --> CreateOrg[Organization erstellen]
+    CreateOrg --> AddProjects[Projekte definieren]
+    AddProjects --> InviteUsers[Nutzer einladen]
+    InviteUsers --> AssignRoles[Rollen zuweisen: Admin/Dev/PM]
+    AssignRoles --> CreateWorkflow[Workflow-Stati festlegen]
+    CreateWorkflow --> Ready[System bereit für Tickets]
+    Ready --> End([Ende])
+```
