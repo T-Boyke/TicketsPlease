@@ -150,15 +150,18 @@ Sobald das MVP steht, der Build (CI/CD) dauerhaft grün ist und die Doku
 wächst, schalten wir nach und nach folgende Module auf das bestehende 3NF (3.
 Normalform) Datenbankschema frei:
 
-**1. Erweitertes Ticket-Domain:**
+**1. Erweitertes Ticket-Domain:** ✅
 
-- **Chillischoten-Metrik (1–5 🌶️):** Visuelle Schwierigkeitsbewertung.
-- **SHA1-Hash:** Globale Referenzierbarkeit für Tickets.
-- **GeoIP-Timestamp:** Audit-Trail bei Erstellung/Bearbeitung.
-- **Time-Tracking:** Start/Stop Button für Arbeitszeit (TimeLogs).
-- **Auto-Close Rule:** BackgroundService für Done→Archived nach X Tagen.
-- **Tags & Labels:** Globale Tags (n:m) an Tickets.
-- **Subtickets:** Verschachtelte Aufgabenlisten pro Master-Ticket.
+- [x] **Chillischoten-Metrik (1–5 🌶️):** Visuelle Schwierigkeitsbewertung
+      mit dynamischem Grün-zu-Rot Farbverlauf.
+- [x] **SHA1-Hash:** Globale Referenzierbarkeit für Tickets.
+- [x] **GeoIP-Timestamp:** Audit-Trail bei Erstellung/Bearbeitung.
+- [x] **Time-Tracking:** Start/Stop Button für Arbeitszeit (TimeLogs).
+- [x] **Auto-Close Rule:** `TicketCleanupWorker` (BackgroundService) für
+      Done→Archived nach 30 Tagen.
+- [x] **Tags & Labels:** Globale Tags (n:m) an Tickets mit Multi-Select UI.
+- [x] **Subtickets:** Verschachtelte Aufgabenlisten mit interaktivem
+      Fortschrittsbalken pro Master-Ticket.
 
 **2. Kollaboration & Echtzeit (Das „Jira/Slack" Erlebnis):**
 
