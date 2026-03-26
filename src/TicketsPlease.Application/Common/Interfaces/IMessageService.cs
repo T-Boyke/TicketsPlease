@@ -27,4 +27,21 @@ public interface IMessageService
   /// <param name="ct">Das Abbruchsignal.</param>
   /// <returns>Das DTO der erstellten Nachricht.</returns>
   public Task<MessageDto> SendMessageAsync(Guid senderId, CreateMessageDto dto, CancellationToken ct = default);
+
+  /// <summary>
+  /// Lädt einen Anhang für eine Nachricht hoch.
+  /// </summary>
+  /// <param name="messageId">Die ID der Nachricht.</param>
+  /// <param name="file">Die hochzuladende Datei.</param>
+  /// <returns>Ein Task.</returns>
+  public Task UploadAttachmentAsync(Guid messageId, Microsoft.AspNetCore.Http.IFormFile file);
+
+  /// <summary>
+  /// Ruft die Konversation zwischen zwei Benutzern ab.
+  /// </summary>
+  /// <param name="userId">Die ID des ersten Benutzers.</param>
+  /// <param name="otherUserId">Die ID des zweiten Benutzers.</param>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Eine Liste von Nachrichten-DTOs.</returns>
+  public Task<List<MessageDto>> GetConversationAsync(Guid userId, Guid otherUserId, CancellationToken ct = default);
 }

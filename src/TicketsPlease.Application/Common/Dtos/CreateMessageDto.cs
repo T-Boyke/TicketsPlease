@@ -11,4 +11,5 @@ using System;
 /// </summary>
 public record CreateMessageDto(
     Guid ReceiverUserId,
-    string BodyMarkdown);
+    string BodyMarkdown,
+    Microsoft.AspNetCore.Http.IFormFile? Attachment = null);

@@ -299,6 +299,19 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     {
       builder.Entity<Message>().HasOne(e => e.SenderUser).WithMany().HasForeignKey(e => e.SenderUserId).OnDelete(DeleteBehavior.Restrict);
       builder.Entity<Message>().HasOne(e => e.ReceiverUser).WithMany().HasForeignKey(e => e.ReceiverUserId).OnDelete(DeleteBehavior.Restrict);
+
+      entity.HasMany(m => m.Attachments)
+            .WithOne(a => a.Message)
+            .HasForeignKey(a => a.MessageId)
+            .OnDelete(DeleteBehavior.Cascade);
+    });
+
+    builder.Entity<FileAsset>(entity =>
+    {
+      entity.HasOne(a => a.Ticket)
+            .WithMany(t => t.Attachments)
+            .HasForeignKey(a => a.TicketId)
+            .OnDelete(DeleteBehavior.Cascade);
     });
 
     builder.Entity<MessageReadReceipt>(entity =>

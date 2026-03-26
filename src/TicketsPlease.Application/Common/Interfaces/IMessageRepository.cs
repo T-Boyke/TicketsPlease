@@ -28,6 +28,15 @@ public interface IMessageRepository
   public Task<List<Message>> GetUserMessagesAsync(Guid userId, CancellationToken ct = default);
 
   /// <summary>
+  /// Ruft die Konversation zwischen zwei Benutzern ab.
+  /// </summary>
+  /// <param name="userId">ID des ersten Benutzers.</param>
+  /// <param name="otherUserId">ID des zweiten Benutzers.</param>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Eine Liste von Nachrichten.</returns>
+  public Task<List<Message>> GetConversationAsync(Guid userId, Guid otherUserId, CancellationToken ct = default);
+
+  /// <summary>
   /// Fügt eine neue Nachricht hinzu.
   /// </summary>
   /// <param name="message">Die Nachricht.</param>

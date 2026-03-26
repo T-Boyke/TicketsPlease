@@ -16,4 +16,5 @@ public record MessageDto(
     Guid? ReceiverUserId,
     string? ReceiverUserName,
     string BodyMarkdown,
-    DateTime SentAt);
+    DateTime SentAt,
+    IEnumerable<FileAssetDto> Attachments);

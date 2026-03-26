@@ -66,4 +66,9 @@ public class Message : BaseEntity
   /// Gets or sets a value indicating whether die Nachricht nach dem Senden bearbeitet wurde.
   /// </summary>
   public bool IsEdited { get; set; }
+
+  /// <summary>
+  /// Gets or sets die Liste der Dateianhänge dieser Nachricht.
+  /// </summary>
+  public ICollection<FileAsset> Attachments { get; set; } = new List<FileAsset>();
 }

@@ -36,6 +36,7 @@ public class MessageRepository : IMessageRepository
     return await this.context.Messages
         .Include(m => m.SenderUser)
         .Include(m => m.ReceiverUser)
+        .Include(m => m.Attachments)
         .FirstOrDefaultAsync(m => m.Id == id, ct).ConfigureAwait(false);
   }
 
@@ -47,7 +48,22 @@ public class MessageRepository : IMessageRepository
         .Where(m => m.SenderUserId == userId || m.ReceiverUserId == userId)
         .Include(m => m.SenderUser)
         .Include(m => m.ReceiverUser)
+        .Include(m => m.Attachments)
         .OrderByDescending(m => m.SentAt)
+        .ToListAsync(ct).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc />
+  public async Task<List<Message>> GetConversationAsync(Guid userId, Guid otherUserId, CancellationToken ct = default)
+  {
+    return await this.context.Messages
+        .AsNoTracking()
+        .Where(m => (m.SenderUserId == userId && m.ReceiverUserId == otherUserId) ||
+                    (m.SenderUserId == otherUserId && m.ReceiverUserId == userId))
+        .Include(m => m.SenderUser)
+        .Include(m => m.ReceiverUser)
+        .Include(m => m.Attachments)
+        .OrderBy(m => m.SentAt)
         .ToListAsync(ct).ConfigureAwait(false);
   }
 
