@@ -202,6 +202,11 @@ public class Ticket : BaseAuditableEntity
   public ICollection<TicketLink> Blocking { get; private set; } = new List<TicketLink>();
 
   /// <summary>
+  /// Gets die Liste der Dateianhänge des Tickets.
+  /// </summary>
+  public ICollection<FileAsset> Attachments { get; private set; } = new List<FileAsset>();
+
+  /// <summary>
   /// Gets die ID des Benutzers, dem das Ticket zugewiesen ist (Nullable).
   /// </summary>
   public Guid? AssignedUserId { get; private set; }

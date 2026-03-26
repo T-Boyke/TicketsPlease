@@ -46,4 +46,14 @@ public class FileAsset : BaseEntity
   /// Gets or sets das Navigation-Property für den Benutzer, der die Datei hochgeladen hat.
   /// </summary>
   public User? UploadedByUser { get; set; }
+
+  /// <summary>
+  /// Gets or sets die ID des zugeordneten Tickets (Optional).
+  /// </summary>
+  public Guid? TicketId { get; set; }
+
+  /// <summary>
+  /// Gets or sets das Navigation-Property für das zugeordnete Ticket.
+  /// </summary>
+  public Ticket? Ticket { get; set; }
 }
