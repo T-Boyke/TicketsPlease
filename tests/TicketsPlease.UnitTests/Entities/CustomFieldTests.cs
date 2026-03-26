@@ -7,7 +7,6 @@ namespace TicketsPlease.UnitTests.Entities;
 using System;
 using FluentAssertions;
 using TicketsPlease.Domain.Entities;
-using TicketsPlease.Domain.Enums;
 using Xunit;
 
 public class CustomFieldTests

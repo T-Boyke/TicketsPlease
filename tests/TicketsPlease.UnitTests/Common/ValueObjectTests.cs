@@ -101,6 +101,10 @@ public class ValueObjectTests
 
     public int Value { get; }
 
+    public override bool Equals(object? obj) => base.Equals(obj);
+
+    public override int GetHashCode() => base.GetHashCode();
+
     public static bool operator ==(TestValueObject? a, TestValueObject? b)
     {
       if (ReferenceEquals(a, b))
