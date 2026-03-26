@@ -22,7 +22,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews()
     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-    .AddDataAnnotationsLocalization();
+    .AddDataAnnotationsLocalization()
+    .ConfigureApplicationPartManager(manager =>
+    {
+      var defaultProvider = manager.FeatureProviders.OfType<Microsoft.AspNetCore.Mvc.Controllers.ControllerFeatureProvider>().FirstOrDefault();
+      if (defaultProvider != null)
+      {
+        manager.FeatureProviders.Remove(defaultProvider);
+      }
+
+      manager.FeatureProviders.Add(new TicketsPlease.Web.InternalControllerFeatureProvider());
+    });
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
