@@ -2,7 +2,7 @@
 // Copyright (c) BitLC-NE-2025-2026. All rights reserved.
 // </copyright>
 
-namespace TicketsPlease.Application.Services;
+namespace TicketsPlease.Infrastructure.Services;
 
 using System;
 using System.Collections.Generic;
