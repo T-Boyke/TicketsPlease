@@ -59,18 +59,28 @@ public class TicketService : ITicketService
     this.subTicketService = subTicketService;
   }
 
-  /// <inheritdoc/>
   public async Task<IEnumerable<TicketDto>> GetActiveTicketsAsync()
   {
     var tickets = await this.ticketRepository.GetAllActiveAsync().ConfigureAwait(false);
-    return await Task.WhenAll(tickets.Select(t => this.MapToDtoAsync(t))).ConfigureAwait(false);
+    var dtos = new List<TicketDto>();
+    foreach (var ticket in tickets)
+    {
+      dtos.Add(await this.MapToDtoAsync(ticket).ConfigureAwait(false));
+    }
+
+    return dtos;
   }
 
-  /// <inheritdoc/>
   public async Task<IEnumerable<TicketDto>> GetFilteredTicketsAsync(Guid? projectId = null, Guid? assignedUserId = null, Guid? creatorId = null)
   {
     var tickets = await this.ticketRepository.GetFilteredAsync(projectId, assignedUserId, creatorId).ConfigureAwait(false);
-    return await Task.WhenAll(tickets.Select(t => this.MapToDtoAsync(t))).ConfigureAwait(false);
+    var dtos = new List<TicketDto>();
+    foreach (var ticket in tickets)
+    {
+      dtos.Add(await this.MapToDtoAsync(ticket).ConfigureAwait(false));
+    }
+
+    return dtos;
   }
 
   /// <inheritdoc/>

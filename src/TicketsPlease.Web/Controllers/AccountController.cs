@@ -15,7 +15,7 @@ using TicketsPlease.Web.Models.Account;
 /// <summary>
 /// Controller für die Benutzerverwaltung (Login, Registrierung, Profil).
 /// </summary>
-internal sealed class AccountController : Controller
+public sealed class AccountController : Controller
 {
   private readonly SignInManager<User> signInManager;
   private readonly UserManager<User> userManager;
@@ -57,10 +57,14 @@ internal sealed class AccountController : Controller
 
     if (this.ModelState.IsValid)
     {
-      var result = await this.signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe ?? false, lockoutOnFailure: false).ConfigureAwait(false);
-      if (result.Succeeded)
+      var user = await this.userManager.FindByEmailAsync(model.Email).ConfigureAwait(false);
+      if (user != null)
       {
-        return this.RedirectToAction("Index", "Home");
+        var result = await this.signInManager.PasswordSignInAsync(user.UserName!, model.Password, model.RememberMe ?? false, lockoutOnFailure: false).ConfigureAwait(false);
+        if (result.Succeeded)
+        {
+          return this.RedirectToAction("Index", "Home");
+        }
       }
 
       this.ModelState.AddModelError(string.Empty, "Ungültiger Login-Versuch.");
