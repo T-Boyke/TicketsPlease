@@ -64,6 +64,10 @@ tests/TicketsPlease.UnitTests/obj/
 ehthumbs.db
 Thumbs.db
 
+## [Test Results]
+[Tt]est[Rr]esults/
+[Ff]ixed[Rr]esults/
+
 ## [Antigravity / AI]
 # Keep agent config and logs if needed
 #.agent/

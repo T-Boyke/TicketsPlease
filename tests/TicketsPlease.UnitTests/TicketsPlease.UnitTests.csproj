@@ -4,6 +4,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);SA1600;CA1707;SA1601;SA1611;SA1615;SA1618;SA1623;SA1629;CA1852;CA1508;S3875;CA1806;CA1822;SA1000;SA1028;SA1101;SA1201;SA1309;SA1413;SA1503;SA1633;xUnit1012</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
