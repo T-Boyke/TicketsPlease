@@ -111,7 +111,15 @@ app.UseHttpsRedirection();
 // Standard Security Headers (Enterprise Compliance)
 app.Use((context, next) =>
 {
-  context.Response.Headers.Append("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none';");
+  var csp = "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none';";
+
+  if (app.Environment.IsDevelopment())
+  {
+    // Relax CSP in Development for Styleguide swatches, Browser Link, and Browser Refresh
+    csp = "default-src 'self' http://localhost:* ws://localhost:*; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none';";
+  }
+
+  context.Response.Headers.Append("Content-Security-Policy", csp);
   context.Response.Headers.Append("X-Frame-Options", "DENY");
   context.Response.Headers.Append("X-Content-Type-Options", "nosniff");
   context.Response.Headers.Append("Referrer-Policy", "strict-origin-when-cross-origin");
