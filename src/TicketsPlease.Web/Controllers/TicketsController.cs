@@ -8,11 +8,13 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
+using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
@@ -27,6 +29,7 @@ internal sealed class TicketsController : Controller
   private readonly IFileStorageService fileStorageService;
   private readonly ITimeTrackingService timeTrackingService;
   private readonly ISubTicketService subTicketService;
+  private readonly UserManager<User> userManager;
   private readonly AppDbContext context;
 
   /// <summary>
@@ -36,6 +39,9 @@ internal sealed class TicketsController : Controller
   /// <param name="projectService">Der Dienst für Projektinformationen.</param>
   /// <param name="fileAssetRepository">Das Repository für Dateien.</param>
   /// <param name="fileStorageService">Der Dienst zur Dateispeicherung.</param>
+  /// <param name="timeTrackingService">Der Dienst für Zeiterfassung.</param>
+  /// <param name="subTicketService">Der Dienst für Untertickets.</param>
+  /// <param name="userManager">Die Benutzerverwaltung.</param>
   /// <param name="context">Der Datenbankkontext für Metadata-Lookups.</param>
   public TicketsController(
       ITicketService ticketService,
@@ -44,6 +50,7 @@ internal sealed class TicketsController : Controller
       IFileStorageService fileStorageService,
       ITimeTrackingService timeTrackingService,
       ISubTicketService subTicketService,
+      UserManager<User> userManager,
       AppDbContext context)
   {
     this.ticketService = ticketService;
@@ -52,6 +59,7 @@ internal sealed class TicketsController : Controller
     this.fileStorageService = fileStorageService;
     this.timeTrackingService = timeTrackingService;
     this.subTicketService = subTicketService;
+    this.userManager = userManager;
     this.context = context;
   }
 
@@ -146,7 +154,7 @@ internal sealed class TicketsController : Controller
         ticket.AssignedUserId,
         ticket.EstimatePoints,
         ticket.ChilliesDifficulty,
-        ticket.Tags.Select(tt => tt.TagId).ToList());
+        ticket.Tags.Select(tt => tt.Id).ToList());
 
     await this.PrepareViewBags().ConfigureAwait(false);
     return this.View(dto);

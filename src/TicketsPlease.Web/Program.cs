@@ -14,6 +14,7 @@ using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 using TicketsPlease.Infrastructure.Repositories;
 using TicketsPlease.Infrastructure.Services;
+using TicketsPlease.Web.BackgroundServices;
 
 [assembly: InternalsVisibleTo("TicketsPlease.IntegrationTests")]
 
