@@ -5,16 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2026-03-27]
+
+### Phase 2.1: Erweitertes Ticket-Domain (Enterprise)
+
+- **🌶️ Chili Difficulty Gradient**: Implemented a dynamic green-to-red color gradient for the
+  Chili difficulty metric (1-5) in Create, Edit, and Detail views.
+- **🏷️ Tag Management**: Added multi-select Tag synchronization for tickets, allowing users to
+  categorize tasks with globally defined labels.
+- **⏱️ Time-Tracking System**: Integrated a real-time stopwatch and manual time logging.
+  Tickets now track total worked time via a new dedicated `TimeLog` entity.
+- **✅ Subticket Checklists**: Introduced nested subtickets with interactive toggling and a
+  dynamic progress bar on the ticket detail page.
+- **🧹 Auto-Close Worker**: Implemented `TicketCleanupWorker` background service to automatically
+  archive tickets in 'Done' or 'Closed' states after 30 days.
+
 ## [2026-03-26]
 
 ### Phase 1 Optional Features (MVP Completion)
 
-- **F2: Admin User Management**: Implemented `AdminUsersController` and premium Razor views for
-  listing and editing users, including role management and profile updates.
-- **F3: Ticket Attachments**: Fully integrated file upload and download capabilities for tickets,
-  supported by `IFileStorageService` and `IFileAssetRepository`.
-- **F4: Dashboard Statistics**: Created `DashboardService` to aggregate system-wide metrics (tickets,
-  projects, users) and updated `Home/Index` with a modern stats grid.
+- **F2: Admin User Management**: Implemented `AdminUsersController` and premium Razor views
+  for listing and editing users, including role management and profile updates.
+- **F3: Ticket Attachments**: Fully integrated file upload and download capabilities for
+  tickets, supported by `IFileStorageService` and `IFileAssetRepository`.
+- **F4: Dashboard Statistics**: Created `DashboardService` to aggregate system-wide metrics
+  (tickets, projects, users) and updated `Home/Index` with a modern stats grid.
 - **F8: Advanced Workflow Logic**: Implemented state machine transition rules and role-based
   validation in `TicketService.MoveTicketAsync`, ensuring business process compliance.
 
@@ -47,4 +62,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Identity Hash**: Fixed string-to-User conversion in `DbInitialiser` password hashing.
 - **Dependency Cleanup**: Removed unused `Identity.Core` and `Stores` packages from Application.
 
-[2026-03-26]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.1.0...main
+[2026-03-27]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.2.0...main
+[2026-03-26]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.1.0...v0.2.0

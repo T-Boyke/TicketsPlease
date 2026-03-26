@@ -15,10 +15,14 @@ using System;
 /// <param name="PriorityId">Die ID der Priorität.</param>
 /// <param name="AssignedUserId">Die ID des zuständigen Benutzers.</param>
 /// <param name="EstimatePoints">Die Story Points.</param>
+/// <param name="ChilliesDifficulty">Die Schwierigkeit (1-5 Chilis).</param>
+/// <param name="TagIds">Die IDs der zuzuordnenden Tags.</param>
 public record CreateTicketDto(
     string Title,
     string Description,
     Guid ProjectId,
     Guid PriorityId,
     Guid? AssignedUserId,
-    int? EstimatePoints);
+    int? EstimatePoints,
+    int ChilliesDifficulty = 1,
+    System.Collections.Generic.List<Guid>? TagIds = null);

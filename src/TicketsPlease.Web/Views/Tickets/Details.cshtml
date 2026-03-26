@@ -43,13 +43,112 @@
                           style="background-color: @(Model.Priority.ColorHex + "20"); color: @(Model.Priority.ColorHex)">
                         @Model.Priority.Name
                     </span>
+                    <div class="flex items-center space-x-1" title="@L["Difficulty"]: @Model.ChilliesDifficulty / 5">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            var color = i switch {
+                                1 => "#15803d",
+                                2 => "#84cc16",
+                                3 => "#f59e0b",
+                                4 => "#f97316",
+                                5 => "#e11d48",
+                                _ => "#cbd5e1"
+                            };
+                            
+                            if (i <= Model.ChilliesDifficulty)
+                            {
+                                <i class="fa-solid fa-pepper-hot @(i == 5 ? "animate-pulse" : "")" style="color: @color"></i>
+                            }
+                            else
+                            {
+                                <i class="fa-solid fa-pepper-hot text-slate-200"></i>
+                            }
+                        }
+                    </div>
                     <span class="text-slate-400 font-bold text-sm">TICKET-@Model.Id.ToString().Substring(0, 8).ToUpper()</span>
                 </div>
+                
+                @if (Model.Tags.Any())
+                {
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        @foreach (var tag in Model.Tags)
+                        {
+                            <span class="px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider border transition-all hover:shadow-sm"
+                                  style="background-color: @(tag.ColorHex + "15"); color: @tag.ColorHex; border-color: @(tag.ColorHex + "30")">
+                                <i class="fa-solid fa-tag mr-1 opacity-70"></i>@tag.Name
+                            </span>
+                        }
+                    </div>
+                }
                 <h1 class="text-4xl font-extrabold text-slate-900 mb-6 leading-tight">@Model.Title</h1>
                 <div class="prose prose-slate max-w-none mb-8">
                     <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">@L["Description"]</h3>
                     <p class="text-slate-700 leading-relaxed whitespace-pre-wrap">@Model.Description</p>
                 </div>
+
+                <!-- Checklist Section (F2.1.7) -->
+                <div class="pt-8 border-t border-slate-100">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold text-slate-800 flex items-center">
+                            <i class="fa-solid fa-list-check mr-3 text-indigo-500"></i> @L["Checklist"]
+                        </h3>
+                        @{
+                            int totalSub = Model.SubTickets.Count();
+                            int completedSub = Model.SubTickets.Count(s => s.IsCompleted);
+                            int progressPercent = totalSub > 0 ? (completedSub * 100) / totalSub : 0;
+                        }
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">@completedSub / @totalSub @L["Completed"]</span>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="w-full bg-slate-100 rounded-full h-2 mb-8 overflow-hidden">
+                        <div class="bg-indigo-500 h-full transition-all duration-700 ease-in-out" style="width: @progressPercent%"></div>
+                    </div>
+
+                    <div class="space-y-3 mb-8">
+                        @foreach (var sub in Model.SubTickets)
+                        {
+                            <div class="group flex items-center bg-slate-50 hover:bg-white p-4 rounded-2xl border border-transparent hover:border-slate-100 transition-all shadow-sm hover:shadow-md">
+                                <form asp-action="ToggleSubTicket" method="post" class="flex-1 flex items-center">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@Model.Id" />
+                                    <input type="hidden" name="subTicketId" value="@sub.Id" />
+                                    <button type="submit" class="flex items-center text-left w-full group/btn">
+                                        <div class="w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all mr-4 @(sub.IsCompleted ? "bg-emerald-500 border-emerald-500 shadow-lg shadow-emerald-500/20" : "border-slate-300 group-hover/btn:border-indigo-500")">
+                                            @if (sub.IsCompleted)
+                                            {
+                                                <i class="fa-solid fa-check text-white text-[10px]"></i>
+                                            }
+                                        </div>
+                                        <span class="text-slate-700 font-bold text-sm @(sub.IsCompleted ? "line-through text-slate-400 font-medium" : "")">@sub.Title</span>
+                                    </button>
+                                </form>
+                                
+                                <form asp-action="DeleteSubTicket" method="post" class="opacity-0 group-hover:opacity-100 transition-opacity">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@Model.Id" />
+                                    <input type="hidden" name="subTicketId" value="@sub.Id" />
+                                    <button type="submit" class="text-slate-300 hover:text-rose-500 transition-colors p-2" onclick="return confirm('@L["Are you sure?"]')">
+                                        <i class="fa-solid fa-trash-can text-sm"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        }
+
+                        @* Add SubTask Form *@
+                        <form asp-action="AddSubTicket" method="post" class="flex items-center space-x-3 mt-4">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@Model.Id" />
+                            <div class="relative flex-1">
+                                <i class="fa-solid fa-plus absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-xs"></i>
+                                <input type="text" name="title" placeholder="@L["Add a new task..."]" required
+                                       class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all outline-none text-sm font-medium" />
+                            </div>
+                            <button type="submit" class="bg-indigo-500 text-white p-3 rounded-2xl hover:bg-indigo-600 shadow-lg shadow-indigo-500/20 transition-all">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </form>
+                    </div>
 
                 @* Comments Section (F5) *@
                 <div class="pt-8 border-t border-slate-100">
@@ -139,6 +238,68 @@
                         <p class="text-sm font-bold text-slate-700">@Model.CreatedAt.ToString("g")</p>
                     </div>
                 </div>
+            </div>
+
+            @* Time Tracking (F2.1.4) *@
+            <div class="bg-white rounded-3xl p-6 border border-slate-100 shadow-xl overflow-hidden relative">
+                @if (Model.IsTimerRunning)
+                {
+                    <div class="absolute top-0 right-0 p-2">
+                        <span class="flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+                        </span>
+                    </div>
+                }
+                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6 flex items-center">
+                    <i class="fa-solid fa-clock-rotate-left mr-2 text-brand-primary"></i> @L["Time Tracking"]
+                </h3>
+                
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">@@L["Total"]</p>
+                        <p class="text-2xl font-black text-slate-900">@Model.TimeLogs.Sum(l => l.HoursLogged).ToString("F2") <span class="text-xs font-normal text-slate-400">h</span></p>
+                    </div>
+                    @if (Model.IsTimerRunning)
+                    {
+                        <form asp-action="StopTimer" asp-route-id="@Model.Id" method="post">
+                            <button type="submit" class="bg-rose-500 hover:bg-rose-600 text-white rounded-xl px-4 py-2 text-[10px] font-bold uppercase transition-all shadow-lg shadow-rose-500/30 flex items-center">
+                                <i class="fa-solid fa-stop mr-1.5"></i> @L["Stop"]
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-action="StartTimer" asp-route-id="@Model.Id" method="post">
+                            <button type="submit" class="bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl px-4 py-2 text-[10px] font-bold uppercase transition-all shadow-lg shadow-emerald-500/30 flex items-center">
+                                <i class="fa-solid fa-play mr-1.5"></i> @L["Start"]
+                            </button>
+                        </form>
+                    }
+                </div>
+
+                @if (Model.TimeLogs.Any())
+                {
+                    <div class="space-y-4 max-h-[200px] overflow-y-auto pr-2 custom-scrollbar">
+                        @foreach (var log in Model.TimeLogs)
+                        {
+                            <div class="bg-slate-50 rounded-xl p-3 border border-slate-100/50">
+                                <div class="flex justify-between items-start mb-1">
+                                    <span class="text-[9px] font-bold text-brand-primary uppercase">@log.UserName</span>
+                                    <span class="text-[9px] font-bold text-slate-400">@log.StartedAt.ToLocalTime().ToString("g")</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <p class="text-[10px] text-slate-600 overflow-hidden text-ellipsis whitespace-nowrap mr-2">@(log.Description ?? "-")</p>
+                                    <span class="text-[11px] font-black text-slate-900">@log.HoursLogged.ToString("F2")h</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-[10px] text-slate-400 italic text-center py-2 opacity-60">@L["No records yet."]</p>
+                }
             </div>
 
             @* Dependencies Section (F7) *@

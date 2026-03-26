@@ -16,6 +16,8 @@ using System;
 /// <param name="PriorityId">Die ID der neuen Priorität.</param>
 /// <param name="AssignedUserId">Die ID des neuen Zuständigen.</param>
 /// <param name="EstimatePoints">Die aktualisierten Story Points.</param>
+/// <param name="ChilliesDifficulty">Die neue Schwierigkeit (1-5 Chilis).</param>
+/// <param name="TagIds">Die neuen IDs der zuzuordnenden Tags.</param>
 public record UpdateTicketDto(
     Guid Id,
     string Title,
@@ -23,4 +25,6 @@ public record UpdateTicketDto(
     string Status,
     Guid PriorityId,
     Guid? AssignedUserId,
-    int? EstimatePoints);
+    int? EstimatePoints,
+    int ChilliesDifficulty = 1,
+    System.Collections.Generic.List<Guid>? TagIds = null);

@@ -11,10 +11,9 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 > [C-Sharp-OOP-Fundamentals](https://github.com/T-Boyke/C-Sharp-OOP-Fundamentals)
 > und
 > [C-Sharp-ASP-Fundamentals](https://github.com/T-Boyke/C-Sharp-ASP-Fundamentals).
-> Es transformiert diese theoretischen Grundlagen nun in ein vollwertiges,
-> cloud-ready Enterprise-Produkt. 👉 **Projektphasen:** Da der Auftrag
-> "Einfaches Ticketsystem" lautet, trennen wir strikt zwischen dem
-> **[MVP-Kern](docs/MVP_Roadmap.md)** und der späteren
+> Es transformiert diese theoretischen Grundlagen nun in ein vollwertiges, cloud-ready
+> Enterprise-Produkt. 👉 **Projektphasen:** Da der Auftrag "Einfaches Ticketsystem" lautet,
+> trennen wir strikt zwischen dem **[MVP-Kern](docs/MVP_Roadmap.md)** und der späteren
 > Enterprise-Ausbaustufe! 🛠️ **Schnellstart:** Neu im Projekt? Folge der
 > **[Einrichtungsanleitung für Dummies](docs/dev_setup_guide.md)**! 🤖
 > **AI-gestützte Entwicklung:** Dieses Projekt nutzt **Antigravity AI Skills**

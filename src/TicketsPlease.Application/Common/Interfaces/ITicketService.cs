@@ -90,4 +90,10 @@ public interface ITicketService
   /// <param name="file">Die Datei.</param>
   /// <returns>Ein Task.</returns>
   public Task UploadAttachmentAsync(Guid ticketId, IFormFile file);
+
+  /// <summary>
+  /// Ruft alle verfügbaren Tags ab.
+  /// </summary>
+  /// <returns>Eine Liste von Tag-DTOs.</returns>
+  public Task<IEnumerable<TagDto>> GetAllTagsAsync();
 }

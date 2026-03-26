@@ -400,6 +400,33 @@ public class Ticket : BaseAuditableEntity
   }
 
   /// <summary>
+  /// Synchronisiert die Tags des Tickets.
+  /// </summary>
+  /// <param name="tagIds">Die Liste der neuen Tag-IDs.</param>
+  public void SyncTags(IEnumerable<Guid> tagIds)
+  {
+    tagIds ??= Enumerable.Empty<Guid>();
+
+    // Entferne Tags, die nicht mehr in der Liste sind
+    var toRemove = this.Tags.Where(tt => !tagIds.Contains(tt.TagId)).ToList();
+    foreach (var tt in toRemove)
+    {
+      this.Tags.Remove(tt);
+    }
+
+    // Füge neue Tags hinzu
+    foreach (var tagId in tagIds)
+    {
+      if (!this.Tags.Any(tt => tt.TagId == tagId))
+      {
+        this.Tags.Add(new TicketTag { TicketId = this.Id, TagId = tagId });
+      }
+    }
+
+    this.UpdatedAt = DateTime.UtcNow;
+  }
+
+  /// <summary>
   /// Berechnet den Fortschritt in Prozent basierend auf den Untertickets (Checklisteneinträgen).
   /// </summary>
   /// <returns>Ein Wert zwischen 0 und 100.</returns>

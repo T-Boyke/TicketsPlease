@@ -27,23 +27,27 @@ public class TicketService : ITicketService
   private readonly IFileStorageService fileStorageService;
   private readonly IFileAssetRepository fileAssetRepository;
   private readonly RoleManager<Role> roleManager;
+  private readonly ITimeTrackingService timeTrackingService;
+  private readonly ISubTicketService subTicketService;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="TicketService"/> class.
   /// </summary>
-  /// <param name="ticketRepository">Das Repository für Tickets.</param>
-  /// <param name="userManager">Der Identity UserManager.</param>
-  /// <param name="roleManager">Der Identity RoleManager.</param>
-  /// <param name="httpContextAccessor">Der Accessor für den aktuellen HttpContext.</param>
-  /// <param name="fileStorageService">Der Dienst zur Dateispeicherung.</param>
+  /// <param name="projectService">Der Dienst für Projekte.</param>
   /// <param name="fileAssetRepository">Das Repository für Datei-Metadaten.</param>
+  /// <param name="fileStorageService">Der Dienst zur Dateispeicherung.</param>
+  /// <param name="timeTrackingService">Der Dienst für Zeiterfassung.</param>
+  /// <param name="subTicketService">Der Dienst für Untertickets.</param>
   public TicketService(
       ITicketRepository ticketRepository,
       UserManager<User> userManager,
       RoleManager<Role> roleManager,
       IHttpContextAccessor httpContextAccessor,
+      IProjectService projectService,
+      IFileAssetRepository fileAssetRepository,
       IFileStorageService fileStorageService,
-      IFileAssetRepository fileAssetRepository)
+      ITimeTrackingService timeTrackingService,
+      ISubTicketService subTicketService)
   {
     this.ticketRepository = ticketRepository;
     this.userManager = userManager;
@@ -51,27 +55,29 @@ public class TicketService : ITicketService
     this.httpContextAccessor = httpContextAccessor;
     this.fileStorageService = fileStorageService;
     this.fileAssetRepository = fileAssetRepository;
+    this.timeTrackingService = timeTrackingService;
+    this.subTicketService = subTicketService;
   }
 
   /// <inheritdoc/>
   public async Task<IEnumerable<TicketDto>> GetActiveTicketsAsync()
   {
     var tickets = await this.ticketRepository.GetAllActiveAsync().ConfigureAwait(false);
-    return tickets.Select(t => MapToDto(t));
+    return await Task.WhenAll(tickets.Select(t => this.MapToDtoAsync(t))).ConfigureAwait(false);
   }
 
   /// <inheritdoc/>
   public async Task<IEnumerable<TicketDto>> GetFilteredTicketsAsync(Guid? projectId = null, Guid? assignedUserId = null, Guid? creatorId = null)
   {
     var tickets = await this.ticketRepository.GetFilteredAsync(projectId, assignedUserId, creatorId).ConfigureAwait(false);
-    return tickets.Select(t => MapToDto(t));
+    return await Task.WhenAll(tickets.Select(t => this.MapToDtoAsync(t))).ConfigureAwait(false);
   }
 
   /// <inheritdoc/>
   public async Task<TicketDto?> GetTicketAsync(Guid id)
   {
     var ticket = await this.ticketRepository.GetByIdAsync(id).ConfigureAwait(false);
-    return ticket != null ? MapToDto(ticket) : null;
+    return ticket != null ? await this.MapToDtoAsync(ticket).ConfigureAwait(false) : null;
   }
 
   /// <inheritdoc/>
@@ -92,7 +98,13 @@ public class TicketService : ITicketService
     ticket.AssignUser(dto.AssignedUserId);
     ticket.SetPriority(dto.PriorityId);
     ticket.SetEstimatePoints(dto.EstimatePoints);
+    ticket.SetDifficulty(dto.ChilliesDifficulty);
     ticket.SetTenantId(user.TenantId);
+
+    if (dto.TagIds != null && dto.TagIds.Count > 0)
+    {
+      ticket.SyncTags(dto.TagIds);
+    }
 
     await this.ticketRepository.AddAsync(ticket).ConfigureAwait(false);
     await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
@@ -114,6 +126,12 @@ public class TicketService : ITicketService
     ticket.AssignUser(dto.AssignedUserId);
     ticket.SetPriority(dto.PriorityId);
     ticket.SetEstimatePoints(dto.EstimatePoints);
+    ticket.SetDifficulty(dto.ChilliesDifficulty);
+
+    if (dto.TagIds != null)
+    {
+      ticket.SyncTags(dto.TagIds);
+    }
 
     await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
   }
@@ -257,12 +275,19 @@ public class TicketService : ITicketService
     await this.fileAssetRepository.SaveChangesAsync().ConfigureAwait(false);
   }
 
+  /// <inheritdoc/>
+  public async Task<IEnumerable<TagDto>> GetAllTagsAsync()
+  {
+    var tags = await this.ticketRepository.GetAllTagsAsync().ConfigureAwait(false);
+    return tags.Select(t => new TagDto(t.Id, t.Name, t.ColorHex));
+  }
+
   /// <summary>
   /// Mappt eine Ticket-Entität auf ein DTO.
   /// </summary>
   /// <param name="t">Die Entität.</param>
   /// <returns>Das gemappte <see cref="TicketDto"/>.</returns>
-  private static TicketDto MapToDto(Ticket t)
+  private async Task<TicketDto> MapToDtoAsync(Ticket t)
   {
     var comments = t.Comments?.OrderByDescending(c => c.CreatedAt).Select(c => new CommentDto(
           c.Id,
@@ -297,6 +322,13 @@ public class TicketService : ITicketService
           a.UploadedAt,
           a.UploadedByUser?.UserName ?? "Unbekannt")) ?? Enumerable.Empty<FileAssetDto>();
 
+    var tags = t.Tags?.Select(tt => new TagDto(tt.TagId, tt.Tag?.Name ?? "Unbekannt", tt.Tag?.ColorHex ?? "#ccc")) ?? Enumerable.Empty<TagDto>();
+
+    var timeLogs = await this.timeTrackingService.GetTimeLogsAsync(t.Id).ConfigureAwait(false);
+    var subTickets = await this.subTicketService.GetSubTicketsAsync(t.Id).ConfigureAwait(false);
+    var user = await this.GetCurrentUserAsync().ConfigureAwait(false);
+    bool isTimerRunning = user != null && await this.timeTrackingService.IsTimerRunningAsync(t.Id, user.Id).ConfigureAwait(false);
+
     return new TicketDto(
         t.Id,
         t.Title,
@@ -310,6 +342,11 @@ public class TicketService : ITicketService
         new TicketPriorityDto(t.PriorityId, t.Priority?.Name ?? "Normal", t.Priority?.ColorHex ?? "#ccc"),
         t.CreatedAt,
         t.EstimatePoints,
+        t.ChilliesDifficulty,
+        tags,
+        timeLogs,
+        subTickets,
+        isTimerRunning,
         comments,
         blockedBy,
         blocking,

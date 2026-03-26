@@ -47,6 +47,8 @@ public class TicketRepository : ITicketRepository
             .ThenInclude(l => l.TargetTicket)
         .Include(t => t.Attachments)
             .ThenInclude(a => a.UploadedByUser)
+        .Include(t => t.Tags)
+            .ThenInclude(tt => tt.Tag)
         .FirstOrDefaultAsync(t => t.Id == id, ct).ConfigureAwait(false);
   }
 
@@ -136,5 +138,11 @@ public class TicketRepository : ITicketRepository
     {
       this.context.TicketLinks.Remove(link);
     }
+  }
+
+  /// <inheritdoc />
+  public async Task<List<Tag>> GetAllTagsAsync(CancellationToken ct = default)
+  {
+    return await this.context.Tags.AsNoTracking().OrderBy(t => t.Name).ToListAsync(ct).ConfigureAwait(false);
   }
 }

@@ -76,7 +76,10 @@ builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
 builder.Services.AddScoped<IFileStorageService, LocalStorageService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<ITimeTrackingService, TimeTrackingService>();
+builder.Services.AddScoped<ISubTicketService, SubTicketService>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddHostedService<TicketCleanupWorker>();
 
 // Database Configuration with Resilience
 

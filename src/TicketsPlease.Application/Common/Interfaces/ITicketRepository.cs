@@ -82,4 +82,11 @@ public interface ITicketRepository
   /// <param name="ct">Das Abbruchsignal.</param>
   /// <returns>Ein Task.</returns>
   public Task RemoveLinkAsync(Guid linkId, CancellationToken ct = default);
+
+  /// <summary>
+  /// Ruft alle verfügbaren Tags ab.
+  /// </summary>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Eine Liste von Tags.</returns>
+  public Task<List<Tag>> GetAllTagsAsync(CancellationToken ct = default);
 }

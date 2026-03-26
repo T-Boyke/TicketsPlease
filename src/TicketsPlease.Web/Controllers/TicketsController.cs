@@ -25,6 +25,8 @@ internal sealed class TicketsController : Controller
   private readonly IProjectService projectService;
   private readonly IFileAssetRepository fileAssetRepository;
   private readonly IFileStorageService fileStorageService;
+  private readonly ITimeTrackingService timeTrackingService;
+  private readonly ISubTicketService subTicketService;
   private readonly AppDbContext context;
 
   /// <summary>
@@ -40,12 +42,16 @@ internal sealed class TicketsController : Controller
       IProjectService projectService,
       IFileAssetRepository fileAssetRepository,
       IFileStorageService fileStorageService,
+      ITimeTrackingService timeTrackingService,
+      ISubTicketService subTicketService,
       AppDbContext context)
   {
     this.ticketService = ticketService;
     this.projectService = projectService;
     this.fileAssetRepository = fileAssetRepository;
     this.fileStorageService = fileStorageService;
+    this.timeTrackingService = timeTrackingService;
+    this.subTicketService = subTicketService;
     this.context = context;
   }
 
@@ -138,7 +144,9 @@ internal sealed class TicketsController : Controller
         ticket.Status,
         ticket.Priority.Id,
         ticket.AssignedUserId,
-        ticket.EstimatePoints);
+        ticket.EstimatePoints,
+        ticket.ChilliesDifficulty,
+        ticket.Tags.Select(tt => tt.TagId).ToList());
 
     await this.PrepareViewBags().ConfigureAwait(false);
     return this.View(dto);
@@ -266,5 +274,94 @@ internal sealed class TicketsController : Controller
 
     var allTickets = await this.context.Tickets.Where(t => !t.IsDeleted).OrderBy(t => t.Title).ToListAsync().ConfigureAwait(false);
     this.ViewBag.AllTickets = new SelectList(allTickets, "Id", "Title");
+
+    var tags = await this.ticketService.GetAllTagsAsync().ConfigureAwait(false);
+    this.ViewBag.Tags = new MultiSelectList(tags, "Id", "Name");
+  }
+
+  /// <summary>
+  /// Startet den Timer für ein Ticket.
+  /// </summary>
+  /// <param name="id">Die ID des Tickets.</param>
+  /// <returns>Ein Umleitungsergebnis.</returns>
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> StartTimer(Guid id)
+  {
+    var user = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
+    if (user != null)
+    {
+      await this.timeTrackingService.StartTimeTrackingAsync(id, user.Id).ConfigureAwait(false);
+    }
+
+    return this.RedirectToAction(nameof(this.Details), new { id });
+  }
+
+  /// <summary>
+  /// Stoppt den Timer für ein Ticket.
+  /// </summary>
+  /// <param name="id">Die ID des Tickets.</param>
+  /// <returns>Ein Umleitungsergebnis.</returns>
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> StopTimer(Guid id)
+  {
+    var user = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
+    if (user != null)
+    {
+      await this.timeTrackingService.StopTimeTrackingAsync(id, user.Id).ConfigureAwait(false);
+    }
+
+    return this.RedirectToAction(nameof(this.Details), new { id });
+  }
+
+  /// <summary>
+  /// Fügt ein Unterticket hinzu.
+  /// </summary>
+  /// <param name="id">Hauptticket-ID.</param>
+  /// <param name="title">Titel der Teilaufgabe.</param>
+  /// <returns>Ein Umleitungsergebnis.</returns>
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> AddSubTicket(Guid id, string title)
+  {
+    if (!string.IsNullOrWhiteSpace(title))
+    {
+      var user = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
+      if (user != null)
+      {
+        await this.subTicketService.AddSubTicketAsync(id, title, user.Id).ConfigureAwait(false);
+      }
+    }
+
+    return this.RedirectToAction(nameof(this.Details), new { id });
+  }
+
+  /// <summary>
+  /// Toggelt den Status eines Untertickets.
+  /// </summary>
+  /// <param name="id">Hauptticket-ID (für Redirect).</param>
+  /// <param name="subTicketId">ID des Untertickets.</param>
+  /// <returns>Ein Umleitungsergebnis.</returns>
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> ToggleSubTicket(Guid id, Guid subTicketId)
+  {
+    await this.subTicketService.ToggleSubTicketAsync(subTicketId).ConfigureAwait(false);
+    return this.RedirectToAction(nameof(this.Details), new { id });
+  }
+
+  /// <summary>
+  /// Löscht ein Unterticket.
+  /// </summary>
+  /// <param name="id">Hauptticket-ID (für Redirect).</param>
+  /// <param name="subTicketId">ID des Untertickets.</param>
+  /// <returns>Ein Umleitungsergebnis.</returns>
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> DeleteSubTicket(Guid id, Guid subTicketId)
+  {
+    await this.subTicketService.DeleteSubTicketAsync(subTicketId).ConfigureAwait(false);
+    return this.RedirectToAction(nameof(this.Details), new { id });
   }
 }
