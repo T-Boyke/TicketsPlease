@@ -15,11 +15,13 @@
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
     <PackageReference Include="coverlet.collector" Version="6.0.4" />
+    <PackageReference Include="Moq" Version="4.20.72" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\TicketsPlease.Domain\TicketsPlease.Domain.csproj" />
     <ProjectReference Include="..\..\src\TicketsPlease.Application\TicketsPlease.Application.csproj" />
+    <ProjectReference Include="..\..\src\TicketsPlease.Infrastructure\TicketsPlease.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

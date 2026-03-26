@@ -1,0 +1,67 @@
+using Microsoft.AspNetCore.Identity;
+using Moq;
+using TicketsPlease.Application.Common.Dtos;
+using TicketsPlease.Application.Common.Interfaces;
+using TicketsPlease.Application.Services;
+using TicketsPlease.Domain.Entities;
+using Xunit;
+
+namespace TicketsPlease.UnitTests.Application.Services;
+
+public class MessageServiceTests
+{
+    private readonly Mock<IMessageRepository> _mockMessageRepo;
+    private readonly Mock<IFileAssetRepository> _mockFileRepo;
+    private readonly Mock<IFileStorageService> _mockStorage;
+    private readonly MessageService _service;
+
+    public MessageServiceTests()
+    {
+        _mockMessageRepo = new Mock<IMessageRepository>();
+        _mockFileRepo = new Mock<IFileAssetRepository>();
+        _mockStorage = new Mock<IFileStorageService>();
+        
+        _service = new MessageService(
+            _mockMessageRepo.Object,
+            _mockStorage.Object,
+            _mockFileRepo.Object);
+    }
+
+    [Fact]
+    public async Task GetConversationAsync_ShouldReturnMappedDtosWithAttachments()
+    {
+        // Arrange
+        var userId = Guid.NewGuid();
+        var otherUserId = Guid.NewGuid();
+        var messageId = Guid.NewGuid();
+        
+        var messages = new List<Message>
+        {
+            new Message
+            {
+                Id = messageId,
+                SenderUserId = userId,
+                ReceiverUserId = otherUserId,
+                BodyMarkdown = "Hello",
+                SentAt = DateTime.UtcNow,
+                Attachments = new List<FileAsset>
+                {
+                    new FileAsset { FileName = "test.jpg", BlobPath = "path/to/test.jpg", SizeBytes = 1024 }
+                }
+            }
+        };
+
+        _mockMessageRepo.Setup(r => r.GetConversationAsync(userId, otherUserId, default))
+            .ReturnsAsync(messages);
+
+        // Act
+        var result = await _service.GetConversationAsync(userId, otherUserId);
+
+        // Assert
+        Assert.Single(result);
+        var dto = result.First();
+        Assert.Equal("Hello", dto.BodyMarkdown);
+        Assert.Single(dto.Attachments);
+        Assert.Equal("test.jpg", dto.Attachments.First().FileName);
+    }
+}
