@@ -1,5 +1,8 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
+@section Meta {
+    <meta name="description" content="TicketsPlease UI Styleguide - A comprehensive guide to our design system components, typography, and layout patterns." />
+}
 <style>
     .active-glow:active { box-shadow: 0 0 25px oklch(0.55 0.22 260 / 0.4); }
     .glass { background: oklch(1 0 0 / 0.03); backdrop-filter: blur(12px); border: 1px solid oklch(1 0 0 / 0.1); }
@@ -679,7 +682,7 @@
                     <div class="space-y-6">
                         <!-- Media Object -->
                         <div class="flex items-start gap-4 p-4 rounded-xl bg-surface-soft/50 dark:bg-dark-surface-soft/50 hover:bg-brand-primary/5 transition-colors cursor-pointer group">
-                             <img src="/api/placeholder/100/100" class="h-12 w-12 rounded-lg object-cover shadow-lg group-hover:scale-110 transition-transform" alt="@Localizer["SystemUpdateTitle"]" />
+                             <img src="https://placehold.co/100x100" class="h-12 w-12 rounded-lg object-cover shadow-lg group-hover:scale-110 transition-transform" alt="@Localizer["SystemUpdateTitle"]" />
                              <div>
                                  <h5 class="font-bold text-sm">@Localizer["SystemUpdateTitle"]</h5>
                                  <p class="text-xs text-text-secondary dark:text-dark-text-secondary leading-relaxed mt-1">
