@@ -1,11 +1,14 @@
 # TicketsPlease: The Big 5 Architecture & Model
 
-Dieses Dokument bietet eine visuelle Übersicht über die Architektur, das Domänenmodell und die Kerninteraktionen von **TicketsPlease**.
+Dieses Dokument bietet eine visuelle Übersicht über die Architektur, das Domänenmodell und die
+Kerninteraktionen von **TicketsPlease**.
 
 ---
 
 ## 1. System Architecture (DDD & MVC)
-Die Anwendung folgt einem klassischen **Layered Architecture**-Ansatz mit strikter Trennung nach **Domain-Driven Design (DDD)**-Prinzipien.
+
+Die Anwendung folgt einem klassischen **Layered Architecture**-Ansatz mit strikter Trennung
+nach **Domain-Driven Design (DDD)**-Prinzipien.
 
 ```mermaid
 graph TD
@@ -43,6 +46,7 @@ graph TD
 ---
 
 ## 2. Domain Class Diagram
+
 Das Herzstück des Systems: Die Beziehungen zwischen den wichtigsten Domänen-Entitäten.
 
 ```mermaid
@@ -100,6 +104,7 @@ classDiagram
 ---
 
 ## 3. Entity Relationship Diagram (ERD)
+
 Fokus auf die Persistenzstrategie und Fremdschlüsselbeziehungen.
 
 ```mermaid
@@ -137,6 +142,7 @@ erDiagram
 ---
 
 ## 4. Use Case Diagram
+
 Die Rollen und ihre primären Interaktionen mit dem System.
 
 ```mermaid
@@ -169,6 +175,7 @@ usecaseDiagram
 ---
 
 ## 5. Sequence Diagram: Ticket Creation Flow
+
 Demonstration des Workflows über alle Layer hinweg.
 
 ```mermaid
@@ -194,4 +201,36 @@ sequenceDiagram
     deactivate S
     C-->>U: RedirectToActionResult (Details)
     deactivate C
+```
+
+---
+
+## 6. Test Strategy & Coverage
+
+Die Qualitätssicherung erfolgt über eine mehrstufige Testpyramide mit dem Ziel der
+vollständigen Abdeckung der Geschäftslogik.
+
+```mermaid
+graph LR
+    subgraph Test_Pyramid ["🧪 Testing Layers"]
+        Unit["Unit Tests (100% Domain)"]
+        Integration["Integration Tests (EF Core/API)"]
+        Architecture["Architecture Tests (StyleCop/DDD)"]
+        E2E["E2E Tests (Playwright)"]
+    end
+
+    subgraph Tools ["🛠️ Tools"]
+        xUnit["xUnit"]
+        Fluent["FluentAssertions"]
+        Coverlet["Coverlet / Cobertura"]
+        Sonar["SonarCloud"]
+    end
+
+    Unit --> xUnit
+    Integration --> xUnit
+    Architecture --> xUnit
+    E2E --> xUnit
+    
+    Unit --> Coverlet
+    Coverlet --> Sonar
 ```
