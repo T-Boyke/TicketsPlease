@@ -146,30 +146,32 @@ erDiagram
 Die Rollen und ihre primären Interaktionen mit dem System.
 
 ```mermaid
-usecaseDiagram
-    actor "Admin" as A
-    actor "Project Manager" as PM
-    actor "Developer" as D
-    actor "Stakeholder" as S
+graph LR
+    subgraph Actors ["👥 Rollen"]
+        Admin((Admin))
+        PM((Project Manager))
+        Dev((Developer))
+        Stake((Stakeholder))
+    end
 
-    package "TicketsPlease System" {
-        usecase "Create Project" as UC1
-        usecase "Manage Teams" as UC2
-        usecase "Create/Edit Ticket" as UC3
-        usecase "Change Ticket State" as UC4
-        usecase "Add Comments" as UC5
-        usecase "View Dashboard" as UC6
-    }
+    subgraph Actions ["🎯 Use Cases"]
+        UC1([Projekt erstellen])
+        UC2([Teams verwalten])
+        UC3([Ticket erstellen/bearbeiten])
+        UC4([Status ändern])
+        UC5([Kommentar hinzufügen])
+        UC6([Dashboard einsehen])
+    end
 
-    A --> UC1
-    A --> UC2
+    Admin --> UC1
+    Admin --> UC2
     PM --> UC1
     PM --> UC3
     PM --> UC4
-    D --> UC3
-    D --> UC4
-    D --> UC5
-    S --> UC6
+    Dev --> UC3
+    Dev --> UC4
+    Dev --> UC5
+    Stake --> UC6
 ```
 
 ---
