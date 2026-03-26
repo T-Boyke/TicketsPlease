@@ -454,4 +454,91 @@
   <data name="FooterCredit" xml:space="preserve">
     <value>Built for the future of task management.</value>
   </data>
+  <data name="Overlays" xml:space="preserve">
+    <value>Overlays &amp; Modals</value>
+  </data>
+  <data name="LayoutPatterns" xml:space="preserve">
+    <value>Layout Patterns</value>
+  </data>
+  <data name="Modals" xml:space="preserve">
+    <value>Modals</value>
+  </data>
+  <data name="DeleteConfirmation" xml:space="preserve">
+    <value>Delete Confirmation</value>
+  </data>
+  <data name="DeleteConfirmationDesc" xml:space="preserve">
+    <value>Do you really want to permanently delete this ticket? This action cannot be undone.</value>
+  </data>
+  <data name="YesDelete" xml:space="preserve">
+    <value>Yes, Delete</value>
+  </data>
+  <data name="CreateNewTicket" xml:space="preserve">
+    <value>Create New Ticket</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="Bug" xml:space="preserve">
+    <value>Bug</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Creator</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="MediaObjectsToasts" xml:space="preserve">
+    <value>Media Objects &amp; Toasts</value>
+  </data>
+  <data name="SystemUpdateTitle" xml:space="preserve">
+    <value>System Update v2.4</value>
+  </data>
+  <data name="SystemUpdateDesc" xml:space="preserve">
+    <value>New Kanban features have been unlocked. Try them now!</value>
+  </data>
+  <data name="JustNow" xml:space="preserve">
+    <value>Just now</value>
+  </data>
+  <data name="MessageSent" xml:space="preserve">
+    <value>Message sent</value>
+  </data>
+  <data name="FullPagePatterns" xml:space="preserve">
+    <value>Full Page Patterns</value>
+  </data>
+  <data name="DashboardHome" xml:space="preserve">
+    <value>Dashboard Home</value>
+  </data>
+  <data name="OpenStatus" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Due" xml:space="preserve">
+    <value>Due</value>
+  </data>
+  <data name="RecentActivity" xml:space="preserve">
+    <value>Recent Activity</value>
+  </data>
+  <data name="ExploreHomescreen" xml:space="preserve">
+    <value>Explore Homescreen Detail</value>
+  </data>
+  <data name="TicketDetailSection" xml:space="preserve">
+    <value>Ticket Details: DB Refactoring</value>
+  </data>
+  <data name="ExploreDetailPattern" xml:space="preserve">
+    <value>Explore Detail Pattern</value>
+  </data>
 </root>
