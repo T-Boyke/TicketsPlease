@@ -87,7 +87,7 @@ public abstract class IntegrationTestBase : IDisposable
   {
     ArgumentNullException.ThrowIfNull(db);
 
-    if (!await db.Roles.AnyAsync().ConfigureAwait(false))
+    if (!await db.Projects.AnyAsync().ConfigureAwait(false))
     {
       var tenantId = Guid.NewGuid();
       await db.Organizations.AddAsync(new Organization { Id = tenantId, Name = "Test Org", TenantId = tenantId }).ConfigureAwait(false);
