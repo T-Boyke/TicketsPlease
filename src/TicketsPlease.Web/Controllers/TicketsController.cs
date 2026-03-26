@@ -23,6 +23,8 @@ internal sealed class TicketsController : Controller
 {
   private readonly ITicketService ticketService;
   private readonly IProjectService projectService;
+  private readonly IFileAssetRepository fileAssetRepository;
+  private readonly IFileStorageService fileStorageService;
   private readonly AppDbContext context;
 
   /// <summary>
@@ -30,11 +32,20 @@ internal sealed class TicketsController : Controller
   /// </summary>
   /// <param name="ticketService">Der Dienst für Ticketoperationen.</param>
   /// <param name="projectService">Der Dienst für Projektinformationen.</param>
+  /// <param name="fileAssetRepository">Das Repository für Dateien.</param>
+  /// <param name="fileStorageService">Der Dienst zur Dateispeicherung.</param>
   /// <param name="context">Der Datenbankkontext für Metadata-Lookups.</param>
-  public TicketsController(ITicketService ticketService, IProjectService projectService, AppDbContext context)
+  public TicketsController(
+      ITicketService ticketService,
+      IProjectService projectService,
+      IFileAssetRepository fileAssetRepository,
+      IFileStorageService fileStorageService,
+      AppDbContext context)
   {
     this.ticketService = ticketService;
     this.projectService = projectService;
+    this.fileAssetRepository = fileAssetRepository;
+    this.fileStorageService = fileStorageService;
     this.context = context;
   }
 
@@ -200,6 +211,42 @@ internal sealed class TicketsController : Controller
   {
     await this.ticketService.RemoveDependencyAsync(id, dependencyId).ConfigureAwait(false);
     return this.RedirectToAction(nameof(this.Details), new { id });
+  }
+
+  /// <summary>
+  /// Lädt einen Anhang für das Ticket hoch.
+  /// </summary>
+  /// <param name="id">Die ID des Tickets.</param>
+  /// <param name="file">Die hochgeladene Datei.</param>
+  /// <returns>Ein Umleitungsergebnis.</returns>
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> UploadAttachment(Guid id, IFormFile file)
+  {
+    if (file != null && file.Length > 0)
+    {
+      await this.ticketService.UploadAttachmentAsync(id, file).ConfigureAwait(false);
+    }
+
+    return this.RedirectToAction(nameof(this.Details), new { id });
+  }
+
+  /// <summary>
+  /// Lädt eine Datei herunter.
+  /// </summary>
+  /// <param name="id">Die ID der Datei.</param>
+  /// <returns>Das Dateiergebnis.</returns>
+  [HttpGet]
+  public async Task<IActionResult> DownloadAttachment(Guid id)
+  {
+    var asset = await this.fileAssetRepository.GetByIdAsync(id).ConfigureAwait(false);
+    if (asset == null)
+    {
+      return this.NotFound();
+    }
+
+    var stream = await this.fileStorageService.GetFileAsync(asset.BlobPath).ConfigureAwait(false);
+    return this.File(stream, asset.ContentType, asset.FileName);
   }
 
   /// <summary>
