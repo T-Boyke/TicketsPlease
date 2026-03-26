@@ -9,11 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **100% Domain Coverage**: Reached 100% line and branch coverage for the `TicketsPlease.Domain` layer.
-- **Visual Documentation**: Created a comprehensive architectural documentation suite (`docs/big5.md`)
-  with 11 diagrams.
-- **Internal Controller Discovery**: Implemented `InternalControllerFeatureProvider` for better DDD
-  encapsulation.
+- **100% Integration Coverage**: Expanded Integration tests for Infrastructure, Services, and
+  Kern-Controllers achieving high/100% path coverage.
+- **Visual Documentation**: Created a comprehensive architectural documentation suite
+  (`docs/big5.md`) with 11 diagrams.
+- **Internal Controller Discovery**: Implemented `InternalControllerFeatureProvider` for better
+  DDD encapsulation.
+- **Security & DevExperience**: Relaxed CSP in Development for Styleguide and Browser Link support.
 
 ### Optimized
 

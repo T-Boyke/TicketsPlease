@@ -90,32 +90,32 @@ funktionsfähig sein und durch Unit/Integration-Tests abgedeckt werden.
 
 ### F5: Kommentare
 
-- [ ] Kommentare auf Ticket-Detailseite (Inhalt, TicketID, Ersteller,
+- [x] Kommentare auf Ticket-Detailseite (Inhalt, TicketID, Ersteller,
       Erstellzeitpunkt).
-- [ ] Anzeige neueste zuerst, Button zum Anlegen vorhanden.
-- [ ] Ersteller = angemeldeter User, Zeitpunkt automatisch gesetzt.
+- [x] Anzeige neueste zuerst, Button zum Anlegen vorhanden.
+- [x] Ersteller = angemeldeter User, Zeitpunkt automatisch gesetzt.
 
 ### F6: Filterung
 
-- [ ] Filterung nach Projekten („Bestimmtes Projekt" / „Alle Projekte").
-- [ ] Filterung nach zugeordnetem Benutzer („Benutzer" / „Alle" /
+- [x] Filterung nach Projekten („Bestimmtes Projekt" / „Alle Projekte").
+- [x] Filterung nach zugeordnetem Benutzer („Benutzer" / „Alle" /
       „Nicht zugeordnet").
-- [ ] Filterung nach Ersteller („Benutzer" / „Alle Benutzer").
-- [ ] Seite lädt bei Filterung neu.
+- [x] Filterung nach Ersteller („Benutzer" / „Alle Benutzer").
+- [x] Seite lädt bei Filterung neu.
 
 ### F7: Abhängigkeiten
 
-- [ ] Auf der Detailseite Tickets auswählen, die dieses Ticket blockieren.
-- [ ] Blockierende Tickets als Liste auf der Detailseite anzeigen.
-- [ ] Ticket kann nur geschlossen werden, wenn alle blockierenden Tickets
+- [x] Auf der Detailseite Tickets auswählen, die dieses Ticket blockieren.
+- [x] Blockierende Tickets als Liste auf der Detailseite anzeigen.
+- [x] Ticket kann nur geschlossen werden, wenn alle blockierenden Tickets
       bereits geschlossen sind.
 
 ### F8: Workflows
 
-- [ ] Workflow-Verwaltung im Admin-Bereich (CRUD, nur Admin).
-- [ ] Workflow hat ID und Bezeichnung.
-- [ ] Workflow besteht aus Status-Reihe (die ein Ticket annehmen kann).
-- [ ] Jedem Projekt kann genau ein Workflow zugeordnet werden.
+- [x] Workflow-Verwaltung im Admin-Bereich (CRUD, nur Admin).
+- [x] Workflow hat ID und Bezeichnung.
+- [x] Workflow besteht aus Status-Reihe (die ein Ticket annehmen kann).
+- [x] Jedem Projekt kann genau ein Workflow zugeordnet werden.
 - [ ] (Optional) Status-Folge-Regeln (welche Status als Folge möglich).
 - [ ] (Optional) Rollenbasierte Status-Vergabe.
 

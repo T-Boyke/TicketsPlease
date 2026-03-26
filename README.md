@@ -81,7 +81,7 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 | **Ticket-Bereich**  | ✅ Fertig     | Anlegen, Liste, Detail, Bearbeiten, Close    | MVP (F3)     |
 | **Startseite**      | ✅ Fertig     | Statistiken, Links zu Bereichen              | MVP (F4)     |
 | **Kommentare**      | ✅ Fertig     | Ticket-Kommentare (Domain Logic)             | MVP (F5)     |
-| **Filterung**       | 🏗️ Ausstehend | Nach Projekt, User, Ersteller                | MVP (F6)     |
+| **Filterung**       | ✅ Fertig     | Nach Projekt, User, Ersteller                | MVP (F6)     |
 | **Abhängigkeiten**  | ✅ Fertig     | Blockierende Tickets (Domain Logic)          | MVP (F7)     |
 | **Workflows**       | ✅ Fertig     | Status-Verwaltung für Projekte (Domain Logic) | MVP (F8)     |
 | **Nachrichten**     | 🏗️ Ausstehend | User-to-User Messaging                       | MVP (F9)     |
@@ -529,9 +529,9 @@ strikten **AAA-Patterns** (Arrange, Act, Assert).
   wird (z.B. "Domain darf Web nicht referenzieren"). Wir nutzen `[Fact]` für
   Einzelszenarien und `[Theory]` für tiefgreifende Boundary-Tests.
 - **Integration & Snapshot Tests:** Validieren das Zusammenspiel mit der Datenbank.
-  **Kein** "In-Memory". Wir nutzen reale SQL Server Instanzen via
-  **Testcontainers**. Komplexe JSON/DTO-Rückgaben werden via **VerifyTests**
-  gegen Snapshots abgeglichen.
+  Wir nutzen hochperformante SQLite In-Memory Instanzen via **WebApplicationFactory**.
+  Komplexe JSON/DTO-Rückgaben werden via **VerifyTests** gegen Snapshots abgeglichen.
+  **Status**: 100% path coverage für Repositories und Core-Service-Logik erreicht.
 - **E2E (End-to-End) Tests:** Mittels Playwright und Vitest automatisieren wir
   Browser-Klicks, um kritische User-Journeys abzusichern.
 

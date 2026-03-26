@@ -45,12 +45,13 @@ Wir trennen unsere Test-Suites physisch und logisch.
 - **Regel:** Keine Netzwerk-Calls, keine echte Datenbank. Extrem schnell (< 5ms pro Test).
 - **Status:** **100% Line & Branch Coverage** für `TicketsPlease.Domain` erreicht.
 
-### 2.2 Integration Tests (`Testcontainers`)
+### 2.2 Integration Tests (`WebApplicationFactory`, SQLite in-memory)
 
 - **Fokus:** EF Core Repositories, Datenbank-Transaktionen, Controller.
-- **Regel:** Wir nutzen _niemals_ die EF Core InMemory Datenbank, da diese keine Constraints oder
-  RowLocks simuliert. Stattdessen fahren wir via **Testcontainers** dynamisch einen MS SQL Server
-  Docker Container hoch.
+- **Regel:** Wir nutzen in der CI-Pipeline SQLite In-Memory Datenbanken mit `WebApplicationFactory`.
+- **Besonderheit:** Wir nutzen einen `TestAuthHandler` zur Simulation von Benutzerrechten und einen
+  `FakeAntiforgery` Dienst, um POST-Requests reibungslos zu validieren.
+- **Status:** **Hohe / 100% Coverage** für Repositories, TicketService und Kern-Controller erreicht.
 
 ### 2.3 System / E2E Tests (`Playwright`)
 

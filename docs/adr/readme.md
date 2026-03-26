@@ -38,6 +38,7 @@ architektonischen Design-Entscheidungen für das Projekt **TicketsPlease**.
 | [0100](0100-globalization-localization.md)     | Globalization & Localization (I18N)              | Accepted | 2026-03-08 |
 | [0110](0110-security-secret-management.md)     | Security Policies & Secret Management            | Accepted | 2026-03-08 |
 | [0120](0120-synthetic-data-privacy.md)         | Synthetic Data Generation                        | Proposed | -          |
+| [0140](0140-test-infrastructure-security-relaxation.md) | Test Infrastructure & Security Relaxation        | Accepted | 2026-03-26 |
 
 ---
 
