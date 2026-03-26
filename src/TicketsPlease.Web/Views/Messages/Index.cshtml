@@ -1,0 +1,107 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Identity
+@using TicketsPlease.Application.Common.Dtos
+@model IEnumerable<MessageDto>
+@inject IViewLocalizer L
+@inject UserManager<TicketsPlease.Domain.Entities.User> UserManager
+
+@{
+    ViewData["Title"] = L["Messages"];
+    var currentUserId = Guid.Parse(UserManager.GetUserId(User)!);
+    
+    // Group messages by the conversation partner
+    var conversations = Model.GroupBy(m => m.SenderUserId == currentUserId ? m.ReceiverUserId : m.SenderUserId)
+                             .OrderByDescending(g => g.Max(m => m.SentAt));
+}
+
+<div class="max-w-6xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between mb-10">
+        <div>
+            <h1 class="text-4xl font-black tracking-tight text-slate-900">@L["Your Messages"]</h1>
+            <p class="text-slate-500 mt-2 font-medium">@L["Stay connected with your team members."]</p>
+        </div>
+        <a asp-action="Create" class="btn-primary-glow flex items-center gap-2">
+            <i class="fa-solid fa-paper-plane px-1"></i>
+            @L["New Message"]
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="glass-premium p-16 rounded-3xl text-center border-2 border-dashed border-slate-200">
+            <div class="h-24 w-24 bg-brand-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fa-solid fa-envelope-open text-4xl text-brand-primary"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800">@L["No messages yet"]</h2>
+            <p class="text-slate-500 mt-2 max-w-sm mx-auto">@L["Start a conversation with one of your colleagues to see your messages here."]</p>
+            <a asp-action="Create" class="btn-secondary mt-8">@L["Start Chatting"]</a>
+        </div>
+    }
+    else
+    {
+        <div class="grid lg:grid-cols-1 gap-6">
+            @foreach (var convo in conversations)
+            {
+                var partnerId = convo.Key;
+                var latestMessage = convo.First();
+                var partnerName = latestMessage.SenderUserId == currentUserId ? latestMessage.ReceiverUserName : latestMessage.SenderUserName;
+                
+                <div class="glass-premium p-6 rounded-2xl hover:shadow-2xl hover:shadow-brand-primary/5 transition-all group border border-slate-100 mb-4 animate-in fade-in slide-in-from-bottom-4">
+                    <div class="flex items-start justify-between gap-6">
+                        <div class="flex items-start gap-5 flex-grow">
+                             <div class="h-14 w-14 rounded-full bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center text-white text-xl font-black shadow-lg shadow-brand-primary/20 flex-shrink-0">
+                                @(partnerName?.FirstOrDefault().ToString().ToUpper() ?? "?")
+                             </div>
+                             <div class="flex-grow">
+                                <div class="flex items-center justify-between mb-1">
+                                    <h3 class="font-black text-lg text-slate-900 group-hover:text-brand-primary transition-colors">@partnerName</h3>
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest bg-slate-100 px-3 py-1 rounded-full">
+                                        @latestMessage.SentAt.ToLocalTime().ToString("g")
+                                    </span>
+                                </div>
+                                <div class="p-4 bg-slate-50/50 rounded-xl border border-slate-100 mt-3 italic text-slate-600 relative overflow-hidden">
+                                     @if (latestMessage.SenderUserId == currentUserId)
+                                     {
+                                         <span class="text-[10px] font-black uppercase text-brand-primary mr-2 bg-brand-primary/10 px-2 py-0.5 rounded">@L["You"]:</span>
+                                     }
+                                     @latestMessage.BodyMarkdown
+                                     
+                                     <div class="absolute right-3 bottom-2 text-[10px] text-slate-300">
+                                         <i class="fa-solid fa-check-double"></i>
+                                     </div>
+                                </div>
+                                <div class="mt-4 flex gap-3">
+                                    <a asp-action="Create" asp-route-receiverId="@partnerId" class="text-xs font-bold text-brand-primary hover:text-brand-secondary transition-colors uppercase tracking-wider flex items-center gap-1.5">
+                                        <i class="fa-solid fa-reply"></i> @L["Reply"]
+                                    </a>
+                                    <span class="text-slate-200">|</span>
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">@convo.Count() @L["total messages"]</span>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    .btn-primary-glow {
+        background: var(--brand-primary);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 9999px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-size: 0.875rem;
+        box-shadow: 0 10px 20px -5px rgba(var(--brand-primary-rgb), 0.3);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-primary-glow:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 15px 25px -5px rgba(var(--brand-primary-rgb), 0.4);
+        filter: brightness(1.1);
+    }
+</style>

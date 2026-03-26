@@ -121,10 +121,10 @@ funktionsfähig sein und durch Unit/Integration-Tests abgedeckt werden.
 
 ### F9: Nachrichten
 
-- [ ] Nachrichten: Absender, Empfänger, Zeitstempel, Nachrichteninhalt (Text).
-- [ ] Jeder angemeldete Benutzer hat eine Nachrichten-Seite.
-- [ ] Möglichkeit, neue Nachrichten zu erstellen.
-- [ ] Liste aller gesendeten/erhaltenen Nachrichten, gruppiert nach
+- [x] Nachrichten: Absender, Empfänger, Zeitstempel, Nachrichteninhalt (Text).
+- [x] Jeder angemeldete Benutzer hat eine Nachrichten-Seite.
+- [x] Möglichkeit, neue Nachrichten zu erstellen.
+- [x] Liste aller gesendeten/erhaltenen Nachrichten, gruppiert nach
       Absender/Empfänger.
 
 ### Infrastruktur (bereits erledigt)

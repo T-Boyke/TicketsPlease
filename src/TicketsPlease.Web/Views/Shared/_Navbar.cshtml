@@ -43,6 +43,11 @@
                             <i class="fa-solid fa-users mr-2 text-slate-400"></i>
                             @L["Teams"]
                         </a>
+                        <a asp-controller="Messages" asp-action="Index"
+                           class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700 transition-colors duration-200">
+                            <i class="fa-solid fa-envelope mr-2 text-slate-400"></i>
+                            @L["Messages"]
+                        </a>
                     }
                 </div>
             </div>
@@ -73,6 +78,10 @@
                                 <a asp-controller="Account" asp-action="Profile" class="flex items-center px-3 py-2 text-sm text-slate-700 rounded-lg hover:bg-slate-50 hover:text-brand-primary transition-colors duration-150">
                                     <i class="fa-solid fa-user-gear mr-3 text-slate-400 w-5"></i>
                                     @L["Profile"]
+                                </a>
+                                <a asp-controller="Messages" asp-action="Index" class="flex items-center px-3 py-2 text-sm text-slate-700 rounded-lg hover:bg-slate-50 hover:text-brand-primary transition-colors duration-150">
+                                    <i class="fa-solid fa-envelope mr-3 text-slate-400 w-5"></i>
+                                    @L["My Messages"]
                                 </a>
 
                                 @if (User.IsInRole("Admin"))

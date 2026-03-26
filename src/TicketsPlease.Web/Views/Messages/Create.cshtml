@@ -1,0 +1,71 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@using TicketsPlease.Application.Common.Dtos
+@model CreateMessageDto
+@inject IViewLocalizer L
+
+@{
+    ViewData["Title"] = L["New Message"];
+}
+
+<div class="max-w-2xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="mb-10 text-center">
+        <h1 class="text-4xl font-black tracking-tight text-slate-900 mb-3">@L["Compose Message"]</h1>
+        <p class="text-slate-500 font-medium">@L["Select a colleague and send them a private message."]</p>
+    </div>
+
+    <div class="glass-premium p-10 rounded-3xl border border-slate-100 shadow-3xl">
+        <form asp-action="Create" method="post" class="space-y-8">
+            <div asp-validation-summary="ModelOnly" class="bg-rose-50 text-rose-500 border border-rose-100 p-4 rounded-xl text-xs font-bold uppercase tracking-widest"></div>
+
+            <div class="group h-full flex flex-col">
+                <label for="ReceiverUserId" class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2.5 ml-1 group-focus-within:text-brand-primary transition-colors">@L["Recipient"]</label>
+                <div class="relative">
+                    <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none transition-colors group-focus-within:text-brand-primary"></i>
+                    <select id="ReceiverUserId" name="ReceiverUserId" asp-items="ViewBag.Users" class="form-input pl-12 h-14 w-full bg-slate-50 border-2 border-slate-100 focus:border-brand-primary/30 focus:bg-white rounded-2xl text-sm font-bold transition-all outline-none appearance-none cursor-pointer">
+                        <option value="">@L["Select a recipient..."]</option>
+                    </select>
+                    <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-300">
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+                <span asp-validation-for="ReceiverUserId" class="text-rose-500 text-[10px] font-black uppercase mt-2 ml-1"></span>
+            </div>
+
+            <div class="group">
+                <label for="BodyMarkdown" class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2.5 ml-1 group-focus-within:text-brand-primary transition-colors">@L["Message Content"]</label>
+                <textarea id="BodyMarkdown" name="BodyMarkdown" rows="6" class="form-input p-5 w-full bg-slate-50 border-2 border-slate-100 focus:border-brand-primary/30 focus:bg-white rounded-2xl text-sm font-medium transition-all outline-none resize-none placeholder:text-slate-300" placeholder="@L["Write your message here..."]"></textarea>
+                <div class="mt-2.5 flex items-center justify-between">
+                    <span asp-validation-for="BodyMarkdown" class="text-rose-500 text-[10px] font-black uppercase ml-1"></span>
+                    <span class="text-[10px] items-center gap-1.5 text-slate-400 uppercase font-black tracking-widest">
+                        <i class="fa-brands fa-markdown text-xs mr-1 opacity-50"></i>
+                        @L["Markdown supported"]
+                    </span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center gap-4 pt-4">
+                <button type="submit" class="w-full sm:flex-1 btn-primary-glow flex items-center justify-center gap-3 py-4 text-sm font-black uppercase tracking-widest shadow-xl shadow-brand-primary/20">
+                    <i class="fa-solid fa-paper-plane mr-1" aria-hidden="true"></i>
+                    @L["Send Message"]
+                </button>
+                <a asp-action="Index" class="w-full sm:w-auto px-8 py-4 text-sm font-black text-slate-400 hover:text-slate-600 transition-colors uppercase tracking-widest text-center">
+                    @L["Cancel"]
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .btn-primary-glow {
+        background: var(--brand-primary);
+        color: white;
+        border-radius: 9999px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-primary-glow:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 15px 25px -5px rgba(var(--brand-primary-rgb), 0.4);
+        filter: brightness(1.1);
+    }
+</style>
