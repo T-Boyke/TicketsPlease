@@ -40,4 +40,18 @@
   <data name="Assignee" xml:space="preserve"><value>Zuständig</value></data>
   <data name="Project" xml:space="preserve"><value>Projekt</value></data>
   <data name="Created" xml:space="preserve"><value>Erstellt am</value></data>
+  <data name="Attachments" xml:space="preserve"><value>Anhänge</value></data>
+  <data name="No attachments" xml:space="preserve"><value>Keine Anhänge</value></data>
+  <data name="Upload" xml:space="preserve"><value>Hochladen</value></data>
+  <data name="Dependencies" xml:space="preserve"><value>Abhängigkeiten</value></data>
+  <data name="Blocked By" xml:space="preserve"><value>Blockiert durch</value></data>
+  <data name="Blocking" xml:space="preserve"><value>Blockiert</value></data>
+  <data name="No blockers" xml:space="preserve"><value>Keine Blockaden</value></data>
+  <data name="No successors" xml:space="preserve"><value>Keine Nachfolger</value></data>
+  <data name="Add Blocker" xml:space="preserve"><value>Blocker hinzufügen</value></data>
+  <data name="Add" xml:space="preserve"><value>Hinzufügen</value></data>
+  <data name="Comments" xml:space="preserve"><value>Kommentare</value></data>
+  <data name="Post Comment" xml:space="preserve"><value>Kommentar senden</value></data>
+  <data name="Write a comment..." xml:space="preserve"><value>Schreiben Sie einen Kommentar...</value></data>
+  <data name="No comments yet. Be the first to start the discussion!" xml:space="preserve"><value>Noch keine Kommentare vorhanden. Sei der Erste!</value></data>
 </root>

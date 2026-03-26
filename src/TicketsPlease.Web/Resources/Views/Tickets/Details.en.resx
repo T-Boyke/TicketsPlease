@@ -40,4 +40,22 @@
   <data name="Edit Ticket" xml:space="preserve"><value>Edit Ticket</value></data>
   <data name="Close Ticket" xml:space="preserve"><value>Close Ticket</value></data>
   <data name="Back to Tickets" xml:space="preserve"><value>Back to Tickets</value></data>
+  <data name="Back to Board" xml:space="preserve"><value>Back to Board</value></data>
+  <data name="Description" xml:space="preserve"><value>Description</value></data>
+  <data name="Properties" xml:space="preserve"><value>Properties</value></data>
+  <data name="Created" xml:space="preserve"><value>Created at</value></data>
+  <data name="Attachments" xml:space="preserve"><value>Attachments</value></data>
+  <data name="No attachments" xml:space="preserve"><value>No attachments</value></data>
+  <data name="Upload" xml:space="preserve"><value>Upload</value></data>
+  <data name="Dependencies" xml:space="preserve"><value>Dependencies</value></data>
+  <data name="Blocked By" xml:space="preserve"><value>Blocked By</value></data>
+  <data name="Blocking" xml:space="preserve"><value>Blocking</value></data>
+  <data name="No blockers" xml:space="preserve"><value>No blockers</value></data>
+  <data name="No successors" xml:space="preserve"><value>No successors</value></data>
+  <data name="Add Blocker" xml:space="preserve"><value>Add Blocker</value></data>
+  <data name="Add" xml:space="preserve"><value>Add</value></data>
+  <data name="Comments" xml:space="preserve"><value>Comments</value></data>
+  <data name="Post Comment" xml:space="preserve"><value>Post Comment</value></data>
+  <data name="Write a comment..." xml:space="preserve"><value>Write a comment...</value></data>
+  <data name="No comments yet. Be the first to start the discussion!" xml:space="preserve"><value>No comments yet. Be the first to start the discussion!</value></data>
 </root>
