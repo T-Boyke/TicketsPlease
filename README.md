@@ -80,10 +80,10 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 | **Projekte CRUD**   | ✅ Fertig     | Project-Entity & Base Service (See #34-#36)  | MVP (F2.2)   |
 | **Ticket-Bereich**  | ✅ Fertig     | Anlegen, Liste, Detail, Bearbeiten, Close    | MVP (F3)     |
 | **Startseite**      | ✅ Fertig     | Statistiken, Links zu Bereichen              | MVP (F4)     |
-| **Kommentare**      | 🏗️ Ausstehend | Ticket-Kommentare                            | MVP (F5)     |
+| **Kommentare**      | ✅ Fertig     | Ticket-Kommentare (Domain Logic)             | MVP (F5)     |
 | **Filterung**       | 🏗️ Ausstehend | Nach Projekt, User, Ersteller                | MVP (F6)     |
-| **Abhängigkeiten**  | 🏗️ Ausstehend | Blockierende Tickets                         | MVP (F7)     |
-| **Workflows**       | 🏗️ Ausstehend | Status-Verwaltung für Projekte               | MVP (F8)     |
+| **Abhängigkeiten**  | ✅ Fertig     | Blockierende Tickets (Domain Logic)          | MVP (F7)     |
+| **Workflows**       | ✅ Fertig     | Status-Verwaltung für Projekte (Domain Logic) | MVP (F8)     |
 | **Nachrichten**     | 🏗️ Ausstehend | User-to-User Messaging                       | MVP (F9)     |
 | **Kanban Board**    | 🗺️ Roadmap    | Interaktives Board mit Drag & Drop           | Enterprise   |
 | **Plugin System**   | 🗺️ Roadmap    | Externe Module (Dynamic Loading)             | Enterprise   |
@@ -516,8 +516,8 @@ verfolgen den konsequenten **Red-Green-Refactor**-Zyklus unter Einhaltung des
 strikten **AAA-Patterns** (Arrange, Act, Assert).
 
 - **100% Test Coverage & Mutation Testing:** Die Domain-Logik (Kern) duldet
-  Zero Compromise. 100% Line-Coverage allein reicht nicht. Wir nutzen
-  **Stryker.NET** (Mutation Testing), um zu garantieren, dass fehlerhafter Code
+  Zero Compromise. **Wir haben 100% Line- & Branch-Coverage für den Domain-Layer erreicht.**
+  Wir nutzen **Stryker.NET** (Mutation Testing), um zu garantieren, dass fehlerhafter Code
   die Tests zum Absturz bringt. Ziel: 100% Mutation Score!
 - **Data Builders & Determinismus:** Hardcodierte "TestUser1" existieren bei uns
   nicht. Reale Testdaten werden via **Bogus** generiert. Zeitliche Aspekte
@@ -615,9 +615,9 @@ Dokumentation veraltet nicht, wenn sie automatisiert und systematischer
 Bestandteil des Workflows ist.
 
 - **Architektur-Graphen & Diagramme:** Wir nutzen Mermaid-Diagramme für alle
-  komplexen Systeme. Diese finden sich gesammelt unter:
+  komplexen Systeme. Eine Sammlung von **11 umfassenden Diagrammen** finden Sie hier:
   - 👉
-    **[System Architecture & Data-Flows (Big 5 UML)](docs/architecture_diagrams.md)**
+    **[System Architecture & Visual Documentation (Big 11 UML)](docs/big5.md)**
   - 👉 **[Datenbankschema & Entities (ERD 3NF)](docs/database_schema.md)**
   - 👉 **[Projekt Gantt-Chart (Roadmap)](docs/gantt_roadmap.md)**
 - **Mockups & Screenshots:** Initiale Planungs-Mockups, UI-Entwürfe und finale

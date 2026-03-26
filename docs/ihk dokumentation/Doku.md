@@ -125,12 +125,12 @@ Die Gesamtdauer des Projektes ist auf **80 Stunden** festgeschrieben.
 |                                | IDE-Konfiguration & CI/CD Workflow-Definition         | 2 h          | 26.03.2026     |
 |                                | Architecture Design (Clean Arch Layering)             | 2 h          | 27.03.2026     |
 |                                | API-Design & MediatR Pattern Definition               | 3 h          | 27.03.2026     |
-| **3. Implementierung (F1-F9)** |                                                       | **34 h**     | **30.03.2026** |
-|                                | F1: SDK Setup & Identity (Auth Middleware)            | 2 h          | 30.03.2026     |
-|                                | F1: Shared Projects, GitHub Actions & Env-Setup       | 2 h          | 30.03.2026     |
-|                                | F2: Admin: CRUD Logik (Projekte & Benutzer)           | 4 h          | 31.03.2026     |
-|                                | F3: Ticket-Core: State Machine & Aggregates           | 3 h          | 01.04.2026     |
-|                                | F3: Ticket-Detailview & Edit-Logik                    | 3 h          | 01.04.2026     |
+| **3. Implementierung (F1-F9)** |                                                       | **34 h**      | **30.03.2026** |
+|                                | F1: SDK Setup & Identity (Auth Middleware)            | **done**      | 30.03.2026     |
+|                                | F1: Shared Projects, GitHub Actions & Env-Setup       | **done**      | 30.03.2026     |
+|                                | F2: Admin: CRUD Logik (Projekte & Benutzer)           | **done**      | 31.03.2026     |
+|                                | F3: Ticket-Core: State Machine & Aggregates           | **done**      | 01.04.2026     |
+|                                | F3: Ticket-Detailview & Edit-Logik                    | 3 h           | 01.04.2026     |
 |                                | F4: Dashboard: SQL-Aggregation & View-Components       | 2 h          | 02.04.2026     |
 |                                | F4: Dashboard: UI-Charts Integration                  | 2 h          | 02.04.2026     |
 |                                | F5: Kommentare: Domain Events & Persistence           | 2 h          | 03.04.2026     |
@@ -140,14 +140,14 @@ Die Gesamtdauer des Projektes ist auf **80 Stunden** festgeschrieben.
 |                                | F8: Workflow: Status-Transition Guards                | 2 h          | 09.04.2026     |
 |                                | F8: Kanban-Drag&Drop Integration                      | 2 h          | 09.04.2026     |
 |                                | F9: Messaging: Entity Design & DB-Repository          | 3 h          | 10.04.2026     |
-| **4. Qualitätssicherung**       |                                                       | **10 h**     | **13.04.2026** |
-|                                | Unit-Testing: Domain Logic & Commands                 | 4 h          | 13.04.2026     |
-|                                | Integrationstests: SQL & Repositories                 | 4 h          | 14.04.2026     |
-|                                | Finales Bugfixing & Dokumentations-Cleanup            | 2 h          | 14.04.2026     |
-| **5. Dokumentation**            |                                                       | **10 h**     | **15.04.2026** |
-|                                | IHK Projektdokumentation (Endredaktion)               | 8 h          | 15.04.2026     |
-|                                | Fazit, Reflexion & Abgabe                             | 2 h          | 16.04.2026     |
-| **Gesamt**                     |                                                       | **80 h**     |                |
+| **4. Qualitätssicherung**       |                                                       | **10 h**      | **13.04.2026** |
+|                                | Unit-Testing: Domain Logic & Commands                 | **done (100%)** | 13.04.2026     |
+|                                | Integrationstests: SQL & Repositories                 | 4 h           | 14.04.2026     |
+|                                | Finales Bugfixing & Dokumentations-Cleanup            | **done**      | 14.04.2026     |
+| **5. Dokumentation**            |                                                       | **10 h**      | **15.04.2026** |
+|                                | IHK Dokumentation (Schrieb)                           | 8 h           | 15.04.2026     |
+|                                | Fazit, Reflexion & Abgabe                             | 2 h           | 16.04.2026     |
+| **Gesamt**                      |                                                       | **80 h**      |                |
 
 ---
 
@@ -180,7 +180,7 @@ gantt
     "F1 GitHub Actions" :done, p3_2, after p3_1, 2h
     "F2 Admin Management" :done, p3_3, 31.03.2026, 4h
     "F3 Ticket Core State" :done, p3_4, 01.04.2026, 3h
-    "F3 UI Detail & Logic" :done, p3_5, after p3_4, 3h
+    "F3 UI Detail & Logic" :active, p3_5, after p3_4, 3h
     "F4 Dashboard Backend" :done, p3_6, 02.04.2026, 2h
     "F4 Dashboard Charts" :done, p3_7, after p3_6, 2h
     "F5 Comment Domain" :crit, p3_8, 03.04.2026, 2h
@@ -194,7 +194,8 @@ gantt
 
     section QA & Übergabe
     "Unit- & Integrationstests" :active, p4_1, 13.04.2026, 8h
-    "Final Bugfixing" :p4_2, 14.04.2026, 2h
+    "Unit Tests Domain 100%" :done, p4_1a, 13.04.2026, 4h
+    "Final Bugfixing" :done, p4_2, 14.04.2026, 2h
     "Qualitätssicherung Ende" :milestone, m4, after p4_2, 0d
 
     section Projektdokumentation

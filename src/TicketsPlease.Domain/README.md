@@ -1,7 +1,8 @@
 # 🟢 TicketsPlease.Domain – Der Core
 
-Dies ist der wichtigste Layer der Anwendung. Hier leben die **Geschäftsregeln**
-und die **Fachlichkeit**.
+Dies ist der wichtigste Layer der Anwendung. Hier leben die **Geschäftsregeln** und die **Fachlichkeit**.
+
+👉 **Detaillierte Klassen- und Architekturdiagramme finden Sie in [docs/big5.md](../../docs/big5.md).**
 
 ## 🧬 Lebenszyklus einer Entity (Beispiel Ticket)
 

@@ -43,6 +43,7 @@ Wir trennen unsere Test-Suites physisch und logisch.
 
 - **Fokus:** Domain-Logik, MediatR Handlers, und pure Funktionen.
 - **Regel:** Keine Netzwerk-Calls, keine echte Datenbank. Extrem schnell (< 5ms pro Test).
+- **Status:** **100% Line & Branch Coverage** für `TicketsPlease.Domain` erreicht.
 
 ### 2.2 Integration Tests (`Testcontainers`)
 

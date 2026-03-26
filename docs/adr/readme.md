@@ -27,6 +27,8 @@ architektonischen Design-Entscheidungen für das Projekt **TicketsPlease**.
 | [0060](0060-testing-strategy.md)               | Testing Strategy                                 | Accepted | 2026-03-06 |
 | [0061](0061-structured-logging-serilog.md)     | Structured Logging (Serilog)                     | Accepted | 2026-03-06 |
 | [0062](0062-database-verification-strategy.md) | Database Verification Strategy                   | Proposed | -          |
+| [0063](0063-internal-controller-discovery.md) | Internal Controller Discovery                    | Accepted | 2026-03-26 |
+| [0130](0130-visual-documentation-strategy.md) | Visual Documentation Strategy                    | Accepted | 2026-03-26 |
 | [0070](0070-mvp-scope-phasing.md)              | MVP Scope & Phasing                              | Accepted | 2026-03-06 |
 | [0080](0080-ticket-identification-audit.md)    | Ticket Identification & Audit Trail              | Accepted | 2026-03-06 |
 | [0081](0081-resilience-polly.md)               | Resilience & Fault Handling (Polly)              | Accepted | 2026-03-06 |
