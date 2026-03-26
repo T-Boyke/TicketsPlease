@@ -136,6 +136,18 @@ public static class DbInitialiser
       await context.Users.AddRangeAsync(users).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
+      // Identity Role Assignments (AspNetUserRoles) für alle Benutzer
+      foreach (var user in users)
+      {
+        context.UserRoles.Add(new IdentityUserRole<Guid>
+        {
+          UserId = user.Id,
+          RoleId = user.RoleId,
+        });
+      }
+
+      await context.SaveChangesAsync().ConfigureAwait(false);
+
       // 4. Profiles & Addresses
       foreach (var user in users)
       {

@@ -19,16 +19,19 @@ internal sealed class AccountController : Controller
 {
   private readonly SignInManager<User> signInManager;
   private readonly UserManager<User> userManager;
+  private readonly RoleManager<Role> roleManager;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="AccountController"/> class.
   /// </summary>
   /// <param name="signInManager">Der Identity SignInManager.</param>
   /// <param name="userManager">Der Identity UserManager.</param>
-  public AccountController(SignInManager<User> signInManager, UserManager<User> userManager)
+  /// <param name="roleManager">Die Rollenverwaltung.</param>
+  public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, RoleManager<Role> roleManager)
   {
     this.signInManager = signInManager;
     this.userManager = userManager;
+    this.roleManager = roleManager;
   }
 
   /// <summary>
@@ -89,10 +92,15 @@ internal sealed class AccountController : Controller
 
     if (this.ModelState.IsValid)
     {
-      var user = new User { UserName = model.Username, Email = model.Email };
+      // Standardmäßig die "User"-Rolle zuweisen
+      var defaultRole = await this.roleManager.FindByNameAsync("User").ConfigureAwait(false);
+      var defaultRoleId = defaultRole?.Id ?? Guid.Empty;
+
+      var user = new User { UserName = model.Username, Email = model.Email, RoleId = defaultRoleId };
       var result = await this.userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
       if (result.Succeeded)
       {
+        await this.userManager.AddToRoleAsync(user, "User").ConfigureAwait(false);
         await this.signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
         return this.RedirectToAction("Index", "Home");
       }
