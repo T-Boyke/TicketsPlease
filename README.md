@@ -1,4 +1,4 @@
-# <a id="ticketsplease"></a>TicketsPlease ![TicketsPlease Icon](docs/assets/ticketspleaseicon.png)
+# TicketsPlease ![TicketsPlease Icon](docs/assets/ticketspleaseicon.png)
 
 ![TicketsPlease Logo](docs/assets/ticketspleaselogo.png)
 

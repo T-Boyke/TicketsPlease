@@ -6,13 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.9.0-alpha] - 2026-04-02
-#### Added
+
+### Added
+
 - **SignalR Architecture**: Real-time infrastructure for live collaboration.
 - **Notification Center**: Enterprise Toast system for instant alerts and updates.
 - **Live Comments**: New comments appear instantly on the ticket details page without refresh.
 - **Kanban Sync**: Real-time notification support for board status changes.
 - **Presence Indicators**: Infrastructure for tracking users on active tickets.
 - **Clean Concurrency**: Repository-level RowVersion management for better architecture.
+- **Teams Module**: Full Clean Architecture implementation for team management and administration.
+- **Project Tickets**: Eliminated ticket placeholder on project details with dynamic list rendering.
 
 ### Phase 2.2: Collaboration & Enterprise Excellence
 
@@ -89,6 +93,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Dependency Cleanup**: Removed unused `Identity.Core` and `Stores` packages from Application.
 
 [0.9.0-alpha]: https://github.com/Tobia/TicketsPlease/releases/tag/v0.9.0
-[2026-04-02]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.3.0...main
 [2026-03-27]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.2.0...v0.3.0
 [2026-03-26]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.1.0...v0.2.0

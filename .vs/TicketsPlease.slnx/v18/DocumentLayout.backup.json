@@ -1,12 +1,41 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Tobia\\Desktop\\cSharpRepo\\TicketsPlease\\",
-  "Documents": [],
+  "WorkspaceRootPath": "D:\\DEV\\TicketsPlease\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{52E4C03A-1E08-344D-D6AD-326812F611CB}|src\\TicketsPlease.Web\\TicketsPlease.Web.csproj|d:\\dev\\ticketsplease\\src\\ticketsplease.web\\controllers\\ticketscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52E4C03A-1E08-344D-D6AD-326812F611CB}|src\\TicketsPlease.Web\\TicketsPlease.Web.csproj|solutionrelative:src\\ticketsplease.web\\controllers\\ticketscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TicketsController.cs",
+              "DocumentMoniker": "D:\\DEV\\TicketsPlease\\src\\TicketsPlease.Web\\Controllers\\TicketsController.cs",
+              "RelativeDocumentMoniker": "src\\TicketsPlease.Web\\Controllers\\TicketsController.cs",
+              "ToolTip": "D:\\DEV\\TicketsPlease\\src\\TicketsPlease.Web\\Controllers\\TicketsController.cs",
+              "RelativeToolTip": "src\\TicketsPlease.Web\\Controllers\\TicketsController.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAgwC0AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T19:25:14.762Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

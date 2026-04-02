@@ -171,9 +171,9 @@ __2. Kollaboration & Echtzeit (Das „Jira/Slack" Erlebnis):__
 __3. Workspace Management:__
 
 | ID | Feature | Status | Priority | Description |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | F1 | __Workspace Management__ | _Pflicht_ | Hoch | Erstellen/Verwalten von Workspaces/Organisationen |
-| F2 | __Team-Zuweisung__ | _optional_ | Mittel | Tickets können Teams statt Individuen zugewiesen werden |
+| F2 | __Team-Zuweisung__ | ✅ Erledigt | Mittel | Tickets können Teams statt Individuen zugewiesen werden |
 
 - __Broadcast Mails:__ Teamleads senden via MailKit.
 - __Erweiterte Profile:__ Profilbild Uploader mit Avatar-Cropping.
@@ -242,12 +242,12 @@ __2. Offizielle Erweiterungen:__
 ### Phase 2: Collaboration & Real-Time (Status: IN PROGRESS 🟢)
 
 | ID | Feature | Status | Priority |
-|---|---|---|---|
-| F10 | **SignalR Infrastructure** | ✅ Erledigt | Hoch |
-| F11 | **Live Collaboration** (Kanban Sync) | ✅ Erledigt | Hoch |
-| F12 | **Notification Center** (Toasts) | ✅ Erledigt | Mittel |
-| F13 | **Live Presence** (Active Viewers) | 🔄 In Arbeit | Mittel |
-| F14 | **Team-Chat / Ticket Messaging** | ⏳ Geplant | Mittel |
+| --- | --- | --- | --- |
+| F10 | __SignalR Infrastructure__ | ✅ Erledigt | Hoch |
+| F11 | __Live Collaboration__ (Kanban Sync) | ✅ Erledigt | Hoch |
+| F12 | __Notification Center__ (Toasts) | ✅ Erledigt | Mittel |
+| F13 | __Live Presence__ (Active Viewers) | 🔄 In Arbeit | Mittel |
+| F14 | __Team-Chat / Ticket Messaging__ | ⏳ Geplant | Mittel |
 
 > __Fazit:__ Wir haben das Datenbankschema und die Ordnerstruktur bereits auf
 > __Enterprise__ Level gehievt. Alle Entitäten und Beziehungen sind im Code
