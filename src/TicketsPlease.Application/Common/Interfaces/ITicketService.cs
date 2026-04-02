@@ -96,4 +96,18 @@ public interface ITicketService
   /// </summary>
   /// <returns>Eine Liste von Tag-DTOs.</returns>
   public Task<IEnumerable<TagDto>> GetAllTagsAsync();
+
+  /// <summary>
+  /// Gibt einen Upvote für ein Ticket ab (Phase 2 Enterprise).
+  /// </summary>
+  /// <param name="id">Die ID des Tickets.</param>
+  /// <returns>Ein Task.</returns>
+  public Task UpvoteAsync(Guid id);
+
+  /// <summary>
+  /// Entfernt einen Upvote von einem Ticket.
+  /// </summary>
+  /// <param name="id">Die ID des Tickets.</param>
+  /// <returns>Ein Task.</returns>
+  public Task DownvoteAsync(Guid id);
 }

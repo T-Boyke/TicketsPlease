@@ -154,7 +154,8 @@ internal sealed class TicketsController : Controller
         ticket.AssignedUserId,
         ticket.EstimatePoints,
         ticket.ChilliesDifficulty,
-        ticket.Tags.Select(tt => tt.Id).ToList());
+        ticket.Tags.Select(tt => tt.Id).ToList(),
+        ticket.RowVersion);
 
     await this.PrepareViewBags().ConfigureAwait(false);
     return this.View(dto);
@@ -171,8 +172,15 @@ internal sealed class TicketsController : Controller
   {
     if (this.ModelState.IsValid)
     {
-      await this.ticketService.UpdateTicketAsync(dto).ConfigureAwait(false);
-      return this.RedirectToAction(nameof(this.Index));
+      try
+      {
+        await this.ticketService.UpdateTicketAsync(dto).ConfigureAwait(false);
+        return this.RedirectToAction(nameof(this.Index));
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        this.ModelState.AddModelError(string.Empty, L["The data has been modified by another user. Please reload the page."].Value);
+      }
     }
 
     await this.PrepareViewBags().ConfigureAwait(false);
@@ -367,9 +375,36 @@ internal sealed class TicketsController : Controller
   /// <returns>Ein Umleitungsergebnis.</returns>
   [HttpPost]
   [ValidateAntiForgeryToken]
-  public async Task<IActionResult> DeleteSubTicket(Guid id, Guid subTicketId)
+  /// <summary>
+  /// Toggelt den Upvote eines Benutzers für ein Ticket.
+  /// </summary>
+  /// <param name="id">Die ID des Tickets.</param>
+  /// <param name="returnUrl">Optionale URL zum Zurückkehren.</param>
+  /// <returns>Ein Umleitungsergebnis.</returns>
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> ToggleUpvote(Guid id, string? returnUrl = null)
   {
-    await this.subTicketService.DeleteSubTicketAsync(subTicketId).ConfigureAwait(false);
+    var ticket = await this.ticketService.GetTicketAsync(id).ConfigureAwait(false);
+    if (ticket == null)
+    {
+       return this.NotFound();
+    }
+
+    if (ticket.UserHasUpvoted)
+    {
+      await this.ticketService.DownvoteAsync(id).ConfigureAwait(false);
+    }
+    else
+    {
+      await this.ticketService.UpvoteAsync(id).ConfigureAwait(false);
+    }
+
+    if (!string.IsNullOrEmpty(returnUrl))
+    {
+       return this.LocalRedirect(returnUrl);
+    }
+
     return this.RedirectToAction(nameof(this.Details), new { id });
   }
 }

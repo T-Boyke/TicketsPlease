@@ -5,12 +5,14 @@
 
 @{
     ViewData["Title"] = L["Ticket Board"];
+    ViewData["Description"] = L["Manage your team tasks and project progress on the interactive Ticket Please Kanban board."].Value;
     var todo = Model.Where(t => t.Status == "Todo");
     var doing = Model.Where(t => t.Status == "Doing" || t.Status == "In Progress");
     var done = Model.Where(t => t.Status == "Closed" || t.Status == "Done");
 }
 
 <div class="max-w-[1600px] mx-auto py-8 px-4 sm:px-6 lg:px-8 h-[calc(100vh-12rem)] flex flex-col">
+    @Html.AntiForgeryToken()
     @* Header Section *@
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
         <div>
@@ -90,7 +92,7 @@
     </div>
 
     @* Kanban Grid *@
-    <div class="flex-grow grid grid-cols-1 md:grid-cols-3 gap-6 overflow-hidden">
+    <div id="kanban-board" class="flex-grow grid grid-cols-1 md:grid-cols-3 gap-6 overflow-hidden">
         
         @* To Do Column *@
         <div class="flex flex-col h-full bg-slate-50/50 rounded-2xl border border-slate-200/60 p-4">
@@ -102,7 +104,7 @@
                 </div>
                 <button class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-ellipsis"></i></button>
             </div>
-            <div class="flex-grow overflow-y-auto space-y-4 pr-2 custom-scrollbar">
+            <div id="todo-list" class="flex-grow overflow-y-auto space-y-4 pr-2 custom-scrollbar" data-status="Todo">
                 @foreach (var ticket in todo)
                 {
                     <partial name="_TicketCard" model="ticket" />
@@ -118,9 +120,9 @@
                     <h2 class="text-sm font-bold text-slate-700 uppercase tracking-wider">@L["In Progress"]</h2>
                     <span class="ml-2 px-2 py-0.5 rounded-full bg-brand-primary/10 text-brand-primary text-[10px] font-bold">@doing.Count()</span>
                 </div>
-                <button class="text-slate-400 hover:text-brand-primary"><i class="fa-solid fa-ellipsis"></i></button>
+                <button class="text-slate-400 hover:text-brand-primary" aria-label='@L["Column Actions"]'><i class="fa-solid fa-ellipsis" aria-hidden="true"></i></button>
             </div>
-            <div class="flex-grow overflow-y-auto space-y-4 pr-2 custom-scrollbar">
+            <div id="doing-list" class="flex-grow overflow-y-auto space-y-4 pr-2 custom-scrollbar" data-status="In Progress">
                 @foreach (var ticket in doing)
                 {
                     <partial name="_TicketCard" model="ticket" />
@@ -136,9 +138,9 @@
                     <h2 class="text-sm font-bold text-slate-600 uppercase tracking-wider">@L["Done"]</h2>
                     <span class="ml-2 px-2 py-0.5 rounded-full bg-emerald-200 text-emerald-600 text-[10px] font-bold">@done.Count()</span>
                 </div>
-                <button class="text-slate-400 hover:text-emerald-600"><i class="fa-solid fa-ellipsis"></i></button>
+                <button class="text-slate-400 hover:text-emerald-600" aria-label='@L["Column Actions"]'><i class="fa-solid fa-ellipsis" aria-hidden="true"></i></button>
             </div>
-            <div class="flex-grow overflow-y-auto space-y-4 pr-2 custom-scrollbar">
+            <div id="done-list" class="flex-grow overflow-y-auto space-y-4 pr-2 custom-scrollbar" data-status="Done">
                 @foreach (var ticket in done)
                 {
                     <partial name="_TicketCard" model="ticket" />
@@ -147,6 +149,43 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/lib/sortablejs/Sortable.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const lists = ['todo-list', 'doing-list', 'done-list'];
+            
+            lists.forEach(id => {
+                const el = document.getElementById(id);
+                Sortable.create(el, {
+                    group: 'kanban',
+                    animation: 150,
+                    ghostClass: 'opacity-50',
+                    dragClass: 'rotate-2',
+                    onEnd: function(evt) {
+                        const ticketId = evt.item.dataset.id;
+                        const newStatus = evt.to.dataset.status;
+                        
+                        // AJAX POST call to move ticket
+                        fetch(`/Tickets/Move?id=${ticketId}&status=${newStatus}`, {
+                            method: 'POST',
+                            headers: {
+                                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+                            }
+                        }).then(response => {
+                            if (!response.ok) {
+                                // Handle error - potentially revert move
+                                console.error('Move failed');
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
 
 <style>
     .custom-scrollbar::-webkit-scrollbar { width: 4px; }

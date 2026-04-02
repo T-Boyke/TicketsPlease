@@ -2,15 +2,23 @@
 @model TicketsPlease.Application.Common.Dtos.TicketDto
 @inject IViewLocalizer L
 
-<div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-primary/30 transition-all group cursor-pointer active:scale-[0.98]">
+<div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-brand-primary/30 transition-all group cursor-pointer active:scale-[0.98]" data-id="@Model.Id">
     <div class="flex justify-between items-start mb-2">
-        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-tighter" 
-              style="background-color: @(Model.Priority.ColorHex + "20"); color: @(Model.Priority.ColorHex)">
-            @Model.Priority.Name
-        </span>
+        <div class="flex items-center gap-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-tighter" 
+                  style="background-color: @(Model.Priority.ColorHex + "20"); color: @(Model.Priority.ColorHex)">
+                @Model.Priority.Name
+            </span>
+            @if (Model.UpvoteCount > 0)
+            {
+                <span class="text-[10px] font-black text-brand-primary flex items-center gap-1 bg-brand-primary/5 px-2 py-0.5 rounded-full">
+                    <i class="fa-solid fa-heart" aria-hidden="true"></i> @Model.UpvoteCount
+                </span>
+            }
+        </div>
         <div class="flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="p-1 text-slate-400 hover:text-brand-primary"><i class="fa-solid fa-pen-to-square text-[10px]"></i></a>
-            <a asp-action="Details" asp-route-id="@Model.Id" class="p-1 text-slate-400 hover:text-brand-primary"><i class="fa-solid fa-eye text-[10px]"></i></a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="p-1 text-slate-400 hover:text-brand-primary" aria-label='@L["Edit ticket"]'><i class="fa-solid fa-pen-to-square text-[10px]" aria-hidden="true"></i></a>
+            <a asp-action="Details" asp-route-id="@Model.Id" class="p-1 text-slate-400 hover:text-brand-primary" aria-label='@L["View ticket details"]'><i class="fa-solid fa-eye text-[10px]" aria-hidden="true"></i></a>
         </div>
     </div>
     

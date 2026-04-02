@@ -20,6 +20,7 @@
         <form asp-action="Edit" method="post" class="p-8 space-y-6">
             @Html.AntiForgeryToken()
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="RowVersion" />
             <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm"></div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

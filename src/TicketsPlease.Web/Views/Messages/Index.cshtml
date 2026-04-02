@@ -7,6 +7,7 @@
 
 @{
     ViewData["Title"] = L["Messages"];
+    ViewData["Description"] = L["Stay in touch with your team members through direct messaging. View all your active conversations and start new ones."].Value;
     var currentUserId = Guid.Parse(UserManager.GetUserId(User)!);
     
     // Group messages by the conversation partner
@@ -47,7 +48,7 @@
                 var partnerName = latestMessage.SenderUserId == currentUserId ? latestMessage.ReceiverUserName : latestMessage.SenderUserName;
                 
                 <div class="glass-premium p-6 rounded-2xl hover:shadow-2xl hover:shadow-brand-primary/5 transition-all group border border-slate-100 mb-4 animate-in fade-in slide-in-from-bottom-4 relative">
-                    <a asp-action="Conversation" asp-route-userId="@partnerId" class="absolute inset-0 z-0 rounded-2xl"></a>
+                    <a asp-action="Conversation" asp-route-userId="@partnerId" id="convo-link-@partnerId" class="absolute inset-0 z-0 rounded-2xl" aria-label='@L["View conversation with"] @partnerName'></a>
                     <div class="flex items-start justify-between gap-6 relative z-10 pointer-events-none">
                         <div class="flex items-start gap-5 flex-grow">
                              <div class="h-14 w-14 rounded-full bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center text-white text-xl font-black shadow-lg shadow-brand-primary/20 flex-shrink-0">
@@ -65,10 +66,10 @@
                                      {
                                          <span class="text-[10px] font-black uppercase text-brand-primary mr-2 bg-brand-primary/10 px-2 py-0.5 rounded">@L["You"]:</span>
                                      }
-                                     <span class="line-clamp-1">@latestMessage.BodyMarkdown</span>
+                                     <div class="markdown-content line-clamp-1 text-slate-600 invisible">@latestMessage.BodyMarkdown</div>
                                      
                                      <div class="absolute right-3 bottom-2 text-[10px] text-slate-300">
-                                         <i class="fa-solid fa-check-double"></i>
+                                         <i class="fa-solid fa-check-double" aria-hidden="true"></i>
                                      </div>
                                 </div>
                                 <div class="mt-4 flex gap-3 pointer-events-auto">

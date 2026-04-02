@@ -147,6 +147,7 @@
     --dark-bg-glass-premium: oklch(0.15 0.02 260 / 0.3);
     --border-glass-premium: oklch(1 0 0 / 0.1);
     --font-display: "Google Sans Flex", "Outfit", "Inter", sans-serif;
+    --animate-fade-in: fade-in 0.5s ease-out;
   }
 }
 @layer base {
@@ -303,6 +304,9 @@
   }
   .pointer-events-none {
     pointer-events: none;
+  }
+  .invisible {
+    visibility: hidden;
   }
   .sr-only {
     position: absolute;
@@ -554,6 +558,9 @@
     @media (width >= 96rem) {
       max-width: 96rem;
     }
+  }
+  .mx-1 {
+    margin-inline: calc(var(--spacing) * 1);
   }
   .mx-auto {
     margin-inline: auto;
@@ -1213,6 +1220,9 @@
   .max-h-\[200px\] {
     max-height: 200px;
   }
+  .max-h-\[300px\] {
+    max-height: 300px;
+  }
   .min-h-\[6rem\] {
     min-height: 6rem;
   }
@@ -1521,6 +1531,9 @@
     --tw-scale-z: 90%;
     scale: var(--tw-scale-x) var(--tw-scale-y);
   }
+  .rotate-2 {
+    rotate: 2deg;
+  }
   .rotate-12 {
     rotate: 12deg;
   }
@@ -1535,6 +1548,9 @@
   }
   .transform {
     transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+  }
+  .animate-fade-in {
+    animation: var(--animate-fade-in);
   }
   .animate-ping {
     animation: var(--animate-ping);
@@ -2229,6 +2245,9 @@
   .bg-rose-50 {
     background-color: var(--color-rose-50);
   }
+  .bg-rose-100 {
+    background-color: var(--color-rose-100);
+  }
   .bg-rose-400 {
     background-color: var(--color-rose-400);
   }
@@ -2434,6 +2453,12 @@
   }
   .p-16 {
     padding: calc(var(--spacing) * 16);
+  }
+  .btn-sm {
+    padding-inline: calc(var(--spacing) * 3);
+    padding-block: calc(var(--spacing) * 1.5);
+    font-size: var(--text-xs);
+    line-height: var(--tw-leading, var(--text-xs--line-height));
   }
   .px-1 {
     padding-inline: calc(var(--spacing) * 1);
@@ -2734,9 +2759,6 @@
   }
   .whitespace-nowrap {
     white-space: nowrap;
-  }
-  .whitespace-pre-wrap {
-    white-space: pre-wrap;
   }
   .text-amber-500 {
     color: var(--color-amber-500);
@@ -3228,6 +3250,9 @@
   .fade-in {
     animation-name: fade-in;
   }
+  .ring-inset {
+    --tw-ring-inset: inset;
+  }
   .group-open\:rotate-180 {
     &:is(:where(.group):is([open], :popover-open, :open) *) {
       rotate: 180deg;
@@ -3686,6 +3711,11 @@
       background-color: var(--color-brand-primary);
     }
   }
+  .empty\:hidden {
+    &:empty {
+      display: none;
+    }
+  }
   .hover\:-translate-y-0\.5 {
     &:hover {
       @media (hover: hover) {
@@ -3860,6 +3890,13 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-red-100);
+      }
+    }
+  }
+  .hover\:bg-rose-50 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-rose-50);
       }
     }
   }
@@ -6371,6 +6408,14 @@
 @keyframes pulse {
   50% {
     opacity: 0.5;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 @layer properties {

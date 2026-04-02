@@ -27,4 +27,5 @@ public record UpdateTicketDto(
     Guid? AssignedUserId,
     int? EstimatePoints,
     int ChilliesDifficulty = 1,
-    System.Collections.Generic.List<Guid>? TagIds = null);
+    System.Collections.Generic.List<Guid>? TagIds = null,
+    byte[]? RowVersion = null);

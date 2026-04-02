@@ -18,9 +18,14 @@ using TicketsPlease.Web.BackgroundServices;
 
 [assembly: InternalsVisibleTo("TicketsPlease.IntegrationTests")]
 
+using Microsoft.AspNetCore.SignalR;
+using TicketsPlease.Web.Hubs;
+using TicketsPlease.Web.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSignalR();
 builder.Services.AddControllersWithViews()
     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
     .AddDataAnnotationsLocalization()
@@ -79,6 +84,7 @@ builder.Services.AddScoped<IFileStorageService, LocalStorageService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<ITimeTrackingService, TimeTrackingService>();
 builder.Services.AddScoped<ISubTicketService, SubTicketService>();
+builder.Services.AddScoped<INotificationService, SignalRNotificationService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHostedService<TicketCleanupWorker>();
 
@@ -125,7 +131,7 @@ app.Use((context, next) =>
   if (app.Environment.IsDevelopment())
   {
     // Relax CSP in Development for Styleguide swatches, Browser Link, and Browser Refresh
-    csp = "default-src 'self' http://localhost:* ws://localhost:*; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none';";
+    csp = "default-src 'self' http://localhost:* ws://localhost:*; connect-src 'self' ws: wss:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none';";
   }
 
   context.Response.Headers.Append("Content-Security-Policy", csp);
@@ -166,6 +172,8 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
+
+app.MapHub<NotificationHub>("/notificationHub");
 
 await app.RunAsync().ConfigureAwait(false);
 

@@ -46,4 +46,8 @@ public record TicketDto(
     IEnumerable<CommentDto> Comments,
     IEnumerable<TicketLinkDto> BlockedBy,
     IEnumerable<TicketLinkDto> Blocking,
-    IEnumerable<FileAssetDto> Attachments);
+    IEnumerable<FileAssetDto> Attachments,
+    IEnumerable<TicketHistoryDto> History,
+    int UpvoteCount,
+    bool UserHasUpvoted,
+    byte[] RowVersion);
