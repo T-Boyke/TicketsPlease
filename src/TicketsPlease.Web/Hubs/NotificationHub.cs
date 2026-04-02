@@ -20,7 +20,7 @@ internal class NotificationHub : Hub
   /// Tritt einer Gruppe für ein spezifisches Ticket bei (für Live-Updates/Präsenz).
   /// </summary>
   /// <param name="ticketId">Die Ticket-ID.</param>
-  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
+  /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   public async Task JoinTicketGroup(string ticketId)
   {
     var groupName = $"ticket_{ticketId}";
@@ -40,7 +40,7 @@ internal class NotificationHub : Hub
   /// Verlässt die Gruppe für ein spezifisches Ticket.
   /// </summary>
   /// <param name="ticketId">Die Ticket-ID.</param>
-  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
+  /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   public async Task LeaveTicketGroup(string ticketId)
   {
     var groupName = $"ticket_{ticketId}";

@@ -25,16 +25,3 @@ public record TeamDto(
     DateTime CreatedAt,
     int MemberCount,
     IEnumerable<TeamMemberDto> Members);
-
-/// <summary>
-/// Datenübertragungsobjekt für ein Teammitglied.
-/// </summary>
-/// <param name="UserId">Die ID des Benutzers.</param>
-/// <param name="UserName">Der Name des Benutzers.</param>
-/// <param name="JoinedAt">Beitrittsdatum.</param>
-/// <param name="IsTeamLead">Gibt an, ob der Benutzer Teamleiter ist.</param>
-public record TeamMemberDto(
-    Guid UserId,
-    string UserName,
-    DateTime JoinedAt,
-    bool IsTeamLead);

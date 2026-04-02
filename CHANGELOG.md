@@ -80,7 +80,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Build & Linting**: Achieved 100% compliance with `dotnet format --verify-no-changes`.
 - **Ignore Strategy**: Added `.markdownlintignore` and updated `.gitignore` for coverage reports.
-- **Static Analysis**: Resolved multiple SA1402, CA1515, and CS0660 warnings.
+- **Static Analysis**: Resolved all remaining compiler & SonarQube warnings (`CA1002`, `CA1819`, `CS8602`, `CA1305`, `S3267`, `SA1611`, `SA1202`, `SA1402`, `CS0200`) for an immaculate codebase.
 - **Structured Storage**: Implemented dated subdirectories (YYYY/MM) in `LocalStorageService` for
   better scalability and disk organization.
 
@@ -91,6 +91,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Type Conversion**: Resolved `bool?` to `bool` mismatch in `AccountController`.
 - **Identity Hash**: Fixed string-to-User conversion in `DbInitialiser` password hashing.
 - **Dependency Cleanup**: Removed unused `Identity.Core` and `Stores` packages from Application.
+- **Domain Entity**: Removed mutable property setter from Message Attachments collection to fix `CA2227`.
 
 [0.9.0-alpha]: https://github.com/Tobia/TicketsPlease/releases/tag/v0.9.0
 [2026-03-27]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.2.0...v0.3.0

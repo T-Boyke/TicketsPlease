@@ -35,21 +35,17 @@ public class MessageServiceTests
     var otherUserId = Guid.NewGuid();
     var messageId = Guid.NewGuid();
 
-    var messages = new List<Message>
-        {
-            new Message
-            {
-                Id = messageId,
-                SenderUserId = userId,
-                ReceiverUserId = otherUserId,
-                BodyMarkdown = "Hello",
-                SentAt = DateTime.UtcNow,
-                Attachments = new List<FileAsset>
-                {
-                    new FileAsset { FileName = "test.jpg", BlobPath = "path/to/test.jpg", SizeBytes = 1024 }
-                }
-            }
-        };
+    var msg = new Message
+    {
+        Id = messageId,
+        SenderUserId = userId,
+        ReceiverUserId = otherUserId,
+        BodyMarkdown = "Hello",
+        SentAt = DateTime.UtcNow
+    };
+    msg.Attachments.Add(new FileAsset { FileName = "test.jpg", BlobPath = "path/to/test.jpg", SizeBytes = 1024 });
+
+    var messages = new List<Message> { msg };
 
     _mockMessageRepo.Setup(r => r.GetConversationAsync(userId, otherUserId, default))
         .ReturnsAsync(messages);

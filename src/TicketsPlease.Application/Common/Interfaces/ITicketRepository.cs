@@ -110,35 +110,43 @@ public interface ITicketRepository
   /// Fügt einen Eintrag in die Historie hinzu.
   /// </summary>
   /// <param name="history">Der Historien-Eintrag.</param>
-  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
+  /// <returns>Ein Task.</returns>
   public Task AddHistoryAsync(TicketHistory history);
 
   /// <summary>
   /// Fügt einen Upvote hinzu.
   /// </summary>
-  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
+  /// <param name="upvote">Der Upvote.</param>
+  /// <returns>Ein Task.</returns>
   public Task AddUpvoteAsync(TicketUpvote upvote);
 
   /// <summary>
   /// Entfernt einen Upvote.
   /// </summary>
-  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
+  /// <param name="ticketId">Die Ticket-ID.</param>
+  /// <param name="userId">Die User-ID.</param>
+  /// <returns>Ein Task.</returns>
   public Task RemoveUpvoteAsync(Guid ticketId, Guid userId);
 
   /// <summary>
   /// Prüft ob ein User bereits gevotet hat.
   /// </summary>
-  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
+  /// <param name="ticketId">Die Ticket-ID.</param>
+  /// <param name="userId">Die User-ID.</param>
+  /// <returns>Ein Task.</returns>
   public Task<bool> UserHasUpvotedAsync(Guid ticketId, Guid userId);
 
   /// <summary>
   /// Zählt die Upvotes.
   /// </summary>
-  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
+  /// <param name="ticketId">Die Ticket-ID.</param>
+  /// <returns>Ein Task.</returns>
   public Task<int> GetUpvoteCountAsync(Guid ticketId);
 
   /// <summary>
   /// Setzt die ursprüngliche RowVersion für die Nebenläufigkeitsprüfung.
   /// </summary>
+  /// <param name="ticket">Das Ticket.</param>
+  /// <param name="rowVersion">Die zu vergleichende Zeilenversion.</param>
   public void SetOriginalRowVersion(Ticket ticket, byte[] rowVersion);
 }

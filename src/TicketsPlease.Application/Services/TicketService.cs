@@ -175,19 +175,19 @@ public class TicketService : ITicketService
 
     if (ticket.PriorityId != dto.PriorityId)
     {
-      await this.ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Priority", OldValue = ticket.Priority?.Name ?? ticket.PriorityId.ToString(), NewValue = dto.PriorityId.ToString(), ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+      await this.ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Priority", OldValue = ticket.Priority?.Name ?? ticket.PriorityId.ToString(), NewValue = dto.PriorityId.ToString(), ActorUserId = user!.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
       ticket.SetPriority(dto.PriorityId);
     }
 
     if (ticket.EstimatePoints != dto.EstimatePoints)
     {
-      await this.ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Estimate", OldValue = ticket.EstimatePoints.ToString(), NewValue = dto.EstimatePoints.ToString(), ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+      await this.ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Estimate", OldValue = ticket.EstimatePoints?.ToString(System.Globalization.CultureInfo.InvariantCulture) ?? "None", NewValue = dto.EstimatePoints?.ToString(System.Globalization.CultureInfo.InvariantCulture) ?? "None", ActorUserId = user!.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
       ticket.SetEstimatePoints(dto.EstimatePoints);
     }
 
     if (ticket.ChilliesDifficulty != dto.ChilliesDifficulty)
     {
-      await this.ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Difficulty", OldValue = ticket.ChilliesDifficulty.ToString(), NewValue = dto.ChilliesDifficulty.ToString(), ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+      await this.ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Difficulty", OldValue = ticket.ChilliesDifficulty.ToString(System.Globalization.CultureInfo.InvariantCulture), NewValue = dto.ChilliesDifficulty.ToString(System.Globalization.CultureInfo.InvariantCulture), ActorUserId = user!.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
       ticket.SetDifficulty(dto.ChilliesDifficulty);
     }
 
@@ -230,8 +230,6 @@ public class TicketService : ITicketService
 
       // Wir gehen davon aus, dass wir die Rollen-Namen prüfen oder die ID vergleichen müssen.
       // Da wir in der Transition die RoleId haben, prüfen wir ob der User diese Rolle hat.
-      var allowedRole = await this.userManager.GetUsersInRoleAsync(transition.AllowedRoleId.Value.ToString()).ConfigureAwait(false);
-
       // Besser: roleManager nutzen oder rollen-Strings vergleichen.
       // Einfachere Lösung für MVVM: User-Rollen gegen Namen prüfen wenn Role-ID bekannt ist.
       // Da wir statische IDs haben, können wir es hardcoden oder sauber auflösen.
@@ -356,13 +354,10 @@ public class TicketService : ITicketService
   public async Task UpvoteAsync(Guid id)
   {
     var user = await this.GetCurrentUserAsync().ConfigureAwait(false);
-    if (user != null)
+    if (user != null && !await this.ticketRepository.UserHasUpvotedAsync(id, user.Id).ConfigureAwait(false))
     {
-      if (!await this.ticketRepository.UserHasUpvotedAsync(id, user.Id).ConfigureAwait(false))
-      {
-        await this.ticketRepository.AddUpvoteAsync(new TicketUpvote { TicketId = id, UserId = user.Id }).ConfigureAwait(false);
-        await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
-      }
+      await this.ticketRepository.AddUpvoteAsync(new TicketUpvote { TicketId = id, UserId = user.Id }).ConfigureAwait(false);
+      await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
     }
   }
 

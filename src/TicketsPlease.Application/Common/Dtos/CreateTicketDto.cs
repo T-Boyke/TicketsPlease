@@ -25,4 +25,4 @@ public record CreateTicketDto(
     Guid? AssignedUserId,
     int? EstimatePoints,
     int ChilliesDifficulty = 1,
-    System.Collections.Generic.List<Guid>? TagIds = null);
+    System.Collections.Generic.IList<Guid>? TagIds = null);

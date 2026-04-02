@@ -440,12 +440,9 @@ public class Ticket : BaseAuditableEntity
     }
 
     // Füge neue Tags hinzu
-    foreach (var tagId in tagIds)
+    foreach (var tagId in tagIds.Where(tagId => !this.Tags.Any(tt => tt.TagId == tagId)))
     {
-      if (!this.Tags.Any(tt => tt.TagId == tagId))
-      {
-        this.Tags.Add(new TicketTag { TicketId = this.Id, TagId = tagId });
-      }
+      this.Tags.Add(new TicketTag { TicketId = this.Id, TagId = tagId });
     }
 
     this.UpdatedAt = DateTime.UtcNow;
@@ -469,6 +466,8 @@ public class Ticket : BaseAuditableEntity
   /// <summary>
   /// Setzt die SLA-Deadlines (Antwort und Lösung).
   /// </summary>
+  /// <param name="responseLimit">Das Zeitlimit für die erste Antwort.</param>
+  /// <param name="resolutionLimit">Das Zeitlimit für die Lösung.</param>
   public void SetSLA(TimeSpan responseLimit, TimeSpan resolutionLimit)
   {
     this.ResponseDeadline = this.CreatedAt.Add(responseLimit);

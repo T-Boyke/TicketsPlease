@@ -80,26 +80,7 @@ public class MessageService : IMessageService
     return mappedResult;
   }
 
-  private static MessageDto MapToDto(Message m)
-  {
-    var attachments = m.Attachments?.Select(a => new FileAssetDto(
-        a.Id,
-        a.FileName,
-        a.ContentType ?? "application/octet-stream",
-        a.SizeBytes,
-        a.UploadedAt,
-        a.UploadedByUser?.UserName ?? "Unknown")) ?? Enumerable.Empty<FileAssetDto>();
 
-    return new MessageDto(
-        m.Id,
-        m.SenderUserId,
-        m.SenderUser?.UserName ?? "Unknown",
-        m.ReceiverUserId,
-        m.ReceiverUser?.UserName,
-        m.BodyMarkdown,
-        m.SentAt,
-        attachments);
-  }
 
   /// <inheritdoc />
   public async Task UploadAttachmentAsync(Guid messageId, Microsoft.AspNetCore.Http.IFormFile file)
@@ -136,5 +117,26 @@ public class MessageService : IMessageService
   {
     var messages = await this.messageRepository.GetConversationAsync(userId, otherUserId, ct).ConfigureAwait(false);
     return messages.Select(m => MapToDto(m)).ToList();
+  }
+
+  private static MessageDto MapToDto(Message m)
+  {
+    var attachments = m.Attachments?.Select(a => new FileAssetDto(
+        a.Id,
+        a.FileName,
+        a.ContentType ?? "application/octet-stream",
+        a.SizeBytes,
+        a.UploadedAt,
+        a.UploadedByUser?.UserName ?? "Unknown")) ?? Enumerable.Empty<FileAssetDto>();
+
+    return new MessageDto(
+        m.Id,
+        m.SenderUserId,
+        m.SenderUser?.UserName ?? "Unknown",
+        m.ReceiverUserId,
+        m.ReceiverUser?.UserName,
+        m.BodyMarkdown,
+        m.SentAt,
+        attachments);
   }
 }

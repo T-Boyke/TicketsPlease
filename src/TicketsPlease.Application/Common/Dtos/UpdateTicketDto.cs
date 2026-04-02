@@ -18,6 +18,7 @@ using System;
 /// <param name="EstimatePoints">Die aktualisierten Story Points.</param>
 /// <param name="ChilliesDifficulty">Die neue Schwierigkeit (1-5 Chilis).</param>
 /// <param name="TagIds">Die neuen IDs der zuzuordnenden Tags.</param>
+#pragma warning disable CA1819 // Properties should not return arrays (RowVersion for EF Core)
 public record UpdateTicketDto(
     Guid Id,
     string Title,
@@ -27,5 +28,6 @@ public record UpdateTicketDto(
     Guid? AssignedUserId,
     int? EstimatePoints,
     int ChilliesDifficulty = 1,
-    System.Collections.Generic.List<Guid>? TagIds = null,
+    System.Collections.Generic.IList<Guid>? TagIds = null,
     byte[]? RowVersion = null);
+#pragma warning restore CA1819 // Properties should not return arrays

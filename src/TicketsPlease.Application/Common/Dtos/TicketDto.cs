@@ -25,6 +25,7 @@ using TicketsPlease.Domain.Enums;
 /// <param name="Comments">Die Liste der Kommentare zum Ticket (F5).</param>
 /// <param name="BlockedBy">Tickets, die dieses Ticket blockieren (F7).</param>
 /// <param name="Blocking">Tickets, die von diesem Ticket blockiert werden (F7).</param>
+#pragma warning disable CA1819 // Properties should not return arrays (RowVersion for EF Core)
 public record TicketDto(
     Guid Id,
     string Title,
@@ -51,3 +52,4 @@ public record TicketDto(
     int UpvoteCount,
     bool UserHasUpvoted,
     byte[] RowVersion);
+#pragma warning restore CA1819 // Properties should not return arrays

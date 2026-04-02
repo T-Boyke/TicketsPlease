@@ -27,6 +27,10 @@ public class DashboardService : IDashboardService
   /// <summary>
   /// Initializes a new instance of the <see cref="DashboardService"/> class.
   /// </summary>
+  /// <param name="ticketRepository">The ticket repository.</param>
+  /// <param name="projectRepository">The project repository.</param>
+  /// <param name="userManager">The user manager.</param>
+  /// <param name="roleManager">The role manager.</param>
   public DashboardService(
       ITicketRepository ticketRepository,
       IProjectRepository projectRepository,
@@ -54,10 +58,10 @@ public class DashboardService : IDashboardService
     var roles = this.roleManager.Roles.ToList();
 
     var usersByRole = new Dictionary<string, int>();
-    foreach (var role in roles)
+    foreach (var roleName in roles.Select(r => r.Name!))
     {
-      var usersInRole = await this.userManager.GetUsersInRoleAsync(role.Name!).ConfigureAwait(false);
-      usersByRole.Add(role.Name!, usersInRole.Count);
+      var usersInRole = await this.userManager.GetUsersInRoleAsync(roleName).ConfigureAwait(false);
+      usersByRole.Add(roleName, usersInRole.Count);
     }
 
     return new DashboardStatsDto(

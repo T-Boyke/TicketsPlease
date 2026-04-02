@@ -37,7 +37,7 @@ internal class AdminUsersController : Controller
   /// <summary>
   /// Listet alle Benutzer im System auf.
   /// </summary>
-  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
+  /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   [HttpGet]
   public async Task<IActionResult> Index()
   {
@@ -63,7 +63,7 @@ internal class AdminUsersController : Controller
   /// <summary>
   /// Zeigt das Formular zum Bearbeiten eines Benutzers an.
   /// </summary>
-  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
+  /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   [HttpGet]
   public async Task<IActionResult> Edit(Guid id)
   {
@@ -91,7 +91,7 @@ internal class AdminUsersController : Controller
   /// <summary>
   /// Speichert die Änderungen an einem Benutzer.
   /// </summary>
-  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
+  /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
   [HttpPost]
   [ValidateAntiForgeryToken]
   public async Task<IActionResult> Edit(EditUserViewModel model)

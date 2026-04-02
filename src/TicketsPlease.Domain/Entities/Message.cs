@@ -70,5 +70,5 @@ public class Message : BaseEntity
   /// <summary>
   /// Gets or sets die Liste der Dateianhänge dieser Nachricht.
   /// </summary>
-  public ICollection<FileAsset> Attachments { get; set; } = new List<FileAsset>();
+  public virtual ICollection<FileAsset> Attachments { get; } = new List<FileAsset>();
 }

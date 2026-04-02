@@ -33,21 +33,21 @@ public class TeamService : ITeamService
   public async Task<IEnumerable<TeamDto>> GetUserTeamsAsync(Guid userId, CancellationToken cancellationToken = default)
   {
     var teams = await this.teamRepository.GetTeamsByUserIdAsync(userId, cancellationToken).ConfigureAwait(false);
-    return teams.Select(this.MapToDto);
+    return teams.Select(MapToDto);
   }
 
   /// <inheritdoc/>
   public async Task<TeamDto?> GetTeamDetailsAsync(Guid teamId, CancellationToken cancellationToken = default)
   {
     var team = await this.teamRepository.GetByIdAsync(teamId, cancellationToken).ConfigureAwait(false);
-    return team != null ? this.MapToDto(team) : null;
+    return team != null ? MapToDto(team) : null;
   }
 
   /// <inheritdoc/>
   public async Task<IEnumerable<TeamDto>> GetAllTeamsAsync(CancellationToken cancellationToken = default)
   {
     var teams = await this.teamRepository.GetAllTeamsAsync(cancellationToken).ConfigureAwait(false);
-    return teams.Select(this.MapToDto);
+    return teams.Select(MapToDto);
   }
 
   /// <inheritdoc/>
@@ -125,7 +125,7 @@ public class TeamService : ITeamService
     }
   }
 
-  private TeamDto MapToDto(Team team)
+  private static TeamDto MapToDto(Team team)
   {
     return new TeamDto(
         team.Id,
