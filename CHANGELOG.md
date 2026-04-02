@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.9.0-alpha] - 2026-04-02
+#### Added
+- **SignalR Architecture**: Real-time infrastructure for live collaboration.
+- **Notification Center**: Enterprise Toast system for instant alerts and updates.
+- **Live Comments**: New comments appear instantly on the ticket details page without refresh.
+- **Kanban Sync**: Real-time notification support for board status changes.
+- **Presence Indicators**: Infrastructure for tracking users on active tickets.
+- **Clean Concurrency**: Repository-level RowVersion management for better architecture.
+
+### Phase 2.2: Collaboration & Enterprise Excellence
+
+- **📊 Interactive Kanban Board**: Implemented fluid drag-and-drop status updates using SortableJS
+  and automatic AJAX persistence with Anti-Forgery protection.
+- **✍️ Markdown & Mermaid Engine**: Built a high-performance client-side rendering engine using
+  `marked.js`, `mermaid.js`, and `DOMPurify` for secure rich text and diagrams in tickets,
+  comments, and messages.
+- **📜 Ticket Audit Log**: Added comprehensive history tracking and a dedicated UI panel to
+  visualize all ticket property changes (who, what, when, old vs. new value) over time.
+- **❤️ Community Voting**: Integrated upvote/downvote functionality for tickets with real-time
+  status badges on the board and toggle buttons in the detail view.
+- **🛡️ Race Condition Protection**: Implemented optimistic concurrency control via `RowVersion`
+  (Concurrency Tokens) in the domain, service, and UI to prevent accidental data overrides.
+- **🔍 SEO & Accessibility Excellence**: Achieved a 100% Lighthouse target for SEO and A11y through
+  dynamic meta-tags, localized descriptions, semantic HTML5, and ARIA-labeling for all
+  interactive elements.
+
 ## [2026-03-27]
 
 ### Phase 2.1: Erweitertes Ticket-Domain (Enterprise)
@@ -62,5 +88,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Identity Hash**: Fixed string-to-User conversion in `DbInitialiser` password hashing.
 - **Dependency Cleanup**: Removed unused `Identity.Core` and `Stores` packages from Application.
 
-[2026-03-27]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.2.0...main
+[0.9.0-alpha]: https://github.com/Tobia/TicketsPlease/releases/tag/v0.9.0
+[2026-04-02]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.3.0...main
+[2026-03-27]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.2.0...v0.3.0
 [2026-03-26]: https://github.com/BitLC-NE-2025-2026/TicketsPlease/compare/v0.1.0...v0.2.0

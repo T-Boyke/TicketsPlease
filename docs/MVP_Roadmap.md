@@ -1,11 +1,11 @@
 # 🚀 Minimum Viable Product (MVP) vs. Enterprise Roadmap
 
-Unser Projektauftrag der lautet: **„Ein einfaches Ticketsystem
-realisieren."** (Projektantrag: 70 Stunden, 23.03.–16.04.2026)
+Unser Projektauftrag der lautet: __„Ein einfaches Ticketsystem
+realisieren."__ (Projektantrag: 70 Stunden, 23.03.–16.04.2026)
 
-Wir definieren hier eine strikte Abgrenzung zwischen dem **Kern-MVP**, das
-exakt die **Aufgabe (Features F1–F9)** abdeckt, und den **Enterprise
-Add-Ons**, die wir erst nach bestandener Prüfung umsetzen.
+Wir definieren hier eine strikte Abgrenzung zwischen dem __Kern-MVP__, das
+exakt die __Aufgabe (Features F1–F9)__ abdeckt, und den __Enterprise
+Add-Ons__, die wir erst nach bestandener Prüfung umsetzen.
 
 Die „Clean Architecture" und das „3NF Entity Schema" bilden das Fundament für
 beide Phasen. Das Schema ist von Tag 1 an auf „Enterprise" ausgelegt, wir
@@ -15,23 +15,23 @@ implementieren in Phase 1 (MVP) jedoch nur die relevanten Endpunkte.
 
 ## 🛠️ Phase 1: Das Kern-MVP (F1–F9)
 
-Dies ist der **exakte Prüfungsumfang**. Alle Features hier müssen 100%
+Dies ist der __exakte Prüfungsumfang__. Alle Features hier müssen 100%
 funktionsfähig sein und durch Unit/Integration-Tests abgedeckt werden.
 
 ### F1: Web-Anwendung (Basis-Setup)
 
 - [x] Clean Architecture .NET 10 Solution Struktur steht.
 - [x] Entity Framework Code-First DB mit MS SQL (Docker Testcontainers).
-- [x] **Antigravity AI Integration:** Vollautomatisierung via AI Skills
+- [x] __Antigravity AI Integration:__ Vollautomatisierung via AI Skills
       (Scaffold, review, ADR).
 - [x] User-Registrierung & Login (ASP.NET Core Identity). Registrierung
-      erfordert zwingend **Username, Vorname und E-Mail**.
+      erfordert zwingend __Username, Vorname und E-Mail__.
 - [x] Dynamische Navbar mit kontext-sensitivem "Settings"-Menü (Profile für
       User; Gruppen- & Rechteverwaltung für Admins).
-- [x] **Foundation Ready:** Alle 26 Enterprise-Entitäten (RBAC, Profiles, Teams)
+- [x] __Foundation Ready:__ Alle 26 Enterprise-Entitäten (RBAC, Profiles, Teams)
       im persistence layer implementiert.
 
-**Ticket Management (Core Funktionalität):**
+__Ticket Management (Core Funktionalität):__
 
 - [x] Kanban Dashboard (To Do, In Progress, Review, Done) mit Vanilla HTML5 Drag
       & Drop.
@@ -40,16 +40,16 @@ funktionsfähig sein und durch Unit/Integration-Tests abgedeckt werden.
       pro Ticket.
 - [x] Chillischoten-Schwierigkeits-Metrik (1-5 🌶️).
 - [x] Einem User ein Ticket zuweisen.
-- [x] **Close-Regeln:** Ein Ticket kann manuell nur von seinem _Ersteller_ oder
+- [x] __Close-Regeln:__ Ein Ticket kann manuell nur von seinem _Ersteller_ oder
       einem _Admin_ geschlossen/gelöscht werden.
 
-**Data & UI:**
+__Data & UI:__
 
 - [x] Razor Views & ViewComponents (strikte Nutzung von Partials zur Vermeidung
       von Code-Duplikation `DRY`).
-- [x] **Tailwind CSS v4.2.2 Stack:** Vollständige Integration via
+- [x] __Tailwind CSS v4.2.2 Stack:__ Vollständige Integration via
       `tailwindcss-dotnet` (Node-free).
-- [x] **Client-Side Asset Management:** `libman.json` für SortableJS, FA7.
+- [x] __Client-Side Asset Management:__ `libman.json` für SortableJS, FA7.
 - [x] CI/CD Pipeline (GitHub Actions) aktiv.
 - [x] ASP.NET Core Identity: Login & Logout.
 - [x] Eigener AccountController zur Steuerung der Authentifizierung.
@@ -61,8 +61,8 @@ funktionsfähig sein und durch Unit/Integration-Tests abgedeckt werden.
 - [x] Eigener Admin-Bereich, nur für Admins erreichbar.
 - [x] Admin-Startseite mit Links zu Unterbereichen.
 - [x] Button/Link zum Admin-Bereich auf Startseite (nur für Admins sichtbar).
-- [x] **Projekte CRUD** (Titel, Beschreibung, Startdatum [Pflicht],
-      Enddatum [optional]).
+- [x] __Projekte CRUD__ (Titel, Beschreibung, Startdatum _Pflicht_,
+      Enddatum _optional_).
 - [x] (Optional) Benutzerverwaltung im Admin-Bereich.
 
 ### F3: Ticket-Management
@@ -126,7 +126,7 @@ funktionsfähig sein und durch Unit/Integration-Tests abgedeckt werden.
 - [x] Möglichkeit, neue Nachrichten zu erstellen.
 - [x] Liste aller gesendeten/erhaltenen Nachrichten, gruppiert nach
       Absender/Empfänger.
-- [x] **Dateianhänge:** Unterstützung für Anhänge in Direktnachrichten (MVP+).
+- [x] __Dateianhänge:__ Unterstützung für Anhänge in Direktnachrichten (MVP+).
 
 ### Infrastruktur (bereits erledigt)
 
@@ -137,10 +137,9 @@ funktionsfähig sein und durch Unit/Integration-Tests abgedeckt werden.
 - [x] Tailwind CSS v4.2.2 via MSBuild.
 - [x] LibMan für Frontend-Assets.
 
-> [!IMPORTANT] **Fehlende MVP-Entity:** Das `Project`-Entity (Titel,
-> Beschreibung, Startdatum, Enddatum) muss als eigene Domain-Entity
-> erstellt werden. Tickets werden einem Projekt zugeordnet (FK).
-> Dies ist Pflicht (F2.2)!
+> [!NOTE] __MVP-Entity:__ Das `Project`-Entity (Titel,
+> Beschreibung, Startdatum, Enddatum) ist als grundlegende Domain-Entity
+> implementiert. Tickets werden Projekten zugeordnet (FK).
 
 ---
 
@@ -150,68 +149,71 @@ Sobald das MVP steht, der Build (CI/CD) dauerhaft grün ist und die Doku
 wächst, schalten wir nach und nach folgende Module auf das bestehende 3NF (3.
 Normalform) Datenbankschema frei:
 
-**1. Erweitertes Ticket-Domain:** ✅
+__1. Erweitertes Ticket-Domain:__ ✅
 
-- [x] **Chillischoten-Metrik (1–5 🌶️):** Visuelle Schwierigkeitsbewertung
+- [x] __Chillischoten-Metrik (1–5 🌶️):__ Visuelle Schwierigkeitsbewertung
       mit dynamischem Grün-zu-Rot Farbverlauf.
-- [x] **SHA1-Hash:** Globale Referenzierbarkeit für Tickets.
-- [x] **GeoIP-Timestamp:** Audit-Trail bei Erstellung/Bearbeitung.
-- [x] **Time-Tracking:** Start/Stop Button für Arbeitszeit (TimeLogs).
-- [x] **Auto-Close Rule:** `TicketCleanupWorker` (BackgroundService) für
+- [x] __SHA1-Hash:__ Globale Referenzierbarkeit für Tickets.
+- [x] __GeoIP-Timestamp:__ Audit-Trail bei Erstellung/Bearbeitung.
+- [x] __Time-Tracking:__ Start/Stop Button für Arbeitszeit (TimeLogs).
+- [x] __Auto-Close Rule:__ `TicketCleanupWorker` (BackgroundService) für
       Done→Archived nach 30 Tagen.
-- [x] **Tags & Labels:** Globale Tags (n:m) an Tickets mit Multi-Select UI.
-- [x] **Subtickets:** Verschachtelte Aufgabenlisten mit interaktivem
+- [x] __Tags & Labels:__ Globale Tags (n:m) an Tickets mit Multi-Select UI.
+- [x] __Subtickets:__ Verschachtelte Aufgabenlisten mit interaktivem
       Fortschrittsbalken pro Master-Ticket.
 
-**2. Kollaboration & Echtzeit (Das „Jira/Slack" Erlebnis):**
+__2. Kollaboration & Echtzeit (Das „Jira/Slack" Erlebnis):__
 
-- **Kanban Dashboard:** Interaktives Board mit HTML5 Drag & Drop.
-- **Markdown Engine & Mermaid:** Rendering in Ticket-Beschreibungen.
-- **SignalR Chat & Kommentare:** Live-Kommentare ohne Page-Reload.
-- **Live-Online Presence:** Grüne/Rote „Online" Punkte.
-- **Community Voting:** Upvoting von Tickets.
+- [x] __Kanban Dashboard:__ Interaktives Board mit SortableJS.
+- [x] __Markdown Engine & Mermaid:__ Rendering in Ticket-Beschreibungen.
+- [x] __Community Voting:__ Upvoting von Tickets.
 
-**3. Workspace Management:**
+__3. Workspace Management:__
 
-- **Teams:** Organisation von Usern in Squads/Teams.
-- **Team-Routing:** Tickets an Teams zuweisen.
-- **Broadcast Mails:** Teamleads senden via MailKit.
-- **Erweiterte Profile:** Profilbild Uploader mit Avatar-Cropping.
+| ID | Feature | Status | Priority | Description |
+|---|---|---|---|---|
+| F1 | __Workspace Management__ | _Pflicht_ | Hoch | Erstellen/Verwalten von Workspaces/Organisationen |
+| F2 | __Team-Zuweisung__ | _optional_ | Mittel | Tickets können Teams statt Individuen zugewiesen werden |
+
+- __Broadcast Mails:__ Teamleads senden via MailKit.
+- __Erweiterte Profile:__ Profilbild Uploader mit Avatar-Cropping.
 
 ---
 
 ## 🏆 Phase 3: Advanced Enterprise Modules
 
-**1. Audit & Compliance:**
+__1. Audit & Compliance:__
 
-- **Ticket History (Audit-Log):** Append-Only-Tabelle für alle Änderungen.
+- [x] __Ticket History (Audit-Log):__ Append-Only-Tabelle für alle Änderungen.
+- [x] __SEO & Accessibility Excellence:__ 100% Lighthouse Audit Ziel.
+- [x] __Optimistic Concurrency (Race Conditions):__ Schutz gegen parallele Bearbeitung.
 
-**2. Benachrichtigungen & Alerts:**
+__2. Benachrichtigungen & Alerts:__
 
-- **In-App Notification Center:** Glocke in der UI.
-- **Notification Sounds:** Konfigurierbare akustische Signale.
+- __In-App Notification Center:__ Glocke in der UI.
+- __Notification Sounds:__ Konfigurierbare akustische Signale.
 
-**3. Dokumentenmanagement:**
+__3. Dokumentenmanagement:__
 
-- [x] **Ticket Attachments:** Upload von PDFs, Screenshots (via FILE_ASSET).
-      *Infrastruktur implementiert & für Messaging freigeschaltet.*
+- [x] __Ticket Attachments:__ Upload von PDFs, Screenshots (via FILE_ASSET).
+      _Infrastruktur implementiert & für Messaging freigeschaltet._
 
-**4. Service Level Agreements (SLAs):**
+__4. Service Level Agreements (SLAs):__
 
-- **Automatisierte Countdowns:** Response- und Resolution-Times.
+- __Automatisierte Countdowns:__ Response- und Resolution-Times.
 
-**5. Faceted Search & Filtering (EF Core):**
+__5. Faceted Search & Filtering (EF Core):__
 
-- **High-Performance Search:** Komplexes Filtern von Tickets (z.B. "Alle Tickets
+- __High-Performance Search:__ Komplexes Filtern von Tickets (z.B. "Alle Tickets
   mit Tag #frontend, Status = In Progress, Assigned = Me").
 - _Architektur:_ Umsetzung über dynamische LINQ-Queries in EF Core, idealerweise
   optimiert durch definierte Datenbank-Indizes auf den Suchspalten.
 
-**6. Ticket Templates:**
+__6. Ticket Templates:__
 
-- **Vorlagen-System:** Admins können Templates (z.B. "Bug Report", "Feature
+- __Vorlagen-System:__ Admins können Templates (z.B. "Bug Report", "Feature
   Request") definieren. Beim Anlegen eines Tickets wird die Markdown-Description
-  automatisch strukturiert vorausgefüllt.
+  automatically strukturiert vorausgefüllt.
 
 ---
 
@@ -220,25 +222,35 @@ Normalform) Datenbankschema frei:
 Der finale Schritt zur Marktführerschaft. Das System öffnet sich für
 Erweiterungen von Drittanbietern oder isolierte Kunden-Lösungen.
 
-**1. Plugin Loader Architecture:**
+__1. Plugin Loader Architecture:__
 
 - Das System scant zur Laufzeit ein `/plugins/` Verzeichnis.
 - Gefundene `.dll` Dateien, die das `ITicketsPleasePlugin` Interface
   implementieren, werden dynamisch per Dependency Injection in den
   Core-Lifecycle eingehängt.
 
-**2. Offizielle Erweiterungen:**
+__2. Offizielle Erweiterungen:__
 
-- **TogglSync:** Ein Plugin, welches die internen `TIME_LOG` Einträge
+- __TogglSync:__ Ein Plugin, welches die internen `TIME_LOG` Einträge
   automatisch per API an Toggl Track sendet.
-- **AI-Summarizer:** Ein Plugin, das bei jedem Statuswechsel auf "Review" die
+- __AI-Summarizer:__ Ein Plugin, das bei jedem Statuswechsel auf "Review" die
   Ticket-Description an OpenAI schickt und einen Zusammenfassungs-Kommentar
   generiert.
-- **SAML / SSO Authenticator:** Ein Plugin, welches den Standard-Login durch
+- __SAML / SSO Authenticator:__ Ein Plugin, welches den Standard-Login durch
   einen Enterprise Single-Sign-On (z.B. Entra ID) ersetzt.
 
-> **Fazit:** Wir haben das Datenbankschema und die Ordnerstruktur bereits auf
-> **Phase 5** Level gehievt. Alle Entitäten und Beziehungen sind im Code
+### Phase 2: Collaboration & Real-Time (Status: IN PROGRESS 🟢)
+
+| ID | Feature | Status | Priority |
+|---|---|---|---|
+| F10 | **SignalR Infrastructure** | ✅ Erledigt | Hoch |
+| F11 | **Live Collaboration** (Kanban Sync) | ✅ Erledigt | Hoch |
+| F12 | **Notification Center** (Toasts) | ✅ Erledigt | Mittel |
+| F13 | **Live Presence** (Active Viewers) | 🔄 In Arbeit | Mittel |
+| F14 | **Team-Chat / Ticket Messaging** | ⏳ Geplant | Mittel |
+
+> __Fazit:__ Wir haben das Datenbankschema und die Ordnerstruktur bereits auf
+> __Enterprise__ Level gehievt. Alle Entitäten und Beziehungen sind im Code
 > (Domain/Infrastruktur) hinterlegt und durch den `DbInitialiser` (Bogus) mit
 > umfangreichen synthetischen Testdaten (500 Tickets, 200 Users) verifiziert.
 > Die initialen C# Feature-Sprints können nun auf dieser soliden Basis aufbauen!
@@ -249,31 +261,31 @@ Erweiterungen von Drittanbietern oder isolierte Kunden-Lösungen.
 
 Die Vorbereitung auf den skalierten Live-Betrieb (Operations).
 
-**1. Monitoring & Health:**
+__1. Monitoring & Health:__
 
-- **ASP.NET Core Health Checks:** Endpunkte (`/health`), die den Status der
+- __ASP.NET Core Health Checks:__ Endpunkte (`/health`), die den Status der
   Datenbank, des Filesystems und externer APIs (Mail, Toggl) in Echtzeit
   überwachen.
 
-**2. Distributed Caching:**
+__2. Distributed Caching:__
 
-- **Redis-Integration:** Häufig angefragte Daten (z.B. User-Profile,
+- __Redis-Integration:__ Häufig angefragte Daten (z.B. User-Profile,
   Team-Listen) werden im Redis zwischengespeichert (Cache-Aside Pattern), um die
   SQL-Datenbank zu entlasten.
 
-**3. Robust Background Tasks:**
+__3. Robust Background Tasks:__
 
-- **Hangfire / Quartz.NET:** Ein persistenter Job-Scheduler mit eigenem
+- __Hangfire / Quartz.NET:__ Ein persistenter Job-Scheduler mit eigenem
   Dashboard. Garantiert, dass Auto-Close Jobs oder SLA-Mails auch dann
   ausgeführt werden, wenn der Server kurz neu startet.
 
-**4. API Excellence:**
+__4. API Excellence:__
 
-- **Scalar / OpenAPI:** Automatische Dokumentation aller API-Endpunkte für
+- __Scalar / OpenAPI:__ Automatische Dokumentation aller API-Endpunkte für
   Plugin-Entwickler.
-- **Versioning:** Versionierte API-Routen (`/api/v1/tickets`), um
+- __Versioning:__ Versionierte API-Routen (`/api/v1/tickets`), um
   Breaking-Changes sicher zu managen.
 
-> **Finales Fazit:** Das System ist nun von den Grundlagen bis zur High-End
+> __Finales Fazit:__ Das System ist nun von den Grundlagen bis zur High-End
 > Enterprise-Cloud-Architektur vollständig durchgeplant. Jedes C# Projekt und
 > jedes NuGet-Paket hat seinen festen Platz.
