@@ -8,7 +8,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - TicketsPlease</title>
+    <meta name="description" content="@(ViewData["Description"] ?? "TicketsPlease - The ultimate project board for modern teams. Manage tasks, projects and performance with ease.")" />
+    <meta name="robots" content="index, follow" />
+    <title>@(ViewData["Title"] ?? "TicketsPlease") | BitLC-NE Solutions</title>
     @RenderSection("Meta", required: false)
 
     @* Tailwind CSS Output & Site Specific Styles *@
@@ -43,7 +45,15 @@
 
     <partial name="_Footer" />
 
+    <div id="enterprise-toast-container" class="enterprise-toast-container"></div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/lib/dompurify/dist/purify.min.js"></script>
+    <script src="~/lib/marked/marked.min.js"></script>
+    <script src="~/lib/mermaid/dist/mermaid.min.js"></script>
+    <script src="~/js/markdown-engine.js" asp-append-version="true"></script>
+    <script src="~/js/notification-client.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
