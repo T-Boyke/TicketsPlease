@@ -49,6 +49,9 @@ public class TicketRepository : ITicketRepository
             .ThenInclude(a => a.UploadedByUser)
         .Include(t => t.Tags)
             .ThenInclude(tt => tt.Tag)
+        .Include(t => t.History)
+            .ThenInclude(h => h.ActorUser)
+        .Include(t => t.Upvotes)
         .FirstOrDefaultAsync(t => t.Id == id, ct).ConfigureAwait(false);
   }
 
@@ -61,18 +64,28 @@ public class TicketRepository : ITicketRepository
         .Include(t => t.AssignedUser)
         .Include(t => t.Project)
         .Include(t => t.Priority)
+        .Include(t => t.Upvotes)
         .OrderByDescending(t => t.Priority != null ? t.Priority.LevelWeight : 0)
         .ToListAsync(ct).ConfigureAwait(false);
   }
 
   /// <inheritdoc />
-  public async Task<List<Ticket>> GetFilteredAsync(Guid? projectId = null, Guid? assignedUserId = null, Guid? creatorId = null, CancellationToken ct = default)
+  public async Task<List<Ticket>> GetFilteredAsync(
+      Guid? projectId = null,
+      Guid? assignedUserId = null,
+      Guid? creatorId = null,
+      string? status = null,
+      Guid? priorityId = null,
+      DateTime? fromDate = null,
+      DateTime? toDate = null,
+      CancellationToken ct = default)
   {
     var query = this.context.Tickets
         .AsNoTracking()
         .Include(t => t.AssignedUser)
         .Include(t => t.Project)
         .Include(t => t.Priority)
+        .Include(t => t.Upvotes)
         .AsQueryable();
 
     if (projectId.HasValue)
@@ -88,6 +101,26 @@ public class TicketRepository : ITicketRepository
     if (creatorId.HasValue)
     {
       query = query.Where(t => t.CreatorId == creatorId.Value);
+    }
+
+    if (!string.IsNullOrWhiteSpace(status))
+    {
+      query = query.Where(t => t.Status == status);
+    }
+
+    if (priorityId.HasValue)
+    {
+      query = query.Where(t => t.PriorityId == priorityId.Value);
+    }
+
+    if (fromDate.HasValue)
+    {
+      query = query.Where(t => t.CreatedAt >= fromDate.Value);
+    }
+
+    if (toDate.HasValue)
+    {
+      query = query.Where(t => t.CreatedAt <= toDate.Value);
     }
 
     return await query
@@ -144,5 +177,45 @@ public class TicketRepository : ITicketRepository
   public async Task<List<Tag>> GetAllTagsAsync(CancellationToken ct = default)
   {
     return await this.context.Tags.AsNoTracking().OrderBy(t => t.Name).ToListAsync(ct).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc />
+  public async Task AddHistoryAsync(TicketHistory history)
+  {
+    await this.context.TicketHistories.AddAsync(history).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc />
+  public async Task AddUpvoteAsync(TicketUpvote upvote)
+  {
+    await this.context.TicketUpvotes.AddAsync(upvote).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc />
+  public async Task RemoveUpvoteAsync(Guid ticketId, Guid userId)
+  {
+    var vote = await this.context.TicketUpvotes.FindAsync(ticketId, userId).ConfigureAwait(false);
+    if (vote != null)
+    {
+      this.context.TicketUpvotes.Remove(vote);
+    }
+  }
+
+  /// <inheritdoc />
+  public async Task<bool> UserHasUpvotedAsync(Guid ticketId, Guid userId)
+  {
+    return await this.context.TicketUpvotes.AsNoTracking().AnyAsync(u => u.TicketId == ticketId && u.UserId == userId).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc />
+  public async Task<int> GetUpvoteCountAsync(Guid ticketId)
+  {
+    return await this.context.TicketUpvotes.AsNoTracking().CountAsync(u => u.TicketId == ticketId).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc />
+  public void SetOriginalRowVersion(Ticket ticket, byte[] rowVersion)
+  {
+    this.context.Entry(ticket).Property("RowVersion").OriginalValue = rowVersion;
   }
 }

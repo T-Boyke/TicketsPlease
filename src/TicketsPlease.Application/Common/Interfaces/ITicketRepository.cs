@@ -27,14 +27,26 @@ public interface ITicketRepository
   public Task<List<Ticket>> GetAllActiveAsync(CancellationToken ct = default);
 
   /// <summary>
-  /// Ruft gefilterte Tickets ab (F6).
+  /// Ruft gefilterte Tickets ab (F6 + Stage 3 Advanced Search).
   /// </summary>
-  /// <param name="projectId">Optionale Projekt-ID.</param>
-  /// <param name="assignedUserId">Optionale Zuweisungs-ID.</param>
-  /// <param name="creatorId">Optionale Ersteller-ID.</param>
+  /// <param name="projectId">Die Projekt-ID.</param>
+  /// <param name="assignedUserId">Die ID des zugewiesenen Benutzers.</param>
+  /// <param name="creatorId">Die ID des Erstellers.</param>
+  /// <param name="status">Der Ticket-Status.</param>
+  /// <param name="priorityId">Die Prioritäts-ID.</param>
+  /// <param name="fromDate">Startdatum.</param>
+  /// <param name="toDate">Enddatum.</param>
   /// <param name="ct">Das Abbruchsignal.</param>
-  /// <returns>Eine Liste gefilterter Tickets.</returns>
-  public Task<List<Ticket>> GetFilteredAsync(Guid? projectId = null, Guid? assignedUserId = null, Guid? creatorId = null, CancellationToken ct = default);
+  /// <returns>Eine Liste von Tickets.</returns>
+  public Task<List<Ticket>> GetFilteredAsync(
+      Guid? projectId = null,
+      Guid? assignedUserId = null,
+      Guid? creatorId = null,
+      string? status = null,
+      Guid? priorityId = null,
+      DateTime? fromDate = null,
+      DateTime? toDate = null,
+      CancellationToken ct = default);
 
   /// <summary>
   /// Fügt ein neues Ticket hinzu.
@@ -89,4 +101,35 @@ public interface ITicketRepository
   /// <param name="ct">Das Abbruchsignal.</param>
   /// <returns>Eine Liste von Tags.</returns>
   public Task<List<Tag>> GetAllTagsAsync(CancellationToken ct = default);
+
+  /// <summary>
+  /// Fügt einen Eintrag in die Historie hinzu.
+  /// </summary>
+  /// <param name="history">Der Historien-Eintrag.</param>
+  public Task AddHistoryAsync(TicketHistory history);
+
+  /// <summary>
+  /// Fügt einen Upvote hinzu.
+  /// </summary>
+  public Task AddUpvoteAsync(TicketUpvote upvote);
+
+  /// <summary>
+  /// Entfernt einen Upvote.
+  /// </summary>
+  public Task RemoveUpvoteAsync(Guid ticketId, Guid userId);
+
+  /// <summary>
+  /// Prüft ob ein User bereits gevotet hat.
+  /// </summary>
+  public Task<bool> UserHasUpvotedAsync(Guid ticketId, Guid userId);
+
+  /// <summary>
+  /// Zählt die Upvotes.
+  /// </summary>
+  public Task<int> GetUpvoteCountAsync(Guid ticketId);
+
+  /// <summary>
+  /// Setzt die ursprüngliche RowVersion für die Nebenläufigkeitsprüfung.
+  /// </summary>
+  public void SetOriginalRowVersion(Ticket ticket, byte[] rowVersion);
 }
