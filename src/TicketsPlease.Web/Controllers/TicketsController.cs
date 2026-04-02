@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
@@ -31,6 +32,7 @@ internal sealed class TicketsController : Controller
   private readonly ISubTicketService subTicketService;
   private readonly UserManager<User> userManager;
   private readonly AppDbContext context;
+  private readonly IStringLocalizer<TicketsController> L;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="TicketsController"/> class.
@@ -51,7 +53,8 @@ internal sealed class TicketsController : Controller
       ITimeTrackingService timeTrackingService,
       ISubTicketService subTicketService,
       UserManager<User> userManager,
-      AppDbContext context)
+      AppDbContext context,
+      IStringLocalizer<TicketsController> localizer)
   {
     this.ticketService = ticketService;
     this.projectService = projectService;
@@ -61,6 +64,7 @@ internal sealed class TicketsController : Controller
     this.subTicketService = subTicketService;
     this.userManager = userManager;
     this.context = context;
+    this.L = localizer;
   }
 
   /// <summary>
@@ -375,6 +379,12 @@ internal sealed class TicketsController : Controller
   /// <returns>Ein Umleitungsergebnis.</returns>
   [HttpPost]
   [ValidateAntiForgeryToken]
+  public async Task<IActionResult> DeleteSubTicket(Guid id, Guid subTicketId)
+  {
+    await this.subTicketService.DeleteSubTicketAsync(subTicketId).ConfigureAwait(false);
+    return this.RedirectToAction(nameof(this.Details), new { id });
+  }
+
   /// <summary>
   /// Toggelt den Upvote eines Benutzers für ein Ticket.
   /// </summary>

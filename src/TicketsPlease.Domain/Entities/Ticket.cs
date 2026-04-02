@@ -207,6 +207,16 @@ public class Ticket : BaseAuditableEntity
   public ICollection<FileAsset> Attachments { get; private set; } = new List<FileAsset>();
 
   /// <summary>
+  /// Gets die Historie des Tickets.
+  /// </summary>
+  public ICollection<TicketHistory> History { get; private set; } = new List<TicketHistory>();
+
+  /// <summary>
+  /// Gets die Liste der Upvotes für dieses Ticket.
+  /// </summary>
+  public ICollection<TicketUpvote> Upvotes { get; private set; } = new List<TicketUpvote>();
+
+  /// <summary>
   /// Gets die ID des Benutzers, dem das Ticket zugewiesen ist (Nullable).
   /// </summary>
   public Guid? AssignedUserId { get; private set; }

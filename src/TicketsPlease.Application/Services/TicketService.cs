@@ -7,11 +7,15 @@ namespace TicketsPlease.Application.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
@@ -187,16 +191,15 @@ public class TicketService : ITicketService
             await this.ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Difficulty", OldValue = ticket.ChilliesDifficulty.ToString(), NewValue = dto.ChilliesDifficulty.ToString(), ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
             ticket.SetDifficulty(dto.ChilliesDifficulty);
         }
-    }
 
-    if (dto.TagIds != null)
-    {
-      ticket.SyncTags(dto.TagIds);
-    }
+        if (dto.TagIds != null)
+        {
+          ticket.SyncTags(dto.TagIds);
+        }
 
-    await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
-    await this.notificationService.NotifyTicketUpdateAsync(ticket.Id, "Ticket updated").ConfigureAwait(false);
-  }
+        await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+        await this.notificationService.NotifyTicketUpdateAsync(ticket.Id, "Ticket updated").ConfigureAwait(false);
+    }
 
   /// <inheritdoc/>
   public async Task MoveTicketAsync(Guid id, string newStatus)
@@ -373,14 +376,9 @@ public class TicketService : ITicketService
     }
   }
 
-  /// <summary>
-  /// Mappt eine Ticket-Entität auf ein DTO.
-  /// </summary>
-  /// <param name="t">Die Entität.</param>
-  /// <returns>Das gemappte <see cref="TicketDto"/>.</returns>
-  private async Task<TicketDto> MapToDtoAsync(Ticket t)
-  {
-    var comments = t.Comments?.OrderByDescending(c => c.CreatedAt).Select(c => new CommentDto(
+    private async Task<TicketDto> MapToDtoAsync(Ticket t)
+    {
+        var comments = t.Comments?.OrderByDescending(c => c.CreatedAt).Select(c => new CommentDto(
           c.Id,
           c.Content,
           c.AuthorId,

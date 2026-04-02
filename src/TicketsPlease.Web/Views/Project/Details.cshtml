@@ -39,11 +39,64 @@
                 </div>
             </div>
 
-            @* Placeholder for Tickets (F3) *@
-            <div class="bg-slate-50 rounded-2xl p-10 border-2 border-dashed border-slate-200 text-center">
-                <i class="fa-solid fa-ticket-simple text-slate-300 text-5xl mb-4"></i>
-                <h3 class="text-lg font-bold text-slate-500">@L["Ticket Management coming soon"]</h3>
-                <p class="text-slate-400 text-sm mt-1">@L["F3 implementation is the next milestone."]</p>
+            @* Tickets for this project (F3) *@
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200">
+                <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+                    <h2 class="text-xl font-bold text-slate-900">@L["Tickets"]</h2>
+                    <a asp-controller="Tickets" asp-action="Create" asp-route-projectId="@Model.Id" class="text-sm font-bold text-brand-primary hover:text-brand-secondary transition-colors">
+                        <i class="fa-solid fa-plus mr-1"></i> @L["New Ticket"]
+                    </a>
+                </div>
+                
+                @{
+                    var projectTickets = ViewBag.Tickets as IEnumerable<TicketDto> ?? new List<TicketDto>();
+                }
+                
+                @if (!projectTickets.Any())
+                {
+                    <div class="p-8 text-center">
+                        <i class="fa-solid fa-ticket-simple text-slate-300 text-4xl mb-4"></i>
+                        <h3 class="text-lg font-bold text-slate-900">@L["No tickets found"]</h3>
+                        <p class="text-slate-500 text-sm mt-1">@L["There are no tickets associated with this project yet."]</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="divide-y divide-slate-100 max-h-96 overflow-y-auto custom-scrollbar">
+                        @foreach (var ticket in projectTickets)
+                        {
+                            <a asp-controller="Tickets" asp-action="Details" asp-route-id="@ticket.Id" class="block px-6 py-4 hover:bg-slate-50 transition-colors group">
+                                <div class="flex items-start justify-between">
+                                    <div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-xs font-bold text-slate-500">@ticket.Id.ToString().Substring(0, 8)</span>
+                                            <h4 class="text-md font-bold text-slate-900 group-hover:text-brand-primary transition-colors">@ticket.Title</h4>
+                                        </div>
+                                        <div class="mt-1 flex items-center space-x-4 text-xs text-slate-500">
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold @(ticket.Status == "Done" ? "bg-emerald-100 text-emerald-800" : (ticket.Status == "In Progress" ? "bg-blue-100 text-blue-800" : "bg-slate-100 text-slate-800"))">
+                                                @ticket.Status
+                                            </span>
+                                            @if (ticket.Priority != null)
+                                            {
+                                                <span class="flex items-center" style="color: @(ticket.Priority.ColorHex ?? "#f59e0b")">
+                                                    <i class="fa-solid fa-fire mr-1"></i> @ticket.Priority.Name
+                                                </span>
+                                            }
+                                        </div>
+                                    </div>
+                                    @if (!string.IsNullOrEmpty(ticket.AssignedUserName))
+                                    {
+                                        <div class="flex-shrink-0 ml-4">
+                                            <div class="h-8 w-8 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center font-bold text-xs" title="@ticket.AssignedUserName">
+                                                @(ticket.AssignedUserName.Length >= 2 ? ticket.AssignedUserName.Substring(0, 2).ToUpper() : "?")
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </a>
+                        }
+                    </div>
+                }
             </div>
         </div>
 

@@ -18,14 +18,17 @@ using TicketsPlease.Application.Common.Interfaces;
 internal sealed class ProjectController : Controller
 {
   private readonly IProjectService projectService;
+  private readonly ITicketService ticketService;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="ProjectController"/> class.
   /// </summary>
   /// <param name="projectService">Der Dienst für Projektoperationen.</param>
-  public ProjectController(IProjectService projectService)
+  /// <param name="ticketService">Der Dienst für Ticketoperationen.</param>
+  public ProjectController(IProjectService projectService, ITicketService ticketService)
   {
     this.projectService = projectService;
+    this.ticketService = ticketService;
   }
 
   /// <summary>
@@ -116,6 +119,9 @@ internal sealed class ProjectController : Controller
     {
       return this.NotFound();
     }
+
+    var tickets = await this.ticketService.GetFilteredTicketsAsync(projectId: id).ConfigureAwait(false);
+    this.ViewBag.Tickets = tickets;
 
     return this.View(project);
   }

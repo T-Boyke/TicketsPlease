@@ -4,6 +4,10 @@
 
 namespace TicketsPlease.Application.Common.Interfaces;
 
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
