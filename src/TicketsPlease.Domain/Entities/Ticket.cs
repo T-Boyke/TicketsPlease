@@ -227,6 +227,21 @@ public class Ticket : BaseAuditableEntity
   public Guid? ClosedByUserId { get; private set; }
 
   /// <summary>
+  /// Gets die SLA-Response-Deadline.
+  /// </summary>
+  public DateTime? ResponseDeadline { get; private set; }
+
+  /// <summary>
+  /// Gets die SLA-Resolution-Deadline.
+  /// </summary>
+  public DateTime? ResolutionDeadline { get; private set; }
+
+  /// <summary>
+  /// Gets den Zeitpunkt der letzten Antwort (für Response-SLA).
+  /// </summary>
+  public DateTime? LastRespondedAt { get; private set; }
+
+  /// <summary>
   /// Prüft, ob das Ticket geschlossen werden kann (F7).
   /// Ein Ticket kann nicht geschlossen werden, wenn es noch offene Abhängigkeiten (Vorgänger) hat.
   /// </summary>
@@ -439,6 +454,28 @@ public class Ticket : BaseAuditableEntity
 
     var closedCount = this.SubTickets.Count(t => t.IsCompleted);
     return (int)Math.Round((double)closedCount / this.SubTickets.Count * 100);
+  }
+
+  /// <summary>
+  /// Setzt die SLA-Deadlines (Antwort und Lösung).
+  /// </summary>
+  public void SetSLA(TimeSpan responseLimit, TimeSpan resolutionLimit)
+  {
+      this.ResponseDeadline = this.CreatedAt.Add(responseLimit);
+      this.ResolutionDeadline = this.CreatedAt.Add(resolutionLimit);
+      this.UpdatedAt = DateTime.UtcNow;
+  }
+
+  /// <summary>
+  /// Markiert, dass auf das Ticket reagiert wurde (Response-SLA erfüllt).
+  /// </summary>
+  public void RecordResponse()
+  {
+      if (this.LastRespondedAt == null)
+      {
+          this.LastRespondedAt = DateTime.UtcNow;
+          this.UpdatedAt = DateTime.UtcNow;
+      }
   }
 
   private string GenerateDomainHash()

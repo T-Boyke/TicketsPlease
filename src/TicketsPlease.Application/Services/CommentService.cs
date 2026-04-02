@@ -20,23 +20,31 @@ using TicketsPlease.Domain.Entities;
 public class CommentService : ICommentService
 {
   private readonly ICommentRepository commentRepository;
+  private readonly ITicketRepository ticketRepository;
   private readonly UserManager<User> userManager;
   private readonly IHttpContextAccessor httpContextAccessor;
+  private readonly INotificationService notificationService;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="CommentService"/> class.
   /// </summary>
   /// <param name="commentRepository">Das Repository für Kommentare.</param>
+  /// <param name="ticketRepository">Das Repository für Tickets.</param>
   /// <param name="userManager">Der Identity UserManager.</param>
   /// <param name="httpContextAccessor">Der Accessor für den aktuellen HttpContext.</param>
+  /// <param name="notificationService">Der Benachrichtigungsdienst.</param>
   public CommentService(
       ICommentRepository commentRepository,
+      ITicketRepository ticketRepository,
       UserManager<User> userManager,
-      IHttpContextAccessor httpContextAccessor)
+      IHttpContextAccessor httpContextAccessor,
+      INotificationService notificationService)
   {
     this.commentRepository = commentRepository;
+    this.ticketRepository = ticketRepository;
     this.userManager = userManager;
     this.httpContextAccessor = httpContextAccessor;
+    this.notificationService = notificationService;
   }
 
   /// <inheritdoc/>
@@ -67,6 +75,18 @@ public class CommentService : ICommentService
 
     await this.commentRepository.AddAsync(comment).ConfigureAwait(false);
     await this.commentRepository.SaveChangesAsync().ConfigureAwait(false);
+
+    // SLA Reaktionen erfassen (Phase 3)
+    var ticket = await this.ticketRepository.GetByIdAsync(dto.TicketId).ConfigureAwait(false);
+    if (ticket != null && ticket.CreatorId != user.Id)
+    {
+        ticket.RecordResponse();
+        await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+    }
+
+    // Echtzeit-Benachrichtigung senden
+    var commentDto = new CommentDto(comment.Id, comment.Content, comment.AuthorId, user.UserName ?? "Unbekannt", comment.CreatedAt);
+    await this.notificationService.NotifyNewCommentAsync(dto.TicketId, commentDto).ConfigureAwait(false);
   }
 
   private async Task<User?> GetCurrentUserAsync()

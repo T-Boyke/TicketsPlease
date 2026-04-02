@@ -29,15 +29,21 @@ public class TicketService : ITicketService
   private readonly RoleManager<Role> roleManager;
   private readonly ITimeTrackingService timeTrackingService;
   private readonly ISubTicketService subTicketService;
+  private readonly INotificationService notificationService;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="TicketService"/> class.
   /// </summary>
+  /// <param name="ticketRepository">Das Repository für Tickets.</param>
+  /// <param name="userManager">Die Benutzerverwaltung.</param>
+  /// <param name="roleManager">Die Rollenverwaltung.</param>
+  /// <param name="httpContextAccessor">Zugriff auf den HTTP-Kontext.</param>
   /// <param name="projectService">Der Dienst für Projekte.</param>
   /// <param name="fileAssetRepository">Das Repository für Datei-Metadaten.</param>
   /// <param name="fileStorageService">Der Dienst zur Dateispeicherung.</param>
   /// <param name="timeTrackingService">Der Dienst für Zeiterfassung.</param>
   /// <param name="subTicketService">Der Dienst für Untertickets.</param>
+  /// <param name="notificationService">Der Dienst für Benachrichtigungen.</param>
   public TicketService(
       ITicketRepository ticketRepository,
       UserManager<User> userManager,
@@ -47,7 +53,8 @@ public class TicketService : ITicketService
       IFileAssetRepository fileAssetRepository,
       IFileStorageService fileStorageService,
       ITimeTrackingService timeTrackingService,
-      ISubTicketService subTicketService)
+      ISubTicketService subTicketService,
+      INotificationService notificationService)
   {
     this.ticketRepository = ticketRepository;
     this.userManager = userManager;
@@ -57,6 +64,7 @@ public class TicketService : ITicketService
     this.fileAssetRepository = fileAssetRepository;
     this.timeTrackingService = timeTrackingService;
     this.subTicketService = subTicketService;
+    this.notificationService = notificationService;
   }
 
   public async Task<IEnumerable<TicketDto>> GetActiveTicketsAsync()
@@ -109,7 +117,11 @@ public class TicketService : ITicketService
     ticket.SetPriority(dto.PriorityId);
     ticket.SetEstimatePoints(dto.EstimatePoints);
     ticket.SetDifficulty(dto.ChilliesDifficulty);
-    ticket.SetTenantId(user.TenantId);
+    ticket.SetTenantId(user.Id);
+    
+    // Auto-SLA Assignment (Stage 3)
+    ticket.SetSLA(TimeSpan.FromHours(4), TimeSpan.FromHours(48));
+    await this.ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "SLA", OldValue = "None", NewValue = "Assigned (4h/48h)", ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
 
     if (dto.TagIds != null && dto.TagIds.Count > 0)
     {
@@ -119,7 +131,6 @@ public class TicketService : ITicketService
     await this.ticketRepository.AddAsync(ticket).ConfigureAwait(false);
     await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
   }
-
   /// <inheritdoc/>
   public async Task UpdateTicketAsync(UpdateTicketDto dto)
   {
@@ -131,12 +142,52 @@ public class TicketService : ITicketService
       throw new KeyNotFoundException(TicketNotFoundMessage);
     }
 
-    ticket.UpdateTitle(dto.Title);
-    ticket.UpdateDescription(dto.Description, dto.Description);
-    ticket.AssignUser(dto.AssignedUserId);
-    ticket.SetPriority(dto.PriorityId);
-    ticket.SetEstimatePoints(dto.EstimatePoints);
-    ticket.SetDifficulty(dto.ChilliesDifficulty);
+    // --- Concurrency Check (Optimistic Locking) ---
+    if (dto.RowVersion != null)
+    {
+       this.ticketRepository.SetOriginalRowVersion(ticket, dto.RowVersion);
+    }
+
+    var user = await this.GetCurrentUserAsync().ConfigureAwait(false);
+    if (user != null)
+    {
+        if (ticket.Title != dto.Title)
+        {
+            await this.ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Title", OldValue = ticket.Title, NewValue = dto.Title, ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+            ticket.UpdateTitle(dto.Title);
+        }
+
+        if (ticket.Description != dto.Description)
+        {
+            await this.ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Description", OldValue = "---", NewValue = "Updated", ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+            ticket.UpdateDescription(dto.Description, dto.Description);
+        }
+
+        if (ticket.AssignedUserId != dto.AssignedUserId)
+        {
+            await this.ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Assignee", OldValue = ticket.AssignedUserId?.ToString() ?? "None", NewValue = dto.AssignedUserId?.ToString() ?? "None", ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+            ticket.AssignUser(dto.AssignedUserId);
+        }
+    }
+
+        if (ticket.PriorityId != dto.PriorityId)
+        {
+            await this.ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Priority", OldValue = ticket.Priority?.Name ?? ticket.PriorityId.ToString(), NewValue = dto.PriorityId.ToString(), ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+            ticket.SetPriority(dto.PriorityId);
+        }
+
+        if (ticket.EstimatePoints != dto.EstimatePoints)
+        {
+            await this.ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Estimate", OldValue = ticket.EstimatePoints.ToString(), NewValue = dto.EstimatePoints.ToString(), ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+            ticket.SetEstimatePoints(dto.EstimatePoints);
+        }
+
+        if (ticket.ChilliesDifficulty != dto.ChilliesDifficulty)
+        {
+            await this.ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Difficulty", OldValue = ticket.ChilliesDifficulty.ToString(), NewValue = dto.ChilliesDifficulty.ToString(), ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
+            ticket.SetDifficulty(dto.ChilliesDifficulty);
+        }
+    }
 
     if (dto.TagIds != null)
     {
@@ -144,6 +195,7 @@ public class TicketService : ITicketService
     }
 
     await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+    await this.notificationService.NotifyTicketUpdateAsync(ticket.Id, "Ticket updated").ConfigureAwait(false);
   }
 
   /// <inheritdoc/>
@@ -190,12 +242,15 @@ public class TicketService : ITicketService
 
     if (newStatus == "Closed" || targetState.IsTerminalState)
     {
+      await this.ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Status", OldValue = ticket.Status, NewValue = newStatus, ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
       await this.CloseTicketAsync(id).ConfigureAwait(false);
     }
     else
     {
+      await this.ticketRepository.AddHistoryAsync(new TicketHistory { TicketId = ticket.Id, FieldName = "Status", OldValue = ticket.Status, NewValue = newStatus, ActorUserId = user.Id, ChangedAt = DateTime.UtcNow }).ConfigureAwait(false);
       ticket.MoveToState(targetState.Id);
       await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+      await this.notificationService.NotifyTicketUpdateAsync(ticket.Id, $"Status updated to {newStatus}").ConfigureAwait(false);
     }
   }
 
@@ -217,6 +272,7 @@ public class TicketService : ITicketService
     var roles = await this.userManager.GetRolesAsync(user).ConfigureAwait(false);
     ticket.Close(user.Id, roles.Contains("Admin"));
     await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+    await this.notificationService.NotifyTicketUpdateAsync(ticket.Id, "Ticket closed").ConfigureAwait(false);
   }
 
   /// <inheritdoc/>
@@ -292,6 +348,31 @@ public class TicketService : ITicketService
     return tags.Select(t => new TagDto(t.Id, t.Name, t.ColorHex));
   }
 
+  /// <inheritdoc/>
+  public async Task UpvoteAsync(Guid id)
+  {
+    var user = await this.GetCurrentUserAsync().ConfigureAwait(false);
+    if (user != null)
+    {
+      if (!await this.ticketRepository.UserHasUpvotedAsync(id, user.Id).ConfigureAwait(false))
+      {
+        await this.ticketRepository.AddUpvoteAsync(new TicketUpvote { TicketId = id, UserId = user.Id }).ConfigureAwait(false);
+        await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+      }
+    }
+  }
+
+  /// <inheritdoc/>
+  public async Task DownvoteAsync(Guid id)
+  {
+    var user = await this.GetCurrentUserAsync().ConfigureAwait(false);
+    if (user != null)
+    {
+      await this.ticketRepository.RemoveUpvoteAsync(id, user.Id).ConfigureAwait(false);
+      await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+    }
+  }
+
   /// <summary>
   /// Mappt eine Ticket-Entität auf ein DTO.
   /// </summary>
@@ -339,6 +420,20 @@ public class TicketService : ITicketService
     var user = await this.GetCurrentUserAsync().ConfigureAwait(false);
     bool isTimerRunning = user != null && await this.timeTrackingService.IsTimerRunningAsync(t.Id, user.Id).ConfigureAwait(false);
 
+    var history = t.History?.OrderByDescending(h => h.ChangedAt).Select(h => new TicketHistoryDto(
+          h.Id,
+          h.FieldName,
+          h.OldValue ?? string.Empty,
+          h.NewValue ?? string.Empty,
+          h.ChangedAt,
+          h.ActorUser?.UserName ?? "Unbekannt")) ?? Enumerable.Empty<TicketHistoryDto>();
+          
+    int upvoteCount = t.Upvotes?.Count ?? 0;
+    bool hasUpvoted = user != null && (t.Upvotes?.Any(u => u.UserId == user.Id) ?? false);
+    
+    // Concurrency Token direkt aus der Entität (automatisch gefüllt durch EF)
+    var rowVersion = t.RowVersion ?? Array.Empty<byte>();
+
     return new TicketDto(
         t.Id,
         t.Title,
@@ -360,7 +455,11 @@ public class TicketService : ITicketService
         comments,
         blockedBy,
         blocking,
-        attachments);
+        attachments,
+        history,
+        upvoteCount,
+        hasUpvoted,
+        rowVersion);
   }
 
   private async Task<User?> GetCurrentUserAsync()
