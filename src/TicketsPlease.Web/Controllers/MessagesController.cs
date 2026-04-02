@@ -91,6 +91,11 @@ internal sealed class MessagesController : Controller
 
     await this.messageService.SendMessageAsync(user.Id, dto).ConfigureAwait(false);
 
+    if (this.Request.Headers["X-Requested-With"] == "XMLHttpRequest" || this.Request.Headers["Accept"].ToString().Contains("application/json"))
+    {
+      return this.Ok();
+    }
+
     return this.RedirectToAction(nameof(this.Index));
   }
 

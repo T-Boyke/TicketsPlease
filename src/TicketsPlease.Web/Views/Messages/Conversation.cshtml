@@ -38,7 +38,7 @@
                 <div class="flex @(isMine ? "justify-end" : "justify-start")">
                     <div class="max-w-[80%] flex flex-col @(isMine ? "items-end" : "items-start")">
                         <div class="px-5 py-3 rounded-2xl text-sm font-medium shadow-sm @(isMine ? "bg-brand-primary text-white rounded-tr-none" : "bg-white border border-slate-100 text-slate-700 rounded-tl-none")">
-                            @Html.Raw(message.BodyMarkdown) @* In production use a proper markdown parser *@
+                            <div class="markdown-content invisible">@message.BodyMarkdown</div>
                             
                             @if (message.Attachments.Any())
                             {
@@ -104,6 +104,88 @@
             } else {
                 this.style.overflowY = 'hidden';
             }
-        });
+        // SignalR Real-time Chat
+        if (typeof notificationConnection !== 'undefined') {
+            notificationConnection.on("ReceiveMessage", (message) => {
+                const otherUserId = '@otherUserId'.toLowerCase();
+                const currentConversationPartnerId = message.senderUserId.toLowerCase();
+                
+                if (currentConversationPartnerId === otherUserId) {
+                    const isMine = false; // Wir empfangen hier nur Nachrichten von anderen
+                    const sentAt = new Date(message.sentAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    
+                    const html = `
+                        <div class="flex justify-start animate-fade-in">
+                            <div class="max-w-[80%] flex flex-col items-start">
+                                <div class="px-5 py-3 rounded-2xl text-sm font-medium shadow-sm bg-white border border-slate-100 text-slate-700 rounded-tl-none">
+                                    <div class="markdown-content invisible">${message.bodyMarkdown}</div>
+                                </div>
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mt-1.5 opacity-70">
+                                    ${sentAt}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                    
+                    container.insertAdjacentHTML('beforeend', html);
+                    container.scrollTop = container.scrollHeight;
+                    
+                    // Re-render markdown via existing global engine if available
+                    if (window.renderMarkdown) {
+                        window.renderMarkdown();
+                    }
+                } else {
+                    // Falls Nachricht von jemand anderem kommt -> Globaler Toast
+                    enterpriseToast(message.senderUserName, message.bodyMarkdown, "info");
+                }
+            });
+        // Form AJAX Submission
+        const chatForm = document.querySelector('form[action="/Messages/Create"]');
+        if (chatForm) {
+            chatForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(chatForm);
+                const bodyMarkdown = formData.get('BodyMarkdown');
+                if (!bodyMarkdown.trim()) return;
+
+                // Optimistische UI-Anzeige
+                const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                const myHtml = `
+                    <div class="flex justify-end animate-fade-in opacity-50 transition-opacity" id="temp-msg">
+                        <div class="max-w-[80%] flex flex-col items-end">
+                            <div class="px-5 py-3 rounded-2xl text-sm font-medium shadow-sm bg-brand-primary text-white rounded-tr-none">
+                                <div class="markdown-content invisible">${bodyMarkdown}</div>
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mt-1.5 opacity-70">
+                                ${now}
+                            </span>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', myHtml);
+                const tempMsg = document.getElementById('temp-msg');
+                container.scrollTop = container.scrollHeight;
+                textarea.value = '';
+                textarea.style.height = 'auto';
+
+                if (window.renderMarkdown) window.renderMarkdown();
+
+                try {
+                    const response = await fetch(chatForm.action, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    if (response.ok) {
+                        tempMsg.classList.remove('opacity-50');
+                        tempMsg.removeAttribute('id');
+                    } else {
+                        tempMsg.classList.add('bg-rose-100');
+                        enterpriseToast("Error", "Message could not be sent", "error");
+                    }
+                } catch (err) {
+                    console.error("Fetch error:", err);
+                }
+            });
+        }
     </script>
 }

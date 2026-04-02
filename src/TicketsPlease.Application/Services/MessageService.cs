@@ -21,6 +21,7 @@ public class MessageService : IMessageService
   private readonly IMessageRepository messageRepository;
   private readonly IFileStorageService fileStorageService;
   private readonly IFileAssetRepository fileAssetRepository;
+  private readonly INotificationService notificationService;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="MessageService"/> class.
@@ -28,14 +29,17 @@ public class MessageService : IMessageService
   /// <param name="messageRepository">Das injizierte Repository.</param>
   /// <param name="fileStorageService">Der Dienst zur Dateispeicherung.</param>
   /// <param name="fileAssetRepository">Das Repository für Datei-Metadaten.</param>
+  /// <param name="notificationService">Der Benachrichtigungsdienst.</param>
   public MessageService(
       IMessageRepository messageRepository,
       IFileStorageService fileStorageService,
-      IFileAssetRepository fileAssetRepository)
+      IFileAssetRepository fileAssetRepository,
+      INotificationService notificationService)
   {
     this.messageRepository = messageRepository;
     this.fileStorageService = fileStorageService;
     this.fileAssetRepository = fileAssetRepository;
+    this.notificationService = notificationService;
   }
 
   /// <inheritdoc />
@@ -68,7 +72,12 @@ public class MessageService : IMessageService
 
     // Fetch again to ensure navigation properties (Sender/Receiver/Attachments) are loaded
     var savedMessage = await this.messageRepository.GetByIdAsync(message.Id, ct).ConfigureAwait(false);
-    return MapToDto(savedMessage!);
+    var mappedResult = MapToDto(savedMessage!);
+
+    // Real-time Benachrichtigung
+    await this.notificationService.NotifyNewMessageAsync(dto.ReceiverUserId, mappedResult).ConfigureAwait(false);
+
+    return mappedResult;
   }
 
   private static MessageDto MapToDto(Message m)
