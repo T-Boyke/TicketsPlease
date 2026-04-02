@@ -56,6 +56,15 @@
   <data name="Add" xml:space="preserve"><value>Add</value></data>
   <data name="Comments" xml:space="preserve"><value>Comments</value></data>
   <data name="Post Comment" xml:space="preserve"><value>Post Comment</value></data>
-  <data name="Write a comment..." xml:space="preserve"><value>Write a comment...</value></data>
   <data name="No comments yet. Be the first to start the discussion!" xml:space="preserve"><value>No comments yet. Be the first to start the discussion!</value></data>
+  <data name="Write a comment... (Markdown supported)" xml:space="preserve"><value>Comment... (Markdown enabled)</value></data>
+  <data name="Audit Log" xml:space="preserve"><value>Audit Log</value></data>
+  <data name="No history records yet." xml:space="preserve"><value>No records yet.</value></data>
+  <data name="Changed" xml:space="preserve"><value>Changed</value></data>
+  <data name="History" xml:space="preserve"><value>History</value></data>
+  <data name="Toggle completion for" xml:space="preserve"><value>Toggle completion for</value></data>
+  <data name="Delete task" xml:space="preserve"><value>Delete task</value></data>
+  <data name="Task title" xml:space="preserve"><value>Task title</value></data>
+  <data name="Add task" xml:space="preserve"><value>Add task</value></data>
+  <data name="Comment content" xml:space="preserve"><value>Comment content</value></data>
 </root>
