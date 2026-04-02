@@ -1,0 +1,68 @@
+@using TicketsPlease.Application.Common.Dtos
+@model TeamDto
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer L
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div class="mb-4">
+        <a asp-action="Index" class="text-sm font-medium text-slate-500 hover:text-brand-primary transition-colors">
+            <i class="fa-solid fa-arrow-left mr-1"></i>
+            @L["BackToTeams"]
+        </a>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <div class="h-32 w-full" style="background-color: @(string.IsNullOrEmpty(Model.ColorCode) ? "#3B82F6" : Model.ColorCode)"></div>
+        <div class="px-8 pb-8 relative">
+            <div class="-mt-12 mb-4">
+                <div class="h-24 w-24 bg-white rounded-2xl p-2 shadow-lg inline-block text-center flex items-center justify-center border-4 border-white" style="color: @(string.IsNullOrEmpty(Model.ColorCode) ? "#3B82F6" : Model.ColorCode)">
+                    <i class="fa-solid fa-users text-4xl"></i>
+                </div>
+            </div>
+            
+            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">@Model.Name</h1>
+            <p class="mt-2 text-lg text-slate-600">@Model.Description</p>
+            
+            <div class="mt-6 flex items-center space-x-6 text-sm text-slate-500">
+                <div class="flex items-center">
+                    <i class="fa-solid fa-user-group mr-2 text-slate-400"></i>
+                    <span class="font-bold mr-1">@Model.MemberCount</span> @L["Members"]
+                </div>
+                <div class="flex items-center">
+                    <i class="fa-solid fa-calendar-alt mr-2 text-slate-400"></i>
+                    @L["Created"] @Model.CreatedAt.ToShortDateString()
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-8 bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+        <h2 class="text-xl font-bold text-slate-900 mb-6">@L["TeamMembers"]</h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            @foreach (var member in Model.Members)
+            {
+                <div class="flex items-center p-4 border border-slate-100 rounded-xl hover:bg-slate-50 transition-colors">
+                    <div class="h-10 w-10 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center font-bold mr-4">
+                        @(member.UserName.Length >= 2 ? member.UserName.Substring(0, 2).ToUpper() : "?")
+                    </div>
+                    <div>
+                        <p class="font-bold text-slate-900">
+                            @member.UserName
+                            @if (member.IsTeamLead)
+                            {
+                                <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-100 text-amber-800">
+                                    <i class="fa-solid fa-crown mr-1"></i> @L["TeamLead"]
+                                </span>
+                            }
+                        </p>
+                        <p class="text-xs text-slate-500">@L["Joined"] @member.JoinedAt.ToShortDateString()</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

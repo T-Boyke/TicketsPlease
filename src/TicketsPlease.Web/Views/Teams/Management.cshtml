@@ -1,0 +1,119 @@
+@using TicketsPlease.Application.Common.Dtos
+@model IEnumerable<TeamDto>
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer L
+
+@{
+    ViewData["Title"] = L["Team Management"];
+}
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">@L["Team Management"]</h1>
+            <p class="mt-2 text-slate-500">@L["CreateAndManageTeams"]</p>
+        </div>
+        
+        <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-bold rounded-full shadow-sm text-white bg-brand-primary hover:bg-brand-secondary transition-all duration-200" onclick="document.getElementById('createTeamModal').classList.remove('hidden')">
+            <i class="fa-solid fa-plus mr-2"></i>
+            @L["CreateTeam"]
+        </button>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+        <table class="min-w-full divide-y divide-slate-200">
+            <thead class="bg-slate-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">@L["Team"]</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">@L["Members"]</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">@L["Created"]</th>
+                    <th scope="col" class="relative px-6 py-3"><span class="sr-only">@L["Actions"]</span></th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-slate-200">
+                @foreach (var team in Model)
+                {
+                    <tr class="hover:bg-slate-50 transition-colors">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <div class="h-10 w-10 flex-shrink-0 rounded-full flex items-center justify-center text-white mr-4" style="background-color: @(string.IsNullOrEmpty(team.ColorCode) ? "#3B82F6" : team.ColorCode)">
+                                    <i class="fa-solid fa-users text-sm"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-bold text-slate-900">@team.Name</div>
+                                    <div class="text-sm text-slate-500 truncate max-w-xs">@team.Description</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                @team.MemberCount
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                            @team.CreatedAt.ToShortDateString()
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                            <a asp-action="Details" asp-route-id="@team.Id" class="text-brand-primary hover:text-brand-secondary">@L["Edit"]</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        
+        @if (!Model.Any())
+        {
+            <div class="text-center py-12">
+                <i class="fa-solid fa-users-slash text-4xl text-slate-300 mb-4"></i>
+                <p class="text-slate-500 font-medium">@L["NoTeamsFound"]</p>
+                <p class="text-slate-400 text-sm mt-1">@L["CreateFirstTeamTip"]</p>
+            </div>
+        }
+    </div>
+</div>
+
+@* Modal for Creating a New Team *@
+<div id="createTeamModal" class="hidden fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-slate-500 bg-opacity-75 transition-opacity" aria-hidden="true" onclick="this.parentElement.parentElement.classList.add('hidden')"></div>
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        <div class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <form asp-action="Create" method="post">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-brand-primary/10 text-brand-primary sm:mx-0 sm:h-10 sm:w-10">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                            <h3 class="text-lg leading-6 font-bold text-slate-900" id="modal-title">@L["CreateNewTeam"]</h3>
+                            <div class="mt-4 space-y-4">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-slate-700">@L["TeamName"] *</label>
+                                    <input type="text" name="name" id="name" required class="mt-1 focus:ring-brand-primary focus:border-brand-primary block w-full shadow-sm sm:text-sm border-slate-300 rounded-md">
+                                </div>
+                                <div>
+                                    <label for="description" class="block text-sm font-medium text-slate-700">@L["Description"]</label>
+                                    <textarea name="description" id="description" rows="3" class="mt-1 focus:ring-brand-primary focus:border-brand-primary block w-full shadow-sm sm:text-sm border-slate-300 rounded-md"></textarea>
+                                </div>
+                                <div>
+                                    <label for="colorCode" class="block text-sm font-medium text-slate-700">@L["ColorCode"]</label>
+                                    <div class="mt-1 flex items-center space-x-3">
+                                        <input type="color" name="colorCode" id="colorCode" value="#3B82F6" class="h-8 w-8 rounded cursor-pointer border-0 p-0">
+                                        <span class="text-sm text-slate-500">@L["SelectBrandColor"]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-slate-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-slate-200">
+                    <button type="submit" class="w-full inline-flex justify-center rounded-full border border-transparent shadow-sm px-4 py-2 bg-brand-primary text-base font-medium text-white hover:bg-brand-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary sm:ml-3 sm:w-auto sm:text-sm">
+                        @L["Create"]
+                    </button>
+                    <button type="button" class="mt-3 w-full inline-flex justify-center rounded-full border border-slate-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-primary sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="document.getElementById('createTeamModal').classList.add('hidden')">
+                        @L["Cancel"]
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

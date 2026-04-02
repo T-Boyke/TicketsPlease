@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using TicketsPlease.Application.Common.Interfaces;
@@ -15,12 +16,10 @@ using TicketsPlease.Infrastructure.Persistence;
 using TicketsPlease.Infrastructure.Repositories;
 using TicketsPlease.Infrastructure.Services;
 using TicketsPlease.Web.BackgroundServices;
-
-[assembly: InternalsVisibleTo("TicketsPlease.IntegrationTests")]
-
-using Microsoft.AspNetCore.SignalR;
 using TicketsPlease.Web.Hubs;
 using TicketsPlease.Web.Services;
+
+[assembly: InternalsVisibleTo("TicketsPlease.IntegrationTests")]
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -76,6 +75,7 @@ builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<IFileAssetRepository, FileAssetRepository>();
+builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
@@ -84,6 +84,7 @@ builder.Services.AddScoped<IFileStorageService, LocalStorageService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<ITimeTrackingService, TimeTrackingService>();
 builder.Services.AddScoped<ISubTicketService, SubTicketService>();
+builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<INotificationService, SignalRNotificationService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHostedService<TicketCleanupWorker>();
@@ -131,7 +132,7 @@ app.Use((context, next) =>
   if (app.Environment.IsDevelopment())
   {
     // Relax CSP in Development for Styleguide swatches, Browser Link, and Browser Refresh
-    csp = "default-src 'self' http://localhost:* ws://localhost:*; connect-src 'self' ws: wss:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none';";
+    csp = "default-src 'self' http://localhost:* ws://localhost:*; connect-src 'self' http://localhost:* ws: wss:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none';";
   }
 
   context.Response.Headers.Append("Content-Security-Policy", csp);

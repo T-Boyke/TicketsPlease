@@ -21,17 +21,17 @@ internal sealed class AdminController : Controller
   [HttpGet]
   public IActionResult Index()
   {
-    return this.RedirectToAction(nameof(this.Users));
+    return this.RedirectToAction("Index", "AdminUsers");
   }
 
   /// <summary>
-  /// Zeigt die Benutzerverwaltung an.
+  /// Leitet zur tatsächlichen Benutzerverwaltung weiter.
   /// </summary>
-  /// <returns>Die Users-View.</returns>
+  /// <returns>Ein Redirect auf die Benutzerliste.</returns>
   [HttpGet]
   public IActionResult Users()
   {
-    return this.View();
+    return this.RedirectToAction("Index", "AdminUsers");
   }
 
   /// <summary>

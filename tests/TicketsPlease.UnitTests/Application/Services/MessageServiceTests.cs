@@ -13,6 +13,7 @@ public class MessageServiceTests
     private readonly Mock<IMessageRepository> _mockMessageRepo;
     private readonly Mock<IFileAssetRepository> _mockFileRepo;
     private readonly Mock<IFileStorageService> _mockStorage;
+    private readonly Mock<INotificationService> _mockNotificationService;
     private readonly MessageService _service;
 
     public MessageServiceTests()
@@ -20,11 +21,13 @@ public class MessageServiceTests
         _mockMessageRepo = new Mock<IMessageRepository>();
         _mockFileRepo = new Mock<IFileAssetRepository>();
         _mockStorage = new Mock<IFileStorageService>();
+        _mockNotificationService = new Mock<INotificationService>();
         
         _service = new MessageService(
             _mockMessageRepo.Object,
             _mockStorage.Object,
-            _mockFileRepo.Object);
+            _mockFileRepo.Object,
+            _mockNotificationService.Object);
     }
 
     [Fact]
