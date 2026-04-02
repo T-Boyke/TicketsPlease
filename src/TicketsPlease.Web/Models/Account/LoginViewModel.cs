@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 /// <summary>
 /// Das ViewModel für den Login.
 /// </summary>
-public class LoginViewModel
+internal class LoginViewModel
 {
   /// <summary>
   /// Gets or sets die E-Mail-Adresse.

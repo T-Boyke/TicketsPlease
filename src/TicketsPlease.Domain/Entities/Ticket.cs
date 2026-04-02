@@ -471,9 +471,9 @@ public class Ticket : BaseAuditableEntity
   /// </summary>
   public void SetSLA(TimeSpan responseLimit, TimeSpan resolutionLimit)
   {
-      this.ResponseDeadline = this.CreatedAt.Add(responseLimit);
-      this.ResolutionDeadline = this.CreatedAt.Add(resolutionLimit);
-      this.UpdatedAt = DateTime.UtcNow;
+    this.ResponseDeadline = this.CreatedAt.Add(responseLimit);
+    this.ResolutionDeadline = this.CreatedAt.Add(resolutionLimit);
+    this.UpdatedAt = DateTime.UtcNow;
   }
 
   /// <summary>
@@ -481,11 +481,11 @@ public class Ticket : BaseAuditableEntity
   /// </summary>
   public void RecordResponse()
   {
-      if (this.LastRespondedAt == null)
-      {
-          this.LastRespondedAt = DateTime.UtcNow;
-          this.UpdatedAt = DateTime.UtcNow;
-      }
+    if (this.LastRespondedAt == null)
+    {
+      this.LastRespondedAt = DateTime.UtcNow;
+      this.UpdatedAt = DateTime.UtcNow;
+    }
   }
 
   private string GenerateDomainHash()

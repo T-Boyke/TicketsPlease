@@ -80,8 +80,8 @@ public class CommentService : ICommentService
     var ticket = await this.ticketRepository.GetByIdAsync(dto.TicketId).ConfigureAwait(false);
     if (ticket != null && ticket.CreatorId != user.Id)
     {
-        ticket.RecordResponse();
-        await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+      ticket.RecordResponse();
+      await this.ticketRepository.SaveChangesAsync().ConfigureAwait(false);
     }
 
     // Echtzeit-Benachrichtigung senden

@@ -51,6 +51,7 @@ public class FileAsset : BaseEntity
   /// Gets or sets die ID des zugeordneten Tickets (Optional).
   /// </summary>
   public Guid? TicketId { get; set; }
+
   /// <summary>
   /// Gets or sets das Navigation-Property für das zugeordnete Ticket.
   /// </summary>

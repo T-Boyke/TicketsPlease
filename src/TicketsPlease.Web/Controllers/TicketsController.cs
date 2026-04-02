@@ -32,7 +32,7 @@ internal sealed class TicketsController : Controller
   private readonly ISubTicketService subTicketService;
   private readonly UserManager<User> userManager;
   private readonly AppDbContext context;
-  private readonly IStringLocalizer<TicketsController> L;
+  private readonly IStringLocalizer<TicketsController> l;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="TicketsController"/> class.
@@ -64,7 +64,7 @@ internal sealed class TicketsController : Controller
     this.subTicketService = subTicketService;
     this.userManager = userManager;
     this.context = context;
-    this.L = localizer;
+    this.l = localizer;
   }
 
   /// <summary>
@@ -183,7 +183,7 @@ internal sealed class TicketsController : Controller
       }
       catch (DbUpdateConcurrencyException)
       {
-        this.ModelState.AddModelError(string.Empty, L["The data has been modified by another user. Please reload the page."].Value);
+        this.ModelState.AddModelError(string.Empty, this.l["The data has been modified by another user. Please reload the page."].Value);
       }
     }
 
@@ -398,7 +398,7 @@ internal sealed class TicketsController : Controller
     var ticket = await this.ticketService.GetTicketAsync(id).ConfigureAwait(false);
     if (ticket == null)
     {
-       return this.NotFound();
+      return this.NotFound();
     }
 
     if (ticket.UserHasUpvoted)
@@ -412,7 +412,7 @@ internal sealed class TicketsController : Controller
 
     if (!string.IsNullOrEmpty(returnUrl))
     {
-       return this.LocalRedirect(returnUrl);
+      return this.LocalRedirect(returnUrl);
     }
 
     return this.RedirectToAction(nameof(this.Details), new { id });

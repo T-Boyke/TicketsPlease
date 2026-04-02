@@ -12,9 +12,9 @@ using TicketsPlease.Application.Common.Dtos;
 /// </summary>
 public interface IDashboardService
 {
-    /// <summary>
-    /// Ruft alle relevanten Statistiken für das Dashboard ab.
-    /// </summary>
-    /// <returns>Ein <see cref="DashboardStatsDto"/>.</returns>
-    Task<DashboardStatsDto> GetDashboardStatsAsync();
+  /// <summary>
+  /// Ruft alle relevanten Statistiken für das Dashboard ab.
+  /// </summary>
+  /// <returns>Ein <see cref="DashboardStatsDto"/>.</returns>
+  public Task<DashboardStatsDto> GetDashboardStatsAsync();
 }

@@ -14,33 +14,33 @@ using TicketsPlease.Application.Common.Dtos;
 /// </summary>
 public interface ISubTicketService
 {
-    /// <summary>
-    /// Fügt ein neues Unterticket hinzu.
-    /// </summary>
-    /// <param name="ticketId">Hauptticket-ID.</param>
-    /// <param name="title">Titel der Teilaufgabe.</param>
-    /// <param name="creatorId">Ersteller-ID.</param>
-    /// <returns>Das erstellte <see cref="SubTicketDto"/>.</returns>
-    Task<SubTicketDto> AddSubTicketAsync(Guid ticketId, string title, Guid creatorId);
+  /// <summary>
+  /// Fügt ein neues Unterticket hinzu.
+  /// </summary>
+  /// <param name="ticketId">Hauptticket-ID.</param>
+  /// <param name="title">Titel der Teilaufgabe.</param>
+  /// <param name="creatorId">Ersteller-ID.</param>
+  /// <returns>Das erstellte <see cref="SubTicketDto"/>.</returns>
+  public Task<SubTicketDto> AddSubTicketAsync(Guid ticketId, string title, Guid creatorId);
 
-    /// <summary>
-    /// Toggelt den Status eines Untertickets.
-    /// </summary>
-    /// <param name="subTicketId">ID des Untertickets.</param>
-    /// <returns>Ein Task.</returns>
-    Task ToggleSubTicketAsync(Guid subTicketId);
+  /// <summary>
+  /// Toggelt den Status eines Untertickets.
+  /// </summary>
+  /// <param name="subTicketId">ID des Untertickets.</param>
+  /// <returns>Ein Task.</returns>
+  public Task ToggleSubTicketAsync(Guid subTicketId);
 
-    /// <summary>
-    /// Löscht ein Unterticket.
-    /// </summary>
-    /// <param name="subTicketId">ID des Untertickets.</param>
-    /// <returns>Ein Task.</returns>
-    Task DeleteSubTicketAsync(Guid subTicketId);
+  /// <summary>
+  /// Löscht ein Unterticket.
+  /// </summary>
+  /// <param name="subTicketId">ID des Untertickets.</param>
+  /// <returns>Ein Task.</returns>
+  public Task DeleteSubTicketAsync(Guid subTicketId);
 
-    /// <summary>
-    /// Holt alle Untertickets für ein Hauptticket.
-    /// </summary>
-    /// <param name="ticketId">Hauptticket-ID.</param>
-    /// <returns>Liste von Untertickets.</returns>
-    Task<IEnumerable<SubTicketDto>> GetSubTicketsAsync(Guid ticketId);
+  /// <summary>
+  /// Holt alle Untertickets für ein Hauptticket.
+  /// </summary>
+  /// <param name="ticketId">Hauptticket-ID.</param>
+  /// <returns>Liste von Untertickets.</returns>
+  public Task<IEnumerable<SubTicketDto>> GetSubTicketsAsync(Guid ticketId);
 }

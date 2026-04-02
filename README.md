@@ -1,4 +1,4 @@
-# TicketsPlease ![TicketsPlease Icon](docs/assets/ticketspleaseicon.png)
+# TicketsPlease
 
 ![TicketsPlease Logo](docs/assets/ticketspleaselogo.png)
 
@@ -25,7 +25,7 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 <details>
 <summary>📋 Table of Contents (Inhaltsverzeichnis)</summary>
 
-- [TicketsPlease ![TicketsPlease Icon](docs/assets/ticketspleaseicon.png)](#ticketsplease)
+- [TicketsPlease](#ticketsplease)
   - [📊 Implementierungs-Status (MVP = F1–F9)](#-implementierungs-status-mvp--f1f9)
   - [1. 🚀 Vision \& Projektziele](#1--vision--projektziele)
   - [2. 🛠️ Technologie-Stack](#2-️-technologie-stack)

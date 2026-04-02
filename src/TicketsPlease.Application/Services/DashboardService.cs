@@ -19,55 +19,54 @@ using TicketsPlease.Domain.Entities;
 /// </summary>
 public class DashboardService : IDashboardService
 {
-    private readonly ITicketRepository ticketRepository;
-    private readonly IProjectRepository projectRepository;
-    private readonly UserManager<User> userManager;
-    private readonly RoleManager<Role> roleManager;
+  private readonly ITicketRepository ticketRepository;
+  private readonly IProjectRepository projectRepository;
+  private readonly UserManager<User> userManager;
+  private readonly RoleManager<Role> roleManager;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DashboardService"/> class.
-    /// </summary>
-    public DashboardService(
-        ITicketRepository ticketRepository, 
-        IProjectRepository projectRepository, 
-        UserManager<User> userManager, 
-        RoleManager<Role> roleManager)
+  /// <summary>
+  /// Initializes a new instance of the <see cref="DashboardService"/> class.
+  /// </summary>
+  public DashboardService(
+      ITicketRepository ticketRepository,
+      IProjectRepository projectRepository,
+      UserManager<User> userManager,
+      RoleManager<Role> roleManager)
+  {
+    this.ticketRepository = ticketRepository;
+    this.projectRepository = projectRepository;
+    this.userManager = userManager;
+    this.roleManager = roleManager;
+  }
+
+  /// <inheritdoc />
+  public async Task<DashboardStatsDto> GetDashboardStatsAsync()
+  {
+    // Hinweis: Wir nutzen hier die Repositories für den Datenzugriff.
+    // Falls organisationsspezifische Stats gewünscht sind, müssten die Repositories entsprechend gefiltert werden.
+    var tickets = await this.ticketRepository.GetAllActiveAsync().ConfigureAwait(false);
+
+    // Da IProjectRepository.GetAllAsync eine TenantId benötigt, weichen wir hier auf eine leere Guid aus
+    // oder implementieren ein SystemWide-Repository-Pattern falls nötig.
+    // Für das MVP nehmen wir an, dass wir alle Projekte zählen wollen.
+    var projects = await this.projectRepository.GetAllAsync(Guid.Empty).ConfigureAwait(false);
+    var users = this.userManager.Users.ToList();
+    var roles = this.roleManager.Roles.ToList();
+
+    var usersByRole = new Dictionary<string, int>();
+    foreach (var role in roles)
     {
-        this.ticketRepository = ticketRepository;
-        this.projectRepository = projectRepository;
-        this.userManager = userManager;
-        this.roleManager = roleManager;
+      var usersInRole = await this.userManager.GetUsersInRoleAsync(role.Name!).ConfigureAwait(false);
+      usersByRole.Add(role.Name!, usersInRole.Count);
     }
 
-    /// <inheritdoc />
-    public async Task<DashboardStatsDto> GetDashboardStatsAsync()
-    {
-        // Hinweis: Wir nutzen hier die Repositories für den Datenzugriff.
-        // Falls organisationsspezifische Stats gewünscht sind, müssten die Repositories entsprechend gefiltert werden.
-        var tickets = await this.ticketRepository.GetAllActiveAsync().ConfigureAwait(false);
-        
-        // Da IProjectRepository.GetAllAsync eine TenantId benötigt, weichen wir hier auf eine leere Guid aus
-        // oder implementieren ein SystemWide-Repository-Pattern falls nötig.
-        // Für das MVP nehmen wir an, dass wir alle Projekte zählen wollen.
-        var projects = await this.projectRepository.GetAllAsync(Guid.Empty).ConfigureAwait(false);
-        var users = this.userManager.Users.ToList();
-        var roles = this.roleManager.Roles.ToList();
-
-        var usersByRole = new Dictionary<string, int>();
-        foreach (var role in roles)
-        {
-            var usersInRole = await this.userManager.GetUsersInRoleAsync(role.Name!).ConfigureAwait(false);
-            usersByRole.Add(role.Name!, usersInRole.Count);
-        }
-
-        return new DashboardStatsDto(
-            tickets.Count,
-            tickets.Count(t => t.Status != "Closed" && t.Status != "Done"),
-            tickets.Count(t => t.Status == "Closed" || t.Status == "Done"),
-            projects.Count(),
-            projects.Count(p => !p.EndDate.HasValue || p.EndDate > System.DateTime.UtcNow),
-            users.Count,
-            usersByRole
-        );
-    }
+    return new DashboardStatsDto(
+        tickets.Count,
+        tickets.Count(t => t.Status != "Closed" && t.Status != "Done"),
+        tickets.Count(t => t.Status == "Closed" || t.Status == "Done"),
+        projects.Count(),
+        projects.Count(p => !p.EndDate.HasValue || p.EndDate > System.DateTime.UtcNow),
+        users.Count,
+        usersByRole);
+  }
 }

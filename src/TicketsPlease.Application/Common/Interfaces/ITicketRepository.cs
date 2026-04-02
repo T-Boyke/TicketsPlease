@@ -5,9 +5,9 @@
 namespace TicketsPlease.Application.Common.Interfaces;
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
@@ -110,26 +110,31 @@ public interface ITicketRepository
   /// Fügt einen Eintrag in die Historie hinzu.
   /// </summary>
   /// <param name="history">Der Historien-Eintrag.</param>
+  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
   public Task AddHistoryAsync(TicketHistory history);
 
   /// <summary>
   /// Fügt einen Upvote hinzu.
   /// </summary>
+  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
   public Task AddUpvoteAsync(TicketUpvote upvote);
 
   /// <summary>
   /// Entfernt einen Upvote.
   /// </summary>
+  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
   public Task RemoveUpvoteAsync(Guid ticketId, Guid userId);
 
   /// <summary>
   /// Prüft ob ein User bereits gevotet hat.
   /// </summary>
+  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
   public Task<bool> UserHasUpvotedAsync(Guid ticketId, Guid userId);
 
   /// <summary>
   /// Zählt die Upvotes.
   /// </summary>
+  /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
   public Task<int> GetUpvoteCountAsync(Guid ticketId);
 
   /// <summary>

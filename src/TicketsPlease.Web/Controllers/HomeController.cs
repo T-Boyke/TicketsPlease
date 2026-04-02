@@ -21,6 +21,7 @@ internal sealed class HomeController : Controller
   {
     this.dashboardService = dashboardService;
   }
+
   /// <summary>
   /// Zeigt die Index-Seite an.
   /// </summary>

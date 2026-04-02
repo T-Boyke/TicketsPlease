@@ -14,48 +14,49 @@ using TicketsPlease.Web.Hubs;
 /// <summary>
 /// Implementierung des Benachrichtigungs-Dienstes via SignalR Hub.
 /// </summary>
-public class SignalRNotificationService : INotificationService
+internal class SignalRNotificationService : INotificationService
 {
-    private readonly IHubContext<NotificationHub> hubContext;
+  private readonly IHubContext<NotificationHub> hubContext;
 
-    /// <summary>
-    /// Initialisiert eine neue Instanz des <see cref="SignalRNotificationService"/>.
-    /// </summary>
-    /// <param name="hubContext">Der Hub-Kontext.</param>
-    public SignalRNotificationService(IHubContext<NotificationHub> hubContext)
-    {
-        this.hubContext = hubContext;
-    }
+  /// <summary>
+  /// Initializes a new instance of the <see cref="SignalRNotificationService"/> class.
+  /// Initialisiert eine neue Instanz des <see cref="SignalRNotificationService"/>.
+  /// </summary>
+  /// <param name="hubContext">Der Hub-Kontext.</param>
+  public SignalRNotificationService(IHubContext<NotificationHub> hubContext)
+  {
+    this.hubContext = hubContext;
+  }
 
-    /// <inheritdoc/>
-    public async Task SendNotificationToUserAsync(Guid userId, string title, string message, string? link = null)
-    {
-        await this.hubContext.Clients.User(userId.ToString()).SendAsync("ReceiveNotification", new { title, message, link }).ConfigureAwait(false);
-    }
+  /// <inheritdoc/>
+  public async Task SendNotificationToUserAsync(Guid userId, string title, string message, string? link = null)
+  {
+    await this.hubContext.Clients.User(userId.ToString()).SendAsync("ReceiveNotification", new { title, message, link }).ConfigureAwait(false);
+  }
 
-    /// <inheritdoc/>
-    public async Task SendNotificationToAllAsync(string title, string message)
-    {
-        await this.hubContext.Clients.All.SendAsync("ReceiveGlobalAlert", new { title, message }).ConfigureAwait(false);
-    }
+  /// <inheritdoc/>
+  public async Task SendNotificationToAllAsync(string title, string message)
+  {
+    await this.hubContext.Clients.All.SendAsync("ReceiveGlobalAlert", new { title, message }).ConfigureAwait(false);
+  }
 
-    /// <inheritdoc/>
-    public async Task NotifyTicketUpdateAsync(Guid ticketId, string message)
-    {
-        await this.hubContext.Clients.Group($"ticket_{ticketId}").SendAsync("TicketUpdated", new { ticketId, message }).ConfigureAwait(false);
-    }
+  /// <inheritdoc/>
+  public async Task NotifyTicketUpdateAsync(Guid ticketId, string message)
+  {
+    await this.hubContext.Clients.Group($"ticket_{ticketId}").SendAsync("TicketUpdated", new { ticketId, message }).ConfigureAwait(false);
+  }
 
-    /// <inheritdoc/>
-    public async Task NotifyNewCommentAsync(Guid ticketId, CommentDto comment)
-    {
-        await this.hubContext.Clients.Group($"ticket_{ticketId}").SendAsync("NewComment", new { ticketId, comment }).ConfigureAwait(false);
-    }
+  /// <inheritdoc/>
+  public async Task NotifyNewCommentAsync(Guid ticketId, CommentDto comment)
+  {
+    await this.hubContext.Clients.Group($"ticket_{ticketId}").SendAsync("NewComment", new { ticketId, comment }).ConfigureAwait(false);
+  }
 
-    /// <inheritdoc/>
-    public async Task NotifyNewMessageAsync(Guid receiverUserId, MessageDto message)
-    {
-        // Wir senden die Nachricht direkt an den spezifischen User (SignalR User ID = Identity Name)
-        // Hinweis: Standardmäßig nutzt SignalR ClaimsTypes.NameIdentifier oder Name
-        await this.hubContext.Clients.User(receiverUserId.ToString()).SendAsync("ReceiveMessage", message).ConfigureAwait(false);
-    }
+  /// <inheritdoc/>
+  public async Task NotifyNewMessageAsync(Guid receiverUserId, MessageDto message)
+  {
+    // Wir senden die Nachricht direkt an den spezifischen User (SignalR User ID = Identity Name)
+    // Hinweis: Standardmäßig nutzt SignalR ClaimsTypes.NameIdentifier oder Name
+    await this.hubContext.Clients.User(receiverUserId.ToString()).SendAsync("ReceiveMessage", message).ConfigureAwait(false);
+  }
 }
