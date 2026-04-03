@@ -8,10 +8,10 @@
     <PackageReference Include="Bogus" Version="35.6.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.5" />
-    <PackageReference Include="MailKit" Version="4.10.0" />
+    <PackageReference Include="MailKit" Version="4.15.1" />
     <PackageReference Include="MimeKit" Version="4.15.1" />
 
-    <PackageReference Include="Polly" Version="8.5.2" />
+    <PackageReference Include="Polly" Version="8.6.6" />
 
   </ItemGroup>
 
