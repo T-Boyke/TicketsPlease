@@ -26,8 +26,8 @@ internal class AdminUsersController : Controller
   /// <summary>
   /// Initializes a new instance of the <see cref="AdminUsersController"/> class.
   /// </summary>
-  /// <param name="userManager"></param>
-  /// <param name="roleManager"></param>
+  /// <param name="userManager">Die Benutzerverwaltung.</param>
+  /// <param name="roleManager">Die Rollenverwaltung.</param>
   public AdminUsersController(UserManager<User> userManager, RoleManager<Role> roleManager)
   {
     this.userManager = userManager;
@@ -137,32 +137,4 @@ internal class AdminUsersController : Controller
 
     return this.RedirectToAction(nameof(this.Index));
   }
-}
-
-internal class UserListViewModel
-{
-  public Guid Id { get; set; }
-
-  public string UserName { get; set; } = string.Empty;
-
-  public string Email { get; set; } = string.Empty;
-
-  public List<string> Roles { get; set; } = new();
-
-  public bool IsActive { get; set; }
-}
-
-internal class EditUserViewModel
-{
-  public Guid Id { get; set; }
-
-  public string UserName { get; set; } = string.Empty;
-
-  public string Email { get; set; } = string.Empty;
-
-  public List<string> UserRoles { get; set; } = new();
-
-  public List<string> AllRoles { get; set; } = new();
-
-  public List<string> SelectedRoles { get; set; } = new();
 }

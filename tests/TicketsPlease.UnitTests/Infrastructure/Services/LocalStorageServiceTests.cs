@@ -31,7 +31,7 @@ public class LocalStorageServiceTests
     var blobPath = await service.SaveFileAsync(content, fileName);
 
     // Assert
-    Assert.Contains(expectedDatePart, blobPath);
+    Assert.Contains(expectedDatePart, blobPath, StringComparison.Ordinal);
     var fullPath = Path.Combine(_contentRootPath, "App_Data", "Uploads", blobPath);
     Assert.True(File.Exists(fullPath));
 

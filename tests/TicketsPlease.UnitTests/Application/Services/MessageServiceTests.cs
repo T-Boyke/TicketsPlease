@@ -37,11 +37,11 @@ public class MessageServiceTests
 
     var msg = new Message
     {
-        Id = messageId,
-        SenderUserId = userId,
-        ReceiverUserId = otherUserId,
-        BodyMarkdown = "Hello",
-        SentAt = DateTime.UtcNow
+      Id = messageId,
+      SenderUserId = userId,
+      ReceiverUserId = otherUserId,
+      BodyMarkdown = "Hello",
+      SentAt = DateTime.UtcNow
     };
     msg.Attachments.Add(new FileAsset { FileName = "test.jpg", BlobPath = "path/to/test.jpg", SizeBytes = 1024 });
 
@@ -55,7 +55,7 @@ public class MessageServiceTests
 
     // Assert
     Assert.Single(result);
-    var dto = result.First();
+    var dto = result[0];
     Assert.Equal("Hello", dto.BodyMarkdown);
     Assert.Single(dto.Attachments);
     Assert.Equal("test.jpg", dto.Attachments.First().FileName);

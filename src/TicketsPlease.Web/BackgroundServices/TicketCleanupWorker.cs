@@ -17,7 +17,7 @@ using TicketsPlease.Infrastructure.Persistence;
 /// Background worker that automatically archives tickets (F2.1.5).
 /// Tickets that are 'Done' or 'Closed' for > 30 days are moved to 'Archived'.
 /// </summary>
-internal class TicketCleanupWorker : BackgroundService
+internal sealed partial class TicketCleanupWorker : BackgroundService
 {
   private readonly IServiceProvider serviceProvider;
   private readonly ILogger<TicketCleanupWorker> logger;
@@ -36,7 +36,7 @@ internal class TicketCleanupWorker : BackgroundService
   /// <inheritdoc/>
   protected override async Task ExecuteAsync(CancellationToken stoppingToken)
   {
-    this.logger.LogInformation("TicketCleanupWorker started.");
+    LogWorkerStarted(this.logger);
 
     while (!stoppingToken.IsCancellationRequested)
     {
@@ -44,15 +44,27 @@ internal class TicketCleanupWorker : BackgroundService
       {
         await this.DoWorkAsync().ConfigureAwait(false);
       }
-      catch (Exception ex)
+      catch (InvalidOperationException ex)
       {
-        this.logger.LogError(ex, "Error occurred during ticket cleanup.");
+        LogCleanupError(this.logger, ex);
       }
 
       // Run once per day
       await Task.Delay(TimeSpan.FromDays(1), stoppingToken).ConfigureAwait(false);
     }
   }
+
+  [LoggerMessage(Level = LogLevel.Information, Message = "TicketCleanupWorker started.")]
+  private static partial void LogWorkerStarted(ILogger logger);
+
+  [LoggerMessage(Level = LogLevel.Error, Message = "Error occurred during ticket cleanup.")]
+  private static partial void LogCleanupError(ILogger logger, Exception ex);
+
+  [LoggerMessage(Level = LogLevel.Warning, Message = "Status 'Archived' not found. Skipping cleanup.")]
+  private static partial void LogArchiveStateNotFound(ILogger logger);
+
+  [LoggerMessage(Level = LogLevel.Information, Message = "Archiving {Count} tickets.")]
+  private static partial void LogArchivingTickets(ILogger logger, int count);
 
   private async Task DoWorkAsync()
   {
@@ -70,7 +82,7 @@ internal class TicketCleanupWorker : BackgroundService
     var archiveState = context.WorkflowStates.FirstOrDefault(s => s.Name == "Archived");
     if (archiveState == null)
     {
-      this.logger.LogWarning("Status 'Archived' not found. Skipping cleanup.");
+      LogArchiveStateNotFound(this.logger);
       return;
     }
 
@@ -81,7 +93,7 @@ internal class TicketCleanupWorker : BackgroundService
 
     if (ticketsToArchive.Any())
     {
-      this.logger.LogInformation("Archiving {Count} tickets.", ticketsToArchive.Count);
+      LogArchivingTickets(this.logger, ticketsToArchive.Count);
       foreach (var ticket in ticketsToArchive)
       {
         // We reflectively or directly set the state if we can't use MoveToState easily

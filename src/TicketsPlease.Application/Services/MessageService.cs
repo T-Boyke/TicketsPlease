@@ -80,8 +80,6 @@ public class MessageService : IMessageService
     return mappedResult;
   }
 
-
-
   /// <inheritdoc />
   public async Task UploadAttachmentAsync(Guid messageId, Microsoft.AspNetCore.Http.IFormFile file)
   {

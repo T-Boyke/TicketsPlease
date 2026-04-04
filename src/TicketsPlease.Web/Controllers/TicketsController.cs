@@ -278,28 +278,6 @@ internal sealed class TicketsController : Controller
   }
 
   /// <summary>
-  /// Bereitet die Dropdown-Listen für die Views vor.
-  /// </summary>
-  /// <returns>Ein Task für die asynchrone Operation.</returns>
-  private async Task PrepareViewBags()
-  {
-    var projects = await this.projectService.GetProjectsAsync().ConfigureAwait(false);
-    this.ViewBag.Projects = new SelectList(projects, "Id", "Title");
-
-    var users = await this.context.Users.OrderBy(u => u.UserName).ToListAsync().ConfigureAwait(false);
-    this.ViewBag.Users = new SelectList(users, "Id", "UserName");
-
-    var priorities = await this.context.TicketPriorities.OrderByDescending(p => p.LevelWeight).ToListAsync().ConfigureAwait(false);
-    this.ViewBag.Priorities = new SelectList(priorities, "Id", "Name");
-
-    var allTickets = await this.context.Tickets.Where(t => !t.IsDeleted).OrderBy(t => t.Title).ToListAsync().ConfigureAwait(false);
-    this.ViewBag.AllTickets = new SelectList(allTickets, "Id", "Title");
-
-    var tags = await this.ticketService.GetAllTagsAsync().ConfigureAwait(false);
-    this.ViewBag.Tags = new MultiSelectList(tags, "Id", "Name");
-  }
-
-  /// <summary>
   /// Startet den Timer für ein Ticket.
   /// </summary>
   /// <param name="id">Die ID des Tickets.</param>
@@ -416,5 +394,27 @@ internal sealed class TicketsController : Controller
     }
 
     return this.RedirectToAction(nameof(this.Details), new { id });
+  }
+
+  /// <summary>
+  /// Bereitet die Dropdown-Listen für die Views vor.
+  /// </summary>
+  /// <returns>Ein Task für die asynchrone Operation.</returns>
+  private async Task PrepareViewBags()
+  {
+    var projects = await this.projectService.GetProjectsAsync().ConfigureAwait(false);
+    this.ViewBag.Projects = new SelectList(projects, "Id", "Title");
+
+    var users = await this.context.Users.OrderBy(u => u.UserName).ToListAsync().ConfigureAwait(false);
+    this.ViewBag.Users = new SelectList(users, "Id", "UserName");
+
+    var priorities = await this.context.TicketPriorities.OrderByDescending(p => p.LevelWeight).ToListAsync().ConfigureAwait(false);
+    this.ViewBag.Priorities = new SelectList(priorities, "Id", "Name");
+
+    var allTickets = await this.context.Tickets.Where(t => !t.IsDeleted).OrderBy(t => t.Title).ToListAsync().ConfigureAwait(false);
+    this.ViewBag.AllTickets = new SelectList(allTickets, "Id", "Title");
+
+    var tags = await this.ticketService.GetAllTagsAsync().ConfigureAwait(false);
+    this.ViewBag.Tags = new MultiSelectList(tags, "Id", "Name");
   }
 }

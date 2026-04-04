@@ -68,7 +68,7 @@ public class Message : BaseEntity
   public bool IsEdited { get; set; }
 
   /// <summary>
-  /// Gets or sets die Liste der Dateianhänge dieser Nachricht.
+  /// Gets die Liste der Dateianhänge dieser Nachricht.
   /// </summary>
   public virtual ICollection<FileAsset> Attachments { get; } = new List<FileAsset>();
 }

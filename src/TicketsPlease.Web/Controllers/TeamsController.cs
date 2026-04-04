@@ -43,6 +43,7 @@ internal sealed class TeamsController : Controller
   /// Zeigt die Liste der Teams an, in denen der aktuelle Benutzer Mitglied ist.
   /// </summary>
   /// <returns>Die Index-View.</returns>
+  [HttpGet]
   public async Task<IActionResult> Index()
   {
     var user = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
@@ -60,6 +61,7 @@ internal sealed class TeamsController : Controller
   /// </summary>
   /// <param name="id">Die ID des Teams.</param>
   /// <returns>Die Details-View oder NotFound.</returns>
+  [HttpGet]
   public async Task<IActionResult> Details(Guid id)
   {
     var team = await this.teamService.GetTeamDetailsAsync(id).ConfigureAwait(false);
@@ -75,6 +77,7 @@ internal sealed class TeamsController : Controller
   /// Zeigt die Management-Oberfläche für Teams an.
   /// </summary>
   /// <returns>Die Management-View.</returns>
+  [HttpGet]
   [Authorize(Roles = "Admin,Teamlead")]
   public async Task<IActionResult> Management()
   {
