@@ -80,7 +80,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Build & Linting**: Achieved 100% compliance with `dotnet format --verify-no-changes`.
 - **Ignore Strategy**: Added `.markdownlintignore` and updated `.gitignore` for coverage reports.
-- **Static Analysis**: Resolved all remaining compiler & SonarQube warnings (`CA1002`, `CA1819`, `CS8602`, `CA1305`, `S3267`, `SA1611`, `SA1202`, `SA1402`, `CS0200`) for an immaculate codebase.
+- **Static Analysis**: Resolved all remaining compiler & SonarQube warnings (`CA1002`, `CA1819`,
+  `CS8602`, `CA1305`, `S3267`, `SA1611`, `SA1202`, `SA1402`, `CS0200`) for an immaculate codebase.
 - **Structured Storage**: Implemented dated subdirectories (YYYY/MM) in `LocalStorageService` for
   better scalability and disk organization.
 
