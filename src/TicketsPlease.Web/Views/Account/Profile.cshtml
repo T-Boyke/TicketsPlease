@@ -1,46 +1,182 @@
 @using Microsoft.AspNetCore.Mvc.Localization
-@using TicketsPlease.Domain.Entities
+@using TicketsPlease.Web.Models.Account
 @inject IViewLocalizer L
-@model User
+@model UserProfileDto
 @{
     ViewData["Title"] = L["Profile"];
+    var initials = (!string.IsNullOrEmpty(Model.FirstName) && !string.IsNullOrEmpty(Model.LastName))
+        ? (Model.FirstName[0].ToString() + Model.LastName[0].ToString()).ToUpper()
+        : Model.Username.Substring(0, 2).ToUpper();
 }
 
-<div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-    <div class="bg-white shadow-xl rounded-2xl overflow-hidden border border-slate-100">
-        <div class="px-4 py-5 sm:px-6 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
-            <div>
-                <h3 class="text-lg leading-6 font-bold text-slate-900">@L["User Profile"]</h3>
-                <p class="mt-1 max-w-2xl text-sm text-slate-500">@L["Personal details and account information."]</p>
-            </div>
-            <a asp-action="Edit" class="inline-flex items-center px-4 py-2 border border-brand-primary text-sm font-medium rounded-full text-brand-primary bg-white hover:bg-brand-primary hover:text-white transition-all">
-                <i class="fa-solid fa-user-pen mr-2"></i>
-                @L["Edit Profile"]
-            </a>
-        </div>
-        <div class="px-4 py-5 sm:p-0">
-            <dl class="sm:divide-y sm:divide-slate-200">
-                <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-slate-500">@L["Username"]</dt>
-                    <dd class="mt-1 text-sm text-slate-900 sm:mt-0 sm:col-span-2">@Model.UserName</dd>
+<div class="max-w-6xl mx-auto py-12 px-4 sm:px-6 lg:px-8 space-y-8 animate-in fade-in duration-700">
+    @* Profile Header Card *@
+    <div class="bg-white rounded-[2.5rem] shadow-2xl border border-slate-100 overflow-hidden relative">
+        <div class="absolute top-0 left-0 w-full h-32 bg-linear-to-tr from-brand-primary to-brand-secondary opacity-10"></div>
+        
+        <div class="px-8 py-10 relative">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                @* Avatar & Online Status *@
+                <div class="relative">
+                    <div class="h-32 w-32 rounded-3xl bg-white p-1.5 shadow-2xl ring-1 ring-slate-200">
+                        <div class="h-full w-full rounded-2xl bg-slate-50 flex items-center justify-center text-4xl font-black text-brand-primary">
+                             @initials
+                        </div>
+                    </div>
+                    @if (Model.IsOnline)
+                    {
+                        <span class="absolute -bottom-1 -right-1 block h-6 w-6 rounded-full bg-emerald-500 ring-4 ring-white animate-pulse"></span>
+                    }
                 </div>
-                <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-slate-500">@L["Email address"]</dt>
-                    <dd class="mt-1 text-sm text-slate-900 sm:mt-0 sm:col-span-2">@Model.Email</dd>
-                </div>
-                <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-slate-500">@L["Role"]</dt>
-                    <dd class="mt-1 text-sm text-slate-900 sm:mt-0 sm:col-span-2">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-brand-primary/10 text-brand-primary">
-                            @L["User"]
+
+                @* User Info *@
+                <div class="flex-1 text-center md:text-left">
+                    <div class="flex flex-col md:flex-row md:items-center gap-3">
+                        <h1 class="text-4xl font-black text-slate-900 tracking-tight">
+                            @if (!string.IsNullOrEmpty(Model.FirstName))
+                            {
+                                @Model.FirstName @Model.LastName
+                            }
+                            else
+                            {
+                                @Model.Username
+                            }
+                        </h1>
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-black bg-brand-primary/10 text-brand-primary uppercase tracking-widest w-fit mx-auto md:mx-0">
+                            @Model.RoleName
                         </span>
-                    </dd>
+                    </div>
+                    <p class="text-slate-500 font-medium mt-2 flex items-center justify-center md:justify-start gap-2">
+                        <i class="fa-solid fa-envelope text-slate-400"></i>
+                        @Model.Email
+                    </p>
+                    @if (!string.IsNullOrEmpty(Model.Bio))
+                    {
+                        <p class="mt-4 text-slate-600 max-w-2xl text-sm italic">"@Model.Bio"</p>
+                    }
                 </div>
-                <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-slate-500">@L["Created At"]</dt>
-                    <dd class="mt-1 text-sm text-slate-900 sm:mt-0 sm:col-span-2">@Model.CreatedAt.ToShortDateString()</dd>
+
+                @* Actions *@
+                <div class="flex flex-col gap-3 w-full md:w-auto">
+                    <a asp-action="Edit" class="inline-flex items-center justify-center px-6 py-3 border-none bg-brand-primary text-white text-sm font-black rounded-2xl hover:bg-brand-secondary hover:shadow-xl hover:shadow-brand-primary/30 transition-all uppercase tracking-widest group">
+                        <i class="fa-solid fa-user-pen mr-2 group-hover:rotate-12 transition-transform"></i>
+                        @L["Edit Profile"]
+                    </a>
+                    <div class="text-[10px] text-center font-bold text-slate-400 uppercase tracking-tighter">
+                        @L["Member since"] @Model.CreatedAt.ToShortDateString()
+                    </div>
                 </div>
-            </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        @* Stats Sidebar *@
+        <div class="space-y-8">
+            <div class="bg-white rounded-[2rem] p-8 shadow-xl border border-slate-100">
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">@L["Performance Metrics"]</h3>
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="h-10 w-10 rounded-xl bg-orange-100 flex items-center justify-center text-orange-600">
+                                <i class="fa-solid fa-fire text-lg"></i>
+                            </div>
+                            <span class="text-sm font-bold text-slate-700">@L["Total Story Points"]</span>
+                        </div>
+                        <span class="text-2xl font-black text-slate-900">@Model.Performance.TotalStoryPoints</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="h-10 w-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600">
+                                <i class="fa-solid fa-circle-check text-lg"></i>
+                            </div>
+                            <span class="text-sm font-bold text-slate-700">@L["Completed Tickets"]</span>
+                        </div>
+                        <span class="text-2xl font-black text-slate-900">@Model.Performance.CompletedTickets</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="h-10 w-10 rounded-xl bg-blue-100 flex items-center justify-center text-blue-600">
+                                <i class="fa-solid fa-clock-rotate-left text-lg"></i>
+                            </div>
+                            <span class="text-sm font-bold text-slate-700">@L["Avg. Resolution Time"]</span>
+                        </div>
+                        <span class="text-sm font-black text-slate-900">@(Model.Performance.AvgResolutionTimeHours?.FormatResolutionTime() ?? "N/A")</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-[2rem] p-8 shadow-xl border border-slate-100">
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">@L["Workspace"]</h3>
+                <div class="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
+                    <div class="h-12 w-12 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-600 text-xl flex-shrink-0">
+                        <i class="fa-solid fa-hotel"></i>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">@L["Current Workspace"]</p>
+                        <p class="text-sm font-bold text-slate-900">@(Model.OrganizationName ?? L["Personal Workspace"].Value)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* Content Primary *@
+        <div class="lg:col-span-2 space-y-8">
+            @* Personal Details Grid *@
+            <div class="bg-white rounded-[2rem] p-10 shadow-xl border border-slate-100">
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-8">@L["Account Details"]</h3>
+                <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                    <div>
+                        <dt class="text-[10px] font-black text-brand-primary uppercase tracking-widest mb-1">@L["First Name"]</dt>
+                        <dd class="text-lg font-bold text-slate-900">@(string.IsNullOrEmpty(Model.FirstName) ? "—" : Model.FirstName)</dd>
+                    </div>
+                    <div>
+                        <dt class="text-[10px] font-black text-brand-primary uppercase tracking-widest mb-1">@L["Last Name"]</dt>
+                        <dd class="text-lg font-bold text-slate-900">@(string.IsNullOrEmpty(Model.LastName) ? "—" : Model.LastName)</dd>
+                    </div>
+                    <div>
+                        <dt class="text-[10px] font-black text-brand-primary uppercase tracking-widest mb-1">@L["Phone Number"]</dt>
+                        <dd class="text-lg font-bold text-slate-900">@(string.IsNullOrEmpty(Model.PhoneNumber) ? "—" : Model.PhoneNumber)</dd>
+                    </div>
+                    <div>
+                        <dt class="text-[10px] font-black text-brand-primary uppercase tracking-widest mb-1">@L["Last Login"]</dt>
+                        <dd class="text-lg font-bold text-slate-900">@Model.LastLoginAt?.ToString("g") ?? "N/A"</dd>
+                    </div>
+                </dl>
+            </div>
+
+            @* Teams List *@
+            <div class="bg-white rounded-[2rem] p-10 shadow-xl border border-slate-100">
+                <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest mb-8">@L["Your Teams"]</h3>
+                @if (Model.TeamNames.Any())
+                {
+                    <div class="flex flex-wrap gap-3">
+                        @foreach (var team in Model.TeamNames)
+                        {
+                            <div class="px-5 py-3 bg-slate-50 rounded-2xl border border-slate-100 flex items-center gap-3 hover:border-brand-primary/30 transition-colors">
+                                <div class="h-8 w-8 rounded-lg bg-white flex items-center justify-center text-slate-400 shadow-sm">
+                                    <i class="fa-solid fa-users"></i>
+                                </div>
+                                <span class="text-sm font-bold text-slate-700">@team</span>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p class="text-slate-400 italic text-sm">@L["You are not a member of any teams yet."]</p>
+                }
+            </div>
         </div>
     </div>
 </div>
+
+@functions {
+    public static string FormatResolutionTime(double? hours)
+    {
+        if (!hours.HasValue) return "N/A";
+        if (hours < 1) return (int)(hours * 60) + "m";
+        if (hours < 24) return hours.Value.ToString("F1") + "h";
+        return (hours.Value / 24).ToString("F1") + "d";
+    }
+}

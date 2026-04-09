@@ -27,6 +27,30 @@ public class EditProfileViewModel
     public string Email { get; set; } = string.Empty;
 
     /// <summary>
+    /// Gets or sets den Vornamen.
+    /// </summary>
+    [Display(Name = "Vorname")]
+    public string FirstName { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets den Nachnamen.
+    /// </summary>
+    [Display(Name = "Nachname")]
+    public string LastName { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets die Bio.
+    /// </summary>
+    [Display(Name = "Biographie")]
+    public string? Bio { get; set; }
+
+    /// <summary>
+    /// Gets or sets die Telefonnummer.
+    /// </summary>
+    [Display(Name = "Telefonnummer")]
+    public string? PhoneNumber { get; set; }
+
+    /// <summary>
     /// Gets or sets das neue Passwort (optional).
     /// </summary>
     [DataType(DataType.Password)]

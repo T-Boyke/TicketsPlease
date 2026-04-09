@@ -7,7 +7,7 @@ namespace TicketsPlease.Application.Common.Dtos;
 using System.Collections.Generic;
 
 /// <summary>
-/// DTO für detaillierte Performance-Daten (für Charts).
+/// DTO für detaillierte Performance-Daten (für Charts und Profile).
 /// </summary>
 public record PerformanceDetailDto(
     string Name,
@@ -16,4 +16,6 @@ public record PerformanceDetailDto(
     IDictionary<string, int> TypeDistribution,
     decimal TotalHours,
     int TotalTickets,
-    int TotalPoints);
+    int CompletedTickets,
+    int TotalStoryPoints,
+    double? AvgResolutionTimeHours);

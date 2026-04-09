@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 using TicketsPlease.Web.Models.Account;
 
@@ -20,6 +21,9 @@ internal sealed class AccountController : Controller
   private readonly SignInManager<User> signInManager;
   private readonly UserManager<User> userManager;
   private readonly RoleManager<Role> roleManager;
+  private readonly IUserRepository userRepository;
+  private readonly IOrganizationService organizationService;
+  private readonly IDashboardService dashboardService;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="AccountController"/> class.
@@ -27,11 +31,23 @@ internal sealed class AccountController : Controller
   /// <param name="signInManager">Der Identity SignInManager.</param>
   /// <param name="userManager">Der Identity UserManager.</param>
   /// <param name="roleManager">Die Rollenverwaltung.</param>
-  public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, RoleManager<Role> roleManager)
+  /// <param name="userRepository">Das Benutzer-Repository.</param>
+  /// <param name="organizationService">Der Organisations-Service.</param>
+  /// <param name="dashboardService">Der Dashboard-Service.</param>
+  public AccountController(
+    SignInManager<User> signInManager,
+    UserManager<User> userManager,
+    RoleManager<Role> roleManager,
+    IUserRepository userRepository,
+    IOrganizationService organizationService,
+    IDashboardService dashboardService)
   {
     this.signInManager = signInManager;
     this.userManager = userManager;
     this.roleManager = roleManager;
+    this.userRepository = userRepository;
+    this.organizationService = organizationService;
+    this.dashboardService = dashboardService;
   }
 
   /// <summary>
@@ -131,20 +147,41 @@ internal sealed class AccountController : Controller
   }
 
   /// <summary>
-  /// Zeigt das Benutzerprofil an.
+  /// Zeigt das detaillierte Benutzerprofil an.
   /// </summary>
   /// <returns>Die Profil-View.</returns>
   [Authorize]
   [HttpGet]
   public async Task<IActionResult> Profile()
   {
-    var user = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
+    var userId = Guid.Parse(this.userManager.GetUserId(this.User)!);
+    var user = await this.userRepository.GetUserWithDetailsAsync(userId).ConfigureAwait(false);
     if (user == null)
     {
       return this.NotFound();
     }
 
-    return this.View(user);
+    var organization = await this.organizationService.GetOrganizationByIdAsync(user.TenantId).ConfigureAwait(false);
+    var teams = await this.userRepository.GetUserTeamsAsync(userId).ConfigureAwait(false);
+    var performance = await this.dashboardService.GetUserPerformanceDetailAsync(userId).ConfigureAwait(false);
+
+    var model = new UserProfileDto(
+        user.Id,
+        user.UserName ?? string.Empty,
+        user.Email ?? string.Empty,
+        user.Profile?.FirstName ?? string.Empty,
+        user.Profile?.LastName ?? string.Empty,
+        user.Profile?.Bio,
+        user.Profile?.PhoneNumber,
+        user.Role?.Name ?? "User",
+        user.CreatedAt,
+        user.LastLoginAt,
+        user.IsOnline,
+        organization?.Name,
+        teams.Select(t => t.Name),
+        performance);
+
+    return this.View(model);
   }
 
   /// <summary>
@@ -155,7 +192,8 @@ internal sealed class AccountController : Controller
   [HttpGet]
   public async Task<IActionResult> Edit()
   {
-    var user = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
+    var userId = Guid.Parse(this.userManager.GetUserId(this.User)!);
+    var user = await this.userRepository.GetUserWithDetailsAsync(userId).ConfigureAwait(false);
     if (user == null)
     {
       return this.NotFound();
@@ -165,6 +203,10 @@ internal sealed class AccountController : Controller
     {
       Username = user.UserName ?? string.Empty,
       Email = user.Email ?? string.Empty,
+      FirstName = user.Profile?.FirstName ?? string.Empty,
+      LastName = user.Profile?.LastName ?? string.Empty,
+      Bio = user.Profile?.Bio,
+      PhoneNumber = user.Profile?.PhoneNumber,
     };
 
     return this.View(model);
@@ -195,27 +237,24 @@ internal sealed class AccountController : Controller
 
     user.UserName = model.Username;
     user.Email = model.Email;
+    await this.userManager.UpdateAsync(user).ConfigureAwait(false);
 
-    var result = await this.userManager.UpdateAsync(user).ConfigureAwait(false);
-    if (result.Succeeded)
+    var profile = await this.userRepository.GetOrCreateProfileAsync(user.Id).ConfigureAwait(false);
+    profile.FirstName = model.FirstName;
+    profile.LastName = model.LastName;
+    profile.Bio = model.Bio;
+    profile.PhoneNumber = model.PhoneNumber;
+
+    await this.userRepository.UpdateProfileAsync(profile).ConfigureAwait(false);
+
+    if (!string.IsNullOrEmpty(model.NewPassword))
     {
-      if (!string.IsNullOrEmpty(model.NewPassword))
-      {
-          // Passwort zurücksetzen/ändern (vereinfacht für dieses System)
-          var token = await this.userManager.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false);
-          await this.userManager.ResetPasswordAsync(user, token, model.NewPassword).ConfigureAwait(false);
-      }
-
-      await this.signInManager.RefreshSignInAsync(user).ConfigureAwait(false);
-      return this.RedirectToAction(nameof(this.Profile));
+      var token = await this.userManager.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false);
+      await this.userManager.ResetPasswordAsync(user, token, model.NewPassword).ConfigureAwait(false);
     }
 
-    foreach (var error in result.Errors)
-    {
-      this.ModelState.AddModelError(string.Empty, error.Description);
-    }
-
-    return this.View(model);
+    await this.signInManager.RefreshSignInAsync(user).ConfigureAwait(false);
+    return this.RedirectToAction(nameof(this.Profile));
   }
 
   /// <summary>

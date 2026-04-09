@@ -138,14 +138,21 @@ public class DashboardService : IDashboardService
     var tickets = await this.ticketRepository.GetFilteredAsync(assignedUserId: userId).ConfigureAwait(false);
     var logs = await this.timeLogRepository.GetByUserIdAsync(userId).ConfigureAwait(false);
 
+    var closedTickets = tickets.Where(t => t.ClosedAt.HasValue).ToList();
+    var avgResolutionTime = closedTickets.Any()
+        ? closedTickets.Average(t => (t.ClosedAt!.Value - t.CreatedAt).TotalHours)
+        : (double?)null;
+
     return new PerformanceDetailDto(
         user.UserName ?? "Unknown",
         tickets.GroupBy(t => t.Status).ToDictionary(g => g.Key, g => g.Count()),
         tickets.Where(t => t.Priority != null).GroupBy(t => t.Priority!.Name).ToDictionary(g => g.Key, g => g.Count()),
         tickets.GroupBy(t => t.Type.ToString()).ToDictionary(g => g.Key, g => g.Count()),
         logs.Sum(l => l.HoursLogged),
+        tickets.Count,
         tickets.Count(t => t.Status == "Closed" || t.Status == "Done"),
-        tickets.Sum(t => t.EstimatePoints ?? 0));
+        tickets.Sum(t => t.EstimatePoints ?? 0),
+        avgResolutionTime);
   }
 
   /// <inheritdoc />
@@ -164,13 +171,20 @@ public class DashboardService : IDashboardService
     var allLogs = await this.timeLogRepository.GetAllAsync().ConfigureAwait(false);
     var teamLogs = allLogs.Where(l => memberIds.Contains(l.UserId)).ToList();
 
+    var teamClosedTickets = teamTickets.Where(t => t.ClosedAt.HasValue).ToList();
+    var teamAvgResolutionTime = teamClosedTickets.Any()
+        ? teamClosedTickets.Average(t => (t.ClosedAt!.Value - t.CreatedAt).TotalHours)
+        : (double?)null;
+
     return new PerformanceDetailDto(
         team.Name,
         teamTickets.GroupBy(t => t.Status).ToDictionary(g => g.Key, g => g.Count()),
         teamTickets.Where(t => t.Priority != null).GroupBy(t => t.Priority!.Name).ToDictionary(g => g.Key, g => g.Count()),
         teamTickets.GroupBy(t => t.Type.ToString()).ToDictionary(g => g.Key, g => g.Count()),
         teamLogs.Sum(l => l.HoursLogged),
+        teamTickets.Count,
         teamTickets.Count(t => t.Status == "Closed" || t.Status == "Done"),
-        teamTickets.Sum(t => t.EstimatePoints ?? 0));
+        teamTickets.Sum(t => t.EstimatePoints ?? 0),
+        teamAvgResolutionTime);
   }
 }

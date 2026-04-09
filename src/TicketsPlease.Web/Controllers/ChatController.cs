@@ -12,7 +12,7 @@ using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
 /// <summary>
-/// Controller für die Chat-Funktionalität (HQ & Team).
+/// Controller für die Chat-Funktionalität (HQ &amp; Team).
 /// </summary>
 [Authorize]
 public class ChatController : Controller
