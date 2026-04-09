@@ -1,0 +1,44 @@
+@model IEnumerable<TicketsPlease.Application.Common.Dtos.OrganizationDto>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer L
+
+@{
+    ViewData["Title"] = L["Workspace Management"];
+}
+
+<div class="space-y-6 animate-in fade-in duration-500">
+    <div class="flex items-center justify-between bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <div>
+            <h1 class="text-2xl font-black text-slate-900 tracking-tight">@L["Workspaces & Organizations"]</h1>
+            <p class="text-slate-500 text-sm">@L["Manage enterprise environments, subscription levels, and status."]</p>
+        </div>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="fa-solid fa-hotel mr-2"></i> @L["New Workspace"]
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @foreach (var org in Model)
+        {
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 hover:shadow-md transition-all group">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="h-12 w-12 rounded-xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-brand-primary group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-building text-xl"></i>
+                    </div>
+                    <span class="badge @(org.IsActive ? "badge-success" : "badge-rose")">
+                        @(org.IsActive ? L["Active"] : L["Inactive"])
+                    </span>
+                </div>
+                
+                <h3 class="text-lg font-black text-slate-900 mb-1">@org.Name</h3>
+                <p class="text-xs text-slate-400 font-bold uppercase tracking-widest mb-4">@L["Subscription"]: <span class="text-slate-600">@org.SubscriptionLevel</span></p>
+                
+                <div class="flex items-center space-x-2 border-t border-slate-50 pt-4">
+                    <a asp-action="Edit" asp-route-id="@org.Id" class="flex-1 btn btn-slate h-9 text-xs">
+                        <i class="fa-solid fa-pen-to-square mr-2"></i> @L["Configure"]
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

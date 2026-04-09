@@ -1,0 +1,54 @@
+@model TicketsPlease.Application.Common.Dtos.UpsertOrganizationDto
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer L
+
+@{
+    ViewData["Title"] = L["Edit Workspace"];
+    var orgId = ViewData["OrgId"];
+}
+
+<div class="max-w-xl mx-auto space-y-6 animate-in slide-in-from-bottom-4 duration-500">
+    <div class="bg-white p-8 rounded-3xl shadow-xl border border-slate-100">
+        <div class="mb-8 flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-black text-slate-900 tracking-tight">@L["Configure Workspace"]</h1>
+                <p class="text-slate-500 text-sm">@L["Modify organization settings and status."]</p>
+            </div>
+            <div class="h-12 w-12 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary">
+                <i class="fa-solid fa-screwdriver-wrench text-xl"></i>
+            </div>
+        </div>
+
+        <form asp-action="Edit" asp-route-id="@orgId" method="post" class="space-y-6">
+            <div class="space-y-1">
+                <label asp-for="Name" class="text-xs font-black text-slate-400 uppercase tracking-widest">@L["Organization Name"]</label>
+                <input asp-for="Name" class="form-input w-full" placeholder='e.g. "Acme Corp"' required />
+                <span asp-validation-for="Name" class="text-rose-500 text-xs"></span>
+            </div>
+
+            <div class="space-y-1">
+                <label asp-for="SubscriptionLevel" class="text-xs font-black text-slate-400 uppercase tracking-widest">@L["Subscription Plan"]</label>
+                <select asp-for="SubscriptionLevel" class="form-input w-full">
+                    <option value="Free">@L["Free Tier"]</option>
+                    <option value="Pro">@L["Professional Plan"]</option>
+                    <option value="Enterprise">@L["Enterprise (Infinite)"]</option>
+                </select>
+            </div>
+
+            <div class="flex items-center space-x-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <div class="flex h-5 items-center">
+                    <input asp-for="IsActive" type="checkbox" class="h-5 w-5 rounded border-slate-300 text-brand-primary focus:ring-brand-primary" />
+                </div>
+                <div class="text-sm">
+                    <label asp-for="IsActive" class="font-bold text-slate-700">@L["Workspace Active"]</label>
+                    <p class="text-slate-400 text-[10px]">@L["Inactive workspaces block all access for their members."]</p>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end space-x-3 pt-4">
+                <a asp-action="Index" class="text-slate-400 hover:text-slate-600 font-bold transition-colors">@L["Back"]</a>
+                <button type="submit" class="btn btn-primary px-10">@L["Save Changes"]</button>
+            </div>
+        </form>
+    </div>
+</div>
