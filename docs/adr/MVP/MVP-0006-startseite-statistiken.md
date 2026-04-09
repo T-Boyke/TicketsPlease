@@ -40,8 +40,8 @@ Benutzer (Gesamt/pro Rolle).
 
 ## Alternativen
 
-| Alternative            | Pro                    | Contra                    | Entscheidung |
-| ---------------------- | ---------------------- | ------------------------- | ------------ |
-| MediatR Query (CQRS)   | Sauber, testbar        | Etwas mehr Code           | ✅ Gewählt    |
-| ViewComponent direkt   | Weniger Code           | Kein CQRS, schwer testbar | ❌ Abgelehnt  |
-| Cached Counter-Tabelle | Performant             | Overkill für MVP          | ❌ Abgelehnt  |
+| Alternative            | Pro             | Contra                    | Entscheidung |
+| ---------------------- | --------------- | ------------------------- | ------------ |
+| MediatR Query (CQRS)   | Sauber, testbar | Etwas mehr Code           | ✅ Gewählt   |
+| ViewComponent direkt   | Weniger Code    | Kein CQRS, schwer testbar | ❌ Abgelehnt |
+| Cached Counter-Tabelle | Performant      | Overkill für MVP          | ❌ Abgelehnt |

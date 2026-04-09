@@ -47,8 +47,8 @@ Wir implementieren eine **n:m-Beziehung** (Self-Referencing Many-to-Many)
 
 ## Alternativen
 
-| Alternative           | Pro                   | Contra                      | Entscheidung |
-| --------------------- | --------------------- | --------------------------- | ------------ |
-| Join-Tabelle (n:m)    | Relational, 3NF       | Neue Entity/Migration       | ✅ Gewählt   |
-| JSON-Array im Ticket  | Kein Join nötig       | Nicht relational, no FK     | ❌ Abgelehnt |
-| Separate Graph-DB     | Perfekt für Graphen   | Massiv Overkill             | ❌ Abgelehnt |
+| Alternative          | Pro                 | Contra                  | Entscheidung |
+| -------------------- | ------------------- | ----------------------- | ------------ |
+| Join-Tabelle (n:m)   | Relational, 3NF     | Neue Entity/Migration   | ✅ Gewählt   |
+| JSON-Array im Ticket | Kein Join nötig     | Nicht relational, no FK | ❌ Abgelehnt |
+| Separate Graph-DB    | Perfekt für Graphen | Massiv Overkill         | ❌ Abgelehnt |

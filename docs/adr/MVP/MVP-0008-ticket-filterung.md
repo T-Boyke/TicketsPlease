@@ -51,8 +51,8 @@ if (assignedUserId.HasValue)
 
 ## Alternativen
 
-| Alternative            | Pro                   | Contra                      | Entscheidung |
-| ---------------------- | --------------------- | --------------------------- | ------------ |
-| Server-Side LINQ       | Einfach, konform  | Page-Reload                 | ✅ Gewählt   |
-| Client-Side JS Filter  | Kein Reload           | Alle Daten ins Frontend     | ❌ Abgelehnt |
-| OData / GraphQL        | Flexibel              | Overkill für MVP            | ❌ Abgelehnt |
+| Alternative           | Pro              | Contra                  | Entscheidung |
+| --------------------- | ---------------- | ----------------------- | ------------ |
+| Server-Side LINQ      | Einfach, konform | Page-Reload             | ✅ Gewählt   |
+| Client-Side JS Filter | Kein Reload      | Alle Daten ins Frontend | ❌ Abgelehnt |
+| OData / GraphQL       | Flexibel         | Overkill für MVP        | ❌ Abgelehnt |

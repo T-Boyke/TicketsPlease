@@ -49,7 +49,7 @@ implementiert:
 
 ## Alternativen
 
-| Alternative            | Pro                  | Contra                        | Entscheidung |
-| ---------------------- | -------------------- | ----------------------------- | ------------ |
-| Rich Domain Model      | DDD, testbar         | Mehr Code im Entity           | ✅ Gewählt    |
-| Anemic Model + Service | Einfacher            | Verletzt DDD, weniger testbar | ❌ Abgelehnt  |
+| Alternative            | Pro          | Contra                        | Entscheidung |
+| ---------------------- | ------------ | ----------------------------- | ------------ |
+| Rich Domain Model      | DDD, testbar | Mehr Code im Entity           | ✅ Gewählt   |
+| Anemic Model + Service | Einfacher    | Verletzt DDD, weniger testbar | ❌ Abgelehnt |

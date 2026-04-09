@@ -47,8 +47,8 @@ Authentifizierung. Die Implementierung umfasst:
 
 ## Alternativen
 
-| Alternative              | Pro                     | Contra                 | Entscheidung |
-| ------------------------ | ----------------------- | ---------------------- | ------------ |
-| ASP.NET Identity         | Pflicht, integriert | Etwas komplex          | ✅ Gewählt    |
-| Eigene Auth-Lösung       | Volle Kontrolle         | Unsicher, viel Aufwand | ❌ Abgelehnt  |
-| Keycloak / IdentityServer | Enterprise-Grade        | Overkill für MVP   | ❌ Abgelehnt  |
+| Alternative               | Pro                 | Contra                 | Entscheidung |
+| ------------------------- | ------------------- | ---------------------- | ------------ |
+| ASP.NET Identity          | Pflicht, integriert | Etwas komplex          | ✅ Gewählt   |
+| Eigene Auth-Lösung        | Volle Kontrolle     | Unsicher, viel Aufwand | ❌ Abgelehnt |
+| Keycloak / IdentityServer | Enterprise-Grade    | Overkill für MVP       | ❌ Abgelehnt |

@@ -39,9 +39,9 @@ Web-Framework mit Razor Views für die serverseitige HTML-Generierung.
 
 ## Alternativen
 
-| Alternative   | Pro                      | Contra                           | Entscheidung |
-| ------------- | ------------------------ | -------------------------------- | ------------ |
-| ASP.NET MVC   | konform, bewährt     | Full-Page-Reloads                | ✅ Gewählt    |
-| Razor Pages   | Einfacher für CRUD-Views | Weniger Kontrolle, kein MVC      | ❌ Abgelehnt  |
-| Blazor Server | SPA-Feeling              | Nicht gefordert, Komplexität | ❌ Abgelehnt  |
-| Minimal API   | Leichtgewichtig          | Keine Views, nur API             | ❌ Abgelehnt  |
+| Alternative   | Pro                      | Contra                       | Entscheidung |
+| ------------- | ------------------------ | ---------------------------- | ------------ |
+| ASP.NET MVC   | konform, bewährt         | Full-Page-Reloads            | ✅ Gewählt   |
+| Razor Pages   | Einfacher für CRUD-Views | Weniger Kontrolle, kein MVC  | ❌ Abgelehnt |
+| Blazor Server | SPA-Feeling              | Nicht gefordert, Komplexität | ❌ Abgelehnt |
+| Minimal API   | Leichtgewichtig          | Keine Views, nur API         | ❌ Abgelehnt |

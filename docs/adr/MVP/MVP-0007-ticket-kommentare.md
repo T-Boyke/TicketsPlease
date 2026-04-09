@@ -43,5 +43,5 @@ Kommentar-Objekt. Ein Kommentar ist eine Message mit gesetztem `TicketId`-FK
 
 | Alternative           | Pro                    | Contra                     | Entscheidung |
 | --------------------- | ---------------------- | -------------------------- | ------------ |
-| Message als Kommentar | DRY, bereits vorhanden | Ungenutzte nullable Felder | ✅ Gewählt    |
-| Eigene Comment-Entity | Spezialisiert          | Code-Duplizierung          | ❌ Abgelehnt  |
+| Message als Kommentar | DRY, bereits vorhanden | Ungenutzte nullable Felder | ✅ Gewählt   |
+| Eigene Comment-Entity | Spezialisiert          | Code-Duplizierung          | ❌ Abgelehnt |

@@ -8,12 +8,12 @@
 
 ---
 
-## 1. Projektbezeichnung (Auftrag/Teilauftrag)*
+## 1. Projektbezeichnung (Auftrag/Teilauftrag)\*
 
 **Entwicklung eines ticketbasierten Aufgabenmanagementsystems ("TicketsPlease") zur
 Effizienzsteigerung in Logistikprojekten.**
 
-### 1.1 Kurze Projektbeschreibung**
+### 1.1 Kurze Projektbeschreibung\*\*
 
 Die Beispiel GmbH ist ein aufstrebendes IT-Dienstleistungsunternehmen mit Sitz in Neuss und
 beschäftigt 14 Mitarbeiter. Die Firma hat sich auf die Entwicklung maßgeschneiderter
@@ -33,7 +33,7 @@ Applikation umgesetzt and in die On-Premise-Infrastruktur des Kunden integriert.
 
 ---
 
-## 2. Projektumfeld**
+## 2. Projektumfeld\*\*
 
 Die Entwicklungsabteilung der Beispiel GmbH wurde mit der Realisierung dieses MVPs (Minimum
 Viable Product) beauftragt. Das Projekt wird als eigenständiges Modul entwickelt, das
@@ -57,7 +57,7 @@ Teilprojekt eigenverantwortlich vom Auszubildenden bearbeitet.
 
 ---
 
-## 3. Projektplanung einschließlich Zeitplanung**
+## 3. Projektplanung einschließlich Zeitplanung\*\*
 
 ### 3.1 Analysephase (11 Std.)
 
@@ -105,8 +105,8 @@ Teilprojekt eigenverantwortlich vom Auszubildenden bearbeitet.
 
 ---
 
-## 4. Durchführungszeitraum**
+## 4. Durchführungszeitraum\*\*
 
 Projektzeitraum: 23.03.2026 – 20.04.2026
 
-*=Pflichtfeld, **=Freitext
+\*=Pflichtfeld, \*\*=Freitext

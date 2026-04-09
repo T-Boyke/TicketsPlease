@@ -55,7 +55,7 @@ classDiagram
         +Guid Id
         +byte[] RowVersion
     }
-    
+
     class Ticket {
         +String Title
         +String Status
@@ -64,7 +64,7 @@ classDiagram
         +CanBeClosed() bool
         +MoveToState()
     }
-    
+
     class Project {
         +String Title
         +DateTime StartDate
@@ -72,18 +72,18 @@ classDiagram
         +Open()
         +Close()
     }
-    
+
     class User {
         +String FullName
         +String Email
         +String InitialLoginCode
     }
-    
+
     class Comment {
         +String Content
         +DateTime CreatedAt
     }
-    
+
     class Organization {
         +String Name
         +bool IsActive
@@ -116,7 +116,7 @@ erDiagram
     USER ||--o{ TICKET : creates
     USER ||--o{ COMMENT : writes
     USER }o--|| ORGANIZATION : member_of
-    
+
     TICKET {
         guid id PK
         string title
@@ -124,14 +124,14 @@ erDiagram
         guid project_id FK
         guid creator_id FK
     }
-    
+
     PROJECT {
         guid id PK
         string title
         datetime start_date
         bool is_open
     }
-    
+
     USER {
         guid id PK
         string email
@@ -232,7 +232,7 @@ graph LR
     Integration --> xUnit
     Architecture --> xUnit
     E2E --> xUnit
-    
+
     Unit --> Coverlet
     Coverlet --> Sonar
 ```
@@ -252,10 +252,10 @@ stateDiagram-v2
     Review --> InProgress: Changes requested
     Review --> Resolved: Verified
     Resolved --> Closed: Archived
-    
+
     InProgress --> Blocked: Impediment found
     Blocked --> InProgress: Resolved
-    
+
     New --> Closed: Rejected/Duplicate
     Assigned --> Closed: Cancelled
 ```

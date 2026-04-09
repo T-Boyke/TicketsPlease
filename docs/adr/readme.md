@@ -40,7 +40,7 @@ architektonischen Design-Entscheidungen für das Projekt **TicketsPlease**.
 | [0130](0130-visual-documentation-strategy.md)           | Visual Documentation Strategy                    | Accepted | 2026-03-26 |
 | [0140](0140-test-infrastructure-security-relaxation.md) | Test Infrastructure Security Relaxation          | Accepted | 2026-03-26 |
 | [0150](0150-api-contract-stabilization.md)              | API Contract Stabilization                       | Proposed | -          |
-| [0160](0160-resource-isolation-strategy.md)              | Resource Isolation Strategy                      | Proposed | -          |
+| [0160](0160-resource-isolation-strategy.md)             | Resource Isolation Strategy                      | Proposed | -          |
 | [0170](0170-data-initialization-strategy.md)            | Data Initialization Strategy                     | Proposed | -          |
 
 ---

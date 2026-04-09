@@ -38,9 +38,9 @@ Microsoft SQL Server. Migrationen werden beim App-Start automatisch über
 
 ## Alternativen
 
-| Alternative         | Pro                    | Contra                        | Entscheidung |
-| ------------------- | ---------------------- | ----------------------------- | ------------ |
-| EF Core Code-First  | konform, DDD       | ORM-Overhead                  | ✅ Gewählt   |
-| EF Core DB-First    | Bestehende DB nutzbar  | Kein Code-First, aufwändiger  | ❌ Abgelehnt |
-| Dapper (Micro-ORM)  | Performanter           | Kein EF, kein Code-First      | ❌ Abgelehnt |
-| ADO.NET Raw         | Volle Kontrolle        | Viel Boilerplate, unsicher    | ❌ Abgelehnt |
+| Alternative        | Pro                   | Contra                       | Entscheidung |
+| ------------------ | --------------------- | ---------------------------- | ------------ |
+| EF Core Code-First | konform, DDD          | ORM-Overhead                 | ✅ Gewählt   |
+| EF Core DB-First   | Bestehende DB nutzbar | Kein Code-First, aufwändiger | ❌ Abgelehnt |
+| Dapper (Micro-ORM) | Performanter          | Kein EF, kein Code-First     | ❌ Abgelehnt |
+| ADO.NET Raw        | Volle Kontrolle       | Viel Boilerplate, unsicher   | ❌ Abgelehnt |

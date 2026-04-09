@@ -63,16 +63,16 @@ Code-Modifikationen in der **TicketsPlease** Solution. Jede Regel ist aus der
 
 ## 1. 🚀 Projekt-Kontext & Tech-Stack
 
-| Eigenschaft      | Wert                                                                        |
-| ---------------- | --------------------------------------------------------------------------- |
-| **Solution**     | `TicketsPlease.slnx`                                                        |
-| **Runtime**      | ASP.NET Core 10.3 / C# 14 / .NET 10                                         |
-| **Datenbank**    | Microsoft SQL Server (EF Core Code-First)                                   |
-| **Frontend**     | TailwindCSS 4.2.2 (via `TailwindCSS.MSBuild`), FontAwesome 7.2, Razor Views |
-| **Architektur**  | Clean Architecture (Onion) + DDD + CQRS                                     |
-| **CQRS Stack**   | MediatR + FluentValidation + Mapster                                        |
-| **Testing**      | xUnit, FluentAssertions, Moq/NSubstitute, Testcontainers, NetArchTest       |
-| **CI/CD**        | GitHub Actions (Build → Lint → Test → Lighthouse)                           |
+| Eigenschaft     | Wert                                                                        |
+| --------------- | --------------------------------------------------------------------------- |
+| **Solution**    | `TicketsPlease.slnx`                                                        |
+| **Runtime**     | ASP.NET Core 10.3 / C# 14 / .NET 10                                         |
+| **Datenbank**   | Microsoft SQL Server (EF Core Code-First)                                   |
+| **Frontend**    | TailwindCSS 4.2.2 (via `TailwindCSS.MSBuild`), FontAwesome 7.2, Razor Views |
+| **Architektur** | Clean Architecture (Onion) + DDD + CQRS                                     |
+| **CQRS Stack**  | MediatR + FluentValidation + Mapster                                        |
+| **Testing**     | xUnit, FluentAssertions, Moq/NSubstitute, Testcontainers, NetArchTest       |
+| **CI/CD**       | GitHub Actions (Build → Lint → Test → Lighthouse)                           |
 
 ### Projekt-Struktur (Strikte Layer-Zuordnung)
 
@@ -227,17 +227,17 @@ flowchart LR
 > [ADR-0031](docs/adr/0031-ef-core-resilience-concurrency.md)
 > \| [database_schema.md](docs/database_schema.md)
 
-| Regel                          | Beschreibung                                                                                                                 |
-| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
-| **`AsNoTracking()`**           | **Pflicht** für alle Lesezugriffe (Queries). Tracking nur für Write-Operationen.                                             |
-| **Projections**                | Nutze `.Select(t => new Dto { ... })` statt `.Include()` wo möglich. Nur benötigte Spalten laden!                            |
-| **`RowVersion` Pflicht**       | Alle Domain-Entities brauchen `byte[] RowVersion` für Optimistic Concurrency (`[Timestamp]`).                                |
-| **Concurrency Handling**       | `DbUpdateConcurrencyException` **muss** in jedem Write-Handler explizit gefangen werden.                                     |
-| **`DefaultExecutionStrategy`** | Für manuelle Transaktionen zwingend die Retry-Strategy in `AppDbContext` nutzen.                                             |
-| **`EnableRetryOnFailure`**     | Ist in der Connection-Konfiguration aktiv. Bei manuellen Transaktionen `CreateExecutionStrategy()` verwenden.                |
-| **Code-First Migrations**      | Über `dotnet ef migrations add` im Infrastructure-Projekt. Siehe [EF Core Workflow](.agent/workflows/ef-core-migration.md).   |
-| **3NF Schema**                 | Die Datenbank ist in **3. Normalform**. Keine Denormalisierung ohne ADR!                                                     |
-| **Seed Data**                  | Stammdaten über `HasData()` in `OnModelCreating` oder separate Seed-Klassen.                                                 |
+| Regel                          | Beschreibung                                                                                                                |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
+| **`AsNoTracking()`**           | **Pflicht** für alle Lesezugriffe (Queries). Tracking nur für Write-Operationen.                                            |
+| **Projections**                | Nutze `.Select(t => new Dto { ... })` statt `.Include()` wo möglich. Nur benötigte Spalten laden!                           |
+| **`RowVersion` Pflicht**       | Alle Domain-Entities brauchen `byte[] RowVersion` für Optimistic Concurrency (`[Timestamp]`).                               |
+| **Concurrency Handling**       | `DbUpdateConcurrencyException` **muss** in jedem Write-Handler explizit gefangen werden.                                    |
+| **`DefaultExecutionStrategy`** | Für manuelle Transaktionen zwingend die Retry-Strategy in `AppDbContext` nutzen.                                            |
+| **`EnableRetryOnFailure`**     | Ist in der Connection-Konfiguration aktiv. Bei manuellen Transaktionen `CreateExecutionStrategy()` verwenden.               |
+| **Code-First Migrations**      | Über `dotnet ef migrations add` im Infrastructure-Projekt. Siehe [EF Core Workflow](.agent/workflows/ef-core-migration.md). |
+| **3NF Schema**                 | Die Datenbank ist in **3. Normalform**. Keine Denormalisierung ohne ADR!                                                    |
+| **Seed Data**                  | Stammdaten über `HasData()` in `OnModelCreating` oder separate Seed-Klassen.                                                |
 
 ---
 
@@ -453,40 +453,40 @@ flowchart LR
 
 ## 13. 📝 Enterprise Dokumentation
 
-| Regel                     | Beschreibung                                                                                                                 |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Regel                     | Beschreibung                                                                                                                  |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | **XML-Documentation**     | **Vollständig** und korrekt für alle `public` Members. Nutze `<summary>`, `<param>`, `<returns>`, `<exception>`, `<remarks>`. |
-| **ADR-Pflicht**           | Jede wesentliche Design-Entscheidung wird als [ADR](docs/adr/) dokumentiert (Template: [template.md](docs/adr/template.md)). |
-| **Mermaid-Diagramme**     | Für alle komplexen Systeme, Flows und Architekturen.                                                                         |
-| **CHANGELOG**             | Jeder Task/Feature/Bugfix wird in der README oder einem `CHANGELOG.md` dokumentiert.                                         |
-| **Mockups & Screenshots** | In `/docs/mockups/` versioniert ablegen.                                                                                     |
-| **Grafiken & Assets**     | In `/docs/assets/` bzw. `wwwroot/images/`. Platzhalter via [Placehold.co](https://placehold.co/).                          |
+| **ADR-Pflicht**           | Jede wesentliche Design-Entscheidung wird als [ADR](docs/adr/) dokumentiert (Template: [template.md](docs/adr/template.md)).  |
+| **Mermaid-Diagramme**     | Für alle komplexen Systeme, Flows und Architekturen.                                                                          |
+| **CHANGELOG**             | Jeder Task/Feature/Bugfix wird in der README oder einem `CHANGELOG.md` dokumentiert.                                          |
+| **Mockups & Screenshots** | In `/docs/mockups/` versioniert ablegen.                                                                                      |
+| **Grafiken & Assets**     | In `/docs/assets/` bzw. `wwwroot/images/`. Platzhalter via [Placehold.co](https://placehold.co/).                             |
 
 ---
 
 ## 14. 🚨 Absolute No-Go Liste
 
-| ❌  | Regel                                                                              |
-| --- | ---------------------------------------------------------------------------------- |
-| ❌  | **Hardcodierte Farben** → Nutze `--brand-*` CSS-Variablen.                         |
-| ❌  | **Direktes `DbContext` im Controller** → Nutze MediatR.                            |
-| ❌  | **Command ohne Validator** → Jeder Input braucht FluentValidation.                 |
-| ❌  | **Fehlende XML-Kommentare** → "I'll do it later" zählt nicht.                      |
-| ❌  | **Bootstrap-Import** → Ist komplett verboten. Nur TailwindCSS 4.2.2.               |
-| ❌  | **CDN-Links im HTML** → Alle Assets lokal über LibMan.                             |
-| ❌  | **`DateTime` statt `DateTimeOffset`** → Für I18N/Zeitzonen verboten.               |
-| ❌  | **Secrets in `appsettings.json`** → Nutze `dotnet user-secrets`.                   |
-| ❌  | **Leerer Konstruktor in Domain-Entities** → Pflichtfelder erzwingen.               |
-| ❌  | **Public Setter in Entities** → Immer `private set`.                               |
-| ❌  | **`Console.WriteLine`** → Nutze Serilog Structured Logging.                        |
-| ❌  | **Query ohne `AsNoTracking()`** → Performance-Killer.                              |
-| ❌  | **Ignorierter `CancellationToken`** → Muss immer durchgereicht werden.             |
-| ❌  | **Inline-Styles im CSHTML** → Alles über Tailwind/CSS-Variablen.                   |
-| ❌  | **Unsanitized Markdown-Output** → DOMPurify ist Pflicht.                           |
-| ❌  | **Direct Push auf `main`** → Nur über Pull Requests.                               |
-| ❌  | **Code-Änderung ohne Issue** → Kein Commit ohne GitHub Issue.                      |
-| ❌  | **Fehlende `aria-label`** → Jedes interaktive Element braucht Accessibility.       |
-| ❌  | **`InMemoryDatabase` für Tests** → Nutze Testcontainers (echte SQL).               |
+| ❌  | Regel                                                                        |
+| --- | ---------------------------------------------------------------------------- |
+| ❌  | **Hardcodierte Farben** → Nutze `--brand-*` CSS-Variablen.                   |
+| ❌  | **Direktes `DbContext` im Controller** → Nutze MediatR.                      |
+| ❌  | **Command ohne Validator** → Jeder Input braucht FluentValidation.           |
+| ❌  | **Fehlende XML-Kommentare** → "I'll do it later" zählt nicht.                |
+| ❌  | **Bootstrap-Import** → Ist komplett verboten. Nur TailwindCSS 4.2.2.         |
+| ❌  | **CDN-Links im HTML** → Alle Assets lokal über LibMan.                       |
+| ❌  | **`DateTime` statt `DateTimeOffset`** → Für I18N/Zeitzonen verboten.         |
+| ❌  | **Secrets in `appsettings.json`** → Nutze `dotnet user-secrets`.             |
+| ❌  | **Leerer Konstruktor in Domain-Entities** → Pflichtfelder erzwingen.         |
+| ❌  | **Public Setter in Entities** → Immer `private set`.                         |
+| ❌  | **`Console.WriteLine`** → Nutze Serilog Structured Logging.                  |
+| ❌  | **Query ohne `AsNoTracking()`** → Performance-Killer.                        |
+| ❌  | **Ignorierter `CancellationToken`** → Muss immer durchgereicht werden.       |
+| ❌  | **Inline-Styles im CSHTML** → Alles über Tailwind/CSS-Variablen.             |
+| ❌  | **Unsanitized Markdown-Output** → DOMPurify ist Pflicht.                     |
+| ❌  | **Direct Push auf `main`** → Nur über Pull Requests.                         |
+| ❌  | **Code-Änderung ohne Issue** → Kein Commit ohne GitHub Issue.                |
+| ❌  | **Fehlende `aria-label`** → Jedes interaktive Element braucht Accessibility. |
+| ❌  | **`InMemoryDatabase` für Tests** → Nutze Testcontainers (echte SQL).         |
 
 ---
 
@@ -497,13 +497,13 @@ TicketsPlease-Projekt vorgehen muss.
 
 ### 🧠 Denken vor Handeln (Plan-First)
 
-| Regel               | Beschreibung                                                                                                |
-| ------------------- | ----------------------------------------------------------------------------------------------------------- |
-| **Immer planen**    | Vor jeder Code-Änderung die betroffenen Layer, Dateien und Abhängigkeiten identifizieren.                |
-| **Workflow-First**  | Prüfe, ob ein passender Workflow existiert (§16). Wenn ja: Folge ihm **Schritt für Schritt**.               |
-| **MVP-Awareness**   | Prüfe die [MVP-Roadmap](docs/MVP_Roadmap.md). Phase 1 (MVP) hat absoluten Vorrang.                      |
-| **ADR-Check**       | Prüfe vor architektonischen Entscheidungen die bestehenden [ADRs](docs/adr/).                               |
-| **Scope begrenzen** | Ändere nur, was der User angefordert hat. Keine ungewollten "Bonus-Refactorings".                          |
+| Regel               | Beschreibung                                                                                  |
+| ------------------- | --------------------------------------------------------------------------------------------- |
+| **Immer planen**    | Vor jeder Code-Änderung die betroffenen Layer, Dateien und Abhängigkeiten identifizieren.     |
+| **Workflow-First**  | Prüfe, ob ein passender Workflow existiert (§16). Wenn ja: Folge ihm **Schritt für Schritt**. |
+| **MVP-Awareness**   | Prüfe die [MVP-Roadmap](docs/MVP_Roadmap.md). Phase 1 (MVP) hat absoluten Vorrang.            |
+| **ADR-Check**       | Prüfe vor architektonischen Entscheidungen die bestehenden [ADRs](docs/adr/).                 |
+| **Scope begrenzen** | Ändere nur, was der User angefordert hat. Keine ungewollten "Bonus-Refactorings".             |
 
 ### 📄 Datei-Disziplin
 
@@ -517,16 +517,16 @@ TicketsPlease-Projekt vorgehen muss.
 
 ### ✅ Qualitäts-Pflichten (Bei jeder Code-Änderung)
 
-| Schritt                   | Pflicht?          | Beschreibung                                                                  |
-| ------------------------- | ----------------- | ----------------------------------------------------------------------------- |
-| **XML-Dokumentation**     | ✅ Immer          | Alle neuen `public` Members vollständig dokumentieren.                        |
-| **FluentValidation**      | ✅ Bei Commands   | Jeder neue Command bekommt einen `AbstractValidator<T>`.                      |
-| **Unit-Test**             | ✅ Immer          | Neue Logik → neuer Test. TDD bevorzugt.                                       |
-| **`CancellationToken`**   | ✅ Bei Async      | Token bis zum letzten Async-Call durchreichen.                                |
-| **`AsNoTracking()`**      | ✅ Bei Queries    | Alle reinen Lesezugriffe mit `AsNoTracking()`.                                |
-| **`RowVersion`-Handling** | ✅ Bei Write-Ops  | `DbUpdateConcurrencyException` im Handler fangen.                             |
-| **Security-Check**        | ✅ Bei User-Input | Anti-Forgery, Validation, DOMPurify.                                          |
-| **a11y**                  | ✅ Bei UI         | `aria-label`, Keyboard-Navigation, semantisches HTML.                         |
+| Schritt                   | Pflicht?          | Beschreibung                                             |
+| ------------------------- | ----------------- | -------------------------------------------------------- |
+| **XML-Dokumentation**     | ✅ Immer          | Alle neuen `public` Members vollständig dokumentieren.   |
+| **FluentValidation**      | ✅ Bei Commands   | Jeder neue Command bekommt einen `AbstractValidator<T>`. |
+| **Unit-Test**             | ✅ Immer          | Neue Logik → neuer Test. TDD bevorzugt.                  |
+| **`CancellationToken`**   | ✅ Bei Async      | Token bis zum letzten Async-Call durchreichen.           |
+| **`AsNoTracking()`**      | ✅ Bei Queries    | Alle reinen Lesezugriffe mit `AsNoTracking()`.           |
+| **`RowVersion`-Handling** | ✅ Bei Write-Ops  | `DbUpdateConcurrencyException` im Handler fangen.        |
+| **Security-Check**        | ✅ Bei User-Input | Anti-Forgery, Validation, DOMPurify.                     |
+| **a11y**                  | ✅ Bei UI         | `aria-label`, Keyboard-Navigation, semantisches HTML.    |
 
 ### 🗣️ Kommunikation & Entscheidungen
 
