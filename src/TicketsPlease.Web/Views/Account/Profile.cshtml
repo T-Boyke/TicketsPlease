@@ -101,7 +101,7 @@
                             </div>
                             <span class="text-sm font-bold text-slate-700">@L["Avg. Resolution Time"]</span>
                         </div>
-                        <span class="text-sm font-black text-slate-900">@(Model.Performance.AvgResolutionTimeHours?.FormatResolutionTime() ?? "N/A")</span>
+                        <span class="text-sm font-black text-slate-900">@FormatResolutionTime(Model.Performance.AvgResolutionTimeHours)</span>
                     </div>
                 </div>
             </div>
