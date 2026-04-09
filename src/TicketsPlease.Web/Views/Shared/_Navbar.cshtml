@@ -10,6 +10,11 @@
 @{
     var user = await UserManager.GetUserAsync(User);
     var initials = user?.UserName?.Substring(0, 2).ToUpper() ?? "??";
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+
+    string GetActiveClass(string controller) => currentController == controller 
+        ? "border-brand-primary text-slate-900" 
+        : "border-transparent text-slate-500 hover:border-slate-300 hover:text-slate-700";
 }
 
 <header class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
@@ -19,7 +24,7 @@
                 @* Logo Section *@
                 <div class="flex-shrink-0 flex items-center">
                     <a asp-controller="Home" asp-action="Index" class="text-2xl font-bold text-brand-primary hover:scale-105 transition-transform duration-200" aria-label="TicketsPlease Home">
-                        <i class="fa-solid fa-ticket-simple mr-2 fa-bounce" style="--fa-animation-iteration-count: 2;"></i>
+                        <i class="fa-solid fa-ticket mr-2 fa-bounce" style="--fa-animation-iteration-count: 2;"></i>
                         <span class="hidden md:inline">@SkinProvider.GetLogoName()</span>
                     </a>
                 </div>
@@ -29,23 +34,23 @@
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <a asp-controller="Home" asp-action="Index"
-                           class="inline-flex items-center px-1 pt-1 border-b-2 border-brand-primary text-sm font-medium text-slate-900" aria-current="page">
-                            <i class="fa-solid fa-house-chimney mr-2 text-brand-primary"></i>
+                           class="inline-flex items-center px-1 pt-1 border-b-2 @GetActiveClass("Home") text-sm font-medium transition-colors duration-200">
+                            <i class="fa-solid fa-house-chimney mr-2 @(currentController == "Home" ? "text-brand-primary" : "text-slate-400")"></i>
                             @L["Dashboard"]
                         </a>
                         <a asp-controller="Tickets" asp-action="Index"
-                           class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700 transition-colors duration-200">
-                            <i class="fa-solid fa-ticket mr-2 text-slate-400"></i>
+                           class="inline-flex items-center px-1 pt-1 border-b-2 @GetActiveClass("Tickets") text-sm font-medium transition-colors duration-200">
+                            <i class="fa-solid fa-ticket mr-2 @(currentController == "Tickets" ? "text-brand-primary" : "text-slate-400")"></i>
                             @L["Tickets"]
                         </a>
                         <a asp-controller="Teams" asp-action="Index"
-                           class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700 transition-colors duration-200">
-                            <i class="fa-solid fa-users mr-2 text-slate-400"></i>
+                           class="inline-flex items-center px-1 pt-1 border-b-2 @GetActiveClass("Teams") text-sm font-medium transition-colors duration-200">
+                            <i class="fa-solid fa-users mr-2 @(currentController == "Teams" ? "text-brand-primary" : "text-slate-400")"></i>
                             @L["Teams"]
                         </a>
                         <a asp-controller="Messages" asp-action="Index"
-                           class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-slate-500 hover:border-slate-300 hover:text-slate-700 transition-colors duration-200">
-                            <i class="fa-solid fa-envelope mr-2 text-slate-400"></i>
+                           class="inline-flex items-center px-1 pt-1 border-b-2 @GetActiveClass("Messages") text-sm font-medium transition-colors duration-200">
+                            <i class="fa-solid fa-envelope mr-2 @(currentController == "Messages" ? "text-brand-primary" : "text-slate-400")"></i>
                             @L["Messages"]
                         </a>
                     }
@@ -56,10 +61,44 @@
             <div class="flex items-center space-x-4">
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <button class="text-slate-500 hover:text-brand-primary transition-colors duration-200 relative p-2 rounded-full hover:bg-slate-100" aria-label="@L["Notifications"]">
-                        <i class="fa-solid fa-bell text-xl fa-shake-hover"></i>
-                        <span class="absolute top-1 right-1 block h-2.5 w-2.5 rounded-full bg-red-500 ring-4 ring-white"></span>
-                    </button>
+                    @* Notifications Dropdown *@
+                    <div class="relative">
+                        <details class="group list-none">
+                            <summary class="text-slate-500 hover:text-brand-primary transition-colors duration-200 relative p-2 rounded-full hover:bg-slate-100 cursor-pointer focus:outline-none list-none" aria-label="@L["Notifications"]">
+                                <i class="fa-solid fa-bell text-xl fa-shake-hover"></i>
+                                <span class="absolute top-1.5 right-1.5 block h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-white group-hover:animate-pulse"></span>
+                            </summary>
+                            <div class="absolute right-0 mt-2 w-80 origin-top-right rounded-xl bg-white p-4 shadow-2xl ring-1 ring-slate-200 focus:outline-none z-50 animate-in fade-in zoom-in duration-200">
+                                <div class="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
+                                    <h3 class="text-xs font-bold text-slate-900 uppercase tracking-widest">@L["Notifications"]</h3>
+                                    <span class="text-[10px] bg-brand-primary/10 text-brand-primary px-2 py-0.5 rounded-full font-bold">3 @L["New"]</span>
+                                </div>
+                                 <div class="space-y-3">
+                                    <div class="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer">
+                                        <div class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                            <i class="fa-solid fa-ticket text-xs"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs font-bold text-slate-800">@L["New ticket assigned"]</p>
+                                            <p class="text-[10px] text-slate-500">Ticket #1234: "Database performance..."</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer">
+                                        <div class="h-8 w-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600">
+                                            <i class="fa-solid fa-check-double text-xs"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs font-bold text-slate-800">@L["Ticket resolved"]</p>
+                                            <p class="text-[10px] text-slate-500">Tobias resolved "Fix login bug".</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-4 pt-2 border-t border-slate-100">
+                                    <a asp-controller="Notifications" asp-action="Index" class="text-[10px] font-bold text-brand-primary hover:text-brand-secondary transition-colors uppercase tracking-widest text-center block">@L["See all notifications"]</a>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
 
                     @* Profile Dropdown (Jump List) *@
                     <div class="relative ml-3">
@@ -99,6 +138,14 @@
                                         <a asp-controller="Admin" asp-action="Settings" class="flex items-center px-3 py-2 text-sm text-slate-700 rounded-lg hover:bg-slate-50 hover:text-brand-primary transition-colors duration-150">
                                             <i class="fa-solid fa-gears mr-3 text-slate-400 w-5"></i>
                                             @L["Settings"]
+                                        </a>
+                                        <a asp-controller="AdminTemplates" asp-action="Index" class="flex items-center px-3 py-2 text-sm text-slate-700 rounded-lg hover:bg-slate-50 hover:text-brand-primary transition-colors duration-150">
+                                            <i class="fa-solid fa-file-invoice mr-3 text-slate-400 w-5"></i>
+                                            @L["Ticket Templates"]
+                                        </a>
+                                        <a asp-controller="AdminWorkspaces" asp-action="Index" class="flex items-center px-3 py-2 text-sm text-slate-700 rounded-lg hover:bg-slate-50 hover:text-brand-primary transition-colors duration-150">
+                                            <i class="fa-solid fa-hotel mr-3 text-slate-400 w-5"></i>
+                                            @L["Workspace Management"]
                                         </a>
                                     </div>
                                 }

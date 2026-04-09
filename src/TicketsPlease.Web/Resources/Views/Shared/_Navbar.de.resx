@@ -45,4 +45,9 @@
   <data name="Administration" xml:space="preserve"><value>Administration</value></data>
   <data name="Project Management" xml:space="preserve"><value>Projektverwaltung</value></data>
   <data name="Settings" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="My Messages" xml:space="preserve"><value>Meine Nachrichten</value></data>
+  <data name="New" xml:space="preserve"><value>Neu</value></data>
+  <data name="New ticket assigned" xml:space="preserve"><value>Neues Ticket zugewiesen</value></data>
+  <data name="Ticket resolved" xml:space="preserve"><value>Ticket gelöst</value></data>
+  <data name="See all notifications" xml:space="preserve"><value>Alle Benachrichtigungen anzeigen</value></data>
 </root>
