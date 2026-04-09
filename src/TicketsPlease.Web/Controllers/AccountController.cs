@@ -148,6 +148,77 @@ internal sealed class AccountController : Controller
   }
 
   /// <summary>
+  /// Zeigt die Seite zum Bearbeiten des Profils an.
+  /// </summary>
+  /// <returns>Die Edit-View.</returns>
+  [Authorize]
+  [HttpGet]
+  public async Task<IActionResult> Edit()
+  {
+    var user = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
+    if (user == null)
+    {
+      return this.NotFound();
+    }
+
+    var model = new EditProfileViewModel
+    {
+      Username = user.UserName ?? string.Empty,
+      Email = user.Email ?? string.Empty,
+    };
+
+    return this.View(model);
+  }
+
+  /// <summary>
+  /// Verarbeitet die Profilbearbeitung.
+  /// </summary>
+  /// <param name="model">Das EditProfile-ViewModel.</param>
+  /// <returns>Ein Task mit dem Aktionsergebnis.</returns>
+  [Authorize]
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> Edit(EditProfileViewModel model)
+  {
+    ArgumentNullException.ThrowIfNull(model);
+
+    if (!this.ModelState.IsValid)
+    {
+      return this.View(model);
+    }
+
+    var user = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
+    if (user == null)
+    {
+      return this.NotFound();
+    }
+
+    user.UserName = model.Username;
+    user.Email = model.Email;
+
+    var result = await this.userManager.UpdateAsync(user).ConfigureAwait(false);
+    if (result.Succeeded)
+    {
+      if (!string.IsNullOrEmpty(model.NewPassword))
+      {
+          // Passwort zurücksetzen/ändern (vereinfacht für dieses System)
+          var token = await this.userManager.GeneratePasswordResetTokenAsync(user).ConfigureAwait(false);
+          await this.userManager.ResetPasswordAsync(user, token, model.NewPassword).ConfigureAwait(false);
+      }
+
+      await this.signInManager.RefreshSignInAsync(user).ConfigureAwait(false);
+      return this.RedirectToAction(nameof(this.Profile));
+    }
+
+    foreach (var error in result.Errors)
+    {
+      this.ModelState.AddModelError(string.Empty, error.Description);
+    }
+
+    return this.View(model);
+  }
+
+  /// <summary>
   /// Zeigt die Seite für verweigerten Zugriff an.
   /// </summary>
   /// <returns>Die AccessDenied-View.</returns>
