@@ -1,0 +1,54 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer L
+
+<div id="cookie-banner" class="fixed bottom-0 inset-x-0 pb-2 sm:pb-5 z-[500] pointer-events-auto transform transition-all duration-500 translate-y-full opacity-0">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div class="p-4 rounded-2xl bg-white shadow-2xl border border-slate-200 backdrop-blur-xl bg-white/90 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-start gap-4">
+                <div class="h-10 w-10 flex-shrink-0 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary">
+                    <i class="fa-solid fa-cookie-bite text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-black text-slate-900 tracking-tight">@L["We use cookies"]</h3>
+                    <p class="mt-1 text-xs text-slate-500 font-medium">
+                        @L["This website uses cookies to ensure you get the best experience on our application. We use them for essential functioning and performance analytics."]
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-shrink-0 items-center justify-center gap-2 w-full sm:w-auto">
+                <button type="button" onclick="acceptCookies()" class="flex-1 sm:flex-none flex items-center justify-center px-5 py-2.5 border border-transparent rounded-xl shadow-sm shadow-brand-primary/20 text-xs font-black text-white bg-brand-primary hover:bg-brand-secondary transition-all">
+                    @L["Accept all"]
+                </button>
+                <button type="button" onclick="declineCookies()" class="flex-1 sm:flex-none flex items-center justify-center px-5 py-2.5 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 bg-white hover:bg-slate-50 transition-all">
+                    @L["Essentials only"]
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const banner = document.getElementById("cookie-banner");
+        if (!localStorage.getItem("cookieConsent")) {
+            setTimeout(() => {
+                banner.classList.remove("translate-y-full", "opacity-0");
+            }, 1000);
+        }
+    });
+
+    function acceptCookies() {
+        localStorage.setItem("cookieConsent", "all");
+        hideBanner();
+    }
+
+    function declineCookies() {
+        localStorage.setItem("cookieConsent", "essential");
+        hideBanner();
+    }
+
+    function hideBanner() {
+        const banner = document.getElementById("cookie-banner");
+        banner.classList.add("translate-y-full", "opacity-0");
+    }
+</script>

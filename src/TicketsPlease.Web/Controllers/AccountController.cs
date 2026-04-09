@@ -24,6 +24,7 @@ internal sealed class AccountController : Controller
   private readonly IUserRepository userRepository;
   private readonly IOrganizationService organizationService;
   private readonly IDashboardService dashboardService;
+  private readonly IFileStorageService fileStorageService;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="AccountController"/> class.
@@ -40,7 +41,8 @@ internal sealed class AccountController : Controller
     RoleManager<Role> roleManager,
     IUserRepository userRepository,
     IOrganizationService organizationService,
-    IDashboardService dashboardService)
+    IDashboardService dashboardService,
+    IFileStorageService fileStorageService)
   {
     this.signInManager = signInManager;
     this.userManager = userManager;
@@ -48,6 +50,7 @@ internal sealed class AccountController : Controller
     this.userRepository = userRepository;
     this.organizationService = organizationService;
     this.dashboardService = dashboardService;
+    this.fileStorageService = fileStorageService;
   }
 
   /// <summary>
@@ -173,6 +176,13 @@ internal sealed class AccountController : Controller
         user.Profile?.LastName ?? string.Empty,
         user.Profile?.Bio,
         user.Profile?.PhoneNumber,
+        user.Profile?.AvatarUrl?.ToString(),
+        user.Profile?.Position,
+        user.Profile?.TechStack,
+        user.Profile?.Street,
+        user.Profile?.HouseNumber,
+        user.Profile?.City,
+        user.Profile?.Country,
         user.Role?.Name ?? "User",
         user.CreatedAt,
         user.LastLoginAt,
@@ -207,6 +217,12 @@ internal sealed class AccountController : Controller
       LastName = user.Profile?.LastName ?? string.Empty,
       Bio = user.Profile?.Bio,
       PhoneNumber = user.Profile?.PhoneNumber,
+      Position = user.Profile?.Position,
+      TechStack = user.Profile?.TechStack,
+      Street = user.Profile?.Street,
+      HouseNumber = user.Profile?.HouseNumber,
+      City = user.Profile?.City,
+      Country = user.Profile?.Country,
     };
 
     return this.View(model);
@@ -244,6 +260,19 @@ internal sealed class AccountController : Controller
     profile.LastName = model.LastName;
     profile.Bio = model.Bio;
     profile.PhoneNumber = model.PhoneNumber;
+    profile.Position = model.Position;
+    profile.TechStack = model.TechStack;
+    profile.Street = model.Street;
+    profile.HouseNumber = model.HouseNumber;
+    profile.City = model.City;
+    profile.Country = model.Country;
+
+    if (model.AvatarFile != null && model.AvatarFile.Length > 0)
+    {
+      using var stream = model.AvatarFile.OpenReadStream();
+      var path = await this.fileStorageService.SaveFileAsync(stream, model.AvatarFile.FileName).ConfigureAwait(false);
+      profile.AvatarUrl = new Uri($"/{path.Replace("\\", "/")}", UriKind.RelativeOrAbsolute);
+    }
 
     await this.userRepository.UpdateProfileAsync(profile).ConfigureAwait(false);
 
