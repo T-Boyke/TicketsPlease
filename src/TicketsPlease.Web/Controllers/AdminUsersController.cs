@@ -22,16 +22,18 @@ internal class AdminUsersController : Controller
 {
   private readonly UserManager<User> userManager;
   private readonly RoleManager<Role> roleManager;
+  private readonly TicketsPlease.Application.Common.Interfaces.IUserRepository userRepository;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="AdminUsersController"/> class.
   /// </summary>
   /// <param name="userManager">Die Benutzerverwaltung.</param>
   /// <param name="roleManager">Die Rollenverwaltung.</param>
-  public AdminUsersController(UserManager<User> userManager, RoleManager<Role> roleManager)
+  public AdminUsersController(UserManager<User> userManager, RoleManager<Role> roleManager, TicketsPlease.Application.Common.Interfaces.IUserRepository userRepository)
   {
     this.userManager = userManager;
     this.roleManager = roleManager;
+    this.userRepository = userRepository;
   }
 
   /// <summary>
@@ -109,6 +111,15 @@ internal class AdminUsersController : Controller
 
     user.Email = model.Email;
     user.UserName = model.UserName;
+
+    var profile = await this.userRepository.GetOrCreateProfileAsync(user.Id).ConfigureAwait(false);
+    profile.Position = model.Position;
+    profile.TechStack = model.TechStack;
+    profile.Street = model.Street;
+    profile.HouseNumber = model.HouseNumber;
+    profile.City = model.City;
+    profile.Country = model.Country;
+    await this.userRepository.UpdateProfileAsync(profile).ConfigureAwait(false);
 
     var result = await this.userManager.UpdateAsync(user).ConfigureAwait(false);
     if (!result.Succeeded)
