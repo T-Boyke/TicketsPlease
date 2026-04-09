@@ -91,7 +91,7 @@ internal sealed partial class TicketCleanupWorker : BackgroundService
         .Where(t => t.ClosedAt.HasValue && t.ClosedAt.Value < cutoff)
         .ToList();
 
-    if (ticketsToArchive.Any())
+    if (ticketsToArchive.Count > 0)
     {
       LogArchivingTickets(this.logger, ticketsToArchive.Count);
       foreach (var ticket in ticketsToArchive)

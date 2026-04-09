@@ -30,18 +30,14 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <data name="Project Details" xml:space="preserve"><value>Project Details</value></data>
-  <data name="Overview" xml:space="preserve"><value>Overview</value></data>
-  <data name="Status" xml:space="preserve"><value>Status</value></data>
-  <data name="Active" xml:space="preserve"><value>Active</value></data>
-  <data name="Closed" xml:space="preserve"><value>Closed</value></data>
-  <data name="Start Date" xml:space="preserve"><value>Start Date</value></data>
-  <data name="End Date" xml:space="preserve"><value>End Date</value></data>
-  <data name="Ticket Management coming soon" xml:space="preserve"><value>Ticket Management coming soon</value></data>
-  <data name="F3 implementation is the next milestone." xml:space="preserve"><value>F3 implementation is the next milestone.</value></data>
-  <data name="Management Actions" xml:space="preserve"><value>Management Actions</value></data>
-  <data name="Edit Configuration" xml:space="preserve"><value>Edit Configuration</value></data>
-  <data name="Archive Project" xml:space="preserve"><value>Archive Project</value></data>
-  <data name="Are you sure?" xml:space="preserve"><value>Are you sure?</value></data>
-  <data name="Back to Dashboard" xml:space="preserve"><value>Back to Dashboard</value></data>
+  <data name="New Message" xml:space="preserve"><value>New Message</value></data>
+  <data name="Compose Message" xml:space="preserve"><value>Compose Message</value></data>
+  <data name="Select a colleague and send them a private message." xml:space="preserve"><value>Select a colleague and send them a private message.</value></data>
+  <data name="Recipient" xml:space="preserve"><value>Recipient</value></data>
+  <data name="Select a recipient..." xml:space="preserve"><value>Select a recipient...</value></data>
+  <data name="Message Content" xml:space="preserve"><value>Message Content</value></data>
+  <data name="Write your message here..." xml:space="preserve"><value>Write your message here...</value></data>
+  <data name="Markdown supported" xml:space="preserve"><value>Markdown supported</value></data>
+  <data name="Send Message" xml:space="preserve"><value>Send Message</value></data>
+  <data name="Cancel" xml:space="preserve"><value>Cancel</value></data>
 </root>

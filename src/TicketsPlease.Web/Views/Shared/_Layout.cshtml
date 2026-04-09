@@ -11,7 +11,7 @@
     <meta name="description" content="@(ViewData["Description"] ?? "TicketsPlease - The ultimate project board for modern teams. Manage tasks, projects and performance with ease.")" />
     <meta name="robots" content="index, follow" />
     <title>@(ViewData["Title"] ?? "TicketsPlease") | BitLC-NE Solutions</title>
-    @RenderSection("Meta", required: false)
+    @await RenderSectionAsync("Meta", required: false)
 
     @* Tailwind CSS Output & Site Specific Styles *@
     <link rel="stylesheet" href="~/css/app.css"/>

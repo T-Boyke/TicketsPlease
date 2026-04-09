@@ -43,4 +43,5 @@
   <data name="Edit Configuration" xml:space="preserve"><value>Konfiguration bearbeiten</value></data>
   <data name="Archive Project" xml:space="preserve"><value>Projekt archivieren</value></data>
   <data name="Are you sure?" xml:space="preserve"><value>Sind Sie sicher?</value></data>
+  <data name="Back to Dashboard" xml:space="preserve"><value>Zurück zum Dashboard</value></data>
 </root>

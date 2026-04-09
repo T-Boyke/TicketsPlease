@@ -33,10 +33,15 @@
   <data name="Ticket Details" xml:space="preserve"><value>Ticket-Details</value></data>
   <data name="Back to Board" xml:space="preserve"><value>Zurück zum Board</value></data>
   <data name="Edit" xml:space="preserve"><value>Bearbeiten</value></data>
+  <data name="Edit Ticket" xml:space="preserve"><value>Ticket bearbeiten</value></data>
   <data name="Close Ticket" xml:space="preserve"><value>Ticket schließen</value></data>
   <data name="Description" xml:space="preserve"><value>Beschreibung</value></data>
+  <data name="Overview" xml:space="preserve"><value>Übersicht</value></data>
+  <data name="Back to Tickets" xml:space="preserve"><value>Zurück zur Ticketliste</value></data>
+  <data name="Management Actions" xml:space="preserve"><value>Verwaltungsaktionen</value></data>
   <data name="Properties" xml:space="preserve"><value>Eigenschaften</value></data>
   <data name="Status" xml:space="preserve"><value>Status</value></data>
+  <data name="Priority" xml:space="preserve"><value>Priorität</value></data>
   <data name="Assignee" xml:space="preserve"><value>Zuständig</value></data>
   <data name="Project" xml:space="preserve"><value>Projekt</value></data>
   <data name="Created" xml:space="preserve"><value>Erstellt am</value></data>

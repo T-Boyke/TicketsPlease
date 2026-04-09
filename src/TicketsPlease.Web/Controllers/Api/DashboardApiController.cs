@@ -5,6 +5,7 @@
 namespace TicketsPlease.Web.Controllers.Api;
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,7 @@ internal sealed class DashboardApiController : ControllerBase
     /// <param name="id">Die Benutzer-ID.</param>
     /// <returns>Detaillierte Statistiken.</returns>
     [HttpGet("user/{id}")]
+    [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Catching all exceptions is intentional at the API boundary to return a proper error response.")]
     public async Task<IActionResult> GetUserDetail(Guid id)
     {
         try
@@ -54,6 +56,7 @@ internal sealed class DashboardApiController : ControllerBase
     /// <param name="id">Die Team-ID.</param>
     /// <returns>Detaillierte Statistiken.</returns>
     [HttpGet("team/{id}")]
+    [SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Catching all exceptions is intentional at the API boundary to return a proper error response.")]
     public async Task<IActionResult> GetTeamDetail(Guid id)
     {
         try

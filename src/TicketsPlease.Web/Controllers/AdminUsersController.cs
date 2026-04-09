@@ -125,12 +125,12 @@ internal class AdminUsersController : Controller
     var rolesToRemove = userRoles.Except(model.SelectedRoles).ToList();
     var rolesToAdd = model.SelectedRoles.Except(userRoles).ToList();
 
-    if (rolesToRemove.Any())
+    if (rolesToRemove.Count > 0)
     {
       await this.userManager.RemoveFromRolesAsync(user, rolesToRemove).ConfigureAwait(false);
     }
 
-    if (rolesToAdd.Any())
+    if (rolesToAdd.Count > 0)
     {
       await this.userManager.AddToRolesAsync(user, rolesToAdd).ConfigureAwait(false);
     }

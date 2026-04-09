@@ -73,7 +73,15 @@
                                             <h4 class="text-md font-bold text-slate-900 group-hover:text-brand-primary transition-colors">@ticket.Title</h4>
                                         </div>
                                         <div class="mt-1 flex items-center space-x-4 text-xs text-slate-500">
-                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold @(ticket.Status == "Done" ? "bg-emerald-100 text-emerald-800" : (ticket.Status == "In Progress" ? "bg-blue-100 text-blue-800" : "bg-slate-100 text-slate-800"))">
+                                            @{
+                                                var statusClass = ticket.Status switch
+                                                {
+                                                    "Done" => "bg-emerald-100 text-emerald-800",
+                                                    "In Progress" => "bg-blue-100 text-blue-800",
+                                                    _ => "bg-slate-100 text-slate-800"
+                                                };
+                                            }
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold @statusClass">
                                                 @ticket.Status
                                             </span>
                                             @if (ticket.Priority != null)

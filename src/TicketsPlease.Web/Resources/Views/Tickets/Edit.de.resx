@@ -38,7 +38,14 @@
   <data name="To Do" xml:space="preserve"><value>Zu erledigen</value></data>
   <data name="In Progress" xml:space="preserve"><value>In Arbeit</value></data>
   <data name="Done / Closed" xml:space="preserve"><value>Erledigt / Geschlossen</value></data>
+  <data name="Open" xml:space="preserve"><value>Offen</value></data>
+  <data name="Resolved" xml:space="preserve"><value>Gelöst</value></data>
+  <data name="Closed" xml:space="preserve"><value>Geschlossen</value></data>
   <data name="Priority" xml:space="preserve"><value>Priorität</value></data>
+  <data name="Low" xml:space="preserve"><value>Niedrig</value></data>
+  <data name="Medium" xml:space="preserve"><value>Mittel</value></data>
+  <data name="High" xml:space="preserve"><value>Hoch</value></data>
+  <data name="Critical" xml:space="preserve"><value>Kritisch</value></data>
   <data name="Assignee" xml:space="preserve"><value>Zuständig</value></data>
   <data name="No Assignee" xml:space="preserve"><value>Nicht zugewiesen</value></data>
   <data name="Story Points" xml:space="preserve"><value>Story Points</value></data>

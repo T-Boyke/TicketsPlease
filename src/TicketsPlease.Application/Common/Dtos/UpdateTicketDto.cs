@@ -18,6 +18,7 @@ using System;
 /// <param name="EstimatePoints">Die aktualisierten Story Points.</param>
 /// <param name="ChilliesDifficulty">Die neue Schwierigkeit (1-5 Chilis).</param>
 /// <param name="TagIds">Die neuen IDs der zuzuordnenden Tags.</param>
+/// <param name="RowVersion">Die aktuelle RowVersion für Optimistic Concurrency Checks.</param>
 #pragma warning disable CA1819 // Properties should not return arrays (RowVersion for EF Core)
 public record UpdateTicketDto(
     Guid Id,

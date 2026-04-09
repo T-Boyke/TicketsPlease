@@ -25,6 +25,16 @@ using TicketsPlease.Domain.Enums;
 /// <param name="Comments">Die Liste der Kommentare zum Ticket (F5).</param>
 /// <param name="BlockedBy">Tickets, die dieses Ticket blockieren (F7).</param>
 /// <param name="Blocking">Tickets, die von diesem Ticket blockiert werden (F7).</param>
+/// <param name="ChilliesDifficulty">Die Schwierigkeit in Chilis (1-5).</param>
+/// <param name="Tags">Zugeordnete Schlagworte.</param>
+/// <param name="TimeLogs">Erfasste Zeiten auf diesem Ticket.</param>
+/// <param name="SubTickets">Zugehörige Unteraufgaben.</param>
+/// <param name="IsTimerRunning">Status ob aktuell Zeit erfasst wird.</param>
+/// <param name="Attachments">Zugeordnete Dateianhänge.</param>
+/// <param name="History">Änderungsjournal des Tickets.</param>
+/// <param name="UpvoteCount">Anzahl der Upvotes.</param>
+/// <param name="UserHasUpvoted">Status ob der aktuelle User bereits gevotet hat.</param>
+/// <param name="RowVersion">Die aktuelle RowVersion für Optimistic Concurrency Checks.</param>
 #pragma warning disable CA1819 // Properties should not return arrays (RowVersion for EF Core)
 public record TicketDto(
     Guid Id,

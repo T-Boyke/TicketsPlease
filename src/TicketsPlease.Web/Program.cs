@@ -165,8 +165,7 @@ app.MapScalarApiReference(options =>
   options
     .WithTitle("TicketsPlease 🔵 Professional API")
     .WithTheme(ScalarTheme.BluePlanet)
-    .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient)
-    .WithSidebar(true);
+    .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
 });
 
 app.MapControllerRoute(

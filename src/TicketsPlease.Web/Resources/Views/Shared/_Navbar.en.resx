@@ -30,18 +30,19 @@
   <resheader name="version"><value>2.0</value></resheader>
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <data name="Project Details" xml:space="preserve"><value>Project Details</value></data>
-  <data name="Overview" xml:space="preserve"><value>Overview</value></data>
-  <data name="Status" xml:space="preserve"><value>Status</value></data>
-  <data name="Active" xml:space="preserve"><value>Active</value></data>
-  <data name="Closed" xml:space="preserve"><value>Closed</value></data>
-  <data name="Start Date" xml:space="preserve"><value>Start Date</value></data>
-  <data name="End Date" xml:space="preserve"><value>End Date</value></data>
-  <data name="Ticket Management coming soon" xml:space="preserve"><value>Ticket Management coming soon</value></data>
-  <data name="F3 implementation is the next milestone." xml:space="preserve"><value>F3 implementation is the next milestone.</value></data>
-  <data name="Management Actions" xml:space="preserve"><value>Management Actions</value></data>
-  <data name="Edit Configuration" xml:space="preserve"><value>Edit Configuration</value></data>
-  <data name="Archive Project" xml:space="preserve"><value>Archive Project</value></data>
-  <data name="Are you sure?" xml:space="preserve"><value>Are you sure?</value></data>
-  <data name="Back to Dashboard" xml:space="preserve"><value>Back to Dashboard</value></data>
+  <data name="Dashboard" xml:space="preserve"><value>Dashboard</value></data>
+  <data name="Tickets" xml:space="preserve"><value>Tickets</value></data>
+  <data name="Teams" xml:space="preserve"><value>Teams</value></data>
+  <data name="Notifications" xml:space="preserve"><value>Notifications</value></data>
+  <data name="Account" xml:space="preserve"><value>Account</value></data>
+  <data name="Profile" xml:space="preserve"><value>Profile</value></data>
+  <data name="User Management" xml:space="preserve"><value>User Management</value></data>
+  <data name="System Settings" xml:space="preserve"><value>System Settings</value></data>
+  <data name="Team Management" xml:space="preserve"><value>Team Management</value></data>
+  <data name="Logout" xml:space="preserve"><value>Logout</value></data>
+  <data name="Login" xml:space="preserve"><value>Login</value></data>
+  <data name="Get Started" xml:space="preserve"><value>Get Started</value></data>
+  <data name="Administration" xml:space="preserve"><value>Administration</value></data>
+  <data name="Project Management" xml:space="preserve"><value>Project Management</value></data>
+  <data name="Settings" xml:space="preserve"><value>Settings</value></data>
 </root>

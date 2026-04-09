@@ -5,6 +5,7 @@
 namespace TicketsPlease.Infrastructure.Services;
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,7 +45,7 @@ public class LocalStorageService : IFileStorageService
     var blobName = $"{Guid.NewGuid()}{extension}";
 
     // Create dated subdirectories (e.g., uploads/2026/03/)
-    var datePath = DateTime.UtcNow.ToString("yyyy/MM");
+    var datePath = DateTime.UtcNow.ToString("yyyy/MM", CultureInfo.InvariantCulture);
     var directoryPath = Path.Combine(this.storageRoot, datePath);
 
     if (!Directory.Exists(directoryPath))

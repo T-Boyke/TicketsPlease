@@ -45,6 +45,7 @@ internal sealed class TicketsController : Controller
   /// <param name="subTicketService">Der Dienst für Untertickets.</param>
   /// <param name="userManager">Die Benutzerverwaltung.</param>
   /// <param name="context">Der Datenbankkontext für Metadata-Lookups.</param>
+  /// <param name="localizer">Der Localizer für UI-Strings.</param>
   public TicketsController(
       ITicketService ticketService,
       IProjectService projectService,
