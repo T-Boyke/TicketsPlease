@@ -45,39 +45,51 @@
                 </thead>
                 <tbody>
                     @{ int i = 1; }
-                    @foreach (var user in Model.IndividualHighscores)
+                    @if (!Model.IndividualHighscores.Any())
                     {
-                        <tr onclick="openPerformanceDetail('user', '@user.UserId')" class="group cursor-pointer hover:translate-x-1 transition-all duration-300">
-                            <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 rounded-l-2xl border-y border-l border-slate-100/50">
-                                <span class="font-black @(i <= 3 ? "text-amber-500" : "text-slate-400")">@i</span>
-                            </td>
-                            <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 border-y border-slate-100/50">
-                                <div class="flex items-center">
-                                    <div class="h-10 w-10 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center font-bold mr-3 group-hover:scale-110 transition-transform">
-                                        @user.UserName.Substring(0, Math.Min(2, user.UserName.Length)).ToUpper()
-                                    </div>
-                                    <span class="font-bold text-slate-700">@user.UserName</span>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 border-y border-slate-100/50 text-center">
-                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-600 rounded-lg font-black text-sm">@user.CompletedTickets</span>
-                            </td>
-                            <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 border-y border-slate-100/50 text-center">
-                                <span class="px-3 py-1 bg-indigo-500/10 text-indigo-600 rounded-lg font-black text-sm">@user.TotalStoryPoints</span>
-                            </td>
-                            <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 border-y border-slate-100/50 text-center">
-                                <span class="font-bold text-slate-500">@user.TotalHoursLogged.ToString("N1")</span>
-                            </td>
-                            <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 rounded-r-2xl border-y border-r border-slate-100/50 text-right">
-                                <div class="flex items-center justify-end">
-                                    @for (int c = 0; c < 5; c++)
-                                    {
-                                        <i class="fa-solid fa-pepper-hot text-[10px] @(c < Math.Round(user.AverageDifficulty) ? "text-rose-500" : "text-slate-200") ml-0.5"></i>
-                                    }
-                                </div>
+                        <tr>
+                            <td colspan="6" class="px-6 py-12 text-center text-slate-400 font-medium">
+                                <i class="fa-solid fa-hourglass-start block text-4xl mb-4 opacity-20"></i>
+                                @L["No performance data recorded yet."]
                             </td>
                         </tr>
-                        i++;
+                    }
+                    else
+                    {
+                        @foreach (var user in Model.IndividualHighscores)
+                        {
+                            <tr onclick="openPerformanceDetail('user', '@user.UserId')" class="group cursor-pointer hover:translate-x-1 transition-all duration-300">
+                                <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 rounded-l-2xl border-y border-l border-slate-100/50">
+                                    <span class="font-black @(i <= 3 ? "text-amber-500" : "text-slate-400")">@i</span>
+                                </td>
+                                <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 border-y border-slate-100/50">
+                                    <div class="flex items-center">
+                                        <div class="h-10 w-10 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center font-bold mr-3 group-hover:scale-110 transition-transform">
+                                            @user.UserName.Substring(0, Math.Min(2, user.UserName.Length)).ToUpper()
+                                        </div>
+                                        <span class="font-bold text-slate-700">@user.UserName</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 border-y border-slate-100/50 text-center">
+                                    <span class="px-3 py-1 bg-emerald-500/10 text-emerald-600 rounded-lg font-black text-sm">@user.CompletedTickets</span>
+                                </td>
+                                <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 border-y border-slate-100/50 text-center">
+                                    <span class="px-3 py-1 bg-indigo-500/10 text-indigo-600 rounded-lg font-black text-sm">@user.TotalStoryPoints</span>
+                                </td>
+                                <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 border-y border-slate-100/50 text-center">
+                                    <span class="font-bold text-slate-500">@user.TotalHoursLogged.ToString("N1")</span>
+                                </td>
+                                <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 rounded-r-2xl border-y border-r border-slate-100/50 text-right">
+                                    <div class="flex items-center justify-end">
+                                        @for (int c = 0; c < 5; c++)
+                                        {
+                                            <i class="fa-solid fa-pepper-hot text-[10px] @(c < Math.Round(user.AverageDifficulty) ? "text-rose-500" : "text-slate-200") ml-0.5"></i>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                            i++;
+                        }
                     }
                 </tbody>
             </table>
@@ -100,42 +112,54 @@
                 </thead>
                 <tbody>
                     @{ int j = 1; }
-                    @foreach (var team in Model.TeamHighscores)
+                    @if (!Model.TeamHighscores.Any())
                     {
-                        <tr onclick="openPerformanceDetail('team', '@team.TeamId')" class="group cursor-pointer hover:translate-x-1 transition-all duration-300">
-                            <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 rounded-l-2xl border-y border-l border-slate-100/50">
-                                <span class="font-black @(j <= 3 ? "text-amber-500" : "text-slate-400")">@j</span>
-                            </td>
-                            <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 border-y border-slate-100/50">
-                                <div class="flex items-center">
-                                    <div class="h-10 w-10 rounded-xl flex items-center justify-center font-bold mr-3 group-hover:scale-110 transition-transform shadow-lg shadow-black/5" style="background-color: @(string.IsNullOrEmpty(team.ColorCode) ? "#f1f5f9" : team.ColorCode + "20"); color: @(string.IsNullOrEmpty(team.ColorCode) ? "#64748b" : team.ColorCode);">
-                                        <i class="fa-solid fa-users-rectangle"></i>
-                                    </div>
-                                    <div>
-                                        <span class="font-bold text-slate-700 block">@team.TeamName</span>
-                                        <span class="text-[8px] font-black uppercase text-slate-400 tracking-tighter">@team.MemberCount @L["Members"]</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 border-y border-slate-100/50 text-center">
-                                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-600 rounded-lg font-black text-sm">@team.CompletedTickets</span>
-                            </td>
-                            <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 border-y border-slate-100/50 text-center">
-                                <span class="px-3 py-1 bg-indigo-500/10 text-indigo-600 rounded-lg font-black text-sm">@team.TotalStoryPoints</span>
-                            </td>
-                            <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 border-y border-slate-100/50 text-center">
-                                <span class="font-bold text-slate-500">@team.TotalHoursLogged.ToString("N1")</span>
-                            </td>
-                            <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 rounded-r-2xl border-y border-r border-slate-100/50 text-right">
-                                <div class="flex items-center justify-end">
-                                    @for (int c = 0; c < 5; c++)
-                                    {
-                                        <i class="fa-solid fa-pepper-hot text-[10px] @(c < Math.Round(team.AverageDifficulty) ? "text-rose-500" : "text-slate-200") ml-0.5"></i>
-                                    }
-                                </div>
+                        <tr>
+                            <td colspan="6" class="px-6 py-12 text-center text-slate-400 font-medium">
+                                <i class="fa-solid fa-users-slash block text-4xl mb-4 opacity-20"></i>
+                                @L["No team performance data recorded yet."]
                             </td>
                         </tr>
-                        j++;
+                    }
+                    else
+                    {
+                        @foreach (var team in Model.TeamHighscores)
+                        {
+                            <tr onclick="openPerformanceDetail('team', '@team.TeamId')" class="group cursor-pointer hover:translate-x-1 transition-all duration-300">
+                                <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 rounded-l-2xl border-y border-l border-slate-100/50">
+                                    <span class="font-black @(j <= 3 ? "text-amber-500" : "text-slate-400")">@j</span>
+                                </td>
+                                <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 border-y border-slate-100/50">
+                                    <div class="flex items-center">
+                                        <div class="h-10 w-10 rounded-xl flex items-center justify-center font-bold mr-3 group-hover:scale-110 transition-transform shadow-lg shadow-black/5" style="background-color: @(string.IsNullOrEmpty(team.ColorCode) ? "#f1f5f9" : team.ColorCode + "20"); color: @(string.IsNullOrEmpty(team.ColorCode) ? "#64748b" : team.ColorCode);">
+                                            <i class="fa-solid fa-users-rectangle"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-bold text-slate-700 block">@team.TeamName</span>
+                                            <span class="text-[8px] font-black uppercase text-slate-400 tracking-tighter">@team.MemberCount @L["Members"]</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 border-y border-slate-100/50 text-center">
+                                    <span class="px-3 py-1 bg-emerald-500/10 text-emerald-600 rounded-lg font-black text-sm">@team.CompletedTickets</span>
+                                </td>
+                                <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 border-y border-slate-100/50 text-center">
+                                    <span class="px-3 py-1 bg-indigo-500/10 text-indigo-600 rounded-lg font-black text-sm">@team.TotalStoryPoints</span>
+                                </td>
+                                <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 border-y border-slate-100/50 text-center">
+                                    <span class="font-bold text-slate-500">@team.TotalHoursLogged.ToString("N1")</span>
+                                </td>
+                                <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 rounded-r-2xl border-y border-r border-slate-100/50 text-right">
+                                    <div class="flex items-center justify-end">
+                                        @for (int c = 0; c < 5; c++)
+                                        {
+                                            <i class="fa-solid fa-pepper-hot text-[10px] @(c < Math.Round(team.AverageDifficulty) ? "text-rose-500" : "text-slate-200") ml-0.5"></i>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                            j++;
+                        }
                     }
                 </tbody>
             </table>

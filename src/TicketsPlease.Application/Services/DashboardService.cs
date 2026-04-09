@@ -87,8 +87,12 @@ public class DashboardService : IDashboardService
           userTickets.Count,
           userTickets.Sum(t => t.EstimatePoints ?? 0),
           userLogs.Sum(l => l.HoursLogged),
-          userTickets.Any() ? userTickets.Average(t => t.ChilliesDifficulty) : 0);
-    }).OrderByDescending(h => h.CompletedTickets).Take(10).ToList();
+          userTickets.Count > 0 ? userTickets.Average(t => t.ChilliesDifficulty) : 0);
+    })
+    .Where(h => h.CompletedTickets > 0)
+    .OrderByDescending(h => h.CompletedTickets)
+    .Take(10)
+    .ToList();
 
     var teamHighscores = allTeams.Select(t =>
     {
@@ -102,9 +106,13 @@ public class DashboardService : IDashboardService
           teamTickets.Count,
           teamTickets.Sum(tk => tk.EstimatePoints ?? 0),
           teamLogs.Sum(l => l.HoursLogged),
-          teamTickets.Any() ? teamTickets.Average(tk => tk.ChilliesDifficulty) : 0,
+          teamTickets.Count > 0 ? teamTickets.Average(tk => tk.ChilliesDifficulty) : 0,
           t.Members.Count);
-    }).OrderByDescending(h => h.CompletedTickets).Take(10).ToList();
+    })
+    .Where(h => h.CompletedTickets > 0)
+    .OrderByDescending(h => h.CompletedTickets)
+    .Take(10)
+    .ToList();
 
     return new DashboardStatsDto(
         tickets.Count,
