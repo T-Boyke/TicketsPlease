@@ -27,8 +27,23 @@ public interface ITicketService
   /// <param name="projectId">Optionale Projekt-ID.</param>
   /// <param name="assignedUserId">Optionale Zuweisungs-ID.</param>
   /// <param name="creatorId">Optionale Ersteller-ID.</param>
+  /// <param name="status">Optionaler Status (z.B. Todo, Doing).</param>
+  /// <param name="priorityId">Optionale Prioritäts-ID.</param>
+  /// <param name="fromDate">Optionales Startdatum.</param>
+  /// <param name="toDate">Optionales Enddatum.</param>
+  /// <param name="searchString">Optionaler Suchstring für Titel/Beschreibung.</param>
+  /// <param name="tagId">Optionale Tag-ID.</param>
   /// <returns>Eine Liste von <see cref="TicketDto"/>.</returns>
-  public Task<IEnumerable<TicketDto>> GetFilteredTicketsAsync(Guid? projectId = null, Guid? assignedUserId = null, Guid? creatorId = null);
+  public Task<IEnumerable<TicketDto>> GetFilteredTicketsAsync(
+      Guid? projectId = null,
+      Guid? assignedUserId = null,
+      Guid? creatorId = null,
+      string? status = null,
+      Guid? priorityId = null,
+      DateTime? fromDate = null,
+      DateTime? toDate = null,
+      string? searchString = null,
+      Guid? tagId = null);
 
   /// <summary>
   /// Ruft ein spezifisches Ticket ab.

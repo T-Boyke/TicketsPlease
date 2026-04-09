@@ -279,8 +279,8 @@ public static class DbInitialiser
           new WorkflowTransition { FromStateId = InReviewStateId, ToStateId = InProgressStateId },
 
           // Admin can move anything to Done
-          new WorkflowTransition { FromStateId = TodoStateId, ToStateId = DoneStateId, AllowedRoleId = AdminRoleId },
-          new WorkflowTransition { FromStateId = InProgressStateId, ToStateId = DoneStateId, AllowedRoleId = AdminRoleId },
+          new WorkflowTransition { FromStateId = TodoStateId, ToStateId = DoneStateId },
+          new WorkflowTransition { FromStateId = InProgressStateId, ToStateId = DoneStateId },
       };
 
       await context.WorkflowTransitions.AddRangeAsync(transitions).ConfigureAwait(false);

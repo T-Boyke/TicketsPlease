@@ -81,9 +81,28 @@ public class TicketService : ITicketService
   }
 
   /// <inheritdoc/>
-  public async Task<IEnumerable<TicketDto>> GetFilteredTicketsAsync(Guid? projectId = null, Guid? assignedUserId = null, Guid? creatorId = null)
+  public async Task<IEnumerable<TicketDto>> GetFilteredTicketsAsync(
+      Guid? projectId = null,
+      Guid? assignedUserId = null,
+      Guid? creatorId = null,
+      string? status = null,
+      Guid? priorityId = null,
+      DateTime? fromDate = null,
+      DateTime? toDate = null,
+      string? searchString = null,
+      Guid? tagId = null)
   {
-    var tickets = await this.ticketRepository.GetFilteredAsync(projectId, assignedUserId, creatorId).ConfigureAwait(false);
+    var tickets = await this.ticketRepository.GetFilteredAsync(
+        projectId,
+        assignedUserId,
+        creatorId,
+        status,
+        priorityId,
+        fromDate,
+        toDate,
+        searchString,
+        tagId).ConfigureAwait(false);
+
     var dtos = new List<TicketDto>();
     foreach (var ticket in tickets)
     {
@@ -453,7 +472,10 @@ public class TicketService : ITicketService
         history,
         upvoteCount,
         hasUpvoted,
-        rowVersion);
+        rowVersion,
+        t.ResponseDeadline,
+        t.ResolutionDeadline,
+        t.LastRespondedAt);
   }
 
   private async Task<User?> GetCurrentUserAsync()

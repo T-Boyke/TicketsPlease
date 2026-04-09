@@ -61,5 +61,8 @@ public record TicketDto(
     IEnumerable<TicketHistoryDto> History,
     int UpvoteCount,
     bool UserHasUpvoted,
-    byte[] RowVersion);
+    byte[] RowVersion,
+    DateTime? ResponseDeadline = null,
+    DateTime? ResolutionDeadline = null,
+    DateTime? LastRespondedAt = null);
 #pragma warning restore CA1819 // Properties should not return arrays

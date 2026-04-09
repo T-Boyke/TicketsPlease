@@ -17,6 +17,15 @@
             }
         </div>
         <div class="flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            @if (Model.ResponseDeadline.HasValue && Model.LastRespondedAt == null)
+            {
+                var timeLeft = Model.ResponseDeadline.Value - DateTime.UtcNow;
+                var colorClass = timeLeft.TotalHours < 1 ? "bg-rose-500" : (timeLeft.TotalHours < 4 ? "bg-amber-500" : "bg-emerald-500");
+                <div class="flex items-center gap-1 @colorClass text-white text-[9px] font-black px-2 py-0.5 rounded-full mr-2 shadow-sm animate-pulse" title='@L["Response Deadline"]'>
+                    <i class="fa-solid fa-clock"></i>
+                    @(timeLeft.TotalMinutes > 0 ? (int)timeLeft.TotalMinutes + "m" : "OVERDUE")
+                </div>
+            }
             <a asp-action="Edit" asp-route-id="@Model.Id" class="p-1 text-slate-400 hover:text-brand-primary" aria-label='@L["Edit ticket"]'><i class="fa-solid fa-pen-to-square text-[10px]" aria-hidden="true"></i></a>
             <a asp-action="Details" asp-route-id="@Model.Id" class="p-1 text-slate-400 hover:text-brand-primary" aria-label='@L["View ticket details"]'><i class="fa-solid fa-eye text-[10px]" aria-hidden="true"></i></a>
         </div>
@@ -27,7 +36,12 @@
     
     <div class="pt-3 border-t border-slate-50 flex items-center justify-between mt-auto">
         <div class="flex -space-x-1 overflow-hidden">
-            <partial name="_Avatar" model='Model.AssignedUserName.Substring(0, 2).ToUpper()' view-data='@new ViewDataDictionary(ViewData) { { "SizeClass", "h-6 w-6 ring-2 ring-white" } }' />
+            @{
+                var initials = !string.IsNullOrEmpty(Model.AssignedUserName) 
+                    ? (Model.AssignedUserName.Length >= 2 ? Model.AssignedUserName.Substring(0, 2) : Model.AssignedUserName) 
+                    : "??";
+            }
+            <partial name="_Avatar" model='initials.ToUpper()' view-data='@new ViewDataDictionary(ViewData) { { "SizeClass", "h-6 w-6 ring-2 ring-white" } }' />
         </div>
         <div class="flex items-center space-x-2 text-slate-400">
             @if (Model.EstimatePoints.HasValue)

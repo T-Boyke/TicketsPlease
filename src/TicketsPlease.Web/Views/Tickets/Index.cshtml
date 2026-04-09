@@ -26,10 +26,13 @@
             <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">@L["Project Board"]</h1>
         </div>
         <div class="flex items-center space-x-3">
-            <div class="relative group hidden sm:block">
+            <form asp-action="Index" method="get" class="relative group hidden sm:block">
+                <input type="hidden" name="projectId" value='@ViewData["CurrentProject"]' />
+                <input type="hidden" name="assignedUserId" value='@ViewData["CurrentAssignee"]' />
+                <input type="hidden" name="creatorId" value='@ViewData["CurrentCreator"]' />
                 <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brand-primary transition-colors"></i>
-                <input type="text" placeholder="@L["Search tickets..."]" class="pl-10 pr-4 py-2 bg-slate-100 border-none rounded-full text-sm focus:ring-2 focus:ring-brand-primary/20 focus:bg-white w-64 transition-all" />
-            </div>
+                <input type="text" name="search" value='@ViewData["CurrentSearch"]' placeholder="@L["Search tickets..."]" class="pl-10 pr-4 py-2 bg-slate-100 border-none rounded-full text-sm focus:ring-2 focus:ring-brand-primary/20 focus:bg-white w-64 transition-all" />
+            </form>
             <a asp-action="Create" class="inline-flex items-center px-5 py-2.5 rounded-full bg-brand-primary text-white text-sm font-bold hover:bg-brand-secondary hover:shadow-lg hover:shadow-brand-primary/30 transition-all duration-200">
                 <i class="fa-solid fa-plus mr-2"></i>
                 @L["New Ticket"]
@@ -56,6 +59,30 @@
                 </select>
             </div>
 
+            @* Priority Filter *@
+            <div class="flex flex-col">
+                <label for="filter-priority" class="text-[9px] font-bold text-slate-400 uppercase mb-1 ml-1">@L["Priority"]</label>
+                <select id="filter-priority" name="priorityId" class="bg-slate-50 border-none text-slate-700 text-xs font-bold rounded-lg focus:ring-2 focus:ring-brand-primary/20 block px-3 py-2 transition-all outline-none min-w-[120px]" onchange="this.form.submit()">
+                    <option value="">@L["All Priorities"]</option>
+                    @foreach (var p in (SelectList)ViewBag.Priorities)
+                    {
+                        <option value="@p.Value" selected='@(ViewData["CurrentPriority"]?.ToString() == p.Value)'>@p.Text</option>
+                    }
+                </select>
+            </div>
+
+            @* Tag Filter *@
+            <div class="flex flex-col">
+                <label for="filter-tag" class="text-[9px] font-bold text-slate-400 uppercase mb-1 ml-1">@L["Tag"]</label>
+                <select id="filter-tag" name="tagId" class="bg-slate-50 border-none text-slate-700 text-xs font-bold rounded-lg focus:ring-2 focus:ring-brand-primary/20 block px-3 py-2 transition-all outline-none min-w-[120px]" onchange="this.form.submit()">
+                    <option value="">@L["All Tags"]</option>
+                    @foreach (var t in (IEnumerable<TagDto>)ViewBag.Tags.Items)
+                    {
+                        <option value="@t.Id" selected='@(ViewData["CurrentTag"]?.ToString() == t.Id.ToString())'>#@t.Name</option>
+                    }
+                </select>
+            </div>
+
             @* Assignee Filter *@
             <div class="flex flex-col">
                 <label for="filter-assignee" class="text-[9px] font-bold text-slate-400 uppercase mb-1 ml-1">@L["Assignee"]</label>
@@ -68,19 +95,10 @@
                 </select>
             </div>
 
-            @* Creator Filter *@
-            <div class="flex flex-col">
-                <label for="filter-creator" class="text-[9px] font-bold text-slate-400 uppercase mb-1 ml-1">@L["Creator"]</label>
-                <select id="filter-creator" name="creatorId" class="bg-slate-50 border-none text-slate-700 text-xs font-bold rounded-lg focus:ring-2 focus:ring-brand-primary/20 block px-3 py-2 transition-all outline-none min-w-[140px]" onchange="this.form.submit()">
-                    <option value="">@L["All Creators"]</option>
-                    @foreach (var u in (SelectList)ViewBag.Users)
-                    {
-                        <option value="@u.Value" selected='@(ViewData["CurrentCreator"]?.ToString() == u.Value)'>@u.Text</option>
-                    }
-                </select>
-            </div>
+            @* Hidden persistent search *@
+            <input type="hidden" name="search" value='@ViewData["CurrentSearch"]' />
 
-            @if (ViewData["CurrentProject"] != null || ViewData["CurrentAssignee"] != null || ViewData["CurrentCreator"] != null)
+            @if (ViewData["CurrentProject"] != null || ViewData["CurrentAssignee"] != null || ViewData["CurrentPriority"] != null || ViewData["CurrentTag"] != null || !string.IsNullOrWhiteSpace(ViewData["CurrentSearch"] as string))
             {
                 <div class="flex items-end h-full pb-2">
                     <a asp-action="Index" class="text-[10px] font-bold text-rose-500 hover:text-rose-600 transition-colors flex items-center bg-rose-50 px-3 py-1.5 rounded-full">
@@ -104,7 +122,7 @@
                 </div>
                 <button class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-ellipsis"></i></button>
             </div>
-            <div id="todo-list" class="flex-grow overflow-y-auto space-y-4 pr-2 custom-scrollbar" data-status="Todo">
+            <div id="todo-list" class="flex-grow overflow-y-auto min-h-[500px] max-h-[65vh] space-y-4 pr-2 custom-scrollbar" data-status="Todo">
                 @foreach (var ticket in todo)
                 {
                     <partial name="_TicketCard" model="ticket" />
@@ -122,7 +140,7 @@
                 </div>
                 <button class="text-slate-400 hover:text-brand-primary" aria-label='@L["Column Actions"]'><i class="fa-solid fa-ellipsis" aria-hidden="true"></i></button>
             </div>
-            <div id="doing-list" class="flex-grow overflow-y-auto space-y-4 pr-2 custom-scrollbar" data-status="In Progress">
+            <div id="doing-list" class="flex-grow overflow-y-auto min-h-[500px] max-h-[65vh] space-y-4 pr-2 custom-scrollbar" data-status="In Progress">
                 @foreach (var ticket in doing)
                 {
                     <partial name="_TicketCard" model="ticket" />
@@ -140,7 +158,7 @@
                 </div>
                 <button class="text-slate-400 hover:text-emerald-600" aria-label='@L["Column Actions"]'><i class="fa-solid fa-ellipsis" aria-hidden="true"></i></button>
             </div>
-            <div id="done-list" class="flex-grow overflow-y-auto space-y-4 pr-2 custom-scrollbar" data-status="Done">
+            <div id="done-list" class="flex-grow overflow-y-auto min-h-[500px] max-h-[65vh] space-y-4 pr-2 custom-scrollbar" data-status="Done">
                 @foreach (var ticket in done)
                 {
                     <partial name="_TicketCard" model="ticket" />
@@ -167,18 +185,19 @@
                         const ticketId = evt.item.dataset.id;
                         const newStatus = evt.to.dataset.status;
                         
-                        // AJAX POST call to move ticket
-                        fetch(`/Tickets/Move?id=${ticketId}&status=${newStatus}`, {
+                        fetch(`/Tickets/Move/${ticketId}?status=${newStatus}`, {
                             method: 'POST',
                             headers: {
-                                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+                                'Content-Type': 'application/json',
+                                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
                             }
                         }).then(response => {
                             if (!response.ok) {
-                                // Handle error - potentially revert move
                                 console.error('Move failed');
                                 location.reload();
                             }
+                        }).catch(() => {
+                            location.reload();
                         });
                     }
                 });
