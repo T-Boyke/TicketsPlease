@@ -61,4 +61,34 @@ public class UserProfile : BaseAuditableEntity
   /// Gets or sets das Navigation-Property für das Profilbild als FileAsset.
   /// </summary>
   public FileAsset? AvatarImage { get; set; }
+
+  /// <summary>
+  /// Gets or sets die berufliche Position.
+  /// </summary>
+  public string? Position { get; set; }
+
+  /// <summary>
+  /// Gets or sets den Tech-Stack (z.B. kommagetrennt).
+  /// </summary>
+  public string? TechStack { get; set; }
+
+  /// <summary>
+  /// Gets or sets die Straße der Anschrift.
+  /// </summary>
+  public string? Street { get; set; }
+
+  /// <summary>
+  /// Gets or sets die Hausnummer der Anschrift.
+  /// </summary>
+  public string? HouseNumber { get; set; }
+
+  /// <summary>
+  /// Gets or sets die Stadt der Anschrift.
+  /// </summary>
+  public string? City { get; set; }
+
+  /// <summary>
+  /// Gets or sets das Land der Anschrift.
+  /// </summary>
+  public string? Country { get; set; }
 }

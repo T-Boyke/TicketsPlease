@@ -5,6 +5,7 @@
 namespace TicketsPlease.Web.Models.Account;
 
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 /// <summary>
 /// ViewModel zum Bearbeiten des eigenen Benutzerprofils.
@@ -64,4 +65,46 @@ public class EditProfileViewModel
     [Display(Name = "Passwort bestätigen")]
     [Compare("NewPassword", ErrorMessage = "Die Passwörter stimmen nicht überein.")]
     public string? ConfirmPassword { get; set; }
+
+    /// <summary>
+    /// Gets or sets die berufliche Position.
+    /// </summary>
+    [Display(Name = "Berufliche Position")]
+    public string? Position { get; set; }
+
+    /// <summary>
+    /// Gets or sets den Tech-Stack.
+    /// </summary>
+    [Display(Name = "Tech-Stack (kommagetrennt)")]
+    public string? TechStack { get; set; }
+
+    /// <summary>
+    /// Gets or sets die Straße.
+    /// </summary>
+    [Display(Name = "Straße")]
+    public string? Street { get; set; }
+
+    /// <summary>
+    /// Gets or sets die Hausnummer.
+    /// </summary>
+    [Display(Name = "Hausnummer")]
+    public string? HouseNumber { get; set; }
+
+    /// <summary>
+    /// Gets or sets die Stadt.
+    /// </summary>
+    [Display(Name = "Stadt")]
+    public string? City { get; set; }
+
+    /// <summary>
+    /// Gets or sets das Land.
+    /// </summary>
+    [Display(Name = "Land")]
+    public string? Country { get; set; }
+
+    /// <summary>
+    /// Gets or sets das hochzuladende Profilbild.
+    /// </summary>
+    [Display(Name = "Profilbild")]
+    public IFormFile? AvatarFile { get; set; }
 }

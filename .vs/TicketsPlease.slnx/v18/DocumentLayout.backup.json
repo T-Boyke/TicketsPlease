@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\DEV\\TicketsPlease\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{4331AE3E-C163-5A78-55A5-27672F4788BF}|src\\TicketsPlease.Application\\TicketsPlease.Application.csproj|d:\\dev\\ticketsplease\\src\\ticketsplease.application\\common\\dtos\\ticketdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4331AE3E-C163-5A78-55A5-27672F4788BF}|src\\TicketsPlease.Application\\TicketsPlease.Application.csproj|solutionrelative:src\\ticketsplease.application\\common\\dtos\\ticketdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{52E4C03A-1E08-344D-D6AD-326812F611CB}|src\\TicketsPlease.Web\\TicketsPlease.Web.csproj|d:\\dev\\ticketsplease\\src\\ticketsplease.web\\controllers\\ticketscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{52E4C03A-1E08-344D-D6AD-326812F611CB}|src\\TicketsPlease.Web\\TicketsPlease.Web.csproj|solutionrelative:src\\ticketsplease.web\\controllers\\ticketscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -23,12 +27,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "TicketDto.cs",
+              "DocumentMoniker": "D:\\DEV\\TicketsPlease\\src\\TicketsPlease.Application\\Common\\Dtos\\TicketDto.cs",
+              "RelativeDocumentMoniker": "src\\TicketsPlease.Application\\Common\\Dtos\\TicketDto.cs",
+              "ToolTip": "D:\\DEV\\TicketsPlease\\src\\TicketsPlease.Application\\Common\\Dtos\\TicketDto.cs",
+              "RelativeToolTip": "src\\TicketsPlease.Application\\Common\\Dtos\\TicketDto.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAlwEAAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-09T19:56:12.312Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "TicketsController.cs",
               "DocumentMoniker": "D:\\DEV\\TicketsPlease\\src\\TicketsPlease.Web\\Controllers\\TicketsController.cs",
               "RelativeDocumentMoniker": "src\\TicketsPlease.Web\\Controllers\\TicketsController.cs",
               "ToolTip": "D:\\DEV\\TicketsPlease\\src\\TicketsPlease.Web\\Controllers\\TicketsController.cs",
               "RelativeToolTip": "src\\TicketsPlease.Web\\Controllers\\TicketsController.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAgwEAAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAowH4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-26T19:25:14.762Z",
               "EditorCaption": ""
