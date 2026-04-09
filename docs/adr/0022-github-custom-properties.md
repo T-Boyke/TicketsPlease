@@ -1,4 +1,4 @@
-# ADR 0022: GitHub Custom Properties Governance
+﻿# ADR 0022: GitHub Custom Properties Governance
 
 - Status: accepted
 - Deciders: Antigravity, USER
@@ -74,7 +74,7 @@ graph TD
 | `repository_type`  | Single Select | Architectural classification of the repo.  | `frontend`, `backend`, `library`, `infrastructure` |
 | `production_state` | Single Select | Lifecycle and stability state.             | `internal`, `beta`, `production`, `archived`       |
 | `data_sensitivity` | Single Select | Data classification level.                 | `public`, `internal`, `confidential`, `restricted` |
-| `ihk_compliance`   | Boolean       | Whether documentation standards apply. | `true`, `false`                                    |
+| `ihk_compliance`   | Boolean       | Whether documentation standards apply.     | `true`, `false`                                    |
 
 ## Pros and Cons of the Options
 
@@ -85,3 +85,5 @@ Manual documentation of organization settings within the repository.
 - Good, because it integrates with existing developer workflows (Markdown/Git).
 - Good, because it serves as a baseline for future API automation.
 - Bad, because it requires manual discipline to keep in sync.
+
+
