@@ -167,6 +167,10 @@ Normalform) Datenbankschema frei:
 - [x] **Kanban Dashboard:** Interaktives Board mit SortableJS.
 - [x] **Markdown Engine & Mermaid:** Rendering in Ticket-Beschreibungen.
 - [x] **Community Voting:** Upvoting von Tickets.
+- [x] **Live Presence:** Wer arbeitet gerade an welchem Ticket? + Globale Präsenzanzeige.
+- [x] **Team Chat:** Real-time HQ & Team Chat (SignalR Collaboration Hub).
+- [x] Ticket Templates (F1): Erstellen/Verwalten von standardisierten Ticket-Vorlagen.
+- [x] Workspace Management (F1): Erstellen/Verwalten von Workspaces/Organisationen (Enterprise Ready).
 
 **3. Workspace Management:**
 
@@ -190,8 +194,8 @@ Normalform) Datenbankschema frei:
 
 **2. Benachrichtigungen & Alerts:**
 
-- **In-App Notification Center:** Glocke in der UI.
-- **Notification Sounds:** Konfigurierbare akustische Signale.
+- [x] **In-App Notification Center:** Glocke in der UI.
+- [x] **Notification Sounds:** Konfigurierbare akustische Signale (Base64 integriert).
 
 **3. Dokumentenmanagement:**
 
@@ -200,13 +204,13 @@ Normalform) Datenbankschema frei:
 
 **4. Service Level Agreements (SLAs):**
 
-- **Automatisierte Countdowns:** Response- und Resolution-Times.
+- [~] **Automatisierte Countdowns:** Response- und Resolution-Times (Real-time Badges auf Ticket-Karten).
 
 **5. Faceted Search & Filtering (EF Core):**
 
-- **High-Performance Search:** Komplexes Filtern von Tickets (z.B. "Alle Tickets
-  mit Tag #frontend, Status = In Progress, Assigned = Me").
-- _Architektur:_ Umsetzung über dynamische LINQ-Queries in EF Core, idealerweise
+- [x] **High-Performance Search:** Komplexes Filtern von Tickets (z.B. "Alle Tickets
+      mit Tag #frontend, Status = In Progress, Assigned = Me").
+- [x] _Architektur:_ Umsetzung über dynamische LINQ-Queries in EF Core, idealerweise
   optimiert durch definierte Datenbank-Indizes auf den Suchspalten.
 
 **6. Ticket Templates:**

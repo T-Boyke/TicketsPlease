@@ -5,6 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.11.0-alpha] - 2026-04-09
+
+### Added
+
+- **Ticket Template Engine**: Implemented a comprehensive template system allowing administrators to define standardized Markdown descriptions and default priorities for different ticket types.
+- **Smart Form Pre-filling**: Added a client-side injection system in the Ticket Creation flow that applied templates instantly on selection.
+- **Workspace Management Hub**: New administrative module for multi-tenant organization control, including subscription tier management and global workspace status.
+- **Enterprise Presence (Phase 2.3)**: Finalized the SignalR Collaboration Hub with global presence tracking and team-specific chat group support.
+
+### Improved
+
+- **Admin UI Aesthetics**: Updated the administrative area with a premium, glassmorphism-inspired design consistent with the core application.
+- **Navigation Architecture**: Expanded the global navbar with categorized administrative actions for Templates and Workspaces.
+
+## [0.10.0-alpha] - 2026-04-09
+
+### Added
+
+- **Global Faceted Search**: Implemented high-performance search across ticket titles and descriptions in Repository and Service layers.
+- **Notification Dropdown**: Added a premium notification center in the navbar with mock alerts and unread indicators.
+- **Dynamic Navigation**: Implemented smart active-link highlighting in the navbar based on current route data.
+
+### Improved
+
+- **Kanban Resilience**: Fixed Drag & Drop "snap-back" by integrating missing `RequestVerificationToken` in AJAX headers.
+- **Column UX**: Added vertical scrolling (`max-h-65vh`) to Kanban list containers to handle large ticket volumes.
+- **Leaderboard Logic**: Optimized the Highscore Board to hide participants with zero points or completed tickets.
+
+### Fixed
+
+- **Avatar Rendering**: Resolved potential NullReference/IndexOutOfRange exceptions when rendering avatars for unassigned tickets.
+- **API Visibility**: Exposed `TicketsController` as public to ensure proper route discovery.
+- **Workflow Seeding**: Relaxed transition rules in `DbInitialiser` to allow all users to move tickets to the "Done" state.
+
 ## [0.9.0-alpha] - 2026-04-02
 
 ### Added
