@@ -1,0 +1,68 @@
+@model IEnumerable<TicketsPlease.Application.Common.Dtos.TicketTemplateDto>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer L
+
+@{
+    ViewData["Title"] = L["Ticket Templates"];
+}
+
+<div class="space-y-6 animate-in fade-in duration-500">
+    <div class="flex items-center justify-between bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+        <div>
+            <h1 class="text-2xl font-black text-slate-900 tracking-tight">@L["Ticket Templates"]</h1>
+            <p class="text-slate-500 text-sm">@L["Manage standard structures for bug reports, feature requests, and more."]</p>
+        </div>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="fa-solid fa-plus mr-2"></i> @L["Create Template"]
+        </a>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="bg-slate-50 border-b border-slate-100">
+                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">@L["Name"]</th>
+                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">@L["Default Priority"]</th>
+                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">@L["Actions"]</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-50">
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="3" class="px-6 py-12 text-center text-slate-400 italic">
+                            @L["No templates defined yet."]
+                        </td>
+                    </tr>
+                }
+                @foreach (var template in Model)
+                {
+                    <tr class="hover:bg-slate-50/50 transition-colors group">
+                        <td class="px-6 py-4">
+                            <span class="font-bold text-slate-700">@template.Name</span>
+                        </td>
+                        <td class="px-6 py-4">
+                            @if (template.DefaultPriorityId.HasValue)
+                            {
+                                <span class="badge badge-slate">@template.DefaultPriorityName</span>
+                            }
+                            else
+                            {
+                                <span class="text-slate-300 text-xs">@L["None"]</span>
+                            }
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <div class="flex justify-end space-x-2">
+                                <form asp-action="Delete" asp-route-id="@template.Id" method="post" onsubmit="return confirm('@L["Are you sure?"]');">
+                                    <button type="submit" class="h-8 w-8 flex items-center justify-center rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition-all">
+                                        <i class="fa-solid fa-trash text-xs"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

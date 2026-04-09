@@ -40,6 +40,8 @@ public interface ITicketRepository
   /// <param name="priorityId">Die Prioritäts-ID.</param>
   /// <param name="fromDate">Startdatum.</param>
   /// <param name="toDate">Enddatum.</param>
+  /// <param name="searchString">Der Suchbegriff.</param>
+  /// <param name="tagId">Die Tag-ID.</param>
   /// <param name="ct">Das Abbruchsignal.</param>
   /// <returns>Eine Liste von Tickets.</returns>
   public Task<List<Ticket>> GetFilteredAsync(
@@ -50,6 +52,8 @@ public interface ITicketRepository
       Guid? priorityId = null,
       DateTime? fromDate = null,
       DateTime? toDate = null,
+      string? searchString = null,
+      Guid? tagId = null,
       CancellationToken ct = default);
 
   /// <summary>
@@ -142,6 +146,13 @@ public interface ITicketRepository
   /// <param name="ticketId">Die Ticket-ID.</param>
   /// <returns>Ein Task.</returns>
   public Task<int> GetUpvoteCountAsync(Guid ticketId);
+
+  /// <summary>
+  /// Ruft alle verfügbaren Prioritäten ab.
+  /// </summary>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Eine Liste von Prioritäten.</returns>
+  public Task<List<TicketPriority>> GetPrioritiesAsync(CancellationToken ct = default);
 
   /// <summary>
   /// Setzt die ursprüngliche RowVersion für die Nebenläufigkeitsprüfung.

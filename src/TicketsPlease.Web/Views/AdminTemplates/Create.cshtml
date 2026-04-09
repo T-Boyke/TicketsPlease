@@ -1,0 +1,43 @@
+@model TicketsPlease.Application.Common.Dtos.CreateTicketTemplateDto
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer L
+
+@{
+    ViewData["Title"] = L["New Template"];
+}
+
+<div class="max-w-2xl mx-auto space-y-6 animate-in slide-in-from-bottom-4 duration-500">
+    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+        <div class="mb-8">
+            <h1 class="text-2xl font-black text-slate-900 tracking-tight">@L["Create New Template"]</h1>
+            <p class="text-slate-500 text-sm">@L["Define a structure for common tasks."]</p>
+        </div>
+
+        <form asp-action="Create" method="post" class="space-y-6">
+            <div class="space-y-1">
+                <label asp-for="Name" class="text-xs font-black text-slate-400 uppercase tracking-widest">@L["Template Name"]</label>
+                <input asp-for="Name" class="form-input w-full" placeholder='e.g. "Bug Report"' required />
+                <span asp-validation-for="Name" class="text-rose-500 text-xs"></span>
+            </div>
+
+            <div class="space-y-1">
+                <label asp-for="DefaultPriorityId" class="text-xs font-black text-slate-400 uppercase tracking-widest">@L["Default Priority"]</label>
+                <select asp-for="DefaultPriorityId" asp-items="ViewBag.Priorities" class="form-input w-full">
+                    <option value="">@L["-- Optional Select --"]</option>
+                </select>
+            </div>
+
+            <div class="space-y-1">
+                <label asp-for="DescriptionMarkdownTemplate" class="text-xs font-black text-slate-400 uppercase tracking-widest">@L["Markdown Description Template"]</label>
+                <textarea asp-for="DescriptionMarkdownTemplate" rows="10" class="form-input w-full font-mono text-sm" 
+                          placeholder="# Summary&#10;&#10;## Steps to Reproduce&#10;1. &#10;2. &#10;&#10;## Expected Behavior&#10;..."></textarea>
+                <p class="text-[10px] text-slate-400">@L["Use Markdown to structure the instructions for the reporter."]</p>
+            </div>
+
+            <div class="flex items-center justify-end space-x-3 pt-4">
+                <a asp-action="Index" class="btn btn-slate">@L["Cancel"]</a>
+                <button type="submit" class="btn btn-primary px-8">@L["Save Template"]</button>
+            </div>
+        </form>
+    </div>
+</div>

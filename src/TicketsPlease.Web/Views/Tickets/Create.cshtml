@@ -23,6 +23,17 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="md:col-span-2">
+                    <label class="block text-sm font-bold text-slate-700">@L["Use Template (Optional)"]</label>
+                    <select id="TemplateSelector" class="mt-1 block w-full px-4 py-3 border border-brand-primary/30 bg-brand-primary/5 rounded-xl shadow-sm focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm">
+                        <option value="">@L["-- Select a Template --"]</option>
+                        @foreach (var t in (IEnumerable<TicketTemplateDto>)ViewBag.Templates)
+                        {
+                            <option value="@t.Id" data-markdown="@t.DescriptionMarkdownTemplate" data-priority="@t.DefaultPriorityId" data-name="@t.Name">@t.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="md:col-span-2">
                     <label asp-for="Title" for="Title" class="block text-sm font-bold text-slate-700">@L["Ticket Title"]</label>
                     <input asp-for="Title" id="Title" class="mt-1 block w-full px-4 py-3 border border-slate-300 rounded-xl shadow-sm focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm" placeholder="@L["What needs to be done?"]" />
                     <span asp-validation-for="Title" class="text-red-500 text-xs mt-1"></span>
@@ -92,3 +103,35 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        document.getElementById('TemplateSelector').addEventListener('change', function() {
+            const option = this.options[this.selectedIndex];
+            if (!option.value) return;
+
+            const name = option.getAttribute('data-name');
+            const markdown = option.getAttribute('data-markdown');
+            const priority = option.getAttribute('data-priority');
+
+            const titleInput = document.getElementById('Title');
+            const descInput = document.getElementById('Description');
+            const prioritySelect = document.getElementById('PriorityId');
+
+            if (titleInput && !titleInput.value) {
+                titleInput.value = name + ": ";
+            }
+
+            if (descInput) {
+                descInput.value = markdown;
+                // Add a small shake animation to indicate prefill
+                descInput.classList.add('ring-2', 'ring-brand-primary/10');
+                setTimeout(() => descInput.classList.remove('ring-2', 'ring-brand-primary/10'), 1000);
+            }
+
+            if (priority && prioritySelect) {
+                prioritySelect.value = priority;
+            }
+        });
+    </script>
+}

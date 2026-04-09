@@ -69,7 +69,20 @@ public class TicketRepository : ITicketRepository
         .ToListAsync(ct).ConfigureAwait(false);
   }
 
-  /// <inheritdoc />
+  /// <summary>
+  /// Ruft gefilterte Tickets ab.
+  /// </summary>
+  /// <param name="projectId">Die Projekt-ID.</param>
+  /// <param name="assignedUserId">Die ID des zugewiesenen Benutzers.</param>
+  /// <param name="creatorId">Die ID des Erstellers.</param>
+  /// <param name="status">Der Ticket-Status.</param>
+  /// <param name="priorityId">Die Prioritäts-ID.</param>
+  /// <param name="fromDate">Startdatum.</param>
+  /// <param name="toDate">Enddatum.</param>
+  /// <param name="searchString">Der Suchbegriff.</param>
+  /// <param name="tagId">Die Tag-ID.</param>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Eine Liste von Tickets.</returns>
   public async Task<List<Ticket>> GetFilteredAsync(
       Guid? projectId = null,
       Guid? assignedUserId = null,
@@ -78,6 +91,8 @@ public class TicketRepository : ITicketRepository
       Guid? priorityId = null,
       DateTime? fromDate = null,
       DateTime? toDate = null,
+      string? searchString = null,
+      Guid? tagId = null,
       CancellationToken ct = default)
   {
     var query = this.context.Tickets
@@ -86,7 +101,13 @@ public class TicketRepository : ITicketRepository
         .Include(t => t.Project)
         .Include(t => t.Priority)
         .Include(t => t.Upvotes)
+        .Include(t => t.Tags)
         .AsQueryable();
+
+    if (!string.IsNullOrWhiteSpace(searchString))
+    {
+      query = query.Where(t => t.Title.Contains(searchString) || t.Description.Contains(searchString));
+    }
 
     if (projectId.HasValue)
     {
@@ -121,6 +142,11 @@ public class TicketRepository : ITicketRepository
     if (toDate.HasValue)
     {
       query = query.Where(t => t.CreatedAt <= toDate.Value);
+    }
+
+    if (tagId.HasValue)
+    {
+      query = query.Where(t => t.Tags.Any(tt => tt.TagId == tagId.Value));
     }
 
     return await query
@@ -211,6 +237,15 @@ public class TicketRepository : ITicketRepository
   public async Task<int> GetUpvoteCountAsync(Guid ticketId)
   {
     return await this.context.TicketUpvotes.AsNoTracking().CountAsync(u => u.TicketId == ticketId).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc />
+  public async Task<List<TicketPriority>> GetPrioritiesAsync(CancellationToken ct = default)
+  {
+    return await this.context.TicketPriorities
+        .OrderByDescending(p => p.LevelWeight)
+        .ToListAsync(ct)
+        .ConfigureAwait(false);
   }
 
   /// <inheritdoc />

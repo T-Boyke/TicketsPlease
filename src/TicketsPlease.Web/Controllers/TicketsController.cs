@@ -22,6 +22,7 @@ using TicketsPlease.Infrastructure.Persistence;
 /// Controller für das Ticket-Handling und das Kanban-Board.
 /// </summary>
 [Authorize]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1515:Consider making public types internal", Justification = "Kept public for visibility in some reflections if necessary, but marked internal per warning.")]
 internal sealed class TicketsController : Controller
 {
   private readonly ITicketService ticketService;
@@ -30,6 +31,7 @@ internal sealed class TicketsController : Controller
   private readonly IFileStorageService fileStorageService;
   private readonly ITimeTrackingService timeTrackingService;
   private readonly ISubTicketService subTicketService;
+  private readonly ITicketTemplateService templateService;
   private readonly UserManager<User> userManager;
   private readonly AppDbContext context;
   private readonly IStringLocalizer<TicketsController> l;
@@ -43,9 +45,11 @@ internal sealed class TicketsController : Controller
   /// <param name="fileStorageService">Der Dienst zur Dateispeicherung.</param>
   /// <param name="timeTrackingService">Der Dienst für Zeiterfassung.</param>
   /// <param name="subTicketService">Der Dienst für Untertickets.</param>
+  /// <param name="templateService">Der Dienst für Ticket-Vorlagen.</param>
   /// <param name="userManager">Die Benutzerverwaltung.</param>
   /// <param name="context">Der Datenbankkontext für Metadata-Lookups.</param>
   /// <param name="localizer">Der Localizer für UI-Strings.</param>
+  [System.Diagnostics.CodeAnalysis.SuppressMessage("Major Code Smell", "S107:Methods should not have too many parameters", Justification = "Standard set of dependencies for a primary feature controller.")]
   public TicketsController(
       ITicketService ticketService,
       IProjectService projectService,
@@ -53,6 +57,7 @@ internal sealed class TicketsController : Controller
       IFileStorageService fileStorageService,
       ITimeTrackingService timeTrackingService,
       ISubTicketService subTicketService,
+      ITicketTemplateService templateService,
       UserManager<User> userManager,
       AppDbContext context,
       IStringLocalizer<TicketsController> localizer)
@@ -63,6 +68,7 @@ internal sealed class TicketsController : Controller
     this.fileStorageService = fileStorageService;
     this.timeTrackingService = timeTrackingService;
     this.subTicketService = subTicketService;
+    this.templateService = templateService;
     this.userManager = userManager;
     this.context = context;
     this.l = localizer;
@@ -74,17 +80,47 @@ internal sealed class TicketsController : Controller
   /// <param name="projectId">Der Filter für das Projekt (F6).</param>
   /// <param name="assignedUserId">Der Filter für den zugewiesenen Benutzer (F6).</param>
   /// <param name="creatorId">Der Filter für den Ersteller (F6).</param>
+  /// <param name="status">Der Status-Filter.</param>
+  /// <param name="priorityId">Der Prioritäts-Filter.</param>
+  /// <param name="fromDate">Startdatum.</param>
+  /// <param name="toDate">Enddatum.</param>
+  /// <param name="search">Der Filter für den Suchbegriff.</param>
+  /// <param name="tagId">Der Tag-Filter.</param>
   /// <returns>Die Index-View mit allen aktiven Tickets.</returns>
   [HttpGet]
-  public async Task<IActionResult> Index(Guid? projectId, Guid? assignedUserId, Guid? creatorId)
+  public async Task<IActionResult> Index(
+      Guid? projectId,
+      Guid? assignedUserId,
+      Guid? creatorId,
+      string? status,
+      Guid? priorityId,
+      DateTime? fromDate,
+      DateTime? toDate,
+      string? search,
+      Guid? tagId)
   {
-    var tickets = await this.ticketService.GetFilteredTicketsAsync(projectId, assignedUserId, creatorId).ConfigureAwait(false);
+    var tickets = await this.ticketService.GetFilteredTicketsAsync(
+        projectId,
+        assignedUserId,
+        creatorId,
+        status,
+        priorityId,
+        fromDate,
+        toDate,
+        search,
+        tagId).ConfigureAwait(false);
 
     await this.PrepareViewBags().ConfigureAwait(false);
 
     this.ViewData["CurrentProject"] = projectId;
     this.ViewData["CurrentAssignee"] = assignedUserId;
     this.ViewData["CurrentCreator"] = creatorId;
+    this.ViewData["CurrentStatus"] = status;
+    this.ViewData["CurrentPriority"] = priorityId;
+    this.ViewData["CurrentFromDate"] = fromDate;
+    this.ViewData["CurrentToDate"] = toDate;
+    this.ViewData["CurrentSearch"] = search;
+    this.ViewData["CurrentTag"] = tagId;
 
     return this.View(tickets);
   }
@@ -372,6 +408,7 @@ internal sealed class TicketsController : Controller
   /// <returns>Ein Umleitungsergebnis.</returns>
   [HttpPost]
   [ValidateAntiForgeryToken]
+  [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1054:URI-Parameter dürfen keine Zeichenfolgen sein", Justification = "ReturnURL follows internal redirect pattern correctly as string.")]
   public async Task<IActionResult> ToggleUpvote(Guid id, string? returnUrl = null)
   {
     var ticket = await this.ticketService.GetTicketAsync(id).ConfigureAwait(false);
@@ -417,5 +454,8 @@ internal sealed class TicketsController : Controller
 
     var tags = await this.ticketService.GetAllTagsAsync().ConfigureAwait(false);
     this.ViewBag.Tags = new MultiSelectList(tags, "Id", "Name");
+
+    var templates = await this.templateService.GetAllTemplatesAsync().ConfigureAwait(false);
+    this.ViewBag.Templates = templates;
   }
 }
