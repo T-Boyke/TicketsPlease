@@ -39,4 +39,5 @@
   <data name="Optional project details..." xml:space="preserve"><value>Optional project details...</value></data>
   <data name="Cancel" xml:space="preserve"><value>Cancel</value></data>
   <data name="Create Project" xml:space="preserve"><value>Create Project</value></data>
+  <data name="Launch Project" xml:space="preserve"><value>Launch Project</value></data>
 </root>
