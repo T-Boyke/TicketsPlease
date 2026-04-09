@@ -44,4 +44,19 @@ public interface IMessageService
   /// <param name="ct">Das Abbruchsignal.</param>
   /// <returns>Eine Liste von Nachrichten-DTOs.</returns>
   public Task<List<MessageDto>> GetConversationAsync(Guid userId, Guid otherUserId, CancellationToken ct = default);
+
+  /// <summary>
+  /// Ruft die Nachrichten eines Teams ab.
+  /// </summary>
+  /// <param name="teamId">Die ID des Teams.</param>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Eine Liste von Nachrichten-DTOs.</returns>
+  public Task<List<MessageDto>> GetTeamMessagesAsync(Guid teamId, CancellationToken ct = default);
+
+  /// <summary>
+  /// Ruft globale (HQ) Nachrichten ab.
+  /// </summary>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Eine Liste von Nachrichten-DTOs.</returns>
+  public Task<List<MessageDto>> GetGlobalMessagesAsync(CancellationToken ct = default);
 }

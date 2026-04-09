@@ -58,6 +58,8 @@ public class MessageService : IMessageService
     {
       SenderUserId = senderId,
       ReceiverUserId = dto.ReceiverUserId,
+      TeamId = dto.TeamId,
+      TicketId = dto.TicketId,
       BodyMarkdown = dto.BodyMarkdown,
       SentAt = DateTime.UtcNow,
     };
@@ -70,14 +72,31 @@ public class MessageService : IMessageService
       await this.UploadAttachmentAsync(message.Id, dto.Attachment).ConfigureAwait(false);
     }
 
-    // Fetch again to ensure navigation properties (Sender/Receiver/Attachments) are loaded
+    // Fetch again to ensure navigation properties are loaded
     var savedMessage = await this.messageRepository.GetByIdAsync(message.Id, ct).ConfigureAwait(false);
     var mappedResult = MapToDto(savedMessage!);
 
-    // Real-time Benachrichtigung
-    await this.notificationService.NotifyNewMessageAsync(dto.ReceiverUserId, mappedResult).ConfigureAwait(false);
+    // Real-time notification for direct messages
+    if (dto.ReceiverUserId.HasValue)
+    {
+      await this.notificationService.NotifyNewMessageAsync(dto.ReceiverUserId.Value, mappedResult).ConfigureAwait(false);
+    }
 
     return mappedResult;
+  }
+
+  /// <inheritdoc />
+  public async Task<List<MessageDto>> GetTeamMessagesAsync(Guid teamId, CancellationToken ct = default)
+  {
+    var messages = await this.messageRepository.GetTeamMessagesAsync(teamId, ct).ConfigureAwait(false);
+    return messages.Select(m => MapToDto(m)).ToList();
+  }
+
+  /// <inheritdoc />
+  public async Task<List<MessageDto>> GetGlobalMessagesAsync(CancellationToken ct = default)
+  {
+    var messages = await this.messageRepository.GetGlobalMessagesAsync(ct).ConfigureAwait(false);
+    return messages.Select(m => MapToDto(m)).ToList();
   }
 
   /// <inheritdoc />

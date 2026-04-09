@@ -14,7 +14,61 @@ using Microsoft.AspNetCore.SignalR;
 [Authorize]
 internal class NotificationHub : Hub
 {
+  private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, string> OnlineUsers = new(); // ConnectionId -> Username
   private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, System.Collections.Generic.HashSet<string>> PresenceTracker = new();
+
+  /// <inheritdoc/>
+  public override async Task OnConnectedAsync()
+  {
+    var username = this.Context.User?.Identity?.Name;
+    if (username != null)
+    {
+      OnlineUsers[this.Context.ConnectionId] = username;
+      await this.Clients.All.SendAsync("UserPresenceChanged", OnlineUsers.Values.Distinct()).ConfigureAwait(false);
+    }
+
+    await base.OnConnectedAsync().ConfigureAwait(false);
+  }
+
+  /// <summary>
+  /// Tritt der globalen HQ-Gruppe bei.
+  /// </summary>
+  /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+  public async Task JoinGlobalGroup()
+  {
+    await this.Groups.AddToGroupAsync(this.Context.ConnectionId, "global_hq").ConfigureAwait(false);
+  }
+
+  /// <summary>
+  /// Tritt einer Team-Gruppe bei.
+  /// </summary>
+  /// <param name="teamId">Die Team-ID.</param>
+  /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+  public async Task JoinTeamGroup(string teamId)
+  {
+    await this.Groups.AddToGroupAsync(this.Context.ConnectionId, $"team_{teamId}").ConfigureAwait(false);
+  }
+
+  /// <summary>
+  /// Sendet eine Nachricht an die globale HQ-Gruppe.
+  /// </summary>
+  /// <param name="message">Die Nachricht.</param>
+  /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+  public async Task SendGlobalMessage(object message)
+  {
+    await this.Clients.Group("global_hq").SendAsync("ReceiveGlobalMessage", message).ConfigureAwait(false);
+  }
+
+  /// <summary>
+  /// Sendet eine Nachricht an eine Team-Gruppe.
+  /// </summary>
+  /// <param name="teamId">Die Team-ID.</param>
+  /// <param name="message">Die Nachricht.</param>
+  /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+  public async Task SendTeamMessage(string teamId, object message)
+  {
+    await this.Clients.Group($"team_{teamId}").SendAsync("ReceiveTeamMessage", message).ConfigureAwait(false);
+  }
 
   /// <summary>
   /// Tritt einer Gruppe für ein spezifisches Ticket bei (für Live-Updates/Präsenz).
@@ -64,6 +118,9 @@ internal class NotificationHub : Hub
     var username = this.Context.User?.Identity?.Name;
     if (username != null)
     {
+      OnlineUsers.TryRemove(this.Context.ConnectionId, out _);
+      await this.Clients.All.SendAsync("UserPresenceChanged", OnlineUsers.Values.Distinct()).ConfigureAwait(false);
+
       foreach (var group in PresenceTracker)
       {
         lock (group.Value)

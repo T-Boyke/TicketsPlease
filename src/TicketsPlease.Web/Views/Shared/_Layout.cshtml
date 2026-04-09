@@ -55,6 +55,14 @@
     <script src="~/js/markdown-engine.js" asp-append-version="true"></script>
     <script src="~/js/notification-client.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <script>window.currentUserName = "@User.Identity.Name";</script>
+        <partial name="_CollaborationHub" />
+        <script src="~/js/collaboration-client.js" asp-append-version="true"></script>
+    }
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

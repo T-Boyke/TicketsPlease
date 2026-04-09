@@ -10,6 +10,8 @@ using System;
 /// Datenübertragungsobjekt zum Erstellen einer Nachricht.
 /// </summary>
 public record CreateMessageDto(
-    Guid ReceiverUserId,
     string BodyMarkdown,
+    Guid? ReceiverUserId = null,
+    Guid? TeamId = null,
+    Guid? TicketId = null,
     Microsoft.AspNetCore.Http.IFormFile? Attachment = null);

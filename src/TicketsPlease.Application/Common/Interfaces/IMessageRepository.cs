@@ -45,6 +45,21 @@ public interface IMessageRepository
   public Task AddAsync(Message message, CancellationToken ct = default);
 
   /// <summary>
+  /// Ruft die Nachrichten eines Teams ab.
+  /// </summary>
+  /// <param name="teamId">ID des Teams.</param>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Eine Liste von Nachrichten.</returns>
+  public Task<List<Message>> GetTeamMessagesAsync(Guid teamId, CancellationToken ct = default);
+
+  /// <summary>
+  /// Ruft globale Nachrichten ab.
+  /// </summary>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Eine Liste von Nachrichten.</returns>
+  public Task<List<Message>> GetGlobalMessagesAsync(CancellationToken ct = default);
+
+  /// <summary>
   /// Speichert Änderungen.
   /// </summary>
   /// <param name="ct">Das Abbruchsignal.</param>

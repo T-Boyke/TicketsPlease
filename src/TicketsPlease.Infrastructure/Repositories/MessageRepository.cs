@@ -74,6 +74,30 @@ public class MessageRepository : IMessageRepository
   }
 
   /// <inheritdoc />
+  public async Task<List<Message>> GetTeamMessagesAsync(Guid teamId, CancellationToken ct = default)
+  {
+    return await this.context.Messages
+        .AsNoTracking()
+        .Where(m => m.TeamId == teamId)
+        .Include(m => m.SenderUser)
+        .Include(m => m.Attachments)
+        .OrderBy(m => m.SentAt)
+        .ToListAsync(ct).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc />
+  public async Task<List<Message>> GetGlobalMessagesAsync(CancellationToken ct = default)
+  {
+    return await this.context.Messages
+        .AsNoTracking()
+        .Where(m => m.TeamId == null && m.ReceiverUserId == null && m.TicketId == null)
+        .Include(m => m.SenderUser)
+        .Include(m => m.Attachments)
+        .OrderBy(m => m.SentAt)
+        .ToListAsync(ct).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc />
   public async Task SaveChangesAsync(CancellationToken ct = default)
   {
     await this.context.SaveChangesAsync(ct).ConfigureAwait(false);
