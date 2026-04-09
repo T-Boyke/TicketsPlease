@@ -23,7 +23,7 @@
                 <label asp-for="Username" class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">@L["Username"]</label>
                 <div class="relative group">
                     <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-brand-primary transition-colors"></i>
-                    <input asp-for="Username" class="w-full pl-11 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
+                    <input asp-for="Username" class="w-full pl-11" style="padding-left: 3rem; pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
                 </div>
                 <span asp-validation-for="Username" class="text-rose-500 text-[10px] font-bold px-1"></span>
             </div>
@@ -32,7 +32,7 @@
                 <label asp-for="Email" class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">@L["Email"]</label>
                 <div class="relative group">
                     <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-brand-primary transition-colors"></i>
-                    <input asp-for="Email" class="w-full pl-11 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
+                    <input asp-for="Email" class="w-full pl-11" style="padding-left: 3rem; pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
                 </div>
                 <span asp-validation-for="Email" class="text-rose-500 text-[10px] font-bold px-1"></span>
             </div>
@@ -52,7 +52,7 @@
                 <label asp-for="PhoneNumber" class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">@L["Phone Number"]</label>
                 <div class="relative group">
                     <i class="fa-solid fa-phone absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-brand-primary transition-colors"></i>
-                    <input asp-for="PhoneNumber" class="w-full pl-11 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
+                    <input asp-for="PhoneNumber" class="w-full pl-11" style="padding-left: 3rem; pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
                 </div>
             </div>
 
@@ -60,7 +60,7 @@
                 <label asp-for="AvatarFile" class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">@L["Profile Picture"]</label>
                 <div class="relative group">
                     <i class="fa-solid fa-image absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-brand-primary transition-colors"></i>
-                    <input asp-for="AvatarFile" type="file" accept="image/*" class="w-full pl-11 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-brand-primary/10 file:text-brand-primary hover:file:bg-brand-primary/20" />
+                    <input asp-for="AvatarFile" type="file" accept="image/*" class="w-full pl-11" style="padding-left: 3rem; pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-black file:bg-brand-primary/10 file:text-brand-primary hover:file:bg-brand-primary/20" />
                 </div>
             </div>
 
@@ -69,14 +69,14 @@
                     <label asp-for="Position" class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">@L["Position"]</label>
                     <div class="relative group">
                         <i class="fa-solid fa-briefcase absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-brand-primary transition-colors"></i>
-                        <input asp-for="Position" class="w-full pl-11 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
+                        <input asp-for="Position" class="w-full pl-11" style="padding-left: 3rem; pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
                     </div>
                 </div>
                 <div class="space-y-2">
                     <label asp-for="TechStack" class="text-xs font-black text-slate-400 uppercase tracking-widest px-1">@L["Tech Stack"]</label>
                     <div class="relative group">
                         <i class="fa-solid fa-code absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-brand-primary transition-colors"></i>
-                        <input asp-for="TechStack" placeholder="C#, SQL, React..." class="w-full pl-11 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
+                        <input asp-for="TechStack" placeholder="C#, SQL, React..." class="w-full pl-11" style="padding-left: 3rem; pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
                     </div>
                 </div>
             </div>
@@ -89,14 +89,14 @@
                         <label asp-for="Street" class="text-[10px] font-bold text-slate-500 px-1">@L["Street"]</label>
                         <div class="relative group">
                             <i class="fa-solid fa-road absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-brand-primary transition-colors"></i>
-                            <input asp-for="Street" class="w-full pl-11 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
+                            <input asp-for="Street" class="w-full pl-11" style="padding-left: 3rem; pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
                         </div>
                     </div>
                     <div class="space-y-2">
                         <label asp-for="HouseNumber" class="text-[10px] font-bold text-slate-500 px-1">@L["No."]</label>
                         <div class="relative group">
                             <i class="fa-solid fa-hashtag absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-brand-primary transition-colors"></i>
-                            <input asp-for="HouseNumber" class="w-full pl-11 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
+                            <input asp-for="HouseNumber" class="w-full pl-11" style="padding-left: 3rem; pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
                         </div>
                     </div>
                 </div>
@@ -106,14 +106,14 @@
                         <label asp-for="City" class="text-[10px] font-bold text-slate-500 px-1">@L["City"]</label>
                         <div class="relative group">
                             <i class="fa-solid fa-city absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-brand-primary transition-colors"></i>
-                            <input asp-for="City" class="w-full pl-11 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
+                            <input asp-for="City" class="w-full pl-11" style="padding-left: 3rem; pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
                         </div>
                     </div>
                     <div class="space-y-2">
                         <label asp-for="Country" class="text-[10px] font-bold text-slate-500 px-1">@L["Country"]</label>
                         <div class="relative group">
                             <i class="fa-solid fa-globe absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-brand-primary transition-colors"></i>
-                            <input asp-for="Country" class="w-full pl-11 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
+                            <input asp-for="Country" class="w-full pl-11" style="padding-left: 3rem; pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
                         </div>
                     </div>
                 </div>
@@ -131,7 +131,7 @@
                     <label asp-for="NewPassword" class="text-[10px] font-bold text-slate-500 px-1">@L["New Password"]</label>
                     <div class="relative group">
                         <i class="fa-solid fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-brand-primary transition-colors"></i>
-                        <input asp-for="NewPassword" type="password" placeholder="••••••••" class="w-full pl-11 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
+                        <input asp-for="NewPassword" type="password" placeholder="••••••••" class="w-full pl-11" style="padding-left: 3rem; pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
                     </div>
                 </div>
 
@@ -139,7 +139,7 @@
                     <label asp-for="ConfirmPassword" class="text-[10px] font-bold text-slate-500 px-1">@L["Confirm Password"]</label>
                     <div class="relative group">
                         <i class="fa-solid fa-shield-check absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-brand-primary transition-colors"></i>
-                        <input asp-for="ConfirmPassword" type="password" placeholder="••••••••" class="w-full pl-11 pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
+                        <input asp-for="ConfirmPassword" type="password" placeholder="••••••••" class="w-full pl-11" style="padding-left: 3rem; pr-4 py-3 bg-slate-50 border-none rounded-2xl focus:ring-4 focus:ring-brand-primary/10 transition-all font-bold text-slate-700" />
                     </div>
                     <span asp-validation-for="ConfirmPassword" class="text-rose-500 text-[10px] font-bold px-1"></span>
                 </div>

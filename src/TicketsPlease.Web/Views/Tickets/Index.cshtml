@@ -113,7 +113,7 @@
     <div id="kanban-board" class="flex-grow grid grid-cols-1 md:grid-cols-3 gap-6 overflow-hidden">
         
         @* To Do Column *@
-        <div class="flex flex-col h-full bg-slate-50/50 rounded-2xl border border-slate-200/60 p-4">
+        <div class="flex flex-col h-full bg-slate-50/50 rounded-2xl border border-slate-200/60 p-4 max-h-[80vh] overflow-hidden">
             <div class="flex items-center justify-between mb-4 px-2">
                 <div class="flex items-center space-x-2">
                     <span class="h-2 w-2 rounded-full bg-slate-400"></span>
@@ -131,7 +131,7 @@
         </div>
 
         @* In Progress Column *@
-        <div class="flex flex-col h-full bg-brand-primary/5 rounded-2xl border border-brand-primary/20 p-4">
+        <div class="flex flex-col h-full bg-brand-primary/5 rounded-2xl border border-brand-primary/20 p-4 max-h-[80vh] overflow-hidden">
             <div class="flex items-center justify-between mb-4 px-2">
                 <div class="flex items-center space-x-2">
                     <span class="h-2 w-2 rounded-full bg-amber-500"></span>
@@ -149,7 +149,7 @@
         </div>
 
         @* Done Column *@
-        <div class="flex flex-col h-full bg-emerald-50/50 rounded-2xl border border-emerald-200/60 p-4">
+        <div class="flex flex-col h-full bg-emerald-50/50 rounded-2xl border border-emerald-200/60 p-4 max-h-[80vh] overflow-hidden">
             <div class="flex items-center justify-between mb-4 px-2">
                 <div class="flex items-center space-x-2">
                     <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
@@ -185,12 +185,15 @@
                         const ticketId = evt.item.dataset.id;
                         const newStatus = evt.to.dataset.status;
                         
+                        const formData = new URLSearchParams();
+                        formData.append('__RequestVerificationToken', document.querySelector('input[name="__RequestVerificationToken"]').value);
+
                         fetch(`/Tickets/Move/${ticketId}?status=${newStatus}`, {
                             method: 'POST',
                             headers: {
-                                'Content-Type': 'application/json',
-                                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
-                            }
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: formData
                         }).then(response => {
                             if (!response.ok) {
                                 console.error('Move failed');

@@ -73,17 +73,17 @@
                     <div class="flex items-center space-x-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
                         @for (int i = 1; i <= 5; i++)
                         {
-                            var color = i switch {
-                                1 => "#15803d",
-                                2 => "#84cc16",
-                                3 => "#f59e0b",
-                                4 => "#f97316",
-                                5 => "#e11d48",
-                                _ => "#cbd5e1"
+                            var colorClass = i switch {
+                                1 => "peer-checked:text-[#15803d]",
+                                2 => "peer-checked:text-[#84cc16]",
+                                3 => "peer-checked:text-[#f59e0b]",
+                                4 => "peer-checked:text-[#f97316]",
+                                5 => "peer-checked:text-[#e11d48]",
+                                _ => "peer-checked:text-[#cbd5e1]"
                             };
                             <label class="cursor-pointer group">
                                 <input type="radio" asp-for="ChilliesDifficulty" value="@i" class="sr-only peer" />
-                                <i class="fa-solid fa-pepper-hot text-xl transition-all peer-checked:scale-125 text-slate-300 hover:text-rose-300 peer-checked:![color:@color]"></i>
+                                <i class="fa-solid fa-pepper-hot text-xl transition-all peer-checked:scale-125 text-slate-300 hover:text-rose-300 @colorClass"></i>
                             </label>
                         }
                     </div>
