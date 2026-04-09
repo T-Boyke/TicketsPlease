@@ -105,7 +105,7 @@ internal sealed class MessagesController : Controller
   /// <param name="userId">Die ID des Gesprächspartners.</param>
   /// <returns>Die Conversation-View.</returns>
   [HttpGet]
-  public async Task<IActionResult> Conversation(Guid userId)
+  public async Task<IActionResult> Conversation(Guid? userId)
   {
     var currentUser = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
     if (currentUser == null)
@@ -113,8 +113,13 @@ internal sealed class MessagesController : Controller
       return this.Challenge();
     }
 
-    var messages = await this.messageService.GetConversationAsync(currentUser.Id, userId).ConfigureAwait(false);
-    var otherUser = await this.userManager.FindByIdAsync(userId.ToString()).ConfigureAwait(false);
+    if (!userId.HasValue || userId.Value == Guid.Empty)
+    {
+        return this.RedirectToAction(nameof(this.Index));
+    }
+
+    var messages = await this.messageService.GetConversationAsync(currentUser.Id, userId.Value).ConfigureAwait(false);
+    var otherUser = await this.userManager.FindByIdAsync(userId.Value.ToString()).ConfigureAwait(false);
 
     if (otherUser == null)
     {

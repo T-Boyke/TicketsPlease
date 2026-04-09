@@ -141,8 +141,8 @@ internal sealed class AccountController : Controller
   /// Meldet den Benutzer ab.
   /// </summary>
   /// <returns>Ein Task mit dem Aktionsergebnis.</returns>
-  [HttpPost]
-  [ValidateAntiForgeryToken]
+  [HttpGet, HttpPost]
+  [AllowAnonymous]
   public async Task<IActionResult> Logout()
   {
     await this.signInManager.SignOutAsync().ConfigureAwait(false);
@@ -271,7 +271,8 @@ internal sealed class AccountController : Controller
     {
       using var stream = model.AvatarFile.OpenReadStream();
       var path = await this.fileStorageService.SaveFileAsync(stream, model.AvatarFile.FileName).ConfigureAwait(false);
-      profile.AvatarUrl = new Uri($"/{path.Replace("\\", "/")}", UriKind.RelativeOrAbsolute);
+      var escapedPath = Uri.EscapeDataString(path.Replace("\\", "/"));
+      profile.AvatarUrl = new Uri($"/Account/Avatar?path={escapedPath}", UriKind.RelativeOrAbsolute);
     }
 
     await this.userRepository.UpdateProfileAsync(profile).ConfigureAwait(false);
@@ -284,6 +285,31 @@ internal sealed class AccountController : Controller
 
     await this.signInManager.RefreshSignInAsync(user).ConfigureAwait(false);
     return this.RedirectToAction(nameof(this.Profile));
+  }
+
+  /// <summary>
+  /// Lädt den Avatar des Benutzers herunter.
+  /// </summary>
+  /// <param name="path">Der Pfad zum Avatar im Storage.</param>
+  /// <returns>Das Bild als FileStream.</returns>
+  [HttpGet]
+  [AllowAnonymous]
+  public async Task<IActionResult> Avatar(string path)
+  {
+    if (string.IsNullOrEmpty(path))
+    {
+      return this.NotFound();
+    }
+
+    try
+    {
+      var stream = await this.fileStorageService.GetFileAsync(Uri.UnescapeDataString(path)).ConfigureAwait(false);
+      return this.File(stream, "image/jpeg"); // ContentType could be dynamic based on extension
+    }
+    catch (System.IO.FileNotFoundException)
+    {
+      return this.NotFound();
+    }
   }
 
   /// <summary>
