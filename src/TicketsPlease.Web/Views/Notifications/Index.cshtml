@@ -1,0 +1,82 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer L
+@{
+    ViewData["Title"] = L["Notifications"];
+}
+
+<div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between mb-10">
+        <div>
+            <h1 class="text-4xl font-black text-slate-900 tracking-tight">@L["Notifications"]</h1>
+            <p class="text-slate-500 font-medium mt-2">@L["Stay updated with your latest activities and mentions."]</p>
+        </div>
+        <div class="flex space-x-2">
+            <button class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl font-bold text-sm hover:bg-slate-200 transition-colors">
+                @L["Mark all as read"]
+            </button>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-[2.5rem] border border-slate-200 shadow-xl overflow-hidden">
+        <div class="divide-y divide-slate-100">
+            @* Mock Notifications for UX demonstration *@
+            <div class="p-6 hover:bg-slate-50 transition-colors flex items-start gap-4">
+                <div class="h-12 w-12 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0">
+                    <i class="fa-solid fa-ticket text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-slate-900">@L["New ticket assigned"]</h3>
+                        <span class="text-[10px] font-black uppercase text-slate-400">2h @L["ago"]</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mt-1">Ticket #1234: "Database performance optimization in Infrastructure layer" @L["was assigned to you by Administrator."]</p>
+                    <div class="mt-3">
+                        <a href="#" class="text-xs font-bold text-brand-primary hover:underline">@L["View Ticket"]</a>
+                    </div>
+                </div>
+                <div class="h-2 w-2 rounded-full bg-blue-500 mt-2"></div>
+            </div>
+
+            <div class="p-6 hover:bg-slate-50 transition-colors flex items-start gap-4">
+                <div class="h-12 w-12 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-600 flex-shrink-0">
+                    <i class="fa-solid fa-check-double text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-slate-900">@L["Ticket resolved"]</h3>
+                        <span class="text-[10px] font-black uppercase text-slate-400">5h @L["ago"]</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mt-1">Tobias resolved "Fix login bug in production environment".</p>
+                    <div class="mt-3">
+                        <a href="#" class="text-xs font-bold text-brand-primary hover:underline">@L["View Resolution"]</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6 hover:bg-slate-50 transition-colors flex items-start gap-4 opacity-60">
+                <div class="h-12 w-12 rounded-2xl bg-indigo-100 flex items-center justify-center text-indigo-600 flex-shrink-0">
+                    <i class="fa-solid fa-comment-dots text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-slate-700">@L["New comment"]</h3>
+                        <span class="text-[10px] font-black uppercase text-slate-400">1d @L["ago"]</span>
+                    </div>
+                    <p class="text-sm text-slate-500 mt-1">Sarah commented on "UI Refinement": "This looks amazing!"</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-slate-50 p-6 text-center border-t border-slate-100">
+            <button class="text-sm font-bold text-slate-500 hover:text-slate-800 transition-colors">
+                @L["Load older notifications"]
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8fafc;
+    }
+</style>
