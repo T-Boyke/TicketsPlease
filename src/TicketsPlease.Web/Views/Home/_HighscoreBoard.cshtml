@@ -44,8 +44,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @{ int i = 1; }
-                    @if (!Model.IndividualHighscores.Any())
+                    @{ 
+                        int i = 1;
+                        var activeIndividuals = Model.IndividualHighscores.Where(u => u.CompletedTickets > 0 || u.TotalStoryPoints > 0).ToList();
+                    }
+                    @if (!activeIndividuals.Any())
                     {
                         <tr>
                             <td colspan="6" class="px-6 py-12 text-center text-slate-400 font-medium">
@@ -56,7 +59,7 @@
                     }
                     else
                     {
-                        @foreach (var user in Model.IndividualHighscores)
+                        @foreach (var user in activeIndividuals)
                         {
                             <tr onclick="openPerformanceDetail('user', '@user.UserId')" class="group cursor-pointer hover:translate-x-1 transition-all duration-300">
                                 <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 rounded-l-2xl border-y border-l border-slate-100/50">
@@ -111,8 +114,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @{ int j = 1; }
-                    @if (!Model.TeamHighscores.Any())
+                    @{ 
+                        int j = 1;
+                        var activeTeams = Model.TeamHighscores.Where(t => t.CompletedTickets > 0 || t.TotalStoryPoints > 0).ToList();
+                    }
+                    @if (!activeTeams.Any())
                     {
                         <tr>
                             <td colspan="6" class="px-6 py-12 text-center text-slate-400 font-medium">
@@ -123,7 +129,7 @@
                     }
                     else
                     {
-                        @foreach (var team in Model.TeamHighscores)
+                        @foreach (var team in activeTeams)
                         {
                             <tr onclick="openPerformanceDetail('team', '@team.TeamId')" class="group cursor-pointer hover:translate-x-1 transition-all duration-300">
                                 <td class="px-6 py-4 bg-slate-50/50 group-hover:bg-brand-primary/5 rounded-l-2xl border-y border-l border-slate-100/50">
