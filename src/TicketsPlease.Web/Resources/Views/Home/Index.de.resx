@@ -118,4 +118,61 @@
   <data name="The Kanban experience is butter-smooth. Tailwind 4 combined with Razor Partials makes UI customization a breeze." xml:space="preserve">
     <value>Die Kanban-Erfahrung ist butterweich. Tailwind 4 kombiniert mit Razor Partials macht UI-Anpassungen zum Kinderspiel.</value>
   </data>
+  <data name="Highscore Board" xml:space="preserve">
+    <value>Highscore-Board</value>
+  </data>
+  <data name="Individual" xml:space="preserve">
+    <value>Individuell</value>
+  </data>
+  <data name="Teams" xml:space="preserve">
+    <value>Teams</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Benutzer</value>
+  </data>
+  <data name="Tickets" xml:space="preserve">
+    <value>Tickets</value>
+  </data>
+  <data name="Points" xml:space="preserve">
+    <value>Punkte</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Stunden</value>
+  </data>
+  <data name="Difficulty" xml:space="preserve">
+    <value>Schwierigkeit</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Mitglieder</value>
+  </data>
+  <data name="Deep Dive Performance Analysis" xml:space="preserve">
+    <value>Detaillierte Performance-Analyse</value>
+  </data>
+  <data name="Efficiency" xml:space="preserve">
+    <value>Effizienz</value>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Wert</value>
+  </data>
+  <data name="Total Logged" xml:space="preserve">
+    <value>Gesamt erfasst</value>
+  </data>
+  <data name="Done Tickets" xml:space="preserve">
+    <value>Erledigte Tickets</value>
+  </data>
+  <data name="Story Points" xml:space="preserve">
+    <value>Story Points</value>
+  </data>
+  <data name="Task Status" xml:space="preserve">
+    <value>Aufgabenstatus</value>
+  </data>
+  <data name="Priority Distribution" xml:space="preserve">
+    <value>Prioritätsverteilung</value>
+  </data>
+  <data name="Live Performance Tracking" xml:space="preserve">
+    <value>Live-Leistungstracking</value>
+  </data>
 </root>

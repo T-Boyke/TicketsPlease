@@ -75,6 +75,7 @@ builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<IFileAssetRepository, FileAssetRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+builder.Services.AddScoped<ITimeLogRepository, TimeLogRepository>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<ICommentService, CommentService>();

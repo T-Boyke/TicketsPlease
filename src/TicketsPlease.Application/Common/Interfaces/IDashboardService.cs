@@ -17,4 +17,18 @@ public interface IDashboardService
   /// </summary>
   /// <returns>Ein <see cref="DashboardStatsDto"/>.</returns>
   public Task<DashboardStatsDto> GetDashboardStatsAsync();
+
+  /// <summary>
+  /// Ruft detaillierte Performance-Daten für einen Benutzer ab.
+  /// </summary>
+  /// <param name="userId">Die ID des Benutzers.</param>
+  /// <returns>Ein <see cref="PerformanceDetailDto"/>.</returns>
+  public Task<PerformanceDetailDto> GetUserPerformanceDetailAsync(Guid userId);
+
+  /// <summary>
+  /// Ruft detaillierte Performance-Daten für ein Team ab.
+  /// </summary>
+  /// <param name="teamId">Die ID des Teams.</param>
+  /// <returns>Ein <see cref="PerformanceDetailDto"/>.</returns>
+  public Task<PerformanceDetailDto> GetTeamPerformanceDetailAsync(Guid teamId);
 }

@@ -23,22 +23,30 @@ public class DashboardService : IDashboardService
   private readonly IProjectRepository projectRepository;
   private readonly UserManager<User> userManager;
   private readonly RoleManager<Role> roleManager;
+  private readonly ITeamRepository teamRepository;
+  private readonly ITimeLogRepository timeLogRepository;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="DashboardService"/> class.
   /// </summary>
   /// <param name="ticketRepository">The ticket repository.</param>
   /// <param name="projectRepository">The project repository.</param>
+  /// <param name="teamRepository">The team repository.</param>
+  /// <param name="timeLogRepository">The time log repository.</param>
   /// <param name="userManager">The user manager.</param>
   /// <param name="roleManager">The role manager.</param>
   public DashboardService(
       ITicketRepository ticketRepository,
       IProjectRepository projectRepository,
+      ITeamRepository teamRepository,
+      ITimeLogRepository timeLogRepository,
       UserManager<User> userManager,
       RoleManager<Role> roleManager)
   {
     this.ticketRepository = ticketRepository;
     this.projectRepository = projectRepository;
+    this.teamRepository = teamRepository;
+    this.timeLogRepository = timeLogRepository;
     this.userManager = userManager;
     this.roleManager = roleManager;
   }
@@ -64,6 +72,40 @@ public class DashboardService : IDashboardService
       usersByRole.Add(roleName, usersInRole.Count);
     }
 
+    // Highscore Berechnung
+    var allTimeLogs = await this.timeLogRepository.GetAllAsync().ConfigureAwait(false);
+    var allTeams = await this.teamRepository.GetAllTeamsAsync().ConfigureAwait(false);
+
+    var individualHighscores = users.Select(u =>
+    {
+      var userTickets = tickets.Where(t => t.AssignedUserId == u.Id && (t.Status == "Closed" || t.Status == "Done")).ToList();
+      var userLogs = allTimeLogs.Where(l => l.UserId == u.Id).ToList();
+      return new UserHighscoreDto(
+          u.Id,
+          u.UserName ?? "Unknown",
+          null, // Avatar placeholder
+          userTickets.Count,
+          userTickets.Sum(t => t.EstimatePoints ?? 0),
+          userLogs.Sum(l => l.HoursLogged),
+          userTickets.Any() ? userTickets.Average(t => t.ChilliesDifficulty) : 0);
+    }).OrderByDescending(h => h.CompletedTickets).Take(10).ToList();
+
+    var teamHighscores = allTeams.Select(t =>
+    {
+      var memberIds = t.Members.Select(m => m.UserId).ToList();
+      var teamTickets = tickets.Where(tk => tk.AssignedUserId.HasValue && memberIds.Contains(tk.AssignedUserId.Value) && (tk.Status == "Closed" || tk.Status == "Done")).ToList();
+      var teamLogs = allTimeLogs.Where(l => memberIds.Contains(l.UserId)).ToList();
+      return new TeamHighscoreDto(
+          t.Id,
+          t.Name,
+          t.ColorCode,
+          teamTickets.Count,
+          teamTickets.Sum(tk => tk.EstimatePoints ?? 0),
+          teamLogs.Sum(l => l.HoursLogged),
+          teamTickets.Any() ? teamTickets.Average(tk => tk.ChilliesDifficulty) : 0,
+          t.Members.Count);
+    }).OrderByDescending(h => h.CompletedTickets).Take(10).ToList();
+
     return new DashboardStatsDto(
         tickets.Count,
         tickets.Count(t => t.Status != "Closed" && t.Status != "Done"),
@@ -71,6 +113,56 @@ public class DashboardService : IDashboardService
         projects.Count(),
         projects.Count(p => !p.EndDate.HasValue || p.EndDate > System.DateTime.UtcNow),
         users.Count,
-        usersByRole);
+        usersByRole,
+        individualHighscores,
+        teamHighscores);
+  }
+
+  /// <inheritdoc />
+  public async Task<PerformanceDetailDto> GetUserPerformanceDetailAsync(Guid userId)
+  {
+    var user = await this.userManager.FindByIdAsync(userId.ToString()).ConfigureAwait(false);
+    if (user == null)
+    {
+      throw new KeyNotFoundException("User not found");
+    }
+
+    var tickets = await this.ticketRepository.GetFilteredAsync(assignedUserId: userId).ConfigureAwait(false);
+    var logs = await this.timeLogRepository.GetByUserIdAsync(userId).ConfigureAwait(false);
+
+    return new PerformanceDetailDto(
+        user.UserName ?? "Unknown",
+        tickets.GroupBy(t => t.Status).ToDictionary(g => g.Key, g => g.Count()),
+        tickets.Where(t => t.Priority != null).GroupBy(t => t.Priority!.Name).ToDictionary(g => g.Key, g => g.Count()),
+        tickets.GroupBy(t => t.Type.ToString()).ToDictionary(g => g.Key, g => g.Count()),
+        logs.Sum(l => l.HoursLogged),
+        tickets.Count(t => t.Status == "Closed" || t.Status == "Done"),
+        tickets.Sum(t => t.EstimatePoints ?? 0));
+  }
+
+  /// <inheritdoc />
+  public async Task<PerformanceDetailDto> GetTeamPerformanceDetailAsync(Guid teamId)
+  {
+    var team = await this.teamRepository.GetByIdAsync(teamId).ConfigureAwait(false);
+    if (team == null)
+    {
+      throw new KeyNotFoundException("Team not found");
+    }
+
+    var memberIds = team.Members.Select(m => m.UserId).ToList();
+    var allTickets = await this.ticketRepository.GetAllActiveAsync().ConfigureAwait(false);
+    var teamTickets = allTickets.Where(t => t.AssignedUserId.HasValue && memberIds.Contains(t.AssignedUserId.Value)).ToList();
+
+    var allLogs = await this.timeLogRepository.GetAllAsync().ConfigureAwait(false);
+    var teamLogs = allLogs.Where(l => memberIds.Contains(l.UserId)).ToList();
+
+    return new PerformanceDetailDto(
+        team.Name,
+        teamTickets.GroupBy(t => t.Status).ToDictionary(g => g.Key, g => g.Count()),
+        teamTickets.Where(t => t.Priority != null).GroupBy(t => t.Priority!.Name).ToDictionary(g => g.Key, g => g.Count()),
+        teamTickets.GroupBy(t => t.Type.ToString()).ToDictionary(g => g.Key, g => g.Count()),
+        teamLogs.Sum(l => l.HoursLogged),
+        teamTickets.Count(t => t.Status == "Closed" || t.Status == "Done"),
+        teamTickets.Sum(t => t.EstimatePoints ?? 0));
   }
 }

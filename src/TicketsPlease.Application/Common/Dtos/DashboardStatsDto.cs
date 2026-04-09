@@ -16,4 +16,6 @@ public record DashboardStatsDto(
     int TotalProjects,
     int OpenProjects,
     int TotalUsers,
-    IDictionary<string, int> UsersByRole);
+    IDictionary<string, int> UsersByRole,
+    IEnumerable<UserHighscoreDto> IndividualHighscores,
+    IEnumerable<TeamHighscoreDto> TeamHighscores);

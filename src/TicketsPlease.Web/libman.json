@@ -69,6 +69,11 @@
         "index.css",
         "files/open-sans-latin-wght-normal.woff2"
       ]
+    },
+    {
+      "library": "chart.js@4.4.7",
+      "destination": "wwwroot/lib/chartjs",
+      "files": [ "dist/chart.umd.js" ]
     }
   ]
 }
