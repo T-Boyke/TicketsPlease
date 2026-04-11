@@ -16,7 +16,7 @@ using TicketsPlease.Web.Models.Account;
 /// <summary>
 /// Controller für die Benutzerverwaltung (Login, Registrierung, Profil).
 /// </summary>
-internal sealed class AccountController : Controller
+public sealed class AccountController : Controller
 {
   private readonly SignInManager<User> signInManager;
   private readonly UserManager<User> userManager;
@@ -35,7 +35,8 @@ internal sealed class AccountController : Controller
   /// <param name="userRepository">Das Benutzer-Repository.</param>
   /// <param name="organizationService">Der Organisations-Service.</param>
   /// <param name="dashboardService">Der Dashboard-Service.</param>
-  public AccountController(
+  /// <param name="fileStorageService">Der Dienst zur Dateispeicherung.</param>
+    public AccountController(
     SignInManager<User> signInManager,
     UserManager<User> userManager,
     RoleManager<Role> roleManager,
@@ -157,7 +158,13 @@ internal sealed class AccountController : Controller
   [HttpGet]
   public async Task<IActionResult> Profile()
   {
-    var userId = Guid.Parse(this.userManager.GetUserId(this.User)!);
+    var userIdString = this.userManager.GetUserId(this.User);
+    if (string.IsNullOrEmpty(userIdString))
+    {
+      return this.Challenge();
+    }
+
+    var userId = Guid.Parse(userIdString);
     var user = await this.userRepository.GetUserWithDetailsAsync(userId).ConfigureAwait(false);
     if (user == null)
     {
@@ -202,7 +209,13 @@ internal sealed class AccountController : Controller
   [HttpGet]
   public async Task<IActionResult> Edit()
   {
-    var userId = Guid.Parse(this.userManager.GetUserId(this.User)!);
+    var userIdString = this.userManager.GetUserId(this.User);
+    if (string.IsNullOrEmpty(userIdString))
+    {
+      return this.Challenge();
+    }
+
+    var userId = Guid.Parse(userIdString);
     var user = await this.userRepository.GetUserWithDetailsAsync(userId).ConfigureAwait(false);
     if (user == null)
     {

@@ -21,7 +21,7 @@ using TicketsPlease.Infrastructure.Persistence;
 /// Controller für das Messaging-System (F9).
 /// </summary>
 [Authorize]
-internal sealed class MessagesController : Controller
+public sealed class MessagesController : Controller
 {
   private readonly IMessageService messageService;
   private readonly UserManager<User> userManager;
@@ -134,7 +134,14 @@ internal sealed class MessagesController : Controller
 
   private async Task PrepareUserList()
   {
-    var currentUserId = Guid.Parse(this.userManager.GetUserId(this.User)!);
+    var userIdString = this.userManager.GetUserId(this.User);
+    if (string.IsNullOrEmpty(userIdString))
+    {
+      this.ViewBag.Users = new SelectList(Enumerable.Empty<User>(), "Id", "UserName");
+      return;
+    }
+
+    var currentUserId = Guid.Parse(userIdString);
     var users = await this.context.Users
         .Where(u => u.Id != currentUserId)
         .OrderBy(u => u.UserName)

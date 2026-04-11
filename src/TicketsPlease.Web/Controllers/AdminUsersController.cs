@@ -29,7 +29,8 @@ internal class AdminUsersController : Controller
   /// </summary>
   /// <param name="userManager">Die Benutzerverwaltung.</param>
   /// <param name="roleManager">Die Rollenverwaltung.</param>
-  public AdminUsersController(UserManager<User> userManager, RoleManager<Role> roleManager, TicketsPlease.Application.Common.Interfaces.IUserRepository userRepository)
+  /// <param name="userRepository">Das Benutzer-Repository.</param>
+    public AdminUsersController(UserManager<User> userManager, RoleManager<Role> roleManager, TicketsPlease.Application.Common.Interfaces.IUserRepository userRepository)
   {
     this.userManager = userManager;
     this.roleManager = roleManager;
