@@ -48,10 +48,33 @@ public interface INotificationService
   public Task NotifyNewCommentAsync(Guid ticketId, CommentDto comment);
 
   /// <summary>
-  /// Sendet eine Benachrichtigung über eine neue Privatnachricht.
+  /// Informiert Teilnehmer eines Tickets über eine neue Privatnachricht.
   /// </summary>
   /// <param name="receiverUserId">Die ID des Empfängers.</param>
   /// <param name="message">Das Nachrichten-DTO.</param>
   /// <returns>Ein Task.</returns>
   public Task NotifyNewMessageAsync(Guid receiverUserId, MessageDto message);
+
+  /// <summary>
+  /// Ruft Benachrichtigungen für einen Benutzer ab.
+  /// </summary>
+  /// <param name="userId">Die Benutzer-ID.</param>
+  /// <param name="limit">Maximalanzahl.</param>
+  /// <param name="offset">Offset.</param>
+  /// <returns>Liste von DTOs.</returns>
+  public Task<List<NotificationDto>> GetNotificationsForUserAsync(Guid userId, int limit = 20, int offset = 0);
+
+  /// <summary>
+  /// Markiert eine Benachrichtigung als gelesen.
+  /// </summary>
+  /// <param name="notificationId">Die ID der Benachrichtigung.</param>
+  /// <returns>Ein Task.</returns>
+  public Task MarkAsReadAsync(Guid notificationId);
+
+  /// <summary>
+  /// Markiert alle Benachrichtigungen eines Benutzers als gelesen.
+  /// </summary>
+  /// <param name="userId">Die Benutzer-ID.</param>
+  /// <returns>Ein Task.</returns>
+  public Task MarkAllAsReadAsync(Guid userId);
 }
