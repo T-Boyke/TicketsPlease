@@ -44,10 +44,10 @@ public class TeamService : ITeamService
   }
 
   /// <inheritdoc/>
-  public async Task<IEnumerable<TeamDto>> GetAllTeamsAsync(CancellationToken cancellationToken = default)
+  public async Task<IEnumerable<TeamDto>> GetAllTeamsAsync(Guid? currentUserId = null, CancellationToken cancellationToken = default)
   {
     var teams = await this.teamRepository.GetAllTeamsAsync(cancellationToken).ConfigureAwait(false);
-    return teams.Select(MapToDto);
+    return teams.Select(t => MapToDto(t, currentUserId));
   }
 
   /// <inheritdoc/>
@@ -125,19 +125,22 @@ public class TeamService : ITeamService
     }
   }
 
-  private static TeamDto MapToDto(Team team)
+  private static TeamDto MapToDto(Team team) => MapToDto(team, null);
+
+  private static TeamDto MapToDto(Team team, Guid? currentUserId)
   {
     return new TeamDto(
         team.Id,
         team.Name,
-        team.Description,
-        team.ColorCode,
+        team.Description ?? string.Empty,
+        team.ColorCode ?? "#ccc",
         team.CreatedAt,
         team.Members.Count,
         team.Members.Select(m => new TeamMemberDto(
             m.UserId,
             m.User?.UserName ?? "Unknown",
             m.JoinedAt,
-            m.IsTeamLead)));
+            m.IsTeamLead)),
+        currentUserId.HasValue && team.Members.Any(m => m.UserId == currentUserId.Value));
   }
 }

@@ -32,11 +32,12 @@ public interface ITeamService
   public Task<TeamDto?> GetTeamDetailsAsync(Guid teamId, CancellationToken cancellationToken = default);
 
   /// <summary>
-  /// Ruft alle Teams im System ab (für Administrative Zwecke).
+  /// Ruft alle Teams im System ab.
   /// </summary>
+  /// <param name="currentUserId">Optionale ID des aktuellen Benutzers zur Markierung der Mitgliedschaft.</param>
   /// <param name="cancellationToken">Das Abbruchtoken.</param>
   /// <returns>Die vollständige Liste der Team-DTOs.</returns>
-  public Task<IEnumerable<TeamDto>> GetAllTeamsAsync(CancellationToken cancellationToken = default);
+  public Task<IEnumerable<TeamDto>> GetAllTeamsAsync(Guid? currentUserId = null, CancellationToken cancellationToken = default);
 
   /// <summary>
   /// Erstellt ein neues Team im System.

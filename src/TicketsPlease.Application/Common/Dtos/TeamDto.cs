@@ -17,6 +17,7 @@ using System.Collections.Generic;
 /// <param name="CreatedAt">Erstellungszeitpunkt.</param>
 /// <param name="MemberCount">Anzahl der Mitglieder.</param>
 /// <param name="Members">Liste der Mitglieder-Details.</param>
+/// <param name="IsCurrentUserMember">Gibt an, ob der aktuelle Benutzer Mitglied ist.</param>
 public record TeamDto(
     Guid Id,
     string Name,
@@ -24,4 +25,5 @@ public record TeamDto(
     string ColorCode,
     DateTime CreatedAt,
     int MemberCount,
-    IEnumerable<TeamMemberDto> Members);
+    IEnumerable<TeamMemberDto> Members,
+    bool IsCurrentUserMember = false);
