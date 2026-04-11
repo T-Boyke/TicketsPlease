@@ -60,4 +60,29 @@ public class MessageServiceTests
     Assert.Single(dto.Attachments);
     Assert.Equal("test.jpg", dto.Attachments.First().FileName);
   }
+
+  [Fact]
+  public async Task GetLatestUserMessagesAsync_ShouldCallRepoAndReturnMappedDtos()
+  {
+    // Arrange
+    var userId = Guid.NewGuid();
+    var limit = 5;
+    var messages = new List<Message>
+    {
+      new Message { Id = Guid.NewGuid(), BodyMarkdown = "Msg 1", SentAt = DateTime.UtcNow },
+      new Message { Id = Guid.NewGuid(), BodyMarkdown = "Msg 2", SentAt = DateTime.UtcNow.AddMinutes(-1) }
+    };
+
+    _mockMessageRepo.Setup(r => r.GetLatestUserMessagesAsync(userId, limit, default))
+        .ReturnsAsync(messages);
+
+    // Act
+    var result = await _service.GetLatestUserMessagesAsync(userId, limit);
+
+    // Assert
+    Assert.Equal(2, result.Count);
+    Assert.Equal("Msg 1", result[0].BodyMarkdown);
+    Assert.Equal("Msg 2", result[1].BodyMarkdown);
+    _mockMessageRepo.Verify(r => r.GetLatestUserMessagesAsync(userId, limit, default), Times.Once);
+  }
 }

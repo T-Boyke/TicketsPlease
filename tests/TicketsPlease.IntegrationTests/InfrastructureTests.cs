@@ -43,7 +43,7 @@ public class InfrastructureTests : IntegrationTestBase
 
     var creator = await CreateTestUserAsync(db, "creator", projects.TenantId);
 
-    var ticket = new Ticket("Include-Test", TicketType.Task, projects.Id, creator.Id, workflowStateId, "::1");
+    var ticket = new Ticket("Include-Test", TicketType.Task, projects.Id, creator.Id, workflowStateId, "Todo", "::1");
     ticket.SetPriority(priorityId);
     ticket.SetTenantId(projects.TenantId);
     db.Tickets.Add(ticket);
@@ -86,11 +86,11 @@ public class InfrastructureTests : IntegrationTestBase
     var p2 = new TicketPriority { Id = Guid.NewGuid(), Name = "Low", LevelWeight = 10, TenantId = project.TenantId };
     db.TicketPriorities.AddRange(p1, p2);
 
-    var t1 = new Ticket("Low Priority", TicketType.Task, project.Id, creator.Id, stateId, "::1");
+    var t1 = new Ticket("Low Priority", TicketType.Task, project.Id, creator.Id, stateId, "Todo", "::1");
     t1.SetPriority(p2.Id);
     t1.SetTenantId(project.TenantId);
 
-    var t2 = new Ticket("High Priority", TicketType.Task, project.Id, creator.Id, stateId, "::1");
+    var t2 = new Ticket("High Priority", TicketType.Task, project.Id, creator.Id, stateId, "Todo", "::1");
     t2.SetPriority(p1.Id);
     t2.SetTenantId(project.TenantId);
 
@@ -138,7 +138,7 @@ public class InfrastructureTests : IntegrationTestBase
     var priorityId = priorities[0].Id;
     var states = await db.WorkflowStates.ToListAsync();
     var stateId = states[0].Id;
-    var ticket = new Ticket("Target", TicketType.Task, project.Id, user1.Id, stateId, "::1");
+    var ticket = new Ticket("Target", TicketType.Task, project.Id, user1.Id, stateId, "Todo", "::1");
     ticket.AssignUser(user2.Id);
     ticket.SetPriority(priorityId);
     ticket.SetTenantId(project.TenantId);
@@ -156,11 +156,11 @@ public class InfrastructureTests : IntegrationTestBase
   }
 
   /// <summary>
-  /// Tests GetDefaultWorkflowStateIdAsync fallback.
+  /// Tests GetDefaultWorkflowStateAsync fallback.
   /// </summary>
   /// <returns>A task.</returns>
   [Fact]
-  public async Task TicketRepository_GetDefaultWorkflowStateIdAsync_Should_Return_Empty_If_None()
+  public async Task TicketRepository_GetDefaultWorkflowStateAsync_Should_Return_Null_If_None()
   {
     // Arrange
     using var scope = this.Factory.Services.CreateScope();
@@ -172,10 +172,10 @@ public class InfrastructureTests : IntegrationTestBase
     await db.SaveChangesAsync();
 
     // Act
-    var result = await repo.GetDefaultWorkflowStateIdAsync();
+    var result = await repo.GetDefaultWorkflowStateAsync();
 
     // Assert
-    result.Should().Be(Guid.Empty);
+    result.Should().BeNull();
   }
 
   /// <summary>
@@ -237,7 +237,7 @@ public class InfrastructureTests : IntegrationTestBase
     var states = await db.WorkflowStates.ToListAsync();
     var stateId = states[0].Id;
 
-    var ticket = new Ticket("Comment-Test", TicketType.Task, project.Id, user.Id, stateId, "::1");
+    var ticket = new Ticket("Comment-Test", TicketType.Task, project.Id, user.Id, stateId, "Todo", "::1");
     ticket.SetPriority(priorityId);
     ticket.SetTenantId(project.TenantId);
     db.Tickets.Add(ticket);

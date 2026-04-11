@@ -17,14 +17,16 @@ using TicketsPlease.Infrastructure.Persistence;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1515:Consider making public types internal", Justification = "Required as base class for IntegrationTests")]
 public abstract class IntegrationTestBase : IDisposable
 {
+  private static WebApplicationFactory<Program>? sharedFactory;
+  private static readonly object SyncRoot = new();
   private readonly SqliteConnection connection;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="IntegrationTestBase"/> class.
   /// Initialisiert eine neue Instanz von <see cref="IntegrationTestBase"/>.
-  /// Erstellt die offene SQLite-Verbindung und die WebApplicationFactory.
+  /// Nutzt eine geteilte WebApplicationFactory, um ObjectDisposedException zu vermeiden.
   /// </summary>
-  [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Objekte verwerfen, bevor der Gültigkeitsbereich verloren geht", Justification = "Factory is disposed in the Dispose method of this class.")]
+  [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Objekte verwerfen, bevor der Gültigkeitsbereich verloren geht", Justification = "Factory is shared and disposed in separate logic or at process end.")]
   protected IntegrationTestBase()
   {
     // SQLite in-memory benötigt eine offene Verbindung über die gesamte Testdauer
@@ -38,32 +40,56 @@ public abstract class IntegrationTestBase : IDisposable
       command.ExecuteNonQuery();
     }
 
-    this.Factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
+    if (sharedFactory == null)
     {
-      builder.UseEnvironment("Testing");
-      builder.ConfigureServices(services =>
+      lock (SyncRoot)
+      {
+        if (sharedFactory == null)
+        {
+          sharedFactory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
           {
-            // Absolut alle Entity Framework bezogenen Services entfernen, um Provider-Konflikte zu vermeiden
-            var efDescriptors = services.Where(d => d.ServiceType.FullName?.Contains("EntityFrameworkCore", StringComparison.Ordinal) == true).ToList();
-            foreach (var d in efDescriptors)
-            {
-              services.Remove(d);
-            }
-
-            // SQLite für Tests hinzufügen
-            services.AddDbContext<AppDbContext>(options =>
+            builder.UseEnvironment("Testing");
+            builder.ConfigureServices(services =>
                 {
-                  options.UseSqlite(this.connection);
+                  // Radikalerer Ansatz: Alle EF Core bezogenen Services entfernen, um Provider-Konflikte zu vermeiden
+                  var efServices = services.Where(d =>
+                      d.ServiceType.Namespace?.StartsWith("Microsoft.EntityFrameworkCore", StringComparison.Ordinal) == true ||
+                      d.ServiceType.FullName?.Contains("EntityFrameworkCore", StringComparison.Ordinal) == true).ToList();
+
+                  foreach (var d in efServices)
+                  {
+                    services.Remove(d);
+                  }
+
+                  // Sicherstellen, dass auch der DbContext selbst weg ist
+                  var contextDescriptors = services.Where(d => d.ServiceType == typeof(AppDbContext) || d.ServiceType == typeof(DbContextOptions<AppDbContext>)).ToList();
+                  foreach (var d in contextDescriptors)
+                  {
+                    services.Remove(d);
+                  }
+
+                  // Authentifizierung für Tests überschreiben
+                  services.AddAuthentication(TestAuthHandler.AuthenticationScheme)
+                          .AddScheme<Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions, TestAuthHandler>(
+                              TestAuthHandler.AuthenticationScheme, options => { });
+
+                  // Antiforgery deaktivieren für Tests
+                  services.AddSingleton<Microsoft.AspNetCore.Antiforgery.IAntiforgery, FakeAntiforgery>();
                 });
-
-            // Authentifizierung für Tests überschreiben
-            services.AddAuthentication(TestAuthHandler.AuthenticationScheme)
-                    .AddScheme<Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions, TestAuthHandler>(
-                        TestAuthHandler.AuthenticationScheme, options => { });
-
-            // Antiforgery deaktivieren für Tests
-            services.AddSingleton<Microsoft.AspNetCore.Antiforgery.IAntiforgery, FakeAntiforgery>();
           });
+        }
+      }
+    }
+
+    this.Factory = sharedFactory.WithWebHostBuilder(builder =>
+    {
+        builder.ConfigureServices(services => {
+            // Für jeden Test eine eigene Verbindung injizieren
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlite(this.connection);
+            });
+        });
     });
 
     // Datenbank-Schema initialisieren
@@ -126,9 +152,9 @@ public abstract class IntegrationTestBase : IDisposable
   {
     if (disposing)
     {
+      this.Factory?.Dispose();
       this.connection.Close();
       this.connection.Dispose();
-      this.Factory?.Dispose();
     }
   }
 

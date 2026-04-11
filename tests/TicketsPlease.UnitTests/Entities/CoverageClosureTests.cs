@@ -38,7 +38,7 @@ public class CoverageClosureTests
   [Fact]
   public void Ticket_Coverage_Complex()
   {
-    var ticket = new Ticket("T", TicketType.Task, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), "127.0.0.1");
+    var ticket = new Ticket("T", TicketType.Task, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), "Todo", "127.0.0.1");
     ticket.SetTenantId(Guid.NewGuid());
     ticket.SetDifficulty(3);
     ticket.SetType(TicketType.Bug);
@@ -59,7 +59,7 @@ public class CoverageClosureTests
 
     ticket.UpdateTitle("New Title");
     ticket.UpdateDescription("D", "MD");
-    ticket.MoveToState(Guid.NewGuid());
+    ticket.MoveToState(Guid.NewGuid(), "New State");
     ticket.AssignUser(Guid.NewGuid());
     ticket.SetPriority(Guid.NewGuid());
 
@@ -102,13 +102,13 @@ public class CoverageClosureTests
     ticket.GetProgressPercentage().Should().Be(50);
 
     // Blocker Logic
-    var blocker = new Ticket("B", TicketType.Task, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), "127.0.0.1");
+    var blocker = new Ticket("B", TicketType.Task, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), "Todo", "127.0.0.1");
     ticket.AddLink(blocker.Id, TicketLinkType.Blocks);
     var link = new TicketLink(blocker.Id, ticket.Id, TicketLinkType.Blocks);
     typeof(Ticket).GetProperty("BlockedBy")?.GetValue(ticket).As<ICollection<TicketLink>>().Add(link);
     SetBackingField(link, "SourceTicket", blocker);
     ticket.CanBeClosed().Should().BeFalse();
-    SetBackingField(blocker, "Status", "Closed");
+    SetBackingField(blocker, "Status", "Done");
     ticket.CanBeClosed().Should().BeTrue();
 
     ticket.Close(ticket.CreatorId, false);
@@ -116,7 +116,7 @@ public class CoverageClosureTests
     actAuth.Should().Throw<InvalidOperationException>();
 
     // Constructor Gaps
-    var emptyTenant = new Ticket("E", TicketType.Bug, Guid.Empty, Guid.Empty, Guid.NewGuid(), "D");
+    var emptyTenant = new Ticket("E", TicketType.Bug, Guid.Empty, Guid.Empty, Guid.NewGuid(), "Todo", "D");
     emptyTenant.TenantId.Should().Be(Guid.Empty);
 
     var privateCtor = typeof(Ticket).GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, Type.EmptyTypes, null);
@@ -306,13 +306,13 @@ public class CoverageClosureTests
     _ = sub.Creator;
 
     // TicketUpvote
-    var up = new TicketUpvote { Ticket = new Ticket("T", TicketType.Task, Guid.Empty, Guid.Empty, Guid.Empty, "0.0.0.0"), User = new User() };
+    var up = new TicketUpvote { Ticket = new Ticket("T", TicketType.Task, Guid.Empty, Guid.Empty, Guid.Empty, "Todo", "0.0.0.0"), User = new User() };
     _ = up.Ticket;
     _ = up.User;
     _ = up.VotedAt;
 
     // TicketTag
-    var ttag = new TicketTag { Ticket = new Ticket("T", TicketType.Task, Guid.Empty, Guid.Empty, Guid.Empty, "0.0.0.0"), Tag = new Tag() };
+    var ttag = new TicketTag { Ticket = new Ticket("T", TicketType.Task, Guid.Empty, Guid.Empty, Guid.Empty, "Todo", "0.0.0.0"), Tag = new Tag() };
     _ = ttag.Ticket;
     _ = ttag.Tag;
     _ = ttag.TicketId;
@@ -418,7 +418,7 @@ public class CoverageClosureTests
 
     // Ticket nullable status branch
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-    var ticketNullStatus = new Ticket("T", TicketType.Bug, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), null);
+    var ticketNullStatus = new Ticket("T", TicketType.Bug, Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), "Todo", null);
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
     ticketNullStatus.Status.Should().Be("Todo");
 

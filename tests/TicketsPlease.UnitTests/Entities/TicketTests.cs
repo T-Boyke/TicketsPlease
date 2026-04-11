@@ -24,7 +24,7 @@ public class TicketTests
     var geoIp = "127.0.0.1";
 
     // Act
-    var ticket = new Ticket(title, type, projectId, creatorId, workflowStateId, geoIp);
+    var ticket = new Ticket(title, type, projectId, creatorId, workflowStateId, "Todo", geoIp);
 
     // Assert
     ticket.Title.Should().Be(title);
@@ -52,7 +52,7 @@ public class TicketTests
     var geoIp = "127.0.0.1";
 
     // Act
-    Action act = () => _ = new Ticket(title!, type, projectId, creatorId, workflowStateId, geoIp);
+    Action act = () => _ = new Ticket(title!, type, projectId, creatorId, workflowStateId, "Todo", geoIp);
 
     // Assert
     act.Should().Throw<ArgumentException>().WithMessage("*Titel darf nicht leer sein.*");
@@ -91,17 +91,19 @@ public class TicketTests
   }
 
   [Fact]
-  public void MoveToState_ShouldUpdateWorkflowStateId()
+  public void MoveToState_ShouldUpdateWorkflowStateIdAndStatus()
   {
     // Arrange
     var ticket = CreateTicket();
     var newStateId = Guid.NewGuid();
+    var newStateName = "In Progress";
 
     // Act
-    ticket.MoveToState(newStateId);
+    ticket.MoveToState(newStateId, newStateName);
 
     // Assert
     ticket.WorkflowStateId.Should().Be(newStateId);
+    ticket.Status.Should().Be(newStateName);
     ticket.UpdatedAt.Should().NotBeNull();
   }
 
@@ -131,7 +133,7 @@ public class TicketTests
     ticket.Close(creatorId, false);
 
     // Assert
-    ticket.Status.Should().Be("Closed");
+    ticket.Status.Should().Be("Done");
     ticket.ClosedAt.Should().NotBeNull();
     ticket.ClosedByUserId.Should().Be(creatorId);
   }
@@ -161,7 +163,7 @@ public class TicketTests
     ticket.Close(adminId, true);
 
     // Assert
-    ticket.Status.Should().Be("Closed");
+    ticket.Status.Should().Be("Done");
   }
 
   [Theory]
@@ -228,6 +230,7 @@ public class TicketTests
         Guid.NewGuid(),
         creatorId ?? Guid.NewGuid(),
         Guid.NewGuid(),
+        "Todo",
         "127.0.0.1");
   }
 }

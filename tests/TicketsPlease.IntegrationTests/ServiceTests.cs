@@ -72,7 +72,7 @@ public class ServiceTests : IntegrationTestBase
     await SeedMinimalAsync(db);
     var project = (await db.Projects.ToListAsync())[0];
 
-    var ticket = new Ticket("Before", TicketType.Task, project.Id, this.adminId, this.stateId, string.Empty);
+    var ticket = new Ticket("Before", TicketType.Task, project.Id, this.adminId, this.stateId, "Todo", string.Empty);
     ticket.SetTenantId(project.TenantId);
     ticket.SetPriority(this.priorityId);
     await db.Tickets.AddAsync(ticket);
@@ -110,7 +110,7 @@ public class ServiceTests : IntegrationTestBase
     await SeedMinimalAsync(db);
     var project = (await db.Projects.ToListAsync())[0];
 
-    var ticket = new Ticket("Move Test", TicketType.Task, project.Id, this.adminId, this.stateId, string.Empty);
+    var ticket = new Ticket("Move Test", TicketType.Task, project.Id, this.adminId, this.stateId, "Todo", string.Empty);
     ticket.SetTenantId(project.TenantId);
     ticket.SetPriority(this.priorityId);
     await db.Tickets.AddAsync(ticket);
@@ -143,10 +143,10 @@ public class ServiceTests : IntegrationTestBase
     await SeedMinimalAsync(db);
     var project = (await db.Projects.ToListAsync())[0];
 
-    var t1 = new Ticket("T1", TicketType.Task, project.Id, this.adminId, this.stateId, string.Empty);
+    var t1 = new Ticket("T1", TicketType.Task, project.Id, this.adminId, this.stateId, "Todo", string.Empty);
     t1.SetTenantId(project.TenantId);
     t1.SetPriority(this.priorityId);
-    var t2 = new Ticket("T2", TicketType.Task, project.Id, this.adminId, this.stateId, string.Empty);
+    var t2 = new Ticket("T2", TicketType.Task, project.Id, this.adminId, this.stateId, "Todo", string.Empty);
     t2.SetTenantId(project.TenantId);
     t2.SetPriority(this.priorityId);
     await db.Tickets.AddRangeAsync(t1, t2);
@@ -179,7 +179,7 @@ public class ServiceTests : IntegrationTestBase
     await SeedMinimalAsync(db);
     var project = (await db.Projects.ToListAsync())[0];
 
-    var t1 = new Ticket("T1", TicketType.Task, project.Id, this.adminId, this.stateId, string.Empty);
+    var t1 = new Ticket("T1", TicketType.Task, project.Id, this.adminId, this.stateId, "Todo", string.Empty);
     t1.SetTenantId(project.TenantId);
     t1.SetPriority(this.priorityId);
     await db.Tickets.AddAsync(t1);

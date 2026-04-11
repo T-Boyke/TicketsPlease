@@ -41,4 +41,27 @@ public class LocalStorageServiceTests
       Directory.Delete(_contentRootPath, true);
     }
   }
+
+  [Fact]
+  public async Task GetFileAsync_WhenNotExists_ShouldThrow()
+  {
+    var service = new LocalStorageService(_mockEnv.Object);
+    await Assert.ThrowsAsync<FileNotFoundException>(() => service.GetFileAsync("none.txt"));
+  }
+
+  [Fact]
+  public async Task DeleteFileAsync_ShouldRemoveFile()
+  {
+    // Arrange
+    var service = new LocalStorageService(_mockEnv.Object);
+    var content = new MemoryStream(new byte[] { 1 });
+    var path = await service.SaveFileAsync(content, "del.txt");
+
+    // Act
+    await service.DeleteFileAsync(path);
+
+    // Assert
+    var fullPath = Path.Combine(_contentRootPath, "App_Data", "Uploads", path);
+    Assert.False(File.Exists(fullPath));
+  }
 }

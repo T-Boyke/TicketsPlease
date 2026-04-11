@@ -171,7 +171,7 @@ public class ControllerTests : IntegrationTestBase
     await SeedMinimalAsync(db);
     var project = (await db.Projects.ToListAsync())[0];
 
-    var ticket = new Ticket("Comment Test", Domain.Enums.TicketType.Task, project.Id, this.adminId, this.stateId, string.Empty);
+    var ticket = new Ticket("Comment Test", Domain.Enums.TicketType.Task, project.Id, this.adminId, this.stateId, "Todo", string.Empty);
     ticket.SetTenantId(project.TenantId);
     ticket.SetPriority(this.priorityId);
     await db.Tickets.AddAsync(ticket);

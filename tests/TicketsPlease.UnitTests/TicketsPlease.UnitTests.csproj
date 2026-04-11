@@ -10,6 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.5" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
     <PackageReference Include="FluentAssertions" Version="8.9.0" />
     <PackageReference Include="xunit" Version="2.9.3" />
@@ -22,6 +24,7 @@
     <ProjectReference Include="..\..\src\TicketsPlease.Domain\TicketsPlease.Domain.csproj" />
     <ProjectReference Include="..\..\src\TicketsPlease.Application\TicketsPlease.Application.csproj" />
     <ProjectReference Include="..\..\src\TicketsPlease.Infrastructure\TicketsPlease.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\TicketsPlease.Web\TicketsPlease.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>
