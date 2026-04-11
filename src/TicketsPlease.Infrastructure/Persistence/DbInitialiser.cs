@@ -51,9 +51,8 @@ public static class DbInitialiser
 
     try
     {
-      logger.LogInformation("Starte synthetisches Datenbank-Seeding...");
+      logger.LogInformation("Starte hochwertiges Datenbank-Seeding...");
 
-      // Hinweis: Roles, Priorities und WorkflowStates werden via AppDbContext.OnModelCreating (HasData) erzeugt.
       await context.Database.EnsureDeletedAsync().ConfigureAwait(false);
       await context.Database.EnsureCreatedAsync().ConfigureAwait(false);
 
@@ -64,47 +63,89 @@ public static class DbInitialiser
       }
 
       var faker = new Faker("de");
-      var roleIds = new[] { AdminRoleId, TeamleadRoleId, UserRoleId };
       var priorityIds = new[] { LowPriorityId, MediumPriorityId, HighPriorityId, BlockerPriorityId };
       var stateIds = new[] { TodoStateId, InProgressStateId, InReviewStateId, DoneStateId };
-
-      // 1. Organizations
-      var orgs = Enumerable.Range(0, 3).Select(_ => new Organization
+      var stateNames = new Dictionary<Guid, string>
       {
-        Name = faker.Company.CompanyName(),
-        SubscriptionLevel = faker.PickRandom("Trial", "Basic", "Enterprise"),
-      }).ToList();
+          { TodoStateId, "Todo" },
+          { InProgressStateId, "In Progress" },
+          { InReviewStateId, "In Review" },
+          { DoneStateId, "Done" }
+      };
+
+      // 1. Organizations (Workspaces) - Genau 2
+      var orgs = new List<Organization>
+      {
+          new Organization { Name = "Global Solutions AG", SubscriptionLevel = "Enterprise", IsActive = true, CreatedAt = DateTime.UtcNow.AddMonths(-6) },
+          new Organization { Name = "Digital Innovators GmbH", SubscriptionLevel = "Basic", IsActive = true, CreatedAt = DateTime.UtcNow.AddMonths(-3) }
+      };
 
       await context.Organizations.AddRangeAsync(orgs).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      // 2. Projects (Verwendet den via HasData erstellten Workflow)
+      // 2. Workflows (Transitions)
+      var transitions = new List<WorkflowTransition>
+      {
+          new WorkflowTransition { FromStateId = TodoStateId, ToStateId = InProgressStateId, TenantId = orgs[0].Id },
+          new WorkflowTransition { FromStateId = InProgressStateId, ToStateId = InReviewStateId, TenantId = orgs[0].Id },
+          new WorkflowTransition { FromStateId = InReviewStateId, ToStateId = DoneStateId, TenantId = orgs[0].Id },
+          new WorkflowTransition { FromStateId = InProgressStateId, ToStateId = TodoStateId, TenantId = orgs[0].Id },
+          new WorkflowTransition { FromStateId = InReviewStateId, ToStateId = InProgressStateId, TenantId = orgs[0].Id },
+          new WorkflowTransition { FromStateId = TodoStateId, ToStateId = DoneStateId, TenantId = orgs[0].Id },
+          new WorkflowTransition { FromStateId = InProgressStateId, ToStateId = DoneStateId, TenantId = orgs[0].Id },
+
+          new WorkflowTransition { FromStateId = TodoStateId, ToStateId = InProgressStateId, TenantId = orgs[1].Id },
+          new WorkflowTransition { FromStateId = InProgressStateId, ToStateId = DoneStateId, TenantId = orgs[1].Id },
+      };
+      await context.WorkflowTransitions.AddRangeAsync(transitions).ConfigureAwait(false);
+
+      // 3. Projects - 2 pro Organization
       var projects = new List<Project>();
-      var project1 = new Project("Abschlussprüfung 2026", DateTime.UtcNow);
-      project1.UpdateMetadata("Abschlussprüfung 2026", "Das Hauptprojekt für die IHK.");
-      project1.AssignWorkflow(WorkflowId);
-      project1.SetTenantId(faker.PickRandom(orgs).Id);
-      projects.Add(project1);
+      foreach (var org in orgs)
+      {
+        var p1 = new Project($"{org.Name} - Main Development", DateTime.UtcNow.AddMonths(-2));
+        p1.UpdateMetadata(p1.Title, $"Zentrales Projekt für {org.Name}");
+        p1.AssignWorkflow(WorkflowId);
+        p1.SetTenantId(org.Id);
+        projects.Add(p1);
 
-      var project2 = new Project("Interne Toolentwicklung", DateTime.UtcNow.AddMonths(-1));
-      project2.UpdateMetadata("Interne Toolentwicklung", "Entwicklung von internen Hilfsmitteln.");
-      project2.AssignWorkflow(WorkflowId);
-      project2.SetTenantId(faker.PickRandom(orgs).Id);
-      projects.Add(project2);
-
+        var p2 = new Project($"{org.Name} - Internal Tools", DateTime.UtcNow.AddMonths(-1));
+        p2.UpdateMetadata(p2.Title, "Interne Werkzeuge und Skripte.");
+        p2.AssignWorkflow(WorkflowId);
+        p2.SetTenantId(org.Id);
+        projects.Add(p2);
+      }
       await context.Projects.AddRangeAsync(projects).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      // 3. Static Seeded Users (for easy testing)
+      // 4. Users (Max 2 Admins, 5 Teamleads, 18 Users = 25 Total)
       var passwordHasher = new PasswordHasher<User>();
-      var staticUsers = new List<User>
-      {
-          new User { UserName = "admin", Email = "admin@ticketsplease.com", RoleId = AdminRoleId, TenantId = orgs[0].Id },
-          new User { UserName = "teamlead", Email = "teamlead@ticketsplease.com", RoleId = TeamleadRoleId, TenantId = orgs[0].Id },
-          new User { UserName = "user", Email = "user@ticketsplease.com", RoleId = UserRoleId, TenantId = orgs[0].Id },
-      };
+      var users = new List<User>();
 
-      foreach (var u in staticUsers)
+      // Static Users (Bestehende Logins behalten)
+      var adminUser = new User { UserName = "admin", Email = "admin@ticketsplease.com", RoleId = AdminRoleId, TenantId = orgs[0].Id, IsActive = true, CreatedAt = DateTime.UtcNow.AddMonths(-5) };
+      var leadUser = new User { UserName = "teamlead", Email = "teamlead@ticketsplease.com", RoleId = TeamleadRoleId, TenantId = orgs[0].Id, IsActive = true, CreatedAt = DateTime.UtcNow.AddMonths(-4) };
+      var stdUser = new User { UserName = "user", Email = "user@ticketsplease.com", RoleId = UserRoleId, TenantId = orgs[0].Id, IsActive = true, CreatedAt = DateTime.UtcNow.AddMonths(-3) };
+      users.AddRange(new[] { adminUser, leadUser, stdUser });
+
+      // Add 1 more Admin
+      users.Add(new User { UserName = "admin2", Email = "admin2@ticketsplease.com", RoleId = AdminRoleId, TenantId = orgs[1].Id, IsActive = true });
+
+      // Add 4 more Teamleads
+      for (int i = 2; i <= 5; i++)
+      {
+        var org = faker.PickRandom(orgs);
+        users.Add(new User { UserName = $"teamlead{i}", Email = $"teamlead{i}@ticketsplease.com", RoleId = TeamleadRoleId, TenantId = org.Id, IsActive = true });
+      }
+
+      // Add 17 more Users
+      for (int i = 2; i <= 18; i++)
+      {
+        var org = faker.PickRandom(orgs);
+        users.Add(new User { UserName = $"user{i}", Email = $"user{i}@ticketsplease.com", RoleId = UserRoleId, TenantId = org.Id, IsActive = true });
+      }
+
+      foreach (var u in users)
       {
         u.PasswordHash = passwordHasher.HashPassword(u, "Pass123!");
         u.NormalizedEmail = u.Email?.ToUpperInvariant();
@@ -112,181 +153,285 @@ public static class DbInitialiser
         u.SecurityStamp = Guid.NewGuid().ToString();
       }
 
-      await context.Users.AddRangeAsync(staticUsers).ConfigureAwait(false);
-
-      // 4. Random Users
-      var users = new List<User>();
-      users.AddRange(staticUsers);
-      for (int i = 0; i < 47; i++)
-      {
-        var user = new User
-        {
-          UserName = faker.Internet.UserName(),
-          Email = faker.Internet.Email(),
-          RoleId = faker.PickRandom(roleIds),
-          TenantId = faker.PickRandom(orgs).Id,
-          SecurityStamp = Guid.NewGuid().ToString(),
-        };
-        user.PasswordHash = passwordHasher.HashPassword(user, "Pass123!");
-        user.NormalizedEmail = user.Email?.ToUpperInvariant();
-        user.NormalizedUserName = user.UserName?.ToUpperInvariant();
-        users.Add(user);
-      }
-
       await context.Users.AddRangeAsync(users).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      // Identity Role Assignments (AspNetUserRoles) für alle Benutzer
+      // Roles mapping
       foreach (var user in users)
       {
-        context.UserRoles.Add(new IdentityUserRole<Guid>
-        {
-          UserId = user.Id,
-          RoleId = user.RoleId,
-        });
+        context.UserRoles.Add(new IdentityUserRole<Guid> { UserId = user.Id, RoleId = user.RoleId });
       }
-
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      // 4. Profiles & Addresses
+      // 5. Profiles & Addresses (Vollständig)
+      var techStacks = new[] { ".NET, C#, SQL Server", "Frontend, React, Tailwind", "DevOps, Azure, Docker", "QA, Selenium, Playwright", "Management, Agile, Scrum" };
+      var positions = new[] { "Senior Developer", "Junior Developer", "DevOps Engineer", "Project Manager", "Team Lead", "Quality Engineer" };
+
       foreach (var user in users)
       {
         var profile = new UserProfile
         {
           UserId = user.Id,
-          FirstName = faker.Person.FirstName,
-          LastName = faker.Person.LastName,
-          Bio = faker.Lorem.Sentence(),
-          AvatarUrl = new Uri(faker.Internet.Avatar()),
+          FirstName = faker.Name.FirstName(),
+          LastName = faker.Name.LastName(),
+          Bio = faker.Lorem.Paragraph(),
+          AvatarUrl = new Uri($"https://api.dicebear.com/7.x/avataaars/svg?seed={user.UserName}"),
+          PhoneNumber = faker.Phone.PhoneNumber(),
+          Position = faker.PickRandom(positions),
+          TechStack = faker.PickRandom(techStacks),
+          Street = faker.Address.StreetName(),
+          HouseNumber = faker.Address.BuildingNumber(),
+          City = faker.Address.City(),
+          Country = "Deutschland",
           TenantId = user.TenantId,
+          CreatedAt = DateTime.UtcNow.AddMonths(-2)
         };
         await context.UserProfiles.AddAsync(profile).ConfigureAwait(false);
 
         var address = new UserAddress
         {
           UserId = user.Id,
-          Street = faker.Address.StreetAddress(),
-          City = faker.Address.City(),
+          Street = profile.Street,
+          City = profile.City,
           ZipCode = faker.Address.ZipCode(),
-          Country = "Deutschland",
+          Country = profile.Country,
           TenantId = user.TenantId,
+          CreatedAt = DateTime.UtcNow.AddMonths(-2)
         };
         await context.UserAddresses.AddAsync(address).ConfigureAwait(false);
       }
-
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      // 5. Teams & TeamMembers
+      // 6. Teams (Genau 5)
+      var teamNames = new[] { "Core Development", "UI/UX Design", "Platform Engineering", "Strategic Sales", "Customer Success" };
       var teams = new List<Team>();
-      for (int i = 0; i < 10; i++)
+      for (int i = 0; i < 5; i++)
       {
+        var org = i < 3 ? orgs[0] : orgs[1]; // 3 Teams in Org1, 2 Teams in Org2
+        var orgUsers = users.Where(u => u.TenantId == org.Id).ToList();
+        if (orgUsers.Count == 0) continue;
+
+        var creator = orgUsers.FirstOrDefault(u => u.RoleId != UserRoleId) ?? orgUsers.First();
         var team = new Team
         {
-          Name = faker.Commerce.Department(),
-          Description = faker.Lorem.Sentence(),
+          Name = teamNames[i],
+          Description = $"Das Team für {teamNames[i]} bei {org.Name}.",
           ColorCode = faker.Internet.Color(),
-          CreatedByUserId = faker.PickRandom(users).Id,
-          TenantId = faker.PickRandom(orgs).Id,
+          CreatedByUserId = creator.Id,
+          TenantId = org.Id,
+          CreatedAt = DateTime.UtcNow.AddMonths(-1)
         };
         teams.Add(team);
       }
-
-      await context.Teams.AddRangeAsync(teams).ConfigureAwait(false);
-      await context.SaveChangesAsync().ConfigureAwait(false);
-
-      foreach (var team in teams)
+      if (teams.Count > 0)
       {
-        var membersCount = faker.Random.Int(2, 5);
-        var teamUsers = faker.PickRandom(users, membersCount).ToList();
-        var members = teamUsers.Select(user => new TeamMember
-        {
-          TeamId = team.Id,
-          UserId = user.Id,
-          IsTeamLead = user.Id == team.CreatedByUserId,
-          TenantId = team.TenantId,
-        }).ToList();
-        await context.TeamMembers.AddRangeAsync(members).ConfigureAwait(false);
+          logger.LogInformation("Teams erstellt. Starte Team-Mitglieder-Zuweisung...");
+          await context.Teams.AddRangeAsync(teams).ConfigureAwait(false);
+          await context.SaveChangesAsync().ConfigureAwait(false);
+      }
+      else
+      {
+          logger.LogWarning("Keine Teams erstellt, da keine Benutzer für die Organisationen gefunden wurden.");
       }
 
+      // Team Members
+      foreach (var team in teams)
+      {
+        // Alle Teamleads der Org ins Team (als Leads)
+        var leadUsers = users.Where(u => u.TenantId == team.TenantId && u.RoleId == TeamleadRoleId).Take(1).ToList();
+        // Einige normale User dazu
+        var memberUsers = users.Where(u => u.TenantId == team.TenantId && u.RoleId == UserRoleId).Take(3).ToList();
+
+        if (leadUsers.Count > 0)
+        {
+            foreach (var lu in leadUsers)
+            {
+                context.TeamMembers.Add(new TeamMember { TeamId = team.Id, UserId = lu.Id, IsTeamLead = true, TenantId = team.TenantId, JoinedAt = DateTime.UtcNow.AddDays(-20) });
+            }
+        }
+
+        if (memberUsers.Count > 0)
+        {
+            foreach (var mu in memberUsers)
+            {
+                context.TeamMembers.Add(new TeamMember { TeamId = team.Id, UserId = mu.Id, IsTeamLead = false, TenantId = team.TenantId, JoinedAt = DateTime.UtcNow.AddDays(-15) });
+            }
+        }
+      }
+      logger.LogInformation("Team-Mitglieder zugewiesen. Starte Ticket-Seeding...");
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      // 6. Tickets & Related
+      // 7. Tickets (~50)
       var tickets = new List<Ticket>();
       for (int i = 0; i < 50; i++)
       {
-        var projectId = faker.PickRandom(projects).Id;
-        var creatorId = faker.PickRandom(users).Id;
-        var workflowStateId = faker.PickRandom(stateIds);
-        var geoIp = faker.Internet.Ip();
+        var project = faker.PickRandom(projects);
+        var orgUsers = users.Where(u => u.TenantId == project.TenantId).ToList();
+        if (orgUsers.Count == 0) continue;
 
-        var ticket = new Ticket(faker.Commerce.ProductName(), faker.PickRandom<TicketType>(), projectId, creatorId, workflowStateId, geoIp);
-        ticket.UpdateDescription(faker.Lorem.Paragraphs(1), $"# {faker.Commerce.ProductName()}\n\n{faker.Lorem.Paragraphs(2)}");
-        ticket.AssignUser(faker.Random.Bool() ? faker.PickRandom(users).Id : null);
+        var creator = faker.PickRandom(orgUsers);
+        var stateId = faker.PickRandom(stateIds);
+        var ticket = new Ticket(
+            faker.Commerce.ProductName(),
+            faker.PickRandom<TicketType>(),
+            project.Id,
+            creator.Id,
+            stateId,
+            stateNames[stateId],
+            faker.Internet.Ip())
+        {
+            TenantId = project.TenantId,
+            CreatedAt = DateTime.UtcNow.AddDays(-faker.Random.Int(1, 30))
+        };
+
+        ticket.UpdateDescription(faker.Lorem.Sentence(), $"# {ticket.Title}\n\n{faker.Lorem.Paragraphs(2)}");
         ticket.SetPriority(faker.PickRandom(priorityIds));
         ticket.SetDifficulty(faker.Random.Int(1, 5));
-        ticket.SetTenantId(faker.PickRandom(orgs).Id);
+        ticket.SetSize(faker.PickRandom<TicketSize>());
+
+        // Zuweisung
+        if (faker.Random.Bool(0.8f))
+        {
+           ticket.AssignUser(faker.PickRandom(orgUsers).Id);
+        }
 
         tickets.Add(ticket);
       }
-
+      logger.LogInformation("Tickets erstellt. Starte Ticket-Team-Zuweisung...");
       await context.Tickets.AddRangeAsync(tickets).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      // 7. Messages
-      var messages = new List<Message>();
-      for (int i = 0; i < 150; i++)
+      // Ticket Assignments (Teams)
+      foreach (var ticket in tickets.Take(25)) // Halbe Tickets auch Teams zuweisen
       {
-        var message = new Message
+        var team = teams.FirstOrDefault(t => t.TenantId == ticket.TenantId);
+        if (team != null)
         {
-          SenderUserId = faker.PickRandom(users).Id,
-          BodyMarkdown = faker.Lorem.Sentence(),
-          TicketId = faker.PickRandom(tickets).Id,
-          SentAt = faker.Date.Recent(),
-          TenantId = faker.PickRandom(orgs).Id,
-        };
-        messages.Add(message);
+            context.TicketAssignments.Add(new TicketAssignment
+            {
+                TicketId = ticket.Id,
+                TeamId = team.Id,
+                TenantId = ticket.TenantId,
+                AssignedAt = DateTime.UtcNow
+            });
+        }
       }
-
-      await context.Messages.AddRangeAsync(messages).ConfigureAwait(false);
+      logger.LogInformation("Ticket-Team-Zuweisungen abgeschlossen. Starte Benachrichtigungen...");
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      // 8. SubTickets
-      var subTickets = new List<SubTicket>();
-      for (int i = 0; i < 50; i++)
+      // 8. Notifications
+      var notifications = new List<Notification>();
+      foreach (var user in users)
       {
-        var subTicket = new SubTicket
+        var userTickets = tickets.Where(t => t.TenantId == user.TenantId).ToList();
+        for (int i = 0; i < 5; i++)
         {
-          Title = faker.Lorem.Sentence(3),
-          IsCompleted = faker.Random.Bool(),
-          CreatedAt = faker.Date.Past(),
-          CreatorId = faker.PickRandom(users).Id,
-          TicketId = faker.PickRandom(tickets).Id,
-          TenantId = faker.PickRandom(orgs).Id,
-        };
-        subTickets.Add(subTicket);
+          var targetTicket = faker.PickRandom(userTickets);
+          notifications.Add(new Notification
+          {
+            UserId = user.Id,
+            Title = i % 2 == 0 ? "Neues Ticket zugewiesen" : "Nachricht in Ticket",
+            Content = faker.Lorem.Sentence(10),
+            IsRead = i > 2,
+            CreatedAt = DateTime.UtcNow.AddMinutes(-faker.Random.Int(10, 5000)),
+            TenantId = user.TenantId,
+            TargetUrl = targetTicket != null ? $"/Tickets/Details/{targetTicket.Id}" : "/Tickets"
+          });
+        }
       }
+      logger.LogInformation("Benachrichtigungen erstellt. Starte Chat-Nachrichten...");
+      await context.Notifications.AddRangeAsync(notifications).ConfigureAwait(false);
 
-      await context.SubTickets.AddRangeAsync(subTickets).ConfigureAwait(false);
-      await context.SaveChangesAsync().ConfigureAwait(false);
-
-      // 9. Workflow Transitions (F8)
-      var transitions = new List<WorkflowTransition>
+      // 8.1. Tags
+      var tags = new List<Tag>();
+      var tagDefinitions = new[]
       {
-          new WorkflowTransition { FromStateId = TodoStateId, ToStateId = InProgressStateId },
-          new WorkflowTransition { FromStateId = InProgressStateId, ToStateId = InReviewStateId },
-          new WorkflowTransition { FromStateId = InReviewStateId, ToStateId = DoneStateId },
-          new WorkflowTransition { FromStateId = InProgressStateId, ToStateId = TodoStateId },
-          new WorkflowTransition { FromStateId = InReviewStateId, ToStateId = InProgressStateId },
-
-          // Admin can move anything to Done
-          new WorkflowTransition { FromStateId = TodoStateId, ToStateId = DoneStateId },
-          new WorkflowTransition { FromStateId = InProgressStateId, ToStateId = DoneStateId },
+          ("Bug", "#ef4444", "fa-bug"),
+          ("Feature", "#3b82f6", "fa-star"),
+          ("Support", "#10b981", "fa-headset"),
+          ("UI/UX", "#f59e0b", "fa-palette"),
+          ("Backend", "#6366f1", "fa-server"),
+          ("Database", "#8b5cf6", "fa-database"),
+          ("Security", "#991b1b", "fa-shield-halved"),
+          ("Refactor", "#ec4899", "fa-recycle"),
+          ("Documentation", "#64748b", "fa-file-lines"),
+          ("API", "#0ea5e9", "fa-cloud"),
+          ("Mobile", "#f43f5e", "fa-mobile-screen-button"),
+          ("Testing", "#22c55e", "fa-vial"),
+          ("DevOps", "#06b6d4", "fa-infinity"),
+          ("Performance", "#eab308", "fa-bolt"),
+          ("Legal", "#4b5563", "fa-scale-balanced"),
+          ("Marketing", "#d946ef", "fa-bullhorn"),
+          ("Sales", "#f97316", "fa-cart-shopping"),
+          ("Internal", "#6d28d9", "fa-briefcase"),
+          ("Urgent", "#dc2626", "fa-circle-exclamation"),
+          ("Legacy", "#78350f", "fa-clock-rotate-left")
       };
 
-      await context.WorkflowTransitions.AddRangeAsync(transitions).ConfigureAwait(false);
+      foreach (var (name, color, icon) in tagDefinitions)
+      {
+          tags.Add(new Tag { Name = name, ColorHex = color, Icon = icon });
+      }
+      await context.Tags.AddRangeAsync(tags).ConfigureAwait(false);
       await context.SaveChangesAsync().ConfigureAwait(false);
 
-      logger.LogInformation("Synthetisches Seeding erfolgreich abgeschlossen.");
+      // 9. Messages (Chat)
+      var messages = new List<Message>();
+      foreach (var org in orgs)
+      {
+          var orgUsers = users.Where(u => u.TenantId == org.Id).ToList();
+          if (orgUsers.Count < 2) continue; // Brauchen mindestens 2 User für Chat
+
+          for (int i = 0; i < 40; i++)
+          {
+              var sender = faker.PickRandom(orgUsers);
+              var receiver = faker.PickRandom(orgUsers.Where(u => u.Id != sender.Id).ToList());
+              messages.Add(new Message
+              {
+                  SenderUserId = sender.Id,
+                  ReceiverUserId = receiver.Id,
+                  BodyMarkdown = faker.Lorem.Sentence(),
+                  SentAt = DateTime.UtcNow.AddMinutes(-faker.Random.Int(1, 10000)),
+                  TenantId = org.Id
+              });
+          }
+      }
+      logger.LogInformation("Chat-Nachrichten erstellt. Starte SubTickets und Kommentare...");
+      await context.Messages.AddRangeAsync(messages).ConfigureAwait(false);
+
+      // 10. SubTickets & Comments
+      foreach (var ticket in tickets.Take(15))
+      {
+          var orgUsers = users.Where(u => u.TenantId == ticket.TenantId).ToList();
+          if (orgUsers.Count == 0) continue;
+
+          for (int i = 0; i < 3; i++)
+          {
+              context.SubTickets.Add(new SubTicket
+              {
+                  TicketId = ticket.Id,
+                  Title = faker.Lorem.Sentence(3),
+                  IsCompleted = faker.Random.Bool(),
+                  CreatorId = ticket.CreatorId,
+                  TenantId = ticket.TenantId,
+                  CreatedAt = DateTime.UtcNow.AddDays(-1)
+              });
+
+              var commentContent = faker.Lorem.Sentence();
+              var randomAuthor = faker.PickRandom(orgUsers);
+              if (randomAuthor != null)
+              {
+                  var comment = new Comment(commentContent, ticket.Id, randomAuthor.Id);
+                  comment.SetTenantId(ticket.TenantId);
+                  comment.CreatedAt = DateTime.UtcNow.AddHours(-i);
+                  context.Comments.Add(comment);
+              }
+          }
+      }
+
+      await context.SaveChangesAsync().ConfigureAwait(false);
+
+      logger.LogInformation("Hochwertiges Seeding erfolgreich abgeschlossen.");
     }
     catch (Exception ex)
     {
