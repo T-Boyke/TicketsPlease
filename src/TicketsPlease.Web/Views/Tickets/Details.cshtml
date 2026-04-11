@@ -24,9 +24,9 @@
             <a asp-action="Edit" asp-route-id="@Model.Id" class="px-5 py-2.5 rounded-full border border-slate-200 text-slate-600 font-bold hover:bg-slate-50 transition-all">
                 <i class="fa-solid fa-pen mr-2"></i> @L["Edit"]
             </a>
-            @if (Model.Status != "Closed")
+            @if (Model.Status != "Done" && Model.Status != "Closed")
             {
-                <form asp-action="Move" asp-route-id="@Model.Id" asp-route-status="Closed" method="post" class="inline">
+                <form asp-action="Move" asp-route-id="@Model.Id" asp-route-status="Done" method="post" class="inline">
                     <button type="submit" class="px-5 py-2.5 rounded-full bg-emerald-500 text-white font-bold hover:bg-emerald-600 hover:shadow-lg hover:shadow-emerald-500/30 transition-all">
                         <i class="fa-solid fa-check mr-2"></i> @L["Close Ticket"]
                     </button>
@@ -41,7 +41,7 @@
             <div class="bg-white rounded-3xl p-8 border border-slate-100 shadow-xl">
                 <div class="flex-grow">
                     <div class="flex items-center gap-4 mb-4">
-                        <span class="text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-sm ring-1 ring-inset" 
+                        <span class="text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-sm ring-1 ring-inset"
                               style="background-color: @(Model.Priority.ColorHex + "10"); color: @(Model.Priority.ColorHex); ring-color: @(Model.Priority.ColorHex + "30")">
                             @Model.Priority.Name
                         </span>
@@ -63,7 +63,7 @@
                     </div>
                     <h1 class="text-4xl font-extrabold text-slate-900 mb-6 leading-tight">@Model.Title</h1>
                 </div>
-                
+
                 <div class="flex items-center space-x-3 mb-6">
                     <div class="flex items-center space-x-1" title="@L["Difficulty"]: @Model.ChilliesDifficulty / 5">
                         @for (int i = 1; i <= 5; i++)
@@ -76,7 +76,7 @@
                                 5 => "#e11d48",
                                 _ => "#cbd5e1"
                             };
-                            
+
                             if (i <= Model.ChilliesDifficulty)
                             {
                                 <i class="fa-solid fa-pepper-hot @(i == 5 ? "animate-pulse" : "")" style="color: @color"></i>
@@ -89,7 +89,7 @@
                     </div>
                     <span class="text-slate-400 font-bold text-sm">TICKET-@Model.Id.ToString().Substring(0, 8).ToUpper()</span>
                 </div>
-                
+
                 @if (Model.Tags.Any())
                 {
                     <div class="flex flex-wrap gap-2 mb-6">
@@ -131,9 +131,9 @@
                                             <span class="text-[10px] font-bold text-slate-400">@log.ChangedAt.ToLocalTime().ToString("g")</span>
                                         </div>
                                         <p class="text-xs text-slate-600">
-                                           @L["Changed"] <span class="font-bold text-slate-800">@log.ChangeType</span>: 
-                                           <span class="text-rose-500 line-through">@log.OldValue</span> 
-                                           <i class="fa-solid fa-arrow-right mx-1 text-slate-300"></i> 
+                                           @L["Changed"] <span class="font-bold text-slate-800">@log.ChangeType</span>:
+                                           <span class="text-rose-500 line-through">@log.OldValue</span>
+                                           <i class="fa-solid fa-arrow-right mx-1 text-slate-300"></i>
                                            <span class="text-emerald-500 font-bold">@log.NewValue</span>
                                         </p>
                                     </div>
@@ -180,7 +180,7 @@
                                         <span class="text-slate-700 font-bold text-sm @(sub.IsCompleted ? "line-through text-slate-400 font-medium" : "")">@sub.Title</span>
                                     </button>
                                 </form>
-                                
+
                                 <form asp-action="DeleteSubTicket" method="post" class="opacity-0 group-hover:opacity-100 transition-opacity">
                                     @Html.AntiForgeryToken()
                                     <input type="hidden" name="id" value="@Model.Id" />
@@ -206,6 +206,7 @@
                             </button>
                         </form>
                     </div>
+                </div>
 
                 @* Comments Section (F5) *@
                 <div class="pt-8 border-t border-slate-100">
@@ -311,7 +312,7 @@
                 <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6 flex items-center">
                     <i class="fa-solid fa-clock-rotate-left mr-2 text-brand-primary"></i> @L["Time Tracking"]
                 </h3>
-                
+
                 <div class="flex items-center justify-between mb-6">
                     <div>
                         <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">@@L["Total"]</p>
@@ -364,7 +365,7 @@
                 <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6 flex items-center">
                     <i class="fa-solid fa-link mr-2 text-brand-primary"></i> @L["Dependencies"]
                 </h3>
-                
+
                 @* Blocked By (Predecessors) *@
                 <div class="mb-6">
                     <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-3 flex items-center">
@@ -400,7 +401,7 @@
                         </button>
                     </div>
                 </form>
-                
+
                 @* Blocking (Successors) *@
                 <div class="mt-8 pt-6 border-t border-slate-100">
                     <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-3 flex items-center">
@@ -431,7 +432,7 @@
                 <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6 flex items-center">
                     <i class="fa-solid fa-paperclip mr-2 text-brand-primary"></i> @L["Attachments"]
                 </h3>
-                
+
                 <div class="space-y-4 mb-6">
                     @if (!Model.Attachments.Any())
                     {

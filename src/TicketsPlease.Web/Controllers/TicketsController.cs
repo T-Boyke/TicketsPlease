@@ -22,8 +22,7 @@ using TicketsPlease.Infrastructure.Persistence;
 /// Controller für das Ticket-Handling und das Kanban-Board.
 /// </summary>
 [Authorize]
-[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1515:Consider making public types internal", Justification = "Kept public for visibility in some reflections if necessary, but marked internal per warning.")]
-internal sealed class TicketsController : Controller
+public sealed class TicketsController : Controller
 {
   private readonly ITicketService ticketService;
   private readonly IProjectService projectService;
@@ -432,6 +431,49 @@ internal sealed class TicketsController : Controller
     }
 
     return this.RedirectToAction(nameof(this.Details), new { id });
+  }
+
+  /// <summary>
+  /// Erstellt ein neues Tag.
+  /// </summary>
+  /// <param name="request">Tag-Anfrage.</param>
+  /// <returns>Die JSON-Antwort.</returns>
+  [HttpPost]
+  [Authorize]
+  public async Task<IActionResult> CreateTag([FromBody] CreateTagRequest request)
+  {
+      if (request == null || string.IsNullOrWhiteSpace(request.Name))
+      {
+          return this.BadRequest("Name is required");
+      }
+
+      var tag = new Tag
+      {
+          Id = Guid.NewGuid(),
+          Name = request.Name,
+          ColorHex = request.Color ?? "#64748b",
+          Icon = request.Icon ?? "fa-tag"
+      };
+
+      this.context.Tags.Add(tag);
+      await this.context.SaveChangesAsync().ConfigureAwait(false);
+
+      return this.Json(new { id = tag.Id, name = tag.Name, color = tag.ColorHex, icon = tag.Icon });
+  }
+
+  /// <summary>
+  /// Request DTO für Tag-Erstellung.
+  /// </summary>
+  public class CreateTagRequest
+  {
+      /// <summary>Gets or sets Name.</summary>
+      public string Name { get; set; } = string.Empty;
+
+      /// <summary>Gets or sets Color.</summary>
+      public string? Color { get; set; }
+
+      /// <summary>Gets or sets Icon.</summary>
+      public string? Icon { get; set; }
   }
 
   /// <summary>

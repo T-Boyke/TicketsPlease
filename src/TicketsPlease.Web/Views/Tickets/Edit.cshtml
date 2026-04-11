@@ -84,9 +84,28 @@
                 </div>
 
                 <div class="md:col-span-2">
-                    <label asp-for="TagIds" class="block text-sm font-bold text-slate-700">@L["Tags"]</label>
-                    <select asp-for="TagIds" asp-items="ViewBag.Tags" multiple class="mt-1 block w-full px-4 py-3 border border-slate-300 rounded-xl shadow-sm focus:ring-2 focus:ring-brand-primary/20 focus:border-brand-primary transition-all sm:text-sm min-h-[100px]"></select>
-                    <p class="text-[10px] text-slate-400 mt-1 font-bold uppercase tracking-wider">@L["Hold Ctrl/Cmd to select multiple"]</p>
+                    <div class="flex items-center justify-between mb-2">
+                        <label asp-for="TagIds" class="text-sm font-bold text-slate-700">@L["Tags"]</label>
+                        <button type="button" onclick="openTagModal()" class="text-xs font-bold text-brand-primary hover:text-brand-secondary flex items-center">
+                            <i class="fa-solid fa-plus-circle mr-1"></i>
+                            @L["Add New Tag"]
+                        </button>
+                    </div>
+
+                    <div id="tag-container" class="flex flex-wrap gap-2 p-4 bg-slate-50 rounded-xl border border-slate-200 min-h-[60px]">
+                         @foreach (var tag in (IEnumerable<SelectListItem>)ViewBag.Tags)
+                         {
+                             bool isSelected = Model.TagIds?.Contains(Guid.Parse(tag.Value)) ?? false;
+                             <label class="cursor-pointer">
+                                 <input type="checkbox" name="TagIds" value="@tag.Value" class="sr-only peer" @(isSelected ? "checked" : "") />
+                                 <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold transition-all border border-transparent
+                                              bg-white text-slate-600 shadow-sm hover:border-slate-300
+                                              peer-checked:bg-brand-primary/10 peer-checked:border-brand-primary peer-checked:text-brand-primary">
+                                     @tag.Text
+                                 </span>
+                             </label>
+                         }
+                    </div>
                 </div>
             </div>
 
@@ -97,3 +116,89 @@
         </form>
     </div>
 </div>
+
+<!-- Tag Modal -->
+<div id="tagModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen p-4 text-center">
+        <div class="fixed inset-0 transition-opacity bg-slate-900/60" onclick="closeTagModal()"></div>
+        <div class="relative w-full max-w-md p-8 bg-white rounded-3xl shadow-2xl animate-in zoom-in-95 duration-200">
+            <h3 class="text-xl font-extrabold text-slate-900 mb-6">@L["Create New Tag"]</h3>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 text-left mb-1">@L["Tag Name"]</label>
+                    <input type="text" id="newTagName" placeholder="e.g. UX-Improvement" class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-primary/20" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 text-left mb-1">@L["Color"]</label>
+                    <input type="color" id="newTagColor" value="#3B82F6" class="w-full h-12 p-1 border border-slate-300 rounded-xl cursor-pointer" />
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 text-left mb-1">@L["Icon (FontAwesome)"]</label>
+                    <input type="text" id="newTagIcon" value="fa-tag" placeholder="fa-bug, fa-star..." class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-brand-primary/20" />
+                </div>
+            </div>
+
+            <div class="flex justify-end space-x-3 mt-8">
+                <button type="button" onclick="closeTagModal()" class="px-6 py-2 text-sm font-bold text-slate-500 hover:text-slate-700">@L["Cancel"]</button>
+                <button type="button" onclick="saveNewTag()" class="px-8 py-2 bg-brand-primary text-white text-sm font-bold rounded-xl hover:bg-brand-secondary transition-all">@L["Create"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function openTagModal() {
+            document.getElementById('tagModal').classList.remove('hidden');
+        }
+
+        function closeTagModal() {
+            document.getElementById('tagModal').classList.add('hidden');
+        }
+
+        async function saveNewTag() {
+            const name = document.getElementById('newTagName').value;
+            const color = document.getElementById('newTagColor').value;
+            const icon = document.getElementById('newTagIcon').value;
+
+            if (!name) return;
+
+            try {
+                const response = await fetch('/Tickets/CreateTag', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                    },
+                    body: JSON.stringify({ name, color, icon })
+                });
+
+                if (response.ok) {
+                    const tag = await response.json();
+
+                    // Add to UI
+                    const container = document.getElementById('tag-container');
+                    const label = document.createElement('label');
+                    label.className = 'cursor-pointer';
+                    label.innerHTML = `
+                        <input type="checkbox" name="TagIds" value="${tag.id}" class="sr-only peer" checked />
+                        <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold transition-all border border-transparent
+                                     bg-white text-slate-600 shadow-sm hover:border-slate-300
+                                     peer-checked:bg-brand-primary/10 peer-checked:border-brand-primary peer-checked:text-brand-primary">
+                            ${tag.name}
+                        </span>
+                    `;
+                    container.appendChild(label);
+
+                    closeTagModal();
+                    document.getElementById('newTagName').value = '';
+                }
+            } catch (error) {
+                console.error('Error creating tag:', error);
+            }
+        }
+    </script>
+}
