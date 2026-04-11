@@ -72,11 +72,11 @@ public interface ITicketRepository
   public Task<int> SaveChangesAsync(CancellationToken ct = default);
 
   /// <summary>
-  /// Ruft die Standard-Workflow-Status-ID ab.
+  /// Ruft den Standard-Workflow-Status ab.
   /// </summary>
   /// <param name="ct">Das Abbruchsignal.</param>
-  /// <returns>Die ID des Standard-Status.</returns>
-  public Task<Guid> GetDefaultWorkflowStateIdAsync(CancellationToken ct = default);
+  /// <returns>Der Standard-Status.</returns>
+  public Task<WorkflowState?> GetDefaultWorkflowStateAsync(CancellationToken ct = default);
 
   /// <summary>
   /// Ruft einen Workflow-Status anhand seines Namens ab.
