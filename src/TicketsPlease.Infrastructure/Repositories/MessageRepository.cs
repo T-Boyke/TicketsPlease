@@ -54,6 +54,20 @@ public class MessageRepository : IMessageRepository
   }
 
   /// <inheritdoc />
+  public async Task<List<Message>> GetLatestUserMessagesAsync(Guid userId, int limit, CancellationToken ct = default)
+  {
+    return await this.context.Messages
+        .AsNoTracking()
+        .Where(m => m.SenderUserId == userId || m.ReceiverUserId == userId)
+        .Include(m => m.SenderUser)
+        .Include(m => m.ReceiverUser)
+        .Include(m => m.Attachments)
+        .OrderByDescending(m => m.SentAt)
+        .Take(limit)
+        .ToListAsync(ct).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc />
   public async Task<List<Message>> GetConversationAsync(Guid userId, Guid otherUserId, CancellationToken ct = default)
   {
     return await this.context.Messages

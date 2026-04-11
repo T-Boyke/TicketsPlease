@@ -281,7 +281,7 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     // --- Workflow Transitions ---
     builder.Entity<WorkflowTransition>(entity =>
     {
-      entity.HasKey(e => new { e.FromStateId, e.ToStateId });
+      entity.HasKey(e => e.Id);
 
       entity.HasOne(e => e.FromState)
             .WithMany()

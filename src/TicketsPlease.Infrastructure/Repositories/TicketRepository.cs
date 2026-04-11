@@ -168,10 +168,9 @@ public class TicketRepository : ITicketRepository
   }
 
   /// <inheritdoc />
-  public async Task<Guid> GetDefaultWorkflowStateIdAsync(CancellationToken ct = default)
+  public async Task<WorkflowState?> GetDefaultWorkflowStateAsync(CancellationToken ct = default)
   {
-    var state = await this.context.WorkflowStates.AsNoTracking().FirstOrDefaultAsync(ct).ConfigureAwait(false);
-    return state?.Id ?? Guid.Empty;
+    return await this.context.WorkflowStates.AsNoTracking().FirstOrDefaultAsync(ct).ConfigureAwait(false);
   }
 
   /// <inheritdoc />
