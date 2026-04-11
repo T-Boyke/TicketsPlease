@@ -14,7 +14,62 @@ notificationConnection.on("ReceiveNotification", (notification) => {
     // In-App Toast anzeigen
     console.log("Notification received:", notification);
     showToast(notification.title, notification.message, notification.link);
+
+    // Navbar Update
+    updateNavbarNotifications(notification);
 });
+
+function updateNavbarNotifications(notification) {
+    const dot = document.getElementById("nav-noti-dot");
+    const countSpan = document.getElementById("nav-noti-count");
+    const list = document.getElementById("nav-noti-list");
+
+    // Dot anzeigen falls nicht da
+    if (!dot) {
+        const summary = document.querySelector("summary[aria-label='Notifications']");
+        if (summary) {
+            const newDot = document.createElement("span");
+            newDot.id = "nav-noti-dot";
+            newDot.className = "absolute top-1.5 right-1.5 block h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-white group-hover:animate-pulse";
+            summary.appendChild(newDot);
+        }
+    }
+
+    // Count erhöhen
+    if (countSpan) {
+        const currentCount = parseInt(countSpan.innerText) || 0;
+        countSpan.innerText = `${currentCount + 1} New`; // i18n is hard here, but we match the layout
+    }
+
+    // Zur Liste hinzufügen
+    if (list) {
+        const emptyMsg = list.querySelector("p");
+        if (emptyMsg) emptyMsg.remove();
+
+        let icon = '<i class="fa-solid fa-bell text-xs"></i>';
+        if (notification.title.toLowerCase().includes('ticket')) icon = '<i class="fa-solid fa-ticket text-xs"></i>';
+        if (notification.title.toLowerCase().includes('comment')) icon = '<i class="fa-solid fa-comment-dots text-xs"></i>';
+
+        const item = document.createElement("a");
+        item.href = notification.link || "/Notifications";
+        item.className = "flex items-start gap-3 p-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer block";
+        item.innerHTML = `
+            <div class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0">
+                ${icon}
+            </div>
+            <div>
+                <p class="text-xs font-bold text-slate-800">${notification.title}</p>
+                <p class="text-[10px] text-slate-500 line-clamp-2">${notification.message}</p>
+            </div>
+        `;
+        list.prepend(item);
+
+        // Max 10 Items
+        while (list.children.length > 10) {
+            list.lastElementChild.remove();
+        }
+    }
+}
 
 notificationConnection.on("ReceiveGlobalAlert", (alert) => {
     // Globale System-Meldung (z.B. Wartungsarbeiten)
@@ -25,7 +80,7 @@ notificationConnection.on("ReceiveGlobalAlert", (alert) => {
 notificationConnection.on("TicketUpdated", (data) => {
     // Falls wir auf dem Kanban-Board sind, neu laden oder Karte updaten
     console.log("Ticket updated:", data);
-    
+
     if (window.location.pathname.toLowerCase().includes("/tickets")) {
         // Falls speziell die Ticket-Index (Board) oder Details
         const board = document.getElementById("kanban-board");
@@ -34,7 +89,7 @@ notificationConnection.on("TicketUpdated", (data) => {
             showToast("Aktualisierung", data.message, null);
             // Optional: loadKanbanData(); // Wenn wir eine Refresh-Funktion haben
         }
-        
+
         const detailsContainer = document.getElementById("ticket-details-container");
         if (detailsContainer && detailsContainer.dataset.ticketId === data.ticketId) {
              showToast("Änderung", "Dieses Ticket wurde gerade aktualisiert.", null);
@@ -60,7 +115,7 @@ async function startSignalR() {
     try {
         await notificationConnection.start();
         console.log("SignalR connected.");
-        
+
         // Falls wir auf einer Ticket-Detail-Seite sind, Gruppe beitreten
         const detailsContainer = document.getElementById("ticket-details-container");
         if (detailsContainer && detailsContainer.dataset.ticketId) {
@@ -109,7 +164,7 @@ function appendComment(comment) {
         </div>
     `;
     list.prepend(div);
-    
+
     // Markdown-Engine triggern (falls vorhanden)
     if (window.renderMarkdown) {
         window.renderMarkdown(div.querySelector(".markdown-content"));
