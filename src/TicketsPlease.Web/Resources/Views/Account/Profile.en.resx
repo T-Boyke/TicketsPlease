@@ -39,4 +39,25 @@
   <data name="Role" xml:space="preserve"><value>Role</value></data>
   <data name="User" xml:space="preserve"><value>User</value></data>
   <data name="Created At" xml:space="preserve"><value>Created At</value></data>
+  <data name="Performance Metrics" xml:space="preserve"><value>Performance Metrics</value></data>
+  <data name="Total Story Points" xml:space="preserve"><value>Total Story Points</value></data>
+  <data name="Completed Tickets" xml:space="preserve"><value>Completed Tickets</value></data>
+  <data name="Avg. Resolution Time" xml:space="preserve"><value>Avg. Resolution Time</value></data>
+  <data name="Workspace" xml:space="preserve"><value>Workspace</value></data>
+  <data name="Current Workspace" xml:space="preserve"><value>Current Workspace</value></data>
+  <data name="Personal Workspace" xml:space="preserve"><value>Personal Workspace</value></data>
+  <data name="Account Details" xml:space="preserve"><value>Account Details</value></data>
+  <data name="First Name" xml:space="preserve"><value>First Name</value></data>
+  <data name="Last Name" xml:space="preserve"><value>Last Name</value></data>
+  <data name="Phone Number" xml:space="preserve"><value>Phone Number</value></data>
+  <data name="Last Login" xml:space="preserve"><value>Last Login</value></data>
+  <data name="Tech Stack" xml:space="preserve"><value>Tech Stack</value></data>
+  <data name="Address Location" xml:space="preserve"><value>Address Location</value></data>
+  <data name="Street &amp; No." xml:space="preserve"><value>Street &amp; No.</value></data>
+  <data name="City" xml:space="preserve"><value>City</value></data>
+  <data name="Country" xml:space="preserve"><value>Country</value></data>
+  <data name="No location provided" xml:space="preserve"><value>No location provided</value></data>
+  <data name="Your Teams" xml:space="preserve"><value>Your Teams</value></data>
+  <data name="You are not a member of any teams yet." xml:space="preserve"><value>You are not a member of any teams yet.</value></data>
+  <data name="Member since" xml:space="preserve"><value>Member since</value></data>
 </root>

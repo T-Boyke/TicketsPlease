@@ -175,4 +175,58 @@
   <data name="Live Performance Tracking" xml:space="preserve">
     <value>Live-Leistungstracking</value>
   </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Welcome back! Here's what's happening in your workspace today." xml:space="preserve">
+    <value>Willkommen zurück! Das passiert heute in deinem Arbeitsbereich.</value>
+  </data>
+  <data name="Total Tickets" xml:space="preserve">
+    <value>Gesamt Tickets</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Offen</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Erledigt</value>
+  </data>
+  <data name="Active Projects" xml:space="preserve">
+    <value>Aktive Projekte</value>
+  </data>
+  <data name="Across all teams" xml:space="preserve">
+    <value>Über alle Teams</value>
+  </data>
+  <data name="Total Users" xml:space="preserve">
+    <value>Gesamt Benutzer</value>
+  </data>
+  <data name="Velocity" xml:space="preserve">
+    <value>Velocity</value>
+  </data>
+  <data name="Completion rate" xml:space="preserve">
+    <value>Abschlussquote</value>
+  </data>
+  <data name="Ready to scale?" xml:space="preserve">
+    <value>Bereit zum Skalieren?</value>
+  </data>
+  <data name="Your workspace is optimized and ready for more. Start a new project or manage your existing team." xml:space="preserve">
+    <value>Dein Arbeitsbereich ist optimiert und bereit für mehr. Starte ein neues Projekt oder verwalte dein bestehendes Team.</value>
+  </data>
+  <data name="View Board" xml:space="preserve">
+    <value>Board ansehen</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Nachrichten</value>
+  </data>
+  <data name="Quick Access" xml:space="preserve">
+    <value>Schnellzugriff</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projekte</value>
+  </data>
+  <data name="New Ticket" xml:space="preserve">
+    <value>Neues Ticket</value>
+  </data>
+  <data name="Admin Panel" xml:space="preserve">
+    <value>Admin-Bereich</value>
+  </data>
 </root>

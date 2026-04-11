@@ -175,4 +175,58 @@
   <data name="Live Performance Tracking" xml:space="preserve">
     <value>Live Performance Tracking</value>
   </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Welcome back! Here's what's happening in your workspace today." xml:space="preserve">
+    <value>Welcome back! Here's what's happening in your workspace today.</value>
+  </data>
+  <data name="Total Tickets" xml:space="preserve">
+    <value>Total Tickets</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="Active Projects" xml:space="preserve">
+    <value>Active Projects</value>
+  </data>
+  <data name="Across all teams" xml:space="preserve">
+    <value>Across all teams</value>
+  </data>
+  <data name="Total Users" xml:space="preserve">
+    <value>Total Users</value>
+  </data>
+  <data name="Velocity" xml:space="preserve">
+    <value>Velocity</value>
+  </data>
+  <data name="Completion rate" xml:space="preserve">
+    <value>Completion rate</value>
+  </data>
+  <data name="Ready to scale?" xml:space="preserve">
+    <value>Ready to scale?</value>
+  </data>
+  <data name="Your workspace is optimized and ready for more. Start a new project or manage your existing team." xml:space="preserve">
+    <value>Your workspace is optimized and ready for more. Start a new project or manage your existing team.</value>
+  </data>
+  <data name="View Board" xml:space="preserve">
+    <value>View Board</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Messages</value>
+  </data>
+  <data name="Quick Access" xml:space="preserve">
+    <value>Quick Access</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="New Ticket" xml:space="preserve">
+    <value>New Ticket</value>
+  </data>
+  <data name="Admin Panel" xml:space="preserve">
+    <value>Admin Panel</value>
+  </data>
 </root>

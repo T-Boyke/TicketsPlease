@@ -39,4 +39,25 @@
   <data name="Role" xml:space="preserve"><value>Rolle</value></data>
   <data name="User" xml:space="preserve"><value>Benutzer</value></data>
   <data name="Created At" xml:space="preserve"><value>Erstellt am</value></data>
+  <data name="Performance Metrics" xml:space="preserve"><value>Leistungskennzahlen</value></data>
+  <data name="Total Story Points" xml:space="preserve"><value>Gesamte Story Points</value></data>
+  <data name="Completed Tickets" xml:space="preserve"><value>Abgeschlossene Tickets</value></data>
+  <data name="Avg. Resolution Time" xml:space="preserve"><value>Durchschn. Lösungszeit</value></data>
+  <data name="Workspace" xml:space="preserve"><value>Arbeitsbereich</value></data>
+  <data name="Current Workspace" xml:space="preserve"><value>Aktueller Arbeitsbereich</value></data>
+  <data name="Personal Workspace" xml:space="preserve"><value>Persönlicher Arbeitsbereich</value></data>
+  <data name="Account Details" xml:space="preserve"><value>Kontodetails</value></data>
+  <data name="First Name" xml:space="preserve"><value>Vorname</value></data>
+  <data name="Last Name" xml:space="preserve"><value>Nachname</value></data>
+  <data name="Phone Number" xml:space="preserve"><value>Telefonnummer</value></data>
+  <data name="Last Login" xml:space="preserve"><value>Letzte Anmeldung</value></data>
+  <data name="Tech Stack" xml:space="preserve"><value>Technologie-Stack</value></data>
+  <data name="Address Location" xml:space="preserve"><value>Adresse / Standort</value></data>
+  <data name="Street &amp; No." xml:space="preserve"><value>Straße &amp; Nr.</value></data>
+  <data name="City" xml:space="preserve"><value>Stadt</value></data>
+  <data name="Country" xml:space="preserve"><value>Land</value></data>
+  <data name="No location provided" xml:space="preserve"><value>Kein Standort angegeben</value></data>
+  <data name="Your Teams" xml:space="preserve"><value>Deine Teams</value></data>
+  <data name="You are not a member of any teams yet." xml:space="preserve"><value>Du bist noch kein Mitglied in einem Team.</value></data>
+  <data name="Member since" xml:space="preserve"><value>Mitglied seit</value></data>
 </root>
