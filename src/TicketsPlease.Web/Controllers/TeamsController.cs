@@ -17,10 +17,11 @@ using TicketsPlease.Domain.Entities;
 /// Controller für das Teammanagement.
 /// </summary>
 [Authorize]
-internal sealed class TeamsController : Controller
+public sealed class TeamsController : Controller
 {
   private readonly ITeamService teamService;
   private readonly UserManager<User> userManager;
+  private readonly INotificationService notificationService;
   private readonly IStringLocalizer<TeamsController> localizer;
 
   /// <summary>
@@ -28,14 +29,17 @@ internal sealed class TeamsController : Controller
   /// </summary>
   /// <param name="teamService">Der Teamservice.</param>
   /// <param name="userManager">Der Usermanager.</param>
+  /// <param name="notificationService">Der Benachrichtigungs-Service.</param>
   /// <param name="localizer">Der Localizer.</param>
   public TeamsController(
       ITeamService teamService,
       UserManager<User> userManager,
+      INotificationService notificationService,
       IStringLocalizer<TeamsController> localizer)
   {
     this.teamService = teamService;
     this.userManager = userManager;
+    this.notificationService = notificationService;
     this.localizer = localizer;
   }
 
@@ -52,7 +56,7 @@ internal sealed class TeamsController : Controller
       return this.Challenge();
     }
 
-    var teams = await this.teamService.GetUserTeamsAsync(user.Id).ConfigureAwait(false);
+    var teams = await this.teamService.GetAllTeamsAsync(user.Id).ConfigureAwait(false);
     return this.View(teams);
   }
 
@@ -110,5 +114,49 @@ internal sealed class TeamsController : Controller
     }
 
     return this.RedirectToAction(nameof(this.Management));
+  }
+
+  /// <summary>
+  /// Sendet eine Beitrittsanfrage für ein Team.
+  /// </summary>
+  /// <param name="teamId">ID des Teams.</param>
+  /// <returns>Redirect zur Index-View.</returns>
+  [HttpPost]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> RequestJoin(Guid teamId)
+  {
+    var user = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
+    if (user == null)
+    {
+      return this.Challenge();
+    }
+
+    var team = await this.teamService.GetTeamDetailsAsync(teamId).ConfigureAwait(false);
+    if (team == null)
+    {
+      return this.NotFound();
+    }
+
+    // Benachrichtigung an Teamleads des Teams senden
+    var teamLeads = team.Members.Where(m => m.IsTeamLead).Select(m => m.UserId).ToList();
+
+    // Falls keine Teamleads, an alle Admins der Organisation
+    if (teamLeads.Count == 0)
+    {
+      var admins = await this.userManager.GetUsersInRoleAsync("Admin").ConfigureAwait(false);
+      teamLeads.AddRange(admins.Where(a => a.TenantId == user.TenantId).Select(a => a.Id));
+    }
+
+    foreach (var leadId in teamLeads.Distinct())
+    {
+      await this.notificationService.SendNotificationToUserAsync(
+          leadId,
+          this.localizer["JoinRequestTitle"],
+          string.Format(this.localizer["JoinRequestMessage"], user.UserName, team.Name),
+          $"/Teams/Details/{team.Id}").ConfigureAwait(false);
+    }
+
+    this.TempData["StatusMessage"] = this.localizer["JoinRequestSent"].Value;
+    return this.RedirectToAction(nameof(this.Index));
   }
 }

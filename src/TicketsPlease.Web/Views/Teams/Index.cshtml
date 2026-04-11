@@ -12,7 +12,7 @@
             <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">@L["My Teams"]</h1>
             <p class="mt-2 text-slate-500">@L["OverviewOfYourTeamMemberships"]</p>
         </div>
-        
+
         @if (User.IsInRole("Admin"))
         {
             <a asp-action="Management" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-bold rounded-full shadow-sm text-white bg-brand-primary hover:bg-brand-secondary transition-all duration-200">
@@ -58,10 +58,22 @@
                             <i class="fa-solid fa-calendar-day mr-1"></i>
                             @team.CreatedAt.ToShortDateString()
                         </span>
-                        <a asp-action="Details" asp-route-id="@team.Id" class="font-bold text-brand-primary hover:underline">
-                            @L["ViewDetails"]
-                            <i class="fa-solid fa-arrow-right ml-1"></i>
-                        </a>
+
+                        <div class="flex items-center space-x-3">
+                            @if (!team.IsCurrentUserMember)
+                            {
+                                <form asp-action="RequestJoin" asp-route-teamId="@team.Id" method="post">
+                                    <button type="submit" class="font-bold text-brand-primary hover:text-brand-secondary transition-colors">
+                                        <i class="fa-solid fa-user-plus mr-1"></i>
+                                        @L["JoinRequest"]
+                                    </button>
+                                </form>
+                            }
+                            <a asp-action="Details" asp-route-id="@team.Id" class="font-bold text-slate-700 hover:text-brand-primary transition-colors">
+                                @L["ViewDetails"]
+                                <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             }
