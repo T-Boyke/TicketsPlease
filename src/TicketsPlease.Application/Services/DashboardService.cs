@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using TicketsPlease.Application.Common.Dtos;
 using TicketsPlease.Application.Common.Interfaces;
@@ -25,6 +26,7 @@ public class DashboardService : IDashboardService
   private readonly RoleManager<Role> roleManager;
   private readonly ITeamRepository teamRepository;
   private readonly ITimeLogRepository timeLogRepository;
+  private readonly IHttpContextAccessor httpContextAccessor;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="DashboardService"/> class.
@@ -35,13 +37,15 @@ public class DashboardService : IDashboardService
   /// <param name="timeLogRepository">The time log repository.</param>
   /// <param name="userManager">The user manager.</param>
   /// <param name="roleManager">The role manager.</param>
+  /// <param name="httpContextAccessor">The HTTP context accessor.</param>
   public DashboardService(
       ITicketRepository ticketRepository,
       IProjectRepository projectRepository,
       ITeamRepository teamRepository,
       ITimeLogRepository timeLogRepository,
       UserManager<User> userManager,
-      RoleManager<Role> roleManager)
+      RoleManager<Role> roleManager,
+      IHttpContextAccessor httpContextAccessor)
   {
     this.ticketRepository = ticketRepository;
     this.projectRepository = projectRepository;
@@ -49,20 +53,31 @@ public class DashboardService : IDashboardService
     this.timeLogRepository = timeLogRepository;
     this.userManager = userManager;
     this.roleManager = roleManager;
+    this.httpContextAccessor = httpContextAccessor;
   }
 
   /// <inheritdoc />
   public async Task<DashboardStatsDto> GetDashboardStatsAsync()
   {
+    var userClaims = this.httpContextAccessor.HttpContext?.User;
+    User? currentUser = null;
+    if (userClaims != null)
+    {
+      currentUser = await this.userManager.GetUserAsync(userClaims).ConfigureAwait(false);
+    }
+
+    Guid tenantId = currentUser?.TenantId ?? Guid.Empty;
+
     // Hinweis: Wir nutzen hier die Repositories für den Datenzugriff.
     // Falls organisationsspezifische Stats gewünscht sind, müssten die Repositories entsprechend gefiltert werden.
-    var tickets = await this.ticketRepository.GetAllActiveAsync().ConfigureAwait(false);
+    var tickets = (await this.ticketRepository.GetAllActiveAsync().ConfigureAwait(false))
+        .Where(t => t.TenantId == tenantId)
+        .ToList();
 
-    // Da IProjectRepository.GetAllAsync eine TenantId benötigt, weichen wir hier auf eine leere Guid aus
-    // oder implementieren ein SystemWide-Repository-Pattern falls nötig.
-    // Für das MVP nehmen wir an, dass wir alle Projekte zählen wollen.
-    var projects = await this.projectRepository.GetAllAsync(Guid.Empty).ConfigureAwait(false);
-    var users = this.userManager.Users.ToList();
+    // Filter nach TenantId
+    var projects = await this.projectRepository.GetAllAsync(tenantId).ConfigureAwait(false);
+    var activeProjects = projects.Count(p => !p.EndDate.HasValue || p.EndDate > DateTime.UtcNow);
+    var users = this.userManager.Users.Where(u => u.TenantId == tenantId).ToList();
     var roles = this.roleManager.Roles.ToList();
 
     var usersByRole = new Dictionary<string, int>();
@@ -78,7 +93,7 @@ public class DashboardService : IDashboardService
 
     var individualHighscores = users.Select(u =>
     {
-      var userTickets = tickets.Where(t => t.AssignedUserId == u.Id && (t.Status == "Closed" || t.Status == "Done")).ToList();
+      var userTickets = tickets.Where(t => t.AssignedUserId == u.Id && t.Status == "Done").ToList();
       var userLogs = allTimeLogs.Where(l => l.UserId == u.Id).ToList();
       return new UserHighscoreDto(
           u.Id,
@@ -97,7 +112,7 @@ public class DashboardService : IDashboardService
     var teamHighscores = allTeams.Select(t =>
     {
       var memberIds = t.Members.Select(m => m.UserId).ToList();
-      var teamTickets = tickets.Where(tk => tk.AssignedUserId.HasValue && memberIds.Contains(tk.AssignedUserId.Value) && (tk.Status == "Closed" || tk.Status == "Done")).ToList();
+      var teamTickets = tickets.Where(tk => tk.AssignedUserId.HasValue && memberIds.Contains(tk.AssignedUserId.Value) && tk.Status == "Done").ToList();
       var teamLogs = allTimeLogs.Where(l => memberIds.Contains(l.UserId)).ToList();
       return new TeamHighscoreDto(
           t.Id,
@@ -116,10 +131,10 @@ public class DashboardService : IDashboardService
 
     return new DashboardStatsDto(
         tickets.Count,
-        tickets.Count(t => t.Status != "Closed" && t.Status != "Done"),
-        tickets.Count(t => t.Status == "Closed" || t.Status == "Done"),
+        tickets.Count(t => t.Status != "Done"),
+        tickets.Count(t => t.Status == "Done"),
         projects.Count(),
-        projects.Count(p => !p.EndDate.HasValue || p.EndDate > System.DateTime.UtcNow),
+        activeProjects,
         users.Count,
         usersByRole,
         individualHighscores,
@@ -150,7 +165,7 @@ public class DashboardService : IDashboardService
         tickets.GroupBy(t => t.Type.ToString()).ToDictionary(g => g.Key, g => g.Count()),
         logs.Sum(l => l.HoursLogged),
         tickets.Count,
-        tickets.Count(t => t.Status == "Closed" || t.Status == "Done"),
+        tickets.Count(t => t.Status == "Done"),
         tickets.Sum(t => t.EstimatePoints ?? 0),
         avgResolutionTime);
   }
@@ -183,7 +198,7 @@ public class DashboardService : IDashboardService
         teamTickets.GroupBy(t => t.Type.ToString()).ToDictionary(g => g.Key, g => g.Count()),
         teamLogs.Sum(l => l.HoursLogged),
         teamTickets.Count,
-        teamTickets.Count(t => t.Status == "Closed" || t.Status == "Done"),
+        teamTickets.Count(t => t.Status == "Done"),
         teamTickets.Sum(t => t.EstimatePoints ?? 0),
         teamAvgResolutionTime);
   }

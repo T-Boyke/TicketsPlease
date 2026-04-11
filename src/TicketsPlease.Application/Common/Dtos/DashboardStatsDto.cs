@@ -14,7 +14,7 @@ public record DashboardStatsDto(
     int OpenTickets,
     int ClosedTickets,
     int TotalProjects,
-    int OpenProjects,
+    int ActiveProjects,
     int TotalUsers,
     IDictionary<string, int> UsersByRole,
     IEnumerable<UserHighscoreDto> IndividualHighscores,
