@@ -28,6 +28,15 @@ public interface IMessageRepository
   public Task<List<Message>> GetUserMessagesAsync(Guid userId, CancellationToken ct = default);
 
   /// <summary>
+  /// Ruft die neuesten Nachrichten für einen Benutzer ab (gesendet oder empfangen).
+  /// </summary>
+  /// <param name="userId">Die ID des Benutzers.</param>
+  /// <param name="limit">Die maximale Anzahl der Nachrichten.</param>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Eine Liste von Nachrichten.</returns>
+  public Task<List<Message>> GetLatestUserMessagesAsync(Guid userId, int limit, CancellationToken ct = default);
+
+  /// <summary>
   /// Ruft die Konversation zwischen zwei Benutzern ab.
   /// </summary>
   /// <param name="userId">ID des ersten Benutzers.</param>

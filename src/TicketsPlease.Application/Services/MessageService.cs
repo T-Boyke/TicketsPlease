@@ -50,6 +50,13 @@ public class MessageService : IMessageService
   }
 
   /// <inheritdoc />
+  public async Task<List<MessageDto>> GetLatestUserMessagesAsync(Guid userId, int limit, CancellationToken ct = default)
+  {
+    var messages = await this.messageRepository.GetLatestUserMessagesAsync(userId, limit, ct).ConfigureAwait(false);
+    return messages.Select(m => MapToDto(m)).ToList();
+  }
+
+  /// <inheritdoc />
   public async Task<MessageDto> SendMessageAsync(Guid senderId, CreateMessageDto dto, CancellationToken ct = default)
   {
     ArgumentNullException.ThrowIfNull(dto);

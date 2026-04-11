@@ -20,6 +20,15 @@ public interface IMessageService
   public Task<List<MessageDto>> GetUserMessagesAsync(Guid userId, CancellationToken ct = default);
 
   /// <summary>
+  /// Ruft die neuesten Nachrichten für den aktuellen Benutzer ab.
+  /// </summary>
+  /// <param name="userId">Die ID des Benutzers.</param>
+  /// <param name="limit">Die maximale Anzahl der Nachrichten.</param>
+  /// <param name="ct">Das Abbruchsignal.</param>
+  /// <returns>Eine Liste von Nachrichten-DTOs.</returns>
+  public Task<List<MessageDto>> GetLatestUserMessagesAsync(Guid userId, int limit, CancellationToken ct = default);
+
+  /// <summary>
   /// Sendet eine neue Nachricht.
   /// </summary>
   /// <param name="senderId">Die ID des Absenders.</param>
