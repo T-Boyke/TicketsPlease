@@ -2,10 +2,18 @@
 @{
     var initials = Model ?? "??";
     var sizeClass = ViewData["SizeClass"] ?? "h-8 w-8";
+    var avatarUrl = ViewData["AvatarUrl"] as string;
 }
 
-<div class="@sizeClass rounded-full bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center text-brand-primary font-bold text-xs ring-2 ring-white/50 backdrop-blur-sm shadow-sm"
-     role="img" 
+<div class="@sizeClass rounded-full bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center text-brand-primary font-bold text-xs ring-2 ring-white/50 backdrop-blur-sm shadow-sm overflow-hidden"
+     role="img"
      aria-label="User Avatar: @initials">
-    <span class="select-none">@initials</span>
+    @if (!string.IsNullOrEmpty(avatarUrl))
+    {
+        <img src="@avatarUrl" alt="@initials" class="h-full w-full object-cover" />
+    }
+    else
+    {
+        <span class="select-none">@initials</span>
+    }
 </div>

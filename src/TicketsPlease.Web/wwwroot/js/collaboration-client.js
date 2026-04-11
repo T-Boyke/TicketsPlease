@@ -23,17 +23,17 @@ function toggleChat() {
     isChatOpen = !isChatOpen;
     if (isChatOpen) {
         chatWindow.classList.add('active');
-        chatIconOpen.classList.add('translate-y-16');
-        chatIconClose.classList.remove('translate-y-16');
-        chatNewBadge.classList.add('hidden');
+        if (chatIconOpen) chatIconOpen.classList.add('translate-y-16');
+        if (chatIconClose) chatIconClose.classList.remove('translate-y-16');
+        if (chatNewBadge) chatNewBadge.classList.add('hidden');
         loadChatHistory();
         setTimeout(() => {
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }, 100);
     } else {
         chatWindow.classList.remove('active');
-        chatIconOpen.classList.remove('translate-y-16');
-        chatIconClose.classList.add('translate-y-16');
+        if (chatIconOpen) chatIconOpen.classList.remove('translate-y-16');
+        if (chatIconClose) chatIconClose.classList.add('translate-y-16');
     }
 }
 
@@ -51,9 +51,9 @@ function renderMessage(msg, isHistory = false) {
     const isMine = msg.senderUserName === (window.currentUserName || '');
     const messageDiv = document.createElement('div');
     messageDiv.className = `flex flex-col ${isMine ? 'items-end' : 'items-start'} mb-2 group animate-in slide-in-from-bottom-2 duration-300`;
-    
+
     const time = new Date(msg.sentAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    
+
     messageDiv.innerHTML = `
         <div class="flex items-center space-x-2 mb-1">
             ${!isMine ? `<span class="text-[10px] font-bold text-slate-500">${msg.senderUserName}</span>` : ''}
@@ -63,11 +63,11 @@ function renderMessage(msg, isHistory = false) {
             ${msg.bodyMarkdown}
         </div>
     `;
-    
+
     if (!isHistory && chatMessages.querySelector('.opacity-30')) {
         chatMessages.innerHTML = '';
     }
-    
+
     chatMessages.appendChild(messageDiv);
     if (!isHistory) {
         chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -107,7 +107,7 @@ chatForm.onsubmit = async (e) => {
     if (!text) return;
 
     chatInput.value = '';
-    
+
     const formData = new FormData();
     formData.append('BodyMarkdown', text);
 
@@ -122,7 +122,7 @@ chatForm.onsubmit = async (e) => {
             }
         });
         const msg = await response.json();
-        
+
         // Broadcast via SignalR
         await collabConnection.invoke("SendGlobalMessage", msg);
     } catch (err) {

@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">@L["Active Projects"]</p>
-                <h3 class="text-3xl font-black text-slate-900 mt-1">@Model.TotalProjects</h3>
+                <h3 class="text-3xl font-black text-slate-900 mt-1">@Model.ActiveProjects</h3>
                 <p class="mt-4 text-xs font-bold text-slate-400 flex items-center">
                     <i class="fa-solid fa-check-double mr-1 text-indigo-400"></i> @L["Across all teams"]
                 </p>
@@ -105,7 +105,7 @@
                         <i class="fa-solid fa-bolt mr-2 text-brand-primary"></i> @L["Quick Access"]
                     </h3>
                     <div class="space-y-4">
-                        <a asp-controller="Projects" asp-action="Index" class="flex items-center p-4 rounded-2xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all group">
+                        <a asp-controller="Project" asp-action="Index" class="flex items-center p-4 rounded-2xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all group">
                             <div class="h-10 w-10 rounded-xl bg-slate-100 text-slate-400 group-hover:bg-brand-primary/10 group-hover:text-brand-primary flex items-center justify-center transition-colors">
                                 <i class="fa-solid fa-folder"></i>
                             </div>
@@ -160,7 +160,7 @@ else
                         @L["Start Your Journey"]
                     </a>
                     <a href="#features" class="text-sm font-bold leading-6 text-slate-900 flex items-center group">
-                        @L["View Features"] 
+                        @L["View Features"]
                         <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </a>
                 </div>
@@ -175,7 +175,7 @@ else
                 <h2 id="features-heading" class="text-base font-semibold leading-7 text-brand-primary uppercase tracking-widest">@L["The Arsenal"]</h2>
                 <p class="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">@L["Everything you need for efficient management"]</p>
             </div>
-            
+
             <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
                 <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-4">
                     <div class="flex flex-col group">
@@ -189,7 +189,7 @@ else
                             <p class="flex-auto">@L["Future-proof through strict separation of business logic and infrastructure. Built for eternity."]</p>
                         </dd>
                     </div>
-                    
+
                     <div class="flex flex-col group">
                         <dt class="flex items-center gap-x-3 text-lg font-bold leading-7 text-slate-900">
                             <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
@@ -237,7 +237,7 @@ else
             <div class="mx-auto max-w-2xl text-center">
                 <h3 class="text-3xl font-extrabold sm:text-4xl">@L["Trusted by Developers"]</h3>
             </div>
-            
+
             <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                 <figure class="flex flex-col rounded-2xl bg-white/5 p-8 ring-1 ring-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
                     <blockquote class="text-lg leading-7 flex-grow">

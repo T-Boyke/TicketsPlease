@@ -80,7 +80,7 @@
     /* Standardized Fallback Styles (Ensure visibility in Styleguide) */
     .btn-secondary { background-color: oklch(0.45 0.05 260); color: white; display: inline-flex; align-items: center; justify-content: center; border-radius: 0.75rem; font-weight: 600; transition: all 0.3s; }
     .btn-secondary:hover { transform: translateY(-2px); box-shadow: 0 4px 12px oklch(0.1 0.01 260 / 0.1); background-color: oklch(0.4 0.05 260); }
-    
+
     .btn-secondary-outline { border: 2px solid oklch(0.45 0.05 260); color: oklch(0.45 0.05 260); display: inline-flex; align-items: center; justify-content: center; border-radius: 0.75rem; font-weight: 600; transition: all 0.3s; }
     .btn-secondary-outline:hover { background-color: oklch(0.45 0.05 260); color: white; transform: translateY(-2px); }
 
@@ -89,7 +89,7 @@
 
     .btn-success { background-color: oklch(0.55 0.18 155); color: white; display: inline-flex; align-items: center; justify-content: center; border-radius: 0.75rem; font-weight: 600; transition: all 0.3s; }
     .btn-success:hover { transform: translateY(-2px); box-shadow: 0 4px 15px oklch(0.55 0.18 155 / 0.4); filter: saturate(1.5); }
- 
+
     /* New Animations */
     @@keyframes spring-in {
         0% { transform: scale(0.8) translateY(20px); opacity: 0; }
@@ -97,7 +97,7 @@
         100% { transform: scale(1) translateY(0); }
     }
     .animate-spring-in { animation: spring-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both; }
- 
+
     @@keyframes slide-in-right {
         0% { transform: translateX(100%); opacity: 0; }
         100% { transform: translateX(0); opacity: 1; }
@@ -584,14 +584,14 @@
             </div>
         </div>
     </section>
- 
+
     <!-- 8. Overlays & Modals -->
     <section id="overlays" class="mb-24 reveal-up" aria-labelledby="overlays-title">
         <div class="flex items-center gap-4 mb-10">
             <div class="h-10 w-2 bg-brand-primary rounded-full" aria-hidden="true"></div>
             <h2 id="overlays-title" class="text-3xl font-black tracking-tight uppercase">@Localizer["Overlays"]</h2>
         </div>
- 
+
         <div class="grid lg:grid-cols-2 gap-10">
             <!-- Modal Variations -->
             <div class="card p-10">
@@ -613,7 +613,7 @@
                             <button type="button" class="btn-danger px-5 py-2">@Localizer["YesDelete"]</button>
                         </div>
                     </div>
- 
+
                     <!-- Form Modal Mockup -->
                     <div class="p-6 bg-surface-soft dark:bg-dark-surface-soft rounded-2xl border border-border-muted">
                         <h4 class="text-lg font-bold mb-6">@Localizer["CreateNewTicket"]</h4>
@@ -646,7 +646,7 @@
                     </div>
                 </div>
             </div>
- 
+
             <!-- Drawers & Toasts -->
             <div class="space-y-8">
                 <!-- Drawer Mockup -->
@@ -675,7 +675,7 @@
                     </div>
                     <div class="flex items-center justify-center h-full opacity-30 italic text-sm">Main Content Area</div>
                 </div>
- 
+
                 <!-- Toasts & Breadcrumbs -->
                 <div class="card p-10">
                     <h3 class="text-sm font-black uppercase tracking-widest text-text-muted mb-8 border-l-4 border-brand-accent pl-4">@Localizer["MediaObjectsToasts"]</h3>
@@ -691,7 +691,7 @@
                                  <time class="text-[9px] font-black uppercase tracking-widest text-brand-primary mt-2 block">@Localizer["JustNow"]</time>
                              </div>
                         </div>
-                        
+
                         <!-- Toast Sample -->
                         <output class="flex items-center gap-3 p-3 px-5 bg-dark-bg text-white rounded-full shadow-2xl border border-white/10 w-fit animate-spring-in block" aria-live="polite">
                             <div class="h-2 w-2 rounded-full bg-success-primary animate-ping"></div>
@@ -703,14 +703,14 @@
             </div>
         </div>
     </section>
- 
+
     <!-- 9. Full Layout Patterns -->
     <section id="patterns" class="mb-24 reveal-up" aria-labelledby="patterns-title">
         <div class="flex items-center gap-4 mb-10">
             <div class="h-10 w-2 bg-brand-accent rounded-full" aria-hidden="true"></div>
             <h2 id="patterns-title" class="text-3xl font-black tracking-tight uppercase">@Localizer["FullPagePatterns"]</h2>
         </div>
- 
+
         <div class="grid lg:grid-cols-2 gap-10">
             <!-- Homescreen Dashboard -->
             <article class="card p-0 overflow-hidden border-2 border-brand-primary/20 shadow-4xl group">
@@ -762,7 +762,7 @@
                 </div>
                 <span class="block text-center p-3 text-[10px] font-black uppercase tracking-widest text-brand-primary bg-brand-primary/5 group-hover:bg-brand-primary group-hover:text-white transition-all cursor-alias">@Localizer["ExploreHomescreen"]</span>
             </article>
- 
+
             <!-- Detail Screen Mockup -->
             <article class="card p-0 overflow-hidden border-2 border-brand-accent/20 shadow-4xl group">
                 <div class="h-24 bg-gradient-to-r from-brand-secondary to-brand-primary p-6 flex flex-col justify-end">
@@ -801,7 +801,7 @@
             </article>
         </div>
     </section>
- 
+
     <!-- 10. Motion & Animation -->
     <section id="motion" class="mb-24 reveal-up" aria-labelledby="motion-title">
         <div class="flex items-center gap-4 mb-10">
@@ -865,15 +865,16 @@
                     <p class="text-sm text-text-secondary dark:text-dark-text-secondary group-hover:text-success-primary/80 transition-colors">
                         @Localizer["MorphingDesc"]
                     </p>
+                </div>
             </article>
         </div>
     </section>
- 
+
     <!-- Footer -->
     <section class="mt-24 pt-10 border-t border-border-default dark:border-dark-border text-center text-text-muted text-sm pb-10" aria-label="Styleguide Credit">
         <p>&copy; @DateTime.Now.Year TicketsPlease Design Team. @Localizer["FooterCredit"]</p>
     </section>
- 
+
     <!-- Final Lint Fixes: Dynamic ID Association -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
