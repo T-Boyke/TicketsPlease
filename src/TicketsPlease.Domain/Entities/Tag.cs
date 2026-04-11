@@ -20,4 +20,9 @@ public class Tag : BaseEntity
   /// Gets or sets den Hexadezimal-Farbcode des Tags für die UI-Darstellung.
   /// </summary>
   public string ColorHex { get; set; } = string.Empty;
+
+  /// <summary>
+  /// Gets or sets das Font-Awesome Icon (z.B. "fa-bug").
+  /// </summary>
+  public string Icon { get; set; } = "fa-tag";
 }

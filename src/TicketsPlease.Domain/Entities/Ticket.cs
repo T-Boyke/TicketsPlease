@@ -24,8 +24,9 @@ public class Ticket : BaseAuditableEntity
   /// <param name="projectId">Die ID des Projekts.</param>
   /// <param name="creatorId">Die ID des Erstellers.</param>
   /// <param name="workflowStateId">Die ID des initialen Status.</param>
+  /// <param name="statusName">Der Name des initialen Status.</param>
   /// <param name="geoIpTimestamp">Der GeoIP-Zeitstempel für Audits.</param>
-  public Ticket(string title, TicketType type, Guid projectId, Guid creatorId, Guid workflowStateId, string geoIpTimestamp)
+  public Ticket(string title, TicketType type, Guid projectId, Guid creatorId, Guid workflowStateId, string statusName, string geoIpTimestamp)
   {
     if (string.IsNullOrWhiteSpace(title))
     {
@@ -39,7 +40,7 @@ public class Ticket : BaseAuditableEntity
     this.WorkflowStateId = workflowStateId;
     this.GeoIpTimestamp = geoIpTimestamp ?? string.Empty;
     this.CreatedAt = DateTime.UtcNow;
-    this.Status = "Todo";
+    this.Status = statusName;
     this.DomainHash = this.GenerateDomainHash();
   }
 
@@ -259,7 +260,7 @@ public class Ticket : BaseAuditableEntity
   public bool CanBeClosed()
   {
     // Ein Ticket ist blockiert, wenn einer seiner Vorgänger (BlockedBy -> SourceTicket) nicht geschlossen ist.
-    return !this.BlockedBy.Any(d => d.LinkType == TicketsPlease.Domain.Enums.TicketLinkType.Blocks && d.SourceTicket != null && d.SourceTicket.Status != "Closed" && d.SourceTicket.Status != "Done");
+    return !this.BlockedBy.Any(d => d.LinkType == TicketsPlease.Domain.Enums.TicketLinkType.Blocks && d.SourceTicket != null && d.SourceTicket.Status != "Done");
   }
 
   /// <summary>
@@ -293,9 +294,11 @@ public class Ticket : BaseAuditableEntity
   /// Verschiebt das Ticket in einen neuen Workflow-Status.
   /// </summary>
   /// <param name="workspaceStateId">Die ID des neuen Status.</param>
-  public void MoveToState(Guid workspaceStateId)
+  /// <param name="statusName">Der Anzeigename des neuen Status.</param>
+  public void MoveToState(Guid workspaceStateId, string statusName)
   {
     this.WorkflowStateId = workspaceStateId;
+    this.Status = statusName;
     this.UpdatedAt = DateTime.UtcNow;
   }
 
@@ -325,7 +328,8 @@ public class Ticket : BaseAuditableEntity
   /// </summary>
   /// <param name="actorId">Die ID des handelnden Benutzers.</param>
   /// <param name="isAdmin">Gibt an, ob der Benutzer Admin-Rechte hat.</param>
-  public void Close(Guid actorId, bool isAdmin)
+  /// <param name="doneStateId">Die ID des "Done"-Workflow-Status (optional).</param>
+  public void Close(Guid actorId, bool isAdmin, Guid? doneStateId = null)
   {
     if (!isAdmin && actorId != this.CreatorId && actorId != this.AssignedUserId)
     {
@@ -334,7 +338,12 @@ public class Ticket : BaseAuditableEntity
 
     this.ClosedAt = DateTime.UtcNow;
     this.ClosedByUserId = actorId;
-    this.Status = "Closed";
+    this.Status = "Done";
+    if (doneStateId.HasValue)
+    {
+      this.WorkflowStateId = doneStateId.Value;
+    }
+
     this.UpdatedAt = DateTime.UtcNow;
   }
 
@@ -456,7 +465,7 @@ public class Ticket : BaseAuditableEntity
   {
     if (this.SubTickets.Count == 0)
     {
-      return this.Status == "Closed" ? 100 : 0;
+      return this.Status == "Done" ? 100 : 0;
     }
 
     var closedCount = this.SubTickets.Count(t => t.IsCompleted);
