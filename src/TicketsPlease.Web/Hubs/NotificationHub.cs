@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.SignalR;
 /// SignalR Hub für Echtzeit-Benachrichtigungen und Kollaboration.
 /// </summary>
 [Authorize]
-internal class NotificationHub : Hub
+public class NotificationHub : Hub
 {
   private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, string> OnlineUsers = new(); // ConnectionId -> Username
   private static readonly System.Collections.Concurrent.ConcurrentDictionary<string, System.Collections.Generic.HashSet<string>> PresenceTracker = new();

@@ -25,7 +25,7 @@ public class LocalStorageServiceTests
     var service = new LocalStorageService(_mockEnv.Object);
     var content = new MemoryStream(new byte[] { 1, 2, 3 });
     var fileName = "test.txt";
-    var expectedDatePart = DateTime.UtcNow.ToString("yyyy/MM");
+    var expectedDatePart = DateTime.UtcNow.ToString("yyyy/MM", System.Globalization.CultureInfo.InvariantCulture);
 
     // Act
     var blobPath = await service.SaveFileAsync(content, fileName);
