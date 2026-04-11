@@ -5,6 +5,51 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.13.0-alpha] - 2026-04-12
+
+### Added
+
+- **Quick Chat Dropdown**: Neues Navigations-Element in der Navbar für den direkten Zugriff auf die letzten 5 Unterhaltungen inklusive unread-Indikatoren.
+- **Team Join Requests**: Benutzer können nun Beitrittsanfragen für Teams ihrer Organisation stellen, die automatisch als Benachrichtigung an Teamleads/Admins gesendet werden.
+- **Advanced Tag Management**: Integration von 20 vordefinierten Standard-Tags mit spezifischen FontAwesome Icons und Farbcodes.
+- **Tag Creation Modal**: Implementierung eines AJAX-basierten Modals zur dynamischen Erstellung neuer Tags direkt aus der Ticket-Bearbeitungsansicht.
+- **Massive Unit Test Suite**: Erweiterung der Testabdeckung um über 100 neue Unit-Tests für alle zentralen Services im Application- und Infrastructure-Layer.
+
+### Improved
+
+- **Collaboration Hub Overhaul**: Neugestaltung des Hub-Buttons in der Navbar (`fa-cloud-bolt`) mit modernen CSS-Animationen und verbesserter Klick-Logik.
+- **High-Quality Seeding**: Der `DbInitialiser` generiert nun eine exakte Test-Infrastruktur mit 25 Benutzern (Admins, Teamleads, User), 2 Workspaces, 5 Teams und vollständigen Profilen.
+- **Dashboard Multi-Tenancy**: Alle Statistiken (Projekte, Tickets, Highscores) werden nun präzise nach der `TenantId` des angemeldeten Benutzers gefiltert.
+- **Workflow-Datenmodell**: Umstellung der `WorkflowTransition`-Identität auf einen eindeutigen GUID-Primärschlüssel zur Vermeidung von EF-Tracking-Konflikten bei mandantenübergreifenden Status-Übergängen.
+
+### Fixed
+
+- **Navbar Auth Security**: Behebung eines Absturzes (`ArgumentNullException`) bei unauthentifizierten Zugriffen auf die globale Navigationsleiste.
+- **Dependency Logic Fix**: Korrektur der Inversion beim Hinzufügen von Ticket-Abhängigkeiten (Blockierer vs. Abhängiges Ticket).
+- **Notification Deep-Links**: Sicherstellung, dass "View Ticket" Buttons in Benachrichtigungen direkt zur Detailansicht des betroffenen Tickets führen.
+- **Seeder Stability**: Beseitigung von potenziellen `InvalidOperationException` (Empty Sequence) Fehlern durch defensive Programmierung im Seeding-Prozess.
+
+## [0.12.0-alpha] - 2026-04-10
+
+### Added
+
+- **Full Notification Persistence**: Implemented `INotificationRepository` and database schema for permanent storage of system alerts.
+- **Interactive Notification Center**: Replaced static dropdown with a functional component featuring "Load More" paging and "Mark all as read" capabilities.
+- **Real-Time SignalR Updates**: Enhanced the notification system with live badge increments and list updates without page refresh.
+- **Avatar Cropping**: Profile pictures are now dynamically cropped and centered in the navbar using `object-cover` for a consistent UI.
+- **I18n Localization**: Fully localized the notification system and navbar elements into German.
+
+### Improved
+
+- **State Consistency Engine**: Automated synchronization between `WorkflowStateId` and `Status` fields in the Ticket entity, preventing UI-sync issues in the Kanban board.
+- **Navbar Aesthetics**: Replaced the placeholder chat icon with a modern `fa-comments` icon and improved layout spacing.
+- **Service Layer Robustness**: Enhanced `TicketService` to handle status-name lookups during state transitions.
+
+### Fixed
+
+- **Kanban "Snap-back" Bug**: Resolved the issue where tickets moved to "In Progress" would disappear or revert due to inconsistent status naming in the database.
+- **Notification Direct Access**: Fixed the navbar popup links to ensure specific notification types (e.g., ticket updates) are correctly routed.
+
 ## [0.11.0-alpha] - 2026-04-09
 
 ### Added

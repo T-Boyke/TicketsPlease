@@ -84,7 +84,8 @@ entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core**.
 | **Abhängigkeiten**  | ✅ Fertig  | Blockierende Tickets (Domain Logic)           | MVP (F7)   |
 | **Workflows**       | ✅ Fertig  | Status-Verwaltung für Projekte (Domain Logic) | MVP (F8)   |
 | **Nachrichten**     | ✅ Fertig  | User-to-User Messaging & Anhänge              | MVP (F9)   |
-| **Kanban Board**    | 🗺️ Roadmap | Interaktives Board mit Drag & Drop            | Enterprise |
+| **Kanban Board**    | ✅ Fertig  | Interaktives Board mit Drag & Drop            | Enterprise |
+| **Tag System**     | ✅ Fertig  | Icons, Farben & dynamisches Erstellungs-Modal | Enterprise |
 | **Plugin System**   | 🗺️ Roadmap | Externe Module (Dynamic Loading)              | Enterprise |
 
 ---
@@ -527,6 +528,7 @@ strikten **AAA-Patterns** (Arrange, Act, Assert).
   **NetArchTest** wacht gleichzeitig darüber, dass die Clean Architecture nicht verletzt
   wird (z.B. "Domain darf Web nicht referenzieren"). Wir nutzen `[Fact]` für
   Einzelszenarien und `[Theory]` für tiefgreifende Boundary-Tests.
+  **Status**: Über 140 Tests (Unit & Integration) sichern die Kern-Logik ab.
 - **Integration & Snapshot Tests:** Validieren das Zusammenspiel mit der Datenbank.
   Wir nutzen hochperformante SQLite In-Memory Instanzen via **WebApplicationFactory**.
   Komplexe JSON/DTO-Rückgaben werden via **VerifyTests** gegen Snapshots abgeglichen.
@@ -603,8 +605,8 @@ wird durch die `Bogus` Bibliothek realisiert.
 - **Lokalisierung:** `de` (Deutsch)
 - **Datenschutz:** 100% synthetische Daten gemäß
   [ADR 0120](docs/adr/0120-synthetic-data-privacy.md).
-- **Umfang:** Generiert automatisch Organizations, Roles, Users (200), Profiles,
-  Addresses, Teams (15), Tickets (500), SubTickets (100) & Messages (300).
+- **Umfang:** Generiert automatisch Organizations, Roles, Users (25 High-Quality), Profiles,
+  Addresses, Teams (5), Tickets (50), SubTickets, Comments, Notifications & Messages.
 
 ---
 

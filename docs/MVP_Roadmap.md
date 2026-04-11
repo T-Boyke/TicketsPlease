@@ -85,8 +85,8 @@ funktionsfähig sein und durch Unit/Integration-Tests abgedeckt werden.
 - [x] Zentrale Startseite unter Root-URL, auch ohne Login erreichbar.
 - [x] Links/Buttons zum Ticket- und Admin-Bereich.
 - [x] Statistiken: Tickets (Gesamt/offen/geschlossen),
-      Projekte (Gesamt/offen/beendet).
-- [x] (Optional) Benutzer-Statistiken (Gesamt und pro Rolle).
+      Projekte (Gesamt/offen/beendet). Inkl. Mandanten-Filterung.
+- [x] Benutzer-Statistiken (Highscores pro Organisation).
 
 ### F5: Kommentare
 
@@ -158,7 +158,7 @@ Normalform) Datenbankschema frei:
 - [x] **Time-Tracking:** Start/Stop Button für Arbeitszeit (TimeLogs).
 - [x] **Auto-Close Rule:** `TicketCleanupWorker` (BackgroundService) für
       Done→Archived nach 30 Tagen.
-- [x] **Tags & Labels:** Globale Tags (n:m) an Tickets mit Multi-Select UI.
+- [x] **Tags & Labels:** Globale Tags (n:m) an Tickets mit Multi-Select UI, FontAwesome Icons und Farbcodes sowie AJAX-Modal zur dynamischen Erstellung.
 - [x] **Subtickets:** Verschachtelte Aufgabenlisten mit interaktivem
       Fortschrittsbalken pro Master-Ticket.
 
@@ -167,8 +167,8 @@ Normalform) Datenbankschema frei:
 - [x] **Kanban Dashboard:** Interaktives Board mit SortableJS.
 - [x] **Markdown Engine & Mermaid:** Rendering in Ticket-Beschreibungen.
 - [x] **Community Voting:** Upvoting von Tickets.
-- [x] **Live Presence:** Wer arbeitet gerade an welchem Ticket? + Globale Präsenzanzeige.
-- [x] **Team Chat:** Real-time HQ & Team Chat (SignalR Collaboration Hub).
+- [x] **Live Presence:** Wer arbeitet gerade an welchem Ticket? + Globale Präsenzanzeige (Collaboration Hub Overhaul).
+- [x] **Team Chat:** Real-time HQ & Team Chat (SignalR Collaboration Hub v2.0).
 - [x] Ticket Templates (F1): Erstellen/Verwalten von standardisierten Ticket-Vorlagen.
 - [x] Workspace Management (F1): Erstellen/Verwalten von Workspaces/Organisationen (Enterprise Ready).
 
@@ -177,10 +177,10 @@ Normalform) Datenbankschema frei:
 | ID  | Feature                  | Status      | Priority | Description                                             |
 | --- | ------------------------ | ----------- | -------- | ------------------------------------------------------- |
 | F1  | **Workspace Management** | _Pflicht_   | Hoch     | Erstellen/Verwalten von Workspaces/Organisationen       |
-| F2  | **Team-Zuweisung**       | ✅ Erledigt | Mittel   | Tickets können Teams statt Individuen zugewiesen werden |
+| F2  | **Team-Zuweisung**       | ✅ Erledigt | Mittel   | Tickets können Teams statt Individuen zugewiesen werden; Inkl. Beitrittsanfragen. |
 
-- **Broadcast Mails:** Teamleads senden via MailKit.
-- **Erweiterte Profile:** Profilbild Uploader mit Avatar-Cropping.
+- [x] **Broadcast Mails:** Teamleads senden via MailKit. (Mock-Logik implementiert)
+- [x] **Erweiterte Profile:** Profilbild Uploader mit Avatar-Cropping (object-cover).
 
 ---
 
@@ -194,7 +194,7 @@ Normalform) Datenbankschema frei:
 
 **2. Benachrichtigungen & Alerts:**
 
-- [x] **In-App Notification Center:** Glocke in der UI.
+- [x] **In-App Notification Center:** Voll funktionsfähige Glocke in der UI mit Persistenz, Paging und Echtzeit-Updates.
 - [x] **Notification Sounds:** Konfigurierbare akustische Signale (Base64 integriert).
 
 **3. Dokumentenmanagement:**
@@ -250,8 +250,8 @@ Erweiterungen von Drittanbietern oder isolierte Kunden-Lösungen.
 | F10 | **SignalR Infrastructure**           | ✅ Erledigt  | Hoch     |
 | F11 | **Live Collaboration** (Kanban Sync) | ✅ Erledigt  | Hoch     |
 | F12 | **Notification Center** (Toasts)     | ✅ Erledigt  | Mittel   |
-| F13 | **Live Presence** (Active Viewers)   | 🔄 In Arbeit | Mittel   |
-| F14 | **Team-Chat / Ticket Messaging**     | ⏳ Geplant   | Mittel   |
+| F13 | **Live Presence** (Active Viewers)   | ✅ Erledigt  | Mittel   |
+| F14 | **Team-Chat / Ticket Messaging**     | ✅ Erledigt  | Mittel   |
 
 > **Fazit:** Wir haben das Datenbankschema und die Ordnerstruktur bereits auf
 > **Enterprise** Level gehievt. Alle Entitäten und Beziehungen sind im Code
