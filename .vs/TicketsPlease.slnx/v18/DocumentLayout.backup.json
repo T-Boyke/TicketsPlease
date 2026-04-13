@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\DEV\\TicketsPlease\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{089100B1-113F-4E66-888A-E83F3999EAFD}|Solution Items{089100B1-113F-4E66-888A-E83F3999EAFD}|D:\\DEV\\TicketsPlease\\.vsconfig||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{089100B1-113F-4E66-888A-E83F3999EAFD}|Solution Items{089100B1-113F-4E66-888A-E83F3999EAFD}|solutionrelative:.vsconfig||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D87626F9-644A-B037-38A4-9D60B130754E}|src\\TicketsPlease.Infrastructure\\TicketsPlease.Infrastructure.csproj|d:\\dev\\ticketsplease\\src\\ticketsplease.infrastructure\\persistence\\dbinitialiser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D87626F9-644A-B037-38A4-9D60B130754E}|src\\TicketsPlease.Infrastructure\\TicketsPlease.Infrastructure.csproj|solutionrelative:src\\ticketsplease.infrastructure\\persistence\\dbinitialiser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -31,6 +35,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": ".vsconfig",
+              "DocumentMoniker": "D:\\DEV\\TicketsPlease\\.vsconfig",
+              "RelativeDocumentMoniker": ".vsconfig",
+              "ToolTip": "D:\\DEV\\TicketsPlease\\.vsconfig",
+              "RelativeToolTip": ".vsconfig",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-04-12T13:49:40.524Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "DbInitialiser.cs",
               "DocumentMoniker": "D:\\DEV\\TicketsPlease\\src\\TicketsPlease.Infrastructure\\Persistence\\DbInitialiser.cs",
               "RelativeDocumentMoniker": "src\\TicketsPlease.Infrastructure\\Persistence\\DbInitialiser.cs",
@@ -38,12 +55,11 @@
               "RelativeToolTip": "src\\TicketsPlease.Infrastructure\\Persistence\\DbInitialiser.cs",
               "ViewState": "AgIAAJMBAAAAAAAAAAAAAJMBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-11T22:09:55.732Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-11T22:09:55.732Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "TicketDto.cs",
               "DocumentMoniker": "D:\\DEV\\TicketsPlease\\src\\TicketsPlease.Application\\Common\\Dtos\\TicketDto.cs",
               "RelativeDocumentMoniker": "src\\TicketsPlease.Application\\Common\\Dtos\\TicketDto.cs",
@@ -51,12 +67,11 @@
               "RelativeToolTip": "src\\TicketsPlease.Application\\Common\\Dtos\\TicketDto.cs",
               "ViewState": "AgIAADAAAAAAAAAAAAAlwEMAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-09T19:56:12.312Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-09T19:56:12.312Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "TicketsController.cs",
               "DocumentMoniker": "D:\\DEV\\TicketsPlease\\src\\TicketsPlease.Web\\Controllers\\TicketsController.cs",
               "RelativeDocumentMoniker": "src\\TicketsPlease.Web\\Controllers\\TicketsController.cs",
