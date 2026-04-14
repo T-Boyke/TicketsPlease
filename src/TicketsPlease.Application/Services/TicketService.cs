@@ -256,10 +256,41 @@ public class TicketService(
   /// <inheritdoc/>
   public async Task AddDependencyAsync(Guid ticketId, Guid blockerId)
   {
-    var blocker = await _ticketRepository.GetByIdAsync(blockerId).ConfigureAwait(false) ?? throw new KeyNotFoundException(TicketNotFoundMessage);
+    if (ticketId == blockerId)
+    {
+      throw new InvalidOperationException("Ein Ticket kann nicht von sich selbst abhängig sein.");
+    }
+
+    var ticket = await _ticketRepository.GetByIdAsync(ticketId).ConfigureAwait(false) ?? throw new KeyNotFoundException($"Ticket {ticketId} nicht gefunden.");
+    var blocker = await _ticketRepository.GetByIdAsync(blockerId).ConfigureAwait(false) ?? throw new KeyNotFoundException($"Blocker-Ticket {blockerId} nicht gefunden.");
+
+    // Zirkuläre Abhängigkeit prüfen: Kann das aktuelle Ticket (ticketId) den potenziellen Blocker (blockerId) bereits blockieren?
+    if (await this.IsBlockedByRecursiveAsync(blockerId, ticketId).ConfigureAwait(false))
+    {
+      throw new InvalidOperationException("Zirkuläre Abhängigkeit erkannt: Das ausgewählte Ticket ist bereits direkt oder indirekt von diesem Ticket abhängig.");
+    }
 
     blocker.AddLink(ticketId, TicketsPlease.Domain.Enums.TicketLinkType.Blocks);
     _ = await _ticketRepository.SaveChangesAsync().ConfigureAwait(false);
+  }
+
+  private async Task<bool> IsBlockedByRecursiveAsync(Guid currentTicketId, Guid targetBlockerId, HashSet<Guid>? visited = null)
+  {
+    visited ??= new HashSet<Guid>();
+    if (visited.Contains(currentTicketId)) return false;
+    visited.Add(currentTicketId);
+
+    var ticket = await _ticketRepository.GetByIdAsync(currentTicketId).ConfigureAwait(false);
+    if (ticket == null) return false;
+
+    // Prüfen ob einer der Blocker des aktuellen Tickets das Ziel-Ticket ist
+    foreach (var link in ticket.BlockedBy.Where(l => l.LinkType == TicketsPlease.Domain.Enums.TicketLinkType.Blocks))
+    {
+      if (link.SourceTicketId == targetBlockerId) return true;
+      if (await this.IsBlockedByRecursiveAsync(link.SourceTicketId, targetBlockerId, visited).ConfigureAwait(false)) return true;
+    }
+
+    return false;
   }
 
   /// <inheritdoc/>
