@@ -69,6 +69,69 @@
             </div>
         }
     </div>
+
+    @* Join Requests Section *@
+    <div class="mt-12">
+        <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight mb-6">@L["PendingJoinRequests"]</h2>
+        
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            @inject TicketsPlease.Application.Common.Interfaces.ITeamService TeamService
+            @{
+                var allRequests = new List<TeamJoinRequestDto>();
+                foreach(var team in Model)
+                {
+                    allRequests.AddRange(await TeamService.GetJoinRequestsAsync(team.Id));
+                }
+                var pendingRequests = allRequests.Where(r => r.Status == TicketsPlease.Domain.Enums.JoinRequestStatus.Pending).ToList();
+            }
+
+            <table class="min-w-full divide-y divide-slate-200">
+                <thead class="bg-slate-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">@L["User"]</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">@L["Team"]</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">@L["RequestedAt"]</th>
+                        <th scope="col" class="relative px-6 py-3"><span class="sr-only">@L["Actions"]</span></th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-slate-200">
+                    @foreach (var request in pendingRequests)
+                    {
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">
+                                @request.UserName
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                                @request.TeamName
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                                @request.RequestedAt.ToShortDateString()
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-3">
+                                <form asp-action="DecideJoinRequest" method="post" class="inline">
+                                    <input type="hidden" name="requestId" value="@request.Id" />
+                                    <input type="hidden" name="approve" value="true" />
+                                    <button type="submit" class="text-green-600 hover:text-green-900 bg-green-50 px-3 py-1 rounded-full text-xs font-bold">@L["Approve"]</button>
+                                </form>
+                                <form asp-action="DecideJoinRequest" method="post" class="inline">
+                                    <input type="hidden" name="requestId" value="@request.Id" />
+                                    <input type="hidden" name="approve" value="false" />
+                                    <button type="submit" class="text-red-600 hover:text-red-900 bg-red-50 px-3 py-1 rounded-full text-xs font-bold">@L["Reject"]</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            @if (!pendingRequests.Any())
+            {
+                <div class="text-center py-8">
+                    <p class="text-slate-500 text-sm">@L["NoPendingRequests"]</p>
+                </div>
+            }
+        </div>
+    </div>
 </div>
 
 @* Modal for Creating a New Team *@

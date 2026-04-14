@@ -137,6 +137,8 @@ public sealed class TeamsController : Controller
       return this.NotFound();
     }
 
+    await this.teamService.RequestJoinAsync(teamId, user.Id).ConfigureAwait(false);
+
     // Benachrichtigung an Teamleads des Teams senden
     var teamLeads = team.Members.Where(m => m.IsTeamLead).Select(m => m.UserId).ToList();
 
@@ -158,5 +160,28 @@ public sealed class TeamsController : Controller
 
     this.TempData["StatusMessage"] = this.localizer["JoinRequestSent"].Value;
     return this.RedirectToAction(nameof(this.Index));
+  }
+
+  /// <summary>
+  /// Entscheidet über eine Beitrittsanfrage.
+  /// </summary>
+  /// <param name="requestId">ID der Anfrage.</param>
+  /// <param name="approve">Ob die Anfrage angenommen werden soll.</param>
+  /// <returns>Redirect zur Details-View des Teams.</returns>
+  [HttpPost]
+  [Authorize(Roles = "Admin,Teamlead")]
+  [ValidateAntiForgeryToken]
+  public async Task<IActionResult> DecideJoinRequest(Guid requestId, bool approve)
+  {
+    var currentUser = await this.userManager.GetUserAsync(this.User).ConfigureAwait(false);
+    if (currentUser == null)
+    {
+      return this.Challenge();
+    }
+
+    await this.teamService.DecideJoinRequestAsync(requestId, currentUser.Id, approve).ConfigureAwait(false);
+
+    this.TempData["StatusMessage"] = approve ? this.localizer["JoinRequestApproved"].Value : this.localizer["JoinRequestRejected"].Value;
+    return this.RedirectToAction(nameof(this.Management));
   }
 }

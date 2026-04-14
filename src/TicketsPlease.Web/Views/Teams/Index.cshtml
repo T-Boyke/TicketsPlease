@@ -62,12 +62,25 @@
                         <div class="flex items-center space-x-3">
                             @if (!team.IsCurrentUserMember)
                             {
-                                <form asp-action="RequestJoin" asp-route-teamId="@team.Id" method="post">
-                                    <button type="submit" class="font-bold text-brand-primary hover:text-brand-secondary transition-colors">
-                                        <i class="fa-solid fa-user-plus mr-1"></i>
-                                        @L["JoinRequest"]
-                                    </button>
-                                </form>
+                                @* Check if there's a pending request for this team/user *@
+                                @inject TicketsPlease.Application.Common.Interfaces.ITeamService TeamService
+                                @if ((await TeamService.GetJoinRequestsAsync(team.Id)).Any(r => r.UserId == Guid.Parse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? Guid.Empty.ToString()) && r.Status == TicketsPlease.Domain.Enums.JoinRequestStatus.Pending))
+                                {
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                        <i class="fa-solid fa-clock mr-1"></i>
+                                        @L["Pending"]
+                                    </span>
+                                }
+
+                                else
+                                {
+                                    <form asp-action="RequestJoin" asp-route-teamId="@team.Id" method="post" class="inline">
+                                        <button type="submit" class="font-bold text-brand-primary hover:text-brand-secondary transition-colors text-xs uppercase tracking-wider bg-brand-primary/10 px-3 py-1.5 rounded-full">
+                                            <i class="fa-solid fa-user-plus mr-1"></i>
+                                            @L["Join"]
+                                        </button>
+                                    </form>
+                                }
                             }
                             <a asp-action="Details" asp-route-id="@team.Id" class="font-bold text-slate-700 hover:text-brand-primary transition-colors">
                                 @L["ViewDetails"]
