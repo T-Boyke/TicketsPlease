@@ -40,6 +40,17 @@ public class TimeLogRepository : ITimeLogRepository
     }
 
     /// <inheritdoc/>
+    public async Task<List<TimeLog>> GetByTenantAsync(Guid tenantId, CancellationToken ct = default)
+    {
+        return await this.context.TimeLogs
+            .IgnoreQueryFilters()
+            .AsNoTracking()
+            .Where(l => l.TenantId == tenantId)
+            .ToListAsync(ct)
+            .ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
     public async Task<List<TimeLog>> GetByUserIdAsync(Guid userId, CancellationToken ct = default)
     {
         return await this.context.TimeLogs

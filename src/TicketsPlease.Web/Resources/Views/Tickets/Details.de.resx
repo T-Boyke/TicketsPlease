@@ -1,71 +1,181 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
+    <xsd:element name="data">
       <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
+        <xsd:sequence>
+          <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+          <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+        <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+        <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
       </xsd:complexType>
     </xsd:element>
   </xsd:schema>
-  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
-  <resheader name="version"><value>2.0</value></resheader>
-  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <data name="Ticket Details" xml:space="preserve"><value>Ticket-Details</value></data>
-  <data name="Back to Board" xml:space="preserve"><value>Zurück zum Board</value></data>
-  <data name="Edit" xml:space="preserve"><value>Bearbeiten</value></data>
-  <data name="Edit Ticket" xml:space="preserve"><value>Ticket bearbeiten</value></data>
-  <data name="Close Ticket" xml:space="preserve"><value>Ticket schließen</value></data>
-  <data name="Description" xml:space="preserve"><value>Beschreibung</value></data>
-  <data name="Overview" xml:space="preserve"><value>Übersicht</value></data>
-  <data name="Back to Tickets" xml:space="preserve"><value>Zurück zur Ticketliste</value></data>
-  <data name="Management Actions" xml:space="preserve"><value>Verwaltungsaktionen</value></data>
-  <data name="Properties" xml:space="preserve"><value>Eigenschaften</value></data>
-  <data name="Status" xml:space="preserve"><value>Status</value></data>
-  <data name="Priority" xml:space="preserve"><value>Priorität</value></data>
-  <data name="Assignee" xml:space="preserve"><value>Zuständig</value></data>
-  <data name="Project" xml:space="preserve"><value>Projekt</value></data>
-  <data name="Created" xml:space="preserve"><value>Erstellt am</value></data>
-  <data name="Attachments" xml:space="preserve"><value>Anhänge</value></data>
-  <data name="No attachments" xml:space="preserve"><value>Keine Anhänge</value></data>
-  <data name="Upload" xml:space="preserve"><value>Hochladen</value></data>
-  <data name="Dependencies" xml:space="preserve"><value>Abhängigkeiten</value></data>
-  <data name="Blocked By" xml:space="preserve"><value>Blockiert durch</value></data>
-  <data name="Blocking" xml:space="preserve"><value>Blockiert</value></data>
-  <data name="No blockers" xml:space="preserve"><value>Keine Blockaden</value></data>
-  <data name="No successors" xml:space="preserve"><value>Keine Nachfolger</value></data>
-  <data name="Add Blocker" xml:space="preserve"><value>Blocker hinzufügen</value></data>
-  <data name="Add" xml:space="preserve"><value>Hinzufügen</value></data>
-  <data name="Comments" xml:space="preserve"><value>Kommentare</value></data>
-  <data name="Post Comment" xml:space="preserve"><value>Kommentar senden</value></data>
-  <data name="Write a comment... (Markdown supported)" xml:space="preserve"><value>Kommentieren... (Markdown möglich)</value></data>
-  <data name="No comments yet. Be the first to start the discussion!" xml:space="preserve"><value>Noch keine Kommentare vorhanden. Sei der Erste!</value></data>
-  <data name="Audit Log" xml:space="preserve"><value>Änderungsverlauf</value></data>
-  <data name="No history records yet." xml:space="preserve"><value>Noch keine Einträge vorhanden.</value></data>
-  <data name="Changed" xml:space="preserve"><value>Geändert</value></data>
-  <data name="History" xml:space="preserve"><value>Historie</value></data>
-  <data name="Toggle completion for" xml:space="preserve"><value>Status umschalten für</value></data>
-  <data name="Delete task" xml:space="preserve"><value>Aufgabe löschen</value></data>
-  <data name="Task title" xml:space="preserve"><value>Aufgaben-Titel</value></data>
-  <data name="Add task" xml:space="preserve"><value>Aufgabe hinzufügen</value></data>
-  <data name="Comment content" xml:space="preserve"><value>Kommentartext</value></data>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Current viewers" xml:space="preserve">
+    <value>Current viewers</value>
+  </data>
+  <data name="No blockers" xml:space="preserve">
+    <value>Keine Blockaden</value>
+  </data>
+  <data name="No records yet." xml:space="preserve">
+    <value>Noch keine Aufzeichnungen.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="Ticket Details" xml:space="preserve">
+    <value>Ticket-Details</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Stopp</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>Historie</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Erstellt am</value>
+  </data>
+  <data name="Audit Log" xml:space="preserve">
+    <value>Änderungsverlauf</value>
+  </data>
+  <data name="Delete task" xml:space="preserve">
+    <value>Aufgabe löschen</value>
+  </data>
+  <data name="Close Ticket" xml:space="preserve">
+    <value>Ticket schließen</value>
+  </data>
+  <data name="Write a comment... (Markdown supported)" xml:space="preserve">
+    <value>Kommentieren... (Markdown möglich)</value>
+  </data>
+  <data name="Checklist" xml:space="preserve">
+    <value>Checklist</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Dependencies" xml:space="preserve">
+    <value>Abhängigkeiten</value>
+  </data>
+  <data name="Add a new task..." xml:space="preserve">
+    <value>Eine neue Aufgabe hinzufÃ¼gen...</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Gesamt</value>
+  </data>
+  <data name="Edit Ticket" xml:space="preserve">
+    <value>Ticket bearbeiten</value>
+  </data>
+  <data name="Management Actions" xml:space="preserve">
+    <value>Verwaltungsaktionen</value>
+  </data>
+  <data name="No attachments" xml:space="preserve">
+    <value>Keine Anhänge</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Abgeschlossen</value>
+  </data>
+  <data name="Blocking" xml:space="preserve">
+    <value>Blockiert</value>
+  </data>
+  <data name="Time Tracking" xml:space="preserve">
+    <value>Zeiterfassung</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="No comments yet. Be the first to start the discussion!" xml:space="preserve">
+    <value>Noch keine Kommentare vorhanden. Sei der Erste!</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Anhänge</value>
+  </data>
+  <data name="Changed" xml:space="preserve">
+    <value>Geändert</value>
+  </data>
+  <data name="Back to Board" xml:space="preserve">
+    <value>Zurück zum Board</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Hinzufügen</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Kommentare</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>Hochladen</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Eigenschaften</value>
+  </data>
+  <data name="Difficulty" xml:space="preserve">
+    <value>Schwierigkeit</value>
+  </data>
+  <data name="Add task" xml:space="preserve">
+    <value>Aufgabe hinzufügen</value>
+  </data>
+  <data name="Toggle completion for" xml:space="preserve">
+    <value>Status umschalten für</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Post Comment" xml:space="preserve">
+    <value>Kommentar senden</value>
+  </data>
+  <data name="Details for ticket" xml:space="preserve">
+    <value>Details fÃ¼r Ticket</value>
+  </data>
+  <data name="Comment content" xml:space="preserve">
+    <value>Kommentartext</value>
+  </data>
+  <data name="No successors" xml:space="preserve">
+    <value>Keine Nachfolger</value>
+  </data>
+  <data name="Task title" xml:space="preserve">
+    <value>Aufgaben-Titel</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Übersicht</value>
+  </data>
+  <data name="Blocked By" xml:space="preserve">
+    <value>Blockiert durch</value>
+  </data>
+  <data name="Back to Tickets" xml:space="preserve">
+    <value>Zurück zur Ticketliste</value>
+  </data>
+  <data name="No history records yet." xml:space="preserve">
+    <value>Noch keine Einträge vorhanden.</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priorität</value>
+  </data>
+  <data name="Are you sure?" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="Add Blocker" xml:space="preserve">
+    <value>Blocker hinzufügen</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Zuständig</value>
+  </data>
+  <data name="Toggle Upvote" xml:space="preserve">
+    <value>Upvote umschalten</value>
+  </data>
 </root>

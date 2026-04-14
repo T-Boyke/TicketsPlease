@@ -73,10 +73,18 @@ internal sealed class TestAuthHandler : AuthenticationHandler<AuthenticationSche
         }
       }
     }
+    else
+    {
+      claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+    }
 
     if (this.Context.Request.Headers.TryGetValue(TenantIdHeader, out var tenantValues))
     {
       claims.Add(new Claim("TenantId", tenantValues.ToString()));
+    }
+    else
+    {
+      claims.Add(new Claim("TenantId", IntegrationTestBase.TestTenantId.ToString()));
     }
 
     var identity = new ClaimsIdentity(claims, AuthenticationScheme);

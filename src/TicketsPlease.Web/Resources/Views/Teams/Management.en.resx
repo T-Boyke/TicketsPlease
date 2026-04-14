@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="data">
+      <xsd:complexType>
+        <xsd:sequence>
+          <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+          <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+        <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+        <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="SelectBrandColor" xml:space="preserve">
+    <value>SelectBrandColor</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Members</value>
+  </data>
+  <data name="RequestedAt" xml:space="preserve">
+    <value>RequestedAt</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>Approve</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ColorCode" xml:space="preserve">
+    <value>ColorCode</value>
+  </data>
+  <data name="CreateNewTeam" xml:space="preserve">
+    <value>CreateNewTeam</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="TeamName" xml:space="preserve">
+    <value>TeamName</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="CreateFirstTeamTip" xml:space="preserve">
+    <value>CreateFirstTeamTip</value>
+  </data>
+  <data name="NoTeamsFound" xml:space="preserve">
+    <value>NoTeamsFound</value>
+  </data>
+  <data name="CreateAndManageTeams" xml:space="preserve">
+    <value>CreateAndManageTeams</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Team Management" xml:space="preserve">
+    <value>Team Management</value>
+  </data>
+  <data name="PendingJoinRequests" xml:space="preserve">
+    <value>PendingJoinRequests</value>
+  </data>
+  <data name="NoPendingRequests" xml:space="preserve">
+    <value>NoPendingRequests</value>
+  </data>
+  <data name="CreateTeam" xml:space="preserve">
+    <value>CreateTeam</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
+</root>

@@ -50,4 +50,8 @@
   <data name="New ticket assigned" xml:space="preserve"><value>New ticket assigned</value></data>
   <data name="Ticket resolved" xml:space="preserve"><value>Ticket resolved</value></data>
   <data name="See all notifications" xml:space="preserve"><value>See all notifications</value></data>
+  <data name="No new notifications" xml:space="preserve"><value>No new notifications</value></data>
+  <data name="Messages" xml:space="preserve"><value>Messages</value></data>
+  <data name="No new messages" xml:space="preserve"><value>No new messages</value></data>
+  <data name="See all messages" xml:space="preserve"><value>See all messages</value></data>
 </root>

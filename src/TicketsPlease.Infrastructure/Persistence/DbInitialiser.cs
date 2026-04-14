@@ -133,13 +133,15 @@ public static class DbInitialiser
       // Add 1 more Admin
       users.Add(new User { UserName = "admin2", Email = "admin2@ticketsplease.com", RoleId = AdminRoleId, TenantId = orgs[1].Id, IsActive = true });
 
-      // Add Product Owners for each Org
-      users.Add(new User { UserName = "po1", Email = "po1@ticketsplease.com", RoleId = ProductOwnerRoleId, TenantId = orgs[0].Id, IsActive = true });
-      users.Add(new User { UserName = "po2", Email = "po2@ticketsplease.com", RoleId = ProductOwnerRoleId, TenantId = orgs[1].Id, IsActive = true });
+      // Add Product Owners for each Org (Seeded Logins)
+      var po1 = new User { UserName = "po", Email = "po@ticketsplease.com", RoleId = ProductOwnerRoleId, TenantId = orgs[0].Id, IsActive = true };
+      var po2 = new User { UserName = "po2", Email = "po2@ticketsplease.com", RoleId = ProductOwnerRoleId, TenantId = orgs[1].Id, IsActive = true };
+      users.AddRange(new[] { po1, po2 });
 
-      // Add Stakeholders for each Org
-      users.Add(new User { UserName = "stakeholder1", Email = "stakeholder1@ticketsplease.com", RoleId = StakeholderRoleId, TenantId = orgs[0].Id, IsActive = true });
-      users.Add(new User { UserName = "stakeholder2", Email = "stakeholder2@ticketsplease.com", RoleId = StakeholderRoleId, TenantId = orgs[1].Id, IsActive = true });
+      // Add Stakeholders for each Org (Seeded Logins)
+      var stakeholder1 = new User { UserName = "stakeholder", Email = "stakeholder@ticketsplease.com", RoleId = StakeholderRoleId, TenantId = orgs[0].Id, IsActive = true };
+      var stakeholder2 = new User { UserName = "stakeholder2", Email = "stakeholder2@ticketsplease.com", RoleId = StakeholderRoleId, TenantId = orgs[1].Id, IsActive = true };
+      users.AddRange(new[] { stakeholder1, stakeholder2 });
 
       // Add 4 more Teamleads
       for (int i = 2; i <= 5; i++)

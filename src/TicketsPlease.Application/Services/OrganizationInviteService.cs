@@ -45,7 +45,7 @@ public class OrganizationInviteService : IOrganizationInviteService
       IsUsed = false
     };
 
-    this.repository.AddInvite(invite);
+    await this.repository.AddInviteAsync(invite).ConfigureAwait(false);
     await this.repository.SaveChangesAsync().ConfigureAwait(false);
 
     return new OrganizationInviteDto(invite.Token, invite.OrganizationId, org.Name, invite.ExpiresAt, invite.TargetedEmail);

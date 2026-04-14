@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="data">
+      <xsd:complexType>
+        <xsd:sequence>
+          <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+          <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+        <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+        <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="New ticket assigned" xml:space="preserve">
+    <value>New ticket assigned</value>
+  </data>
+  <data name="View Ticket" xml:space="preserve">
+    <value>View Ticket</value>
+  </data>
+  <data name="Mark all as read" xml:space="preserve">
+    <value>Mark all as read</value>
+  </data>
+  <data name="View Resolution" xml:space="preserve">
+    <value>View Resolution</value>
+  </data>
+  <data name="Load older notifications" xml:space="preserve">
+    <value>Load older notifications</value>
+  </data>
+  <data name="New comment" xml:space="preserve">
+    <value>New comment</value>
+  </data>
+  <data name="ago" xml:space="preserve">
+    <value>ago</value>
+  </data>
+  <data name="Ticket resolved" xml:space="preserve">
+    <value>Ticket resolved</value>
+  </data>
+  <data name="Stay updated with your latest activities and mentions." xml:space="preserve">
+    <value>Stay updated with your latest activities and mentions.</value>
+  </data>
+  <data name="Mark as read" xml:space="preserve">
+    <value>Mark as read</value>
+  </data>
+</root>

@@ -61,7 +61,9 @@ public interface IOrganizationRepository
     /// Fügt eine Einladung hinzu.
     /// </summary>
     /// <param name="invite">Die Einladung.</param>
-    Task AddInvite(OrganizationInvite invite);
+    /// <param name="ct">Abbruchsignal.</param>
+    /// <returns>Task.</returns>
+    Task AddInviteAsync(OrganizationInvite invite, CancellationToken ct = default);
 
     /// <summary>
     /// Ruft eine Einladung per Token ab.

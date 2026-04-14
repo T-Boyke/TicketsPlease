@@ -1,45 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
+    <xsd:element name="data">
       <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
+        <xsd:sequence>
+          <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+          <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+        <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+        <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
       </xsd:complexType>
     </xsd:element>
   </xsd:schema>
-  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
-  <resheader name="version"><value>2.0</value></resheader>
-  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <data name="Login" xml:space="preserve"><value>Anmelden</value></data>
-  <data name="Sign in to your account" xml:space="preserve"><value>In Ihr Konto einloggen</value></data>
-  <data name="Or" xml:space="preserve"><value>oder</value></data>
-  <data name="create a new account" xml:space="preserve"><value>ein neues Konto erstellen</value></data>
-  <data name="Email address" xml:space="preserve"><value>E-Mail-Adresse</value></data>
-  <data name="Password" xml:space="preserve"><value>Passwort</value></data>
-  <data name="Remember me" xml:space="preserve"><value>Angemeldet bleiben</value></data>
-  <data name="Forgot your password?" xml:space="preserve"><value>Passwort vergessen?</value></data>
-  <data name="Sign In" xml:space="preserve"><value>Anmelden</value></data>
-  <data name="Or continue with" xml:space="preserve"><value>Oder weiter mit</value></data>
-  <data name="Sign in with GitHub" xml:space="preserve"><value>Mit GitHub anmelden</value></data>
-  <data name="Sign in with Microsoft" xml:space="preserve"><value>Mit Microsoft anmelden</value></data>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Or" xml:space="preserve">
+    <value>oder</value>
+  </data>
+  <data name="Sign in to your account" xml:space="preserve">
+    <value>In Ihr Konto einloggen</value>
+  </data>
+  <data name="Remember me" xml:space="preserve">
+    <value>Angemeldet bleiben</value>
+  </data>
+  <data name="Sign in with Microsoft" xml:space="preserve">
+    <value>Mit Microsoft anmelden</value>
+  </data>
+  <data name="create a new account" xml:space="preserve">
+    <value>ein neues Konto erstellen</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="Sign In" xml:space="preserve">
+    <value>Anmelden</value>
+  </data>
+  <data name="Forgot your password?" xml:space="preserve">
+    <value>Passwort vergessen?</value>
+  </data>
+  <data name="Sign in with GitHub" xml:space="preserve">
+    <value>Mit GitHub anmelden</value>
+  </data>
+  <data name="Email address" xml:space="preserve">
+    <value>E-Mail-Adresse</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Anmelden</value>
+  </data>
+  <data name="Or continue with" xml:space="preserve">
+    <value>Oder weiter mit</value>
+  </data>
 </root>

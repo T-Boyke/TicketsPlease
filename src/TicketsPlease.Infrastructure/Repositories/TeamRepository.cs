@@ -68,7 +68,9 @@ public class TeamRepository : ITeamRepository
   /// <inheritdoc/>
   public async Task UpdateAsync(Team team, CancellationToken cancellationToken = default)
   {
-    this.context.Teams.Update(team);
+    // The entity is already tracked by the context, so EF Core will automatically
+    // detect changes during SaveChangesAsync. Calling Update() on a tracked entity
+    // with Include() navigations forces the entire graph to Modified, causing ConcurrencyExceptions.
     await Task.CompletedTask.ConfigureAwait(false);
   }
 
@@ -88,7 +90,7 @@ public class TeamRepository : ITeamRepository
   /// <inheritdoc/>
   public async Task UpdateJoinRequestAsync(TeamJoinRequest request, CancellationToken cancellationToken = default)
   {
-    this.context.TeamJoinRequests.Update(request);
+    // The entity is already tracked by the context.
     await Task.CompletedTask.ConfigureAwait(false);
   }
 
@@ -123,6 +125,7 @@ public class TeamRepository : ITeamRepository
   public async Task<IEnumerable<Team>> GetTeamsByTenantAsync(Guid tenantId)
   {
     return await this.context.Teams
+        .IgnoreQueryFilters()
         .Include(t => t.Members)
         .Where(t => t.TenantId == tenantId)
         .ToListAsync()

@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="data">
+      <xsd:complexType>
+        <xsd:sequence>
+          <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+          <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+        <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+        <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Enterprise (Infinite)" xml:space="preserve">
+    <value>Enterprise (Unendlich)</value>
+  </data>
+  <data name="Free Tier" xml:space="preserve">
+    <value>Kostenlose Stufe</value>
+  </data>
+  <data name="Inactive workspaces block all access for their members." xml:space="preserve">
+    <value>Inaktive Workspaces blockieren jeglichen Zugriff fÃ¼r ihre Mitglieder.</value>
+  </data>
+  <data name="Organization Name" xml:space="preserve">
+    <value>Firmenname</value>
+  </data>
+  <data name="Professional Plan" xml:space="preserve">
+    <value>Professional-Tarif</value>
+  </data>
+  <data name="New Workspace" xml:space="preserve">
+    <value>Neuer Workspace</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Deploy Workspace" xml:space="preserve">
+    <value>Workspace bereitstellen</value>
+  </data>
+  <data name="Workspace Active" xml:space="preserve">
+    <value>Workspace aktiv</value>
+  </data>
+  <data name="Provision New Workspace" xml:space="preserve">
+    <value>Neuen Workspace bereitstellen</value>
+  </data>
+  <data name="Subscription Plan" xml:space="preserve">
+    <value>Abonnementplan</value>
+  </data>
+  <data name="Set up a fresh organization environment." xml:space="preserve">
+    <value>Eine frische Organisationsumgebung einrichten.</value>
+  </data>
+</root>

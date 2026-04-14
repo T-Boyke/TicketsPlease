@@ -23,6 +23,12 @@ using Xunit;
 public class RelationshipTests : IntegrationTestBase
 {
   /// <summary>
+  /// Initializes a new instance of the <see cref="RelationshipTests"/> class.
+  /// </summary>
+  public RelationshipTests()
+  {
+  }
+  /// <summary>
   /// Prüft, ob ein Ticket einem Benutzer korrekt zugewiesen werden kann und die Beziehung persistiert wird.
   /// </summary>
   /// <returns>Ein <see cref="Task"/>, der die asynchrone Testausführung repräsentiert.</returns>
@@ -34,11 +40,11 @@ public class RelationshipTests : IntegrationTestBase
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
     await SeedMinimalAsync(db);
-    var roleId = (await db.Roles.FirstAsync()).Id;
-    var priorityId = (await db.TicketPriorities.FirstAsync()).Id;
-    var workflowStateId = (await db.WorkflowStates.FirstAsync()).Id;
+    var roleId = (await db.Roles.IgnoreQueryFilters().FirstAsync()).Id;
+    var priorityId = (await db.TicketPriorities.IgnoreQueryFilters().FirstAsync()).Id;
+    var workflowStateId = (await db.WorkflowStates.IgnoreQueryFilters().FirstAsync()).Id;
 
-    var project = await db.Projects.FirstAsync();
+    var project = await db.Projects.IgnoreQueryFilters().FirstAsync();
 
     var userId = Guid.NewGuid();
     var user = new User
@@ -67,7 +73,7 @@ public class RelationshipTests : IntegrationTestBase
     await db.SaveChangesAsync();
 
     // Assert
-    var savedTicket = await db.Tickets
+    var savedTicket = await db.Tickets.IgnoreQueryFilters()
         .Include(t => t.AssignedUser)
             .ThenInclude(u => u!.Profile)
         .FirstOrDefaultAsync(t => t.Id == ticket.Id);
@@ -92,11 +98,11 @@ public class RelationshipTests : IntegrationTestBase
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
     await SeedMinimalAsync(db);
-    var roleId = (await db.Roles.FirstAsync()).Id;
-    var priorityId = (await db.TicketPriorities.FirstAsync()).Id;
-    var workflowStateId = (await db.WorkflowStates.FirstAsync()).Id;
+    var roleId = (await db.Roles.IgnoreQueryFilters().FirstAsync()).Id;
+    var priorityId = (await db.TicketPriorities.IgnoreQueryFilters().FirstAsync()).Id;
+    var workflowStateId = (await db.WorkflowStates.IgnoreQueryFilters().FirstAsync()).Id;
 
-    var project = await db.Projects.FirstAsync();
+    var project = await db.Projects.IgnoreQueryFilters().FirstAsync();
 
     var userId = Guid.NewGuid();
     var user = new User

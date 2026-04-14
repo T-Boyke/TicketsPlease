@@ -41,6 +41,7 @@ public class ProjectRepository : IProjectRepository
   public async Task<IEnumerable<Project>> GetAllAsync(Guid tenantId)
   {
     return await this.context.Projects
+        .IgnoreQueryFilters()
         .AsNoTracking()
         .Where(p => p.TenantId == tenantId)
         .OrderByDescending(p => p.StartDate)

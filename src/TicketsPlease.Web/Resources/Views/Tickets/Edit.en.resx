@@ -1,54 +1,115 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
+    <xsd:element name="data">
       <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
+        <xsd:sequence>
+          <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+          <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+        <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+        <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
       </xsd:complexType>
     </xsd:element>
   </xsd:schema>
-  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
-  <resheader name="version"><value>2.0</value></resheader>
-  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <data name="Edit Ticket" xml:space="preserve"><value>Edit Ticket</value></data>
-  <data name="Update the details and progress of this task." xml:space="preserve"><value>Update the details and progress of this task.</value></data>
-  <data name="Ticket Title" xml:space="preserve"><value>Ticket Title</value></data>
-  <data name="Description" xml:space="preserve"><value>Description</value></data>
-  <data name="Status" xml:space="preserve"><value>Status</value></data>
-  <data name="To Do" xml:space="preserve"><value>To Do</value></data>
-  <data name="In Progress" xml:space="preserve"><value>In Progress</value></data>
-  <data name="Done / Closed" xml:space="preserve"><value>Done / Closed</value></data>
-  <data name="Open" xml:space="preserve"><value>Open</value></data>
-  <data name="Resolved" xml:space="preserve"><value>Resolved</value></data>
-  <data name="Closed" xml:space="preserve"><value>Closed</value></data>
-  <data name="Priority" xml:space="preserve"><value>Priority</value></data>
-  <data name="Low" xml:space="preserve"><value>Low</value></data>
-  <data name="Medium" xml:space="preserve"><value>Medium</value></data>
-  <data name="High" xml:space="preserve"><value>High</value></data>
-  <data name="Critical" xml:space="preserve"><value>Critical</value></data>
-  <data name="Assignee" xml:space="preserve"><value>Assignee</value></data>
-  <data name="No Assignee" xml:space="preserve"><value>No Assignee</value></data>
-  <data name="Story Points" xml:space="preserve"><value>Story Points</value></data>
-  <data name="Cancel" xml:space="preserve"><value>Cancel</value></data>
-  <data name="Save Changes" xml:space="preserve"><value>Save Changes</value></data>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="Tag Name" xml:space="preserve">
+    <value>Tag Name</value>
+  </data>
+  <data name="Critical" xml:space="preserve">
+    <value>Critical</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Create New Tag" xml:space="preserve">
+    <value>Create New Tag</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Edit Ticket" xml:space="preserve">
+    <value>Edit Ticket</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="To Do" xml:space="preserve">
+    <value>To Do</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>In Progress</value>
+  </data>
+  <data name="Ticket Title" xml:space="preserve">
+    <value>Ticket Title</value>
+  </data>
+  <data name="Difficulty (Chilis)" xml:space="preserve">
+    <value>Difficulty (Chilis)</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Story Points" xml:space="preserve">
+    <value>Story Points</value>
+  </data>
+  <data name="Icon (FontAwesome)" xml:space="preserve">
+    <value>Icon (FontAwesome)</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Resolved</value>
+  </data>
+  <data name="Add New Tag" xml:space="preserve">
+    <value>Add New Tag</value>
+  </data>
+  <data name="Done / Closed" xml:space="preserve">
+    <value>Done / Closed</value>
+  </data>
+  <data name="Save Changes" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="No Assignee" xml:space="preserve">
+    <value>No Assignee</value>
+  </data>
+  <data name="Update the details and progress of this task." xml:space="preserve">
+    <value>Update the details and progress of this task.</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Assignee</value>
+  </data>
 </root>

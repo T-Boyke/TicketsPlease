@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="data">
+      <xsd:complexType>
+        <xsd:sequence>
+          <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+          <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+        <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+        <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Enterprise (Infinite)" xml:space="preserve">
+    <value>Enterprise (Infinite)</value>
+  </data>
+  <data name="Free Tier" xml:space="preserve">
+    <value>Free Tier</value>
+  </data>
+  <data name="Workspace Active" xml:space="preserve">
+    <value>Workspace Active</value>
+  </data>
+  <data name="Inactive workspaces block all access for their members." xml:space="preserve">
+    <value>Inactive workspaces block all access for their members.</value>
+  </data>
+  <data name="Edit Workspace" xml:space="preserve">
+    <value>Edit Workspace</value>
+  </data>
+  <data name="Professional Plan" xml:space="preserve">
+    <value>Professional Plan</value>
+  </data>
+  <data name="Organization Name" xml:space="preserve">
+    <value>Organization Name</value>
+  </data>
+  <data name="Save Changes" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Modify organization settings and status." xml:space="preserve">
+    <value>Modify organization settings and status.</value>
+  </data>
+  <data name="Configure Workspace" xml:space="preserve">
+    <value>Configure Workspace</value>
+  </data>
+  <data name="Subscription Plan" xml:space="preserve">
+    <value>Subscription Plan</value>
+  </data>
+</root>

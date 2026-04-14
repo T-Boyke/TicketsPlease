@@ -1,0 +1,43 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer L
+@{
+    ViewData["Title"] = L["Access Denied"];
+}
+
+<div class="min-h-[70vh] flex items-center justify-center px-4 bg-slate-50">
+    <div class="max-w-md w-full text-center">
+        <div class="relative mb-8">
+            <div class="absolute inset-0 flex items-center justify-center opacity-10">
+                <i class="fa-solid fa-shield-halved text-[12rem] text-red-600"></i>
+            </div>
+            <div class="relative">
+                <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-red-100 mb-6">
+                    <i class="fa-solid fa-lock text-4xl text-red-600"></i>
+                </div>
+                <h1 class="text-4xl font-black text-slate-900 mb-4 uppercase tracking-tight">@L["Access Denied"]</h1>
+            </div>
+        </div>
+        
+        <p class="text-lg text-slate-600 mb-10 leading-relaxed">
+            @L["You do not have the necessary permissions to view this resource. If you believe this is an error, please contact your administrator."]
+        </p>
+
+        <div class="space-y-4">
+            <a asp-controller="Home" asp-action="Index" class="inline-flex items-center justify-center w-full px-6 py-4 bg-slate-900 text-white font-bold rounded-2xl hover:bg-slate-800 transition-all shadow-lg hover:shadow-slate-200 group">
+                <i class="fa-solid fa-house mr-3 group-hover:-translate-x-1 transition-transform"></i>
+                @L["Return Home"]
+            </a>
+            <a href="javascript:history.back()" class="inline-flex items-center justify-center w-full px-6 py-4 bg-white text-slate-600 font-bold rounded-2xl border border-slate-200 hover:bg-slate-50 transition-all">
+                <i class="fa-solid fa-arrow-left mr-3"></i>
+                @L["Go Back"]
+            </a>
+        </div>
+        
+        <div class="mt-12 pt-8 border-t border-slate-200">
+            <p class="text-xs text-slate-400 font-medium uppercase tracking-widest flex items-center justify-center gap-2">
+                <i class="fa-solid fa-circle-info"></i>
+                TicketsPlease Security Layer
+            </p>
+        </div>
+    </div>
+</div>

@@ -51,6 +51,13 @@ public class TeamService : ITeamService
   }
 
   /// <inheritdoc/>
+  public async Task<IEnumerable<TeamDto>> GetTenantTeamsAsync(Guid tenantId, Guid? currentUserId = null)
+  {
+    var teams = await this.teamRepository.GetTeamsByTenantAsync(tenantId).ConfigureAwait(false);
+    return teams.Select(t => MapToDto(t, currentUserId));
+  }
+
+  /// <inheritdoc/>
   public async Task<Guid> CreateTeamAsync(string name, string description, string colorCode, Guid creatorUserId, CancellationToken cancellationToken = default)
   {
     var team = new Team
@@ -70,7 +77,7 @@ public class TeamService : ITeamService
   }
 
   /// <inheritdoc/>
-  public async Task AddMemberAsync(Guid teamId, Guid userId, bool isTeamLead = false, CancellationToken cancellationToken = default)
+  public async Task AddMemberAsync(Guid teamId, Guid userId, bool isTeamLead = false, bool saveChanges = true, CancellationToken cancellationToken = default)
   {
     var team = await this.teamRepository.GetByIdAsync(teamId, cancellationToken).ConfigureAwait(false);
     if (team == null)
@@ -93,7 +100,10 @@ public class TeamService : ITeamService
     });
 
     await this.teamRepository.UpdateAsync(team, cancellationToken).ConfigureAwait(false);
-    await this.teamRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    if (saveChanges)
+    {
+      await this.teamRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    }
   }
 
   /// <inheritdoc/>
@@ -153,11 +163,14 @@ public class TeamService : ITeamService
         return existingRequests.First(r => r.UserId == userId && r.Status == Domain.Enums.JoinRequestStatus.Pending).Id;
     }
 
+    var team = await this.teamRepository.GetByIdAsync(teamId, cancellationToken).ConfigureAwait(false);
+    
     var request = new TeamJoinRequest
     {
       Id = Guid.NewGuid(),
       TeamId = teamId,
       UserId = userId,
+      TenantId = team?.TenantId ?? Guid.Empty,
       RequestedAt = DateTime.UtcNow,
       Status = Domain.Enums.JoinRequestStatus.Pending
     };
@@ -174,7 +187,7 @@ public class TeamService : ITeamService
     var request = await this.teamRepository.GetJoinRequestByIdAsync(requestId, cancellationToken).ConfigureAwait(false);
     if (request == null || request.Status != Domain.Enums.JoinRequestStatus.Pending)
     {
-        return;
+      return;
     }
 
     request.Status = approve ? Domain.Enums.JoinRequestStatus.Approved : Domain.Enums.JoinRequestStatus.Rejected;
@@ -183,7 +196,19 @@ public class TeamService : ITeamService
 
     if (approve)
     {
-      await this.AddMemberAsync(request.TeamId, request.UserId, false, cancellationToken).ConfigureAwait(false);
+      var team = await this.teamRepository.GetByIdAsync(request.TeamId, cancellationToken).ConfigureAwait(false);
+      if (team != null && !team.Members.Any(m => m.UserId == request.UserId))
+      {
+        team.Members.Add(new TeamMember
+        {
+          Id = Guid.NewGuid(),
+          TeamId = team.Id,
+          UserId = request.UserId,
+          TenantId = team.TenantId,
+          JoinedAt = DateTime.UtcNow,
+          IsTeamLead = false,
+        });
+      }
     }
 
     await this.teamRepository.UpdateJoinRequestAsync(request, cancellationToken).ConfigureAwait(false);

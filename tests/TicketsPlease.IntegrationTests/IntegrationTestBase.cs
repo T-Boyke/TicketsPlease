@@ -4,176 +4,272 @@
 
 namespace TicketsPlease.IntegrationTests;
 
+using System.Security.Claims;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Persistence;
 
 /// <summary>
-/// Basisklasse für alle Integrations-Tests.
-/// Konfiguriert eine Test-Infrastruktur mit SQLite In-Memory Datenbank.
+/// Custom WebApplicationFactory with SQLite in-memory for integration tests.
+/// </summary>
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1515:Consider making public types internal", Justification = "Required for test infrastructure")]
+public sealed class TestWebApplicationFactory : WebApplicationFactory<Program>
+{
+  private readonly SqliteConnection connection;
+
+  /// <summary>
+  /// Initializes a new instance of the <see cref="TestWebApplicationFactory"/> class.
+  /// </summary>
+  public TestWebApplicationFactory()
+  {
+    this.connection = new SqliteConnection("DataSource=:memory:");
+    this.connection.Open();
+
+    using var command = this.connection.CreateCommand();
+    command.CommandText = "PRAGMA foreign_keys = ON;";
+    command.ExecuteNonQuery();
+  }
+
+  /// <inheritdoc/>
+  protected override void ConfigureWebHost(IWebHostBuilder builder)
+  {
+    ArgumentNullException.ThrowIfNull(builder);
+
+    builder.UseEnvironment("Testing");
+    builder.ConfigureServices(services =>
+    {
+      // 1. Remove background services to prevent crashes during startup
+      var hostedServices = services.Where(d => d.ServiceType == typeof(IHostedService)).ToList();
+      foreach (var d in hostedServices)
+      {
+        services.Remove(d);
+      }
+
+      // 2. Remove existing EF Core registrations
+      var efServices = services.Where(d =>
+          d.ServiceType.Namespace?.StartsWith("Microsoft.EntityFrameworkCore", StringComparison.Ordinal) == true ||
+          d.ServiceType.FullName?.Contains("EntityFrameworkCore", StringComparison.Ordinal) == true).ToList();
+      foreach (var d in efServices)
+      {
+        services.Remove(d);
+      }
+
+      var contextDescriptors = services.Where(d =>
+          d.ServiceType == typeof(AppDbContext) ||
+          d.ServiceType == typeof(DbContextOptions<AppDbContext>)).ToList();
+      foreach (var d in contextDescriptors)
+      {
+        services.Remove(d);
+      }
+
+      // 3. Inject SQLite in-memory
+      services.AddDbContext<AppDbContext>(options =>
+      {
+        options.UseSqlite(this.connection);
+        options.EnableServiceProviderCaching(false); 
+      });
+
+      // 4. Fake Authentication & Antiforgery
+      services.AddAuthentication(TestAuthHandler.AuthenticationScheme)
+              .AddScheme<Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions, TestAuthHandler>(
+                  TestAuthHandler.AuthenticationScheme, _ => { });
+
+      services.AddSingleton<Microsoft.AspNetCore.Antiforgery.IAntiforgery, FakeAntiforgery>();
+    });
+  }
+
+  /// <inheritdoc/>
+  protected override void Dispose(bool disposing)
+  {
+    base.Dispose(disposing);
+    if (disposing)
+    {
+      this.connection.Close();
+      this.connection.Dispose();
+    }
+  }
+}
+
+/// <summary>
+/// Fake Antiforgery implementation for tests.
+/// </summary>
+internal sealed class FakeAntiforgery : Microsoft.AspNetCore.Antiforgery.IAntiforgery
+{
+  public Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet GetAndStoreTokens(HttpContext httpContext) => new("test", "test", "test", "test");
+
+  public Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet GetTokens(HttpContext httpContext) => new("test", "test", "test", "test");
+
+  public Task<bool> IsRequestValidAsync(HttpContext httpContext) => Task.FromResult(true);
+
+  public void SetCookieTokenAndHeader(HttpContext httpContext) { }
+
+  public Task ValidateRequestAsync(HttpContext httpContext) => Task.CompletedTask;
+}
+
+/// <summary>
+/// Base class for all integration tests.
 /// </summary>
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1515:Consider making public types internal", Justification = "Required as base class for IntegrationTests")]
 public abstract class IntegrationTestBase : IDisposable
 {
-  private static WebApplicationFactory<Program>? sharedFactory;
-  private static readonly object SyncRoot = new();
-  private readonly SqliteConnection connection;
+  /// <summary>
+  /// The fixed Tenant ID used for all basic integration tests.
+  /// </summary>
+  public static readonly Guid TestTenantId = Guid.Parse("00000000-0000-0000-0000-000000001000");
+
+  /// <summary>
+  /// The fixed User ID used for basic integration tests.
+  /// </summary>
+  public static readonly Guid TestUserId = Guid.Parse("00000000-0000-0000-0000-000000002000");
+
+  /// <summary>
+  /// Standard Priority ID seeded in all tests.
+  /// </summary>
+  public static readonly Guid MediumPriorityId = Guid.Parse("00000000-0000-0000-0000-000000000002");
+
+  /// <summary>
+  /// Standard Todo State ID seeded in all tests.
+  /// </summary>
+  public static readonly Guid TodoStateId = Guid.Parse("00000000-0000-0000-0000-000000000003");
+
+  /// <summary>
+  /// Standard Done State ID seeded in all tests.
+  /// </summary>
+  public static readonly Guid DoneStateId = Guid.Parse("00000000-0000-0000-0000-000000000004");
+
+  private bool disposedValue;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="IntegrationTestBase"/> class.
-  /// Initialisiert eine neue Instanz von <see cref="IntegrationTestBase"/>.
-  /// Nutzt eine geteilte WebApplicationFactory, um ObjectDisposedException zu vermeiden.
   /// </summary>
-  [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Objekte verwerfen, bevor der Gültigkeitsbereich verloren geht", Justification = "Factory is shared and disposed in separate logic or at process end.")]
   protected IntegrationTestBase()
   {
-    // SQLite in-memory benötigt eine offene Verbindung über die gesamte Testdauer
-    this.connection = new SqliteConnection("DataSource=:memory:");
-    this.connection.Open();
+    this.Factory = new TestWebApplicationFactory();
 
-    // SQLite Foreign Keys explizit aktivieren
-    using (var command = this.connection.CreateCommand())
-    {
-      command.CommandText = "PRAGMA foreign_keys = ON;";
-      command.ExecuteNonQuery();
-    }
-
-    if (sharedFactory == null)
-    {
-      lock (SyncRoot)
-      {
-        if (sharedFactory == null)
-        {
-          sharedFactory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
-          {
-            builder.UseEnvironment("Testing");
-            builder.ConfigureServices(services =>
-                {
-                  // Radikalerer Ansatz: Alle EF Core bezogenen Services entfernen, um Provider-Konflikte zu vermeiden
-                  var efServices = services.Where(d =>
-                      d.ServiceType.Namespace?.StartsWith("Microsoft.EntityFrameworkCore", StringComparison.Ordinal) == true ||
-                      d.ServiceType.FullName?.Contains("EntityFrameworkCore", StringComparison.Ordinal) == true).ToList();
-
-                  foreach (var d in efServices)
-                  {
-                    services.Remove(d);
-                  }
-
-                  // Sicherstellen, dass auch der DbContext selbst weg ist
-                  var contextDescriptors = services.Where(d => d.ServiceType == typeof(AppDbContext) || d.ServiceType == typeof(DbContextOptions<AppDbContext>)).ToList();
-                  foreach (var d in contextDescriptors)
-                  {
-                    services.Remove(d);
-                  }
-
-                  // Authentifizierung für Tests überschreiben
-                  services.AddAuthentication(TestAuthHandler.AuthenticationScheme)
-                          .AddScheme<Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions, TestAuthHandler>(
-                              TestAuthHandler.AuthenticationScheme, options => { });
-
-                  // Antiforgery deaktivieren für Tests
-                  services.AddSingleton<Microsoft.AspNetCore.Antiforgery.IAntiforgery, FakeAntiforgery>();
-                });
-          });
-        }
-      }
-    }
-
-    this.Factory = sharedFactory.WithWebHostBuilder(builder =>
-    {
-        builder.ConfigureServices(services => {
-            // Für jeden Test eine eigene Verbindung injizieren
-            services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseSqlite(this.connection);
-            });
-        });
-    });
-
-    // Datenbank-Schema initialisieren
+    // Initialize database
     using var scope = this.Factory.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.EnsureCreated();
   }
 
   /// <summary>
-  /// Gets die WebApplicationFactory für das SUT (System Under Test).
+  /// Gets the WebApplicationFactory for the system under test.
   /// </summary>
-  protected WebApplicationFactory<Program> Factory { get; }
+  protected TestWebApplicationFactory Factory { get; }
 
-  /// <summary>
-  /// Gibt die Ressourcen (Verbindung und Factory) frei.
-  /// </summary>
+  /// <inheritdoc/>
   public void Dispose()
   {
-    this.Dispose(true);
+    this.Dispose(disposing: true);
     GC.SuppressFinalize(this);
   }
 
   /// <summary>
-  /// Seeds minimal required data for tests (Roles, Priorities, WorkflowStates).
+  /// Sets a mock HttpContext with the specified user and tenant information in the given service provider.
+  /// This bypasses global query filters and provides identity for services.
+  /// </summary>
+  /// <param name="services">The service provider (usually from a scope).</param>
+  /// <param name="userId">The user ID.</param>
+  /// <param name="tenantId">The tenant ID.</param>
+  /// <param name="role">The user role.</param>
+  protected void SetContext(IServiceProvider services, Guid userId, Guid tenantId, string role = "Admin")
+  {
+    ArgumentNullException.ThrowIfNull(services);
+    var httpContextAccessor = services.GetRequiredService<IHttpContextAccessor>();
+    
+    var claims = new[]
+    {
+      new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+      new Claim(ClaimTypes.Role, role),
+      new Claim("TenantId", tenantId.ToString())
+    };
+
+    var identity = new ClaimsIdentity(claims, "Test");
+    var principal = new ClaimsPrincipal(identity);
+
+    httpContextAccessor.HttpContext = new DefaultHttpContext
+    {
+      User = principal
+    };
+  }
+
+  /// <summary>
+  /// Seeds minimal required data for tests.
   /// </summary>
   /// <param name="db">The database context.</param>
-  /// <returns>A task representing the asynchronous operation.</returns>
+  /// <returns>A task.</returns>
   protected static async Task SeedMinimalAsync(AppDbContext db)
   {
     ArgumentNullException.ThrowIfNull(db);
 
-    if (!await db.Projects.AnyAsync().ConfigureAwait(false))
+    if (!await db.Projects.IgnoreQueryFilters().AnyAsync().ConfigureAwait(false))
     {
-      var tenantId = Guid.NewGuid();
-      await db.Organizations.AddAsync(new Organization { Id = tenantId, Name = "Test Org", TenantId = tenantId }).ConfigureAwait(false);
+      await db.Organizations.AddAsync(new Organization { Id = TestTenantId, Name = "Test Org", TenantId = TestTenantId }).ConfigureAwait(false);
 
-      var workflow = new Workflow { Id = Guid.NewGuid(), Name = "Standard Workflow", TenantId = tenantId };
+      var workflow = new Workflow { Id = Guid.NewGuid(), Name = "Standard Workflow", TenantId = TestTenantId };
       await db.Workflows.AddAsync(workflow).ConfigureAwait(false);
 
       var project = new Project("Test Projekt", DateTime.UtcNow);
       project.AssignWorkflow(workflow.Id);
-      project.SetTenantId(tenantId);
+      project.SetTenantId(TestTenantId);
       await db.Projects.AddAsync(project).ConfigureAwait(false);
 
       var role = new Role { Id = Guid.Parse("00000000-0000-0000-0000-000000000001"), Name = "Admin" };
       await db.Roles.AddAsync(role).ConfigureAwait(false);
 
-      await db.TicketPriorities.AddAsync(new TicketPriority { Id = Guid.Parse("00000000-0000-0000-0000-000000000002"), Name = "Medium", TenantId = tenantId }).ConfigureAwait(false);
-      await db.WorkflowStates.AddAsync(new WorkflowState { Id = Guid.Parse("00000000-0000-0000-0000-000000000003"), Name = "Todo", WorkflowId = workflow.Id, TenantId = tenantId }).ConfigureAwait(false);
+      var doneStateId = DoneStateId;
+      var todoStateId = TodoStateId;
+
+      await db.TicketPriorities.AddAsync(new TicketPriority { Id = MediumPriorityId, Name = "Medium", TenantId = TestTenantId }).ConfigureAwait(false);
+      await db.WorkflowStates.AddAsync(new WorkflowState { Id = todoStateId, Name = "Todo", WorkflowId = workflow.Id, TenantId = TestTenantId }).ConfigureAwait(false);
+      await db.WorkflowStates.AddAsync(new WorkflowState { Id = doneStateId, Name = "Done", WorkflowId = workflow.Id, TenantId = TestTenantId, IsTerminalState = true }).ConfigureAwait(false);
+
+      await db.WorkflowTransitions.AddAsync(new WorkflowTransition 
+      { 
+        Id = Guid.NewGuid(), 
+        FromStateId = todoStateId, 
+        ToStateId = doneStateId, 
+        TenantId = TestTenantId 
+      }).ConfigureAwait(false);
+
+      await db.Users.AddAsync(new User 
+      { 
+        Id = TestUserId, 
+        UserName = "testadmin", 
+        Email = "admin@test.com", 
+        TenantId = TestTenantId,
+        RoleId = role.Id,
+        NormalizedEmail = "ADMIN@TEST.COM",
+        NormalizedUserName = "TESTADMIN",
+        EmailConfirmed = true,
+        SecurityStamp = Guid.NewGuid().ToString(),
+        Profile = new UserProfile { UserId = TestUserId, FirstName = "Test", LastName = "Admin", TenantId = TestTenantId }
+      }).ConfigureAwait(false);
 
       await db.SaveChangesAsync().ConfigureAwait(false);
     }
   }
 
   /// <summary>
-  /// Gibt verwaltete und unverwaltete Ressourcen frei.
+  /// Disposes resources.
   /// </summary>
-  /// <param name="disposing">Gibt an, ob verwaltete Ressourcen freigegeben werden sollen.</param>
+  /// <param name="disposing">True if disposing.</param>
   protected virtual void Dispose(bool disposing)
   {
-    if (disposing)
+    if (!this.disposedValue)
     {
-      this.Factory?.Dispose();
-      this.connection.Close();
-      this.connection.Dispose();
+      if (disposing)
+      {
+        this.Factory.Dispose();
+      }
+
+      this.disposedValue = true;
     }
-  }
-
-  /// <summary>
-  /// Fake Antiforgery implementation for tests.
-  /// </summary>
-  [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Instantiated by DI in IntegrationTestBase")]
-  private sealed class FakeAntiforgery : Microsoft.AspNetCore.Antiforgery.IAntiforgery
-  {
-    public Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet GetAndStoreTokens(Microsoft.AspNetCore.Http.HttpContext httpContext) => new("test", "test", "test", "test");
-
-    public Microsoft.AspNetCore.Antiforgery.AntiforgeryTokenSet GetTokens(Microsoft.AspNetCore.Http.HttpContext httpContext) => new("test", "test", "test", "test");
-
-    public Task<bool> IsRequestValidAsync(Microsoft.AspNetCore.Http.HttpContext httpContext) => Task.FromResult(true);
-
-    public void SetCookieTokenAndHeader(Microsoft.AspNetCore.Http.HttpContext httpContext)
-    {
-    }
-
-    public Task ValidateRequestAsync(Microsoft.AspNetCore.Http.HttpContext httpContext) => Task.CompletedTask;
   }
 }

@@ -96,6 +96,7 @@ public class TicketRepository : ITicketRepository
       CancellationToken ct = default)
   {
     var query = this.context.Tickets
+        .IgnoreQueryFilters()
         .AsNoTracking()
         .Include(t => t.AssignedUser)
         .Include(t => t.Project)
@@ -170,19 +171,20 @@ public class TicketRepository : ITicketRepository
   /// <inheritdoc />
   public async Task<WorkflowState?> GetDefaultWorkflowStateAsync(CancellationToken ct = default)
   {
-    return await this.context.WorkflowStates.AsNoTracking().FirstOrDefaultAsync(ct).ConfigureAwait(false);
+    return await this.context.WorkflowStates.IgnoreQueryFilters().AsNoTracking().FirstOrDefaultAsync(ct).ConfigureAwait(false);
   }
 
   /// <inheritdoc />
   public async Task<WorkflowState?> GetWorkflowStateByNameAsync(string name, CancellationToken ct = default)
   {
-    return await this.context.WorkflowStates.AsNoTracking().FirstOrDefaultAsync(s => s.Name == name, ct).ConfigureAwait(false);
+    return await this.context.WorkflowStates.IgnoreQueryFilters().AsNoTracking().FirstOrDefaultAsync(s => s.Name == name, ct).ConfigureAwait(false);
   }
 
   /// <inheritdoc />
   public async Task<WorkflowTransition?> GetTransitionAsync(Guid fromStateId, Guid toStateId, CancellationToken ct = default)
   {
     return await this.context.WorkflowTransitions
+        .IgnoreQueryFilters()
         .AsNoTracking()
         .FirstOrDefaultAsync(tr => tr.FromStateId == fromStateId && tr.ToStateId == toStateId, ct)
         .ConfigureAwait(false);
@@ -257,6 +259,7 @@ public class TicketRepository : ITicketRepository
   public async Task<List<Ticket>> GetByTenantAsync(Guid tenantId)
   {
     return await this.context.Tickets
+        .IgnoreQueryFilters()
         .AsNoTracking()
         .Where(t => t.TenantId == tenantId)
         .Include(t => t.Priority)

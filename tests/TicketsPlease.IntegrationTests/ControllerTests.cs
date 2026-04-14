@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using TicketsPlease.Domain.Entities;
@@ -25,9 +26,16 @@ using Xunit;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Objekte verwerfen, bevor der Gültigkeitsbereich verloren geht", Justification = "Disposed by HttpClient or not critical for short-lived tests")]
 public class ControllerTests : IntegrationTestBase
 {
-  private readonly Guid adminId = Guid.Parse("00000000-0000-0000-0000-000000000001");
-  private readonly Guid priorityId = Guid.Parse("00000000-0000-0000-0000-000000000002");
-  private readonly Guid stateId = Guid.Parse("00000000-0000-0000-0000-000000000003");
+  private readonly Guid adminId = IntegrationTestBase.TestUserId;
+  private readonly Guid priorityId = IntegrationTestBase.MediumPriorityId;
+  private readonly Guid stateId = IntegrationTestBase.TodoStateId;
+
+  /// <summary>
+  /// Initializes a new instance of the <see cref="ControllerTests"/> class.
+  /// </summary>
+  public ControllerTests()
+  {
+  }
 
   /// <summary>
   /// Tests HomeController.
@@ -79,7 +87,7 @@ public class ControllerTests : IntegrationTestBase
     using var scope = this.Factory.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await SeedMinimalAsync(db);
-    var project = (await db.Projects.ToListAsync())[0];
+    var project = (await db.Projects.IgnoreQueryFilters().ToListAsync())[0];
 
     var client = this.Factory.CreateClient();
     client.DefaultRequestHeaders.Add(TestAuthHandler.UserIdHeader, Guid.NewGuid().ToString());
@@ -105,7 +113,7 @@ public class ControllerTests : IntegrationTestBase
     using var scope = this.Factory.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await SeedMinimalAsync(db);
-    var project = (await db.Projects.ToListAsync())[0];
+    var project = (await db.Projects.IgnoreQueryFilters().ToListAsync())[0];
 
     var client = this.Factory.CreateClient(new Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryClientOptions
     {
@@ -120,17 +128,25 @@ public class ControllerTests : IntegrationTestBase
         new KeyValuePair<string, string>("Description", "Some Description"),
         new KeyValuePair<string, string>("ProjectId", project.Id.ToString()),
         new KeyValuePair<string, string>("PriorityId", this.priorityId.ToString()),
-        new KeyValuePair<string, string>("WorkflowStateId", this.stateId.ToString()),
-        new KeyValuePair<string, string>("Type", "1"), // Bug
+        new KeyValuePair<string, string>("ChilliesDifficulty", "3")
     });
 
     // Act
     var response = await client.PostAsync(new Uri("/Tickets/Create", UriKind.Relative), formData);
 
     // Assert
-    response.StatusCode.Should().Be(HttpStatusCode.Redirect);
-    var ticket = await db.Tickets.FirstOrDefaultAsync(t => t.Title == "New Ticket From Test");
-    ticket.Should().NotBeNull();
+    if (response.StatusCode != HttpStatusCode.Redirect)
+    {
+      var errorContent = await response.Content.ReadAsStringAsync();
+      throw new Xunit.Sdk.XunitException($"Expected Redirect but got {response.StatusCode}. Content: {errorContent}");
+    }
+    
+    using (var verifyScope = this.Factory.Services.CreateScope())
+    {
+      var verifyDb = verifyScope.ServiceProvider.GetRequiredService<AppDbContext>();
+      var ticket = await verifyDb.Tickets.IgnoreQueryFilters().FirstOrDefaultAsync(t => t.Title == "New Ticket From Test");
+      ticket.Should().NotBeNull();
+    }
   }
 
   /// <summary>
@@ -144,7 +160,7 @@ public class ControllerTests : IntegrationTestBase
     using var scope = this.Factory.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await SeedMinimalAsync(db);
-    var project = (await db.Projects.ToListAsync())[0];
+    var project = (await db.Projects.IgnoreQueryFilters().ToListAsync())[0];
 
     var client = this.Factory.CreateClient();
     client.DefaultRequestHeaders.Add(TestAuthHandler.UserIdHeader, Guid.NewGuid().ToString());
@@ -169,7 +185,7 @@ public class ControllerTests : IntegrationTestBase
     using var scope = this.Factory.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await SeedMinimalAsync(db);
-    var project = (await db.Projects.ToListAsync())[0];
+    var project = (await db.Projects.IgnoreQueryFilters().ToListAsync())[0];
 
     var ticket = new Ticket("Comment Test", Domain.Enums.TicketType.Task, project.Id, this.adminId, this.stateId, "Todo", string.Empty);
     ticket.SetTenantId(project.TenantId);
@@ -177,7 +193,7 @@ public class ControllerTests : IntegrationTestBase
     await db.Tickets.AddAsync(ticket);
     await db.SaveChangesAsync();
 
-    var client = this.Factory.CreateClient();
+    var client = this.Factory.CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = false });
     client.DefaultRequestHeaders.Add(TestAuthHandler.UserIdHeader, this.adminId.ToString());
     client.DefaultRequestHeaders.Add(TestAuthHandler.TenantIdHeader, project.TenantId.ToString());
 
@@ -191,8 +207,13 @@ public class ControllerTests : IntegrationTestBase
     var response = await client.PostAsync(new Uri("/Comment/Create", UriKind.Relative), formData);
 
     // Assert
-    response.EnsureSuccessStatusCode();
-    var comment = await db.Comments.FirstOrDefaultAsync(c => c.Content == "Test Comment Content");
-    comment.Should().NotBeNull();
+    response.StatusCode.Should().Be(HttpStatusCode.Redirect);
+    
+    using (var verifyScope = this.Factory.Services.CreateScope())
+    {
+      var verifyDb = verifyScope.ServiceProvider.GetRequiredService<AppDbContext>();
+      var comment = await verifyDb.Comments.IgnoreQueryFilters().FirstOrDefaultAsync(c => c.Content == "Test Comment Content");
+      comment.Should().NotBeNull();
+    }
   }
 }

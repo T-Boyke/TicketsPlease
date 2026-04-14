@@ -1,48 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
+    <xsd:element name="data">
       <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
+        <xsd:sequence>
+          <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+          <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+        <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+        <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
       </xsd:complexType>
     </xsd:element>
   </xsd:schema>
@@ -58,143 +25,134 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Welcome" xml:space="preserve">
-    <value>Willkommen</value>
-  </data>
-  <data name="Collaborative Ticketing" xml:space="preserve">
-    <value>Kollaboratives Ticketsystem</value>
-  </data>
-  <data name="For Enterprise Squads" xml:space="preserve">
-    <value>Für Enterprise Teams</value>
-  </data>
-  <data name="Manage your projects with surgical precision. TicketsPlease combines Clean Architecture with an intuitive Kanban experience - secure, scalable, and multi-tenant." xml:space="preserve">
-    <value>Verwalten Sie Ihre Projekte mit chirurgischer Präzision. TicketsPlease kombiniert Clean Architecture mit einer intuitiven Kanban-Erfahrung – sicher, skalierbar und mandantenfähig.</value>
-  </data>
-  <data name="Start Your Journey" xml:space="preserve">
-    <value>Starten Sie jetzt</value>
-  </data>
-  <data name="View Features" xml:space="preserve">
-    <value>Features ansehen</value>
-  </data>
-  <data name="The Arsenal" xml:space="preserve">
-    <value>Das Arsenal</value>
-  </data>
-  <data name="Everything you need for efficient management" xml:space="preserve">
-    <value>Alles, was Sie für effizientes Management benötigen</value>
-  </data>
-  <data name="Clean Architecture" xml:space="preserve">
-    <value>Clean Architecture</value>
-  </data>
-  <data name="Future-proof through strict separation of business logic and infrastructure. Built for eternity." xml:space="preserve">
-    <value>Zukunftssicher durch strikte Trennung von Geschäftslogik und Infrastruktur. Gebaut für die Ewigkeit.</value>
-  </data>
-  <data name="Enterprise Security" xml:space="preserve">
-    <value>Enterprise Security</value>
-  </data>
-  <data name="Data integrity through concurrency checks and EF Core resilience. Your data is a fortress." xml:space="preserve">
-    <value>Datenintegrität durch Concurrency Checks und EF Core Resilience. Ihre Daten sind eine Festung.</value>
-  </data>
-  <data name="Performance First" xml:space="preserve">
-    <value>Performance Zuerst</value>
+  <data name="Identity integration and RBAC work right out of the box. The security standards are exactly what enterprise customers expect." xml:space="preserve">
+    <value>Identity-Integration und RBAC funktionieren out-of-the-box. Die Sicherheitsstandards sind genau das, was Enterprise-Kunden erwarten.</value>
   </data>
   <data name="Optimized queries and native TailwindCSS 4.x ensure lightning-fast interaction at any scale." xml:space="preserve">
     <value>Optimierte Abfragen und natives TailwindCSS 4.x sorgen für blitzschnelle Interaktion in jeder Größenordnung.</value>
   </data>
-  <data name="Multi-Tenancy" xml:space="preserve">
-    <value>Mandantenfähigkeit</value>
-  </data>
-  <data name="Securely isolate data between departments or companies within a single application instance." xml:space="preserve">
-    <value>Isolieren Sie Daten sicher zwischen Abteilungen oder Unternehmen innerhalb einer einzigen Anwendungsinstanz.</value>
+  <data name="Clean Architecture" xml:space="preserve">
+    <value>Clean Architecture</value>
   </data>
   <data name="Trusted by Developers" xml:space="preserve">
     <value>Von Entwicklern geschätzt</value>
   </data>
+  <data name="Collaborative Ticketing" xml:space="preserve">
+    <value>Kollaboratives Ticketsystem</value>
+  </data>
   <data name="The Clean Architecture implementation is flawless. It's the first tool where I actually feel like skipping the onboarding because it's so intuitive." xml:space="preserve">
     <value>Die Clean Architecture Implementierung ist makellos. Es ist das erste Tool, bei dem ich das Onboarding überspringen möchte, weil es so intuitiv ist.</value>
   </data>
-  <data name="Identity integration and RBAC work right out of the box. The security standards are exactly what enterprise customers expect." xml:space="preserve">
-    <value>Identity-Integration und RBAC funktionieren out-of-the-box. Die Sicherheitsstandards sind genau das, was Enterprise-Kunden erwarten.</value>
+  <data name="Your workspace is optimized and ready for more. Start a new project or manage your existing team." xml:space="preserve">
+    <value>Dein Arbeitsbereich ist optimiert und bereit für mehr. Starte ein neues Projekt oder verwalte dein bestehendes Team.</value>
   </data>
-  <data name="The Kanban experience is butter-smooth. Tailwind 4 combined with Razor Partials makes UI customization a breeze." xml:space="preserve">
-    <value>Die Kanban-Erfahrung ist butterweich. Tailwind 4 kombiniert mit Razor Partials macht UI-Anpassungen zum Kinderspiel.</value>
+  <data name="The Arsenal" xml:space="preserve">
+    <value>Das Arsenal</value>
   </data>
   <data name="Highscore Board" xml:space="preserve">
     <value>Highscore-Board</value>
   </data>
-  <data name="Individual" xml:space="preserve">
-    <value>Individuell</value>
-  </data>
-  <data name="Teams" xml:space="preserve">
-    <value>Teams</value>
-  </data>
-  <data name="User" xml:space="preserve">
-    <value>Benutzer</value>
-  </data>
-  <data name="Tickets" xml:space="preserve">
-    <value>Tickets</value>
-  </data>
-  <data name="Points" xml:space="preserve">
-    <value>Punkte</value>
-  </data>
-  <data name="Hours" xml:space="preserve">
-    <value>Stunden</value>
-  </data>
-  <data name="Difficulty" xml:space="preserve">
-    <value>Schwierigkeit</value>
-  </data>
-  <data name="Members" xml:space="preserve">
-    <value>Mitglieder</value>
-  </data>
-  <data name="Deep Dive Performance Analysis" xml:space="preserve">
-    <value>Detaillierte Performance-Analyse</value>
-  </data>
-  <data name="Efficiency" xml:space="preserve">
-    <value>Effizienz</value>
-  </data>
-  <data name="Output" xml:space="preserve">
-    <value>Output</value>
-  </data>
-  <data name="Value" xml:space="preserve">
-    <value>Wert</value>
-  </data>
-  <data name="Total Logged" xml:space="preserve">
-    <value>Gesamt erfasst</value>
-  </data>
-  <data name="Done Tickets" xml:space="preserve">
-    <value>Erledigte Tickets</value>
-  </data>
-  <data name="Story Points" xml:space="preserve">
-    <value>Story Points</value>
-  </data>
-  <data name="Task Status" xml:space="preserve">
-    <value>Aufgabenstatus</value>
-  </data>
-  <data name="Priority Distribution" xml:space="preserve">
-    <value>Prioritätsverteilung</value>
-  </data>
-  <data name="Live Performance Tracking" xml:space="preserve">
-    <value>Live-Leistungstracking</value>
-  </data>
-  <data name="Dashboard" xml:space="preserve">
-    <value>Dashboard</value>
-  </data>
-  <data name="Welcome back! Here's what's happening in your workspace today." xml:space="preserve">
-    <value>Willkommen zurück! Das passiert heute in deinem Arbeitsbereich.</value>
-  </data>
   <data name="Total Tickets" xml:space="preserve">
     <value>Gesamt Tickets</value>
   </data>
-  <data name="Open" xml:space="preserve">
-    <value>Offen</value>
-  </data>
-  <data name="Done" xml:space="preserve">
-    <value>Erledigt</value>
+  <data name="Future-proof through strict separation of business logic and infrastructure. Built for eternity." xml:space="preserve">
+    <value>Zukunftssicher durch strikte Trennung von Geschäftslogik und Infrastruktur. Gebaut für die Ewigkeit.</value>
   </data>
   <data name="Active Projects" xml:space="preserve">
     <value>Aktive Projekte</value>
   </data>
-  <data name="Across all teams" xml:space="preserve">
-    <value>Über alle Teams</value>
+  <data name="Everything you need for efficient management" xml:space="preserve">
+    <value>Alles, was Sie für effizientes Management benötigen</value>
+  </data>
+  <data name="New Ticket" xml:space="preserve">
+    <value>Neues Ticket</value>
+  </data>
+  <data name="Completion rate" xml:space="preserve">
+    <value>Abschlussquote</value>
+  </data>
+  <data name="Quick Access" xml:space="preserve">
+    <value>Schnellzugriff</value>
+  </data>
+  <data name="Story Points" xml:space="preserve">
+    <value>Story Points</value>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="Individual" xml:space="preserve">
+    <value>Individuell</value>
+  </data>
+  <data name="Total Logged" xml:space="preserve">
+    <value>Gesamt erfasst</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projekte</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Nachrichten</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Benutzer</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Erledigt</value>
+  </data>
+  <data name="Deep Dive Performance Analysis" xml:space="preserve">
+    <value>Detaillierte Performance-Analyse</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Offen</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Mitglieder</value>
+  </data>
+  <data name="Live Performance Tracking" xml:space="preserve">
+    <value>Live-Leistungstracking</value>
+  </data>
+  <data name="Welcome back! Here's what's happening in your workspace today." xml:space="preserve">
+    <value>Willkommen zurück! Das passiert heute in deinem Arbeitsbereich.</value>
+  </data>
+  <data name="Securely isolate data between departments or companies within a single application instance." xml:space="preserve">
+    <value>Isolieren Sie Daten sicher zwischen Abteilungen oder Unternehmen innerhalb einer einzigen Anwendungsinstanz.</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="View Features" xml:space="preserve">
+    <value>Features ansehen</value>
+  </data>
+  <data name="Points" xml:space="preserve">
+    <value>Punkte</value>
+  </data>
+  <data name="Done Tickets" xml:space="preserve">
+    <value>Erledigte Tickets</value>
+  </data>
+  <data name="The Kanban experience is butter-smooth. Tailwind 4 combined with Razor Partials makes UI customization a breeze." xml:space="preserve">
+    <value>Die Kanban-Erfahrung ist butterweich. Tailwind 4 kombiniert mit Razor Partials macht UI-Anpassungen zum Kinderspiel.</value>
+  </data>
+  <data name="Ready to scale?" xml:space="preserve">
+    <value>Bereit zum Skalieren?</value>
+  </data>
+  <data name="Multi-Tenancy" xml:space="preserve">
+    <value>Mandantenfähigkeit</value>
+  </data>
+  <data name="Data integrity through concurrency checks and EF Core resilience. Your data is a fortress." xml:space="preserve">
+    <value>Datenintegrität durch Concurrency Checks und EF Core Resilience. Ihre Daten sind eine Festung.</value>
+  </data>
+  <data name="Teams" xml:space="preserve">
+    <value>Teams</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Wert</value>
+  </data>
+  <data name="Difficulty" xml:space="preserve">
+    <value>Schwierigkeit</value>
+  </data>
+  <data name="Manage your projects with surgical precision. TicketsPlease combines Clean Architecture with an intuitive Kanban experience - secure, scalable, and multi-tenant." xml:space="preserve">
+    <value>Verwalten Sie Ihre Projekte mit chirurgischer Präzision. TicketsPlease kombiniert Clean Architecture mit einer intuitiven Kanban-Erfahrung – sicher, skalierbar und mandantenfähig.</value>
+  </data>
+  <data name="View Board" xml:space="preserve">
+    <value>Board ansehen</value>
   </data>
   <data name="Total Users" xml:space="preserve">
     <value>Gesamt Benutzer</value>
@@ -202,31 +160,43 @@
   <data name="Velocity" xml:space="preserve">
     <value>Velocity</value>
   </data>
-  <data name="Completion rate" xml:space="preserve">
-    <value>Abschlussquote</value>
+  <data name="Task Status" xml:space="preserve">
+    <value>Aufgabenstatus</value>
   </data>
-  <data name="Ready to scale?" xml:space="preserve">
-    <value>Bereit zum Skalieren?</value>
+  <data name="Priority Distribution" xml:space="preserve">
+    <value>Prioritätsverteilung</value>
   </data>
-  <data name="Your workspace is optimized and ready for more. Start a new project or manage your existing team." xml:space="preserve">
-    <value>Dein Arbeitsbereich ist optimiert und bereit für mehr. Starte ein neues Projekt oder verwalte dein bestehendes Team.</value>
+  <data name="Efficiency" xml:space="preserve">
+    <value>Effizienz</value>
   </data>
-  <data name="View Board" xml:space="preserve">
-    <value>Board ansehen</value>
+  <data name="Performance First" xml:space="preserve">
+    <value>Performance Zuerst</value>
   </data>
-  <data name="Messages" xml:space="preserve">
-    <value>Nachrichten</value>
+  <data name="Across all teams" xml:space="preserve">
+    <value>Über alle Teams</value>
   </data>
-  <data name="Quick Access" xml:space="preserve">
-    <value>Schnellzugriff</value>
+  <data name="Testimonials" xml:space="preserve">
+    <value>Kundenstimmen</value>
   </data>
-  <data name="Projects" xml:space="preserve">
-    <value>Projekte</value>
+  <data name="Start Your Journey" xml:space="preserve">
+    <value>Starten Sie jetzt</value>
   </data>
-  <data name="New Ticket" xml:space="preserve">
-    <value>Neues Ticket</value>
+  <data name="Tickets" xml:space="preserve">
+    <value>Tickets</value>
   </data>
   <data name="Admin Panel" xml:space="preserve">
     <value>Admin-Bereich</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Stunden</value>
+  </data>
+  <data name="For Enterprise Squads" xml:space="preserve">
+    <value>Für Enterprise Teams</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Willkommen</value>
+  </data>
+  <data name="Enterprise Security" xml:space="preserve">
+    <value>Enterprise Security</value>
   </data>
 </root>

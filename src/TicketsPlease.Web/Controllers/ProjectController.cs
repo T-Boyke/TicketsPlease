@@ -14,7 +14,7 @@ using TicketsPlease.Application.Common.Interfaces;
 /// <summary>
 /// Controller für die Projektverwaltung (CRUD für Admins).
 /// </summary>
-[Authorize(Roles = "Admin")]
+[Authorize(Roles = "Admin,ProductOwner,Stakeholder")]
 public sealed class ProjectController : Controller
 {
   private readonly IProjectService projectService;
@@ -46,6 +46,7 @@ public sealed class ProjectController : Controller
   /// Zeigt das Formular zum Erstellen eines neuen Projekts an.
   /// </summary>
   /// <returns>Die Create-View.</returns>
+  [Authorize(Roles = "Admin")]
   [HttpGet]
   public IActionResult Create()
   {
@@ -57,6 +58,7 @@ public sealed class ProjectController : Controller
   /// </summary>
   /// <param name="dto">Die Projektdaten.</param>
   /// <returns>Ein Redirect auf die Index-Seite bei Erfolg.</returns>
+  [Authorize(Roles = "Admin")]
   [HttpPost]
   [ValidateAntiForgeryToken]
   public async Task<IActionResult> Create(CreateProjectDto dto)
@@ -75,6 +77,7 @@ public sealed class ProjectController : Controller
   /// </summary>
   /// <param name="id">Die ID des Projekts.</param>
   /// <returns>Die Edit-View mit den Projektdaten.</returns>
+  [Authorize(Roles = "Admin")]
   [HttpGet]
   public async Task<IActionResult> Edit(Guid id)
   {
@@ -93,6 +96,7 @@ public sealed class ProjectController : Controller
   /// </summary>
   /// <param name="dto">Die aktualisierten Projektdaten.</param>
   /// <returns>Ein Redirect auf die Index-Seite bei Erfolg.</returns>
+  [Authorize(Roles = "Admin")]
   [HttpPost]
   [ValidateAntiForgeryToken]
   public async Task<IActionResult> Edit(UpdateProjectDto dto)
@@ -131,6 +135,7 @@ public sealed class ProjectController : Controller
   /// </summary>
   /// <param name="id">Die ID des zu löschenden Projekts.</param>
   /// <returns>Ein Redirect auf die Index-Seite.</returns>
+  [Authorize(Roles = "Admin")]
   [HttpPost]
   [ValidateAntiForgeryToken]
   public async Task<IActionResult> Delete(Guid id)

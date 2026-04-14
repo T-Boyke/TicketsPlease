@@ -36,8 +36,15 @@ public interface ITeamService
   /// </summary>
   /// <param name="currentUserId">Optionale ID des aktuellen Benutzers zur Markierung der Mitgliedschaft.</param>
   /// <param name="cancellationToken">Das Abbruchtoken.</param>
-  /// <returns>Die vollständige Liste der Team-DTOs.</returns>
   public Task<IEnumerable<TeamDto>> GetAllTeamsAsync(Guid? currentUserId = null, CancellationToken cancellationToken = default);
+
+  /// <summary>
+  /// Ruft alle Teams eines spezifischen Mandanten ab.
+  /// </summary>
+  /// <param name="tenantId">Die ID des Mandanten.</param>
+  /// <param name="currentUserId">Optionale ID des aktuellen Benutzers zur Markierung der Mitgliedschaft.</param>
+  /// <returns>Die Teamliste als DTOs.</returns>
+  public Task<IEnumerable<TeamDto>> GetTenantTeamsAsync(Guid tenantId, Guid? currentUserId = null);
 
   /// <summary>
   /// Erstellt ein neues Team im System.
@@ -56,9 +63,10 @@ public interface ITeamService
   /// <param name="teamId">Die ID des Teams.</param>
   /// <param name="userId">Die ID des Benutzers.</param>
   /// <param name="isTeamLead">Gibt an, ob das Mitglied als Leiter fungiert.</param>
+  /// <param name="saveChanges">Ob Änderungen sofort gespeichert werden sollen.</param>
   /// <param name="cancellationToken">Das Abbruchtoken.</param>
   /// <returns>Die asynchrone Operation.</returns>
-  public Task AddMemberAsync(Guid teamId, Guid userId, bool isTeamLead = false, CancellationToken cancellationToken = default);
+  public Task AddMemberAsync(Guid teamId, Guid userId, bool isTeamLead = false, bool saveChanges = true, CancellationToken cancellationToken = default);
 
   /// <summary>
   /// Entfernt ein Mitglied aus einem Team.

@@ -23,6 +23,14 @@ public interface ITimeLogRepository
     Task<List<TimeLog>> GetAllAsync(CancellationToken ct = default);
 
     /// <summary>
+    /// Ruft alle Zeiterfassungseinträge für einen Tenant ab.
+    /// </summary>
+    /// <param name="tenantId">Die ID des Mandanten.</param>
+    /// <param name="ct">Das Abbruchsignal.</param>
+    /// <returns>Eine Liste von TimeLogs.</returns>
+    Task<List<TimeLog>> GetByTenantAsync(Guid tenantId, CancellationToken ct = default);
+
+    /// <summary>
     /// Ruft alle Zeiterfassungseinträge für einen bestimmten Benutzer ab.
     /// </summary>
     /// <param name="userId">Die ID des Benutzers.</param>

@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="data">
+      <xsd:complexType>
+        <xsd:sequence>
+          <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+          <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+        <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+        <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SLA Automation" xml:space="preserve">
+    <value>SLA-Automatisierung</value>
+  </data>
+  <data name="View Governance Protocol" xml:space="preserve">
+    <value>Governance-Protokoll ansehen</value>
+  </data>
+  <data name="Manage your organization's personnel, service standards, and secure onboarding flow." xml:space="preserve">
+    <value>Verwalten Sie das Personal, die Dienstleistungsstandards und den sicheren Onboarding-Ablauf Ihrer Organisation.</value>
+  </data>
+  <data name="Notify on high priority SLA breach" xml:space="preserve">
+    <value>Benachrichtigung bei SLA-VerstoÃŸ mit hoher PrioritÃ¤t</value>
+  </data>
+  <data name="Notify on critical SLA breach" xml:space="preserve">
+    <value>Benachrichtigung bei kritischem SLA-VerstoÃŸ</value>
+  </data>
+  <data name="Medium Priority" xml:space="preserve">
+    <value>Mittlere PrioritÃ¤t</value>
+  </data>
+  <data name="Background service frequency." xml:space="preserve">
+    <value>Frequenz des Hintergrunddienstes.</value>
+  </data>
+  <data name="Global policies enforce standards across all projects." xml:space="preserve">
+    <value>Globale Richtlinien erzwingen Standards Ã¼ber alle Projekte hinweg.</value>
+  </data>
+  <data name="High Priority" xml:space="preserve">
+    <value>Hohe PrioritÃ¤t</value>
+  </data>
+  <data name="Reference Timezone" xml:space="preserve">
+    <value>Referenzzeitzone</value>
+  </data>
+  <data name="End Suppression" xml:space="preserve">
+    <value>UnterdrÃ¼ckung beenden</value>
+  </data>
+  <data name="Quiet Hours" xml:space="preserve">
+    <value>Ruhezeiten</value>
+  </data>
+  <data name="Product Owner Panel" xml:space="preserve">
+    <value>Product Owner Panel</value>
+  </data>
+  <data name="Blocker / Critical" xml:space="preserve">
+    <value>Blocker / Kritisch</value>
+  </data>
+  <data name="Low Priority" xml:space="preserve">
+    <value>Niedrige PrioritÃ¤t</value>
+  </data>
+  <data name="Alarm Filters" xml:space="preserve">
+    <value>Alarm Filters</value>
+  </data>
+  <data name="Notify on medium priority SLA breach" xml:space="preserve">
+    <value>Benachrichtigung bei SLA-VerstoÃŸ mit mittlerer PrioritÃ¤t</value>
+  </data>
+  <data name="Suppress automated notifications during these periods." xml:space="preserve">
+    <value>Automatische Benachrichtigungen wÃ¤hrend dieser ZeitrÃ¤ume unterdrÃ¼cken.</value>
+  </data>
+  <data name="Select Timezone" xml:space="preserve">
+    <value>Zeitzone auswÃ¤hlen</value>
+  </data>
+  <data name="Workspace Sovereignty" xml:space="preserve">
+    <value>Workspace-SouverÃ¤nitÃ¤t</value>
+  </data>
+  <data name="Start Suppression" xml:space="preserve">
+    <value>UnterdrÃ¼ckung starten</value>
+  </data>
+  <data name="Start time for quiet hours" xml:space="preserve">
+    <value>Startzeit fÃ¼r Ruhezeiten</value>
+  </data>
+  <data name="Choose which priority levels trigger global alerts." xml:space="preserve">
+    <value>WÃ¤hlen Sie, welche PrioritÃ¤tsstufen globale Alarme auslÃ¶sen.</value>
+  </data>
+  <data name="Commit Sovereignty Update" xml:space="preserve">
+    <value>SouverÃ¤nitÃ¤tsupdate Ã¼bernehmen</value>
+  </data>
+  <data name="End time for quiet hours" xml:space="preserve">
+    <value>Endzeit fÃ¼r Ruhezeiten</value>
+  </data>
+  <data name="Subscription Context" xml:space="preserve">
+    <value>Abonnement-Kontext</value>
+  </data>
+  <data name="Check Interval (Minutes)" xml:space="preserve">
+    <value>PrÃ¼fintervall (Minuten)</value>
+  </data>
+  <data name="Governance Protocol" xml:space="preserve">
+    <value>Governance-Protokoll</value>
+  </data>
+  <data name="Notify on low priority SLA breach" xml:space="preserve">
+    <value>Benachrichtigung bei SLA-VerstoÃŸ mit niedriger PrioritÃ¤t</value>
+  </data>
+</root>

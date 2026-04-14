@@ -68,11 +68,8 @@ public class DashboardService : IDashboardService
 
     Guid tenantId = currentUser?.TenantId ?? Guid.Empty;
 
-    // Hinweis: Wir nutzen hier die Repositories für den Datenzugriff.
-    // Falls organisationsspezifische Stats gewünscht sind, müssten die Repositories entsprechend gefiltert werden.
-    var tickets = (await this.ticketRepository.GetAllActiveAsync().ConfigureAwait(false))
-        .Where(t => t.TenantId == tenantId)
-        .ToList();
+    // Filter nach TenantId (verhindert Probleme, falls Global Query Filter nicht greift)
+    var tickets = await this.ticketRepository.GetByTenantAsync(tenantId).ConfigureAwait(false);
 
     // Filter nach TenantId
     var projects = await this.projectRepository.GetAllAsync(tenantId).ConfigureAwait(false);
@@ -84,12 +81,12 @@ public class DashboardService : IDashboardService
     foreach (var roleName in roles.Select(r => r.Name!))
     {
       var usersInRole = await this.userManager.GetUsersInRoleAsync(roleName).ConfigureAwait(false);
-      usersByRole.Add(roleName, usersInRole.Count);
+      usersByRole.Add(roleName, usersInRole.Count(u => u.TenantId == tenantId));
     }
 
     // Highscore Berechnung
-    var allTimeLogs = await this.timeLogRepository.GetAllAsync().ConfigureAwait(false);
-    var allTeams = await this.teamRepository.GetAllTeamsAsync().ConfigureAwait(false);
+    var allTimeLogs = await this.timeLogRepository.GetByTenantAsync(tenantId).ConfigureAwait(false);
+    var allTeams = await this.teamRepository.GetTeamsByTenantAsync(tenantId).ConfigureAwait(false);
 
     var individualHighscores = users.Select(u =>
     {
@@ -180,10 +177,10 @@ public class DashboardService : IDashboardService
     }
 
     var memberIds = team.Members.Select(m => m.UserId).ToList();
-    var allTickets = await this.ticketRepository.GetAllActiveAsync().ConfigureAwait(false);
+    var allTickets = await this.ticketRepository.GetByTenantAsync(team.TenantId).ConfigureAwait(false);
     var teamTickets = allTickets.Where(t => t.AssignedUserId.HasValue && memberIds.Contains(t.AssignedUserId.Value)).ToList();
 
-    var allLogs = await this.timeLogRepository.GetAllAsync().ConfigureAwait(false);
+    var allLogs = await this.timeLogRepository.GetByTenantAsync(team.TenantId).ConfigureAwait(false);
     var teamLogs = allLogs.Where(l => memberIds.Contains(l.UserId)).ToList();
 
     var teamClosedTickets = teamTickets.Where(t => t.ClosedAt.HasValue).ToList();

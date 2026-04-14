@@ -34,6 +34,7 @@ public class CommentRepository : ICommentRepository
   public async Task<List<Comment>> GetByTicketIdAsync(Guid ticketId, CancellationToken ct = default)
   {
     return await this.context.Comments
+        .IgnoreQueryFilters()
         .AsNoTracking()
         .Include(c => c.Author)
         .Where(c => c.TicketId == ticketId)

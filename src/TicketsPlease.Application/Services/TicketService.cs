@@ -109,7 +109,7 @@ public class TicketService(
     ticket.SetPriority(dto.PriorityId);
     ticket.SetEstimatePoints(dto.EstimatePoints);
     ticket.SetDifficulty(dto.ChilliesDifficulty);
-    ticket.SetTenantId(user.Id);
+    ticket.SetTenantId(user.TenantId);
 
     // Auto-SLA Assignment (Stage 3)
     ticket.SetSLA(TimeSpan.FromHours(4), TimeSpan.FromHours(48));
@@ -270,7 +270,18 @@ public class TicketService(
       throw new InvalidOperationException("Zirkuläre Abhängigkeit erkannt: Das ausgewählte Ticket ist bereits direkt oder indirekt von diesem Ticket abhängig.");
     }
 
+    // Check for existing link
+    if (blocker.Blocking.Any(l => l.TargetTicketId == ticketId && l.LinkType == TicketsPlease.Domain.Enums.TicketLinkType.Blocks))
+    {
+      return;
+    }
+
     blocker.AddLink(ticketId, TicketsPlease.Domain.Enums.TicketLinkType.Blocks);
+    
+    // Ensure TenantId is set (Ticket.AddLink only creates the object)
+    var newLink = blocker.Blocking.Last();
+    newLink.TenantId = blocker.TenantId;
+
     _ = await _ticketRepository.SaveChangesAsync().ConfigureAwait(false);
   }
 

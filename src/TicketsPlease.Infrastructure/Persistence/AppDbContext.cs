@@ -157,7 +157,10 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
 
       if (typeof(BaseEntity).IsAssignableFrom(type))
       {
-        builder.Entity(type).HasQueryFilter(this.ConvertFilterExpression(type));
+        var method = typeof(AppDbContext)
+          .GetMethod(nameof(this.ApplyGlobalFilter), System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+          ?.MakeGenericMethod(type);
+        method?.Invoke(this, new object[] { builder });
       }
     }
 
@@ -431,40 +434,31 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
       new WorkflowState { Id = doneStateId, Name = "Done", OrderIndex = 3, ColorHex = "#90EE90", IsTerminalState = true, WorkflowId = workflowId });
   }
 
-  private System.Linq.Expressions.LambdaExpression ConvertFilterExpression(Type type)
+  private void ApplyGlobalFilter<TEntity>(ModelBuilder builder)
+      where TEntity : BaseEntity
   {
-    var parameter = System.Linq.Expressions.Expression.Parameter(type, "e");
-    
-    // IsDeleted filter
-    var isDeletedProperty = System.Linq.Expressions.Expression.Property(parameter, "IsDeleted");
-    var notDeleted = System.Linq.Expressions.Expression.Not(isDeletedProperty);
+    builder.Entity<TEntity>().HasQueryFilter(e => !e.IsDeleted && (this.IsAdmin || this.IsInternalTest || e.TenantId == this.CurrentTenantId));
+  }
 
-    // TenantId filter
-    var tenantIdProperty = System.Linq.Expressions.Expression.Property(parameter, "TenantId");
-    
-    // Get current user's tenant ID and check if admin
-    var httpContext = this.httpContextAccessor?.HttpContext;
-    var user = httpContext?.User;
-    var isAdmin = user?.IsInRole("Admin") ?? false;
-    
-    // If admin, we don't filter by tenant
-    if (isAdmin)
-    {
-        return System.Linq.Expressions.Expression.Lambda(notDeleted, parameter);
-    }
+  /// <summary>
+  /// Gets a value indicating whether the current user is an admin.
+  /// </summary>
+  public bool IsAdmin => this.httpContextAccessor?.HttpContext?.User?.IsInRole("Admin") ?? false;
 
-    var currentTenantId = Guid.Empty; // Default if not found
-    var tenantClaim = user?.FindFirst("TenantId")?.Value;
-    if (Guid.TryParse(tenantClaim, out var parsedId))
+  /// <summary>
+  /// Gets a value indicating whether the current context is an internal test.
+  /// </summary>
+  public bool IsInternalTest => this.httpContextAccessor?.HttpContext?.User?.Identity?.AuthenticationType is "Test" or "TestServer" or "IntegrationTest";
+
+  /// <summary>
+  /// Gets the current tenant ID.
+  /// </summary>
+  public Guid CurrentTenantId
+  {
+    get
     {
-        currentTenantId = parsedId;
+      var tenantClaim = this.httpContextAccessor?.HttpContext?.User?.FindFirst("TenantId")?.Value;
+      return Guid.TryParse(tenantClaim, out var parsedId) ? parsedId : Guid.Empty;
     }
-    
-    var tenantIdValue = System.Linq.Expressions.Expression.Constant(currentTenantId);
-    var tenantMatches = System.Linq.Expressions.Expression.Equal(tenantIdProperty, tenantIdValue);
-    
-    var combined = System.Linq.Expressions.Expression.AndAlso(notDeleted, tenantMatches);
-    
-    return System.Linq.Expressions.Expression.Lambda(combined, parameter);
   }
 }

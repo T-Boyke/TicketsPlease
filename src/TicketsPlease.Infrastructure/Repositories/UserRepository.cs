@@ -57,9 +57,21 @@ public class UserRepository : IUserRepository
 
         if (profile == null)
         {
-            profile = new UserProfile { UserId = userId };
-            await this.context.UserProfiles.AddAsync(profile).ConfigureAwait(false);
-            await this.context.SaveChangesAsync().ConfigureAwait(false);
+            try
+            {
+                profile = new UserProfile { UserId = userId };
+                await this.context.UserProfiles.AddAsync(profile).ConfigureAwait(false);
+                await this.context.SaveChangesAsync().ConfigureAwait(false);
+            }
+            catch (DbUpdateException)
+            {
+                // Race condition: another request inserted the profile first.
+                // Detach the failed entity and re-query.
+                this.context.Entry(profile).State = EntityState.Detached;
+                profile = await this.context.UserProfiles
+                    .FirstAsync(p => p.UserId == userId)
+                    .ConfigureAwait(false);
+            }
         }
 
         return profile;

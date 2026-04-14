@@ -56,7 +56,7 @@ public sealed class TeamsController : Controller
       return this.Challenge();
     }
 
-    var teams = await this.teamService.GetAllTeamsAsync(user.Id).ConfigureAwait(false);
+    var teams = await this.teamService.GetTenantTeamsAsync(user.TenantId, user.Id).ConfigureAwait(false);
     return this.View(teams);
   }
 

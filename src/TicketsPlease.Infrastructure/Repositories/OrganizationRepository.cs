@@ -72,9 +72,9 @@ public class OrganizationRepository : IOrganizationRepository
     }
 
     /// <inheritdoc/>
-    public async Task AddInvite(OrganizationInvite invite)
+    public async Task AddInviteAsync(OrganizationInvite invite, CancellationToken ct = default)
     {
-        await this.context.OrganizationInvites.AddAsync(invite).ConfigureAwait(false);
+        await this.context.OrganizationInvites.AddAsync(invite, ct).ConfigureAwait(false);
     }
 
     /// <inheritdoc/>

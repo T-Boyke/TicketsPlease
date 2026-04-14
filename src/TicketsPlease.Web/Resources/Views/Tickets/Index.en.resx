@@ -1,56 +1,127 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
+    <xsd:element name="data">
       <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
+        <xsd:sequence>
+          <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+          <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+        <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+        <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
       </xsd:complexType>
     </xsd:element>
   </xsd:schema>
-  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
-  <resheader name="version"><value>2.0</value></resheader>
-  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
-  <data name="Ticket Board" xml:space="preserve"><value>Ticket Board</value></data>
-  <data name="Dashboard" xml:space="preserve"><value>Dashboard</value></data>
-  <data name="Project Board" xml:space="preserve"><value>Project Board</value></data>
-  <data name="Search tickets..." xml:space="preserve"><value>Search tickets...</value></data>
-  <data name="New Ticket" xml:space="preserve"><value>New Ticket</value></data>
-  <data name="To Do" xml:space="preserve"><value>To Do</value></data>
-  <data name="In Progress" xml:space="preserve"><value>In Progress</value></data>
-  <data name="Done" xml:space="preserve"><value>Done</value></data>
-  <data name="Project" xml:space="preserve"><value>Project</value></data>
-  <data name="Details" xml:space="preserve"><value>Details</value></data>
-  <data name="Manage and track all support tickets." xml:space="preserve"><value>Manage and track all support tickets.</value></data>
-  <data name="Ticket Management" xml:space="preserve"><value>Ticket Management</value></data>
-  <data name="Create New Ticket" xml:space="preserve"><value>Create New Ticket</value></data>
-  <data name="Status" xml:space="preserve"><value>Status</value></data>
-  <data name="Actions" xml:space="preserve"><value>Actions</value></data>
-  <data name="Open" xml:space="preserve"><value>Open</value></data>
-  <data name="Resolved" xml:space="preserve"><value>Resolved</value></data>
-  <data name="Delete" xml:space="preserve"><value>Delete</value></data>
-  <data name="Tickets" xml:space="preserve"><value>Tickets</value></data>
-  <data name="Ticket Table" xml:space="preserve"><value>Ticket Table</value></data>
-  <data name="Priority" xml:space="preserve"><value>Priority</value></data>
-  <data name="Title" xml:space="preserve"><value>Title</value></data>
-  <data name="Edit" xml:space="preserve"><value>Edit</value></data>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Project Board" xml:space="preserve">
+    <value>Project Board</value>
+  </data>
+  <data name="Column Actions" xml:space="preserve">
+    <value>Column Actions</value>
+  </data>
+  <data name="Assignee" xml:space="preserve">
+    <value>Assignee</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="New Ticket" xml:space="preserve">
+    <value>New Ticket</value>
+  </data>
+  <data name="All Assignees" xml:space="preserve">
+    <value>All Assignees</value>
+  </data>
+  <data name="Tag" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="All Projects" xml:space="preserve">
+    <value>All Projects</value>
+  </data>
+  <data name="Ticket Table" xml:space="preserve">
+    <value>Ticket Table</value>
+  </data>
+  <data name="Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="All Tags" xml:space="preserve">
+    <value>All Tags</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="To Do" xml:space="preserve">
+    <value>To Do</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>In Progress</value>
+  </data>
+  <data name="Create New Ticket" xml:space="preserve">
+    <value>Create New Ticket</value>
+  </data>
+  <data name="Resolved" xml:space="preserve">
+    <value>Resolved</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Clear Filters" xml:space="preserve">
+    <value>Clear Filters</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Search tickets..." xml:space="preserve">
+    <value>Search tickets...</value>
+  </data>
+  <data name="Manage and track all support tickets." xml:space="preserve">
+    <value>Manage and track all support tickets.</value>
+  </data>
+  <data name="Ticket Board" xml:space="preserve">
+    <value>Ticket Board</value>
+  </data>
+  <data name="Manage your team tasks and project progress on the interactive Ticket Please Kanban board." xml:space="preserve">
+    <value>Manage your team tasks and project progress on the interactive Ticket Please Kanban board.</value>
+  </data>
+  <data name="Tickets" xml:space="preserve">
+    <value>Tickets</value>
+  </data>
+  <data name="All Priorities" xml:space="preserve">
+    <value>All Priorities</value>
+  </data>
+  <data name="Ticket Management" xml:space="preserve">
+    <value>Ticket Management</value>
+  </data>
 </root>

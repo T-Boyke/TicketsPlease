@@ -24,6 +24,12 @@ using Xunit;
 public class InfrastructureTests : IntegrationTestBase
 {
   /// <summary>
+  /// Initializes a new instance of the <see cref="InfrastructureTests"/> class.
+  /// </summary>
+  public InfrastructureTests()
+  {
+  }
+  /// <summary>
   /// Tests GetByIdAsync.
   /// </summary>
   /// <returns>A task.</returns>
@@ -36,10 +42,11 @@ public class InfrastructureTests : IntegrationTestBase
     var repo = new TicketRepository(db);
 
     await SeedMinimalAsync(db);
-    var project = await db.Projects.ToListAsync();
+    this.SetContext(scope.ServiceProvider, IntegrationTestBase.TestUserId, IntegrationTestBase.TestTenantId);
+    var project = await db.Projects.IgnoreQueryFilters().ToListAsync();
     var projects = project[0];
-    var priorityId = (await db.TicketPriorities.ToListAsync())[0].Id;
-    var workflowStateId = (await db.WorkflowStates.ToListAsync())[0].Id;
+    var priorityId = (await db.TicketPriorities.IgnoreQueryFilters().ToListAsync())[0].Id;
+    var workflowStateId = (await db.WorkflowStates.IgnoreQueryFilters().ToListAsync())[0].Id;
 
     var creator = await CreateTestUserAsync(db, "creator", projects.TenantId);
 
@@ -77,9 +84,10 @@ public class InfrastructureTests : IntegrationTestBase
     var repo = new TicketRepository(db);
 
     await SeedMinimalAsync(db);
-    var projects = await db.Projects.ToListAsync();
+    this.SetContext(scope.ServiceProvider, IntegrationTestBase.TestUserId, IntegrationTestBase.TestTenantId);
+    var projects = await db.Projects.IgnoreQueryFilters().ToListAsync();
     var project = projects[0];
-    var stateId = (await db.WorkflowStates.ToListAsync())[0].Id;
+    var stateId = (await db.WorkflowStates.IgnoreQueryFilters().ToListAsync())[0].Id;
     var creator = await CreateTestUserAsync(db, "sorter", project.TenantId);
 
     var p1 = new TicketPriority { Id = Guid.NewGuid(), Name = "High", LevelWeight = 100, TenantId = project.TenantId };
@@ -125,7 +133,8 @@ public class InfrastructureTests : IntegrationTestBase
     var repo = new TicketRepository(db);
 
     await SeedMinimalAsync(db);
-    var projects = await db.Projects.ToListAsync();
+    this.SetContext(scope.ServiceProvider, IntegrationTestBase.TestUserId, IntegrationTestBase.TestTenantId);
+    var projects = await db.Projects.IgnoreQueryFilters().ToListAsync();
     var project = projects[0];
     var otherProject = new Project("Other", DateTime.UtcNow);
     otherProject.SetTenantId(project.TenantId);
@@ -134,9 +143,9 @@ public class InfrastructureTests : IntegrationTestBase
     var user1 = await CreateTestUserAsync(db, "u1", project.TenantId);
     var user2 = await CreateTestUserAsync(db, "u2", project.TenantId);
 
-    var priorities = await db.TicketPriorities.ToListAsync();
+    var priorities = await db.TicketPriorities.IgnoreQueryFilters().ToListAsync();
     var priorityId = priorities[0].Id;
-    var states = await db.WorkflowStates.ToListAsync();
+    var states = await db.WorkflowStates.IgnoreQueryFilters().ToListAsync();
     var stateId = states[0].Id;
     var ticket = new Ticket("Target", TicketType.Task, project.Id, user1.Id, stateId, "Todo", "::1");
     ticket.AssignUser(user2.Id);
@@ -168,7 +177,11 @@ public class InfrastructureTests : IntegrationTestBase
     var repo = new TicketRepository(db);
 
     // Delete static seeded states to test fallback
-    db.WorkflowStates.RemoveRange(db.WorkflowStates);
+    // We do this in a separate transaction or just rely on class-level isolation.
+    // Since we are using class-level isolation, this will break other tests in the class 
+    // unless we are careful. We'll add them back or use a different check.
+    var states = await db.WorkflowStates.IgnoreQueryFilters().ToListAsync();
+    db.WorkflowStates.RemoveRange(states);
     await db.SaveChangesAsync();
 
     // Act
@@ -176,6 +189,10 @@ public class InfrastructureTests : IntegrationTestBase
 
     // Assert
     result.Should().BeNull();
+
+    // Cleanup: Restore states for other tests in this class to avoid side-effects
+    db.WorkflowStates.AddRange(states);
+    await db.SaveChangesAsync();
   }
 
   /// <summary>
@@ -193,6 +210,7 @@ public class InfrastructureTests : IntegrationTestBase
     db.Organizations.Add(new Organization { Id = tenantId, Name = "Org", TenantId = tenantId });
     await db.SaveChangesAsync();
 
+    this.SetContext(scope.ServiceProvider, Guid.NewGuid(), tenantId);
     var project = new Project("Initial", DateTime.UtcNow);
     project.SetTenantId(tenantId);
 
@@ -229,12 +247,13 @@ public class InfrastructureTests : IntegrationTestBase
     var repo = new CommentRepository(db);
 
     await SeedMinimalAsync(db);
-    var projects = await db.Projects.ToListAsync();
+    this.SetContext(scope.ServiceProvider, IntegrationTestBase.TestUserId, IntegrationTestBase.TestTenantId);
+    var projects = await db.Projects.IgnoreQueryFilters().ToListAsync();
     var project = projects[0];
     var user = await CreateTestUserAsync(db, "commenter", project.TenantId);
-    var priorities = await db.TicketPriorities.ToListAsync();
+    var priorities = await db.TicketPriorities.IgnoreQueryFilters().ToListAsync();
     var priorityId = priorities[0].Id;
-    var states = await db.WorkflowStates.ToListAsync();
+    var states = await db.WorkflowStates.IgnoreQueryFilters().ToListAsync();
     var stateId = states[0].Id;
 
     var ticket = new Ticket("Comment-Test", TicketType.Task, project.Id, user.Id, stateId, "Todo", "::1");
@@ -258,7 +277,7 @@ public class InfrastructureTests : IntegrationTestBase
 
   private static async Task<User> CreateTestUserAsync(AppDbContext db, string name, Guid tenantId)
   {
-    var roles = await db.Roles.ToListAsync();
+    var roles = await db.Roles.IgnoreQueryFilters().ToListAsync();
     var roleId = roles[0].Id;
     var userId = Guid.NewGuid();
     var user = new User

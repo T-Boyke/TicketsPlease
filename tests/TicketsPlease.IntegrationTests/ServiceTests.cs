@@ -24,9 +24,16 @@ using Xunit;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2007:Consider calling ConfigureAwait", Justification = "xUnit tests should not use ConfigureAwait(false)")]
 public class ServiceTests : IntegrationTestBase
 {
-  private readonly Guid adminId = Guid.Parse("00000000-0000-0000-0000-000000000001");
-  private readonly Guid priorityId = Guid.Parse("00000000-0000-0000-0000-000000000002");
-  private readonly Guid stateId = Guid.Parse("00000000-0000-0000-0000-000000000003");
+  private readonly Guid adminId = IntegrationTestBase.TestUserId;
+  private readonly Guid priorityId = IntegrationTestBase.MediumPriorityId;
+  private readonly Guid stateId = IntegrationTestBase.TodoStateId;
+
+  /// <summary>
+  /// Initializes a new instance of the <see cref="ServiceTests"/> class.
+  /// </summary>
+  public ServiceTests()
+  {
+  }
 
   /// <summary>
   /// Tests TicketService.CreateTicketAsync.
@@ -39,7 +46,8 @@ public class ServiceTests : IntegrationTestBase
     using var scope = this.Factory.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await SeedMinimalAsync(db);
-    var project = (await db.Projects.ToListAsync())[0];
+    this.SetContext(scope.ServiceProvider, IntegrationTestBase.TestUserId, IntegrationTestBase.TestTenantId);
+    var project = (await db.Projects.IgnoreQueryFilters().ToListAsync())[0];
 
     var service = scope.ServiceProvider.GetRequiredService<ITicketService>();
     var dto = new CreateTicketDto(
@@ -54,7 +62,7 @@ public class ServiceTests : IntegrationTestBase
     await service.CreateTicketAsync(dto);
 
     // Assert
-    var ticket = await db.Tickets.FirstOrDefaultAsync(t => t.Title == "Service Test Ticket");
+    var ticket = await db.Tickets.IgnoreQueryFilters().FirstOrDefaultAsync(t => t.Title == "Service Test Ticket");
     ticket.Should().NotBeNull();
     ticket!.ProjectId.Should().Be(project.Id);
   }
@@ -70,11 +78,16 @@ public class ServiceTests : IntegrationTestBase
     using var scope = this.Factory.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await SeedMinimalAsync(db);
-    var project = (await db.Projects.ToListAsync())[0];
+    this.SetContext(scope.ServiceProvider, IntegrationTestBase.TestUserId, IntegrationTestBase.TestTenantId);
+    var project = (await db.Projects.IgnoreQueryFilters().ToListAsync())[0];
+    var todoStateId = Guid.Parse("00000000-0000-0000-0000-000000000003");
+    var doneStateId = Guid.Parse("00000000-0000-0000-0000-000000000004");
+    var priorityId = Guid.Parse("00000000-0000-0000-0000-000000000002");
 
-    var ticket = new Ticket("Before", TicketType.Task, project.Id, this.adminId, this.stateId, "Todo", string.Empty);
-    ticket.SetTenantId(project.TenantId);
-    ticket.SetPriority(this.priorityId);
+    var ticket = new Ticket("Transition Test", TicketType.Task, project.Id, IntegrationTestBase.TestUserId, todoStateId, "Todo", string.Empty);
+    ticket.SetPriority(priorityId);
+    ticket.SetTenantId(IntegrationTestBase.TestTenantId);
+
     await db.Tickets.AddAsync(ticket);
     await db.SaveChangesAsync();
 
@@ -108,16 +121,17 @@ public class ServiceTests : IntegrationTestBase
     using var scope = this.Factory.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await SeedMinimalAsync(db);
-    var project = (await db.Projects.ToListAsync())[0];
+    this.SetContext(scope.ServiceProvider, IntegrationTestBase.TestUserId, IntegrationTestBase.TestTenantId);
+    var project = (await db.Projects.IgnoreQueryFilters().ToListAsync())[0];
 
-    var ticket = new Ticket("Move Test", TicketType.Task, project.Id, this.adminId, this.stateId, "Todo", string.Empty);
+    // Use seeded state IDs
+    var todoStateId = IntegrationTestBase.TodoStateId;
+    var doneStateId = IntegrationTestBase.DoneStateId;
+
+    var ticket = new Ticket("Move Test", TicketType.Task, project.Id, this.adminId, todoStateId, "Todo", string.Empty);
     ticket.SetTenantId(project.TenantId);
     ticket.SetPriority(this.priorityId);
     await db.Tickets.AddAsync(ticket);
-    await db.SaveChangesAsync();
-
-    var newState = new WorkflowState { Id = Guid.NewGuid(), Name = "Done", WorkflowId = project.WorkflowId!.Value, TenantId = project.TenantId };
-    await db.WorkflowStates.AddAsync(newState);
     await db.SaveChangesAsync();
 
     var service = scope.ServiceProvider.GetRequiredService<ITicketService>();
@@ -126,8 +140,13 @@ public class ServiceTests : IntegrationTestBase
     await service.MoveTicketAsync(ticket.Id, "Done");
 
     // Assert
-    var updatedTicket = await db.Tickets.FindAsync(ticket.Id);
-    updatedTicket!.WorkflowStateId.Should().Be(newState.Id);
+    using (var verifyScope = this.Factory.Services.CreateScope())
+    {
+      var verifyDb = verifyScope.ServiceProvider.GetRequiredService<AppDbContext>();
+      var updatedTicket = await verifyDb.Tickets.IgnoreQueryFilters().FirstOrDefaultAsync(t => t.Id == ticket.Id);
+      updatedTicket.Should().NotBeNull();
+      updatedTicket!.WorkflowStateId.Should().Be(IntegrationTestBase.DoneStateId);
+    }
   }
 
   /// <summary>
@@ -141,7 +160,8 @@ public class ServiceTests : IntegrationTestBase
     using var scope = this.Factory.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await SeedMinimalAsync(db);
-    var project = (await db.Projects.ToListAsync())[0];
+    this.SetContext(scope.ServiceProvider, IntegrationTestBase.TestUserId, IntegrationTestBase.TestTenantId);
+    var project = (await db.Projects.IgnoreQueryFilters().ToListAsync())[0];
 
     var t1 = new Ticket("T1", TicketType.Task, project.Id, this.adminId, this.stateId, "Todo", string.Empty);
     t1.SetTenantId(project.TenantId);
@@ -163,7 +183,11 @@ public class ServiceTests : IntegrationTestBase
     await service.RemoveDependencyAsync(t1.Id, link.Id);
 
     // Assert
-    (await db.TicketLinks.CountAsync()).Should().Be(0);
+    using (var verifyScope = this.Factory.Services.CreateScope())
+    {
+      var verifyDb = verifyScope.ServiceProvider.GetRequiredService<AppDbContext>();
+      (await verifyDb.TicketLinks.CountAsync()).Should().Be(0);
+    }
   }
 
   /// <summary>
@@ -177,7 +201,8 @@ public class ServiceTests : IntegrationTestBase
     using var scope = this.Factory.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await SeedMinimalAsync(db);
-    var project = (await db.Projects.ToListAsync())[0];
+    this.SetContext(scope.ServiceProvider, IntegrationTestBase.TestUserId, IntegrationTestBase.TestTenantId);
+    var project = (await db.Projects.IgnoreQueryFilters().ToListAsync())[0];
 
     var t1 = new Ticket("T1", TicketType.Task, project.Id, this.adminId, this.stateId, "Todo", string.Empty);
     t1.SetTenantId(project.TenantId);
