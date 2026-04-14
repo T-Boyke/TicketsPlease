@@ -1,13 +1,11 @@
 # 🤖 TicketsPlease – Ultimate Agent Governance (v3.0)
 
-Dieses Dokument ist das **oberste Gesetz** für alle KI-gesteuerten
-Code-Modifikationen in der **TicketsPlease** Solution. Jede Regel ist aus der
-[README.md](README.md), den
-[Docs](docs/) und den
+Dieses Dokument ist das **oberste Gesetz** für alle KI-gesteuerten Code-Modifikationen in der
+**TicketsPlease** Solution. Jede Regel ist aus der [README.md](README.md), den [Docs](docs/) und den
 [ADRs](docs/adr/) extrahiert.
 
-> [!CAUTION] Verstöße gegen diese Regeln führen zu **sofortigem Reject** im
-> Code-Review und blockieren die CI/CD-Pipeline.
+> [!CAUTION] Verstöße gegen diese Regeln führen zu **sofortigem Reject** im Code-Review und
+> blockieren die CI/CD-Pipeline.
 
 ---
 
@@ -100,19 +98,15 @@ src/
 
 ### Phase-Awareness (MVP vs. Enterprise)
 
-> [!IMPORTANT] Der Agent **muss** die
-> [MVP-Roadmap](docs/MVP_Roadmap.md) beachten. Phase 1
-> (MVP) hat absoluten Vorrang. Enterprise-Features (Phase 2-5) dürfen das
-> Schema vorbereiten, aber **nicht** implementiert werden, bis Phase 1 komplett
-> abgeschlossen und der Build grün ist.
+> [!IMPORTANT] Der Agent **muss** die [MVP-Roadmap](docs/MVP_Roadmap.md) beachten. Phase 1 (MVP) hat
+> absoluten Vorrang. Enterprise-Features (Phase 2-5) dürfen das Schema vorbereiten, aber **nicht**
+> implementiert werden, bis Phase 1 komplett abgeschlossen und der Build grün ist.
 
 ---
 
 ## 2. 🏛️ Clean Architecture Governance
 
-> **Referenz:**
-> [ADR-0010](docs/adr/0010-clean-architecture.md) |
-> README §3
+> **Referenz:** [ADR-0010](docs/adr/0010-clean-architecture.md) | README §3
 
 ### Dependency Rule (Unverletzlich)
 
@@ -149,8 +143,7 @@ flowchart LR
 
 ## 3. 🧬 Domain-Driven Design (DDD)
 
-> **Referenz:** [domain_ticket.md](docs/domain_ticket.md)
-> | README §3 | README §5
+> **Referenz:** [domain_ticket.md](docs/domain_ticket.md) | README §3 | README §5
 
 ### Rich Domain Models (Keine anämischen Modelle!)
 
@@ -172,14 +165,12 @@ ticket.Status = TicketStatus.InReview;
 
 ### Ticket Close-Rules (Geschäftsregel!)
 
-> [!WARNING] Ein Ticket darf **nur** manuell über `ticket.Close(User actor)`
-> geschlossen werden. Die Methode prüft zwingend:
+> [!WARNING] Ein Ticket darf **nur** manuell über `ticket.Close(User actor)` geschlossen werden. Die
+> Methode prüft zwingend:
 >
-> - `actor` ist der **Ersteller** (`CreatorId`), ein **Admin** oder ein
->   **Teamlead**.
+> - `actor` ist der **Ersteller** (`CreatorId`), ein **Admin** oder ein **Teamlead**.
 > - Normale User dürfen nur auf "Done" verschieben, **nicht** schließen.
-> - **Auto-Close:** Background-Task verschiebt "Done"-Tickets nach X Tagen
->   automatisch ins Archiv.
+> - **Auto-Close:** Background-Task verschiebt "Done"-Tickets nach X Tagen automatisch ins Archiv.
 
 ### Bounded Contexts
 
@@ -195,8 +186,7 @@ ticket.Status = TicketStatus.InReview;
 
 ## 4. ⚡ CQRS & MediatR Pipeline
 
-> **Referenz:** [ADR-0050](docs/adr/0050-cqrs-mediatr.md)
-> \|
+> **Referenz:** [ADR-0050](docs/adr/0050-cqrs-mediatr.md) \|
 > [ADR-0051](docs/adr/0051-validation-fluentvalidation.md)
 
 ### Pipeline Execution Order
@@ -223,9 +213,8 @@ flowchart LR
 
 ## 5. 🗄️ EF Core Strict Policy
 
-> **Referenz:**
-> [ADR-0031](docs/adr/0031-ef-core-resilience-concurrency.md)
-> \| [database_schema.md](docs/database_schema.md)
+> **Referenz:** [ADR-0031](docs/adr/0031-ef-core-resilience-concurrency.md) \|
+> [database_schema.md](docs/database_schema.md)
 
 | Regel                          | Beschreibung                                                                                                                |
 | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
@@ -271,10 +260,8 @@ flowchart TD
 
 ## 7. 🎨 UI/UX Excellence (Tailwind Way)
 
-> **Referenz:** README §4 \|
-> [ADR-0040](docs/adr/0040-ui-sfc-tailwind.md) \|
-> [ADR-0041](docs/adr/0041-no-bootstrap-policy.md) \|
-> [frontend_assets.md](docs/frontend_assets.md)
+> **Referenz:** README §4 \| [ADR-0040](docs/adr/0040-ui-sfc-tailwind.md) \|
+> [ADR-0041](docs/adr/0041-no-bootstrap-policy.md) \| [frontend_assets.md](docs/frontend_assets.md)
 
 ### Fundamentale Regeln
 
@@ -326,11 +313,10 @@ css/components/
 
 ## 8. ♿ Accessibility (BFSG / a11y)
 
-> **Referenz:** README §4 "Barrierefreiheit" |
-> [W3C ARIA APG](https://www.w3.org/WAI/ARIA/apg/)
+> **Referenz:** README §4 "Barrierefreiheit" | [W3C ARIA APG](https://www.w3.org/WAI/ARIA/apg/)
 >
-> [!IMPORTANT] Wir entwickeln nach dem **Barrierefreiheitsstärkungsgesetz
-> (BFSG)** und den W3C ARIA Authoring Practices.
+> [!IMPORTANT] Wir entwickeln nach dem **Barrierefreiheitsstärkungsgesetz (BFSG)** und den W3C ARIA
+> Authoring Practices.
 
 | Regel                    | Beschreibung                                                                       |
 | ------------------------ | ---------------------------------------------------------------------------------- |
@@ -358,8 +344,7 @@ css/components/
 
 ## 10. 🧪 Testing Excellence (TDD)
 
-> **Referenz:** README §6 \|
-> [ADR-0060](docs/adr/0060-testing-strategy.md) \|
+> **Referenz:** README §6 \| [ADR-0060](docs/adr/0060-testing-strategy.md) \|
 > [nuget_stack.md](docs/nuget_stack.md)
 
 ### TDD-Zyklus (Pflicht!)
@@ -446,8 +431,8 @@ flowchart LR
     Lighthouse --> Deploy["🚀 Deploy"]
 ```
 
-> Der Build bricht ab → wenn Code nicht kompiliert → wenn Formatting abweicht →
-> wenn ein Test fehlschlägt → wenn Lighthouse < 100.
+> Der Build bricht ab → wenn Code nicht kompiliert → wenn Formatting abweicht → wenn ein Test
+> fehlschlägt → wenn Lighthouse < 100.
 
 ---
 
@@ -492,8 +477,7 @@ flowchart LR
 
 ## 15. 🤖 Agent Behavior Rules
 
-Diese Regeln definieren, **wie** der KI-Agent bei der Arbeit am
-TicketsPlease-Projekt vorgehen muss.
+Diese Regeln definieren, **wie** der KI-Agent bei der Arbeit am TicketsPlease-Projekt vorgehen muss.
 
 ### 🧠 Denken vor Handeln (Plan-First)
 
@@ -572,8 +556,7 @@ flowchart TD
 
 ## 16. 🛠️ Workflows
 
-Nutze diese spezialisierten Workflows für Konsistenz bei jeder
-Entwicklungs-Aufgabe:
+Nutze diese spezialisierten Workflows für Konsistenz bei jeder Entwicklungs-Aufgabe:
 
 | Workflow                   | Beschreibung                                  | Link                                                                      |
 | -------------------------- | --------------------------------------------- | ------------------------------------------------------------------------- |
@@ -590,11 +573,10 @@ Entwicklungs-Aufgabe:
 
 ## 📝 Markdown & Documentation Rules
 
-> **Referenz:**
-> [.agent/rules/markdown.md](.agent/rules/markdown.md)
+> **Referenz:** [.agent/rules/markdown.md](.agent/rules/markdown.md)
 
-Alle Markdown-Dokumente müssen den Projektspezifischen Regeln für Formatting
-(Prettier) und Linting (Markdownlint) entsprechen.
+Alle Markdown-Dokumente müssen den Projektspezifischen Regeln für Formatting (Prettier) und Linting
+(Markdownlint) entsprechen.
 
 - **Zeilenlänge**: 100 Zeichen.
 - **Listen**: 2 Leerzeichen Einrückung.
