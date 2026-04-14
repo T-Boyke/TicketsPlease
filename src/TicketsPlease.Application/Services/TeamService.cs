@@ -143,4 +143,64 @@ public class TeamService : ITeamService
             m.IsTeamLead)),
         currentUserId.HasValue && team.Members.Any(m => m.UserId == currentUserId.Value));
   }
+
+  /// <inheritdoc/>
+  public async Task<Guid> RequestJoinAsync(Guid teamId, Guid userId, CancellationToken cancellationToken = default)
+  {
+    var existingRequests = await this.teamRepository.GetJoinRequestsByTeamIdAsync(teamId, cancellationToken).ConfigureAwait(false);
+    if (existingRequests.Any(r => r.UserId == userId && r.Status == Domain.Enums.JoinRequestStatus.Pending))
+    {
+        return existingRequests.First(r => r.UserId == userId && r.Status == Domain.Enums.JoinRequestStatus.Pending).Id;
+    }
+
+    var request = new TeamJoinRequest
+    {
+      Id = Guid.NewGuid(),
+      TeamId = teamId,
+      UserId = userId,
+      RequestedAt = DateTime.UtcNow,
+      Status = Domain.Enums.JoinRequestStatus.Pending
+    };
+
+    await this.teamRepository.AddJoinRequestAsync(request, cancellationToken).ConfigureAwait(false);
+    await this.teamRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+
+    return request.Id;
+  }
+
+  /// <inheritdoc/>
+  public async Task DecideJoinRequestAsync(Guid requestId, Guid decidedByUserId, bool approve, CancellationToken cancellationToken = default)
+  {
+    var request = await this.teamRepository.GetJoinRequestByIdAsync(requestId, cancellationToken).ConfigureAwait(false);
+    if (request == null || request.Status != Domain.Enums.JoinRequestStatus.Pending)
+    {
+        return;
+    }
+
+    request.Status = approve ? Domain.Enums.JoinRequestStatus.Approved : Domain.Enums.JoinRequestStatus.Rejected;
+    request.DecidedAt = DateTime.UtcNow;
+    request.DecidedByUserId = decidedByUserId;
+
+    if (approve)
+    {
+      await this.AddMemberAsync(request.TeamId, request.UserId, false, cancellationToken).ConfigureAwait(false);
+    }
+
+    await this.teamRepository.UpdateJoinRequestAsync(request, cancellationToken).ConfigureAwait(false);
+    await this.teamRepository.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc/>
+  public async Task<IEnumerable<TeamJoinRequestDto>> GetJoinRequestsAsync(Guid teamId, CancellationToken cancellationToken = default)
+  {
+    var requests = await this.teamRepository.GetJoinRequestsByTeamIdAsync(teamId, cancellationToken).ConfigureAwait(false);
+    return requests.Select(r => new TeamJoinRequestDto(
+        r.Id,
+        r.TeamId,
+        r.Team?.Name ?? "Unknown Team",
+        r.UserId,
+        r.User?.UserName ?? "Unknown User",
+        r.Status,
+        r.RequestedAt));
+  }
 }

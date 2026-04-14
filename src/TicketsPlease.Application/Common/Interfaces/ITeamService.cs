@@ -75,4 +75,31 @@ public interface ITeamService
   /// <param name="teamId">Die ID des Teams.</param>
   /// <returns>Die asynchrone Operation.</returns>
   public Task DeleteTeamAsync(Guid teamId);
+
+  /// <summary>
+  /// Sendet eine Beitrittsanfrage für ein Team.
+  /// </summary>
+  /// <param name="teamId">Die ID des Teams.</param>
+  /// <param name="userId">Die ID des Benutzers.</param>
+  /// <param name="cancellationToken">Das Abbruchtoken.</param>
+  /// <returns>Die ID der neuen Anfrage.</returns>
+  public Task<Guid> RequestJoinAsync(Guid teamId, Guid userId, CancellationToken cancellationToken = default);
+
+  /// <summary>
+  /// Entscheidet über eine Beitrittsanfrage (Annehmen oder Ablehnen).
+  /// </summary>
+  /// <param name="requestId">Die ID der Anfrage.</param>
+  /// <param name="decidedByUserId">Die ID des Entscheiders.</param>
+  /// <param name="approve">Ob die Anfrage angenommen werden soll.</param>
+  /// <param name="cancellationToken">Das Abbruchtoken.</param>
+  /// <returns>Die asynchrone Operation.</returns>
+  public Task DecideJoinRequestAsync(Guid requestId, Guid decidedByUserId, bool approve, CancellationToken cancellationToken = default);
+
+  /// <summary>
+  /// Ruft alle Beitrittsanfragen für ein Team ab.
+  /// </summary>
+  /// <param name="teamId">Die ID des Teams.</param>
+  /// <param name="cancellationToken">Das Abbruchtoken.</param>
+  /// <returns>Eine Liste von Anfragen.</returns>
+  public Task<IEnumerable<TeamJoinRequestDto>> GetJoinRequestsAsync(Guid teamId, CancellationToken cancellationToken = default);
 }

@@ -42,4 +42,27 @@ public interface IOrganizationService
     /// <param name="ct">Abbruchsignal.</param>
     /// <returns>Task.</returns>
     Task UpdateOrganizationAsync(Guid id, UpsertOrganizationDto dto, CancellationToken ct = default);
+
+    /// <summary>
+    /// Validiert einen Einladungs-Token.
+    /// </summary>
+    /// <param name="token">Der Token.</param>
+    /// <returns>Das Invite DTO oder null.</returns>
+    Task<OrganizationInviteDto?> ValidateInviteTokenAsync(Guid token);
+
+    /// <summary>
+    /// Markiert einen Token als verwendet.
+    /// </summary>
+    /// <param name="token">Der Token.</param>
+    /// <param name="userId">Der neue User.</param>
+    /// <returns>Task.</returns>
+    Task MarkInviteAsUsedAsync(Guid token, Guid userId);
+
+    /// <summary>
+    /// Ruft die Audit-Logs einer Organisation ab.
+    /// </summary>
+    /// <param name="organizationId">ID der Organisation.</param>
+    /// <param name="ct">Abbruchsignal.</param>
+    /// <returns>Liste von AuditLog DTOs.</returns>
+    Task<List<AuditLogDto>> GetAuditLogsAsync(Guid organizationId, CancellationToken ct = default);
 }
