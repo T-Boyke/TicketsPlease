@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using TicketsPlease.Domain.Entities;
 using TicketsPlease.Infrastructure.Repositories;
 using Xunit;
@@ -35,7 +35,7 @@ public class ProjectRepositoryTests : InfrastructureTestBase
     public async Task GetAllAsync_ShouldFilterByTenant()
     {
         // Arrange
-        var tenant1 = Guid.NewGuid();
+        var tenant1 = Guid.Empty; // Needs to match default filter
         var tenant2 = Guid.NewGuid();
 
         var p1 = new Project("P1", DateTime.UtcNow);

@@ -1,4 +1,4 @@
-﻿namespace TicketsPlease.UnitTests.Application.Services;
+namespace TicketsPlease.UnitTests.Application.Services;
 
 using FluentAssertions;
 using Moq;
@@ -11,12 +11,16 @@ using Xunit;
 public class OrganizationServiceTests
 {
     private readonly Mock<IOrganizationRepository> _repositoryMock;
+    private readonly Mock<IOrganizationInviteService> _inviteServiceMock;
+    private readonly Mock<IAuditLogService> _auditLogMock;
     private readonly OrganizationService _service;
 
     public OrganizationServiceTests()
     {
         _repositoryMock = new Mock<IOrganizationRepository>();
-        _service = new OrganizationService(_repositoryMock.Object);
+        _inviteServiceMock = new Mock<IOrganizationInviteService>();
+        _auditLogMock = new Mock<IAuditLogService>();
+        _service = new OrganizationService(_repositoryMock.Object, _inviteServiceMock.Object, _auditLogMock.Object);
     }
 
     [Fact]
@@ -73,7 +77,7 @@ public class OrganizationServiceTests
     public async Task CreateOrganizationAsync_ShouldAddAndSave()
     {
         // Arrange
-        var dto = new UpsertOrganizationDto("New Org", "Basic", true);
+        var dto = new UpsertOrganizationDto("New Org", "Basic", true, 60, null, null, null, true, true, true, true);
 
         // Act
         var result = await _service.CreateOrganizationAsync(dto);
@@ -90,7 +94,7 @@ public class OrganizationServiceTests
         // Arrange
         var id = Guid.NewGuid();
         var org = new Organization { Id = id, Name = "Old Name" };
-        var dto = new UpsertOrganizationDto("New Name", "Pro", false);
+        var dto = new UpsertOrganizationDto("New Name", "Pro", false, 60, null, null, null, true, true, true, true);
         _repositoryMock.Setup(r => r.GetByIdAsync(id, It.IsAny<CancellationToken>())).ReturnsAsync(org);
 
         // Act
