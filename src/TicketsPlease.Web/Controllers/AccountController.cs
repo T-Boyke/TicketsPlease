@@ -104,6 +104,33 @@ public sealed class AccountController : Controller
   }
 
   /// <summary>
+  /// Zeigt die Registrierungsseite mit einem Einladungs-Token an.
+  /// </summary>
+  /// <param name="token">Der Einladungs-Token.</param>
+  /// <returns>Die Registrierungs-View.</returns>
+  [HttpGet]
+  public async Task<IActionResult> Join(Guid token)
+  {
+    var invite = await this.organizationService.ValidateInviteTokenAsync(token).ConfigureAwait(false);
+    if (invite == null)
+    {
+      this.TempData["ErrorMessage"] = "Ungültiger oder abgelaufener Einladungs-Token.";
+      return this.RedirectToAction(nameof(this.Register));
+    }
+
+    var model = new RegisterViewModel
+    {
+      OrganizationId = invite.OrganizationId,
+      InviteToken = token
+    };
+
+    ViewBag.IsInvite = true;
+    ViewBag.OrganizationName = invite.OrganizationName;
+    
+    return this.View("Register", model);
+  }
+
+  /// <summary>
   /// Verarbeitet die Benutzerregistrierung.
   /// </summary>
   /// <param name="model">Das Registrierungs-ViewModel.</param>
@@ -120,11 +147,35 @@ public sealed class AccountController : Controller
       var defaultRole = await this.roleManager.FindByNameAsync("User").ConfigureAwait(false);
       var defaultRoleId = defaultRole?.Id ?? Guid.Empty;
 
-      var user = new User { UserName = model.Username, Email = model.Email, RoleId = defaultRoleId };
+      var user = new User 
+      { 
+          UserName = model.Username, 
+          Email = model.Email, 
+          RoleId = defaultRoleId,
+          TenantId = model.OrganizationId
+      };
+      
       var result = await this.userManager.CreateAsync(user, model.Password).ConfigureAwait(false);
       if (result.Succeeded)
       {
         await this.userManager.AddToRoleAsync(user, "User").ConfigureAwait(false);
+        
+        // Create Profile & Address
+        var profile = await this.userRepository.GetOrCreateProfileAsync(user.Id).ConfigureAwait(false);
+        profile.Position = model.Position;
+        profile.TechStack = model.TechStack;
+        profile.Street = model.Street;
+        profile.HouseNumber = model.HouseNumber;
+        profile.City = model.City;
+        profile.Country = model.Country;
+        
+        await this.userRepository.UpdateProfileAsync(profile).ConfigureAwait(false);
+
+        if (model.InviteToken.HasValue)
+        {
+          await this.organizationService.MarkInviteAsUsedAsync(model.InviteToken.Value, user.Id).ConfigureAwait(false);
+        }
+
         await this.signInManager.SignInAsync(user, isPersistent: false).ConfigureAwait(false);
         return this.RedirectToAction("Index", "Home");
       }

@@ -1,9 +1,12 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @using TicketsPlease.Web.Models.Account
+@using TicketsPlease.Application.Common.Interfaces
 @inject IViewLocalizer L
+@inject IOrganizationService OrganizationService
 @model RegisterViewModel
 @{
     ViewData["Title"] = L["Register"];
+    var organizations = await OrganizationService.GetOrganizationsAsync();
 }
 
 <div class="min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-slate-50 relative overflow-hidden">
@@ -13,7 +16,7 @@
         <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-brand-secondary/10 rounded-full blur-3xl opacity-50"></div>
     </div>
 
-    <div class="sm:mx-auto sm:w-full sm:max-w-md relative reveal-up">
+    <div class="sm:mx-auto sm:w-full sm:max-w-2xl relative reveal-up">
         <div class="flex justify-center mb-6">
             <div class="w-20 h-20 bg-white rounded-3xl shadow-xl flex items-center justify-center border border-slate-100 group hover:scale-110 transition-transform duration-300">
                 <i class="fa-solid fa-user-plus text-brand-primary text-4xl group-hover:rotate-12 transition-transform"></i>
@@ -30,13 +33,31 @@
         </p>
     </div>
 
-    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-md relative reveal-up" style="animation-delay: 100ms;">
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-2xl relative reveal-up" style="animation-delay: 100ms;">
         <div class="bg-white/70 py-10 px-6 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] sm:rounded-[2.5rem] sm:px-12 border border-white/60" style="backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.6) !important;">
             <form class="space-y-6" asp-action="Register" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-red-600 text-sm font-semibold bg-red-50/50 p-4 rounded-2xl border border-red-100/50 mb-6 flex items-start gap-3" style="backdrop-filter: blur(8px);">
                     <i class="fa-solid fa-circle-exclamation mt-1"></i>
                     <span>@L["Please correct the errors below."]</span>
                 </div>
+
+                @if (ViewBag.IsInvite == true)
+                {
+                    <div class="mb-8 p-6 bg-brand-primary/5 border border-brand-primary/20 rounded-3xl flex items-center justify-between group animate-in slide-in-from-right-4">
+                        <div class="flex items-center gap-4">
+                            <div class="h-12 w-12 rounded-2xl bg-brand-primary text-white flex items-center justify-center shadow-lg shadow-brand-primary/20">
+                                <i class="fa-solid fa-building-circle-check text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-[10px] font-black text-brand-primary uppercase tracking-[0.2em]">Partner Invitation</p>
+                                <p class="text-sm font-black text-slate-900">Joining <strong>@ViewBag.OrganizationName</strong></p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-check-double text-brand-primary/40 group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <input type="hidden" asp-for="InviteToken" />
+                    <input type="hidden" asp-for="OrganizationId" />
+                }
                 
                 <div class="space-y-2">
                     <label asp-for="Username" class="block text-sm font-bold text-slate-800 ml-1">@L["Username"]</label>
@@ -77,7 +98,8 @@
                                    type="password"
                                    autocomplete="new-password"
                                    style="padding-left: 2.75rem !important;"
-                                   class="appearance-none block w-full pr-4 py-3.5 bg-slate-50/50 border-2 border-slate-100 rounded-2xl shadow-inner focus:outline-none focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary focus:bg-white transition-all duration-300 sm:text-sm font-medium" />
+                                   class="appearance-none block w-full pr-4 py-3.5 bg-slate-50/50 border-2 border-slate-100 rounded-2xl shadow-inner focus:outline-none focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary focus:bg-white transition-all duration-300 sm:text-sm font-medium" 
+                                   placeholder="••••••••" />
                         </div>
                         <span asp-validation-for="Password" class="text-red-500 text-xs font-bold ml-1 block mt-1"></span>
                     </div>
@@ -91,9 +113,131 @@
                                    type="password"
                                    autocomplete="new-password"
                                    style="padding-left: 2.75rem !important;"
-                                   class="appearance-none block w-full pr-4 py-3.5 bg-slate-50/50 border-2 border-slate-100 rounded-2xl shadow-inner focus:outline-none focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary focus:bg-white transition-all duration-300 sm:text-sm font-medium" />
+                                   class="appearance-none block w-full pr-4 py-3.5 bg-slate-50/50 border-2 border-slate-100 rounded-2xl shadow-inner focus:outline-none focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary focus:bg-white transition-all duration-300 sm:text-sm font-medium" 
+                                   placeholder="••••••••" />
                         </div>
                         <span asp-validation-for="ConfirmPassword" class="text-red-500 text-xs font-bold ml-1 block mt-1"></span>
+                    </div>
+                </div>
+
+                <hr class="border-slate-100 my-6" />
+
+                <!-- Organization & Position -->
+                @if (ViewBag.IsInvite != true)
+                {
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <label asp-for="OrganizationId" class="block text-sm font-bold text-slate-800 ml-1">@L["Workplace"]</label>
+                            <div class="relative flex items-center">
+                                <i class="fa-solid fa-building absolute left-4 text-slate-400 pointer-events-none z-10 text-sm"></i>
+                                <select asp-for="OrganizationId" 
+                                        id="OrganizationId"
+                                        style="padding-left: 2.75rem !important;"
+                                        class="appearance-none block w-full pr-10 py-3.5 bg-slate-50/50 border-2 border-slate-100 rounded-2xl shadow-inner focus:outline-none focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary focus:bg-white transition-all duration-300 sm:text-sm font-medium">
+                                    <option value="">@L["Select Workspace"]</option>
+                                    @foreach (var org in organizations)
+                                    {
+                                        <option value="@org.Id">@org.Name</option>
+                                    }
+                                </select>
+                                <i class="fa-solid fa-chevron-down absolute right-4 text-slate-400 pointer-events-none text-xs"></i>
+                            </div>
+                            <span asp-validation-for="OrganizationId" class="text-red-500 text-xs font-bold ml-1 block mt-1"></span>
+                        </div>
+    
+                        <div class="space-y-2">
+                            <label asp-for="Position" class="block text-sm font-bold text-slate-800 ml-1">@L["Position"]</label>
+                            <div class="relative flex items-center">
+                                <i class="fa-solid fa-briefcase absolute left-4 text-slate-400 pointer-events-none z-10 text-sm"></i>
+                                <input asp-for="Position" 
+                                       id="Position"
+                                       style="padding-left: 2.75rem !important;"
+                                       class="appearance-none block w-full pr-4 py-3.5 bg-slate-50/50 border-2 border-slate-100 rounded-2xl shadow-inner placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary focus:bg-white transition-all duration-300 sm:text-sm font-medium" 
+                                       placeholder="@L["Lead Developer"]" />
+                            </div>
+                            <span asp-validation-for="Position" class="text-red-500 text-xs font-bold ml-1 block mt-1"></span>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="space-y-2">
+                        <label asp-for="Position" class="block text-sm font-bold text-slate-800 ml-1">@L["Position"]</label>
+                        <div class="relative flex items-center">
+                            <i class="fa-solid fa-briefcase absolute left-4 text-slate-400 pointer-events-none z-10 text-sm"></i>
+                            <input asp-for="Position" 
+                                   id="Position"
+                                   style="padding-left: 2.75rem !important;"
+                                   class="appearance-none block w-full pr-4 py-3.5 bg-slate-50/50 border-2 border-slate-100 rounded-2xl shadow-inner placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary focus:bg-white transition-all duration-300 sm:text-sm font-medium" 
+                                   placeholder="@L["Lead Developer"]" />
+                        </div>
+                        <span asp-validation-for="Position" class="text-red-500 text-xs font-bold ml-1 block mt-1"></span>
+                    </div>
+                }
+
+                <div class="space-y-2">
+                    <label asp-for="TechStack" class="block text-sm font-bold text-slate-800 ml-1">@L["Tech Stack"]</label>
+                    <div class="relative flex items-center">
+                        <i class="fa-solid fa-layer-group absolute left-4 text-slate-400 pointer-events-none z-10 text-sm"></i>
+                        <input asp-for="TechStack" 
+                               id="TechStack"
+                               style="padding-left: 2.75rem !important;"
+                               class="appearance-none block w-full pr-4 py-3.5 bg-slate-50/50 border-2 border-slate-100 rounded-2xl shadow-inner placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary focus:bg-white transition-all duration-300 sm:text-sm font-medium" 
+                               placeholder="C#, SQL, ASP.NET" />
+                    </div>
+                </div>
+
+                <hr class="border-slate-100 my-6" />
+
+                <!-- Address -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="sm:col-span-2 space-y-2">
+                        <label asp-for="Street" class="block text-sm font-bold text-slate-800 ml-1">@L["Street"]</label>
+                        <div class="relative flex items-center">
+                            <i class="fa-solid fa-road absolute left-4 text-slate-400 pointer-events-none z-10 text-sm"></i>
+                            <input asp-for="Street" 
+                                   id="Street"
+                                   style="padding-left: 2.75rem !important;"
+                                   class="appearance-none block w-full pr-4 py-3.5 bg-slate-50/50 border-2 border-slate-100 rounded-2xl shadow-inner placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary focus:bg-white transition-all duration-300 sm:text-sm font-medium" 
+                                   placeholder="@L["Main St"]" />
+                        </div>
+                        <span asp-validation-for="Street" class="text-red-500 text-xs font-bold ml-1 block mt-1"></span>
+                    </div>
+                    <div class="space-y-2">
+                        <label asp-for="HouseNumber" class="block text-sm font-bold text-slate-800 ml-1">@L["No."]</label>
+                        <input asp-for="HouseNumber" 
+                               id="HouseNumber"
+                               class="appearance-none block w-full px-4 py-3.5 bg-slate-50/50 border-2 border-slate-100 rounded-2xl shadow-inner placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary focus:bg-white transition-all duration-300 sm:text-sm font-medium" 
+                               placeholder="42" />
+                        <span asp-validation-for="HouseNumber" class="text-red-500 text-xs font-bold ml-1 block mt-1"></span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <label asp-for="City" class="block text-sm font-bold text-slate-800 ml-1">@L["City"]</label>
+                        <div class="relative flex items-center">
+                            <i class="fa-solid fa-city absolute left-4 text-slate-400 pointer-events-none z-10 text-sm"></i>
+                            <input asp-for="City" 
+                                   id="City"
+                                   style="padding-left: 2.75rem !important;"
+                                   class="appearance-none block w-full pr-4 py-3.5 bg-slate-50/50 border-2 border-slate-100 rounded-2xl shadow-inner placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary focus:bg-white transition-all duration-300 sm:text-sm font-medium" 
+                                   placeholder="@L["Berlin"]" />
+                        </div>
+                        <span asp-validation-for="City" class="text-red-500 text-xs font-bold ml-1 block mt-1"></span>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label asp-for="Country" class="block text-sm font-bold text-slate-800 ml-1">@L["Country"]</label>
+                        <div class="relative flex items-center">
+                            <i class="fa-solid fa-flag absolute left-4 text-slate-400 pointer-events-none z-10 text-sm"></i>
+                            <input asp-for="Country" 
+                                   id="Country"
+                                   style="padding-left: 2.75rem !important;"
+                                   class="appearance-none block w-full pr-4 py-3.5 bg-slate-50/50 border-2 border-slate-100 rounded-2xl shadow-inner placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-primary/10 focus:border-brand-primary focus:bg-white transition-all duration-300 sm:text-sm font-medium" 
+                                   placeholder="@L["Germany"]" />
+                        </div>
+                        <span asp-validation-for="Country" class="text-red-500 text-xs font-bold ml-1 block mt-1"></span>
                     </div>
                 </div>
 

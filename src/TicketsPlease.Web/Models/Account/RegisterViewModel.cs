@@ -42,4 +42,57 @@ public class RegisterViewModel
   [Display(Name = "Confirm password")]
   [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
   public string ConfirmPassword { get; set; } = string.Empty;
+  
+  /// <summary>
+  /// Gets or sets die Organisation.
+  /// </summary>
+  [Required(ErrorMessage = "The Organization field is required.")]
+  [Display(Name = "Organization")]
+  public Guid OrganizationId { get; set; }
+
+  /// <summary>
+  /// Gets or sets die Position.
+  /// </summary>
+  [Required(ErrorMessage = "The Position field is required.")]
+  [Display(Name = "Position")]
+  public string Position { get; set; } = string.Empty;
+
+  /// <summary>
+  /// Gets or sets den Tech-Stack.
+  /// </summary>
+  [Display(Name = "Tech Stack")]
+  public string? TechStack { get; set; }
+
+  /// <summary>
+  /// Gets or sets die Straße.
+  /// </summary>
+  [Required(ErrorMessage = "The Street field is required.")]
+  [Display(Name = "Street")]
+  public string Street { get; set; } = string.Empty;
+
+  /// <summary>
+  /// Gets or sets die Hausnummer.
+  /// </summary>
+  [Required(ErrorMessage = "The House Number field is required.")]
+  [Display(Name = "House Number")]
+  public string HouseNumber { get; set; } = string.Empty;
+
+  /// <summary>
+  /// Gets or sets die Stadt.
+  /// </summary>
+  [Required(ErrorMessage = "The City field is required.")]
+  [Display(Name = "City")]
+  public string City { get; set; } = string.Empty;
+
+  /// <summary>
+  /// Gets or sets das Land.
+  /// </summary>
+  [Required(ErrorMessage = "The Country field is required.")]
+  [Display(Name = "Country")]
+  public string Country { get; set; } = string.Empty;
+
+  /// <summary>
+  /// Gets or sets den optionalen Einladungs-Token.
+  /// </summary>
+  public Guid? InviteToken { get; set; }
 }
