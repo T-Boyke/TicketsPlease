@@ -62,9 +62,48 @@ public interface ITeamRepository
   public Task DeleteAsync(Team team);
 
   /// <summary>
+  /// Fügt eine Beitrittsanfrage hinzu.
+  /// </summary>
+  /// <param name="request">Das Anfrageobjekt.</param>
+  /// <param name="cancellationToken">Das Abbruchtoken.</param>
+  /// <returns>Die asynchrone Operation.</returns>
+  public Task AddJoinRequestAsync(TeamJoinRequest request, CancellationToken cancellationToken = default);
+
+  /// <summary>
+  /// Aktualisiert eine Beitrittsanfrage.
+  /// </summary>
+  /// <param name="request">Das Anfrageobjekt.</param>
+  /// <param name="cancellationToken">Das Abbruchtoken.</param>
+  /// <returns>Die asynchrone Operation.</returns>
+  public Task UpdateJoinRequestAsync(TeamJoinRequest request, CancellationToken cancellationToken = default);
+
+  /// <summary>
+  /// Ruft eine Beitrittsanfrage anhand der ID ab.
+  /// </summary>
+  /// <param name="requestId">Die ID der Anfrage.</param>
+  /// <param name="cancellationToken">Das Abbruchtoken.</param>
+  /// <returns>Die Anfrage oder null.</returns>
+  public Task<TeamJoinRequest?> GetJoinRequestByIdAsync(Guid requestId, CancellationToken cancellationToken = default);
+
+  /// <summary>
+  /// Ruft alle Beitrittsanfragen für ein Team ab.
+  /// </summary>
+  /// <param name="teamId">Die ID des Teams.</param>
+  /// <param name="cancellationToken">Das Abbruchtoken.</param>
+  /// <returns>Eine Liste von Anfragen.</returns>
+  public Task<IEnumerable<TeamJoinRequest>> GetJoinRequestsByTeamIdAsync(Guid teamId, CancellationToken cancellationToken = default);
+
+  /// <summary>
   /// Speichert alle Änderungen asynchron.
   /// </summary>
   /// <param name="cancellationToken">Das Abbruchtoken.</param>
   /// <returns>Die Anzahl der betroffenen Zeilen.</returns>
   public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+
+  /// <summary>
+  /// Ruft alle Teams eines Mandanten ab.
+  /// </summary>
+  /// <param name="tenantId">Die Mandanten-ID.</param>
+  /// <returns>Eine Liste von Teams.</returns>
+  public Task<IEnumerable<Team>> GetTeamsByTenantAsync(Guid tenantId);
 }

@@ -80,8 +80,52 @@ public class TeamRepository : ITeamRepository
   }
 
   /// <inheritdoc/>
+  public async Task AddJoinRequestAsync(TeamJoinRequest request, CancellationToken cancellationToken = default)
+  {
+    await this.context.TeamJoinRequests.AddAsync(request, cancellationToken).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc/>
+  public async Task UpdateJoinRequestAsync(TeamJoinRequest request, CancellationToken cancellationToken = default)
+  {
+    this.context.TeamJoinRequests.Update(request);
+    await Task.CompletedTask.ConfigureAwait(false);
+  }
+
+  /// <inheritdoc/>
+  public async Task<TeamJoinRequest?> GetJoinRequestByIdAsync(Guid requestId, CancellationToken cancellationToken = default)
+  {
+    return await this.context.TeamJoinRequests
+        .Include(r => r.Team)
+        .Include(r => r.User)
+        .Include(r => r.DecidedByUser)
+        .FirstOrDefaultAsync(r => r.Id == requestId, cancellationToken)
+        .ConfigureAwait(false);
+  }
+
+  /// <inheritdoc/>
+  public async Task<IEnumerable<TeamJoinRequest>> GetJoinRequestsByTeamIdAsync(Guid teamId, CancellationToken cancellationToken = default)
+  {
+    return await this.context.TeamJoinRequests
+        .Include(r => r.User)
+        .Where(r => r.TeamId == teamId)
+        .ToListAsync(cancellationToken)
+        .ConfigureAwait(false);
+  }
+
+  /// <inheritdoc/>
   public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
   {
     return await this.context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc/>
+  public async Task<IEnumerable<Team>> GetTeamsByTenantAsync(Guid tenantId)
+  {
+    return await this.context.Teams
+        .Include(t => t.Members)
+        .Where(t => t.TenantId == tenantId)
+        .ToListAsync()
+        .ConfigureAwait(false);
   }
 }

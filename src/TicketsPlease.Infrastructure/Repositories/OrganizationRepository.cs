@@ -46,9 +46,42 @@ public class OrganizationRepository : IOrganizationRepository
         await this.context.Organizations.AddAsync(organization, ct).ConfigureAwait(false);
     }
 
-    /// <inheritdoc/>
+    /// <summary>
+    /// Speichert Änderungen.
+    /// </summary>
+    /// <param name="ct">Abbruchsignal.</param>
+    /// <returns>Task.</returns>
     public async Task SaveChangesAsync(CancellationToken ct = default)
     {
         await this.context.SaveChangesAsync(ct).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task AddAuditLogAsync(AuditLog log, CancellationToken ct = default)
+    {
+        await this.context.AuditLogs.AddAsync(log, ct).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task<List<AuditLog>> GetAuditLogsAsync(Guid organizationId, CancellationToken ct = default)
+    {
+        return await this.context.AuditLogs
+            .Where(l => l.OrganizationId == organizationId)
+            .OrderByDescending(l => l.Timestamp)
+            .ToListAsync(ct).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task AddInvite(OrganizationInvite invite)
+    {
+        await this.context.OrganizationInvites.AddAsync(invite).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task<OrganizationInvite?> GetInviteByTokenAsync(Guid token)
+    {
+        return await this.context.OrganizationInvites
+            .Include(i => i.Organization)
+            .FirstOrDefaultAsync(i => i.Token == token).ConfigureAwait(false);
     }
 }

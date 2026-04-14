@@ -40,4 +40,33 @@ public interface IOrganizationRepository
     /// <param name="ct">Abbruchsignal.</param>
     /// <returns>Task.</returns>
     Task SaveChangesAsync(CancellationToken ct = default);
+
+    /// <summary>
+    /// Fügt ein Audit-Log hinzu.
+    /// </summary>
+    /// <param name="log">Das Log-Objekt.</param>
+    /// <param name="ct">Abbruchsignal.</param>
+    /// <returns>Task.</returns>
+    Task AddAuditLogAsync(AuditLog log, CancellationToken ct = default);
+
+    /// <summary>
+    /// Ruft Audit-Logs für eine Organisation ab.
+    /// </summary>
+    /// <param name="organizationId">ID der Organisation.</param>
+    /// <param name="ct">Abbruchsignal.</param>
+    /// <returns>Liste der Logs.</returns>
+    Task<List<AuditLog>> GetAuditLogsAsync(Guid organizationId, CancellationToken ct = default);
+
+    /// <summary>
+    /// Fügt eine Einladung hinzu.
+    /// </summary>
+    /// <param name="invite">Die Einladung.</param>
+    Task AddInvite(OrganizationInvite invite);
+
+    /// <summary>
+    /// Ruft eine Einladung per Token ab.
+    /// </summary>
+    /// <param name="token">Der Token.</param>
+    /// <returns>Die Einladung.</returns>
+    Task<OrganizationInvite?> GetInviteByTokenAsync(Guid token);
 }

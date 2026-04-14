@@ -71,4 +71,12 @@ public class UserRepository : IUserRepository
         this.context.UserProfiles.Update(profile);
         await this.context.SaveChangesAsync().ConfigureAwait(false);
     }
+
+    /// <inheritdoc />
+    public async Task<int> GetActiveUserCountAsync(Guid tenantId)
+    {
+        return await this.context.Users
+            .CountAsync(u => u.TenantId == tenantId && u.IsActive)
+            .ConfigureAwait(false);
+    }
 }

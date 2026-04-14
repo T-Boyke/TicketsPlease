@@ -41,4 +41,11 @@ public interface IUserRepository
     /// <param name="profile">Das zu speichernde Profil.</param>
     /// <returns>Ein Task.</returns>
     Task UpdateProfileAsync(UserProfile profile);
+
+    /// <summary>
+    /// Zählt die aktiven Benutzer eines Tenants.
+    /// </summary>
+    /// <param name="tenantId">Die Mandanten-ID.</param>
+    /// <returns>Die Anzahl.</returns>
+    Task<int> GetActiveUserCountAsync(Guid tenantId);
 }

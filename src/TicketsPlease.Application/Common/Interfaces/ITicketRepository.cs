@@ -160,4 +160,11 @@ public interface ITicketRepository
   /// <param name="ticket">Das Ticket.</param>
   /// <param name="rowVersion">Die zu vergleichende Zeilenversion.</param>
   public void SetOriginalRowVersion(Ticket ticket, byte[] rowVersion);
+
+  /// <summary>
+  /// Ruft alle Tickets eines Tenants ab (für Reporting).
+  /// </summary>
+  /// <param name="tenantId">Die Mandanten-ID.</param>
+  /// <returns>Liste der Tickets.</returns>
+  public Task<List<Ticket>> GetByTenantAsync(Guid tenantId);
 }

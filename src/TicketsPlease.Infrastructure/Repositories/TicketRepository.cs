@@ -252,4 +252,15 @@ public class TicketRepository : ITicketRepository
   {
     this.context.Entry(ticket).Property("RowVersion").OriginalValue = rowVersion;
   }
+
+  /// <inheritdoc />
+  public async Task<List<Ticket>> GetByTenantAsync(Guid tenantId)
+  {
+    return await this.context.Tickets
+        .AsNoTracking()
+        .Where(t => t.TenantId == tenantId)
+        .Include(t => t.Priority)
+        .ToListAsync()
+        .ConfigureAwait(false);
+  }
 }
