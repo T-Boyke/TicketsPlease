@@ -61,6 +61,7 @@ public sealed class NotificationsController : Controller
     /// <param name="id">Die ID.</param>
     /// <returns>Redirect.</returns>
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> MarkAsRead(Guid id)
     {
         await this.notificationService.MarkAsReadAsync(id).ConfigureAwait(false);
@@ -72,6 +73,7 @@ public sealed class NotificationsController : Controller
     /// </summary>
     /// <returns>Redirect.</returns>
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> MarkAllAsRead()
     {
         var userId = this.GetUserId();
