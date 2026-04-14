@@ -79,7 +79,18 @@ internal sealed class AdminWorkspacesController : Controller
             return this.NotFound();
         }
 
-        var dto = new UpsertOrganizationDto(org.Name, org.SubscriptionLevel, org.IsActive);
+        var dto = new UpsertOrganizationDto(
+            org.Name,
+            org.SubscriptionLevel,
+            org.IsActive,
+            org.SlaCheckIntervalMinutes,
+            org.QuietHoursStart,
+            org.QuietHoursEnd,
+            org.TimeZoneId,
+            org.NotifyOnLow,
+            org.NotifyOnMedium,
+            org.NotifyOnHigh,
+            org.NotifyOnBlocker);
         this.ViewData["OrgId"] = id;
         return this.View(dto);
     }
