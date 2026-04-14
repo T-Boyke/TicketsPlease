@@ -26,6 +26,8 @@ public static class DbInitialiser
   private static readonly Guid AdminRoleId = new("32d733e1-4c7a-4c2d-9b51-1e9a7e6b7d21");
   private static readonly Guid TeamleadRoleId = new("b8f2e9d2-6c8a-4d3e-ac62-2f0b8f7c8e33");
   private static readonly Guid UserRoleId = new("c903f0e3-7d9b-4e4f-bd73-3f1c908d9f44");
+  private static readonly Guid ProductOwnerRoleId = new("d01401f4-8e0c-4f50-ce84-402d019e0066");
+  private static readonly Guid StakeholderRoleId = new("e12512a5-9f1d-5061-df95-513e12af1177");
 
   private static readonly Guid LowPriorityId = new("d01401f4-8e0c-4f50-ce84-402d019e0055");
   private static readonly Guid MediumPriorityId = new("e12512a5-9f1d-5061-df95-513e12af1166");
@@ -130,6 +132,14 @@ public static class DbInitialiser
 
       // Add 1 more Admin
       users.Add(new User { UserName = "admin2", Email = "admin2@ticketsplease.com", RoleId = AdminRoleId, TenantId = orgs[1].Id, IsActive = true });
+
+      // Add Product Owners for each Org
+      users.Add(new User { UserName = "po1", Email = "po1@ticketsplease.com", RoleId = ProductOwnerRoleId, TenantId = orgs[0].Id, IsActive = true });
+      users.Add(new User { UserName = "po2", Email = "po2@ticketsplease.com", RoleId = ProductOwnerRoleId, TenantId = orgs[1].Id, IsActive = true });
+
+      // Add Stakeholders for each Org
+      users.Add(new User { UserName = "stakeholder1", Email = "stakeholder1@ticketsplease.com", RoleId = StakeholderRoleId, TenantId = orgs[0].Id, IsActive = true });
+      users.Add(new User { UserName = "stakeholder2", Email = "stakeholder2@ticketsplease.com", RoleId = StakeholderRoleId, TenantId = orgs[1].Id, IsActive = true });
 
       // Add 4 more Teamleads
       for (int i = 2; i <= 5; i++)

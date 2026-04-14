@@ -5,6 +5,7 @@
 namespace TicketsPlease.Infrastructure.Persistence;
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using TicketsPlease.Domain.Common;
 using TicketsPlease.Domain.Entities;
@@ -15,14 +16,18 @@ using TicketsPlease.Domain.Entities;
 /// </summary>
 public class AppDbContext : IdentityDbContext<User, Role, Guid>
 {
+  private readonly IHttpContextAccessor? httpContextAccessor;
+
   /// <summary>
   /// Initializes a new instance of the <see cref="AppDbContext"/> class.
   /// Initialisiert eine neue Instanz von <see cref="AppDbContext"/> mit den angegebenen Optionen.
   /// </summary>
   /// <param name="options">Die Optionen für diesen Kontext.</param>
-  public AppDbContext(DbContextOptions<AppDbContext> options)
+  /// <param name="httpContextAccessor">Der HttpContextAccessor für den Zugriff auf den aktuellen Benutzer.</param>
+  public AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAccessor? httpContextAccessor = null)
     : base(options)
   {
+    this.httpContextAccessor = httpContextAccessor;
   }
 
   /// <summary>
@@ -57,6 +62,9 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
 
   /// <summary>Gets die Teammitglieder.</summary>
   public DbSet<TeamMember> TeamMembers => this.Set<TeamMember>();
+
+  /// <summary>Gets die Beitrittsanfragen für Teams.</summary>
+  public DbSet<TeamJoinRequest> TeamJoinRequests => this.Set<TeamJoinRequest>();
 
   /// <summary>Gets die Ticket-Prioritäten.</summary>
   public DbSet<TicketPriority> TicketPriorities => this.Set<TicketPriority>();
@@ -115,6 +123,12 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
   /// <summary>Gets die Kommentare (F5).</summary>
   public DbSet<Comment> Comments => this.Set<Comment>();
 
+  /// <summary>Gets die Organisationseinladungen.</summary>
+  public DbSet<OrganizationInvite> OrganizationInvites => this.Set<OrganizationInvite>();
+
+  /// <summary>Gets die Governance-Audit-Logs.</summary>
+  public DbSet<AuditLog> AuditLogs => this.Set<AuditLog>();
+
   /// <summary>
   /// Konfiguriert das Modell und die Datenbank-Mappings.
   /// Hier wird die explizite Konfiguration für Nebenläufigkeit und Tabellennamen vorgenommen.
@@ -143,7 +157,7 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
 
       if (typeof(BaseEntity).IsAssignableFrom(type))
       {
-        builder.Entity(type).HasQueryFilter(ConvertFilterExpression(type));
+        builder.Entity(type).HasQueryFilter(this.ConvertFilterExpression(type));
       }
     }
 
@@ -272,6 +286,14 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
             .OnDelete(DeleteBehavior.Restrict);
     });
 
+    builder.Entity<TeamJoinRequest>(entity =>
+    {
+      entity.HasKey(e => e.Id);
+      entity.HasOne(e => e.Team).WithMany().HasForeignKey(e => e.TeamId).OnDelete(DeleteBehavior.Cascade);
+      entity.HasOne(e => e.User).WithMany().HasForeignKey(e => e.UserId).OnDelete(DeleteBehavior.Restrict);
+      entity.HasOne(e => e.DecidedByUser).WithMany().HasForeignKey(e => e.DecidedByUserId).OnDelete(DeleteBehavior.Restrict);
+    });
+
     builder.Entity<TimeLog>(entity =>
     {
       entity.HasKey(e => e.Id);
@@ -334,6 +356,16 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
       entity.HasOne(e => e.Author).WithMany().HasForeignKey(e => e.AuthorId).OnDelete(DeleteBehavior.Restrict);
     });
 
+    // --- Governance & Audit ---
+    builder.Entity<AuditLog>(entity =>
+    {
+      entity.HasKey(e => e.Id);
+      entity.HasOne(e => e.Organization)
+            .WithMany()
+            .HasForeignKey(e => e.OrganizationId)
+            .OnDelete(DeleteBehavior.Cascade);
+    });
+
     SeedStaticData(builder);
   }
 
@@ -359,6 +391,8 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     var adminRoleId = new Guid("32d733e1-4c7a-4c2d-9b51-1e9a7e6b7d21");
     var teamleadRoleId = new Guid("b8f2e9d2-6c8a-4d3e-ac62-2f0b8f7c8e33");
     var userRoleId = new Guid("c903f0e3-7d9b-4e4f-bd73-3f1c908d9f44");
+    var productOwnerRoleId = new Guid("d01401f4-8e0c-4f50-ce84-402d019e0066");
+    var stakeholderRoleId = new Guid("e12512a5-9f1d-5061-df95-513e12af1177");
 
     var lowPriorityId = new Guid("d01401f4-8e0c-4f50-ce84-402d019e0055");
     var mediumPriorityId = new Guid("e12512a5-9f1d-5061-df95-513e12af1166");
@@ -375,7 +409,9 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     builder.Entity<Role>().HasData(
       new Role { Id = adminRoleId, Name = "Admin", NormalizedName = "ADMIN", ConcurrencyStamp = "32d733e1-4c7a-4c2d-9b51-1e9a7e6b7d21", Description = "Full system access" },
       new Role { Id = teamleadRoleId, Name = "Teamlead", NormalizedName = "TEAMLEAD", ConcurrencyStamp = "b8f2e9d2-6c8a-4d3e-ac62-2f0b8f7c8e33", Description = "Team lead permissions" },
-      new Role { Id = userRoleId, Name = "User", NormalizedName = "USER", ConcurrencyStamp = "c903f0e3-7d9b-4e4f-bd73-3f1c908d9f44", Description = "Standard user access" });
+      new Role { Id = userRoleId, Name = "User", NormalizedName = "USER", ConcurrencyStamp = "c903f0e3-7d9b-4e4f-bd73-3f1c908d9f44", Description = "Standard user access" },
+      new Role { Id = productOwnerRoleId, Name = "ProductOwner", NormalizedName = "PRODUCTOWNER", ConcurrencyStamp = "d01401f4-8e0c-4f50-ce84-402d019e0066", Description = "Highest local authority within a company" },
+      new Role { Id = stakeholderRoleId, Name = "Stakeholder", NormalizedName = "STAKEHOLDER", ConcurrencyStamp = "e12512a5-9f1d-5061-df95-513e12af1177", Description = "Read-only reporting access" });
 
     // 2. Priorities
     builder.Entity<TicketPriority>().HasData(
@@ -395,11 +431,40 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
       new WorkflowState { Id = doneStateId, Name = "Done", OrderIndex = 3, ColorHex = "#90EE90", IsTerminalState = true, WorkflowId = workflowId });
   }
 
-  private static System.Linq.Expressions.LambdaExpression ConvertFilterExpression(Type type)
+  private System.Linq.Expressions.LambdaExpression ConvertFilterExpression(Type type)
   {
     var parameter = System.Linq.Expressions.Expression.Parameter(type, "e");
-    var property = System.Linq.Expressions.Expression.Property(parameter, "IsDeleted");
-    var notDeleted = System.Linq.Expressions.Expression.Not(property);
-    return System.Linq.Expressions.Expression.Lambda(notDeleted, parameter);
+    
+    // IsDeleted filter
+    var isDeletedProperty = System.Linq.Expressions.Expression.Property(parameter, "IsDeleted");
+    var notDeleted = System.Linq.Expressions.Expression.Not(isDeletedProperty);
+
+    // TenantId filter
+    var tenantIdProperty = System.Linq.Expressions.Expression.Property(parameter, "TenantId");
+    
+    // Get current user's tenant ID and check if admin
+    var httpContext = this.httpContextAccessor?.HttpContext;
+    var user = httpContext?.User;
+    var isAdmin = user?.IsInRole("Admin") ?? false;
+    
+    // If admin, we don't filter by tenant
+    if (isAdmin)
+    {
+        return System.Linq.Expressions.Expression.Lambda(notDeleted, parameter);
+    }
+
+    var currentTenantId = Guid.Empty; // Default if not found
+    var tenantClaim = user?.FindFirst("TenantId")?.Value;
+    if (Guid.TryParse(tenantClaim, out var parsedId))
+    {
+        currentTenantId = parsedId;
+    }
+    
+    var tenantIdValue = System.Linq.Expressions.Expression.Constant(currentTenantId);
+    var tenantMatches = System.Linq.Expressions.Expression.Equal(tenantIdProperty, tenantIdValue);
+    
+    var combined = System.Linq.Expressions.Expression.AndAlso(notDeleted, tenantMatches);
+    
+    return System.Linq.Expressions.Expression.Lambda(combined, parameter);
   }
 }
