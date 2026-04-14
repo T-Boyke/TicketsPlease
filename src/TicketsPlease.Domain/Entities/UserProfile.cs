@@ -91,4 +91,29 @@ public class UserProfile : BaseAuditableEntity
   /// Gets or sets das Land der Anschrift.
   /// </summary>
   public string? Country { get; set; }
+
+  /// <summary>
+  /// Gets or sets das Aktualisierungsintervall für das Kanban-Board in Millisekunden.
+  /// </summary>
+  public int KanbanUpdateIntervalMs { get; set; } = 30000;
+
+  /// <summary>
+  /// Gets or sets a value indicating whether Animationen reduziert werden sollen (Performance).
+  /// </summary>
+  public bool ReduceAnimations { get; set; }
+
+  /// <summary>
+  /// Gets or sets den Namen des ausgewählten Benachrichtigungstons.
+  /// </summary>
+  public string NotificationSound { get; set; } = "Default";
+
+  /// <summary>
+  /// Gets or sets a value indicating whether E-Mail-Benachrichtigungen aktiviert sind.
+  /// </summary>
+  public bool EmailNotificationsEnabled { get; set; } = true;
+
+  /// <summary>
+  /// Gets or sets den SLA-Schwellenwert in Stunden für dieses Profil/Organisation-Kontext.
+  /// </summary>
+  public int SlaThresholdHours { get; set; } = 4;
 }

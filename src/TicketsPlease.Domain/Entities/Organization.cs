@@ -25,4 +25,44 @@ public class Organization : BaseAuditableEntity
   /// Gets or sets a value indicating whether die Organisation aktiv ist und Zugriff auf das System hat.
   /// </summary>
   public bool IsActive { get; set; } = true;
+
+  /// <summary>
+  /// Gets or sets das Intervall für SLA-Prüfungen in Minuten.
+  /// </summary>
+  public int SlaCheckIntervalMinutes { get; set; } = 15;
+
+  /// <summary>
+  /// Gets or sets den Beginn der Ruhezeit (HH:mm).
+  /// </summary>
+  public TimeSpan? QuietHoursStart { get; set; }
+
+  /// <summary>
+  /// Gets or sets das Ende der Ruhezeit (HH:mm).
+  /// </summary>
+  public TimeSpan? QuietHoursEnd { get; set; }
+
+  /// <summary>
+  /// Gets or sets die lokale Zeitzone der Organisation (z.B. "W. Europe Standard Time").
+  /// </summary>
+  public string TimeZoneId { get; set; } = "UTC";
+
+  /// <summary>
+  /// Gets or sets a value indicating whether bei Low-Priorität benachrichtigt werden soll.
+  /// </summary>
+  public bool NotifyOnLow { get; set; } = true;
+
+  /// <summary>
+  /// Gets or sets a value indicating whether bei Medium-Priorität benachrichtigt werden soll.
+  /// </summary>
+  public bool NotifyOnMedium { get; set; } = true;
+
+  /// <summary>
+  /// Gets or sets a value indicating whether bei High-Priorität benachrichtigt werden soll.
+  /// </summary>
+  public bool NotifyOnHigh { get; set; } = true;
+
+  /// <summary>
+  /// Gets or sets a value indicating whether bei Blocker-Priorität benachrichtigt werden soll.
+  /// </summary>
+  public bool NotifyOnBlocker { get; set; } = true;
 }
