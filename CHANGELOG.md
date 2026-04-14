@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.14.0-alpha] - 2026-04-14
+
+### Added
+
+- **Enterprise Governance Infrastructure**: Vollständige Implementierung von organisationsweiten SLAs, Quiet Hours, Prioritäts-Filtern und Notification Preferences.
+- **SLA Background Worker**: Automatisierter, Mandanten-fähiger Hintergrunddienst zur permanenten Überwachung von SLA-Verletzungen unter Berücksichtigung von Zeitzonen.
+- **Audit & Governance Log**: Unveränderlicher Audit-Trail (Append-Only) im neuen Product Owner Dashboard zur Nachverfolgung sicherheitsrelevanter Konfigurationsänderungen.
+- **Stakeholder Dashboard**: Neue KPI-Übersicht für Projektsponsoren mit Team Velocity, SLA-Einhaltung und aggregierten Gesundheitsmetriken.
+- **Admin System Maintenance**: Danger Zone Operations für Datenbank-Wipe und Tabellen-Truncate, geschützt durch "DELETE CONFIRM" Security Phrases.
+- **Organization Invites**: Token-basierter Einladungs- und Registrierungsworkflow inklusive Profilvervollständigung (Position, Adresse).
+- **Circular Dependency Detection**: Validierung beim Anlegen von Ticket-Abhängigkeiten zur Vermeidung von Endlosschleifen.
+
+### Improved
+
+- **User Profiles**: Erweiterung um spezifische Einstellungen (Kanban-Intervalle, Animations-Reduktion, Notification Sounds).
+- **Clean Architecture Refactoring**: Restriktiver Domain-Fokus – direkte Datenbankzugriffe aus Web Controllern entfernt und durch dedizierte Application Services (z.B. `OrganizationService`) ersetzt.
+- **Tenant Context Query Filter**: Globale EF Core Abfragefilter zur automatischen Isolierung von Organisationsdaten bei gleichzeitigem Admin-Bypass.
+
 ## [0.13.0-alpha] - 2026-04-12
 
 ### Added

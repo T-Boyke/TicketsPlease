@@ -176,7 +176,7 @@ Normalform) Datenbankschema frei:
 
 | ID  | Feature                  | Status      | Priority | Description                                             |
 | --- | ------------------------ | ----------- | -------- | ------------------------------------------------------- |
-| F1  | **Workspace Management** | _Pflicht_   | Hoch     | Erstellen/Verwalten von Workspaces/Organisationen       |
+| F1  | **Workspace Management** | ✅ Erledigt | Hoch     | Erstellen/Verwalten von Workspaces/Organisationen       |
 | F2  | **Team-Zuweisung**       | ✅ Erledigt | Mittel   | Tickets können Teams statt Individuen zugewiesen werden; Inkl. Beitrittsanfragen. |
 
 - [x] **Broadcast Mails:** Teamleads senden via MailKit. (Mock-Logik implementiert)
@@ -189,6 +189,7 @@ Normalform) Datenbankschema frei:
 **1. Audit & Compliance:**
 
 - [x] **Ticket History (Audit-Log):** Append-Only-Tabelle für alle Änderungen.
+- [x] **Governance Log:** Unveränderlicher Audit-Trail für organisationsweite Einstellungsänderungen im Product Owner Dashboard.
 - [x] **SEO & Accessibility Excellence:** 100% Lighthouse Audit Ziel.
 - [x] **Optimistic Concurrency (Race Conditions):** Schutz gegen parallele Bearbeitung.
 
@@ -204,7 +205,8 @@ Normalform) Datenbankschema frei:
 
 **4. Service Level Agreements (SLAs):**
 
-- [~] **Automatisierte Countdowns:** Response- und Resolution-Times (Real-time Badges auf Ticket-Karten).
+- [x] **Automatisierte Countdowns:** Response- und Resolution-Times (Real-time Badges auf Ticket-Karten).
+- [x] **SLA Background Worker:** Automatisierte Mandanten-Überwachung der SLA-Zeiten mit Quiet Hours, Zeitzonen-Berücksichtigung und Prioritätsfilter.
 
 **5. Faceted Search & Filtering (EF Core):**
 
