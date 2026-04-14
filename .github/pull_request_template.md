@@ -10,15 +10,15 @@ Fixes # (issue)
 
 - [ ] 🐛 Bug fix (non-breaking change which fixes an issue)
 - [ ] 🚀 New feature (non-breaking change which adds functionality)
-- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality
-      to not work as expected)
+- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to not work as
+      expected)
 - [ ] 🧹 Chore / Refactoring (Technical task)
 - [ ] 🤖 AI-Generated (This PR was created or assisted by Antigravity)
 
 ## Conventional Commits
 
-- [ ] I have used [Conventional Commits](https://www.conventionalcommits.org/)
-      for my commit messages.
+- [ ] I have used [Conventional Commits](https://www.conventionalcommits.org/) for my commit
+      messages.
 
 ## How Has This Been Tested?
 

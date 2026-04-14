@@ -15,8 +15,7 @@ Werkzeuge und Prozesse für das TicketsPlease Frontend.
 Verwaltet clientseitige Bibliotheken in `wwwroot/lib`.
 
 - **Konfiguration:** `libman.json` im Web-Projekt.
-- **Wichtig:** Keine CDNs! Alle Bibliotheken müssen lokal vorhanden sein (DSGVO
-  & Performance).
+- **Wichtig:** Keine CDNs! Alle Bibliotheken müssen lokal vorhanden sein (DSGVO & Performance).
 - **Update:** Rechtsklick auf `libman.json` -> "Restore Client-Side Libraries".
 
 ---

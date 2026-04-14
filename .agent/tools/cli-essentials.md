@@ -25,10 +25,8 @@ Standard-Operationen für die Solution:
 
 Verwaltung der Datenbank-Migrationen:
 
-- `dotnet ef migrations add [Name] --project src/TicketsPlease.Infrastructure \
-  --startup-project src/TicketsPlease.Web`
-- `dotnet ef database update --project src/TicketsPlease.Infrastructure \
-  --startup-project src/TicketsPlease.Web`
+- `dotnet ef migrations add [Name] --project src/TicketsPlease.Infrastructure \ --startup-project src/TicketsPlease.Web`
+- `dotnet ef database update --project src/TicketsPlease.Infrastructure \ --startup-project src/TicketsPlease.Web`
 
 ---
 
@@ -37,8 +35,7 @@ Verwaltung der Datenbank-Migrationen:
 Das Projekt nutzt `tailwindcss-dotnet` (v2.0.0-beta.3) als lokales Tool:
 
 - `dotnet tailwind init`: Initialisiert Tailwind (falls nötig).
-- **Integration:** Läuft primär über MSBuild beim Build-Prozess der
-  `TicketsPlease.Web`.
+- **Integration:** Läuft primär über MSBuild beim Build-Prozess der `TicketsPlease.Web`.
 
 ---
 

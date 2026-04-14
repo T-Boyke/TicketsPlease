@@ -1,8 +1,8 @@
 # 🧪 TicketsPlease – The "Perfect Testing" Guide
 
-Dieses Dokument beschreibt die kompromisslose Testing-Strategie für das TicketsPlease-Projekt.
-Unser Ziel ist nicht nur formale "100% Coverage", sondern absolute Sicherheit gegen Regressionen
-und Architekturbereiche.
+Dieses Dokument beschreibt die kompromisslose Testing-Strategie für das TicketsPlease-Projekt. Unser
+Ziel ist nicht nur formale "100% Coverage", sondern absolute Sicherheit gegen Regressionen und
+Architekturbereiche.
 
 ---
 
@@ -62,8 +62,8 @@ Wir trennen unsere Test-Suites physisch und logisch.
 ### 2.4 Architectural Tests (`NetArchTest.eXtend`)
 
 - **Fokus:** Verhinderung von Clean Architecture Verstößen.
-- **Regel:** Die Test-Suite prüft via Reflection, ob Referenzen zur falschen Richtung zeigen
-  (z.B., dass das `Domain`-Projekt keine Using-Statements aus dem `Web`-UI Projekt hat).
+- **Regel:** Die Test-Suite prüft via Reflection, ob Referenzen zur falschen Richtung zeigen (z.B.,
+  dass das `Domain`-Projekt keine Using-Statements aus dem `Web`-UI Projekt hat).
 
 ---
 
@@ -82,10 +82,11 @@ Was unterscheidet einen guten Test von einem perfekten Test?
 
 ### 100% Coverage vs. Mutation Testing (Stryker.NET)
 
-Line-Coverage beweist nur, dass Code _ausgeführt_ wurde, nicht, dass er von Assertions _geprüft_ wurde.
-Wir nutzen **Stryker.NET** (Mutation Testing). Stryker manipuliert zur Laufzeit heimlich deinen C#-Code
-(tauscht `<` durch `>`, modifiziert Strings, löscht Methodenaufrufe) und schaut, ob dein Test dann
-fehlschlägt. Besteht der Test trotzdem, hast du einen "Mutanten" erschaffen -> Der Test ist unzureichend!
+Line-Coverage beweist nur, dass Code _ausgeführt_ wurde, nicht, dass er von Assertions _geprüft_
+wurde. Wir nutzen **Stryker.NET** (Mutation Testing). Stryker manipuliert zur Laufzeit heimlich
+deinen C#-Code (tauscht `<` durch `>`, modifiziert Strings, löscht Methodenaufrufe) und schaut, ob
+dein Test dann fehlschlägt. Besteht der Test trotzdem, hast du einen "Mutanten" erschaffen -> Der
+Test ist unzureichend!
 
 ### Fakten vs. Theorien (xUnit)
 
@@ -97,8 +98,8 @@ Dupliziere keinen Code für Edge-Cases.
 
 ### Data Builders & Fuzzing (Bogus)
 
-Tests, die mit `var name = "Test"` arbeiten, sind fragil. Nutze **Bogus**, um realistische
-Testdaten zu generieren.
+Tests, die mit `var name = "Test"` arbeiten, sind fragil. Nutze **Bogus**, um realistische Testdaten
+zu generieren.
 
 ```csharp
 var faker = new Faker<Ticket>()
@@ -108,8 +109,8 @@ var faker = new Faker<Ticket>()
 
 ### Snapshot Testing (VerifyTests)
 
-Anstatt JSON-Outputs oder komplexe verschachtelte DTOs mit 50 Zeilen
-Assertions zu prüfen, validieren wir sie gegen Snapshots.
+Anstatt JSON-Outputs oder komplexe verschachtelte DTOs mit 50 Zeilen Assertions zu prüfen,
+validieren wir sie gegen Snapshots.
 
 ```csharp
 [Fact]
@@ -122,8 +123,8 @@ public Task Export_ShouldMatchSnapshot()
 
 ### Der Zeit-Manipulator (TimeProvider)
 
-Nutzung von `DateTime.Now` führt zu Flaky Tests (besonders bei SLAs oder Ablauf-Logiken).
-Nutze in der Produktion immer das .NET 8 `TimeProvider` interface. In den Tests injizieren wir den
+Nutzung von `DateTime.Now` führt zu Flaky Tests (besonders bei SLAs oder Ablauf-Logiken). Nutze in
+der Produktion immer das .NET 8 `TimeProvider` interface. In den Tests injizieren wir den
 `FakeTimeProvider`. So können wir die Zeit in Tests manuell manipulieren:
 
 ```csharp

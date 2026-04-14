@@ -6,8 +6,8 @@
 
 ## Context and Problem Statement
 
-Bei komplexen Projekten besteht die Gefahr des "Scope Creeps" (Verzettelung),
-besonders im Rahmen einer zeitkritischen Projektarbeit (80 Stunden).
+Bei komplexen Projekten besteht die Gefahr des "Scope Creeps" (Verzettelung), besonders im Rahmen
+einer zeitkritischen Projektarbeit (80 Stunden).
 
 ## Decision Drivers
 
@@ -24,10 +24,9 @@ besonders im Rahmen einer zeitkritischen Projektarbeit (80 Stunden).
 
 ## Decision Outcome
 
-Chosen option: "Striktes MVP mit phasenweiser Erweiterung", because es
-sicherstellt, dass die Basisfunktionalität (Ticket, Kanban, Identity) zum
-Abgabetermin 100% stabil ist, während das Architektur-Design und die
-Dokumentation bereits den Weg für Enterprise-Features ebnen.
+Chosen option: "Striktes MVP mit phasenweiser Erweiterung", because es sicherstellt, dass die
+Basisfunktionalität (Ticket, Kanban, Identity) zum Abgabetermin 100% stabil ist, während das
+Architektur-Design und die Dokumentation bereits den Weg für Enterprise-Features ebnen.
 
 ### Positive Consequences
 
@@ -45,5 +44,4 @@ Dokumentation bereits den Weg für Enterprise-Features ebnen.
 
 - Good, because kontrolliertes Projektrisiko.
 - Good, because klare Meilensteine.
-- Bad, because erfordert Disziplin (Nein-Sagen zu neuen Features während Phase
-  1).
+- Bad, because erfordert Disziplin (Nein-Sagen zu neuen Features während Phase 1).

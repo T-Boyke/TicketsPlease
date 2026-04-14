@@ -6,9 +6,9 @@
 
 ## Context and Problem Statement
 
-Wir benötigen eine Struktur, die das System testbar, unabhängig von Frameworks
-und leicht erweiterbar macht. Eine eng gekoppelte Architektur führt bei
-wachsenden Anforderungen (Phase 2-5) zu Wartungsproblemen.
+Wir benötigen eine Struktur, die das System testbar, unabhängig von Frameworks und leicht
+erweiterbar macht. Eine eng gekoppelte Architektur führt bei wachsenden Anforderungen (Phase 2-5) zu
+Wartungsproblemen.
 
 ## Decision Drivers
 
@@ -25,17 +25,15 @@ wachsenden Anforderungen (Phase 2-5) zu Wartungsproblemen.
 
 ## Decision Outcome
 
-Chosen option: "Clean Architecture", because sie die Domain (Geschäftsregeln) in
-das Zentrum stellt und Abhängigkeiten strikt nach innen (Richtung Core)
-definiert. Dies ermöglicht es, die Infrastructure (DB) oder Presentation (MVC)
-auszutauschen, ohne die Kern-Logik zu verändern.
+Chosen option: "Clean Architecture", because sie die Domain (Geschäftsregeln) in das Zentrum stellt
+und Abhängigkeiten strikt nach innen (Richtung Core) definiert. Dies ermöglicht es, die
+Infrastructure (DB) oder Presentation (MVC) auszutauschen, ohne die Kern-Logik zu verändern.
 
 ### Positive Consequences
 
 - Domain-Code ist 100% testbar ohne Datenbank-Mocking-Hölle.
 - Wir können problemlos zwischen SQL Server und anderen Providern wechseln.
-- Die Projektstruktur ist für das Projekt professionell und
-  State-of-the-Art.
+- Die Projektstruktur ist für das Projekt professionell und State-of-the-Art.
 
 ### Negative Consequences
 
@@ -48,8 +46,7 @@ auszutauschen, ohne die Kern-Logik zu verändern.
 
 - Good, because Geschäftsregeln sind isoliert und geschützt.
 - Good, because Abhängigkeiten fließen nur nach innen.
-- Bad, because initiale Boilerplate-Kosten (4 Projekte) sind höher als bei
-  N-Tier.
+- Bad, because initiale Boilerplate-Kosten (4 Projekte) sind höher als bei N-Tier.
 
 ### N-Tier Architecture
 

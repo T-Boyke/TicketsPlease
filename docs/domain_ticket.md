@@ -1,7 +1,7 @@
 # Core Domain: The Ticket Entity
 
-Die `Ticket`-Entität ist das absolut zentrale Objekt dieser Applikation. Sie
-unterliegt strikten Design-Regeln aus dem _Domain-Driven Design (DDD)_.
+Die `Ticket`-Entität ist das absolut zentrale Objekt dieser Applikation. Sie unterliegt strikten
+Design-Regeln aus dem _Domain-Driven Design (DDD)_.
 
 ## MVP-Eigenschaften (F3 Pflicht)
 
@@ -24,8 +24,7 @@ Die folgenden Properties sind für die Prüfung zwingend erforderlich:
 Die folgenden Properties werden erst nach der Prüfung implementiert:
 
 - **Sha1Hash:** `string` (Globale Identifikation)
-- **State / WorkflowStateId:** `Guid` FK (Kanban-Status: ToDo, InProgress,
-  Review, Done)
+- **State / WorkflowStateId:** `Guid` FK (Kanban-Status: ToDo, InProgress, Review, Done)
 - **Priority:** `TicketPriority` Enum (`Low`, `Medium`, `High`, `Blocker`)
 - **Complexity / Difficulty (Chillischoten 🌶️):** `byte` (1 bis 5)
 - **GeoIpTimestamp:** `string` (Audit: IP/Geo + Zeitstempel)
@@ -40,24 +39,21 @@ Die folgenden Properties werden erst nach der Prüfung implementiert:
 
 ## Domain Logic & Encapsulation
 
-Wir nutzen im Domain Layer **Rich Models** anstelle von anämischen
-(datengetriebenen) Modellen. Dies bedeutet:
+Wir nutzen im Domain Layer **Rich Models** anstelle von anämischen (datengetriebenen) Modellen. Dies
+bedeutet:
 
-1. **Properties besitzen `private set`:** Sie können nicht einfach von außen
-   manipuliert werden (`ticket.Status = TicketStatus.Done;` ist verboten!).
-2. **Verhaltens-Methoden:** Zustandsänderungen geschehen ausschließlich über
-   definierte Methoden der Klasse (z.B. `ticket.MoveToReview(Guid userId)`), die
-   intern sicherstellen, dass alle Business-Regeln eingehalten werden.
+1. **Properties besitzen `private set`:** Sie können nicht einfach von außen manipuliert werden
+   (`ticket.Status = TicketStatus.Done;` ist verboten!).
+2. **Verhaltens-Methoden:** Zustandsänderungen geschehen ausschließlich über definierte Methoden der
+   Klasse (z.B. `ticket.MoveToReview(Guid userId)`), die intern sicherstellen, dass alle
+   Business-Regeln eingehalten werden.
 3. **Strict Close Rules (Ticket-Schließung):**
-   - Ein Ticket darf nur manuell über die Methode `ticket.Close(User actor)`
-     geschlossen werden. Diese Methode prüft zwingend, ob der `actor` entweder
-     der Ersteller (`CreatorId`), ein `Admin` oder ein `Teamlead` ist. Normale
-     Bearbeiter dürfen Tickets nur auf "Done" verschieben, aber nicht
-     wegschließen.
-   - _Auto-Close:_ Ein geplanter Background-Task (Cronjob) darf Tickets, die
-     länger als X Tage auf "Done" stehen, automatisiert ins Archiv/Closed
-     verschieben.
-4. **Konstruktoren:** Es gibt keinen leeren Parameterlosen Konstruktor für die
-   Erstellung. Ein Ticket **muss** immer mit den minimalen Pflichtfeldern
-   (Title, Context, GeoIpTimestamp) initialisiert werden und generiert bei
-   Erstellung zwingend seinen `Sha1Hash`.
+   - Ein Ticket darf nur manuell über die Methode `ticket.Close(User actor)` geschlossen werden.
+     Diese Methode prüft zwingend, ob der `actor` entweder der Ersteller (`CreatorId`), ein `Admin`
+     oder ein `Teamlead` ist. Normale Bearbeiter dürfen Tickets nur auf "Done" verschieben, aber
+     nicht wegschließen.
+   - _Auto-Close:_ Ein geplanter Background-Task (Cronjob) darf Tickets, die länger als X Tage auf
+     "Done" stehen, automatisiert ins Archiv/Closed verschieben.
+4. **Konstruktoren:** Es gibt keinen leeren Parameterlosen Konstruktor für die Erstellung. Ein
+   Ticket **muss** immer mit den minimalen Pflichtfeldern (Title, Context, GeoIpTimestamp)
+   initialisiert werden und generiert bei Erstellung zwingend seinen `Sha1Hash`.

@@ -6,18 +6,17 @@
 
 ## Kontext
 
-Die Aufgabe (F8.1) fordert eine Workflow-Verwaltung für Tickets. Admins
-können Workflows erstellen (CRUD). Ein Workflow hat eine ID und Bezeichnung
-und besteht aus einer Reihe von Status. Jedem Projekt wird genau ein
-Workflow zugeordnet.
+Die Aufgabe (F8.1) fordert eine Workflow-Verwaltung für Tickets. Admins können Workflows erstellen
+(CRUD). Ein Workflow hat eine ID und Bezeichnung und besteht aus einer Reihe von Status. Jedem
+Projekt wird genau ein Workflow zugeordnet.
 
-Optional: Status-Folge-Regeln (welche Status-Übergänge erlaubt sind) und
-rollenbasierte Status-Vergabe.
+Optional: Status-Folge-Regeln (welche Status-Übergänge erlaubt sind) und rollenbasierte
+Status-Vergabe.
 
 ## Entscheidung
 
-Wir nutzen das bestehende **`WorkflowState`-Entity** (bereits im Domain
-Layer) und erweitern es um ein **`Workflow`-Aggregat**.
+Wir nutzen das bestehende **`WorkflowState`-Entity** (bereits im Domain Layer) und erweitern es um
+ein **`Workflow`-Aggregat**.
 
 ### Implementierung
 
@@ -29,13 +28,12 @@ Layer) und erweitern es um ein **`Workflow`-Aggregat**.
    - `Name`, `OrderIndex`, `ColorHex`, `IsTerminalState`
 3. **Project ↔ Workflow:** `Project.WorkflowId` (Guid, FK → Workflow).
 4. **Admin-CRUD:** `/Admin/Workflows/` mit Create, Edit, Delete, Index.
-5. **Ticket-Status:** Ticket referenziert `WorkflowStateId` statt
-   String-basiertem Status.
+5. **Ticket-Status:** Ticket referenziert `WorkflowStateId` statt String-basiertem Status.
 
 ### Optional (wenn Zeit)
 
-- `WorkflowTransition` (bereits im Domain Layer): Definiert erlaubte
-  Status-Übergänge und Rollen-Berechtigungen pro Übergang.
+- `WorkflowTransition` (bereits im Domain Layer): Definiert erlaubte Status-Übergänge und
+  Rollen-Berechtigungen pro Übergang.
 
 ## Konsequenzen
 

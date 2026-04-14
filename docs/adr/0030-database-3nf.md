@@ -6,9 +6,8 @@
 
 ## Context and Problem Statement
 
-Für ein Ticketsystem mit komplexen Zuweisungen (User & Teams), Time-Tracking und
-Historien ist die Datenintegrität kritisch. Ein schlechtes Schema führt zu
-Redundanzen und Update-Anomalien.
+Für ein Ticketsystem mit komplexen Zuweisungen (User & Teams), Time-Tracking und Historien ist die
+Datenintegrität kritisch. Ein schlechtes Schema führt zu Redundanzen und Update-Anomalien.
 
 ## Decision Drivers
 
@@ -25,9 +24,9 @@ Redundanzen und Update-Anomalien.
 
 ## Decision Outcome
 
-Chosen option: "SQL mit 3. Normalform (3NF)", because es Redundanzen eliminiert,
-die Integrität via Foreign-Keys schützt und die Basis für komplexe Relationen
-(wie das n:m Plugin-Setting-System) bildet.
+Chosen option: "SQL mit 3. Normalform (3NF)", because es Redundanzen eliminiert, die Integrität via
+Foreign-Keys schützt und die Basis für komplexe Relationen (wie das n:m Plugin-Setting-System)
+bildet.
 
 ### Positive Consequences
 

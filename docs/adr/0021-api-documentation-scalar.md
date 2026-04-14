@@ -6,10 +6,9 @@
 
 ## Context and Problem Statement
 
-Für Enterprise-Systeme und die Anbindung von Plugins ist eine erstklassige
-API-Dokumentation unerlässlich. Wir benötigen ein Tool, das
-Swagger/OpenAPI-Definitionen nicht nur anzeigt, sondern sie visuell ansprechend
-und interaktiv aufbereitet.
+Für Enterprise-Systeme und die Anbindung von Plugins ist eine erstklassige API-Dokumentation
+unerlässlich. Wir benötigen ein Tool, das Swagger/OpenAPI-Definitionen nicht nur anzeigt, sondern
+sie visuell ansprechend und interaktiv aufbereitet.
 
 ## Decision Drivers
 
@@ -26,10 +25,9 @@ und interaktiv aufbereitet.
 
 ## Decision Outcome
 
-Chosen option: "Scalar", because es eine modernere, ästhetisch ansprechendere
-Benutzeroberfläche bietet als das klassische Swagger UI. Es ist
-"Developer-First" gestaltet und integriert mächtige Testing-Features und
-Client-Code-Generatoren direkt in der Dokumentations-Ansicht.
+Chosen option: "Scalar", because es eine modernere, ästhetisch ansprechendere Benutzeroberfläche
+bietet als das klassische Swagger UI. Es ist "Developer-First" gestaltet und integriert mächtige
+Testing-Features und Client-Code-Generatoren direkt in der Dokumentations-Ansicht.
 
 ### Positive Consequences
 
@@ -39,8 +37,7 @@ Client-Code-Generatoren direkt in der Dokumentations-Ansicht.
 
 ### Negative Consequences
 
-- Scalar ist neuer als Swagger UI, was potenziell weniger Community-Hilfe bei
-  Fehlern bedeutet.
+- Scalar ist neuer als Swagger UI, was potenziell weniger Community-Hilfe bei Fehlern bedeutet.
 
 ## Pros and Cons of the Options
 

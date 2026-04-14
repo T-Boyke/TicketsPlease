@@ -6,10 +6,9 @@
 
 ## Context and Problem Statement
 
-In einer modernen Enterprise-Welt sind reine Text-Logs schwer zu durchsuchen und
-zu analysieren. Wir benötigen strukturierte Informationen in den Logs, um Fehler
-in komplexen Workflows (z.B. Ticket-Plugin-Interaktionen) schnell identifizieren
-zu können.
+In einer modernen Enterprise-Welt sind reine Text-Logs schwer zu durchsuchen und zu analysieren. Wir
+benötigen strukturierte Informationen in den Logs, um Fehler in komplexen Workflows (z.B.
+Ticket-Plugin-Interaktionen) schnell identifizieren zu können.
 
 ## Decision Drivers
 
@@ -26,9 +25,9 @@ zu können.
 
 ## Decision Outcome
 
-Chosen option: "Serilog", because es "Structured Logging" nativ unterstützt.
-Anstatt Nachrichten zu formatieren, speichert Serilog Datenobjekte (JSON), was
-granulare Abfragen über Log-Felder (z.B. `TicketId`) ermöglicht.
+Chosen option: "Serilog", because es "Structured Logging" nativ unterstützt. Anstatt Nachrichten zu
+formatieren, speichert Serilog Datenobjekte (JSON), was granulare Abfragen über Log-Felder (z.B.
+`TicketId`) ermöglicht.
 
 ### Positive Consequences
 

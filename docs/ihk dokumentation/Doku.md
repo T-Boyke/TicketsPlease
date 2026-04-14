@@ -10,14 +10,15 @@ Abschlussprojekt mit der Entwicklung eines ticketbasierten Aufgabenmanagementsys
 
 Die **Beispiel GmbH** ist ein junges, aufstrebendes IT-Unternehmen mit Sitz im Herzen von Neuss.
 Seit ihrer Gründung im Jahr 2025 hat sich die Firma darauf spezialisiert, maßgeschneiderte
-Webanwendungen und anspruchsvolle Unternehmenslösungen zu entwickeln. **14 Mitarbeiter**,
-bestehend aus Backend- und Frontend-Entwicklern, UI/UX-Designern, Projektmanagern und
-Content-Spezialisten, arbeiten vorwiegend für Kunden aus dem produzierenden Gewerbe, der Logistik
-und der Edutainment-Branche.
+Webanwendungen und anspruchsvolle Unternehmenslösungen zu entwickeln. **14 Mitarbeiter**, bestehend
+aus Backend- und Frontend-Entwicklern, UI/UX-Designern, Projektmanagern und Content-Spezialisten,
+arbeiten vorwiegend für Kunden aus dem produzierenden Gewerbe, der Logistik und der
+Edutainment-Branche.
 
 Aufgrund des stetigen Wachstums und der zunehmenden Komplexität interner und externer Projekte wurde
 die Beispiel GmbH von einem langjährigen Partner aus der Logistikbranche beauftragt, ein
-spezialisiertes Ticketsystem zu entwickeln, das exakt auf deren granulare Workflows zugeschnitten ist.
+spezialisiertes Ticketsystem zu entwickeln, das exakt auf deren granulare Workflows zugeschnitten
+ist.
 
 Zu den Stakeholdern des Projekts zählen:
 
@@ -37,10 +38,10 @@ zu gewährleisten.
 ### **1.3 Projektbegründung**
 
 Effizientes Projektmanagement erfordert eine lückenlose Dokumentation von Fehlern und Anforderungen.
-Bestehende Lösungen sind oft entweder zu komplex (Overhead) oder bieten nicht die nötige Flexibilität
-für spezialisierte Workflows. Durch die Eigenentwicklung "TicketsPlease" auf Basis moderner
-Webtechnologien (ASP.NET Core 8/10, Entity Framework Core) wird eine Lösung geschaffen, die exakt
-die benötigten Features ohne unnötigen Ballast bereitstellt. Dies führt zu einer signifikanten
+Bestehende Lösungen sind oft entweder zu komplex (Overhead) oder bieten nicht die nötige
+Flexibilität für spezialisierte Workflows. Durch die Eigenentwicklung "TicketsPlease" auf Basis
+moderner Webtechnologien (ASP.NET Core 8/10, Entity Framework Core) wird eine Lösung geschaffen, die
+exakt die benötigten Features ohne unnötigen Ballast bereitstellt. Dies führt zu einer signifikanten
 Zeitersparnis bei der Ticketbearbeitung und dient gleichzeitig der Beispiel GmbH als Referenz für
 robuste Enterprise-Backend-Lösungen.
 
@@ -70,16 +71,18 @@ vergleichbaren Enterprise-Lizenzen.
 
 Bisher erfolgt die Fehlererfassung beim Kunden manuell über Tabellenkalkulationen (Excel) und
 E-Mail-Verkehr. Dies führt zu Inkonsistenzen, fehlender Rückverfolgbarkeit und Verzögerungen in der
-Kommunikation. Es existiert keine zentrale Codebasis für ein Ticket-Management
-("Greenfield Project").
+Kommunikation. Es existiert keine zentrale Codebasis für ein Ticket-Management ("Greenfield
+Project").
 
 **Technische Ausgangslage:**
 
 - Entwickler-Workstation mit Windows 11 und Rocky Linux 10.
 - Zugriff auf .NET SDK 10, Visual Studio 2022 / JetBrains Rider.
-- **Infrastruktur-Setup:** Vollständig eingerichtetes GitHub-Repository mit `.github` Templates (Issue/PR).
+- **Infrastruktur-Setup:** Vollständig eingerichtetes GitHub-Repository mit `.github` Templates
+  (Issue/PR).
 - **Time-Management:** Integriertes Tracking über **WakaTime** für präzise Zeitaufwandsanalysen.
-- **IDE-Standardisierung:** Gemeinsame Konfigurationen für `.vs`, `.vscode` und `.idea` (Shared Settings/EditorConfig).
+- **IDE-Standardisierung:** Gemeinsame Konfigurationen für `.vs`, `.vscode` und `.idea` (Shared
+  Settings/EditorConfig).
 - Bestehende CI/CD Pipeline (GitHub Actions) für automatisierte Tests und Deployments.
 
 ### **2.2. Soll-Analyse**
@@ -105,7 +108,8 @@ erfüllen:
 - **Architektur:** Clean Architecture (Domain Driven Design Ansätze).
 - **UI/UX:** Responsive Design mit Tailwind CSS (Corporate Design).
 - **Qualität:** Hohe Testabdeckung und automatisierte CI/CD Pipeline (GitHub Actions).
-- **Projektmanagement:** Agiles Kanban-Board via **GitHub Projects** mit Issue-Abhängigkeiten (Parent/Child/Blocked).
+- **Projektmanagement:** Agiles Kanban-Board via **GitHub Projects** mit Issue-Abhängigkeiten
+  (Parent/Child/Blocked).
 
 ### **2.3 Zeitplanung**
 

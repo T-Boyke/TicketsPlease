@@ -6,10 +6,9 @@
 
 ## Context and Problem Statement
 
-In einer Clean Architecture neigen Service-Klassen dazu, mit der Zeit
-anzuschwellen und zu "God-Objects" zu werden, die zu viele Verantwortlichkeiten
-übernehmen. Wir benötigen ein Muster, das die Logik für Lese- und
-Schreibvorgänge sauber trennt und die Kopplung minimiert.
+In einer Clean Architecture neigen Service-Klassen dazu, mit der Zeit anzuschwellen und zu
+"God-Objects" zu werden, die zu viele Verantwortlichkeiten übernehmen. Wir benötigen ein Muster, das
+die Logik für Lese- und Schreibvorgänge sauber trennt und die Kopplung minimiert.
 
 ## Decision Drivers
 
@@ -26,16 +25,14 @@ Schreibvorgänge sauber trennt und die Kopplung minimiert.
 
 ## Decision Outcome
 
-Chosen option: "CQRS mit MediatR", because es jeden Use-Case (z.B. "Ticket
-erstellen") in eine eigene Handler-Klasse isoliert. MediatR fungiert als
-In-Memory Message Bus, was die Kopplung zwischen Web-API und Geschäftslogik auf
-ein Minimum reduziert.
+Chosen option: "CQRS mit MediatR", because es jeden Use-Case (z.B. "Ticket erstellen") in eine
+eigene Handler-Klasse isoliert. MediatR fungiert als In-Memory Message Bus, was die Kopplung
+zwischen Web-API und Geschäftslogik auf ein Minimum reduziert.
 
 ### Positive Consequences
 
 - Jeder Use-Case ist in einer isolierten Datei/Klasse (SRP perfekt umgesetzt).
-- Einfache Implementierung von Middlewares (MediatR Behaviors) für Caching oder
-  Validierung.
+- Einfache Implementierung von Middlewares (MediatR Behaviors) für Caching oder Validierung.
 - Hervorragende Testbarkeit der einzelnen Handler.
 
 ### Negative Consequences
@@ -54,5 +51,5 @@ ein Minimum reduziert.
 ### Klassische Services
 
 - Good, because weniger Dateien und Indirektion.
-- Bad, because Services neigen dazu, hunderte Zeilen Code mit
-  unzusammenhängender Logik zu enthalten.
+- Bad, because Services neigen dazu, hunderte Zeilen Code mit unzusammenhängender Logik zu
+  enthalten.

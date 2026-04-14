@@ -6,14 +6,14 @@
 
 ## Kontext
 
-Die Aufgabe (F7.1) fordert die Möglichkeit, Tickets als „blockiert
-durch andere Tickets" zu markieren. Ein Ticket kann nur geschlossen werden,
-wenn alle blockierenden Tickets bereits geschlossen sind.
+Die Aufgabe (F7.1) fordert die Möglichkeit, Tickets als „blockiert durch andere Tickets" zu
+markieren. Ein Ticket kann nur geschlossen werden, wenn alle blockierenden Tickets bereits
+geschlossen sind.
 
 ## Entscheidung
 
-Wir implementieren eine **n:m-Beziehung** (Self-Referencing Many-to-Many)
-über eine Join-Tabelle `TicketDependency`.
+Wir implementieren eine **n:m-Beziehung** (Self-Referencing Many-to-Many) über eine Join-Tabelle
+`TicketDependency`.
 
 ### Implementierung
 
@@ -35,15 +35,14 @@ Wir implementieren eine **n:m-Beziehung** (Self-Referencing Many-to-Many)
 ### Positiv
 
 - Saubere relationale Modellierung (keine JSON-Arrays im Ticket).
-- Domain-Logik erzwingt Geschäftsregel „Close nur wenn alle Blocker
-  geschlossen".
+- Domain-Logik erzwingt Geschäftsregel „Close nur wenn alle Blocker geschlossen".
 - Einfache Query: `ticket.Blockers.All(b => b.IsClosed)`.
 
 ### Negativ
 
 - Neue Entity und Migration erforderlich.
-- Zirkuläre Abhängigkeiten sind möglich (A blockiert B, B blockiert A) –
-  für MVP keine Zykluserkennung implementiert.
+- Zirkuläre Abhängigkeiten sind möglich (A blockiert B, B blockiert A) – für MVP keine
+  Zykluserkennung implementiert.
 
 ## Alternativen
 

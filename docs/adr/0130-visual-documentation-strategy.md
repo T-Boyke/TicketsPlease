@@ -10,15 +10,14 @@ Accepted
 
 ## Context
 
-Understanding the architecture of a complex multi-layered system can be challenging.
-While textual documentation (READMEs, ADRs) is essential, it often lacks the clarity
-of visual representation for stakeholders and new developers.
+Understanding the architecture of a complex multi-layered system can be challenging. While textual
+documentation (READMEs, ADRs) is essential, it often lacks the clarity of visual representation for
+stakeholders and new developers.
 
 ## Decision
 
-We will maintain a "Big 11" set of comprehensive Mermaid diagrams to visualize all
-critical aspects of the system. These diagrams will be co-located in `docs/big5.md`
-and will include:
+We will maintain a "Big 11" set of comprehensive Mermaid diagrams to visualize all critical aspects
+of the system. These diagrams will be co-located in `docs/big5.md` and will include:
 
 1. **Layered Architecture**
 2. **Domain Class Model**

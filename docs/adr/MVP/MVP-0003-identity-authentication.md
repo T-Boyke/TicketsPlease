@@ -6,22 +6,18 @@
 
 ## Kontext
 
-Die Aufgabe (F1.3) fordert eine Authentifizierung/Autorisierung mit dem
-Identity-Framework. Es müssen mindestens die Rollen Admin, Developer und
-Tester existieren. Es wird ein eigener AccountController benötigt. Nicht
-angemeldete Benutzer sehen nur die Startseite.
+Die Aufgabe (F1.3) fordert eine Authentifizierung/Autorisierung mit dem Identity-Framework. Es
+müssen mindestens die Rollen Admin, Developer und Tester existieren. Es wird ein eigener
+AccountController benötigt. Nicht angemeldete Benutzer sehen nur die Startseite.
 
 ## Entscheidung
 
-Wir verwenden **ASP.NET Core Identity** mit Cookie-basierter
-Authentifizierung. Die Implementierung umfasst:
+Wir verwenden **ASP.NET Core Identity** mit Cookie-basierter Authentifizierung. Die Implementierung
+umfasst:
 
-1. **Eigener `AccountController`** mit Login/Logout-Actions (kein
-   Scaffolding der Identity-UI).
-2. **Drei Rollen:** Admin, Developer, Tester – geseeded über
-   `DbInitialiser`.
-3. **`[Authorize]`-Attribut** global auf alle Controller außer der
-   Startseite.
+1. **Eigener `AccountController`** mit Login/Logout-Actions (kein Scaffolding der Identity-UI).
+2. **Drei Rollen:** Admin, Developer, Tester – geseeded über `DbInitialiser`.
+3. **`[Authorize]`-Attribut** global auf alle Controller außer der Startseite.
 4. **Rollenbasierte Autorisierung** via `[Authorize(Roles = "Admin")]`.
 
 ## Konsequenzen
@@ -35,10 +31,8 @@ Authentifizierung. Die Implementierung umfasst:
 
 ### Negativ
 
-- Kein JWT/Bearer Token Support (für MVP nicht nötig, für API in
-  Enterprise nachrüstbar).
-- Benutzerverwaltung (F2.3) ist komplex, da nur über `UserManager`
-  möglich (kein Scaffolding).
+- Kein JWT/Bearer Token Support (für MVP nicht nötig, für API in Enterprise nachrüstbar).
+- Benutzerverwaltung (F2.3) ist komplex, da nur über `UserManager` möglich (kein Scaffolding).
 
 ### Neutral
 

@@ -6,17 +6,16 @@
 
 ## Kontext
 
-Die Aufgabe (F1.1) fordert eine Web-Anwendung, die mit ASP.NET Core ab
-Version 8 umgesetzt wird und dem MVC-Muster folgt. Ein einheitliches Design
-soll durch ein CSS-Framework gewährleistet werden.
+Die Aufgabe (F1.1) fordert eine Web-Anwendung, die mit ASP.NET Core ab Version 8 umgesetzt wird und
+dem MVC-Muster folgt. Ein einheitliches Design soll durch ein CSS-Framework gewährleistet werden.
 
-Wir müssen entscheiden, welche Variante des ASP.NET Core Frameworks (MVC,
-Razor Pages, Blazor, Minimal API) für das Ticketsystem eingesetzt wird.
+Wir müssen entscheiden, welche Variante des ASP.NET Core Frameworks (MVC, Razor Pages, Blazor,
+Minimal API) für das Ticketsystem eingesetzt wird.
 
 ## Entscheidung
 
-Wir verwenden **ASP.NET Core 10 MVC** (Model-View-Controller) als primäres
-Web-Framework mit Razor Views für die serverseitige HTML-Generierung.
+Wir verwenden **ASP.NET Core 10 MVC** (Model-View-Controller) als primäres Web-Framework mit Razor
+Views für die serverseitige HTML-Generierung.
 
 ## Konsequenzen
 
@@ -29,8 +28,8 @@ Web-Framework mit Razor Views für die serverseitige HTML-Generierung.
 
 ### Negativ
 
-- Kein SPA-Erlebnis (Single Page Application) – jeder Seitenaufruf ist ein
-  Full-Page-Reload (für MVP akzeptabel).
+- Kein SPA-Erlebnis (Single Page Application) – jeder Seitenaufruf ist ein Full-Page-Reload (für MVP
+  akzeptabel).
 - Interaktive Features (Drag & Drop) erfordern zusätzliches JavaScript.
 
 ### Neutral

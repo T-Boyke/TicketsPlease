@@ -1,14 +1,12 @@
 # Title of the Architecture Decision
 
-- Status: [proposed | accepted | rejected | deprecated | superseded by
-  [ADR-0005](0005-example.md)]
+- Status: [proposed | accepted | rejected | deprecated | superseded by [ADR-0005](0005-example.md)]
 - Deciders: [list everyone involved in the decision]
 - Date: [YYYY-MM-DD]
 
 ## Context and Problem Statement
 
-- Describe the context and problem statement, e.g., in free form using two to
-  three sentences.
+- Describe the context and problem statement, e.g., in free form using two to three sentences.
 - What problem are we solving? Why do we need to make a decision?
 
 ## Decision Drivers
@@ -25,8 +23,8 @@
 
 ## Decision Outcome
 
-- Chosen option: "[Option 1]", because [justification. e.g., it is the only
-  option that meets all decision drivers].
+- Chosen option: "[Option 1]", because [justification. e.g., it is the only option that meets all
+  decision drivers].
 
 ### Positive Consequences
 

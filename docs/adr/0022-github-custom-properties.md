@@ -6,43 +6,35 @@
 
 ## Context and Problem Statement
 
-As the `TicketsPlease` project scales towards an enterprise-grade repository,
-the need for structured metadata increases. GitHub Custom Properties provide a
-way to decorate repositories with information such as compliance frameworks (IHK
-standards), data sensitivity, and project maturity. However, since these
-properties are managed at the organization level and not visible in the codebase
-by default, there is a risk of configuration drift and lack of transparency for
-developers.
+As the `TicketsPlease` project scales towards an enterprise-grade repository, the need for
+structured metadata increases. GitHub Custom Properties provide a way to decorate repositories with
+information such as compliance frameworks (IHK standards), data sensitivity, and project maturity.
+However, since these properties are managed at the organization level and not visible in the
+codebase by default, there is a risk of configuration drift and lack of transparency for developers.
 
 ## Decision Drivers
 
-- **Governance**: Alignment with (Industrie- und Handelskammer)
-  documentation standards.
+- **Governance**: Alignment with (Industrie- und Handelskammer) documentation standards.
 - **Automation**: Enabling repository rulesets to trigger based on metadata.
-- **Transparency**: Making repository "decorations" visible and documented as
-  code.
-- **Consistency**: Ensuring all project contributors understand the required
-  properties.
+- **Transparency**: Making repository "decorations" visible and documented as code.
+- **Consistency**: Ensuring all project contributors understand the required properties.
 
 ## Decision Outcome
 
-Chosen option: "Internal Documentation as Code", because it provides a clear
-"Source of Truth" within the repository's `.github` directory, ensuring that
-organization-level settings are documented, versioned, and easily understood by
-the team.
+Chosen option: "Internal Documentation as Code", because it provides a clear "Source of Truth"
+within the repository's `.github` directory, ensuring that organization-level settings are
+documented, versioned, and easily understood by the team.
 
 ### Positive Consequences
 
 - **Auditability**: Changes to the expected properties are tracked via Git.
-- **Compliance**: Direct mapping to requirements (e.g., project
-  classification).
-- **Developer Experience**: New contributors can quickly see the repository's
-  metadata requirements.
+- **Compliance**: Direct mapping to requirements (e.g., project classification).
+- **Developer Experience**: New contributors can quickly see the repository's metadata requirements.
 
 ### Negative Consequences
 
-- **Manual Sync**: Organization owners must manually ensure the GitHub UI
-  settings match the documentation (unless automated via API in the future).
+- **Manual Sync**: Organization owners must manually ensure the GitHub UI settings match the
+  documentation (unless automated via API in the future).
 
 ## Logic and Flow
 

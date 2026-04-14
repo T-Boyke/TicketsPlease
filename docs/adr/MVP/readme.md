@@ -1,7 +1,6 @@
 # MVP Architecture Decision Records
 
-Dieses Unterverzeichnis enthält die ADRs für die **Prüfungsfeatures
-(F1–F9)** des MVPs gemäß
+Dieses Unterverzeichnis enthält die ADRs für die **Prüfungsfeatures (F1–F9)** des MVPs gemäß
 [aufgabe.md](../../aufgabe/aufgabe.md).
 
 ## Übersicht
@@ -22,6 +21,6 @@ Dieses Unterverzeichnis enthält die ADRs für die **Prüfungsfeatures
 
 ---
 
-> [!NOTE] Diese ADRs dokumentieren die Architektur-Entscheidungen für den
-> Prüfungsumfang (70 Stunden, 23.03.–20.04.2026). Enterprise-ADRs
-> befinden sich im übergeordneten Verzeichnis [docs/adr/](../readme.md).
+> [!NOTE] Diese ADRs dokumentieren die Architektur-Entscheidungen für den Prüfungsumfang (70
+> Stunden, 23.03.–20.04.2026). Enterprise-ADRs befinden sich im übergeordneten Verzeichnis
+> [docs/adr/](../readme.md).

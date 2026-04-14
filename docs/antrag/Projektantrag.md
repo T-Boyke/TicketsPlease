@@ -1,10 +1,8 @@
 # Projektantrag
 
-**Auszubildende/r:** Tobias Boyke
-**Ausbildungsstätte:** Beispiel GmbH, Neuss / BitLC Düsseldorf
-**Beruf:** Fachinformatiker Fachrichtung Anwendungsentwicklung
-**Prüfungstermin:** Sommer/Winter 2026
-**Prüfungsart:** 50 - Abschlussprüfung
+**Auszubildende/r:** Tobias Boyke **Ausbildungsstätte:** Beispiel GmbH, Neuss / BitLC Düsseldorf
+**Beruf:** Fachinformatiker Fachrichtung Anwendungsentwicklung **Prüfungstermin:** Sommer/Winter
+2026 **Prüfungsart:** 50 - Abschlussprüfung
 
 ---
 
@@ -16,18 +14,17 @@ Effizienzsteigerung in Logistikprojekten.**
 ### 1.1 Kurze Projektbeschreibung\*\*
 
 Die Beispiel GmbH ist ein aufstrebendes IT-Dienstleistungsunternehmen mit Sitz in Neuss und
-beschäftigt 14 Mitarbeiter. Die Firma hat sich auf die Entwicklung maßgeschneiderter
-Webanwendungen für Unternehmenskunden spezialisiert.
+beschäftigt 14 Mitarbeiter. Die Firma hat sich auf die Entwicklung maßgeschneiderter Webanwendungen
+für Unternehmenskunden spezialisiert.
 
-Ein langjähriger Kunde aus der Logistikbranche verwaltet seine internen Software-Bugs und
-Aufgaben bisher manuell über Tabellenkalkulationen (Excel) und E-Mail-Kommunikation.
-Dieser Prozess führt bei der zunehmenden Anzahl an Projekten zu mangelnder Übersichtlichkeit,
-Informationsverlusten und einer verzögerten Fehlerbehebung. Um die Effizienz und Traceability
-der Projektsteuerung zu steigern, soll ein zentrales, webbasiertes Ticketsystem entwickelt
-werden.
+Ein langjähriger Kunde aus der Logistikbranche verwaltet seine internen Software-Bugs und Aufgaben
+bisher manuell über Tabellenkalkulationen (Excel) und E-Mail-Kommunikation. Dieser Prozess führt bei
+der zunehmenden Anzahl an Projekten zu mangelnder Übersichtlichkeit, Informationsverlusten und einer
+verzögerten Fehlerbehebung. Um die Effizienz und Traceability der Projektsteuerung zu steigern, soll
+ein zentrales, webbasiertes Ticketsystem entwickelt werden.
 
-Hierzu wird die Anwendung "TicketsPlease" konzipiert und implementiert. Das System ermöglicht
-die Verwaltung von Projekten, die Erfassung detaillierter Tickets (Bugs/Tasks), rollenbasierte
+Hierzu wird die Anwendung "TicketsPlease" konzipiert und implementiert. Das System ermöglicht die
+Verwaltung von Projekten, die Erfassung detaillierter Tickets (Bugs/Tasks), rollenbasierte
 Zuweisungen sowie einen integrierten Messaging-Dienst. Die Lösung wird als ASP.NET Core MVC
 Applikation umgesetzt and in die On-Premise-Infrastruktur des Kunden integriert.
 
@@ -35,9 +32,9 @@ Applikation umgesetzt and in die On-Premise-Infrastruktur des Kunden integriert.
 
 ## 2. Projektumfeld\*\*
 
-Die Entwicklungsabteilung der Beispiel GmbH wurde mit der Realisierung dieses MVPs (Minimum
-Viable Product) beauftragt. Das Projekt wird als eigenständiges Modul entwickelt, das
-perspektivisch um weitere Enterprise-Features erweitert werden kann.
+Die Entwicklungsabteilung der Beispiel GmbH wurde mit der Realisierung dieses MVPs (Minimum Viable
+Product) beauftragt. Das Projekt wird als eigenständiges Modul entwickelt, das perspektivisch um
+weitere Enterprise-Features erweitert werden kann.
 
 **Technische Anforderungen & Werkzeuge:**
 

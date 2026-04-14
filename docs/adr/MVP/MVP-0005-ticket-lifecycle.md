@@ -6,14 +6,13 @@
 
 ## Kontext
 
-Die Aufgabe (F3.1–F3.4) definiert den vollständigen Ticket-Lifecycle:
-Erstellen, Auflisten, Detailansicht, Bearbeiten und Schließen. Strikte
-Berechtigungsregeln bestimmen, wer welche Aktionen ausführen darf.
+Die Aufgabe (F3.1–F3.4) definiert den vollständigen Ticket-Lifecycle: Erstellen, Auflisten,
+Detailansicht, Bearbeiten und Schließen. Strikte Berechtigungsregeln bestimmen, wer welche Aktionen
+ausführen darf.
 
 ## Entscheidung
 
-Das `Ticket`-Entity im Domain Layer wird mit folgenden MVP-Properties
-implementiert:
+Das `Ticket`-Entity im Domain Layer wird mit folgenden MVP-Properties implementiert:
 
 ### Properties (Rich Domain Model)
 
@@ -27,10 +26,10 @@ implementiert:
 
 ### Berechtigungslogik (Domain-Methoden)
 
-- **Bearbeiten** (`ticket.Update(userId)`): Nur Admin, Ersteller oder
-  Zugewiesener. Änderbar: Beschreibung, AssignedUserId.
-- **Schließen** (`ticket.Close(userId)`): Nur Admin, Ersteller oder
-  Zugewiesener. Setzt `ClosedByUserId` und `ClosedAt`.
+- **Bearbeiten** (`ticket.Update(userId)`): Nur Admin, Ersteller oder Zugewiesener. Änderbar:
+  Beschreibung, AssignedUserId.
+- **Schließen** (`ticket.Close(userId)`): Nur Admin, Ersteller oder Zugewiesener. Setzt
+  `ClosedByUserId` und `ClosedAt`.
 - **Sortierung:** Ticket-Liste nach Projekt + Erstellungsdatum (absteigend).
 
 ## Konsequenzen
@@ -44,8 +43,7 @@ implementiert:
 ### Negativ
 
 - `private set` auf allen Properties erfordert Verhaltensmethoden.
-- Domain-Validierung muss sowohl im Entity als auch in FluentValidation
-  gespiegelt werden.
+- Domain-Validierung muss sowohl im Entity als auch in FluentValidation gespiegelt werden.
 
 ## Alternativen
 

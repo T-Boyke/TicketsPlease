@@ -6,23 +6,23 @@
 
 ## Kontext
 
-Die Aufgabe (F6.1–F6.3) fordert eine Filterung der Ticket-Liste nach
-drei Kriterien: Projekt, zugeordneter Benutzer und Ersteller. Die Seite
-soll bei Filterung neu laden (serverseitiges Filtern).
+Die Aufgabe (F6.1–F6.3) fordert eine Filterung der Ticket-Liste nach drei Kriterien: Projekt,
+zugeordneter Benutzer und Ersteller. Die Seite soll bei Filterung neu laden (serverseitiges
+Filtern).
 
 ## Entscheidung
 
-Wir implementieren serverseitige Filterung über **Query-String-Parameter**
-und **EF Core LINQ-Queries** mit dynamischer Komposition.
+Wir implementieren serverseitige Filterung über **Query-String-Parameter** und **EF Core
+LINQ-Queries** mit dynamischer Komposition.
 
 ### Implementierung
 
 1. **Query-Parameter:** `?projectId=&assignedUserId=&creatorId=`
 2. **`GetFilteredTicketsQuery`** nimmt optionale Filter-Parameter entgegen.
-3. **LINQ-Komposition:** Filter werden nur angehängt, wenn der Parameter
-   gesetzt ist (dynamisches `IQueryable<T>.Where()`).
-4. **UI:** Dropdown-Selects über der Ticket-Liste. Form mit `GET`-Method,
-   Submit lädt die Seite mit Filtern neu.
+3. **LINQ-Komposition:** Filter werden nur angehängt, wenn der Parameter gesetzt ist (dynamisches
+   `IQueryable<T>.Where()`).
+4. **UI:** Dropdown-Selects über der Ticket-Liste. Form mit `GET`-Method, Submit lädt die Seite mit
+   Filtern neu.
 5. **`AsNoTracking()`** für alle Lese-Queries (Performance).
 
 ```csharp

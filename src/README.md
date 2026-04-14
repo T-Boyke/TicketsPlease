@@ -1,14 +1,12 @@
 # 📂 TicketsPlease Source Directory
 
-Willkommen im Herzstück der **TicketsPlease** Solution. Dieses Verzeichnis folgt
-strikt den Prinzipien der **Clean Architecture** (Onion Architecture) und des
-**Domain-Driven Design (DDD)**.
+Willkommen im Herzstück der **TicketsPlease** Solution. Dieses Verzeichnis folgt strikt den
+Prinzipien der **Clean Architecture** (Onion Architecture) und des **Domain-Driven Design (DDD)**.
 
 ## 🏗️ Finale Vision: Das integrierte System
 
-Dieser Graph zeigt, wie alle Teile der Solution ineinandergreifen, um einen
-Request zu verarbeiten. Von der ersten Interaktion bis zur dauerhaften
-Speicherung.
+Dieser Graph zeigt, wie alle Teile der Solution ineinandergreifen, um einen Request zu verarbeiten.
+Von der ersten Interaktion bis zur dauerhaften Speicherung.
 
 ```mermaid
 graph TD
@@ -52,7 +50,7 @@ graph TD
     ENT -->|Trigger| EVT
     HAND -->|Return| DTO
     DTO -->|Render| VC
-    
+
     %% Real-Time Flow
     HAND -.->|Push Update| SIG["SignalR Hub"]
     SIG -.->|Real-Time Toast| VC
@@ -69,9 +67,8 @@ graph TD
 
 ## 🏗️ UI Architecture (Razor Partials)
 
-Wir setzen massiv auf **Reusable Razor Partials**, um Design-Konsistenz und
-schnelle Iterationszyklen zu garantieren. Diese befinden sich in
-`src/TicketsPlease.Web/Views/Shared/`:
+Wir setzen massiv auf **Reusable Razor Partials**, um Design-Konsistenz und schnelle
+Iterationszyklen zu garantieren. Diese befinden sich in `src/TicketsPlease.Web/Views/Shared/`:
 
 - **`_Avatar.cshtml`**: Standardisiertes User-Avatar (inkl. Tooltip & Online-Status).
 - **`_StatusBadge.cshtml`**: Zugängliche Badges für Ticket-Zustände.
@@ -83,16 +80,16 @@ schnelle Iterationszyklen zu garantieren. Diese befinden sich in
 
 ## ⚡ Real-Time & Interaction
 
-- **SignalR integration**: Das System nutzt WebSockets, um Updates (neue Tickets,
-  Statusänderungen) sofort in die UI zu pushen, ohne einen Page-Refresh.
+- **SignalR integration**: Das System nutzt WebSockets, um Updates (neue Tickets, Statusänderungen)
+  sofort in die UI zu pushen, ohne einen Page-Refresh.
 - **Presence Tracking**: Echtzeit-Visualisierung der Nutzeraktivität via Hubs.
 
 ---
 
 ## 📊 Layer Metrics (Einstiegshilfe)
 
-Hier siehst du, welcher Layer welche Herausforderungen birgt. Nutze dies als
-Orientierung, wo du dich als Neuling am besten zuerst einarbeitest.
+Hier siehst du, welcher Layer welche Herausforderungen birgt. Nutze dies als Orientierung, wo du
+dich als Neuling am besten zuerst einarbeitest.
 
 | Layer              | Schwierigkeit | Umfang    | Zeitaufwand | Typische Probleme                           |
 | :----------------- | :-----------: | :-------- | :---------- | :------------------------------------------ |
@@ -105,8 +102,8 @@ Orientierung, wo du dich als Neuling am besten zuerst einarbeitest.
 
 ## 🏗️ Layer & Zuständigkeiten
 
-Hier siehst du auf einen Blick, welcher Layer für welche Aufgabe zuständig ist.
-Klicke auf den Namen für die detaillierte Anleitung.
+Hier siehst du auf einen Blick, welcher Layer für welche Aufgabe zuständig ist. Klicke auf den Namen
+für die detaillierte Anleitung.
 
 | Layer                                                        | Farbe | Kurzbeschreibung                           |                     Dokumentation                      |
 | :----------------------------------------------------------- | :---: | :----------------------------------------- | :----------------------------------------------------: |
@@ -131,5 +128,4 @@ Finde hier den direkten Einstiegspunkt für deine aktuelle Aufgabe:
 
 👉 **Quick Links:** [Domain 🟢](TicketsPlease.Domain/README.md) |
 [Application 🟡](TicketsPlease.Application/README.md)
-[Infrastructure 🔴](TicketsPlease.Infrastructure/README.md) |
-[Web 🔵](TicketsPlease.Web/README.md)
+[Infrastructure 🔴](TicketsPlease.Infrastructure/README.md) | [Web 🔵](TicketsPlease.Web/README.md)

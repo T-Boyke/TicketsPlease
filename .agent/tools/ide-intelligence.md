@@ -15,8 +15,8 @@ Konfigurationen für eine konsistente Developer Experience in Rider und VS Code.
 Die bevorzugte IDE für dieses Projekt.
 
 - **Live Templates:** Eigene Vorlagen für MediatR Commands/Queries und SFCs.
-- **Dictionaries:** Projekt-spezifische Wörterbücher in `.idea/dictionaries/`
-  zur Reduzierung von Spell-Check Noise.
+- **Dictionaries:** Projekt-spezifische Wörterbücher in `.idea/dictionaries/` zur Reduzierung von
+  Spell-Check Noise.
 - **Plugins:** Roslyn Analyzer Unterstützung aktiv.
 
 ---
@@ -25,8 +25,7 @@ Die bevorzugte IDE für dieses Projekt.
 
 Support für leichtgewichtiges Editing und Dokumentation.
 
-- **Workspace:** `.vscode/settings.json` enthält optimierte
-  Formatierungseinstellungen.
+- **Workspace:** `.vscode/settings.json` enthält optimierte Formatierungseinstellungen.
 - **Extensions:** Prettier, C# Dev Kit und Markdownlint empfohlen.
 - **MCP Tooling:** Konfigurationen in `.vscode/mcp.json`.
 

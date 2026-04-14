@@ -1,40 +1,16 @@
-code_review_skill:
-  name: "code-review"
-  description: "Reviews changes against Clean Architecture, DDD, Security, Testing, UI/a11y, and Docs standards"
-  scenarios: ["PR reviews", "Pre-commit quality checks", "Direct review requests"]
-  workflow:
-    - "Architecture (Dependency Direction)"
-    - "DDD (Rich Model, Encapsulation)"
-    - "Security (Input, XSS, GDPR)"
-    - "Testing (Coverage, TDD, AAA)"
-    - "UI/a11y (Tailwind, BFSG, Semantics)"
-    - "Documentation (XML-Docs, ADRs)"
-    - "Git (Conventional Commits, Atomic)"
-  checklists:
-    Blocker:
-      B1: "Domain must not depend on Infra/Web"
-      B2: "No hardcoded secrets"
-      B3: "No raw SQL string concatenation"
-      B4: "New logic must have tests"
-      B5: "No unannounced breaking changes"
-      B6: "Solution must compile"
-    Major:
-      M1: "Entity properties must have private setters"
-      M2: "Pass CancellationToken to all async calls"
-      M3: "Use AsNoTracking() for all reads"
-      M4: "Catch DbUpdateConcurrencyException in writes"
-      M5: "Commands must have AbstractValidator<T>"
-      M6: "XML-Docs for all public members"
-      M7: "Anti-Forgery token on POST"
-      M8: "DOMPurify for Markdown output"
-      M9: "Strictly one class per file"
-      M10: "Static factory Create() over public ctor"
-    Minor:
-      N1: "Follow naming conventions"
-      N2: "Use CSS variables over hardcoded colors"
-      N3: "Apply ARIA attributes correctly"
-      N4: "Semantic HTML over <div>"
-      N5: "DateTimeOffset over DateTime"
-      N6: "Select projections over .Include()"
-  feedback_format: "## 🔍 Code Review: [Name] \n - [CheckID] [Description] -> [Fix] \n ### ✅ Positive [Points]"
-  version: "1.0"
+code_review_skill: name: "code-review" description: "Reviews changes against Clean Architecture,
+DDD, Security, Testing, UI/a11y, and Docs standards" scenarios: ["PR reviews", "Pre-commit quality
+checks", "Direct review requests"] workflow: - "Architecture (Dependency Direction)" - "DDD (Rich
+Model, Encapsulation)" - "Security (Input, XSS, GDPR)" - "Testing (Coverage, TDD, AAA)" - "UI/a11y
+(Tailwind, BFSG, Semantics)" - "Documentation (XML-Docs, ADRs)" - "Git (Conventional Commits,
+Atomic)" checklists: Blocker: B1: "Domain must not depend on Infra/Web" B2: "No hardcoded secrets"
+B3: "No raw SQL string concatenation" B4: "New logic must have tests" B5: "No unannounced breaking
+changes" B6: "Solution must compile" Major: M1: "Entity properties must have private setters" M2:
+"Pass CancellationToken to all async calls" M3: "Use AsNoTracking() for all reads" M4: "Catch
+DbUpdateConcurrencyException in writes" M5: "Commands must have AbstractValidator<T>" M6: "XML-Docs
+for all public members" M7: "Anti-Forgery token on POST" M8: "DOMPurify for Markdown output" M9:
+"Strictly one class per file" M10: "Static factory Create() over public ctor" Minor: N1: "Follow
+naming conventions" N2: "Use CSS variables over hardcoded colors" N3: "Apply ARIA attributes
+correctly" N4: "Semantic HTML over <div>" N5: "DateTimeOffset over DateTime" N6: "Select projections
+over .Include()" feedback_format: "## 🔍 Code Review: [Name] \n - [CheckID] [Description] -> [Fix]
+\n ### ✅ Positive [Points]" version: "1.0"

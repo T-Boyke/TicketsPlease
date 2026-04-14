@@ -6,8 +6,8 @@
 
 ## Context and Problem Statement
 
-Das System soll für Drittanbieter und kundenspezifische Erweiterungen offen
-sein, ohne dass der Kern des Ticket-Systems modifiziert werden muss.
+Das System soll für Drittanbieter und kundenspezifische Erweiterungen offen sein, ohne dass der Kern
+des Ticket-Systems modifiziert werden muss.
 
 ## Decision Drivers
 
@@ -24,9 +24,9 @@ sein, ohne dass der Kern des Ticket-Systems modifiziert werden muss.
 
 ## Decision Outcome
 
-Chosen option: "Dynamische DLL-Loading (Plugins)", because es eine nahtlose
-Integration von Logik und UI direkt im Host-Prozess ermöglicht, was für
-Performance und UX (Notification-Channels etc.) vorteilhaft ist.
+Chosen option: "Dynamische DLL-Loading (Plugins)", because es eine nahtlose Integration von Logik
+und UI direkt im Host-Prozess ermöglicht, was für Performance und UX (Notification-Channels etc.)
+vorteilhaft ist.
 
 ### Positive Consequences
 
@@ -37,8 +37,7 @@ Performance und UX (Notification-Channels etc.) vorteilhaft ist.
 ### Negative Consequences
 
 - Höhere Komplexität im Startvorgang der App (Assembly Discovery).
-- Sicherheitsrisiken durch das Laden von Fremdcode (muss über Interfaces/Sandbox
-  isoliert werden).
+- Sicherheitsrisiken durch das Laden von Fremdcode (muss über Interfaces/Sandbox isoliert werden).
 
 ## Pros and Cons of the Options
 
@@ -46,5 +45,4 @@ Performance und UX (Notification-Channels etc.) vorteilhaft ist.
 
 - Good, because maximale Flexibilität für Enterprise-Kunden.
 - Good, because saubere Trennung von Third-Party Code.
-- Bad, because Fehler in Plugins können das gesamte System instabil machen
-  (Isolations-Layer nötig).
+- Bad, because Fehler in Plugins können das gesamte System instabil machen (Isolations-Layer nötig).

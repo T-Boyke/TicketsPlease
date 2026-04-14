@@ -6,9 +6,8 @@
 
 ## Context and Problem Statement
 
-Wir brauchen ein Frontend-System, das schnelles Prototyping ermöglicht, aber
-auch bei hunderten Komponenten (Tickets, Modals, Boards) wartbar bleibt und
-nicht in einem "CSS-Spaghetti" endet.
+Wir brauchen ein Frontend-System, das schnelles Prototyping ermöglicht, aber auch bei hunderten
+Komponenten (Tickets, Modals, Boards) wartbar bleibt und nicht in einem "CSS-Spaghetti" endet.
 
 ## Decision Drivers
 
@@ -25,10 +24,9 @@ nicht in einem "CSS-Spaghetti" endet.
 
 ## Decision Outcome
 
-Chosen option: "Kombination aus SFC (Isolation) und TailwindCSS 4.2.2", because
-Tailwind pfeilschnelles Design ermöglicht, während die CSS-Isolation
-sicherstellt, dass Komponenten-spezifische Anpassungen niemals das restliche
-System beeinflussen.
+Chosen option: "Kombination aus SFC (Isolation) und TailwindCSS 4.2.2", because Tailwind
+pfeilschnelles Design ermöglicht, während die CSS-Isolation sicherstellt, dass
+Komponenten-spezifische Anpassungen niemals das restliche System beeinflussen.
 
 ### Positive Consequences
 
@@ -39,8 +37,7 @@ System beeinflussen.
 ### Negative Consequences
 
 - CSS muss pro View/Component angelegt werden.
-- Tailwind-Klassen können im HTML unübersichtlich werden (gelöst durch `@apply`
-  Abstraktion).
+- Tailwind-Klassen können im HTML unübersichtlich werden (gelöst durch `@apply` Abstraktion).
 
 ## Pros and Cons of the Options
 

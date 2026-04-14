@@ -1,7 +1,7 @@
 # Projekt Gantt-Chart (Roadmap)
 
-Dieses Gantt-Diagramm visualisiert die Zeitplanung des Abschlussprojekts.
-Projektzeitraum: **23.03.2026 – 20.04.2026** (70 Stunden).
+Dieses Gantt-Diagramm visualisiert die Zeitplanung des Abschlussprojekts. Projektzeitraum:
+**23.03.2026 – 20.04.2026** (70 Stunden).
 
 ```mermaid
 gantt
@@ -47,5 +47,5 @@ gantt
 | `done` | Bereits abgeschlossen         |
 | `crit` | Kritischer Pfad (kein Puffer) |
 
-> [!NOTE] Die Qualitätssicherung (Unit-Tests) läuft parallel zur
-> Implementierung (TDD). Die Zeiten überlappen sich bewusst.
+> [!NOTE] Die Qualitätssicherung (Unit-Tests) läuft parallel zur Implementierung (TDD). Die Zeiten
+> überlappen sich bewusst.

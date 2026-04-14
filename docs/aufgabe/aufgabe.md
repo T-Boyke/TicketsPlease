@@ -349,8 +349,8 @@ Projekten die Tickets mit unterschiedlichen Workflows bearbeitet werden können.
 **Akzeptanzkriterien:**
 
 - Workflows können nur vom Admin bearbeitet werden (CRUD).
-- Jeder Workflow hat eine eindeutige ID, anhand derer man den Workflow identifizieren kann, sowie eine
-  Bezeichnung.
+- Jeder Workflow hat eine eindeutige ID, anhand derer man den Workflow identifizieren kann, sowie
+  eine Bezeichnung.
 - Ein Workflow besteht aus einer Reihe von Status, die ein Ticket in diesem Workflow annehmen kann.
 - Jedem Projekt kann genau ein Workflow zugeordnet werden.
 - (Optional): Zu jedem Status kann angegeben werden, welche Status als Folge gewählt werden können.

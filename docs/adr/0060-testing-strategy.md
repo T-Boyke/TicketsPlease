@@ -6,9 +6,9 @@
 
 ## Context and Problem Statement
 
-Um eine hohe Code-Qualität und Wartbarkeit zu gewährleisten, benötigen wir eine
-automatisierte Test-Strategie. Integration-Tests gegen "echte" Datenbanken sind
-oft langsam oder schwer zu konfigurieren.
+Um eine hohe Code-Qualität und Wartbarkeit zu gewährleisten, benötigen wir eine automatisierte
+Test-Strategie. Integration-Tests gegen "echte" Datenbanken sind oft langsam oder schwer zu
+konfigurieren.
 
 ## Decision Drivers
 
@@ -25,10 +25,9 @@ oft langsam oder schwer zu konfigurieren.
 
 ## Decision Outcome
 
-Chosen option: "TDD mit Unit- & Integration-Tests (Testcontainers)", because es
-die Vorteile von schnellen Unit-Tests mit der Sicherheit eines echten
-Datenbank-Laufes (via Docker) kombiniert, ohne dass der Entwickler lokal manuell
-einen SQL-Server pflegen muss.
+Chosen option: "TDD mit Unit- & Integration-Tests (Testcontainers)", because es die Vorteile von
+schnellen Unit-Tests mit der Sicherheit eines echten Datenbank-Laufes (via Docker) kombiniert, ohne
+dass der Entwickler lokal manuell einen SQL-Server pflegen muss.
 
 ### Positive Consequences
 

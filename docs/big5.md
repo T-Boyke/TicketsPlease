@@ -7,8 +7,8 @@ Kerninteraktionen von **TicketsPlease**.
 
 ## 1. System Architecture (DDD & MVC)
 
-Die Anwendung folgt einem klassischen **Layered Architecture**-Ansatz mit strikter Trennung
-nach **Domain-Driven Design (DDD)**-Prinzipien.
+Die Anwendung folgt einem klassischen **Layered Architecture**-Ansatz mit strikter Trennung nach
+**Domain-Driven Design (DDD)**-Prinzipien.
 
 ```mermaid
 graph TD
@@ -209,8 +209,8 @@ sequenceDiagram
 
 ## 6. Test Strategy & Coverage
 
-Die Qualitätssicherung erfolgt über eine mehrstufige Testpyramide mit dem Ziel der
-vollständigen Abdeckung der Geschäftslogik.
+Die Qualitätssicherung erfolgt über eine mehrstufige Testpyramide mit dem Ziel der vollständigen
+Abdeckung der Geschäftslogik.
 
 ```mermaid
 graph LR

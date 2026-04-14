@@ -6,9 +6,8 @@
 
 ## Context and Problem Statement
 
-Wir müssen einen modernen, stabilen und zukunftssicheren Stack wählen, der
-sowohl die Anforderungen erfüllt als auch die geplante Enterprise-Skalierung
-unterstützt.
+Wir müssen einen modernen, stabilen und zukunftssicheren Stack wählen, der sowohl die Anforderungen
+erfüllt als auch die geplante Enterprise-Skalierung unterstützt.
 
 ## Decision Drivers
 
@@ -25,15 +24,13 @@ unterstützt.
 
 ## Decision Outcome
 
-Chosen option: "ASP.NET Core 10.3", because es die native Plattform für C# ist,
-höchste Performance bietet und nahtlos mit EF Core und dem gewählten
-Architektur-Muster (Clean Architecture) harmoniert.
+Chosen option: "ASP.NET Core 10.3", because es die native Plattform für C# ist, höchste Performance
+bietet und nahtlos mit EF Core und dem gewählten Architektur-Muster (Clean Architecture) harmoniert.
 
 ### Positive Consequences
 
 - Zugriff auf modernste Sprachfeatures von C# 14.
-- Native Unterstützung für Dependency Injection und High-Performance
-  Web-Features.
+- Native Unterstützung für Dependency Injection und High-Performance Web-Features.
 - Einfache Deployment-Möglichkeiten auf Azure/Docker.
 
 ### Negative Consequences

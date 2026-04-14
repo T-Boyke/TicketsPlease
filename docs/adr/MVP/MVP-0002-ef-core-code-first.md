@@ -6,15 +6,14 @@
 
 ## Kontext
 
-Die Aufgabe (F1.2) verlangt eine SQL Server-Datenbank, angebunden über
-Entity Framework mit dem Code-First-Ansatz. Offene Migrationen sollen beim
-App-Start automatisch ausgeführt werden.
+Die Aufgabe (F1.2) verlangt eine SQL Server-Datenbank, angebunden über Entity Framework mit dem
+Code-First-Ansatz. Offene Migrationen sollen beim App-Start automatisch ausgeführt werden.
 
 ## Entscheidung
 
-Wir verwenden **Entity Framework Core 10** im **Code-First-Modus** mit
-Microsoft SQL Server. Migrationen werden beim App-Start automatisch über
-`context.Database.Migrate()` in `Program.cs` angewendet.
+Wir verwenden **Entity Framework Core 10** im **Code-First-Modus** mit Microsoft SQL Server.
+Migrationen werden beim App-Start automatisch über `context.Database.Migrate()` in `Program.cs`
+angewendet.
 
 ## Konsequenzen
 
@@ -27,14 +26,14 @@ Microsoft SQL Server. Migrationen werden beim App-Start automatisch über
 
 ### Negativ
 
-- Automatische Migration bei App-Start kann in Produktion riskant sein
-  (für MVP akzeptabel, für Enterprise separate Strategie nötig).
+- Automatische Migration bei App-Start kann in Produktion riskant sein (für MVP akzeptabel, für
+  Enterprise separate Strategie nötig).
 - Performance-Overhead durch ORM gegenüber Raw SQL (vernachlässigbar).
 
 ### Neutral
 
-- Connection String wird über `appsettings.Development.json` und
-  `dotnet user-secrets` verwaltet (siehe ADR-0110).
+- Connection String wird über `appsettings.Development.json` und `dotnet user-secrets` verwaltet
+  (siehe ADR-0110).
 
 ## Alternativen
 

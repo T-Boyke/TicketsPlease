@@ -1,13 +1,15 @@
 # 🟢 TicketsPlease.Domain – Der Core
 
-Dies ist der wichtigste Layer der Anwendung. Hier leben die **Geschäftsregeln** und die **Fachlichkeit**.
+Dies ist der wichtigste Layer der Anwendung. Hier leben die **Geschäftsregeln** und die
+**Fachlichkeit**.
 
-👉 **Detaillierte Klassen- und Architekturdiagramme finden Sie in [docs/big5.md](../../docs/big5.md).**
+👉 **Detaillierte Klassen- und Architekturdiagramme finden Sie in
+[docs/big5.md](../../docs/big5.md).**
 
 ## 🧬 Lebenszyklus einer Entity (Beispiel Ticket)
 
-Hier siehst du, wie sich der Zustand einer Entity verändern darf. Diese Regeln
-müssen in den Methoden der Entity (nicht im Controller!) abgebildet werden.
+Hier siehst du, wie sich der Zustand einer Entity verändern darf. Diese Regeln müssen in den
+Methoden der Entity (nicht im Controller!) abgebildet werden.
 
 ```mermaid
 stateDiagram-v2
@@ -56,12 +58,12 @@ public class Ticket {
 
 ## ⚠️ Noob-Falle: Zirkuläre Abhängigkeiten vermeiden
 
-Ein häufiger Fehler ist der Versuch, Services aus anderen Layern (z.B.
-Repository) in die Domain zu bringen.
+Ein häufiger Fehler ist der Versuch, Services aus anderen Layern (z.B. Repository) in die Domain zu
+bringen.
 
 - **Falle**: `ticket.SaveToDatabase()` -> **Verboten!**
-- **Lösung**: Die Entity ändert nur ihren Zustand im Speicher. Das Speichern
-  übernimmt der `Handler` in der Application Layer via Repository.
+- **Lösung**: Die Entity ändert nur ihren Zustand im Speicher. Das Speichern übernimmt der `Handler`
+  in der Application Layer via Repository.
 
 ---
 
@@ -76,6 +78,5 @@ Repository) in die Domain zu bringen.
 
 ## 🔗 Connectors
 
-- **Dependency Injection**: Nicht nötig. Entities werden mit `new` oder via EF
-  Core erstellt.
+- **Dependency Injection**: Nicht nötig. Entities werden mit `new` oder via EF Core erstellt.
 - **Application**: Nutzt diese Entities für Use Cases.

@@ -6,9 +6,9 @@
 
 ## Context and Problem Statement
 
-Commiting passwords, API keys, or connection strings to Git is a critical
-security risk. We need a "Zero Trust" policy for secrets and a "Defense in
-Depth" architecture to protect user data from the ground up.
+Commiting passwords, API keys, or connection strings to Git is a critical security risk. We need a
+"Zero Trust" policy for secrets and a "Defense in Depth" architecture to protect user data from the
+ground up.
 
 ## Decision Drivers
 
@@ -19,16 +19,15 @@ Depth" architecture to protect user data from the ground up.
 
 ## Decision Outcome
 
-Chosen option: "Defense in Depth + Zero-Secret-in-Git Policy", using
-`dotnet user-secrets` for local development and Environment Variables/KeyVault
-for production.
+Chosen option: "Defense in Depth + Zero-Secret-in-Git Policy", using `dotnet user-secrets` for local
+development and Environment Variables/KeyVault for production.
 
 ### Positive Consequences
 
 - `appsettings.json` only contains non-sensitive configuration.
 - Production secrets never touch developer machines or Git logs.
-- Layered security (Database, App-Layer, UI-Sanititation) ensures that if one
-  layer fails, others still protect the data.
+- Layered security (Database, App-Layer, UI-Sanititation) ensures that if one layer fails, others
+  still protect the data.
 
 ### Negative Consequences
 
@@ -41,5 +40,4 @@ for production.
 2. **UI**: Anti-Forgery Tokens (CSRF) and DOMPurify for Markdown (XSS).
 3. **App**: FluentValidation for all Inputs.
 4. **Data**: Encryption at rest (DB) and hashed passwords (Identity).
-5. **Secrets**: Strict usage of `.gitignore` for settings that might contain
-   sensitive data.
+5. **Secrets**: Strict usage of `.gitignore` for settings that might contain sensitive data.

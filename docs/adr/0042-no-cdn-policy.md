@@ -6,8 +6,8 @@
 
 ## Context and Problem Statement
 
-Die Nutzung von CDNs (Content Delivery Networks) birgt Risiken bezüglich
-Datenschutz (DSGVO), Ausfallsicherheit und Offline-Entwicklungsfähigkeit.
+Die Nutzung von CDNs (Content Delivery Networks) birgt Risiken bezüglich Datenschutz (DSGVO),
+Ausfallsicherheit und Offline-Entwicklungsfähigkeit.
 
 ## Decision Drivers
 
@@ -24,10 +24,9 @@ Datenschutz (DSGVO), Ausfallsicherheit und Offline-Entwicklungsfähigkeit.
 
 ## Decision Outcome
 
-Chosen option: "Lokale Asset-Einbindung via Libman", because es die einfachste
-und am besten integrierte Methode in ASP.NET Core ist, um externe Bibliotheken
-versioniert und lokal zu verwalten, ohne einen komplexen Node.js Build-Prozess
-zwingend vorauszusetzen.
+Chosen option: "Lokale Asset-Einbindung via Libman", because es die einfachste und am besten
+integrierte Methode in ASP.NET Core ist, um externe Bibliotheken versioniert und lokal zu verwalten,
+ohne einen komplexen Node.js Build-Prozess zwingend vorauszusetzen.
 
 ### Positive Consequences
 
