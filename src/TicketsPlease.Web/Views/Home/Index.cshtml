@@ -82,11 +82,11 @@
         @* Quick Actions *@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div class="lg:col-span-2 space-y-8">
-                <div class="bg-slate-900 rounded-[2.5rem] p-12 text-white overflow-hidden relative group">
-                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-brand-primary/20 rounded-full blur-[100px] group-hover:bg-brand-primary/30 transition-all duration-700"></div>
+                <div class="bg-slate-800 rounded-[2.5rem] p-12 text-white overflow-hidden relative group border border-slate-700/50 shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-brand-primary/10 rounded-full blur-[100px] group-hover:bg-brand-primary/20 transition-all duration-700"></div>
                     <div class="relative z-10">
-                        <h2 class="text-4xl font-black mb-4">@L["Ready to scale?"]</h2>
-                        <p class="text-slate-400 text-lg mb-10 max-w-md">@L["Your workspace is optimized and ready for more. Start a new project or manage your existing team."]</p>
+                        <h2 class="text-4xl font-black mb-4 text-white">@L["Ready to scale?"]</h2>
+                        <p class="text-slate-300 text-lg mb-10 max-w-md">@L["Your workspace is optimized and ready for more. Start a new project or manage your existing team."]</p>
                         <div class="flex flex-wrap gap-4">
                             <a asp-controller="Tickets" asp-action="Index" class="px-8 py-4 bg-brand-primary rounded-full font-bold text-white shadow-xl shadow-brand-primary/20 hover:scale-105 active:scale-95 transition-all">
                                 <i class="fa-solid fa-plus mr-2"></i> @L["View Board"]
@@ -231,11 +231,11 @@ else
     </section>
 
     @* Testimonials with Tilt Effect *@
-    <section class="py-24 bg-slate-900 text-white overflow-hidden" aria-labelledby="testimonials-heading">
+    <section class="py-24 bg-slate-800 text-white overflow-hidden border-t border-slate-700" aria-labelledby="testimonials-heading">
         <div class="mx-auto max-w-7xl px-6 lg:px-8 relative">
             <h2 id="testimonials-heading" class="sr-only">@L["Testimonials"]</h2>
             <div class="mx-auto max-w-2xl text-center">
-                <h3 class="text-3xl font-extrabold sm:text-4xl">@L["Trusted by Developers"]</h3>
+                <h3 class="text-3xl font-extrabold sm:text-4xl text-white">@L["Trusted by Developers"]</h3>
             </div>
 
             <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">

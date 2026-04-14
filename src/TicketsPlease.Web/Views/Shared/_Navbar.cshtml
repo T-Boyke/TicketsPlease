@@ -64,8 +64,13 @@
                     {
                         <a asp-controller="Home" asp-action="Index"
                            class="inline-flex items-center px-1 pt-1 border-b-2 @GetActiveClass("Home") text-sm font-medium transition-colors duration-200">
-                            <i class="fa-solid fa-house-chimney mr-2 @(currentController == "Home" ? "text-brand-primary" : "text-slate-400")"></i>
-                            @L["Dashboard"]
+                            <i class="fa-solid fa-gauge-high mr-2 @(currentController == "Home" ? "text-brand-primary" : "text-slate-400")"></i>
+                            @L["Übersicht"]
+                        </a>
+                        <a asp-controller="Project" asp-action="Index"
+                           class="inline-flex items-center px-1 pt-1 border-b-2 @GetActiveClass("Project") text-sm font-medium transition-colors duration-200">
+                            <i class="fa-solid fa-diagram-project mr-2 @(currentController == "Project" ? "text-brand-primary" : "text-slate-400")"></i>
+                            @L["Projekte"]
                         </a>
                         <a asp-controller="Tickets" asp-action="Index"
                            class="inline-flex items-center px-1 pt-1 border-b-2 @GetActiveClass("Tickets") text-sm font-medium transition-colors duration-200">
@@ -78,10 +83,18 @@
                             @L["Teams"]
                         </a>
                         <a asp-controller="Messages" asp-action="Index"
-                           class="inline-flex items-center px-1 pt-1 border-b-2 @GetActiveClass("Messages") text-sm font-medium transition-colors duration-200" aria-label="@L["Messages"]">
+                           class="inline-flex items-center px-1 pt-1 border-b-2 @GetActiveClass("Messages") text-sm font-medium transition-colors duration-200" aria-label="@L["Chat"]">
                             <i class="fa-solid fa-comment-dots mr-2 @(currentController == "Messages" ? "text-brand-primary" : "text-slate-400")"></i>
-                            @L["Messages"]
+                            @L["Chat"]
                         </a>
+                        @if (User.IsInRole("Admin") || User.IsInRole("ProductOwner") || User.IsInRole("Stakeholder"))
+                        {
+                            <a asp-controller="Stakeholder" asp-action="Index"
+                               class="inline-flex items-center px-1 pt-1 border-b-2 @GetActiveClass("Stakeholder") text-sm font-medium transition-colors duration-200">
+                                <i class="fa-solid fa-chart-line mr-2 @(currentController == "Stakeholder" ? "text-brand-primary" : "text-slate-400")"></i>
+                                @L["Insights"]
+                            </a>
+                        }
                     }
                 </div>
             </div>
@@ -209,6 +222,10 @@
                                     <i class="fa-solid fa-envelope mr-3 text-slate-400 w-5"></i>
                                     @L["My Messages"]
                                 </a>
+                                <a asp-controller="Settings" asp-action="Index" class="flex items-center px-3 py-2 text-sm text-slate-700 rounded-lg hover:bg-slate-50 hover:text-brand-primary transition-colors duration-150">
+                                    <i class="fa-solid fa-sliders mr-3 text-slate-400 w-5"></i>
+                                    @L["Experience Settings"]
+                                </a>
 
                                 @if (User.IsInRole("Admin"))
                                 {
@@ -230,12 +247,23 @@
                                             <i class="fa-solid fa-file-invoice mr-3 text-slate-400 w-5"></i>
                                             @L["Ticket Templates"]
                                         </a>
-                                        <a asp-controller="AdminWorkspaces" asp-action="Index" class="flex items-center px-3 py-2 text-sm text-slate-700 rounded-lg hover:bg-slate-50 hover:text-brand-primary transition-colors duration-150">
-                                            <i class="fa-solid fa-hotel mr-3 text-slate-400 w-5"></i>
-                                            @L["Workspace Management"]
-                                        </a>
-                                    </div>
-                                }
+                                         <a asp-controller="AdminWorkspaces" asp-action="Index" class="flex items-center px-3 py-2 text-sm text-slate-700 rounded-lg hover:bg-slate-50 hover:text-brand-primary transition-colors duration-150">
+                                             <i class="fa-solid fa-hotel mr-3 text-slate-400 w-5"></i>
+                                             @L["Workspace Management"]
+                                         </a>
+                                     </div>
+                                 }
+ 
+                                 @if (User.IsInRole("Admin") || User.IsInRole("ProductOwner"))
+                                 {
+                                     <div class="mt-2 pt-2 border-t border-slate-100">
+                                         <p class="px-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">@L["Company Governance"]</p>
+                                         <a asp-controller="ProductOwner" asp-action="Settings" class="flex items-center px-3 py-2 text-sm text-slate-700 rounded-lg hover:bg-brand-primary/10 hover:text-brand-primary transition-colors duration-150">
+                                             <i class="fa-solid fa-building-shield mr-3 text-brand-primary/60 w-5"></i>
+                                             @L["Workspace Sovereignty"]
+                                         </a>
+                                     </div>
+                                 }
 
                                 @if (User.IsInRole("Admin") || User.IsInRole("Teamlead"))
                                 {
