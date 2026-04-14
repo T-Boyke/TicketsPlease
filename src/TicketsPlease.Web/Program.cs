@@ -96,8 +96,13 @@ builder.Services.AddScoped<ITimeTrackingService, TimeTrackingService>();
 builder.Services.AddScoped<ISubTicketService, SubTicketService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<INotificationService, SignalRNotificationService>();
+builder.Services.AddScoped<IOrganizationInviteService, OrganizationInviteService>();
+builder.Services.AddScoped<IReportingService, ReportingService>();
+builder.Services.AddScoped<IAuditLogService, AuditLogService>();
+builder.Services.AddScoped<SystemMaintenanceService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHostedService<TicketCleanupWorker>();
+builder.Services.AddHostedService<SLABackgroundService>();
 
 // Database Configuration with Resilience
 
