@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:element name="data">
@@ -32,7 +32,7 @@
     <value>Kostenlose Stufe</value>
   </data>
   <data name="Inactive workspaces block all access for their members." xml:space="preserve">
-    <value>Inaktive Workspaces blockieren jeglichen Zugriff fÃ¼r ihre Mitglieder.</value>
+    <value>Inaktive Workspaces blockieren jeglichen Zugriff für ihre Mitglieder.</value>
   </data>
   <data name="Organization Name" xml:space="preserve">
     <value>Firmenname</value>

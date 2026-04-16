@@ -40,9 +40,9 @@
         <input type="hidden" asp-for="IsActive" />
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
+
             @* Column 1: SLA Core *@
-            <div class="bg-indigo-950 rounded-[2.5rem] p-10 text-white shadow-2xl relative overflow-hidden group">
+            <div class="bg-slate-50 rounded-[2.5rem] p-10 border border-slate-200 text-slate-900 shadow-2xl relative overflow-hidden group">
                 <div class="absolute -right-12 -bottom-12 text-white/5 text-[14rem] pointer-events-none group-hover:rotate-12 transition-transform duration-1000">
                     <i class="fa-solid fa-clock-rotate-left"></i>
                 </div>
@@ -53,14 +53,14 @@
                 <div class="space-y-8 relative z-10">
                     <div>
                         <label asp-for="SlaCheckIntervalMinutes" class="block text-[10px] font-black text-brand-primary uppercase tracking-widest mb-3">@L["Check Interval (Minutes)"]</label>
-                        <input asp-for="SlaCheckIntervalMinutes" type="number" min="1" max="1440" 
-                               class="w-full bg-white/10 border-2 border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-brand-primary transition-all font-black text-2xl text-white" aria-describedby="interval-desc" />
+                        <input asp-for="SlaCheckIntervalMinutes" type="number" min="1" max="1440"
+                               class="w-full bg-white/10 border border-slate-20 rounded-2xl px-6 py-4 outline-none focus:border-brand-primary transition-all font-black text-2xl text-slate-900" aria-describedby="interval-desc" />
                         <p id="interval-desc" class="mt-2 text-[10px] text-slate-500 font-bold uppercase">@L["Background service frequency."]</p>
                     </div>
 
                     <div>
                         <label asp-for="TimeZoneId" class="block text-[10px] font-black text-brand-primary uppercase tracking-widest mb-3">@L["Reference Timezone"]</label>
-                        <select asp-for="TimeZoneId" class="w-full bg-white/10 border-2 border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-brand-primary transition-all font-bold text-white appearance-none" aria-label="@L["Select Timezone"]">
+                        <select asp-for="TimeZoneId" class="w-full bg-white/10 border border-slate-20 rounded-2xl px-6 py-4 outline-none focus:border-brand-primary transition-all font-bold text-slate-900 appearance-none" aria-label="@L["Select Timezone"]">
                             <option value="UTC">UTC (Universal Coordinated Time)</option>
                             <option value="W. Europe Standard Time">W. Europe (Amsterdam, Berlin, Paris)</option>
                             <option value="GMT Standard Time">GMT (London, Lisbon)</option>
@@ -75,20 +75,20 @@
                 <div class="absolute -right-8 -top-8 text-slate-500/5 text-9xl group-hover:scale-110 transition-transform duration-700">
                     <i class="fa-solid fa-moon"></i>
                 </div>
-                
+
                 <h2 class="text-3xl font-black text-slate-900 mb-2">@L["Quiet Hours"]</h2>
                 <p class="text-slate-500 font-medium mb-12">@L["Suppress automated notifications during these periods."]</p>
 
                 <div class="space-y-8">
                     <div>
                         <label asp-for="QuietHoursStart" class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">@L["Start Suppression"]</label>
-                        <input asp-for="QuietHoursStart" type="time" 
+                        <input asp-for="QuietHoursStart" type="time"
                                class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl px-6 py-4 outline-none focus:border-brand-primary focus:bg-white transition-all font-black text-xl text-slate-900" aria-label="@L["Start time for quiet hours"]" />
                     </div>
 
                     <div>
                         <label asp-for="QuietHoursEnd" class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">@L["End Suppression"]</label>
-                        <input asp-for="QuietHoursEnd" type="time" 
+                        <input asp-for="QuietHoursEnd" type="time"
                                class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl px-6 py-4 outline-none focus:border-brand-primary focus:bg-white transition-all font-black text-xl text-slate-900" aria-label="@L["End time for quiet hours"]" />
                     </div>
 

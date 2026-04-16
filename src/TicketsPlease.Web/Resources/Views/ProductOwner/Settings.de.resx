@@ -1,15 +1,107 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:element name="data">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
-        <xsd:sequence>
-          <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-          <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-        </xsd:sequence>
-        <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
-        <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-        <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
       </xsd:complexType>
     </xsd:element>
   </xsd:schema>
@@ -35,28 +127,28 @@
     <value>Verwalten Sie das Personal, die Dienstleistungsstandards und den sicheren Onboarding-Ablauf Ihrer Organisation.</value>
   </data>
   <data name="Notify on high priority SLA breach" xml:space="preserve">
-    <value>Benachrichtigung bei SLA-VerstoÃŸ mit hoher PrioritÃ¤t</value>
+    <value>Benachrichtigung bei SLA-Verstoß mit hoher Priorität</value>
   </data>
   <data name="Notify on critical SLA breach" xml:space="preserve">
-    <value>Benachrichtigung bei kritischem SLA-VerstoÃŸ</value>
+    <value>Benachrichtigung bei kritischem SLA-Verstoß</value>
   </data>
   <data name="Medium Priority" xml:space="preserve">
-    <value>Mittlere PrioritÃ¤t</value>
+    <value>Mittlere Priorität</value>
   </data>
   <data name="Background service frequency." xml:space="preserve">
     <value>Frequenz des Hintergrunddienstes.</value>
   </data>
   <data name="Global policies enforce standards across all projects." xml:space="preserve">
-    <value>Globale Richtlinien erzwingen Standards Ã¼ber alle Projekte hinweg.</value>
+    <value>Globale Richtlinien erzwingen Standards über alle Projekte hinweg.</value>
   </data>
   <data name="High Priority" xml:space="preserve">
-    <value>Hohe PrioritÃ¤t</value>
+    <value>Hohe Priorität</value>
   </data>
   <data name="Reference Timezone" xml:space="preserve">
     <value>Referenzzeitzone</value>
   </data>
   <data name="End Suppression" xml:space="preserve">
-    <value>UnterdrÃ¼ckung beenden</value>
+    <value>Unterdrückung beenden</value>
   </data>
   <data name="Quiet Hours" xml:space="preserve">
     <value>Ruhezeiten</value>
@@ -68,48 +160,48 @@
     <value>Blocker / Kritisch</value>
   </data>
   <data name="Low Priority" xml:space="preserve">
-    <value>Niedrige PrioritÃ¤t</value>
+    <value>Niedrige Priorität</value>
   </data>
   <data name="Alarm Filters" xml:space="preserve">
     <value>Alarm Filters</value>
   </data>
   <data name="Notify on medium priority SLA breach" xml:space="preserve">
-    <value>Benachrichtigung bei SLA-VerstoÃŸ mit mittlerer PrioritÃ¤t</value>
+    <value>Benachrichtigung bei SLA-Verstoß mit mittlerer Priorität</value>
   </data>
   <data name="Suppress automated notifications during these periods." xml:space="preserve">
-    <value>Automatische Benachrichtigungen wÃ¤hrend dieser ZeitrÃ¤ume unterdrÃ¼cken.</value>
+    <value>Automatische Benachrichtigungen während dieser Zeiträume unterdrücken.</value>
   </data>
   <data name="Select Timezone" xml:space="preserve">
-    <value>Zeitzone auswÃ¤hlen</value>
+    <value>Zeitzone auswählen</value>
   </data>
   <data name="Workspace Sovereignty" xml:space="preserve">
-    <value>Workspace-SouverÃ¤nitÃ¤t</value>
+    <value>Workspace-Souveränität</value>
   </data>
   <data name="Start Suppression" xml:space="preserve">
-    <value>UnterdrÃ¼ckung starten</value>
+    <value>Unterdrückung starten</value>
   </data>
   <data name="Start time for quiet hours" xml:space="preserve">
-    <value>Startzeit fÃ¼r Ruhezeiten</value>
+    <value>Startzeit für Ruhezeiten</value>
   </data>
   <data name="Choose which priority levels trigger global alerts." xml:space="preserve">
-    <value>WÃ¤hlen Sie, welche PrioritÃ¤tsstufen globale Alarme auslÃ¶sen.</value>
+    <value>Wählen Sie, welche Prioritätsstufen globale Alarme auslösen.</value>
   </data>
   <data name="Commit Sovereignty Update" xml:space="preserve">
-    <value>SouverÃ¤nitÃ¤tsupdate Ã¼bernehmen</value>
+    <value>Souveränitätsupdate übernehmen</value>
   </data>
   <data name="End time for quiet hours" xml:space="preserve">
-    <value>Endzeit fÃ¼r Ruhezeiten</value>
+    <value>Endzeit für Ruhezeiten</value>
   </data>
   <data name="Subscription Context" xml:space="preserve">
     <value>Abonnement-Kontext</value>
   </data>
   <data name="Check Interval (Minutes)" xml:space="preserve">
-    <value>PrÃ¼fintervall (Minuten)</value>
+    <value>Prüfintervall (Minuten)</value>
   </data>
   <data name="Governance Protocol" xml:space="preserve">
     <value>Governance-Protokoll</value>
   </data>
   <data name="Notify on low priority SLA breach" xml:space="preserve">
-    <value>Benachrichtigung bei SLA-VerstoÃŸ mit niedriger PrioritÃ¤t</value>
+    <value>Benachrichtigung bei SLA-Verstoß mit niedriger Priorität</value>
   </data>
 </root>

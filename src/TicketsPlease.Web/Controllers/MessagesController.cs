@@ -119,7 +119,9 @@ public sealed class MessagesController : Controller
     }
 
     var messages = await this.messageService.GetConversationAsync(currentUser.Id, userId.Value).ConfigureAwait(false);
-    var otherUser = await this.userManager.FindByIdAsync(userId.Value.ToString()).ConfigureAwait(false);
+    var otherUser = await this.context.Users
+        .Include(u => u.Profile)
+        .FirstOrDefaultAsync(u => u.Id == userId.Value).ConfigureAwait(false);
 
     if (otherUser == null)
     {
@@ -128,6 +130,7 @@ public sealed class MessagesController : Controller
 
     this.ViewBag.OtherUserName = otherUser.UserName;
     this.ViewBag.OtherUserId = otherUser.Id;
+    this.ViewBag.OtherUserAvatarUrl = otherUser.Profile?.AvatarUrl?.ToString();
 
     return this.View(messages);
   }

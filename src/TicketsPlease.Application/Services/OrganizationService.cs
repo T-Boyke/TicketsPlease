@@ -16,6 +16,7 @@ public class OrganizationService : IOrganizationService
     private readonly IOrganizationRepository repository;
     private readonly IOrganizationInviteService inviteService;
     private readonly IAuditLogService auditLogService;
+    private readonly ITicketRepository ticketRepository;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="OrganizationService"/> class.
@@ -23,14 +24,17 @@ public class OrganizationService : IOrganizationService
     /// <param name="repository">Das injizierte Repository.</param>
     /// <param name="inviteService">Der Einladungs-Service.</param>
     /// <param name="auditLogService">Der Audit-Log-Service.</param>
+    /// <param name="ticketRepository">Das Ticket-Repository.</param>
     public OrganizationService(
         IOrganizationRepository repository,
         IOrganizationInviteService inviteService,
-        IAuditLogService auditLogService)
+        IAuditLogService auditLogService,
+        ITicketRepository ticketRepository)
     {
         this.repository = repository;
         this.inviteService = inviteService;
         this.auditLogService = auditLogService;
+        this.ticketRepository = ticketRepository;
     }
 
     /// <inheritdoc/>
@@ -91,6 +95,28 @@ public class OrganizationService : IOrganizationService
         };
 
         await this.repository.AddAsync(org, ct).ConfigureAwait(false);
+        
+        // Seed default transitions
+        var todo = await this.ticketRepository.GetWorkflowStateByNameAsync("Todo", ct).ConfigureAwait(false);
+        var inProgress = await this.ticketRepository.GetWorkflowStateByNameAsync("In Progress", ct).ConfigureAwait(false);
+        var done = await this.ticketRepository.GetWorkflowStateByNameAsync("Done", ct).ConfigureAwait(false);
+
+        if (todo != null && inProgress != null)
+        {
+            await this.ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = todo.Id, ToStateId = inProgress.Id, TenantId = org.Id }).ConfigureAwait(false);
+            await this.ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = inProgress.Id, ToStateId = todo.Id, TenantId = org.Id }).ConfigureAwait(false);
+        }
+
+        if (inProgress != null && done != null)
+        {
+            await this.ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = inProgress.Id, ToStateId = done.Id, TenantId = org.Id }).ConfigureAwait(false);
+        }
+
+        if (todo != null && done != null)
+        {
+            await this.ticketRepository.AddWorkflowTransitionAsync(new WorkflowTransition { FromStateId = todo.Id, ToStateId = done.Id, TenantId = org.Id }).ConfigureAwait(false);
+        }
+
         await this.repository.SaveChangesAsync(ct).ConfigureAwait(false);
 
         return new OrganizationDto(

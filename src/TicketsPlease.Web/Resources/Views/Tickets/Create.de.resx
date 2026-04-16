@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:element name="data">
@@ -47,7 +47,7 @@
     <value>Nicht zugewiesen</value>
   </data>
   <data name="Hold Ctrl/Cmd to select multiple" xml:space="preserve">
-    <value>Strg/Cmd gedrÃ¼ckt halten, um mehrere auszuwÃ¤hlen</value>
+    <value>Strg/Cmd gedrückt halten, um mehrere auszuwählen</value>
   </data>
   <data name="Create New Ticket" xml:space="preserve">
     <value>Neues Ticket erstellen</value>
@@ -65,7 +65,7 @@
     <value>Tags</value>
   </data>
   <data name="-- Select a Template --" xml:space="preserve">
-    <value>-- Vorlage auswÃ¤hlen --</value>
+    <value>-- Vorlage auswählen --</value>
   </data>
   <data name="Detailed steps, requirements, or context..." xml:space="preserve">
     <value>Detaillierte Schritte, Anforderungen oder Kontext...</value>

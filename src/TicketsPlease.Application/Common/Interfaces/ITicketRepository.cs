@@ -162,6 +162,12 @@ public interface ITicketRepository
   public void SetOriginalRowVersion(Ticket ticket, byte[] rowVersion);
 
   /// <summary>
+  /// Fügt einen Workflow-Übergang hinzu.
+  /// </summary>
+  /// <param name="transition">Der Übergang.</param>
+  public Task AddWorkflowTransitionAsync(WorkflowTransition transition);
+
+  /// <summary>
   /// Ruft alle Tickets eines Tenants ab (für Reporting).
   /// </summary>
   /// <param name="tenantId">Die Mandanten-ID.</param>

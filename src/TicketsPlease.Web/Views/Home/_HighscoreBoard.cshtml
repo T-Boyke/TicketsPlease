@@ -5,7 +5,6 @@
 
 <div class="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-2xl shadow-slate-200/60 mt-12 overflow-hidden relative">
     <div class="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
-        <i class="fa-solid fa-trophy text-9xl text-amber-500 rotate-12"></i>
     </div>
 
     <header class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
@@ -44,7 +43,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @{ 
+                    @{
                         int i = 1;
                         var activeIndividuals = Model.IndividualHighscores.Where(u => u.CompletedTickets > 0 || u.TotalStoryPoints > 0).ToList();
                     }
@@ -114,7 +113,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @{ 
+                    @{
                         int j = 1;
                         var activeTeams = Model.TeamHighscores.Where(t => t.CompletedTickets > 0 || t.TotalStoryPoints > 0).ToList();
                     }
@@ -177,7 +176,7 @@
 <div id="performance-modal" class="fixed inset-0 z-[100] hidden overflow-y-auto" role="dialog" aria-modal="true">
     <div class="flex min-h-screen items-center justify-center p-4 text-center sm:p-0">
         <div onclick="closePerformanceModal()" class="fixed inset-0 bg-slate-900/40 backdrop-blur-md transition-opacity"></div>
-        
+
         <div class="relative transform overflow-hidden rounded-[3rem] bg-white p-12 text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-4xl border border-white/20">
             <button onclick="closePerformanceModal()" class="absolute top-8 right-8 text-slate-400 hover:text-slate-600 transition-colors">
                 <i class="fa-solid fa-xmark text-2xl"></i>

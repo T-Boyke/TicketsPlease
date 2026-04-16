@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:element name="data">
@@ -47,7 +47,7 @@
     <value>Kontakt</value>
   </data>
   <data name="VAT ID number according to Â§ 27 a Value Added Tax Act" xml:space="preserve">
-    <value>USt-ID gemÃ¤ÃŸ Â§ 27a Umsatzsteuergesetz</value>
+    <value>USt-ID gemäß Â§ 27a Umsatzsteuergesetz</value>
   </data>
   <data name="Phone" xml:space="preserve">
     <value>Telefon</value>

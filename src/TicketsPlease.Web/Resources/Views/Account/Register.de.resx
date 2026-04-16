@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:element name="data">
@@ -41,7 +41,7 @@
     <value>Haben Sie bereits ein Konto?</value>
   </data>
   <data name="Select Workspace" xml:space="preserve">
-    <value>Workspace auswÃ¤hlen</value>
+    <value>Workspace auswählen</value>
   </data>
   <data name="Please correct the errors below." xml:space="preserve">
     <value>Bitte korrigieren Sie die unten stehenden Fehler.</value>
@@ -53,7 +53,7 @@
     <value>Passwort</value>
   </data>
   <data name="Street" xml:space="preserve">
-    <value>StraÃŸe</value>
+    <value>Straße</value>
   </data>
   <data name="Workplace" xml:space="preserve">
     <value>Arbeitsplatz</value>

@@ -1,23 +1,25 @@
+@using Microsoft.AspNetCore.Mvc.Localization
 @using TicketsPlease.Application.Common.Dtos
 @model StakeholderDashboardDto
+@inject IViewLocalizer L
 @{
-    ViewData["Title"] = "Stakeholder Dashboard";
+    ViewData["Title"] = L["Stakeholder Dashboard"];
 }
 
 <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
     <header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
             <nav class="flex mb-4 text-xs font-bold uppercase tracking-widest text-slate-400">
-                <a href="/" class="hover:text-brand-primary transition-colors">Workspace</a>
+                <a href="/" class="hover:text-brand-primary transition-colors">@L["Workspace"]</a>
                 <span class="mx-2 text-slate-300">/</span>
-                <span class="text-slate-900">Stakeholder Insights</span>
+                <span class="text-slate-900">@L["Stakeholder Insights"]</span>
             </nav>
-            <h1 class="text-5xl font-black text-slate-900 tracking-tight">Executive Dashboard</h1>
-            <p class="mt-3 text-lg text-slate-500 max-w-2xl">High-level performance monitoring, SLA compliance, and project health at a glance.</p>
+            <h1 class="text-5xl font-black text-slate-900 tracking-tight">@L["Executive Dashboard"]</h1>
+            <p class="mt-3 text-lg text-slate-500 max-w-2xl">@L["High-level performance monitoring, SLA compliance, and project health at a glance."]</p>
         </div>
         <div class="flex items-center gap-4 bg-white p-2 rounded-2xl border border-slate-100 shadow-sm">
             <div class="px-6 py-3 text-right">
-                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Active Personnel</p>
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">@L["Active Personnel"]</p>
                 <p class="text-2xl font-black text-slate-900">@Model.TotalActiveUsers</p>
             </div>
             <div class="h-10 w-[1px] bg-slate-100"></div>
@@ -36,8 +38,8 @@
             </div>
             <div class="relative z-10">
                 <div class="flex items-center justify-between mb-8">
-                    <h2 class="text-2xl font-black text-slate-900">Service Level Agreement (SLA)</h2>
-                    <span class="px-4 py-1 bg-emerald-50 text-emerald-600 text-xs font-black rounded-full uppercase tracking-widest">Live Monitoring</span>
+                    <h2 class="text-2xl font-black text-slate-900">@L["Service Level Agreement (SLA)"]</h2>
+                    <span class="px-4 py-1 bg-emerald-50 text-emerald-600 text-xs font-black rounded-full uppercase tracking-widest">@L["Live Monitoring"]</span>
                 </div>
 
                 <div class="space-y-8">
@@ -47,7 +49,7 @@
                             <div class="flex justify-between items-end mb-3">
                                 <div>
                                     <h4 class="font-bold text-slate-800">@sla.ProjectName</h4>
-                                    <p class="text-xs text-slate-400 font-medium">@sla.BreachedTickets Breaches of @sla.TotalTickets Total Tickets</p>
+                                    <p class="text-xs text-slate-400 font-medium">@sla.BreachedTickets @L["Breaches of"] @sla.TotalTickets @L["Total Tickets"]</p>
                                 </div>
                                 <span class="text-2xl font-black @(sla.ComplianceRate >= 95 ? "text-emerald-500" : (sla.ComplianceRate >= 80 ? "text-amber-500" : "text-rose-500"))">
                                     @sla.ComplianceRate%
@@ -69,7 +71,7 @@
                 <div class="absolute -right-6 -bottom-6 text-brand-primary/10 text-9xl">
                     <i class="fa-solid fa-chart-pie"></i>
                 </div>
-                <h3 class="text-sm font-black text-brand-primary uppercase tracking-[0.2em] mb-6">Health Index</h3>
+                <h3 class="text-sm font-black text-brand-primary uppercase tracking-[0.2em] mb-6">@L["Health Index"]</h3>
                 <div class="space-y-6">
                     @foreach(var health in Model.ProjectHealth) {
                         <div class="flex items-center justify-between">
@@ -86,23 +88,23 @@
              </div>
 
              <div class="bg-brand-primary rounded-[2.5rem] p-10 text-white shadow-xl shadow-brand-primary/30">
-                <h3 class="text-sm font-black text-white/60 uppercase tracking-[0.2em] mb-4">Total Throughput</h3>
+                <h3 class="text-sm font-black text-white/60 uppercase tracking-[0.2em] mb-4">@L["Total Throughput"]</h3>
                 <p class="text-5xl font-black mb-2">@Model.TeamThroughput.Sum(t => t.TicketsCompleted)</p>
-                <p class="text-brand-primary-light/80 text-sm font-bold">Tickets successfully delivered this cycle</p>
+                <p class="text-brand-primary-light/80 text-sm font-bold">@L["Tickets successfully delivered this cycle"]</p>
              </div>
         </div>
     </div>
 
     @* Productivity Grid *@
     <div class="bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-xl overflow-x-auto">
-        <h2 class="text-2xl font-black text-slate-900 mb-10">Team Velocity & Throughput</h2>
+        <h2 class="text-2xl font-black text-slate-900 mb-10">@L["Team Velocity & Throughput"]</h2>
         <table class="w-full text-left border-collapse">
             <thead>
                 <tr class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] border-b border-slate-50">
-                    <th class="pb-6">Team Entity</th>
-                    <th class="pb-6">Throughput (Done)</th>
-                    <th class="pb-6">Velocity (Wkly Avg)</th>
-                    <th class="pb-6 text-right">Performance Level</th>
+                    <th class="pb-6">@L["Team Entity"]</th>
+                    <th class="pb-6">@L["Throughput (Done)"]</th>
+                    <th class="pb-6">@L["Velocity (Wkly Avg)"]</th>
+                    <th class="pb-6 text-right">@L["Performance Level"]</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-slate-50">
@@ -119,20 +121,20 @@
                         </td>
                         <td class="py-6 pr-4">
                             <span class="text-lg font-black text-slate-900">@team.TicketsCompleted</span>
-                            <span class="ml-1 text-[10px] text-slate-400 font-bold uppercase">Units</span>
+                            <span class="ml-1 text-[10px] text-slate-400 font-bold uppercase">@L["Units"]</span>
                         </td>
                         <td class="py-6 pr-4">
                             <span class="text-lg font-black text-slate-900">@team.AveragePointsPerWeek.ToString("F1")</span>
-                            <span class="ml-1 text-[10px] text-slate-400 font-bold uppercase">Pts/Wk</span>
+                            <span class="ml-1 text-[10px] text-slate-400 font-bold uppercase">@L["Pts/Wk"]</span>
                         </td>
                         <td class="py-6 text-right">
                              @if(team.AveragePointsPerWeek > 5) {
                                  <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-widest border border-emerald-100">
-                                     High Performer
+                                     @L["High Performer"]
                                  </span>
                              } else {
                                  <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-50 text-slate-400 text-[10px] font-black uppercase tracking-widest border border-slate-100">
-                                     Steady
+                                     @L["Steady"]
                                  </span>
                              }
                         </td>

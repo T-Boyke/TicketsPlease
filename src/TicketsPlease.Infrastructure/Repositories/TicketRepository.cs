@@ -256,6 +256,12 @@ public class TicketRepository : ITicketRepository
   }
 
   /// <inheritdoc />
+  public async Task AddWorkflowTransitionAsync(WorkflowTransition transition)
+  {
+    await this.context.WorkflowTransitions.AddAsync(transition).ConfigureAwait(false);
+  }
+
+  /// <inheritdoc />
   public async Task<List<Ticket>> GetByTenantAsync(Guid tenantId)
   {
     return await this.context.Tickets

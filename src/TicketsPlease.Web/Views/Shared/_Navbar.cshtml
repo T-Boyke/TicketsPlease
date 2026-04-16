@@ -103,17 +103,7 @@
             <div class="flex items-center space-x-2">
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    @* Collaboration Hub Button *@
-                    <button onclick="toggleChat()" class="text-slate-500 hover:text-indigo-600 transition-all duration-300 relative p-2 rounded-xl hover:bg-indigo-50 cursor-pointer focus:outline-none flex items-center gap-2 group border border-transparent hover:border-indigo-100" aria-label="@L["Collaboration Hub"]">
-                        <div class="relative">
-                            <i class="fa-solid fa-cloud-bolt text-xl group-hover:scale-110 transition-transform"></i>
-                            <span class="absolute -top-1 -right-1 flex h-2 w-2">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                                <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-                            </span>
-                        </div>
-                        <span class="text-xs font-black uppercase tracking-widest hidden lg:block">Hub</span>
-                    </button>
+
 
                     @* Chat Dropdown *@
                     <div class="relative">

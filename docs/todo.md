@@ -1,113 +1,98 @@
 # TODO List
 
-1. ohne anmeldung <https://localhost:7209/>
+- src\TicketsPlease.Web\Views\Shared\_CookieBanner.cshtml div id="cookie-banner" ist auf jeder seite/view und blockiert den inhalt der seite,
+  muss nach zustimmung verschwinden
+- in src\TicketsPlease.Web\Views\Messages\Conversation.cshtml ist die klasse:
+  class="h-14 w-14 rounded-full bg-gradient-to-br from-brand-primary
+  to-brand-accent flex items-center justify-center text-white text-xl
+  font-black shadow-lg shadow-brand-primary/20 flex-shrink-0"
+  Hier soll der nutzer den Avatar der person sehen, mit der er gerade chattet.
+- in src\TicketsPlease.Web\Views\Messages\Create.cshtml wenn eine andere nutzergrupper als
+  Admin, jemanden eine Nachricht schreibt, kommt es zu einem fehler:
 
-- die sektion py-24 bg-slate-900 text-white overflow-hidden ist etwas zu dunkel
-- die h3 class ist zu dunkel und hat in der sektion keinen kontrast
+  ```text
+  An unhandled exception occurred while processing the request.
 
-1. <https://localhost:7209/Account/Register>
+NullReferenceException: Object reference not set to an instance of an object.
+TicketsPlease.Application.Services.MessageService.MapToDto(Message m) in MessageService.cs, line 148
 
-- die nutzer registrierung, muss alle relevanten felder des userprofils beinhalten (Firma
-  (workplaces per dropdown), position, techstack, Ort, Straße, Straßennummer, land )
+Stack Query Cookies Headers Routing
+NullReferenceException: Object reference not set to an instance of an object.
+TicketsPlease.Application.Services.MessageService.MapToDto(Message m) in MessageService.cs
++
+    var attachments = m.Attachments?.Select(a => new FileAssetDto(
+TicketsPlease.Application.Services.MessageService.SendMessageAsync(Guid senderId, CreateMessageDto dto, CancellationToken ct) in MessageService.cs
++
+    var mappedResult = MapToDto(savedMessage!);
+TicketsPlease.Web.Controllers.MessagesController.Create(CreateMessageDto dto)
+Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor+TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, object controller, object[] arguments)
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask<IActionResult> actionResultValueTask)
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, object state, bool isCompleted)
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(ref State next, ref Scope scope, ref object state, ref bool isCompleted)
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, object state, bool isCompleted)
+Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, object state, bool isCompleted)
+Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(ref State next, ref Scope scope, ref object state, ref bool isCompleted)
+Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, object state, bool isCompleted)
+Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
+Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
 
-1. nach der anmeldung <https://localhost:7209/>
+Show raw exception details"
 
-- firmen(workspaces) sind von einander getrennt nur user mit einer entsprechenden beziehung zu einer
-  firma können entsprechende projekte, tickets, teams und user und statistiken sehen, Admin kann
-  alles wie gewohnt sehen.
-- class="bg-slate-900 rounded-[2.5rem] p-12 text-white overflow-hidden relative group" ist zu
-  dunkel, die class h2 ist auch zu dunkel und hat keinen kontrast.
-- die navbar brauch einen neuen eintrag, Übersicht, Projekte, Tickets, Teams und Chat, Projekte soll
-  die Projekte der Firma zeigen.
-
-1. <https://localhost:7209/Teams>
-
-- type="submit" Join request, muss anfragen an admins. teamlead stellen, die von diesen nutzern dann
-  bestätigt oder abgelehnt werden
-- Admins und Teamleads bnrauchen hier einen BTN CreateTeam
-
-1. <https://localhost:7209/Teams/Details/>
-
-- Muss mehr details, performance metriken, schöne charts, pie charts, tickets und projekte sowie für
-  admin/teamlead (accept request, edit team(<https://localhost:7209/Teams/Management>) und kick
-  teammember) für das team enthalten
-
-1. <https://localhost:7209/Tickets/Details/>
-
-- blocker hinzufügen führt zu: An unhandled exception occurred while processing the request.
-  KeyNotFoundException: Ticket nicht gefunden.
-
-```text
-Stack Query Cookies Headers Routing KeyNotFoundException: Ticket nicht gefunden.
-TicketsPlease.Application.Services.TicketService.AddDependencyAsync(Guid ticketId, Guid blockerId)
-in TicketService.cs
-
--     var blocker = await _ticketRepository.GetByIdAsync(blockerId).ConfigureAwait(false) ?? throw new KeyNotFoundException(TicketNotFoundMessage);
-  TicketsPlease.Web.Controllers.TicketsController.AddDependency(Guid id, Guid blockerId) in
-  TicketsController.cs
--       await this.ticketService.AddDependencyAsync(id, blockerId).ConfigureAwait(false);
-  Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor+TaskOfIActionResultExecutor.Execute(ActionContext
-  actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, object controller,
-  object[] arguments)
-  Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsyncg**Awaited|12_0(ControllerActionInvoker
-  invoker, ValueTask actionResultValueTask)
-  Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsyncg**Awaited|10_0(ControllerActionInvoker
-  invoker, Task lastTask, State next, Scope scope, object state, bool isCompleted)
-  Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed
-  context) Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(ref State next, ref
-  Scope scope, ref object state, ref bool isCompleted)
-  Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsyncg**Awaited|13_0(ControllerActionInvoker
-  invoker, Task lastTask, State next, Scope scope, object state, bool isCompleted)
-  Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeNextResourceFilterg**Awaited|25_0(ResourceInvoker
-  invoker, Task lastTask, State next, Scope scope, object state, bool isCompleted)
-  Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed
-  context) Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(ref State next, ref Scope
-  scope, ref object state, ref bool isCompleted)
-  Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsyncg**Awaited|20_0(ResourceInvoker
-  invoker, Task lastTask, State next, Scope scope, object state, bool isCompleted)
-  Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeAsyncg**Awaited|17_0(ResourceInvoker
-  invoker, Task task, IDisposable scope)
-  Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeAsyncg\_\_Awaited|17_0(ResourceInvoker
-  invoker, Task task, IDisposable scope)
-  Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
-  Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
-  Microsoft.AspNetCore.Localization.RequestLocalizationMiddleware.Invoke(HttpContext context)
-  Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
 ```
-
-Show raw exception details
-
-- ich möchte blocker bestimmen können, achte auf circular dependencies
-- tickets brauchen ein start und ein optionales end datum, denke an SLA-Agreements und eine
-  Blinkende Warnung für Eskalierte Tickets.
-
-1. <https://localhost:7209/Admin/Settings>
-
-- jeder User soll settings haben, gestallte universelle einstellungen, performance einstellungen (
-  wie zum beispiel update zeiten im kanbanaboard wenn man tickets verschiebt auf eine ander list
-  verschiebt),notification settings (verschiedene töne, usw) spezielle admin settings wie das
-  löschen der database, jeder einzelnen table der database usw
-
-1. <https://localhost:7209/Tickets/Edit/>
-
-- tickets brauchen ein start und ein optionales end datum, denke an SLA-Agreements und eine
-  Blinkende Warnung für Eskalierte Tickets, die auch im Kanban sichtbar ist. SLA-Eskalierte tickets
-  müssen den Teamlead benachrichten.
-
-1. <https://localhost:7209/Tickets/Create>
-
-- tickets brauchen ein start und ein optionales end datum, denke an SLA-Agreements und eine
-  Blinkende Warnung für Eskalierte Tickets, die auch im Kanban sichtbar ist. SLA-Eskalierte tickets
-  müssen den Teamlead benachrichten.
-
-1. <https://localhost:7209/AdminWorkspaces/Edit/>
-
-- wir brauchen mehr settings, wie service level Agreements...
-
-1. generelles
-
-- Migrate entirely to HTTPS to have cookies sent to same-site subresources
-- i18n für alle seiten und unterseiten
-- Unload event listeners are deprecated and will be removed.
-
-1 source browserLink:4
+- src\TicketsPlease.Web\Views\Stakeholder\Index.cshtml hat kein i18n in de und en
+- src\TicketsPlease.Web\Views\AdminWorkspaces\Create.cshtml legt nach submit keinen neuen workspace an
+- src\TicketsPlease.Web\Views\AdminWorkspaces\Edit.cshtml speichert nach submit keine änderungen
+- src\TicketsPlease.Web\Views\Shared\_Navbar.cshtml btn onclick="toggleChat()" ist überflüssig und kann weg
+- folgende fehler treten auf:
+im haupt dashboard nach der anmeldung
+```text
+signalr.min.js:1 [2026-04-16T09:01:09.142Z] Information: Normalizing '/notificationHub' to 'https://localhost:7209/notificationHub'.
+signalr.min.js:1 [2026-04-16T09:01:09.147Z] Information: Normalizing '/notificationHub' to 'https://localhost:7209/notificationHub'.
+(index):971  GET https://localhost:7209/lib/chartjs/dist/chart.umd.js net::ERR_ABORTED 404 (Not Found)
+(index):1 Refused to execute script from 'https://localhost:7209/lib/chartjs/dist/chart.umd.js' because its MIME type ('') is not executable, and strict MIME type checking is enabled.
+signalr.min.js:1 [2026-04-16T09:01:10.613Z] Information: WebSocket connected to wss://localhost:7209/notificationHub?id=VaIlAIYS84a22tDO1fnBSQ.
+signalr.min.js:1 [2026-04-16T09:01:10.947Z] Information: WebSocket connected to wss://localhost:7209/notificationHub?id=eUUWveX0T3tlXT543Ff2dg.
+collaboration-client.js?v=_ezY920X4WPmP59rtlvlFzDeFD0ObiiCErdalTZghiU:135 Collaboration connection started
+notification-client.js?v=aJqtpDf7FVmJrC5trRzGbEv4sPpehYWAudH1OBzT4J4:117 SignalR connected.
+dashboard-charts.js?v=rlODhfDN43yR-zrRo3bJN2_9nv58Ot-2P3re9cbiiUQ:57 Error fetching performance details: ReferenceError: Chart is not defined
+    at renderStatusChart (dashboard-charts.js?v=rlODhfDN43yR-zrRo3bJN2_9nv58Ot-2P3re9cbiiUQ:82:5)
+    at openPerformanceDetail (dashboard-charts.js?v=rlODhfDN43yR-zrRo3bJN2_9nv58Ot-2P3re9cbiiUQ:53:9)
+openPerformanceDetail @ dashboard-charts.js?v=rlODhfDN43yR-zrRo3bJN2_9nv58Ot-2P3re9cbiiUQ:57
+await in openPerformanceDetail
+onclick @ (index):336
+dashboard-charts.js?v=rlODhfDN43yR-zrRo3bJN2_9nv58Ot-2P3re9cbiiUQ:57 Error fetching performance details: ReferenceError: Chart is not defined
+    at renderStatusChart (dashboard-charts.js?v=rlODhfDN43yR-zrRo3bJN2_9nv58Ot-2P3re9cbiiUQ:82:5)
+    at openPerformanceDetail (dashboard-charts.js?v=rlODhfDN43yR-zrRo3bJN2_9nv58Ot-2P3re9cbiiUQ:53:9)
+openPerformanceDetail @ dashboard-charts.js?v=rlODhfDN43yR-zrRo3bJN2_9nv58Ot-2P3re9cbiiUQ:57
+await in openPerformanceDetail
+onclick @ (index):572
+```
+Als PO im kommt es zu folgendem Fehler:
+```text
+signalr.min.js:1 [2026-04-16T09:05:08.855Z] Information: Normalizing '/notificationHub' to 'https://localhost:7209/notificationHub'.
+signalr.min.js:1 [2026-04-16T09:05:08.861Z] Information: Normalizing '/notificationHub' to 'https://localhost:7209/notificationHub'.
+signalr.min.js:1 [2026-04-16T09:05:09.791Z] Information: WebSocket connected to wss://localhost:7209/notificationHub?id=qMcrHAWbjUBB81D9YxNx3w.
+signalr.min.js:1 [2026-04-16T09:05:12.478Z] Information: WebSocket connected to wss://localhost:7209/notificationHub?id=XQu4veAeKnETRggEJrbpRw.
+collaboration-client.js?v=_ezY920X4WPmP59rtlvlFzDeFD0ObiiCErdalTZghiU:135 Collaboration connection started
+notification-client.js?v=aJqtpDf7FVmJrC5trRzGbEv4sPpehYWAudH1OBzT4J4:117 SignalR connected.
+Tickets:1831  POST https://localhost:7209/Tickets/Move/a58b5f2e-d0af-450a-a854-6638289866d9?status=In%20Progress 500 (Internal Server Error)
+onEnd @ Tickets:1831
+G @ Sortable.min.js:2
+V @ Sortable.min.js:2
+_onDrop @ Sortable.min.js:2
+handleEvent @ Sortable.min.js:2
+Tickets:1839 Move failed
+(anonymous) @ Tickets:1839
+Promise.then
+onEnd @ Tickets:1837
+G @ Sortable.min.js:2
+V @ Sortable.min.js:2
+_onDrop @ Sortable.min.js:2
+handleEvent @ Sortable.min.js:2
+```

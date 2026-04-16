@@ -15,9 +15,21 @@
             <a asp-action="Index" class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors">
                 <i class="fa-solid fa-arrow-left"></i>
             </a>
-            <div>
-                <h1 class="text-2xl font-black text-slate-900">@ViewBag.OtherUserName</h1>
-                <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">@L["Direct Messages"]</p>
+            <div class="flex items-center gap-3">
+                @if (!string.IsNullOrEmpty(ViewBag.OtherUserAvatarUrl))
+                {
+                    <img src="@ViewBag.OtherUserAvatarUrl" class="h-14 w-14 rounded-full object-cover border-2 border-white shadow-lg shadow-brand-primary/20 flex-shrink-0" alt="@ViewBag.OtherUserName" />
+                }
+                else
+                {
+                    <div class="h-14 w-14 rounded-full bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center text-white text-xl font-black shadow-lg shadow-brand-primary/20 flex-shrink-0">
+                        @ViewBag.OtherUserName[0].ToString().ToUpper()
+                    </div>
+                }
+                <div>
+                    <h1 class="text-2xl font-black text-slate-900">@ViewBag.OtherUserName</h1>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">@L["Direct Messages"]</p>
+                </div>
             </div>
         </div>
         <div class="hidden sm:block">

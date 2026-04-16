@@ -39,6 +39,15 @@
                 </div>
             </div>
 
+            <input type="hidden" asp-for="SlaCheckIntervalMinutes" value="60" />
+            <input type="hidden" asp-for="TimeZoneId" value="UTC" />
+            <input type="hidden" asp-for="NotifyOnLow" value="false" />
+            <input type="hidden" asp-for="NotifyOnMedium" value="true" />
+            <input type="hidden" asp-for="NotifyOnHigh" value="true" />
+            <input type="hidden" asp-for="NotifyOnBlocker" value="true" />
+            <input type="hidden" asp-for="QuietHoursStart" value="" />
+            <input type="hidden" asp-for="QuietHoursEnd" value="" />
+
             <div class="flex items-center justify-end space-x-3 pt-4">
                 <a asp-action="Index" class="text-slate-400 hover:text-slate-600 font-bold transition-colors">@L["Back"]</a>
                 <button type="submit" class="btn btn-primary px-10">@L["Deploy Workspace"]</button>

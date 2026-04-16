@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:element name="data">
@@ -62,6 +62,6 @@
     <value>Du</value>
   </data>
   <data name="Stay in touch with your team members through direct messaging. View all your active conversations and start new ones." xml:space="preserve">
-    <value>Bleiben Sie Ã¼ber Direktnachrichten mit Ihren Teammitgliedern in Kontakt. Sehen Sie sich alle aktiven GesprÃ¤che an und starten Sie neue.</value>
+    <value>Bleiben Sie über Direktnachrichten mit Ihren Teammitgliedern in Kontakt. Sehen Sie sich alle aktiven Gespräche an und starten Sie neue.</value>
   </data>
 </root>

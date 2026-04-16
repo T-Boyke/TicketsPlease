@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:element name="data">
@@ -35,7 +35,7 @@
     <value>Workspace aktiv</value>
   </data>
   <data name="Inactive workspaces block all access for their members." xml:space="preserve">
-    <value>Inaktive Workspaces blockieren jeglichen Zugriff fÃ¼r ihre Mitglieder.</value>
+    <value>Inaktive Workspaces blockieren jeglichen Zugriff für ihre Mitglieder.</value>
   </data>
   <data name="Edit Workspace" xml:space="preserve">
     <value>Workspace bearbeiten</value>
@@ -47,13 +47,13 @@
     <value>Firmenname</value>
   </data>
   <data name="Save Changes" xml:space="preserve">
-    <value>Ã„nderungen speichern</value>
+    <value>Änderungen speichern</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
   <data name="Modify organization settings and status." xml:space="preserve">
-    <value>Organisationseinstellungen und Status Ã¤ndern.</value>
+    <value>Organisationseinstellungen und Status ändern.</value>
   </data>
   <data name="Configure Workspace" xml:space="preserve">
     <value>Configure Workspace</value>

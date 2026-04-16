@@ -21,7 +21,7 @@
                 <label for="ReceiverUserId" class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2.5 ml-1 group-focus-within:text-brand-primary transition-colors">@L["Recipient"]</label>
                 <div class="relative">
                     <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none transition-colors group-focus-within:text-brand-primary"></i>
-                    <select id="ReceiverUserId" name="ReceiverUserId" asp-items="ViewBag.Users" class="form-input pl-12 h-14 w-full bg-slate-50 border-2 border-slate-100 focus:border-brand-primary/30 focus:bg-white rounded-2xl text-sm font-bold transition-all outline-none appearance-none cursor-pointer">
+                    <select id="ReceiverUserId" name="ReceiverUserId" asp-items="ViewBag.Users" class="form-input h-14 w-full bg-slate-50 border border-[#007FFF] focus:border-brand-primary/30 focus:bg-white rounded-2xl text-sm font-bold transition-all outline-none appearance-none cursor-pointer" style="padding-left: 3rem !important;">
                         <option value="">@L["Select a recipient..."]</option>
                     </select>
                     <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-300">
@@ -33,7 +33,7 @@
 
             <div class="group">
                 <label for="BodyMarkdown" class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2.5 ml-1 group-focus-within:text-brand-primary transition-colors">@L["Message Content"]</label>
-                <textarea id="BodyMarkdown" name="BodyMarkdown" rows="6" class="form-input p-5 w-full bg-slate-50 border-2 border-slate-100 focus:border-brand-primary/30 focus:bg-white rounded-2xl text-sm font-medium transition-all outline-none resize-none placeholder:text-slate-300" placeholder="@L["Write your message here..."]"></textarea>
+                <textarea id="BodyMarkdown" name="BodyMarkdown" rows="6" class="form-input p-5 w-full bg-slate-50 border border-[#007FFF] focus:border-brand-primary/30 focus:bg-white rounded-2xl text-sm font-medium transition-all outline-none resize-none placeholder:text-slate-300" placeholder="@L["Write your message here..."]"></textarea>
                 <div class="mt-2.5 flex items-center justify-between">
                     <span asp-validation-for="BodyMarkdown" class="text-rose-500 text-[10px] font-black uppercase ml-1"></span>
                     <span class="text-[10px] items-center gap-1.5 text-slate-400 uppercase font-black tracking-widest">
@@ -44,12 +44,12 @@
             </div>
 
             <div class="group">
-                <label for="Attachment" class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2.5 ml-1 group-focus-within:text-brand-primary transition-colors">@L["Attachment (Optional)"]</label>
+                <label for="Attachment" class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2.5 ml-1 group-focus-within:text-brand-primary transition-colors">@L["Attachment Optional"]</label>
                 <div class="relative">
                     <i class="fa-solid fa-paperclip absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none transition-colors group-focus-within:text-brand-primary"></i>
-                    <input type="file" id="Attachment" name="Attachment" class="form-input pl-12 h-14 w-full bg-slate-50 border-2 border-slate-100 focus:border-brand-primary/30 focus:bg-white rounded-2xl text-sm font-bold transition-all outline-none appearance-none flex items-center py-3" />
+                    <input type="file" id="Attachment" name="Attachment" class="form-input h-14 w-full bg-slate-50 border border-[#007FFF] focus:border-brand-primary/30 focus:bg-white rounded-2xl text-sm font-bold transition-all outline-none appearance-none flex items-center py-3 file:border-0 file:bg-transparent file:text-slate-700 file:font-bold file:mr-2 file:cursor-pointer" style="padding-left: 3rem !important;" />
                 </div>
-                <p class="text-[9px] text-slate-400 mt-2 ml-1 uppercase font-bold tracking-wider">@L["Accepted: PDF, PNG, JPG, ZIP (max 10MB)"]</p>
+                <p class="text-[9px] text-slate-400 mt-2 ml-1 uppercase font-bold tracking-wider">@L["Accepted: PDF, PNG, JPG, ZIP max 10MB"]</p>
             </div>
 
             <div class="flex flex-col sm:flex-row items-center gap-4 pt-4">

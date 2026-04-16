@@ -1,7 +1,7 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer L
 
-<div id="cookie-banner" class="fixed bottom-0 inset-x-0 pb-2 sm:pb-5 z-[500] pointer-events-auto transform transition-all duration-500 translate-y-full opacity-0">
+<div id="cookie-banner" class="hidden fixed bottom-0 inset-x-0 pb-2 sm:pb-5 z-[500] pointer-events-auto transform transition-all duration-500 translate-y-full opacity-0">
     <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div class="p-4 rounded-2xl bg-white shadow-2xl border border-slate-200 backdrop-blur-xl bg-white/90 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-start gap-4">
@@ -31,9 +31,10 @@
     document.addEventListener("DOMContentLoaded", function() {
         const banner = document.getElementById("cookie-banner");
         if (!localStorage.getItem("cookieConsent")) {
+            banner.classList.remove("hidden");
             setTimeout(() => {
                 banner.classList.remove("translate-y-full", "opacity-0");
-            }, 1000);
+            }, 100);
         }
     });
 
@@ -50,5 +51,8 @@
     function hideBanner() {
         const banner = document.getElementById("cookie-banner");
         banner.classList.add("translate-y-full", "opacity-0");
+        setTimeout(() => {
+            banner.classList.add("hidden");
+        }, 500);
     }
 </script>

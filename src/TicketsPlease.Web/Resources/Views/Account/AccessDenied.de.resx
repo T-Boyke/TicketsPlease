@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:element name="data">
@@ -35,6 +35,6 @@
     <value>Zugriff verweigert</value>
   </data>
   <data name="Go Back" xml:space="preserve">
-    <value>ZurÃ¼ckgehen</value>
+    <value>Zurückgehen</value>
   </data>
 </root>

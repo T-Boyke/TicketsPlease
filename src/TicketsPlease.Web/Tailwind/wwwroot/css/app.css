@@ -2195,6 +2195,9 @@
     --tw-border-style: none;
     border-style: none;
   }
+  .border-\[\#007FFF\] {
+    border-color: #007FFF;
+  }
   .border-amber-500\/20 {
     border-color: color-mix(in srgb, oklch(76.9% 0.188 70.08) 20%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -2991,6 +2994,9 @@
   }
   .pb-20 {
     padding-bottom: calc(var(--spacing) * 20);
+  }
+  .\!pl-12 {
+    padding-left: calc(var(--spacing) * 12) !important;
   }
   .pl-3 {
     padding-left: calc(var(--spacing) * 3);
@@ -4225,6 +4231,11 @@
       outline-style: none;
     }
   }
+  .file\:mr-2 {
+    &::file-selector-button {
+      margin-right: calc(var(--spacing) * 2);
+    }
+  }
   .file\:mr-4 {
     &::file-selector-button {
       margin-right: calc(var(--spacing) * 4);
@@ -4259,6 +4270,11 @@
       background-color: var(--color-slate-100);
     }
   }
+  .file\:bg-transparent {
+    &::file-selector-button {
+      background-color: transparent;
+    }
+  }
   .file\:px-4 {
     &::file-selector-button {
       padding-inline: calc(var(--spacing) * 4);
@@ -4284,6 +4300,12 @@
     &::file-selector-button {
       --tw-font-weight: var(--font-weight-black);
       font-weight: var(--font-weight-black);
+    }
+  }
+  .file\:font-bold {
+    &::file-selector-button {
+      --tw-font-weight: var(--font-weight-bold);
+      font-weight: var(--font-weight-bold);
     }
   }
   .file\:font-extrabold {

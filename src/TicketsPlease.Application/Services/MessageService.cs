@@ -22,6 +22,7 @@ public class MessageService : IMessageService
   private readonly IFileStorageService fileStorageService;
   private readonly IFileAssetRepository fileAssetRepository;
   private readonly INotificationService notificationService;
+  private readonly IUserRepository userRepository;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="MessageService"/> class.
@@ -30,16 +31,19 @@ public class MessageService : IMessageService
   /// <param name="fileStorageService">Der Dienst zur Dateispeicherung.</param>
   /// <param name="fileAssetRepository">Das Repository für Datei-Metadaten.</param>
   /// <param name="notificationService">Der Benachrichtigungsdienst.</param>
+  /// <param name="userRepository">Das Repository für Benutzer.</param>
   public MessageService(
       IMessageRepository messageRepository,
       IFileStorageService fileStorageService,
       IFileAssetRepository fileAssetRepository,
-      INotificationService notificationService)
+      INotificationService notificationService,
+      IUserRepository userRepository)
   {
     this.messageRepository = messageRepository;
     this.fileStorageService = fileStorageService;
     this.fileAssetRepository = fileAssetRepository;
     this.notificationService = notificationService;
+    this.userRepository = userRepository;
   }
 
   /// <inheritdoc />
@@ -61,6 +65,9 @@ public class MessageService : IMessageService
   {
     ArgumentNullException.ThrowIfNull(dto);
 
+    var sender = await this.userRepository.GetByIdAsync(senderId, ct).ConfigureAwait(false);
+    var tenantId = sender?.TenantId ?? Guid.Empty;
+
     var message = new Message
     {
       SenderUserId = senderId,
@@ -69,6 +76,7 @@ public class MessageService : IMessageService
       TicketId = dto.TicketId,
       BodyMarkdown = dto.BodyMarkdown,
       SentAt = DateTime.UtcNow,
+      TenantId = tenantId
     };
 
     await this.messageRepository.AddAsync(message, ct).ConfigureAwait(false);
@@ -145,6 +153,11 @@ public class MessageService : IMessageService
 
   private static MessageDto MapToDto(Message m)
   {
+    if (m == null)
+    {
+      return new MessageDto(Guid.Empty, Guid.Empty, "System", null, null, "Error: Message could not be loaded", DateTime.UtcNow, Enumerable.Empty<FileAssetDto>());
+    }
+
     var attachments = m.Attachments?.Select(a => new FileAssetDto(
         a.Id,
         a.FileName,

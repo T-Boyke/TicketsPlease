@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:element name="data">
@@ -26,7 +26,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Street" xml:space="preserve">
-    <value>StraÃŸe</value>
+    <value>Straße</value>
   </data>
   <data name="Country" xml:space="preserve">
     <value>Land</value>
@@ -41,7 +41,7 @@
     <value>Biography</value>
   </data>
   <data name="Change Password" xml:space="preserve">
-    <value>Passwort Ã¤ndern</value>
+    <value>Passwort ändern</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
@@ -83,6 +83,6 @@
     <value>E-Mail</value>
   </data>
   <data name="Confirm Password" xml:space="preserve">
-    <value>Passwort bestÃ¤tigen</value>
+    <value>Passwort bestätigen</value>
   </data>
 </root>
