@@ -1,8 +1,8 @@
-# 🎫 TicketsPlease – Enterprise Kanban & Collaboration Suite
+#  TicketsPlease – Kanban  Suite
 
 ![TicketsPlease Logo](docs/assets/ticketspleaselogo.png)
 
-## 📖 Einleitung
+##  Einleitung
 
 **TicketsPlease** ist ein hochmodernes, kollaboratives und skalierbares Kanban-Ticketsystem, entwickelt mit **C# 14, ASP.NET Core 10.3 und Entity Framework Core 10**. Es wurde als Referenzimplementierung für moderne Enterprise-Softwarearchitektur konzipiert und folgt strikt den Prinzipien von **Clean Architecture** und **Domain-Driven Design (DDD)**.
 
@@ -10,7 +10,7 @@ Das System bietet eine vollständige Lösung für das Aufgabenmanagement in Team
 
 ---
 
-## 🚀 Key Features & MVP Scope
+##  Key Features
 
 | Bereich | Feature | Beschreibung |
 | :--- | :--- | :--- |
@@ -23,7 +23,7 @@ Das System bietet eine vollständige Lösung für das Aufgabenmanagement in Team
 
 ---
 
-## 🛠️ Technologie-Stack
+##  Technologie-Stack
 
 Das Projekt nutzt den aktuellsten Microsoft-Technologie-Stack (Stand 2026):
 
@@ -52,24 +52,6 @@ git clone https://github.com/T-Boyke/TicketsPlease.git
 cd TicketsPlease
 ```
 
-### 2. Infrastruktur starten (Docker)
-Um den SQL Server zu starten, nutzen Sie das mitgelieferte Docker-Compose:
-```bash
-docker-compose up -d
-```
-
-### 3. Datenbank initialisieren (Migrations)
-Führen Sie die Entity Framework Migrationen aus, um das Schema zu erstellen:
-```bash
-dotnet ef database update --project src/TicketsPlease.Infrastructure --startup-project src/TicketsPlease.Web
-```
-
-### 4. Assets & Build
-Kompilieren Sie das Projekt, um Tailwind CSS zu generieren und NuGet-Pakete zu restoren:
-```bash
-dotnet build
-```
-
 ---
 
 ## 🏃 Applikation starten
@@ -91,9 +73,8 @@ Die interaktive API-Dokumentation finden Sie unter:
 
 ---
 
-## 🧪 Testing Strategie
-
-Wir verfolgen einen "Zero-Compromise" Qualitätsansatz. Die Tests sind in den Ordner `/tests` gegliedert.
+##  Testing Strategie
+.
 
 ### Testarten im Projekt
 *   **Unit Tests:** Validierung der Domain-Logik (xUnit & Moq).
@@ -115,7 +96,7 @@ dotnet stryker
 
 ---
 
-## 🔍 Debugging & Diagnose
+##  Debugging & Diagnose
 
 ### IDE Werkzeuge
 *   **Launch-Profile:** Konfigurierte `.vscode/launch.json` und Rider `runConfigurations` ermöglichen direktes Debugging von Controller-Logik und Background-Services.
@@ -127,7 +108,7 @@ Wir nutzen **Serilog** für strukturiertes Logging. Im `Development`-Mode werden
 
 ---
 
-## 📖 Nutzung der Applikation
+##  Nutzung der Applikation
 
 ### Erste Schritte
 1.  **Seeding:** Beim ersten Start im `Development`-Mode wird die Datenbank automatisch mit Testdaten (Bogus) befüllt (Admin, User, Projekte, Tickets).
@@ -143,7 +124,7 @@ Wir nutzen **Serilog** für strukturiertes Logging. Im `Development`-Mode werden
 
 ---
 
-## 📐 Architektur-Details
+##  Architektur-Details
 
 ### Clean Architecture (Onion)
 Das Projekt ist in vier Schichten unterteilt:
@@ -158,7 +139,7 @@ Das Projekt ist in vier Schichten unterteilt:
 *   **Domain Events:** Statusänderungen triggern asynchrone Events (z.B. Benachrichtigungen).
 
 ---
-## 📄 Lizenz & Rechtliches
+##  Lizenz & Rechtliches
 
 © 2026 BitLC-NE-2025-2026. Alle Rechte vorbehalten.
 Entwickelt von Tobias Boyke & Team.
