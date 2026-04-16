@@ -143,12 +143,12 @@ app.UseHttpsRedirection();
 // Standard Security Headers (Enterprise Compliance)
 app.Use((context, next) =>
 {
-  var csp = "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none';";
+  var csp = "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none';";
 
   if (app.Environment.IsDevelopment())
   {
     // Relax CSP in Development for Styleguide swatches, Browser Link, and Browser Refresh
-    csp = "default-src 'self' http://localhost:* ws://localhost:*; connect-src 'self' http://localhost:* ws: wss:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none';";
+    csp = "default-src 'self' http://localhost:* ws://localhost:*; connect-src 'self' http://localhost:* ws: wss:; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none';";
   }
 
   context.Response.Headers.Append("Content-Security-Policy", csp);

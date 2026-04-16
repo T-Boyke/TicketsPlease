@@ -65,7 +65,7 @@ public class MessageService : IMessageService
   {
     ArgumentNullException.ThrowIfNull(dto);
 
-    var sender = await this.userRepository.GetByIdAsync(senderId, ct).ConfigureAwait(false);
+    var sender = await this.userRepository.GetUserWithDetailsAsync(senderId).ConfigureAwait(false);
     var tenantId = sender?.TenantId ?? Guid.Empty;
 
     var message = new Message
