@@ -13,8 +13,10 @@ public record MessageDto(
     Guid Id,
     Guid SenderUserId,
     string SenderUserName,
+    string? SenderAvatarUrl,
     Guid? ReceiverUserId,
     string? ReceiverUserName,
+    string? ReceiverAvatarUrl,
     string BodyMarkdown,
     DateTime SentAt,
     IEnumerable<FileAssetDto> Attachments);

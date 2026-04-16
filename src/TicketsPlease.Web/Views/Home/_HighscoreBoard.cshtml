@@ -45,7 +45,7 @@
                 <tbody>
                     @{
                         int i = 1;
-                        var activeIndividuals = Model.IndividualHighscores.Where(u => u.CompletedTickets > 0 || u.TotalStoryPoints > 0).ToList();
+                        var activeIndividuals = Model.IndividualHighscores.ToList();
                     }
                     @if (!activeIndividuals.Any())
                     {
@@ -115,7 +115,7 @@
                 <tbody>
                     @{
                         int j = 1;
-                        var activeTeams = Model.TeamHighscores.Where(t => t.CompletedTickets > 0 || t.TotalStoryPoints > 0).ToList();
+                        var activeTeams = Model.TeamHighscores.ToList();
                     }
                     @if (!activeTeams.Any())
                     {

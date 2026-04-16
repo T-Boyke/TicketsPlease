@@ -34,8 +34,8 @@ public class MessageRepository : IMessageRepository
   public async Task<Message?> GetByIdAsync(Guid id, CancellationToken ct = default)
   {
     return await this.context.Messages
-        .Include(m => m.SenderUser)
-        .Include(m => m.ReceiverUser)
+        .Include(m => m.SenderUser).ThenInclude(u => u!.Profile)
+        .Include(m => m.ReceiverUser).ThenInclude(u => u!.Profile)
         .Include(m => m.Attachments)
         .FirstOrDefaultAsync(m => m.Id == id, ct).ConfigureAwait(false);
   }
@@ -46,8 +46,8 @@ public class MessageRepository : IMessageRepository
     return await this.context.Messages
         .AsNoTracking()
         .Where(m => m.SenderUserId == userId || m.ReceiverUserId == userId)
-        .Include(m => m.SenderUser)
-        .Include(m => m.ReceiverUser)
+        .Include(m => m.SenderUser).ThenInclude(u => u!.Profile)
+        .Include(m => m.ReceiverUser).ThenInclude(u => u!.Profile)
         .Include(m => m.Attachments)
         .OrderByDescending(m => m.SentAt)
         .ToListAsync(ct).ConfigureAwait(false);
@@ -59,8 +59,8 @@ public class MessageRepository : IMessageRepository
     return await this.context.Messages
         .AsNoTracking()
         .Where(m => m.SenderUserId == userId || m.ReceiverUserId == userId)
-        .Include(m => m.SenderUser)
-        .Include(m => m.ReceiverUser)
+        .Include(m => m.SenderUser).ThenInclude(u => u!.Profile)
+        .Include(m => m.ReceiverUser).ThenInclude(u => u!.Profile)
         .Include(m => m.Attachments)
         .OrderByDescending(m => m.SentAt)
         .Take(limit)
@@ -74,8 +74,8 @@ public class MessageRepository : IMessageRepository
         .AsNoTracking()
         .Where(m => (m.SenderUserId == userId && m.ReceiverUserId == otherUserId) ||
                     (m.SenderUserId == otherUserId && m.ReceiverUserId == userId))
-        .Include(m => m.SenderUser)
-        .Include(m => m.ReceiverUser)
+        .Include(m => m.SenderUser).ThenInclude(u => u!.Profile)
+        .Include(m => m.ReceiverUser).ThenInclude(u => u!.Profile)
         .Include(m => m.Attachments)
         .OrderBy(m => m.SentAt)
         .ToListAsync(ct).ConfigureAwait(false);

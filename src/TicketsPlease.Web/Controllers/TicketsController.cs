@@ -138,6 +138,7 @@ public sealed class TicketsController : Controller
       return this.NotFound();
     }
 
+    await this.PrepareViewBags(id).ConfigureAwait(false);
     return this.View(ticket);
   }
 
@@ -251,6 +252,11 @@ public sealed class TicketsController : Controller
   [ValidateAntiForgeryToken]
   public async Task<IActionResult> AddDependency(Guid id, Guid blockerId)
   {
+    if (blockerId == Guid.Empty)
+    {
+      this.TempData["ErrorMessage"] = this.l["Please select a valid ticket."].Value;
+      return this.RedirectToAction(nameof(this.Details), new { id });
+    }
     try
     {
       await this.ticketService.AddDependencyAsync(id, blockerId).ConfigureAwait(false);
@@ -480,7 +486,7 @@ public sealed class TicketsController : Controller
   /// Bereitet die Dropdown-Listen für die Views vor.
   /// </summary>
   /// <returns>Ein Task für die asynchrone Operation.</returns>
-  private async Task PrepareViewBags()
+  private async Task PrepareViewBags(Guid? excludeTicketId = null)
   {
     var projects = await this.projectService.GetProjectsAsync().ConfigureAwait(false);
     this.ViewBag.Projects = new SelectList(projects, "Id", "Title");
@@ -491,7 +497,13 @@ public sealed class TicketsController : Controller
     var priorities = await this.context.TicketPriorities.OrderByDescending(p => p.LevelWeight).ToListAsync().ConfigureAwait(false);
     this.ViewBag.Priorities = new SelectList(priorities, "Id", "Name");
 
-    var allTickets = await this.context.Tickets.Where(t => !t.IsDeleted).OrderBy(t => t.Title).ToListAsync().ConfigureAwait(false);
+    var allTicketsQuery = this.context.Tickets.Where(t => !t.IsDeleted);
+    if (excludeTicketId.HasValue)
+    {
+        allTicketsQuery = allTicketsQuery.Where(t => t.Id != excludeTicketId.Value);
+    }
+
+    var allTickets = await allTicketsQuery.OrderBy(t => t.Title).ToListAsync().ConfigureAwait(false);
     this.ViewBag.AllTickets = new SelectList(allTickets, "Id", "Title");
 
     var tags = await this.ticketService.GetAllTagsAsync().ConfigureAwait(false);

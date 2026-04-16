@@ -36,151 +36,151 @@ Firmenweg 2
 
 ## **Inhaltsverzeichnis**
 
-[**Inhaltsverzeichnis	2**](?tab=t.0#heading=)
+[**Inhaltsverzeichnis 2**](?tab=t.0#heading=)
 
-[**Abbildungsverzeichnis	3**](?tab=t.0#heading=)
+[**Abbildungsverzeichnis 3**](?tab=t.0#heading=)
 
-[**Tabellenverzeichnis	3**](#tabellenverzeichnis)
+[**Tabellenverzeichnis 3**](#tabellenverzeichnis)
 
-[**Listings	3**](#listings)
+[**Listings 3**](#listings)
 
-[**Glossar	4**](#glossar)
+[**Glossar 4**](#glossar)
 
-[**1\. Einleitung	6**](#1.-einleitung)
+[**1\. Einleitung 6**](#1.-einleitung)
 
-[1.1. Ausgangssituation	6](#1.1.-ausgangssituation)
+[1.1. Ausgangssituation 6](#1.1.-ausgangssituation)
 
-[1.2. Projektidee und Zielsetzung	6](#1.2.-projektidee-und-zielsetzung)
+[1.2. Projektidee und Zielsetzung 6](#1.2.-projektidee-und-zielsetzung)
 
-[1.3 Projektbegründung	6](#1.3-projektbegründung)
+[1.3 Projektbegründung 6](#1.3-projektbegründung)
 
-[1.4 Make-or-Buy Entscheidung	7](#1.4-make-or-buy-entscheidung)
+[1.4 Make-or-Buy Entscheidung 7](#1.4-make-or-buy-entscheidung)
 
-[**2\. Projektplanung	7**](#2.-projektplanung)
+[**2\. Projektplanung 7**](#2.-projektplanung)
 
-[2.1 Ist-Analyse	7](#2.1-ist-analyse)
+[2.1 Ist-Analyse 7](#2.1-ist-analyse)
 
-[2.2. Soll-Analyse	8](#2.2.-soll-analyse)
+[2.2. Soll-Analyse 8](#2.2.-soll-analyse)
 
-[2.3 Zeitplanung	8](#2.3-zeitplanung)
+[2.3 Zeitplanung 8](#2.3-zeitplanung)
 
-[2.4 Kostenplanung	8](#2.4-kostenplanung)
+[2.4 Kostenplanung 8](#2.4-kostenplanung)
 
-[**3\. Analyse & Entwurf	9**](#3.-analyse-&-entwurf)
+[**3\. Analyse & Entwurf 9**](#3.-analyse-&-entwurf)
 
-[3.1 Anwendungsfalldiagramm	9](#3.1-anwendungsfalldiagramm)
+[3.1 Anwendungsfalldiagramm 9](#3.1-anwendungsfalldiagramm)
 
-[3.2 Architekturentwurf	9](#3.2-architekturentwurf)
+[3.2 Architekturentwurf 9](#3.2-architekturentwurf)
 
-[3.3 UI/UX Design	10](#3.3-ui/ux-design)
+[3.3 UI/UX Design 10](#3.3-ui/ux-design)
 
-[3.4 Datenmodell	10](#3.4-datenmodell)
+[3.4 Datenmodell 10](#3.4-datenmodell)
 
-[3.5 Klassendiagramm (UML)	11](#3.5-klassendiagramm-\(uml\))
+[3.5 Klassendiagramm (UML) 11](#3.5-klassendiagramm-\(uml\))
 
-[3.6 Datenschutz & Sicherheit	11](#3.6-datenschutz-&-sicherheit)
+[3.6 Datenschutz & Sicherheit 11](#3.6-datenschutz-&-sicherheit)
 
-[**4\. Realisierung	12**](#4.-realisierung)
+[**4\. Realisierung 12**](#4.-realisierung)
 
-[4.1 Entwicklungsumgebung	12](#4.1-entwicklungsumgebung)
+[4.1 Entwicklungsumgebung 12](#4.1-entwicklungsumgebung)
 
-[4.2 Implementierung der Hauptkomponenten	12](#4.2-implementierung-der-hauptkomponenten)
+[4.2 Implementierung der Hauptkomponenten 12](#4.2-implementierung-der-hauptkomponenten)
 
-[4.2.1 Domain Layer Entitäten	12](#4.2.1-domain-layer-entitäten)
+[4.2.1 Domain Layer Entitäten 12](#4.2.1-domain-layer-entitäten)
 
-[4.2.2 Application Layer: CQRS mit MediatR	13](#4.2.2-application-layer:-cqrs-mit-mediatr)
+[4.2.2 Application Layer: CQRS mit MediatR 13](#4.2.2-application-layer:-cqrs-mit-mediatr)
 
-[4.2.3 CSS Architektur und UI Strategie	13](#4.2.3-css-architektur-und-ui-strategie)
+[4.2.3 CSS Architektur und UI Strategie 13](#4.2.3-css-architektur-und-ui-strategie)
 
-[4.3 Datenbankintegration	13](#4.3-datenbankintegration)
+[4.3 Datenbankintegration 13](#4.3-datenbankintegration)
 
-[4.3.1 Datenbankintegration	14](#4.3.1-datenbankintegration)
+[4.3.1 Datenbankintegration 14](#4.3.1-datenbankintegration)
 
-[4.4 Herausforderungen und Lösungen	14](#4.4-herausforderungen-und-lösungen)
+[4.4 Herausforderungen und Lösungen 14](#4.4-herausforderungen-und-lösungen)
 
-[**5\. Qualitätssicherung	14**](#5.-qualitätssicherung)
+[**5\. Qualitätssicherung 14**](#5.-qualitätssicherung)
 
-[5.1 Teststrategie und Automatisierung	14](#5.1-teststrategie-und-automatisierung)
+[5.1 Teststrategie und Automatisierung 14](#5.1-teststrategie-und-automatisierung)
 
-[5.2 Architekturtests und Unit Testing	15](#5.2-architekturtests-und-unit-testing)
+[5.2 Architekturtests und Unit Testing 15](#5.2-architekturtests-und-unit-testing)
 
-[5.3 Integrations Testing und E2E Testing	15](#5.3-integrations-testing-und-e2e-testing)
+[5.3 Integrations Testing und E2E Testing 15](#5.3-integrations-testing-und-e2e-testing)
 
-[5.4 Automatisierte Qualitätssicherung durch CI und CD	15](#5.4-automatisierte-qualitätssicherung-durch-ci-und-cd)
+[5.4 Automatisierte Qualitätssicherung durch CI und CD 15](#5.4-automatisierte-qualitätssicherung-durch-ci-und-cd)
 
-[5.5 Performance und UI Audit	16](#5.5-performance-und-ui-audit)
+[5.5 Performance und UI Audit 16](#5.5-performance-und-ui-audit)
 
-[5.6 Quantitative Qualitätsmetriken	16](#5.6-quantitative-qualitätsmetriken)
+[5.6 Quantitative Qualitätsmetriken 16](#5.6-quantitative-qualitätsmetriken)
 
-[**6\. Wirtschaftlichkeitsbetrachtung	16**](#6.-wirtschaftlichkeitsbetrachtung)
+[**6\. Wirtschaftlichkeitsbetrachtung 16**](#6.-wirtschaftlichkeitsbetrachtung)
 
-[6.1 Vergleich von Soll und Ist bei der Zeitplanung	17](#6.1-vergleich-von-soll-und-ist-bei-der-zeitplanung)
+[6.1 Vergleich von Soll und Ist bei der Zeitplanung 17](#6.1-vergleich-von-soll-und-ist-bei-der-zeitplanung)
 
-[6.2 Nachkalkulation der Projektkosten	17](#6.2-nachkalkulation-der-projektkosten)
+[6.2 Nachkalkulation der Projektkosten 17](#6.2-nachkalkulation-der-projektkosten)
 
-[6.3 Amortisationsrechnung	17](#6.3-amortisationsrechnung)
+[6.3 Amortisationsrechnung 17](#6.3-amortisationsrechnung)
 
-[**7\. Fazit & Ausblick	18**](#7.-fazit-&-ausblick)
+[**7\. Fazit & Ausblick 18**](#7.-fazit-&-ausblick)
 
-[7.1 Zusammenfassung	18](#7.1-zusammenfassung)
+[7.1 Zusammenfassung 18](#7.1-zusammenfassung)
 
-[7.2 Lessons Learned	18](#7.2-lessons-learned)
+[7.2 Lessons Learned 18](#7.2-lessons-learned)
 
-[7.3 Ausblick	19](#7.3-ausblick)
+[7.3 Ausblick 19](#7.3-ausblick)
 
-[7.4 Projektabnahme und Übergabe	19](#7.4-projektabnahme-und-übergabe)
+[7.4 Projektabnahme und Übergabe 19](#7.4-projektabnahme-und-übergabe)
 
-[**A. Anhang	20**](#a.-anhang)
+[**A. Anhang 20**](#a.-anhang)
 
 ## **Abbildungsverzeichnis**
 
-3.1 UML Anwendungsfalldiagramm	 9
+3.1 UML Anwendungsfalldiagramm  9
 
-3.2 Architekturentwurf	 9
+3.2 Architekturentwurf  9
 
-3.3 Landing Page	 10
+3.3 Landing Page  10
 
-3.4 Datenmodell	 20
+3.4 Datenmodell  20
 
-3.5 Klassendiagramm	 20
+3.5 Klassendiagramm  20
 
-4.2.3 CSS Architektur und UI Strategie	 20
+4.2.3 CSS Architektur und UI Strategie  20
 
-5.4 Bestandene Github Workflow Tests 	15
+5.4 Bestandene Github Workflow Tests  15
 
-Gantt Diagramm	 20
+Gantt Diagramm  20
 
 ## **Tabellenverzeichnis** {#tabellenverzeichnis}
 
-4.3.1 Datenbankintegration	 14
+4.3.1 Datenbankintegration  14
 
-4.3 Herausforderungen und Lösungen	 14
+4.3 Herausforderungen und Lösungen  14
 
-5.3 Testresultate	 15
+5.3 Testresultate  15
 
-6.1 Soll Ist Vergleich Zeit	 17
+6.1 Soll Ist Vergleich Zeit  17
 
-A.0.1 Aufschlüsselung der Projektphasen	 20
+A.0.1 Aufschlüsselung der Projektphasen  20
 
-Abnahmeprotokoll	 20
+Abnahmeprotokoll  20
 
 ## **Listings** {#listings}
 
-3.3 BFSG-A11y IViewLocalizer 	20
+3.3 BFSG-A11y IViewLocalizer  20
 
-3.3 BFSG-A11y HTML Umsetzung 	20
+3.3 BFSG-A11y HTML Umsetzung  20
 
-3.4 Ticket Entität Domain Schicht 	11
+3.4 Ticket Entität Domain Schicht  11
 
-3.6 DB Seeding mit Bogus.Faker Daten	20
+3.6 DB Seeding mit Bogus.Faker Daten 20
 
-4.2.1 Implementierung der Ticket Entität 	20
+4.2.1 Implementierung der Ticket Entität  20
 
-4.2.2 Implementierung des CQRS Patterns 	20
+4.2.2 Implementierung des CQRS Patterns  20
 
-4.3.1 DB Seeder	 20
+4.3.1 DB Seeder  20
 
-5.1 Architekturtest Schichtentrennung 	15
+5.1 Architekturtest Schichtentrennung  15
 
 ##
 
@@ -271,11 +271,11 @@ Die technische Realisierung erfolgt unter Anwendung von Test-Driven-Development,
 
 Die Projektumsetzung umfasst planmäßig 80 Stunden. Der Durchführungszeitraum erstreckt sich vom 23\. März 2026 bis zum 16\. April 2026\. Das Projekt gliedert sich in fünf Hauptphasen:
 
-* Analyse und Planung: 12 Stunden
-* Entwurf und Architektur: 14 Stunden
-* Implementierung der Kernfunktionen: 34 Stunden
-* Qualitätssicherung und Testing: 10 Stunden
-* Projektdokumentation und Abschluss: 10 Stunden
+- Analyse und Planung: 12 Stunden
+- Entwurf und Architektur: 14 Stunden
+- Implementierung der Kernfunktionen: 34 Stunden
+- Qualitätssicherung und Testing: 10 Stunden
+- Projektdokumentation und Abschluss: 10 Stunden
 
 Eine detaillierte tabellarische Aufschlüsselung aller Arbeitspakete sowie ein Ganttdiagramm zur Visualisierung des Projektverlaufs befinden sich im Anhang dieser Dokumentation.
 
@@ -465,10 +465,10 @@ GitHub Actions orchestriert die kontinuierliche Integration. Bei jedem Commit in
 
 Zur Sicherstellung einer kontinuierlichen Softwarequalität und effizienten Bereitstellung wurde eine automatisierte CI/CD-Pipeline auf Basis von GitHub Actions implementiert. Der Prozess gliedert sich in folgende Phasen:
 
-* **Build-Phase:** Automatisierte Kompilierung der Solution bei jedem Push oder Pull-Request zur Identifikation von Syntaxfehlern.
-* **Test-Phase:** Parallele Ausführung der Unit- und Integrationstests. Ein Merge in den Hauptbranch ist nur bei erfolgreichem Bestehen aller Tests möglich.
-* **Qualitätsgate:** Integration von statischer Code-Analyse (CodeQL) zur Erkennung von Sicherheitslücken sowie NetArchTest zur automatisierten Überprüfung der Architektur-Compliance (Clean Architecture).
-* **Security-Scanning:** Prüfung der Abhängigkeiten auf bekannte Schwachstellen mittels GitHub Dependency Review.
+- **Build-Phase:** Automatisierte Kompilierung der Solution bei jedem Push oder Pull-Request zur Identifikation von Syntaxfehlern.
+- **Test-Phase:** Parallele Ausführung der Unit- und Integrationstests. Ein Merge in den Hauptbranch ist nur bei erfolgreichem Bestehen aller Tests möglich.
+- **Qualitätsgate:** Integration von statischer Code-Analyse (CodeQL) zur Erkennung von Sicherheitslücken sowie NetArchTest zur automatisierten Überprüfung der Architektur-Compliance (Clean Architecture).
+- **Security-Scanning:** Prüfung der Abhängigkeiten auf bekannte Schwachstellen mittels GitHub Dependency Review.
 
 Dieser Automatisierungsgrad reduziert die manuelle Fehlerquote beim Deployment gegen null und ermöglicht eine hohe Release-Frequenz bei gleichbleibend hoher Codequalität.
 
@@ -511,17 +511,17 @@ Die IHK Vorgabe von 80 Stunden bildete den verbindlichen Rahmen für die Umsetzu
 Tab.6.1: Gegenüberstellung der geplanten und tatsächlich aufgewendeten Projektstunden.
 **Begründung der Abweichungen:**
 
-* **Analyse:** Der Einsatz des CQRS Musters mit MediatR vereinfachte die Architekturentscheidungen und sparte Zeit ein.
-* **Implementierung:** Die nahtlose Integration von Tailwind CSS in den ASP.NET Core Buildprozess erforderte unvorhergesehenen Rechercheaufwand.
-* **Qualitätssicherung:** Die Implementierung automatisierter Architekturtests mit NetArchTest reduzierte den Bedarf an manuellen Prüfungen erheblich.
+- **Analyse:** Der Einsatz des CQRS Musters mit MediatR vereinfachte die Architekturentscheidungen und sparte Zeit ein.
+- **Implementierung:** Die nahtlose Integration von Tailwind CSS in den ASP.NET Core Buildprozess erforderte unvorhergesehenen Rechercheaufwand.
+- **Qualitätssicherung:** Die Implementierung automatisierter Architekturtests mit NetArchTest reduzierte den Bedarf an manuellen Prüfungen erheblich.
 
 ### **6.2 Nachkalkulation der Projektkosten** {#6.2-nachkalkulation-der-projektkosten}
 
 Die Entwicklungskosten basieren auf dem internen Verrechnungssatz eines Umschülers von 9,00 Euro pro Stunde. Da die geplante Zeitvorgabe von exakt 80 Stunden eingehalten wurde, entsprechen die tatsächlichen Kosten den kalkulierten Plankosten.
 
-[![][image11]](https://www.codecogs.com/eqnedit.php?latex=%20%5Ctext%7BPersonalkosten%7D%20%3D%20%5Ctext%7BArbeitsstunden%7D%20%5Ctimes%20%5Ctext%7BStundensatz%7D%20#0)[![][image12]](https://www.codecogs.com/eqnedit.php?latex=%2080%5C%2C%5Ctext%7Bh%7D%20%5Ctimes%209%2C00%5C%2C%5Ctext%7B%5Ceuro%20%2Fh%7D%20%3D%20720%2C00%5C%2C%5Ctext%7B%5Ceuro%20%7D%20#0)
+[![][image11]][https://www.codecogs.com/eqnedit.php?latex=%20%5Ctext%7BPersonalkosten%7D%20%3D%20%5Ctext%7BArbeitsstunden%7D%20%5Ctimes%20%5Ctext%7BStundensatz%7D%20#0](![)[image12]](https://www.codecogs.com/eqnedit.php?latex=%2080%5C%2C%5Ctext%7Bh%7D%20%5Ctimes%209%2C00%5C%2C%5Ctext%7B%5Ceuro%20%2Fh%7D%20%3D%20720%2C00%5C%2C%5Ctext%7B%5Ceuro%20%7D%20#0)
 
-[![][image13]](https://www.codecogs.com/eqnedit.php?latex=%20%5Ctext%7BGesamtkosten%7D%20%3D%20%5Ctext%7BPersonalkosten%7D%20%2B%20%5Ctext%7BSachmittel%7D%20#0)[![][image14]](https://www.codecogs.com/eqnedit.php?latex=%20720%2C00%5C%2C%5Ctext%7B%5Ceuro%20%7D%20%2B%20200%2C00%5C%2C%5Ctext%7B%5Ceuro%20%7D%20%3D%20920%2C00%5C%2C%5Ctext%7B%5Ceuro%20%7D%20#0)
+[![][image13]][https://www.codecogs.com/eqnedit.php?latex=%20%5Ctext%7BGesamtkosten%7D%20%3D%20%5Ctext%7BPersonalkosten%7D%20%2B%20%5Ctext%7BSachmittel%7D%20#0](![)[image14]](https://www.codecogs.com/eqnedit.php?latex=%20720%2C00%5C%2C%5Ctext%7B%5Ceuro%20%7D%20%2B%20200%2C00%5C%2C%5Ctext%7B%5Ceuro%20%7D%20%3D%20920%2C00%5C%2C%5Ctext%7B%5Ceuro%20%7D%20#0)
 
 ### **6.3 Amortisationsrechnung** {#6.3-amortisationsrechnung}
 
@@ -644,28 +644,28 @@ Sämtliche Testfälle wurden fehlerfrei durchlaufen. Die Freigabe für den produ
 
 ### **Gesetzliche Grundlagen & Normen**
 
-* **Bundesministerium der Justiz.** *Gesetz zur Stärkung der Barrierefreiheit (Barrierefreiheitsstärkungsgesetz – BFSG)*. \[Online\] 2021\. [https://www.gesetze-im-internet.de/bfsg/](https://www.gesetze-im-internet.de/bfsg/) (Abgerufen am: 14.04.2026).
-* **Interaktionsrat.** *Web Content Accessibility Guidelines (WCAG) 2.2*. \[Online\] 2023\. [https://www.w3.org/TR/WCAG22/](https://www.w3.org/TR/WCAG22/) (Abgerufen am: 14.04.2026).
-* **Europäisches Parlament.** *Verordnung (EU) 2016/679 (Datenschutz-Grundverordnung)*. \[Online\] 2016\. [https://gdpr-info.eu/](https://gdpr-info.eu/) (Abgerufen am: 14.04.2026).
+- **Bundesministerium der Justiz.** *Gesetz zur Stärkung der Barrierefreiheit (Barrierefreiheitsstärkungsgesetz – BFSG)*. \[Online\] 2021\. [https://www.gesetze-im-internet.de/bfsg/](https://www.gesetze-im-internet.de/bfsg/) (Abgerufen am: 14.04.2026).
+- **Interaktionsrat.** *Web Content Accessibility Guidelines (WCAG) 2.2*. \[Online\] 2023\. [https://www.w3.org/TR/WCAG22/](https://www.w3.org/TR/WCAG22/) (Abgerufen am: 14.04.2026).
+- **Europäisches Parlament.** *Verordnung (EU) 2016/679 (Datenschutz-Grundverordnung)*. \[Online\] 2016\. [https://gdpr-info.eu/](https://gdpr-info.eu/) (Abgerufen am: 14.04.2026).
 
 ### **Software, Frameworks & Tools**
 
-* **Ben-Hamo, Ben.** *NetArchTest.eNet: A fluent unit test library for enforcing architectural rules*. \[Software\] GitHub, 2024\. [https://github.com/BenHamo/NetArchTest](https://www.google.com/search?q=https://github.com/BenHamo/NetArchTest) (Abgerufen am: 14.04.2026).
-* **GitHub Inc.** *CodeQL: Semantic code analysis engine*. \[Software\] 2026\. [https://codeql.github.com/](https://codeql.github.com/) (Abgerufen am: 14.04.2026).
-* **JetBrains s.r.o.** *Qodana: The code quality platform for CI/CD*. \[Software\] 2026\. [https://www.jetbrains.com/qodana/](https://www.jetbrains.com/qodana/) (Abgerufen am: 14.04.2026).
-* **Microsoft Corporation.** *ASP.NET Core Documentation: Overview of ASP.NET Core MVC*. \[Online\] 2026\. [https://learn.microsoft.com/en-us/aspnet/core/mvc/overview](https://learn.microsoft.com/en-us/aspnet/core/mvc/overview) (Abgerufen am: 14.04.2026).
-* **Tailwind Labs Inc.** *Tailwind CSS v4.0 Documentation*. \[Online\] 2025\. [https://tailwindcss.com/docs](https://tailwindcss.com/docs) (Abgerufen am: 14.04.2026).
-* **WakaTime.** *WakaTime: Dashboards for developers*. \[Software\] 2026\. [https://wakatime.com/](https://wakatime.com/) (Abgerufen am: 14.04.2026).
+- **Ben-Hamo, Ben.** *NetArchTest.eNet: A fluent unit test library for enforcing architectural rules*. \[Software\] GitHub, 2024\. [https://github.com/BenHamo/NetArchTest](https://www.google.com/search?q=https://github.com/BenHamo/NetArchTest) (Abgerufen am: 14.04.2026).
+- **GitHub Inc.** *CodeQL: Semantic code analysis engine*. \[Software\] 2026\. [https://codeql.github.com/](https://codeql.github.com/) (Abgerufen am: 14.04.2026).
+- **JetBrains s.r.o.** *Qodana: The code quality platform for CI/CD*. \[Software\] 2026\. [https://www.jetbrains.com/qodana/](https://www.jetbrains.com/qodana/) (Abgerufen am: 14.04.2026).
+- **Microsoft Corporation.** *ASP.NET Core Documentation: Overview of ASP.NET Core MVC*. \[Online\] 2026\. [https://learn.microsoft.com/en-us/aspnet/core/mvc/overview](https://learn.microsoft.com/en-us/aspnet/core/mvc/overview) (Abgerufen am: 14.04.2026).
+- **Tailwind Labs Inc.** *Tailwind CSS v4.0 Documentation*. \[Online\] 2025\. [https://tailwindcss.com/docs](https://tailwindcss.com/docs) (Abgerufen am: 14.04.2026).
+- **WakaTime.** *WakaTime: Dashboards for developers*. \[Software\] 2026\. [https://wakatime.com/](https://wakatime.com/) (Abgerufen am: 14.04.2026).
 
 ### **Dokumentation & Methodik**
 
-* **Fowler, Martin.** *CQRS (Command Query Responsibility Segregation)*. \[Online\] 2011\. [https://martinfowler.com/bliki/CQRS.html](https://martinfowler.com/bliki/CQRS.html) (Abgerufen am: 14.04.2026).
-* **Microsoft Corporation.** *C\# Documentation: XML documentation comments*. \[Online\] 2026\. [https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/) (Abgerufen am: 14.04.2026).
+- **Fowler, Martin.** *CQRS (Command Query Responsibility Segregation)*. \[Online\] 2011\. [https://martinfowler.com/bliki/CQRS.html](https://martinfowler.com/bliki/CQRS.html) (Abgerufen am: 14.04.2026).
+- **Microsoft Corporation.** *C\# Documentation: XML documentation comments*. \[Online\] 2026\. [https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/) (Abgerufen am: 14.04.2026).
 
 **A.0.1 Bildquellen**
 
-* **Beispiel GmbH & BitLC:** Logos und Firmenidentität (Bereitgestellt durch den Ausbildungsbetrieb). \[vgl. \]
-* **Eigene Darstellungen:** Alle Diagramme (UML, Architektur, Gantt) und Mockups wurden vom Verfasser selbst, mittels [Mermaid.JS](http://Mermaid.JS)[^1] und Google Nano Banana erstellt.
+- **Beispiel GmbH & BitLC:** Logos und Firmenidentität (Bereitgestellt durch den Ausbildungsbetrieb). \[vgl. \]
+- **Eigene Darstellungen:** Alle Diagramme (UML, Architektur, Gantt) und Mockups wurden vom Verfasser selbst, mittels [Mermaid.JS](http://Mermaid.JS)[^1] und Google Nano Banana erstellt.
 
 ### **A.1 Verzeichnisstruktur**
 
@@ -1247,7 +1247,7 @@ Wir nutzen das bestehende **`Message`\-Entity** (bereits im Domain Layer). Eine 
 
 *Listing 4.2.2: Implementierung des CQRS Patterns zur Entkopplung der Anwendungslogik.*
 
-| namespace TicketsPlease.Infrastructure.Persistence;*/// \<summary\>**/// Stellt Methoden zur Initialisierung der Datenbank bereit.**/// Diese Klasse sorgt für den Aufbau des Datenbestands bei Systemstart.**/// \</summary\>*public static class DbInitialiser{    */// \<summary\>*    */// IHK VORGABE: Befüllt die Datenbank mit synthetischen Testdaten gemäß ADR 0120\.*    */// Dies dient der Einhaltung der Datenschutz Grundverordnung.*    */// \</summary\>*    */// \<param name="context"\>Der Datenbankkontext für den Zugriff auf die Tabellen.\</param\>*    */// \<returns\>Ein Task Objekt für die asynchrone Ausführung.\</returns\>*    public static async Task SeedSyntheticDataAsync(AppDbContext context)    {        *// Prüfen ob bereits Benutzer vorhanden sind*        if (context.Users.Any())        {            return;        }        *// Erzeugung fiktiver Benutzerprofile ohne Realdatenbezug*        var testUser \= new User        {            UserName \= "test.developer@example.com",            Email \= "test.developer@example.com",            EmailConfirmed \= true        };        await context.Users.AddAsync(testUser);        await context.SaveChangesAsync();    }} |
+| namespace TicketsPlease.Infrastructure.Persistence;*/// \<summary\>**/// Stellt Methoden zur Initialisierung der Datenbank bereit.**/// Diese Klasse sorgt für den Aufbau des Datenbestands bei Systemstart.**/// \</summary\>*public static class DbInitialiser{    */// \<summary\>*    */// IHK VORGABE: Befüllt die Datenbank mit synthetischen Testdaten gemäß ADR 0120\.*    */// Dies dient der Einhaltung der Datenschutz Grundverordnung.*    */// \</summary\>*    */// \<param name="context"\>Der Datenbankkontext für den Zugriff auf die Tabellen.\</param\>*    */// \<returns\>Ein Task Objekt für die asynchrone Ausführung.\</returns\>*    public static async Task SeedSyntheticDataAsync(AppDbContext context)    {        *// Prüfen ob bereits Benutzer vorhanden sind*        if (context.Users.Any())        {            return;        }        *// Erzeugung fiktiver Benutzerprofile ohne Realdatenbezug*        var testUser \= new User        {            UserName \= "<test.developer@example.com>",            Email \= "<test.developer@example.com>",            EmailConfirmed \= true        };        await context.Users.AddAsync(testUser);        await context.SaveChangesAsync();    }} |
 | :---- |
 
 *Listing.4.3.1 DB Seeder*
@@ -1264,7 +1264,7 @@ Das Codebeispiel veranschaulicht die Umsetzung der Barrierefreiheit in der Präs
 
 *Listing.3.3 BFSG-A11y IViewLocalizer*
 
-| @using Microsoft.AspNetCore.Mvc.Localization@inject IViewLocalizer Localizer\<article     class="ticket-card bg-white border-l-4 shadow-sm focus-within:ring-2"     style="border-color: var(--brand-primary);"    aria-labelledby="ticket-title-@Model.Id"     aria-describedby="ticket-desc-@Model.Id"    tabindex="0"\>    \<header class="flex justify-between items-center mb-2"\>        \<h3 id="ticket-title-@Model.Id" class="text-lg font-semibold text-gray-900"\>            @Model.Title        \</h3\>        \<span             class="badge @Model.PriorityColor"             role="status"             aria-label="@Localizer\["PriorityLevel"\]: @Localizer\[Model.PriorityName\]"\>            @Localizer\[Model.PriorityName\]        \</span\>    \</header\>    \<p id="ticket-desc-@Model.Id" class="text-sm text-gray-600 line-clamp-3"\>        @Model.Description    \</p\>    \<footer class="mt-4 flex items-center"\>        \<a11y-button             aria-label="@Localizer\["EditTicketAction", Model.Title\]"             is-active="false"            class="hover:bg-gray-100 transition-colors"\>            \<i class="fa-solid fa-pen" aria-hidden="true"\>\</i\>            \<span class="sr-only"\>@Localizer\["Edit"\]\</span\>        \</a11y-button\>    \</footer\>\</article\> |
+| @using Microsoft.AspNetCore.Mvc.Localization@inject IViewLocalizer Localizer\<article     class="ticket-card bg-white border-l-4 shadow-sm focus-within:ring-2"     style="border-color: var(--brand-primary);"    aria-labelledby="<ticket-title-@Model.Id>"     aria-describedby="<ticket-desc-@Model.Id>"    tabindex="0"\>    \<header class="flex justify-between items-center mb-2"\>        \<h3 id="<ticket-title-@Model.Id>" class="text-lg font-semibold text-gray-900"\>            @Model.Title        \</h3\>        \<span             class="badge @Model.PriorityColor"             role="status"             aria-label="@Localizer\["PriorityLevel"\]: @Localizer\[Model.PriorityName\]"\>            @Localizer\[Model.PriorityName\]        \</span\>    \</header\>    \<p id="<ticket-desc-@Model.Id>" class="text-sm text-gray-600 line-clamp-3"\>        @Model.Description    \</p\>    \<footer class="mt-4 flex items-center"\>        \<a11y-button             aria-label="@Localizer\["EditTicketAction", Model.Title\]"             is-active="false"            class="hover:bg-gray-100 transition-colors"\>            \<i class="fa-solid fa-pen" aria-hidden="true"\>\</i\>            \<span class="sr-only"\>@Localizer\["Edit"\]\</span\>        \</a11y-button\>    \</footer\>\</article\> |
 | :---- |
 
 ### *Listing.3.3 BFSG-A11y HTML Umsetzung*
@@ -1279,50 +1279,50 @@ Der Zugriff auf das System erfolgt über den Webbrowser unter der bereitgestellt
 
 Das Dashboard bietet eine Zusammenfassung der aktuellen Aktivitäten.
 
-* Anzeige der dem Benutzer zugewiesenen Tickets.
+- Anzeige der dem Benutzer zugewiesenen Tickets.
 
-* Übersicht über die Ticketprioritäten.
-* Schnellzugriff auf zuletzt bearbeitete Vorgänge.
-* Suchfunktion für die globale Ticketrecherche.
+- Übersicht über die Ticketprioritäten.
+- Schnellzugriff auf zuletzt bearbeitete Vorgänge.
+- Suchfunktion für die globale Ticketrecherche.
 
 3\. Ticketverwaltung
 
 **Ticket erstellen**
 
-* Betätigen Sie die Schaltfläche Neues Ticket.
+- Betätigen Sie die Schaltfläche Neues Ticket.
 
-* Geben Sie einen aussagekräftigen Titel ein.
-* Beschreiben Sie das Anliegen im Textfeld.
-* Wählen Sie eine Kategorie sowie die entsprechende Priorität aus.
-* Speichern Sie den Vorgang ab.
+- Geben Sie einen aussagekräftigen Titel ein.
+- Beschreiben Sie das Anliegen im Textfeld.
+- Wählen Sie eine Kategorie sowie die entsprechende Priorität aus.
+- Speichern Sie den Vorgang ab.
 
 **Ticket bearbeiten**
 
-* Wählen Sie ein Ticket aus der Listenansicht aus.
+- Wählen Sie ein Ticket aus der Listenansicht aus.
 
-* Nutzen Sie die Kommentarfunktion für die Kommunikation.
-* Laden Sie bei Bedarf relevante Dateien oder Screenshots hoch.
-* Ändern Sie den Status entsprechend dem Bearbeitungsfortschritt.
+- Nutzen Sie die Kommentarfunktion für die Kommunikation.
+- Laden Sie bei Bedarf relevante Dateien oder Screenshots hoch.
+- Ändern Sie den Status entsprechend dem Bearbeitungsfortschritt.
 
 4\. Workflow und Status
 
 Tickets durchlaufen einen definierten Lebenszyklus.
 
-* Neu: Das Ticket wurde erstellt und wartet auf Sichtung.
+- Neu: Das Ticket wurde erstellt und wartet auf Sichtung.
 
-* In Bearbeitung: Ein Mitarbeiter arbeitet aktiv an der Lösung.
-* Rückfrage: Weitere Informationen vom Ersteller sind notwendig.
-* Gelöst: Die technische Lösung wurde bereitgestellt.
-* Geschlossen: Der Vorgang ist final abgeschlossen.
+- In Bearbeitung: Ein Mitarbeiter arbeitet aktiv an der Lösung.
+- Rückfrage: Weitere Informationen vom Ersteller sind notwendig.
+- Gelöst: Die technische Lösung wurde bereitgestellt.
+- Geschlossen: Der Vorgang ist final abgeschlossen.
 
 5\. Benutzereinstellungen
 
 Über das Profilsymbol in der Kopfzeile gelangen Sie zu den persönlichen Einstellungen.
 
-* Aktualisierung der Kontaktdaten.
+- Aktualisierung der Kontaktdaten.
 
-* Verwaltung der Benachrichtigungsoptionen für Statusänderungen.
-* Änderung des Systemkennworts.
+- Verwaltung der Benachrichtigungsoptionen für Statusänderungen.
+- Änderung des Systemkennworts.
 
 6\. Fehlerbehandlung
 
@@ -1336,17 +1336,17 @@ Sollten technische Probleme auftreten, nutzen Sie bitte den integrierten Support
 
 **Projektdaten**
 
-* **Projektbezeichnung:** Tickets Please
-* **Projektverantwortlicher:** Tobias Boyke
-* **Auftraggeber:** Beispiel GmbH
-* **Datum der Abnahme:** 16.04.2026
-* **Ort der Abnahme:** Neuss
+- **Projektbezeichnung:** Tickets Please
+- **Projektverantwortlicher:** Tobias Boyke
+- **Auftraggeber:** Beispiel GmbH
+- **Datum der Abnahme:** 16.04.2026
+- **Ort der Abnahme:** Neuss
 
 **Teilnehmer**
 
-* Tobias Boyke: Auftragnehmer
-* Max Mustermann: Projektverantwortlicher Auftraggeber
-* Erika Musterfrau: Qualitätsmanagement
+- Tobias Boyke: Auftragnehmer
+- Max Mustermann: Projektverantwortlicher Auftraggeber
+- Erika Musterfrau: Qualitätsmanagement
 
 **Prüfprotokoll der Anforderungen**
 
@@ -1376,14 +1376,14 @@ Dieses Gericht wird traditionell direkt in der Pfanne in Öl und Tomatenmark ger
 
 **Zutaten:**
 
-* 320 g Spaghetti
-* 150 g Tomatenmark
-* 500 ml Tomatenpassata
-* 800 ml Wasser
-* 3 Knoblauchzehen
-* 2 Getrocknete Chilischoten
-* 100 ml Olivenöl
-* Salz und Zucker
+- 320 g Spaghetti
+- 150 g Tomatenmark
+- 500 ml Tomatenpassata
+- 800 ml Wasser
+- 3 Knoblauchzehen
+- 2 Getrocknete Chilischoten
+- 100 ml Olivenöl
+- Salz und Zucker
 
 **Zubereitung :**
 
@@ -1403,12 +1403,12 @@ Da die Spaghetti sehr intensiv, scharf und ölig sind, eignet sich ein frischer,
 
 **Zutaten:**
 
-* **2** Fenchelknollen
-* **2** Orangen
-* **1** Rote Zwiebel
-* **3 EL** Olivenöl
-* **1 EL** Weißer Balsamico
-* Salz und schwarzer Pfeffer
+- **2** Fenchelknollen
+- **2** Orangen
+- **1** Rote Zwiebel
+- **3 EL** Olivenöl
+- **1 EL** Weißer Balsamico
+- Salz und schwarzer Pfeffer
 
 **Zubereitung:**
 

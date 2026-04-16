@@ -53,8 +53,20 @@
                     <a asp-action="Conversation" asp-route-userId="@partnerId" id="convo-link-@partnerId" class="absolute inset-0 z-0 rounded-2xl" aria-label='@L["View conversation with"] @partnerName'></a>
                     <div class="flex items-start justify-between gap-6 relative z-10 pointer-events-none">
                         <div class="flex items-start gap-5 flex-grow">
-                             <div class="h-14 w-14 rounded-full bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center text-white text-xl font-black shadow-lg shadow-brand-primary/20 flex-shrink-0">
-                                @(partnerName?.FirstOrDefault().ToString().ToUpper() ?? "?")
+                             <div class="h-14 w-14 rounded-full flex items-center justify-center text-white text-xl font-black shadow-lg shadow-brand-primary/20 flex-shrink-0 overflow-hidden">
+                                @{
+                                    var partnerAvatarUrl = latestMessage.SenderUserId == currentUserId ? latestMessage.ReceiverAvatarUrl : latestMessage.SenderAvatarUrl;
+                                }
+                                @if (!string.IsNullOrEmpty(partnerAvatarUrl))
+                                {
+                                    <img src="@partnerAvatarUrl" alt="@partnerName" class="h-full w-full object-cover" />
+                                }
+                                else
+                                {
+                                    <div class="h-full w-full bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center">
+                                        @(partnerName?.FirstOrDefault().ToString().ToUpper() ?? "?")
+                                    </div>
+                                }
                              </div>
                              <div class="flex-grow">
                                 <div class="flex items-center justify-between mb-1">

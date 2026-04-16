@@ -101,7 +101,6 @@ public class DashboardService : IDashboardService
           userLogs.Sum(l => l.HoursLogged),
           userTickets.Count > 0 ? userTickets.Average(t => t.ChilliesDifficulty) : 0);
     })
-    .Where(h => h.CompletedTickets > 0)
     .OrderByDescending(h => h.CompletedTickets)
     .Take(10)
     .ToList();
@@ -121,7 +120,6 @@ public class DashboardService : IDashboardService
           teamTickets.Count > 0 ? teamTickets.Average(tk => tk.ChilliesDifficulty) : 0,
           t.Members.Count);
     })
-    .Where(h => h.CompletedTickets > 0)
     .OrderByDescending(h => h.CompletedTickets)
     .Take(10)
     .ToList();

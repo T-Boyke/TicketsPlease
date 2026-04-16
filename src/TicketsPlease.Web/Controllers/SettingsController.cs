@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 using TicketsPlease.Application.Common.Interfaces;
 using TicketsPlease.Domain.Entities;
 
+using Microsoft.Extensions.Localization;
+
 /// <summary>
 /// Controller für die persönlichen Benutzereinstellungen (Performance, Töne).
 /// </summary>
@@ -20,16 +22,22 @@ internal sealed class SettingsController : Controller
 {
   private readonly UserManager<User> userManager;
   private readonly IUserRepository userRepository;
+  private readonly IStringLocalizer<SettingsController> localizer;
 
   /// <summary>
   /// Initializes a new instance of the <see cref="SettingsController"/> class.
   /// </summary>
   /// <param name="userManager">Der User-Manager.</param>
   /// <param name="userRepository">Das User-Repository.</param>
-  public SettingsController(UserManager<User> userManager, IUserRepository userRepository)
+  /// <param name="localizer">Der Lokalisierer.</param>
+  public SettingsController(
+    UserManager<User> userManager, 
+    IUserRepository userRepository,
+    IStringLocalizer<SettingsController> localizer)
   {
     this.userManager = userManager;
     this.userRepository = userRepository;
+    this.localizer = localizer;
   }
 
   /// <summary>
@@ -74,7 +82,7 @@ internal sealed class SettingsController : Controller
     profile.EmailNotificationsEnabled = emailNotificationsEnabled;
 
     await this.userRepository.UpdateProfileAsync(profile).ConfigureAwait(false);
-    this.TempData["StatusMessage"] = "Einstellungen erfolgreich gespeichert.";
+    this.TempData["StatusMessage"] = this.localizer["SaveSuccess"].Value;
     
     return this.RedirectToAction(nameof(this.Index));
   }

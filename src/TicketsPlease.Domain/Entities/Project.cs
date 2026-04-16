@@ -141,4 +141,13 @@ public class Project : BaseEntity
   {
     this.TenantId = tenantId;
   }
+  
+  /// <summary>
+  /// Führt einen Soft-Delete des Projekts aus.
+  /// </summary>
+  public void SoftDelete()
+  {
+    this.IsDeleted = true;
+    this.DeletedAt = DateTime.UtcNow;
+  }
 }

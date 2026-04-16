@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="Executive Dashboard" xml:space="preserve">
+    <value>Executive Dashboard</value>
+  </data>
+  <data name="High-level performance monitoring, SLA compliance, and project health at a glance." xml:space="preserve">
+    <value>High-level performance monitoring, SLA compliance, and project health at a glance.</value>
+  </data>
+  <data name="Active Personnel" xml:space="preserve">
+    <value>Active Personnel</value>
+  </data>
+  <data name="Live Monitoring" xml:space="preserve">
+    <value>Live Monitoring</value>
+  </data>
+  <data name="Service Level Agreement (SLA)" xml:space="preserve">
+    <value>Service Level Agreement (SLA)</value>
+  </data>
+  <data name="Breaches of" xml:space="preserve">
+    <value>Breaches of</value>
+  </data>
+  <data name="Total Tickets" xml:space="preserve">
+    <value>Total Tickets</value>
+  </data>
+  <data name="Health Index" xml:space="preserve">
+    <value>Health Index</value>
+  </data>
+  <data name="Total Throughput" xml:space="preserve">
+    <value>Total Throughput</value>
+  </data>
+  <data name="Tickets successfully delivered this cycle" xml:space="preserve">
+    <value>Tickets successfully delivered this cycle</value>
+  </data>
+  <data name="Team Velocity &amp; Throughput" xml:space="preserve">
+    <value>Team Velocity &amp; Throughput</value>
+  </data>
+  <data name="Team Entity" xml:space="preserve">
+    <value>Team Entity</value>
+  </data>
+  <data name="Throughput (Done)" xml:space="preserve">
+    <value>Throughput (Done)</value>
+  </data>
+  <data name="Velocity (Wkly Avg)" xml:space="preserve">
+    <value>Velocity (Wkly Avg)</value>
+  </data>
+  <data name="Performance Level" xml:space="preserve">
+    <value>Performance Level</value>
+  </data>
+  <data name="High Performer" xml:space="preserve">
+    <value>High Performer</value>
+  </data>
+  <data name="Steady" xml:space="preserve">
+    <value>Steady</value>
+  </data>
+  <data name="Units" xml:space="preserve">
+    <value>Units</value>
+  </data>
+  <data name="Pts/Wk" xml:space="preserve">
+    <value>Pts/Wk</value>
+  </data>
+  <data name="Workspace" xml:space="preserve">
+    <value>Workspace</value>
+  </data>
+  <data name="Stakeholder Insights" xml:space="preserve">
+    <value>Stakeholder Insights</value>
+  </data>
+</root>

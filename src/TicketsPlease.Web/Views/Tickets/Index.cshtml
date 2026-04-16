@@ -118,7 +118,7 @@
                 <div class="flex items-center space-x-2">
                     <span class="h-2 w-2 rounded-full bg-slate-400"></span>
                     <h2 class="text-sm font-bold text-slate-600 uppercase tracking-wider">@L["To Do"]</h2>
-                    <span class="ml-2 px-2 py-0.5 rounded-full bg-slate-200 text-slate-500 text-[10px] font-bold">@todo.Count()</span>
+                    <span id="todo-count" class="ml-2 px-2 py-0.5 rounded-full bg-slate-200 text-slate-500 text-[10px] font-bold">@todo.Count()</span>
                 </div>
                 <button class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-ellipsis"></i></button>
             </div>
@@ -136,7 +136,7 @@
                 <div class="flex items-center space-x-2">
                     <span class="h-2 w-2 rounded-full bg-amber-500"></span>
                     <h2 class="text-sm font-bold text-slate-700 uppercase tracking-wider">@L["In Progress"]</h2>
-                    <span class="ml-2 px-2 py-0.5 rounded-full bg-brand-primary/10 text-brand-primary text-[10px] font-bold">@doing.Count()</span>
+                    <span id="doing-count" class="ml-2 px-2 py-0.5 rounded-full bg-brand-primary/10 text-brand-primary text-[10px] font-bold">@doing.Count()</span>
                 </div>
                 <button class="text-slate-400 hover:text-brand-primary" aria-label='@L["Column Actions"]'><i class="fa-solid fa-ellipsis" aria-hidden="true"></i></button>
             </div>
@@ -154,7 +154,7 @@
                 <div class="flex items-center space-x-2">
                     <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
                     <h2 class="text-sm font-bold text-slate-600 uppercase tracking-wider">@L["Done"]</h2>
-                    <span class="ml-2 px-2 py-0.5 rounded-full bg-emerald-200 text-emerald-600 text-[10px] font-bold">@done.Count()</span>
+                    <span id="done-count" class="ml-2 px-2 py-0.5 rounded-full bg-emerald-200 text-emerald-600 text-[10px] font-bold">@done.Count()</span>
                 </div>
                 <button class="text-slate-400 hover:text-emerald-600" aria-label='@L["Column Actions"]'><i class="fa-solid fa-ellipsis" aria-hidden="true"></i></button>
             </div>
@@ -184,7 +184,18 @@
                     onEnd: function(evt) {
                         const ticketId = evt.item.dataset.id;
                         const newStatus = evt.to.dataset.status;
+                        const oldStatus = evt.from.dataset.status;
                         
+                        if (newStatus === oldStatus) return;
+
+                        // Update counts locally immediately
+                        const updateCounts = () => {
+                            document.getElementById('todo-count').innerText = document.getElementById('todo-list').children.length;
+                            document.getElementById('doing-count').innerText = document.getElementById('doing-list').children.length;
+                            document.getElementById('done-count').innerText = document.getElementById('done-list').children.length;
+                        };
+                        updateCounts();
+
                         const formData = new URLSearchParams();
                         formData.append('__RequestVerificationToken', document.querySelector('input[name="__RequestVerificationToken"]').value);
 

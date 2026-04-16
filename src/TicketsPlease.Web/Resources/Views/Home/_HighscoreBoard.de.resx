@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="Highscore Board" xml:space="preserve">
+    <value>Highscore Board</value>
+  </data>
+  <data name="Live Performance Tracking" xml:space="preserve">
+    <value>Echtzeit-Leistungsnachverfolgung</value>
+  </data>
+  <data name="Individual" xml:space="preserve">
+    <value>Einzelpersonen</value>
+  </data>
+  <data name="Teams" xml:space="preserve">
+    <value>Teams</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Benutzer</value>
+  </data>
+  <data name="Tickets" xml:space="preserve">
+    <value>Tickets</value>
+  </data>
+  <data name="Points" xml:space="preserve">
+    <value>Punkte</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Stunden</value>
+  </data>
+  <data name="Difficulty" xml:space="preserve">
+    <value>Schwierigkeit</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Mitglieder</value>
+  </data>
+  <data name="No performance data recorded yet." xml:space="preserve">
+    <value>Noch keine Leistungsdaten erfasst.</value>
+  </data>
+  <data name="No team performance data recorded yet." xml:space="preserve">
+    <value>Noch keine Team-Leistungsdaten erfasst.</value>
+  </data>
+  <data name="Deep Dive Performance Analysis" xml:space="preserve">
+    <value>Detaillierte Leistungsanalyse</value>
+  </data>
+  <data name="Efficiency" xml:space="preserve">
+    <value>Effizienz</value>
+  </data>
+  <data name="Total Logged" xml:space="preserve">
+    <value>Gesamt erfasst</value>
+  </data>
+  <data name="Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="Done Tickets" xml:space="preserve">
+    <value>Erledigte Tickets</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Wertschöpfung</value>
+  </data>
+  <data name="Story Points" xml:space="preserve">
+    <value>Story Points</value>
+  </data>
+  <data name="Task Status" xml:space="preserve">
+    <value>Aufgabenstatus</value>
+  </data>
+  <data name="Priority Distribution" xml:space="preserve">
+    <value>Prioritätenverteilung</value>
+  </data>
+</root>

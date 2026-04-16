@@ -68,6 +68,7 @@
     --color-slate-800: oklch(27.9% 0.041 260.031);
     --color-slate-900: oklch(20.8% 0.042 265.755);
     --color-gray-300: oklch(87.2% 0.01 258.338);
+    --color-gray-400: oklch(70.7% 0.022 261.325);
     --color-gray-600: oklch(44.6% 0.03 256.802);
     --color-black: #000;
     --color-white: #fff;
@@ -2288,6 +2289,12 @@
       border-color: color-mix(in oklab, var(--color-emerald-500) 20%, transparent);
     }
   }
+  .border-gray-400\/10 {
+    border-color: color-mix(in srgb, oklch(70.7% 0.022 261.325) 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-gray-400) 10%, transparent);
+    }
+  }
   .border-info-primary {
     border-color: var(--color-info-primary);
   }
@@ -3201,6 +3208,9 @@
   .whitespace-nowrap {
     white-space: nowrap;
   }
+  .\!text-white {
+    color: var(--color-white) !important;
+  }
   .text-amber-400 {
     color: var(--color-amber-400);
   }
@@ -3369,6 +3379,12 @@
   .text-slate-400 {
     color: var(--color-slate-400);
   }
+  .text-slate-400\/5 {
+    color: color-mix(in srgb, oklch(70.4% 0.04 256.788) 5%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      color: color-mix(in oklab, var(--color-slate-400) 5%, transparent);
+    }
+  }
   .text-slate-500 {
     color: var(--color-slate-500);
   }
@@ -3496,6 +3512,9 @@
   }
   .opacity-30 {
     opacity: 30%;
+  }
+  .opacity-40 {
+    opacity: 40%;
   }
   .opacity-50 {
     opacity: 50%;

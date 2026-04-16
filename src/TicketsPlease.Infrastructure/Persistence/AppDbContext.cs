@@ -205,7 +205,7 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
       entity.Property(e => e.DomainHash).IsRequired().HasMaxLength(64);
       entity.HasIndex(e => e.DomainHash).IsUnique();
 
-      entity.HasOne(t => t.Project).WithMany(p => p.Tickets).HasForeignKey(t => t.ProjectId).OnDelete(DeleteBehavior.Restrict);
+      entity.HasOne(t => t.Project).WithMany(p => p.Tickets).HasForeignKey(t => t.ProjectId).OnDelete(DeleteBehavior.NoAction);
       entity.HasOne(t => t.Priority).WithMany().HasForeignKey(t => t.PriorityId).OnDelete(DeleteBehavior.Restrict);
       entity.HasOne(t => t.WorkflowState).WithMany().HasForeignKey(t => t.WorkflowStateId).OnDelete(DeleteBehavior.Restrict);
       entity.HasOne(t => t.Creator).WithMany().HasForeignKey(t => t.CreatorId).OnDelete(DeleteBehavior.Restrict);
@@ -372,6 +372,24 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     SeedStaticData(builder);
   }
 
+  /// <inheritdoc/>
+  public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+  {
+    foreach (var entry in this.ChangeTracker.Entries<BaseEntity>())
+    {
+      switch (entry.State)
+      {
+        case EntityState.Deleted:
+          entry.State = EntityState.Modified;
+          entry.Entity.IsDeleted = true;
+          entry.Entity.DeletedAt = DateTime.UtcNow;
+          break;
+      }
+    }
+
+    return base.SaveChangesAsync(cancellationToken);
+  }
+
   /// <summary>
   /// Konfiguriert zusätzliche Optionen wie die Resilience / Retry Strategie.
   /// </summary>
@@ -411,8 +429,8 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     // 1. Roles
     builder.Entity<Role>().HasData(
       new Role { Id = adminRoleId, Name = "Admin", NormalizedName = "ADMIN", ConcurrencyStamp = "32d733e1-4c7a-4c2d-9b51-1e9a7e6b7d21", Description = "Full system access" },
-      new Role { Id = teamleadRoleId, Name = "Teamlead", NormalizedName = "TEAMLEAD", ConcurrencyStamp = "b8f2e9d2-6c8a-4d3e-ac62-2f0b8f7c8e33", Description = "Team lead permissions" },
-      new Role { Id = userRoleId, Name = "User", NormalizedName = "USER", ConcurrencyStamp = "c903f0e3-7d9b-4e4f-bd73-3f1c908d9f44", Description = "Standard user access" },
+      new Role { Id = teamleadRoleId, Name = "Developer", NormalizedName = "DEVELOPER", ConcurrencyStamp = "b8f2e9d2-6c8a-4d3e-ac62-2f0b8f7c8e33", Description = "Core developer permissions" },
+      new Role { Id = userRoleId, Name = "Tester", NormalizedName = "TESTER", ConcurrencyStamp = "c903f0e3-7d9b-4e4f-bd73-3f1c908d9f44", Description = "Quality assurance access" },
       new Role { Id = productOwnerRoleId, Name = "ProductOwner", NormalizedName = "PRODUCTOWNER", ConcurrencyStamp = "d01401f4-8e0c-4f50-ce84-402d019e0066", Description = "Highest local authority within a company" },
       new Role { Id = stakeholderRoleId, Name = "Stakeholder", NormalizedName = "STAKEHOLDER", ConcurrencyStamp = "e12512a5-9f1d-5061-df95-513e12af1177", Description = "Read-only reporting access" });
 

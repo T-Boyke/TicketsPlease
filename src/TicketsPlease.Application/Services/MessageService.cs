@@ -155,7 +155,7 @@ public class MessageService : IMessageService
   {
     if (m == null)
     {
-      return new MessageDto(Guid.Empty, Guid.Empty, "System", null, null, "Error: Message could not be loaded", DateTime.UtcNow, Enumerable.Empty<FileAssetDto>());
+      return new MessageDto(Guid.Empty, Guid.Empty, "System", null, null, null, null, "Error: Message could not be loaded", DateTime.UtcNow, Enumerable.Empty<FileAssetDto>());
     }
 
     var attachments = m.Attachments?.Select(a => new FileAssetDto(
@@ -170,8 +170,10 @@ public class MessageService : IMessageService
         m.Id,
         m.SenderUserId,
         m.SenderUser?.UserName ?? "Unknown",
+        m.SenderUser?.Profile?.AvatarUrl?.ToString(),
         m.ReceiverUserId,
         m.ReceiverUser?.UserName,
+        m.ReceiverUser?.Profile?.AvatarUrl?.ToString(),
         m.BodyMarkdown,
         m.SentAt,
         attachments);

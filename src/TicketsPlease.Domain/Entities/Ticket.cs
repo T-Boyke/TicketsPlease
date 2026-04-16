@@ -223,6 +223,11 @@ public class Ticket : BaseAuditableEntity
   public Guid? AssignedUserId { get; private set; }
 
   /// <summary>
+  /// Gets das Zuweisungsdatum (Pflicht F3.1).
+  /// </summary>
+  public DateTime? AssignedAt { get; private set; }
+
+  /// <summary>
   /// Gets das Navigation-Property zum zugewiesenen Benutzer.
   /// </summary>
   public User? AssignedUser { get; }
@@ -308,8 +313,12 @@ public class Ticket : BaseAuditableEntity
   /// <param name="userId">Die ID des Benutzers oder null.</param>
   public void AssignUser(Guid? userId)
   {
-    this.AssignedUserId = userId;
-    this.UpdatedAt = DateTime.UtcNow;
+    if (this.AssignedUserId != userId)
+    {
+      this.AssignedUserId = userId;
+      this.AssignedAt = userId.HasValue ? DateTime.UtcNow : null;
+      this.UpdatedAt = DateTime.UtcNow;
+    }
   }
 
   /// <summary>

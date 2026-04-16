@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Title" xml:space="preserve">
+    <value>Personal Dashboard Settings</value>
+  </data>
+  <data name="IdentityWorkspace" xml:space="preserve">
+    <value>Identity Workspace</value>
+  </data>
+  <data name="ExperiencePreferences" xml:space="preserve">
+    <value>Experience Preferences</value>
+  </data>
+  <data name="MainHeading" xml:space="preserve">
+    <value>System Performance &amp; Sensory</value>
+  </data>
+  <data name="SubHeading" xml:space="preserve">
+    <value>Fine-tune how the application feels and reacts to your interactions.</value>
+  </data>
+  <data name="PerformanceSectionTitle" xml:space="preserve">
+    <value>Speed &amp; Responsiveness</value>
+  </data>
+  <data name="KanbanIntervalLabel" xml:space="preserve">
+    <value>Kanban Refresh Interval</value>
+  </data>
+  <data name="KanbanIntervalDescription" xml:space="preserve">
+    <value>Controls the polling rate for real-time board updates. Lower values feel smoother but use more resources.</value>
+  </data>
+  <data name="ReduceAnimationsLabel" xml:space="preserve">
+    <value>Reduce Motion &amp; Animations</value>
+  </data>
+  <data name="ReduceAnimationsDescription" xml:space="preserve">
+    <value>Disables complex transitions and fancy hover effects for better accessibility or lower-end devices.</value>
+  </data>
+  <data name="SensorySectionTitle" xml:space="preserve">
+    <value>Notifications &amp; Soundscape</value>
+  </data>
+  <data name="AudioSignatureLabel" xml:space="preserve">
+    <value>Audio Signature</value>
+  </data>
+  <data name="AudioSignatureDescription" xml:space="preserve">
+    <value>Choose the auditory feedback for incoming tickets and system alerts.</value>
+  </data>
+  <data name="SoundClassic" xml:space="preserve">
+    <value>System Classic</value>
+  </data>
+  <data name="SoundMinimal" xml:space="preserve">
+    <value>Minimal Chime</value>
+  </data>
+  <data name="SoundVibrant" xml:space="preserve">
+    <value>Vibrant Rush</value>
+  </data>
+  <data name="SoundDigital" xml:space="preserve">
+    <value>Cyber Digital</value>
+  </data>
+  <data name="EmailRelaysLabel" xml:space="preserve">
+    <value>External Relays (Email)</value>
+  </data>
+  <data name="EmailRelaysDescription" xml:space="preserve">
+    <value>Receive summaries and urgent bloker-alerts directly in your inbox.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="SaveButton" xml:space="preserve">
+    <value>Save Experience Profile</value>
+  </data>
+</root>
